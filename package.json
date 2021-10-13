@@ -4,7 +4,8 @@
   "description": "User interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
   "main": "index.js",
   "engines": {
-    "node": "16.11.1"
+    "node": "16.11.1",
+    "yarn": "2.4.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/alphagov/di-ipv-core-front/issues"
   },
-  "homepage": "https://github.com/alphagov/di-ipv-core-front#readme"
+  "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
+  "packageManager": "yarn@2.4.3"
 }

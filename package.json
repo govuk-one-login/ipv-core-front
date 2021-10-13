@@ -21,5 +21,8 @@
     "url": "https://github.com/alphagov/di-ipv-core-front/issues"
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
-  "packageManager": "yarn@2.4.3"
+  "packageManager": "yarn@2.4.3",
+  "devDependencies": {
+    "prettier": "2.4.1"
+  }
 }

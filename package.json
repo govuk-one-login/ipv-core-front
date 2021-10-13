@@ -1,0 +1,22 @@
+{
+  "name": "di-ipv-core-front",
+  "version": "0.0.1",
+  "description": "User interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
+  "main": "index.js",
+  "engines": {
+    "node": "16.11.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphagov/di-ipv-core-front.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphagov/di-ipv-core-front/issues"
+  },
+  "homepage": "https://github.com/alphagov/di-ipv-core-front#readme"
+}

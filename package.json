@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,9 @@
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "packageManager": "yarn@2.4.3",
   "devDependencies": {
+    "eslint": "7.30.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
     "prettier": "2.4.1"
   }
 }

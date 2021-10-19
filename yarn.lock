@@ -728,6 +728,7 @@ __metadata:
     eslint: 7.30.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-prettier: 4.0.0
+    husky: 7.0.2
     lint-staged: 11.2.3
     nodemon: 2.0.13
     prettier: 2.4.1
@@ -1311,6 +1312,15 @@ fsevents@~2.3.2:
   dependencies:
     ms: ^2.0.0
   checksum: 4a08769434132a229a6153e77c869a9fe7132dc003d90119d54958e7b75feb65a3c4eca19fb18921568878ac455b6f399013279ad33248d94bd61a25def1fdda
+  languageName: node
+  linkType: hard
+
+"husky@npm:7.0.2":
+  version: 7.0.2
+  resolution: "husky@npm:7.0.2"
+  bin:
+    husky: lib/bin.js
+  checksum: 3d1573d9ee5406e864e8170912bfadffde211535277c49f7f5da1b543a7b8e6c8ac8bae9f9cdd6b5be21ef39bb2929ca62001a7c50841d93c36454659bd3e017
   languageName: node
   linkType: hard
 

@@ -2,14 +2,14 @@
   "name": "di-ipv-core-front",
   "version": "0.0.1",
   "description": "User interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
-  "main": "index.js",
+  "main": "src/server.js",
   "engines": {
     "node": "16.8.0",
     "yarn": "1.22.10"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "lint": "eslint .",
     "test": "mocha"
   },

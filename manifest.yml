@@ -1,0 +1,6 @@
+---
+applications:
+  - name: di-ipv-core-front
+    memory: 256M
+    buildpack: nodejs_buildpack
+    command: yarn start

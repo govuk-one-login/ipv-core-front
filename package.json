@@ -10,6 +10,11 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "build": "yarn build-sass && yarn minfiy-build-js && yarn copy-assets",
+    "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/style.css --style compressed",
+    "copy-assets": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ && copyfiles -u 3 src/assets/javascript/*.js dist/public/scripts",
+    "minfiy-build-js": "uglifyjs src/assets/javascript/application.js -o src/assets/javascript/application.js -c -m && uglifyjs src/assets/javascript/cookies.js -o src/assets/javascript/cookies.js -c -m",
+
     "lint": "eslint .",
     "test": "mocha"
   },

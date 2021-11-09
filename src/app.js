@@ -22,6 +22,7 @@ const { router } = setup({
   urls: {
     public: "/public",
   },
+  publicDirs: ["../dist/public"],
   dev: true,
 });
 

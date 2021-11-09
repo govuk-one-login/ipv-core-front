@@ -1,0 +1,39 @@
+passportNumber:
+  label: Passport number
+  validation:
+    default: 'You need to supply your passport number'
+
+surname:
+  label: Surname
+  validation:
+    default: 'You need to supply your surname as it is printed on your passport'
+
+givenNames:
+  label: Given names
+  validation:
+    default: 'You need to supply your given names as they are printed on your passport'
+
+dateOfBirth:
+  legend: Date of birth
+  validation:
+    default: 'You need to supply your date of birth'
+
+issueDate:
+  legend: Issue date
+  validation:
+    default: 'You need to supply the issue date of your passport'
+
+expiryDate:
+  legend: Expiry date
+  validation:
+    default: 'You need to supply the expiry date of your passport'
+
+"date-day":
+  label: Day
+
+"date-month":
+  label: Month
+
+"date-year":
+  label: Year
+

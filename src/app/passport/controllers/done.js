@@ -1,43 +1,32 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
-const backendATP = process.env.BASIC_INFO_API ||
-  "https://di-ipv-generic-atp-service.london.cloudapps.digital/process";
+const backendATP =
+  process.env.PASSPORT_API ||
+  "https://di-ipv-dcs-atp-service.london.cloudapps.digital/process";
 
 class DoneController extends BaseController {
   async saveValues(req, res, next) {
-    const validity = (req.sessionModel.get("checkResult") === "clear") ? 4 : 0
+    const attributes = {
+      passportNumber: req.sessionModel.get("passportNumber"),
+      surname: req.sessionModel.get("surname"),
+      forenames: req.sessionModel.get("givenNames"),
+      dateOfBirth: req.sessionModel.get("dateOfBirth"),
+      issueDate: req.sessionModel.get("issueDate"),
+      expiryDate: req.sessionModel.get("expiryDate"),
+    };
 
-    const verificationData = {
-      type: "SELFIE_CHECK",
+    const identityEvidence = {
+      type: "PASSPORT",
       strength: 4,
-      validity: validity,
-      attributes: {
-        // what are the report attributes we want to put in here?
-        // also if it doesn't clear, then what do we want to send back'
-        check: req.sessionModel.get('check')
-      },
+      validity: 0,
+      attributes: attributes,
     };
 
-    const { data: output } = await axios.post(backendATP, verificationData);
-    const decoded = jwt.decode(output);
+    const { data: output } = await axios.post(backendATP, identityEvidence);
 
-    verificationData.validation = {
-      genericDataVerified: decoded.genericDataVerified,
-    };
-
-    verificationData.jws = output;
-    verificationData.atpResponse = decoded;
-
-    const identityVerification = {
-      type: verificationData.type,
-      verificationData,
-    }
-
-    req.session.sessionData = req.session.sessionData || {};
-    req.session.sessionData.identityVerification = req.session.sessionData.identityVerification || [];
-    req.session.sessionData.identityVerification.push(identityVerification);
+    // eslint-disable-next-line no-console
+    console.log(output);
 
     super.saveValues(req, res, next);
   }

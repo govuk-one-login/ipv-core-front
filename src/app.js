@@ -26,4 +26,6 @@ const { router } = setup({
   dev: true,
 });
 
+router.use("/", require("./app/router"));
+router.use("/ipv", require("./app/ipv/router"));
 router.use("/passport", require("./app/passport/router"));

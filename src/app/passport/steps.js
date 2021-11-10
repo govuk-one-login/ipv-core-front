@@ -22,6 +22,6 @@ module.exports = {
   "/done": {
     controller: done,
     skip: true,
-    next: "/ipv/next?source=selfie",
+    next: "/ipv/next?source=passport",
   },
 };

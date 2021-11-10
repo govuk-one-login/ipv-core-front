@@ -2,6 +2,7 @@ passportNumber:
   label: Passport number
   validation:
     default: 'You need to supply your passport number'
+    exactlength: 'UK passports are 9 digits long'
 
 surname:
   label: Surname
@@ -17,16 +18,21 @@ dateOfBirth:
   legend: Date of birth
   validation:
     default: 'You need to supply your date of birth'
+    before: 'Issue date must be in the past'
 
 issueDate:
   legend: Issue date
   validation:
     default: 'You need to supply the issue date of your passport'
+    afterField: 'Issue date must be after date of birth'
+    before: 'Issue date must be in the past'
 
 expiryDate:
   legend: Expiry date
   validation:
     default: 'You need to supply the expiry date of your passport'
+    afterField: 'Expiry date must be after issue date'
+    after: 'Expiry date must be in the future'
 
 "date-day":
   label: Day

@@ -1,9 +1,4 @@
 const BaseController = require("hmpo-form-wizard").Controller;
-const axios = require("axios");
-
-const backendATP =
-  process.env.PASSPORT_API ||
-  "https://di-ipv-dcs-atp-service.london.cloudapps.digital/process";
 
 class DoneController extends BaseController {
   async saveValues(req, res, next) {
@@ -23,10 +18,11 @@ class DoneController extends BaseController {
       attributes: attributes,
     };
 
-    const { data: output } = await axios.post(backendATP, identityEvidence);
+    // FIXME - Send data to backend
+    // const { data: output } = await axios.post(backendATP, identityEvidence);
 
     // eslint-disable-next-line no-console
-    console.log(output);
+    console.log(JSON.stringify(identityEvidence, null, 2));
 
     super.saveValues(req, res, next);
   }

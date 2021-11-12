@@ -1,0 +1,12 @@
+
+buttons:
+  next: Continue
+  cancel: Cancel
+govuk:
+  serviceName: Prove your identity
+  backLink: Back
+  errorSummaryTitle: There’s a problem
+  error: Error
+  warning: Warning
+  skipLink: Skip to main content
+

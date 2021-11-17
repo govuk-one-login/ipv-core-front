@@ -1,8 +1,6 @@
+const { API_BASE_URL, AUTH_PATH } = require("../lib/config");
 const express = require("express");
 const axios = require("axios");
-
-const API_BASE_URL = process.env.API_BASE_URL;
-const AUTH_PATH = "/dev/authorize";
 
 const router = express.Router();
 

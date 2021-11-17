@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const { setup } = require("hmpo-app");
 
 const loggerConfig = {

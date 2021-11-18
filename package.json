@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "build": "yarn build-sass && yarn minfiy-build-js && yarn copy-assets",
+    "build": "yarn build-sass && yarn copy-assets",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-assets": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ && copyfiles -u 3 src/assets/javascript/*.js dist/public/scripts",
     "minfiy-build-js": "uglifyjs src/assets/javascript/application.js -o src/assets/javascript/application.js -c -m && uglifyjs src/assets/javascript/cookies.js -o src/assets/javascript/cookies.js -c -m",
@@ -46,6 +46,7 @@
   "dependencies": {
     "axios": "0.24.0",
     "cfenv": "1.2.4",
+    "copyfiles": "2.4.1",
     "dotenv": "^10.0.0",
     "express": "4.17.1",
     "govuk-frontend": "3.14.0",

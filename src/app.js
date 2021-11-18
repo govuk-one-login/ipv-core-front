@@ -25,3 +25,4 @@ const { router } = setup({
 });
 
 router.use("/", require("./app/router"));
+router.use("/oauth2", require("./app/oauth2/router"));

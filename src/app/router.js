@@ -32,7 +32,7 @@ router.get("/authorize", async (req, res) => {
       },
     });
 
-    const redirectURL = `${apiResponse.data.redirectionURI}&state=${apiResponse.data.state}&authorizationCode=${apiResponse.data.authorizationCode.value}`;
+    const redirectURL = `${apiResponse.data.redirectionURI}?state=${apiResponse.data.state}&authorizationCode=${apiResponse.data.authorizationCode.value}`;
     res.redirect(redirectURL);
   } catch (e) {
     // eslint-disable-next-line no-console

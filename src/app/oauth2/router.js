@@ -24,27 +24,23 @@ router.get("/index-hmpo", (req, res) => {
 router.post("/authorize", async (req, res) => {
   try {
     const oauthParams = {
-      redirect_uri: req.session.authParams.redirect_uri,
-      client_id: req.session.authParams.client_id,
-      response_type: req.session.authParams.response_type,
+      ...req.session.authParams,
       scope: "openid",
     };
 
     const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
-      validateStatus: (status) => {
-        return status === 302;
-      },
-      maxRedirects: 0,
       params: oauthParams,
     });
 
-    const redirectURL = apiResponse.headers?.location;
+    const code = apiResponse.data?.code?.value;
 
-    if (!redirectURL) {
-      res.status(500).send("Missing redirect url");
+    if (!code) {
+      res.status(500).send("Missing authorization code");
     }
 
-    return res.redirect(redirectURL);
+    const redirectURL = `${req.session.authParams.redirect_uri}?code=${code}`;
+
+    res.redirect(redirectURL);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e);

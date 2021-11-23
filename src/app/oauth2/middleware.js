@@ -29,10 +29,10 @@ module.exports = {
         params: oauthParams,
       });
 
-      const code = apiResponse.data?.code?.value;
+      const code = apiResponse?.data?.code?.value;
 
       if (!code) {
-        res.status(500).send("Missing authorization code");
+        return res.status(500).send("Missing authorization code");
       }
 
       const redirectURL = `${req.session.authParams.redirect_uri}?code=${code}`;

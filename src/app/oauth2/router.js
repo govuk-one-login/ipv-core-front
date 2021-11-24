@@ -4,11 +4,12 @@ const router = express.Router();
 
 const {
   addAuthParamsToSession,
+  redirectToCallback,
   renderOauthPage,
-  validatePOST,
+  retrieveAuthorizationCode,
 } = require("./middleware");
 
 router.get("/authorize", addAuthParamsToSession, renderOauthPage);
-router.post("/authorize", validatePOST);
+router.post("/authorize", retrieveAuthorizationCode, redirectToCallback);
 
 module.exports = router;

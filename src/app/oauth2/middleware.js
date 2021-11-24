@@ -18,7 +18,7 @@ module.exports = {
     res.render("index-hmpo");
   },
 
-  validatePOST: async (req, res) => {
+  retrieveAuthorizationCode: async (req, res, next) => {
     try {
       const oauthParams = {
         ...req.session.authParams,
@@ -36,15 +36,17 @@ module.exports = {
         return res.send("Missing authorization code");
       }
 
-      const redirectURL = `${req.session.authParams.redirect_uri}?code=${code}`;
+      req.authorization_code = code;
 
-      res.redirect(redirectURL);
+      next();
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
-
-      res.status(500);
-      return res.send(e.message);
+      next(e);
     }
+  },
+
+  redirectToCallback: async (req, res) => {
+    const redirectURL = `${req.session.authParams.redirect_uri}?code=${req.authorization_code}`;
+
+    res.redirect(redirectURL);
   },
 };

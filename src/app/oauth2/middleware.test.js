@@ -61,7 +61,7 @@ describe("oauth middleware", () => {
     });
   });
 
-  describe("validatePOST", () => {
+  describe("retrieveAuthorizationCode", () => {
     let axiosResponse;
 
     beforeEach(() => {
@@ -86,17 +86,21 @@ describe("oauth middleware", () => {
       axiosStub.get = sinon.fake.returns(axiosResponse);
     });
 
-    it("should successfully redirects when code is valid", async function () {
-      const code = "test_code";
+    context("with authorization code", () => {
+      beforeEach(() => {
+        axiosResponse.data.code.value = "12345";
+      });
 
-      axiosResponse.data.code.value = code;
-      axiosStub.get = sinon.fake.returns(axiosResponse);
+      it("should set authorization_code on req", async () => {
+        await middleware.retrieveAuthorizationCode(req, res, next);
 
-      await middleware.validatePOST(req, res);
+        expect(req.authorization_code).to.eq(axiosResponse.data.code.value);
+      });
+      it("it should call next", async () => {
+        await middleware.retrieveAuthorizationCode(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith(
-        `https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb?code=${code}`
-      );
+        expect(next).to.have.been.called;
+      });
     });
 
     context("with missing authorization code", () => {
@@ -105,15 +109,15 @@ describe("oauth middleware", () => {
       });
 
       it("should send a 500 error when code is missing", async function () {
-        await middleware.validatePOST(req, res);
+        await middleware.retrieveAuthorizationCode(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
       });
 
-      it("should not redirect when code is missing", async function () {
-        await middleware.validatePOST(req, res);
+      it("should not call next", async function () {
+        await middleware.retrieveAuthorizationCode(req, res);
 
-        expect(res.redirect).to.not.have.been.called;
+        expect(next).to.not.have.been.called;
       });
     });
 
@@ -123,26 +127,50 @@ describe("oauth middleware", () => {
       beforeEach(() => {
         errorMessage = "server error";
 
+        // axiosStub.get = sinon.fake.throws({ message: errorMessage });
         axiosStub.get = sinon.fake.throws(new Error(errorMessage));
       });
 
-      it("should send a 500 error when code is missing", async () => {
-        await middleware.validatePOST(req, res);
+      it("should send call next with error when code is missing", async () => {
+        await middleware.retrieveAuthorizationCode(req, res, next);
 
-        expect(res.status).to.have.been.calledWith(500);
+        expect(next).to.have.been.calledWith(
+          sinon.match
+            .instanceOf(Error)
+            .and(sinon.match.has("message", errorMessage))
+        );
       });
+    });
+  });
 
-      it("should use error message", async () => {
-        await middleware.validatePOST(req, res);
+  describe("redirectToCallback", () => {
+    let axiosResponse;
 
-        expect(res.send).to.have.been.calledWith(errorMessage);
-      });
+    beforeEach(() => {
+      req = {
+        session: {
+          authParams: {
+            redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
+          },
+        },
+        authorization_code: "1234",
+      };
 
-      it("should not call res.redirect", async () => {
-        await middleware.validatePOST(req, res);
+      axiosResponse = {
+        data: {
+          code: {},
+        },
+      };
 
-        expect(res.redirect).to.not.have.been.called;
-      });
+      axiosStub.get = sinon.fake.returns(axiosResponse);
+    });
+
+    it("should successfully redirects when code is valid", async function () {
+      await middleware.redirectToCallback(req, res);
+
+      expect(res.redirect).to.have.been.calledWith(
+        `https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb?code=1234`
+      );
     });
   });
 });

@@ -9,4 +9,5 @@ chai.use(chaiAsPromised);
 
 const expect = chai.expect;
 
-module.exports = { expect, sinon };
+global.sinon = sinon;
+global.expect = expect;

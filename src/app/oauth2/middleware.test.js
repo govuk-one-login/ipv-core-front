@@ -1,6 +1,4 @@
 const proxyquire = require("proxyquire");
-const { describe, beforeEach } = require("mocha");
-const { expect, sinon } = require("./../../../test/mocha-utils");
 
 const axiosStub = {};
 const middleware = proxyquire("./middleware", {
@@ -64,6 +62,8 @@ describe("oauth middleware", () => {
   describe("validatePOST", () => {
     let req;
     let res;
+    let axiosResponse;
+
     beforeEach(() => {
       req = {
         session: {
@@ -76,16 +76,26 @@ describe("oauth middleware", () => {
           },
         },
       };
+
+      res = {
+        status: sinon.fake.returns({ send: () => ({}) }),
+        redirect: sinon.fake(),
+      };
+
+      axiosResponse = {
+        data: {
+          code: {},
+        },
+      };
+
+      axiosStub.get = sinon.fake.returns(axiosResponse);
     });
 
     it("should successfully redirects when code is valid", async function () {
       const code = "test_code";
 
-      axiosStub.get = sinon.fake.returns({
-        data: { code: { value: code } },
-      });
-
-      res = { redirect: sinon.fake() };
+      axiosResponse.data.code.value = code;
+      axiosStub.get = sinon.fake.returns(axiosResponse);
 
       await middleware.validatePOST(req, res);
 
@@ -96,13 +106,7 @@ describe("oauth middleware", () => {
 
     context("with missing authorization code", () => {
       beforeEach(() => {
-        axiosStub.get = sinon.fake.returns({
-          data: { code: { value: undefined } },
-        });
-        res = {
-          status: sinon.fake.returns({ send: () => ({}) }),
-          redirect: sinon.fake(),
-        };
+        axiosStub.get = sinon.fake.returns(axiosResponse);
       });
 
       it("should send a 500 error when code is missing", async function () {

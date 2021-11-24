@@ -6,11 +6,22 @@ const middleware = proxyquire("./middleware", {
 });
 
 describe("oauth middleware", () => {
-  describe("addAuthParamsToSession", () => {
-    let req;
-    let res;
-    let next;
+  let req;
+  let res;
+  let next;
 
+  beforeEach(() => {
+    res = {
+      status: sinon.fake(),
+      redirect: sinon.fake(),
+      send: sinon.fake(),
+      render: sinon.fake(),
+    };
+
+    next = sinon.fake();
+  });
+
+  describe("addAuthParamsToSession", () => {
     beforeEach(() => {
       req = {
         query: {
@@ -22,10 +33,6 @@ describe("oauth middleware", () => {
         },
         session: {},
       };
-
-      res = {};
-
-      next = sinon.fake();
     });
 
     it("should save authParams to session", async function () {
@@ -47,12 +54,7 @@ describe("oauth middleware", () => {
   });
 
   describe("renderOauthPage", () => {
-    let req;
-    let res;
-
     it("should render index page", () => {
-      res = { render: sinon.fake() };
-
       middleware.renderOauthPage(req, res);
 
       expect(res.render).to.have.been.calledWith("index-hmpo");
@@ -60,8 +62,6 @@ describe("oauth middleware", () => {
   });
 
   describe("validatePOST", () => {
-    let req;
-    let res;
     let axiosResponse;
 
     beforeEach(() => {
@@ -75,11 +75,6 @@ describe("oauth middleware", () => {
             scope: "openid",
           },
         },
-      };
-
-      res = {
-        status: sinon.fake.returns({ send: () => ({}) }),
-        redirect: sinon.fake(),
       };
 
       axiosResponse = {
@@ -116,6 +111,34 @@ describe("oauth middleware", () => {
       });
 
       it("should not redirect when code is missing", async function () {
+        await middleware.validatePOST(req, res);
+
+        expect(res.redirect).to.not.have.been.called;
+      });
+    });
+
+    context("with axios error", () => {
+      let errorMessage;
+
+      beforeEach(() => {
+        errorMessage = "server error";
+
+        axiosStub.get = sinon.fake.throws(new Error(errorMessage));
+      });
+
+      it("should send a 500 error when code is missing", async () => {
+        await middleware.validatePOST(req, res);
+
+        expect(res.status).to.have.been.calledWith(500);
+      });
+
+      it("should use error message", async () => {
+        await middleware.validatePOST(req, res);
+
+        expect(res.send).to.have.been.calledWith(errorMessage);
+      });
+
+      it("should not call res.redirect", async () => {
         await middleware.validatePOST(req, res);
 
         expect(res.redirect).to.not.have.been.called;

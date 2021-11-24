@@ -32,7 +32,8 @@ module.exports = {
       const code = apiResponse?.data?.code?.value;
 
       if (!code) {
-        return res.status(500).send("Missing authorization code");
+        res.status(500);
+        return res.send("Missing authorization code");
       }
 
       const redirectURL = `${req.session.authParams.redirect_uri}?code=${code}`;
@@ -41,7 +42,9 @@ module.exports = {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
-      res.status(500).send(e.message);
+
+      res.status(500);
+      return res.send(e.message);
     }
   },
 };

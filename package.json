@@ -15,7 +15,8 @@
     "copy-assets": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ && copyfiles -u 3 src/assets/javascript/*.js dist/public/scripts",
     "minfiy-build-js": "uglifyjs src/assets/javascript/application.js -o src/assets/javascript/application.js -c -m && uglifyjs src/assets/javascript/cookies.js -o src/assets/javascript/cookies.js -c -m",
     "lint": "eslint .",
-    "test": "mocha"
+    "test": "mocha",
+    "test:watch":  "mocha --watch"
   },
   "repository": {
     "type": "git",

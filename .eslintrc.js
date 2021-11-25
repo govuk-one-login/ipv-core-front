@@ -3,6 +3,11 @@ module.exports = {
     node: true,
     es6: true,
     es2020: true,
+    mocha: true,
+  },
+  globals: {
+    sinon: true,
+    expect: true,
   },
   root: true,
   extends: ["eslint:recommended", "prettier"],

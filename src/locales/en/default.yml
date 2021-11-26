@@ -1,7 +1,9 @@
 
 buttons:
+  authorizeAndReturn: Authorize And Return
   next: Continue
   cancel: Cancel
+  credentialIssuer: Credential Issuer
 govuk:
   serviceName: Prove your identity
   backLink: Back

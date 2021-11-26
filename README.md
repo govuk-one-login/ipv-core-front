@@ -16,6 +16,8 @@ yarn install
 
 - `PORT` - Default port to run webserver on. (Default to `3000`)
 - `API_BASE_URL` - Base host of the backend API
+-  `CREDENTIAL_ISSUER_BASE_URL` - Base host of a credential issuer
+
 ### Code Owners
 
 This repo has a `CODEOWNERS` file in the root and is configured to require PRs to reviewed by Code Owners.

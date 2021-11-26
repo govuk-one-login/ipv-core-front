@@ -1,9 +1,15 @@
 
 const express = require("express");
-const redirectToAuthorize = require("./middleware");
 
 const router = express.Router();
 
-router.get("/authorize", redirectToAuthorize)
+const {
+  redirectToAuthorize,
+  addCallbackParamsToSession,
+  renderDebugPage,
+} = require("./middleware");
 
-module.exports = router
+router.get("/authorize", redirectToAuthorize);
+router.get("/callback", addCallbackParamsToSession, renderDebugPage);
+
+module.exports = router;

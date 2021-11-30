@@ -14,11 +14,7 @@ router.get("/", (req, res) => {
 
   req.session.authParams = authParams;
 
-  res.render("index");
-});
-
-router.get("/index-hmpo", (req, res) => {
-  res.render("index-hmpo");
+  res.redirect("/render/");
 });
 
 router.get("/authorize", async (req, res) => {

@@ -7,21 +7,50 @@ describe("credential issuer middleware", () => {
     let configStub;
 
     beforeEach(() => {
-      req = {};
-      res = { redirect: sinon.fake(), send: sinon.fake() };
+      req = {
+        redirectURL: "http://the.credentialissuer.authorize.url",
+      };
+      res = {
+        redirect: sinon.fake(),
+        send: sinon.fake(),
+      };
       configStub = {};
     });
     it("should successfully be redirected", async function () {
-      configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
-
       const { redirectToAuthorize } = proxyquire("./middleware", {
         "../../lib/config": configStub,
       });
 
       await redirectToAuthorize(req, res);
 
-      expect(res.redirect).to.have.been.calledWith(
-        `http://example.com/authorize`
+      expect(res.redirect).to.have.been.calledWith(req.redirectURL);
+    });
+  });
+
+  describe("buildCredentialIssuerRedirectURL", () => {
+    let req;
+    let res;
+    let next;
+    let configStub;
+
+    beforeEach(() => {
+      req = {};
+      res = { send: sinon.fake() };
+      next = sinon.fake();
+      configStub = {};
+    });
+    
+    it("should successfully return expected redirect url", async function () {
+      configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
+      configStub.PORT = 2200
+      const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
+        "../../lib/config": configStub,
+      });
+
+      await buildCredentialIssuerRedirectURL(req, res, next);
+
+      expect(req.redirectURL).to.equal(
+        "http://example.com/authorize?response_type=code&client_id=test&redirect_uri=http://localhost:2200/credential-issuer/callback"
       );
     });
 
@@ -31,22 +60,22 @@ describe("credential issuer middleware", () => {
       });
 
       it("should send 500 error", async () => {
-        const { redirectToAuthorize } = proxyquire("./middleware", {
+        const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
           "../../lib/config": configStub,
         });
 
-        await redirectToAuthorize(req, res);
+        await buildCredentialIssuerRedirectURL(req, res);
 
         expect(res.send).to.have.been.calledWith(500);
       });
       it("should not call redirect", async () => {
-        const { redirectToAuthorize } = proxyquire("./middleware", {
+        const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
           "../../lib/config": configStub,
         });
 
-        await redirectToAuthorize(req, res);
+        await buildCredentialIssuerRedirectURL(req, res);
 
-        expect(res.redirect).not.to.have.been.called;
+        expect(res.redirectURL).to.be.undefined;
       });
     });
   });

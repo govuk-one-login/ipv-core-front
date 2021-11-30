@@ -5,5 +5,6 @@ RUN yarn set version 1.22.10
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
+RUN yarn build
 CMD yarn run dev
 EXPOSE $PORT

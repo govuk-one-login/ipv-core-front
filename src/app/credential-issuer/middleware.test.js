@@ -39,7 +39,7 @@ describe("credential issuer middleware", () => {
       next = sinon.fake();
       configStub = {};
     });
-    
+
     it("should successfully return expected redirect url", async function () {
       configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
       configStub.PORT = 2200
@@ -50,7 +50,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL).to.equal(
-        "http://example.com/authorize?response_type=code&client_id=test&redirect_uri=http://localhost:2200/credential-issuer/callback"
+        `http://example.com/authorize?response_type=code&client_id=test&redirect_uri=${encodeURIComponent("http://localhost:2200/credential-issuer/callback")}`
       );
     });
 
@@ -75,7 +75,7 @@ describe("credential issuer middleware", () => {
 
         await buildCredentialIssuerRedirectURL(req, res);
 
-        expect(res.redirectURL).to.be.undefined;
+        expect(req.redirectURL).to.be.undefined;
       });
     });
   });

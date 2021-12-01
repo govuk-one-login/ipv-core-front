@@ -23,3 +23,11 @@ jobs:
         run: yarn lint
       - name: Run unit tests
         run: yarn test
+      - name: Run test coverage
+        run: yarn test:coverage
+      - name: Run sonarcloud scan
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # obtained from https://sonarcloud.io

@@ -1,0 +1,66 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}{{ title }} – Example – GOV.UK Design System{% endblock %}
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+<link href="/public/stylesheets/application.css" rel="stylesheet" media="all" />
+{% endblock %}
+
+{% block header %}
+{{ govukHeader({
+homepageUrl: "https://www.gov.uk"
+}) }}
+{% endblock %}
+
+{% block main %}
+<div class="govuk-width-container">
+
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
+
+        <ul class="app-task-list">
+          <li>
+            <h2 class="app-task-list__section">
+              Credential Issuers
+            </h2>
+            <ul class="app-task-list__items">
+              <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                  <a href="/credential-issuer/authorize">
+                    Credential Issuer
+                  </a>
+                </span>
+                <!--
+                <strong class="govuk-tag app-task-list__tag" id="credential-issuer">Completed</strong>
+                -->
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <h2 class="app-task-list__section"> Return
+            </h2>
+            <ul class="app-task-list__items">
+              <li class="app-task-list__item">
+                <p class="govuk-body">{{ govukButton({
+                  text: translate("buttons.authorizeAndReturn"),
+                  href:"/authorize"
+                  }) }}
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+{% endblock %}
+{% block bodyEnd %}
+{% endblock %}
+

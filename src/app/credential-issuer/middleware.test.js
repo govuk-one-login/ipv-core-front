@@ -50,7 +50,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL).to.equal(
-        `http://example.com/authorize?response_type=code&client_id=test&redirect_uri=${encodeURIComponent("http://localhost:2200/credential-issuer/callback")}`
+        `http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=${encodeURIComponent("http://localhost:2200/credential-issuer/callback")}`
       );
     });
 

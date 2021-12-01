@@ -50,7 +50,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL).to.equal(
-        `http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=${encodeURIComponent("http://localhost:2200/credential-issuer/callback")}`
+        "http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=http%3A%2F%2Flocalhost%3A2200%2Fcredential-issuer%2Fcallback"
       );
     });
 
@@ -67,15 +67,6 @@ describe("credential issuer middleware", () => {
         await buildCredentialIssuerRedirectURL(req, res);
 
         expect(res.send).to.have.been.calledWith(500);
-      });
-      it("should not call redirect", async () => {
-        const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
-          "../../lib/config": configStub,
-        });
-
-        await buildCredentialIssuerRedirectURL(req, res);
-
-        expect(req.redirectURL).to.be.undefined;
       });
     });
   });

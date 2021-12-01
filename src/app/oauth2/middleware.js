@@ -18,6 +18,10 @@ module.exports = {
     res.render("index-hmpo");
   },
 
+  redirectToDebugPage: async (req, res) => {
+    res.redirect("/debug");
+  },
+
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
       const oauthParams = {

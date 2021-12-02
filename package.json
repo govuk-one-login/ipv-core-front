@@ -16,8 +16,7 @@
     "minfiy-build-js": "uglifyjs src/assets/javascript/application.js -o src/assets/javascript/application.js -c -m && uglifyjs src/assets/javascript/cookies.js -o src/assets/javascript/cookies.js -c -m",
     "lint": "eslint .",
     "test": "mocha",
-    "test:instrument": "nyc yarn test",
-    "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test:instrument",
+    "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",
     "test:watch": "mocha --watch"
   },
   "repository": {

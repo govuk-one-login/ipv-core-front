@@ -1,0 +1,24 @@
+all: true
+check-coverage: true
+include:
+  - "src/**/*.js"
+exclude:
+  - "**/*.test.js"
+report-dir: coverage
+statements: 40
+branches: 90
+functions: 50
+lines: 40
+watermarks:
+  statements:
+    - 60
+    - 90
+  branches:
+    - 80
+    - 90
+  functions:
+    - 60
+    - 90
+  lines:
+    - 60
+    - 90

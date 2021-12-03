@@ -141,41 +141,55 @@ describe("credential issuer middleware", () => {
     let next;
     let axiosResponse;
     let axiosStub = {};
-    const middleware = proxyquire("./middleware", {
-      axios: axiosStub,
-    });
+
+    let configStub = {};
+
 
     beforeEach(() => {
       req = {
-        credentialIssuer: { code: "code-issued" },
+        credentialIssuer: { code: "authorize-code-issued" },
       };
       res = {
         status: sinon.fake(),
-      }
+      };
       next = sinon.fake();
       axiosResponse = {
-        status: {}
+        status: {},
       };
     });
 
     it("should send code to core backend and return with 200 response", async () => {
       axiosResponse.status = 200;
       axiosStub.post = sinon.fake.returns(axiosResponse);
+      const middleware = proxyquire("./middleware", {
+        axios: axiosStub,
+        "../../lib/config": configStub,
+      });
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(res.status).to.be.eql(200);
-      expect(next).to.have.been.called;
     });
 
-    it("should send code to backend and return with a 400 response", async () => {
-      axiosResponse.status = 400;
+    it("should send code to core backend and return with a 404 response", async () => {
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+      const middleware = proxyquire("./middleware", { axiosStub });
+
+      await middleware.sendParamsToAPI(req, res, next);
+
+      expect(res.status).to.be.eql(404);
+    });
+
+    it("should send code to core backend and return with an error", async () => {
       axiosStub.post = sinon.fake.throws(axiosResponse);
+      const middleware = proxyquire("./middleware", {
+        axios: axiosStub,
+        "../../lib/config": configStub,
+      });
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(res.error).to.be.eql('Error');
-      expect(next).to.have.been.called;
     });
   });
 });

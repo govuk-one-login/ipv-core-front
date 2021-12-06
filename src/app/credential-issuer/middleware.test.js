@@ -43,7 +43,7 @@ describe("credential issuer middleware", () => {
 
     it("should successfully return expected redirect url", async function () {
       configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
-      configStub.PORT = 2200;
+      configStub.BASE_URL = "https://example.org/subpath";
       const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
         "../../lib/config": configStub,
       });
@@ -51,7 +51,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL).to.equal(
-        "http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=http%3A%2F%2Flocalhost%3A2200%2Fcredential-issuer%2Fcallback"
+        "http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback"
       );
     });
 
@@ -144,7 +144,6 @@ describe("credential issuer middleware", () => {
 
     let configStub = {};
 
-
     beforeEach(() => {
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
@@ -189,7 +188,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.error).to.be.eql('Error');
+      expect(res.error).to.be.eql("Error");
     });
   });
 });

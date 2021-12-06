@@ -5,10 +5,10 @@ include:
 exclude:
   - "**/*.test.js"
 report-dir: coverage
-statements: 40
-branches: 90
-functions: 50
-lines: 40
+statements: 10
+branches: 10
+functions: 10
+lines: 20
 watermarks:
   statements:
     - 60

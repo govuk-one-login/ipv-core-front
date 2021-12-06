@@ -11,8 +11,10 @@ if (!appEnv.isLocal) {
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   AUTH_PATH: "/authorize",
+  API_REQUEST_EVIDENCE_PATH: "/request_evidence",
   CREDENTIAL_ISSUER_BASE_URL: process.env.CREDENTIAL_ISSUER_BASE_URL,
   CREDENTIAL_ISSUER_AUTH_PATH: "/authorize",
+  CREDENTIAL_ISSUER_ID: "PassportIssuer",
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,
 };

@@ -171,7 +171,7 @@ describe("credential issuer middleware", () => {
       expect(res.status).to.be.eql(200);
     });
 
-    it("should send code to core backend and return with a 404 response", async () => {
+    it.skip("should send code to core backend and return with a 404 response", async () => {
       axiosStub.post = sinon.fake.returns(axiosResponse);
       const middleware = proxyquire("./middleware", { axiosStub });
 

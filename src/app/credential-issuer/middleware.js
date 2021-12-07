@@ -43,6 +43,7 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", CREDENTIAL_ISSUER_ID],
+      ["redirect_uri", `${BASE_URL}/credential-issuer/callback`]
     ]);
 
     const config = {

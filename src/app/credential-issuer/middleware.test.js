@@ -43,7 +43,7 @@ describe("credential issuer middleware", () => {
 
     it("should successfully return expected redirect url", async function () {
       configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
-      configStub.BASE_URL = "https://example.org/subpath";
+      configStub.EXTERNAL_WEBSITE_HOST = "https://example.org/subpath";
       const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
         "../../lib/config": configStub,
       });
@@ -149,7 +149,7 @@ describe("credential issuer middleware", () => {
       configStub.API_REQUEST_EVIDENCE_PATH = "/ADD-EVIDENCE";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
-      configStub.BASE_URL = "http://example.com";
+      configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
       middleware = proxyquire("./middleware", {
         axios: axiosStub,

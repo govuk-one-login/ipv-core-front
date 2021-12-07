@@ -6,7 +6,7 @@ const {
   API_BASE_URL,
   CREDENTIAL_ISSUER_ID,
   API_REQUEST_EVIDENCE_PATH,
-  BASE_URL,
+  EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
         response_type: "code",
         client_id: "test",
         state: "test-state",
-        redirect_uri: `${BASE_URL}/credential-issuer/callback`,
+        redirect_uri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`,
       },
     });
 
@@ -42,7 +42,7 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", CREDENTIAL_ISSUER_ID],
-      ["redirect_uri", `${BASE_URL}/credential-issuer/callback`],
+      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`],
     ]);
 
     const config = {

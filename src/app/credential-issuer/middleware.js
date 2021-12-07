@@ -42,13 +42,13 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", CREDENTIAL_ISSUER_ID],
-      ["redirect_uri", `${BASE_URL}/credential-issuer/callback`]
+      ["redirect_uri", `${BASE_URL}/credential-issuer/callback`],
     ]);
 
     const config = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": req.session.ipv_session_id,
+        "ipv-session-id": req.session.ipvSessionId,
       },
     };
 

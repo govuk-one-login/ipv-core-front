@@ -23,10 +23,13 @@ module.exports = {
     res.redirect("/debug");
   },
 
+  setIpvSessionId: async (req, res, next) => {
+    req.session.ipvSessionId = randomUUID();
+
+    next();
+  },
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
-      req.session.ipv_session_id = randomUUID();
-
       const oauthParams = {
         ...req.session.authParams,
         scope: "openid",
@@ -34,7 +37,7 @@ module.exports = {
 
       const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
         params: oauthParams,
-        headers: { "ipv-session-id": req.session.ipv_session_id}
+        headers: { "ipv-session-id": req.session.ipvSessionId },
       });
 
       const code = apiResponse?.data?.code?.value;

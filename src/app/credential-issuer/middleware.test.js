@@ -146,13 +146,18 @@ describe("credential issuer middleware", () => {
     let middleware;
 
     beforeEach(() => {
+      configStub.API_REQUEST_EVIDENCE_PATH = "/ADD-EVIDENCE";
+      configStub.API_BASE_URL = "https://example.net/path";
+      configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
+      configStub.BASE_URL = "http://example.com";
+
       middleware = proxyquire("./middleware", {
         axios: axiosStub,
         "../../lib/config": configStub,
       });
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
-        session: { ipv_session_id: "ipv-session-id" }
+        session: { ipvSessionId: "ipv-session-id" },
       };
       res = {
         status: sinon.fake(),
@@ -161,6 +166,32 @@ describe("credential issuer middleware", () => {
       axiosResponse = {
         status: {},
       };
+    });
+
+    context("add-evidence request", () => {
+      it("should call axios with correct parameters", async () => {
+        req.session.ipvSessionId = "abadcafe";
+        axiosStub.post = sinon.fake();
+
+        const searchParams = new URLSearchParams([
+          ["authorization_code", req.credentialIssuer.code],
+          ["credential_issuer_id", "testCredentialIssuerId"],
+          ["redirect_uri", `http://example.com/credential-issuer/callback`],
+        ]);
+
+        await middleware.sendParamsToAPI(req, res, next);
+
+        expect(axiosStub.post).to.have.been.calledWith(
+          "https://example.net/path/ADD-EVIDENCE",
+          searchParams,
+          sinon.match({
+            headers: {
+              "ipv-session-id": "abadcafe",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+        );
+      });
     });
 
     it("should send code to core backend and return with 200 response", async () => {
@@ -174,7 +205,7 @@ describe("credential issuer middleware", () => {
 
     it("should send code to core backend and return with a 404 response", async () => {
       axiosResponse.status = 404;
-      const axiosError = new Error('api error');
+      const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
       axiosStub.post = sinon.fake.throws(axiosError);
 

@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { randomUUID } = require("crypto");
-const { API_BASE_URL, AUTH_PATH, IPV_SESSION_ID } = require("../../lib/config");
+const { API_BASE_URL, AUTH_PATH } = require("../../lib/config");
 
 module.exports = {
   addAuthParamsToSession: async (req, res, next) => {
@@ -34,7 +34,7 @@ module.exports = {
 
       const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
         params: oauthParams,
-        headers: { IPV_SESSION_ID: req.session.ipv_session_id}
+        headers: { "ipv-session-id": req.session.ipv_session_id}
       });
 
       const code = apiResponse?.data?.code?.value;

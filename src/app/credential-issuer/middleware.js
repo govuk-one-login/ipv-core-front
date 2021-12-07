@@ -7,7 +7,7 @@ const {
   API_BASE_URL,
   CREDENTIAL_ISSUER_ID,
   API_REQUEST_EVIDENCE_PATH,
-  PORT,
+  BASE_URL,
 } = require("../../lib/config");
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
         response_type: "code",
         client_id: "test",
         state: "test-state",
-        redirect_uri: `http://localhost:${PORT}/credential-issuer/callback`,
+        redirect_uri: `${BASE_URL}/credential-issuer/callback`,
       },
     });
 

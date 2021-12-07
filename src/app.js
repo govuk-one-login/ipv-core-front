@@ -24,7 +24,6 @@ const { router } = setup({
   dev: true,
 });
 
-router.use("/", require("./app/router"));
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/debug", require("./app/debug/router"));

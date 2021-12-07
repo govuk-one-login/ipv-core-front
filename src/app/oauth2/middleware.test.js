@@ -75,9 +75,6 @@ describe("oauth middleware", () => {
             scope: "openid",
           }
         },
-        headers: {
-          "ipv-session-id": "ipv-session-id"
-        }
       };
 
       axiosResponse = {

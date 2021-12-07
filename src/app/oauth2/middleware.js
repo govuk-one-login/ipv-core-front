@@ -26,7 +26,6 @@ module.exports = {
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
       req.session.ipv_session_id = randomUUID();
-      req.headers[IPV_SESSION_ID] = req.session.ipv_session_id
 
       const oauthParams = {
         ...req.session.authParams,
@@ -35,7 +34,7 @@ module.exports = {
 
       const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
         params: oauthParams,
-        headers: req.headers
+        headers: { IPV_SESSION_ID: req.session.ipv_session_id}
       });
 
       const code = apiResponse?.data?.code?.value;

@@ -143,8 +143,13 @@ describe("credential issuer middleware", () => {
     let axiosStub = {};
 
     let configStub = {};
+    let middleware;
 
     beforeEach(() => {
+      middleware = proxyquire("./middleware", {
+        axios: axiosStub,
+        "../../lib/config": configStub,
+      });
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
       };
@@ -160,19 +165,17 @@ describe("credential issuer middleware", () => {
     it("should send code to core backend and return with 200 response", async () => {
       axiosResponse.status = 200;
       axiosStub.post = sinon.fake.returns(axiosResponse);
-      const middleware = proxyquire("./middleware", {
-        axios: axiosStub,
-        "../../lib/config": configStub,
-      });
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(res.status).to.be.eql(200);
     });
 
-    it.skip("should send code to core backend and return with a 404 response", async () => {
-      axiosStub.post = sinon.fake.returns(axiosResponse);
-      const middleware = proxyquire("./middleware", { axiosStub });
+    it("should send code to core backend and return with a 404 response", async () => {
+      axiosResponse.status = 404;
+      const axiosError = new Error('api error');
+      axiosError.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(axiosError);
 
       await middleware.sendParamsToAPI(req, res, next);
 
@@ -181,10 +184,6 @@ describe("credential issuer middleware", () => {
 
     it("should send code to core backend and return with an error", async () => {
       axiosStub.post = sinon.fake.throws(axiosResponse);
-      const middleware = proxyquire("./middleware", {
-        axios: axiosStub,
-        "../../lib/config": configStub,
-      });
 
       await middleware.sendParamsToAPI(req, res, next);
 

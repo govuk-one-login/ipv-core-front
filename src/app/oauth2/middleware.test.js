@@ -73,8 +73,11 @@ describe("oauth middleware", () => {
             state: "xyz",
             redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
             scope: "openid",
-          },
+          }
         },
+        headers: {
+          "ipv-session-id": "ipv-session-id"
+        }
       };
 
       axiosResponse = {
@@ -126,8 +129,6 @@ describe("oauth middleware", () => {
 
       beforeEach(() => {
         errorMessage = "server error";
-
-        // axiosStub.get = sinon.fake.throws({ message: errorMessage });
         axiosStub.get = sinon.fake.throws(new Error(errorMessage));
       });
 

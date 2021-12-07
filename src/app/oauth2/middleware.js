@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { randomUUID } = require("crypto");
 const { API_BASE_URL, AUTH_PATH } = require("../../lib/config");
 
 module.exports = {
@@ -24,6 +25,11 @@ module.exports = {
 
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
+
+      if (req?.session?.ipv_session_id) {
+        req.session.ipv_session_id = randomUUID();
+      }
+
       const oauthParams = {
         ...req.session.authParams,
         scope: "openid",

@@ -152,6 +152,7 @@ describe("credential issuer middleware", () => {
       });
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
+        session: { ipv_session_id: "ipv-session-id" }
       };
       res = {
         status: sinon.fake(),

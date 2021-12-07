@@ -1,6 +1,5 @@
 const axios = require("axios");
 const url = require("url");
-const { randomUUID } = require("crypto");
 const {
   CREDENTIAL_ISSUER_BASE_URL,
   CREDENTIAL_ISSUER_AUTH_PATH,
@@ -49,7 +48,7 @@ module.exports = {
     const config = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": `${randomUUID()}`,
+        "ipv-session-id": req.session.ipv_session_id,
       },
     };
 

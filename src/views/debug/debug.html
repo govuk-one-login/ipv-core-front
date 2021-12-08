@@ -45,11 +45,13 @@ homepageUrl: "https://www.gov.uk"
             </h2>
             <ul class="app-task-list__items">
               <li class="app-task-list__item">
-                <p class="govuk-body">{{ govukButton({
-                  text: translate("buttons.authorizeAndReturn"),
-                  href:"/authorize"
-                  }) }}
+                <form action="/oauth2/authorize" method="POST">
+
+                <p class="govuk-body">
+                  <input type="submit" class="govuk-button" data-module="govuk-button" value="Authorize and Return">
+
                 </p>
+                </form>
               </li>
             </ul>
           </li>

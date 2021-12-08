@@ -24,6 +24,14 @@ module.exports = {
   },
 
   setIpvSessionId: async (req, res, next) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/ipv-session`);
+      // eslint-disable-next-line no-console
+      console.log(response.data);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e.message);
+    }
     req.session.ipvSessionId = randomUUID();
 
     next();

@@ -1,5 +1,4 @@
 const axios = require("axios");
-const { randomUUID } = require("crypto");
 const { API_BASE_URL, AUTH_PATH } = require("../../lib/config");
 
 module.exports = {
@@ -26,13 +25,10 @@ module.exports = {
   setIpvSessionId: async (req, res, next) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/ipv-session`);
-      // eslint-disable-next-line no-console
-      console.log(response.data);
+      req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e.message);
+      next(e);
     }
-    req.session.ipvSessionId = randomUUID();
 
     next();
   },

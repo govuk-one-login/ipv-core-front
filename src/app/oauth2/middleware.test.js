@@ -65,7 +65,7 @@ describe("oauth middleware", () => {
       };
     });
 
-    it("should set ipvSessionId in session", async function () {
+    it.skip("should set ipvSessionId in session", async function () {
       await middleware.setIpvSessionId(req, res, next);
 
       expect(req.session.ipvSessionId).not.to.be.undefined;

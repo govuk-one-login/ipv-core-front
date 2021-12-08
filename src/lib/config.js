@@ -15,6 +15,7 @@ module.exports = {
   CREDENTIAL_ISSUER_BASE_URL: process.env.CREDENTIAL_ISSUER_BASE_URL,
   CREDENTIAL_ISSUER_AUTH_PATH: "/authorize",
   CREDENTIAL_ISSUER_ID: "PassportIssuer",
+  EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,
 };

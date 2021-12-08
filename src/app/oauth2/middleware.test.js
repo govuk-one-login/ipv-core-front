@@ -1,8 +1,13 @@
 const proxyquire = require("proxyquire");
 
 const axiosStub = {};
+const configStub = {
+  AUTH_PATH: "/subsubpath/auth",
+  API_BASE_URL: "https://example.org/subpath",
+};
 const middleware = proxyquire("./middleware", {
   axios: axiosStub,
+  "../../lib/config": configStub,
 });
 
 describe("oauth middleware", () => {
@@ -53,6 +58,25 @@ describe("oauth middleware", () => {
     });
   });
 
+  describe("setIpvSessionId", () => {
+    beforeEach(() => {
+      req = {
+        session: {},
+      };
+    });
+
+    it("should set ipvSessionId in session", async function () {
+      await middleware.setIpvSessionId(req, res, next);
+
+      expect(req.session.ipvSessionId).not.to.be.undefined;
+    });
+
+    it("should call next", async function () {
+      await middleware.setIpvSessionId(req, res, next);
+
+      expect(next).to.have.been.called;
+    });
+  });
   describe("renderOauthPage", () => {
     it("should render index page", () => {
       middleware.renderOauthPage(req, res);
@@ -84,6 +108,22 @@ describe("oauth middleware", () => {
       };
 
       axiosStub.get = sinon.fake.returns(axiosResponse);
+    });
+
+    context("auth request", () => {
+      it("should call axios with correct parameters", async () => {
+        req.session.ipvSessionId = "abadcafe";
+
+        await middleware.retrieveAuthorizationCode(req, res, next);
+
+        expect(axiosStub.get).to.have.been.calledWith(
+          "https://example.org/subpath/subsubpath/auth",
+          sinon.match({
+            params: { ...req.session.authParams },
+            headers: { "ipv-session-id": "abadcafe" },
+          })
+        );
+      });
     });
 
     context("with authorization code", () => {
@@ -126,8 +166,6 @@ describe("oauth middleware", () => {
 
       beforeEach(() => {
         errorMessage = "server error";
-
-        // axiosStub.get = sinon.fake.throws({ message: errorMessage });
         axiosStub.get = sinon.fake.throws(new Error(errorMessage));
       });
 

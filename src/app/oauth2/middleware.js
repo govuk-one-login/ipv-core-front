@@ -26,12 +26,14 @@ module.exports = {
     try {
       const response = await axios.post(`${API_BASE_URL}/ipv-session`);
       req.session.ipvSessionId = response?.data?.ipvSessionId;
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      res.error = error.name;
+      return next(error);
     }
 
     next();
   },
+
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
       const oauthParams = {

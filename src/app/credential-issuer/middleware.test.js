@@ -203,6 +203,14 @@ describe("credential issuer middleware", () => {
       expect(res.status).to.be.eql(200);
     });
 
+    it("should call next", async () => {
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+
+      await middleware.sendParamsToAPI(req, res, next);
+
+      expect(next).to.have.been.called;
+    });
+
     it("should send code to core backend and return with a 404 response", async () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");

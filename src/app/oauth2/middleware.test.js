@@ -59,29 +59,66 @@ describe("oauth middleware", () => {
   });
 
   describe("setIpvSessionId", () => {
+    let axiosResponse;
+
     beforeEach(() => {
       req = {
-        session: {},
+        session: {
+          ipvSessionId: {},
+        }
+      };
+      axiosResponse = {
+        data: {
+          ipvSessionId: {},
+        },
       };
     });
 
-    it.skip("should set ipvSessionId in session", async function () {
-      await middleware.setIpvSessionId(req, res, next);
+    context("with ipvSessionId", () => {
+      beforeEach(() => {
+        axiosResponse.data.ipvSessionId = "abadcafe";
+      });
 
-      expect(req.session.ipvSessionId).not.to.be.undefined;
+      it("should set ipvSessionId in session", async function () {
+        axiosStub.post = sinon.fake.returns(axiosResponse);
+
+        await middleware.setIpvSessionId(req, res, next);
+
+        expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
+      });
+
+      it("should call next", async function () {
+        await middleware.setIpvSessionId(req, res, next);
+
+        expect(next).to.have.been.called;
+      });
     });
 
-    it("should call next", async function () {
-      await middleware.setIpvSessionId(req, res, next);
+    context("with missing ipvSessionId", () => {
+      it("should throw error", async function () {
+        axiosStub.post = sinon.fake.throws(axiosResponse);
 
-      expect(next).to.have.been.called;
+        await middleware.setIpvSessionId(req, res, next);
+
+        expect(res.error).to.be.eql("Error");
+      });
     });
+
   });
+
   describe("renderOauthPage", () => {
     it("should render index page", () => {
       middleware.renderOauthPage(req, res);
 
       expect(res.render).to.have.been.calledWith("index-hmpo");
+    });
+  });
+
+  describe("redirectToDebugPage", () => {
+    it("should redirect to debug page", () => {
+      middleware.redirectToDebugPage(req, res);
+
+      expect(res.redirect).to.have.been.calledWith("/debug");
     });
   });
 
@@ -136,7 +173,7 @@ describe("oauth middleware", () => {
 
         expect(req.authorization_code).to.eq(axiosResponse.data.code.value);
       });
-      it("it should call next", async () => {
+      it("should call next", async () => {
         await middleware.retrieveAuthorizationCode(req, res, next);
 
         expect(next).to.have.been.called;

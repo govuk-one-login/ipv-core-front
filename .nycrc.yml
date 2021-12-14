@@ -4,11 +4,12 @@ include:
   - "src/**/*.js"
 exclude:
   - "**/*.test.js"
+  - "src/app/debug/"
 report-dir: coverage
-statements: 10
-branches: 10
-functions: 10
-lines: 20
+statements: 70
+branches: 80
+functions: 80
+lines: 70
 watermarks:
   statements:
     - 60

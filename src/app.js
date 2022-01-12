@@ -8,7 +8,7 @@ const loggerConfig = {
 };
 
 const sessionConfig = {
-  cookieName: "service_session",
+  cookieName: "ipv_core_service_session",
   secret: SESSION_SECRET,
 };
 
@@ -25,5 +25,6 @@ const { router } = setup({
 });
 
 router.use("/oauth2", require("./app/oauth2/router"));
-router.use("/credential-issuer", require("./app/credential-issuer/router"));
+router.use("/credential-issuer-stub", require("./app/credential-issuer-stub/router"));
+router.use("/dcs-credential-issuer", require("./app/dcs-credential-issuer/router"));
 router.use("/debug", require("./app/debug/router"));

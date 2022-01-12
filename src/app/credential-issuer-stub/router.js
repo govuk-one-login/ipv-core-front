@@ -4,13 +4,13 @@ const router = express.Router();
 
 const {
   addCallbackParamsToRequest,
-  buildCredentialIssuerRedirectURL,
+  buildCredentialIssuerStubRedirectURL,
   redirectToAuthorize,
   redirectToDebugPage,
   sendParamsToAPI,
 } = require("./middleware");
 
-router.get("/authorize", buildCredentialIssuerRedirectURL, redirectToAuthorize);
+router.get("/authorize", buildCredentialIssuerStubRedirectURL, redirectToAuthorize);
 router.get(
   "/callback",
   addCallbackParamsToRequest,

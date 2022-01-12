@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
     "build": "yarn build-sass && yarn copy-assets",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-assets": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ && copyfiles -u 3 src/assets/javascript/*.js dist/public/scripts",

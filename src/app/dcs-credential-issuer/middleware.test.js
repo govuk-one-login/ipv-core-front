@@ -42,33 +42,33 @@ describe("credential issuer middleware", () => {
     });
 
     it("should successfully return expected redirect url", async function () {
-      configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
+      configStub.DCS_CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
       configStub.EXTERNAL_WEBSITE_HOST = "https://example.org/subpath";
-      const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
+      const { buildDcsPassportCredentialIssuerRedirectURL } = proxyquire("./middleware", {
         "../../lib/config": configStub,
       });
 
-      await buildCredentialIssuerRedirectURL(req, res, next);
+      await buildDcsPassportCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL).to.equal(
-        "http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback"
+        "http://example.com/oauth2/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fdcs-credential-issuer%2Fcallback"
       );
     });
 
     context("with an empty base url", () => {
       beforeEach(() => {
-        configStub.CREDENTIAL_ISSUER_BASE_URL = "";
+        configStub.DCS_CREDENTIAL_ISSUER_BASE_URL = "";
       });
 
       it("should send 500 error", async () => {
-        const { buildCredentialIssuerRedirectURL } = proxyquire(
+        const { buildDcsPassportCredentialIssuerRedirectURL } = proxyquire(
           "./middleware",
           {
             "../../lib/config": configStub,
           }
         );
 
-        await buildCredentialIssuerRedirectURL(req, res);
+        await buildDcsPassportCredentialIssuerRedirectURL(req, res);
 
         expect(res.send).to.have.been.calledWith(500);
       });
@@ -98,7 +98,7 @@ describe("credential issuer middleware", () => {
       });
       await addCallbackParamsToRequest(req, res, next);
 
-      expect(req.credentialIssuer.code).to.equal(req.query.code);
+      expect(req.dcsCredentialIssuer.code).to.equal(req.query.code);
     });
 
     it("should call next", async function () {
@@ -148,7 +148,7 @@ describe("credential issuer middleware", () => {
     beforeEach(() => {
       configStub.API_REQUEST_EVIDENCE_PATH = "/ADD-EVIDENCE";
       configStub.API_BASE_URL = "https://example.net/path";
-      configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
+      configStub.DCS_CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
       middleware = proxyquire("./middleware", {
@@ -156,7 +156,7 @@ describe("credential issuer middleware", () => {
         "../../lib/config": configStub,
       });
       req = {
-        credentialIssuer: { code: "authorize-code-issued" },
+        dcsCredentialIssuer: { code: "authorize-code-issued" },
         session: { ipvSessionId: "ipv-session-id" },
       };
       res = {
@@ -174,9 +174,9 @@ describe("credential issuer middleware", () => {
         axiosStub.post = sinon.fake();
 
         const searchParams = new URLSearchParams([
-          ["authorization_code", req.credentialIssuer.code],
+          ["authorization_code", req.dcsCredentialIssuer.code],
           ["credential_issuer_id", "testCredentialIssuerId"],
-          ["redirect_uri", `http://example.com/credential-issuer/callback`],
+          ["redirect_uri", `http://example.com/dcs-credential-issuer/callback`],
         ]);
 
         await middleware.sendParamsToAPI(req, res, next);
@@ -194,7 +194,7 @@ describe("credential issuer middleware", () => {
       });
     });
 
-    it("should send code to core backend and return with 200 response", async () => {
+    it("should send code to cri-passport backend and return with 200 response", async () => {
       axiosResponse.status = 200;
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
@@ -211,7 +211,7 @@ describe("credential issuer middleware", () => {
       expect(next).to.have.been.called;
     });
 
-    it("should send code to core backend and return with a 404 response", async () => {
+    it("should send code to cri-passport backend and return with a 404 response", async () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
@@ -222,7 +222,7 @@ describe("credential issuer middleware", () => {
       expect(res.status).to.be.eql(404);
     });
 
-    it("should send code to core backend and return with an error", async () => {
+    it("should send code to cri-passport backend and return with an error", async () => {
       axiosStub.post = sinon.fake.throws(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);

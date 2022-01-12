@@ -10,7 +10,7 @@ const {
 } = require("../../lib/config");
 
 module.exports = {
-  buildCredentialIssuerRedirectURL: async (req, res, next) => {
+  buildCredentialIssuerStubRedirectURL: async (req, res, next) => {
     if (!CREDENTIAL_ISSUER_BASE_URL) return res.send(500);
 
     req.redirectURL = url.format({
@@ -20,7 +20,7 @@ module.exports = {
         response_type: "code",
         client_id: "test",
         state: "test-state",
-        redirect_uri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`,
+        redirect_uri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer-stub/callback`,
       },
     });
 
@@ -42,7 +42,7 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", CREDENTIAL_ISSUER_ID],
-      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`],
+      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer-stub/callback`],
     ]);
 
     const config = {

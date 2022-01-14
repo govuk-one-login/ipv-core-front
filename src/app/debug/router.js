@@ -2,8 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const { renderDebugPage } = require("./middleware");
+const { renderDebugPage, setCriConfig} = require("./middleware");
 
-router.get("/", renderDebugPage);
+router.get("/", setCriConfig, renderDebugPage);
 
 module.exports = router;

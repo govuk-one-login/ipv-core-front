@@ -1,28 +1,24 @@
 const axios = require("axios");
-const url = require("url");
 const {
-  CREDENTIAL_ISSUER_BASE_URL,
-  CREDENTIAL_ISSUER_AUTH_PATH,
   API_BASE_URL,
-  CREDENTIAL_ISSUER_ID,
   API_REQUEST_EVIDENCE_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 
 module.exports = {
-  buildCredentialIssuerStubRedirectURL: async (req, res, next) => {
-    if (!CREDENTIAL_ISSUER_BASE_URL) return res.send(500);
+  buildCredentialIssuerRedirectURL: async (req, res, next) => {
+    const cri = req.session?.criConfig?.find(criConfig => criConfig.criId === req.query.criId);
 
-    req.redirectURL = url.format({
-      host: CREDENTIAL_ISSUER_BASE_URL,
-      pathname: CREDENTIAL_ISSUER_AUTH_PATH,
-      query: {
-        response_type: "code",
-        client_id: "test",
-        state: "test-state",
-        redirect_uri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer-stub/callback`,
-      },
-    });
+    if (!cri) {
+      res.status(500);
+      return res.send("Could not find configured CRI");
+    }
+
+    req.redirectURL = new URL(cri.authorizeUrl);
+    req.redirectURL.searchParams.append("response_type", "code");
+    req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
+    req.redirectURL.searchParams.append("state", "test-state");
+    req.redirectURL.searchParams.append("redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?criId=${cri.criId}`);
 
     next();
   },
@@ -41,8 +37,8 @@ module.exports = {
   sendParamsToAPI: async (req, res, next) => {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
-      ["credential_issuer_id", CREDENTIAL_ISSUER_ID],
-      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer-stub/callback`],
+      ["credential_issuer_id", req.query.criId],
+      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`],
     ]);
 
     const config = {

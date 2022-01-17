@@ -35,42 +35,71 @@ describe("credential issuer middleware", () => {
     let configStub;
 
     beforeEach(() => {
-      req = {};
-      res = { send: sinon.fake() };
+      req = {
+        session: {
+          criConfig: [
+            {
+              criId: "PassportIssuer",
+              name: "Passport (Stub)",
+              authorizeUrl: "http://passport-stub-1/authorize",
+              tokenUrl: "http://passport-stub-1/token",
+              credentialUrl: "http://passport-stub-1/credential",
+              ipvClientId: "test-ipv-client"
+            },
+            {
+              criId: "FraudIssuer",
+              name: "Fraud (Stub)",
+              authorizeUrl: "http://fraud-stub-1/authorize",
+              tokenUrl: "http://fraud-stub-1/token",
+              credentialUrl: "http://fraud-stub-1/credential",
+              ipvClientId: "test-ipv-client"
+            },
+            {
+              criId: "AddressIssuer",
+              name: "Address (Stub)",
+              authorizeUrl: "http://address-stub-1/authorize",
+              tokenUrl: "http://address-stub-1/token",
+              credentialUrl: "http://address-stub-1/credential",
+              ipvClientId: "test-ipv-client"
+            }
+          ]
+        },
+        query: {
+          criId: "PassportIssuer"
+        }
+      };
+      res = { send: sinon.fake(), status: sinon.fake() };
       next = sinon.fake();
       configStub = {};
     });
 
     it("should successfully return expected redirect url", async function () {
-      configStub.CREDENTIAL_ISSUER_BASE_URL = "http://example.com";
       configStub.EXTERNAL_WEBSITE_HOST = "https://example.org/subpath";
-      const { buildCredentialIssuerStubRedirectURL } = proxyquire("./middleware", {
+      const { buildCredentialIssuerRedirectURL } = proxyquire("./middleware", {
         "../../lib/config": configStub,
       });
 
-      await buildCredentialIssuerStubRedirectURL(req, res, next);
+      await buildCredentialIssuerRedirectURL(req, res, next);
 
-      expect(req.redirectURL).to.equal(
-        "http://example.com/authorize?response_type=code&client_id=test&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer-stub%2Fcallback"
+      expect(req.redirectURL.toString()).to.equal(
+        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3FcriId%3DPassportIssuer"
       );
     });
 
     context("with an empty base url", () => {
-      beforeEach(() => {
-        configStub.CREDENTIAL_ISSUER_BASE_URL = "";
-      });
-
       it("should send 500 error", async () => {
-        const { buildCredentialIssuerStubRedirectURL } = proxyquire(
+        const { buildCredentialIssuerRedirectURL } = proxyquire(
           "./middleware",
           {
             "../../lib/config": configStub,
           }
         );
+        req.query = {};
 
-        await buildCredentialIssuerStubRedirectURL(req, res);
+        await buildCredentialIssuerRedirectURL(req, res);
 
-        expect(res.send).to.have.been.calledWith(500);
+        expect(res.status).to.have.been.calledWith(500);
+        expect(res.send).to.have.been.calledWith("Could not find configured CRI");
       });
     });
   });
@@ -158,6 +187,7 @@ describe("credential issuer middleware", () => {
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
         session: { ipvSessionId: "ipv-session-id" },
+        query: { criId: "PassportIssuer" }
       };
       res = {
         status: sinon.fake(),
@@ -175,8 +205,8 @@ describe("credential issuer middleware", () => {
 
         const searchParams = new URLSearchParams([
           ["authorization_code", req.credentialIssuer.code],
-          ["credential_issuer_id", "testCredentialIssuerId"],
-          ["redirect_uri", `http://example.com/credential-issuer-stub/callback`],
+          ["credential_issuer_id", req.query.criId],
+          ["redirect_uri", `http://example.com/credential-issuer/callback`],
         ]);
 
         await middleware.sendParamsToAPI(req, res, next);

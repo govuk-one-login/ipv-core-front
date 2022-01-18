@@ -38,7 +38,7 @@ describe("debug middleware", () => {
         axiosResponse = {
           data: [
             {
-              criId: "PassportIssuer",
+              id: "PassportIssuer",
               name: "Passport (Stub)",
               authorizeUrl: "http://passport-stub-1/authorize",
               tokenUrl: "http://passport-stub-1/token",
@@ -46,7 +46,7 @@ describe("debug middleware", () => {
               ipvClientId: "test-ipv-client"
             },
             {
-              criId: "FraudIssuer",
+              id: "FraudIssuer",
               name: "Fraud (Stub)",
               authorizeUrl: "http://fraud-stub-1/authorize",
               tokenUrl: "http://fraud-stub-1/token",
@@ -54,7 +54,7 @@ describe("debug middleware", () => {
               ipvClientId: "test-ipv-client"
             },
             {
-              criId: "AddressIssuer",
+              id: "AddressIssuer",
               name: "Address (Stub)",
               authorizeUrl: "http://address-stub-1/authorize",
               tokenUrl: "http://address-stub-1/token",
@@ -98,7 +98,7 @@ describe("debug middleware", () => {
           session: {
             criConfig: [
               {
-                criId: "PassportIssuer",
+                id: "PassportIssuer",
                 name: "Passport (Stub)",
                 authorizeUrl: "http://passport-stub-1/authorize",
                 tokenUrl: "http://passport-stub-1/token",

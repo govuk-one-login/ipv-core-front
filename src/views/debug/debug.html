@@ -1,72 +1,55 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block pageTitle %}{{ title }} – Example – GOV.UK Design System{% endblock %}
+{% block pageTitle %} {{ title }} – Example – GOV.UK Design System {% endblock %}
+
 {% block head %}
-<meta name="robots" content="noindex, nofollow">
-<link href="/public/stylesheets/application.css" rel="stylesheet" media="all" />
+  <meta name="robots" content="noindex, nofollow">
+  <link href="/public/stylesheets/application.css" rel="stylesheet" media="all" />
 {% endblock %}
 
 {% block header %}
-{{ govukHeader({
-homepageUrl: "https://www.gov.uk"
-}) }}
+  {{ govukHeader({
+  homepageUrl: "https://www.gov.uk"
+  }) }}
 {% endblock %}
 
 {% block main %}
-<div class="govuk-width-container">
-
-  <main class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
-
-        <ul class="app-task-list">
-          <li>
-            <h2 class="app-task-list__section">
-              Credential Issuers
-            </h2>
-            <ul class="app-task-list__items">
-              <li class="app-task-list__item">
-                <span class="app-task-list__task-name">
-                  <a href="/credential-issuer-stub/authorize">
-                    Credential Issuer
-                  </a>
-                </span>
-              </li>
-              <li class="app-task-list__item">
-                <span class="app-task-list__task-name">
-                  <a href="/dcs-credential-issuer/authorize">
-                    DCS Passport Credential Issuer
-                  </a>
-                </span>
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <h2 class="app-task-list__section"> Return
-            </h2>
-            <ul class="app-task-list__items">
-              <li class="app-task-list__item">
+  {% macro criDisplay(data) %}
+    {% for cri in data %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <a class="govuk-heading-s" href="/credential-issuer/authorize?id={{ cri.id }}">{{cri.name}}</a>
+          </dt>
+        </div>
+      </dl>
+    {% endfor %}
+  {% endmacro %}
+  
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
+          {{ criDisplay(criConfig) }}        
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Return
+              </dt>
+              <dd class="govuk-summary-list__value">
                 <form action="/oauth2/authorize" method="POST">
-
-                <p class="govuk-body">
                   <input type="submit" class="govuk-button" data-module="govuk-button" value="Authorize and Return">
-
-                </p>
                 </form>
-              </li>
-            </ul>
-          </li>
-        </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
-    </div>
-
-  </main>
-</div>
-
+    </main>
+  </div>
 {% endblock %}
+
 {% block bodyEnd %}
 {% endblock %}
-

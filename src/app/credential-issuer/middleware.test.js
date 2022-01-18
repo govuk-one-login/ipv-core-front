@@ -39,7 +39,7 @@ describe("credential issuer middleware", () => {
         session: {
           criConfig: [
             {
-              criId: "PassportIssuer",
+              id: "PassportIssuer",
               name: "Passport (Stub)",
               authorizeUrl: "http://passport-stub-1/authorize",
               tokenUrl: "http://passport-stub-1/token",
@@ -47,7 +47,7 @@ describe("credential issuer middleware", () => {
               ipvClientId: "test-ipv-client"
             },
             {
-              criId: "FraudIssuer",
+              id: "FraudIssuer",
               name: "Fraud (Stub)",
               authorizeUrl: "http://fraud-stub-1/authorize",
               tokenUrl: "http://fraud-stub-1/token",
@@ -55,7 +55,7 @@ describe("credential issuer middleware", () => {
               ipvClientId: "test-ipv-client"
             },
             {
-              criId: "AddressIssuer",
+              id: "AddressIssuer",
               name: "Address (Stub)",
               authorizeUrl: "http://address-stub-1/authorize",
               tokenUrl: "http://address-stub-1/token",
@@ -65,7 +65,7 @@ describe("credential issuer middleware", () => {
           ]
         },
         query: {
-          criId: "PassportIssuer"
+          id: "PassportIssuer"
         }
       };
       res = { send: sinon.fake(), status: sinon.fake() };
@@ -82,7 +82,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL.toString()).to.equal(
-        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3FcriId%3DPassportIssuer"
+        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3Fid%3DPassportIssuer"
       );
     });
 
@@ -187,7 +187,7 @@ describe("credential issuer middleware", () => {
       req = {
         credentialIssuer: { code: "authorize-code-issued" },
         session: { ipvSessionId: "ipv-session-id" },
-        query: { criId: "PassportIssuer" }
+        query: { id: "PassportIssuer" }
       };
       res = {
         status: sinon.fake(),
@@ -205,7 +205,7 @@ describe("credential issuer middleware", () => {
 
         const searchParams = new URLSearchParams([
           ["authorization_code", req.credentialIssuer.code],
-          ["credential_issuer_id", req.query.criId],
+          ["credential_issuer_id", req.query.id],
           ["redirect_uri", `http://example.com/credential-issuer/callback`],
         ]);
 

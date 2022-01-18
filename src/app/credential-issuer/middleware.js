@@ -7,7 +7,7 @@ const {
 
 module.exports = {
   buildCredentialIssuerRedirectURL: async (req, res, next) => {
-    const cri = req.session?.criConfig?.find(criConfig => criConfig.criId === req.query.criId);
+    const cri = req.session?.criConfig?.find(criConfig => criConfig.id === req.query.id);
 
     if (!cri) {
       res.status(500);
@@ -18,7 +18,7 @@ module.exports = {
     req.redirectURL.searchParams.append("response_type", "code");
     req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
     req.redirectURL.searchParams.append("state", "test-state");
-    req.redirectURL.searchParams.append("redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?criId=${cri.criId}`);
+    req.redirectURL.searchParams.append("redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${cri.id}`);
 
     next();
   },
@@ -37,7 +37,7 @@ module.exports = {
   sendParamsToAPI: async (req, res, next) => {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
-      ["credential_issuer_id", req.query.criId],
+      ["credential_issuer_id", req.query.id],
       ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback`],
     ]);
 

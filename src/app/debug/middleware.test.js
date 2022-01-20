@@ -120,6 +120,51 @@ describe("debug middleware", () => {
     });
   });
 
+  describe("getIssuedCredentials", () => {
+
+    const issuedCredentialsResponse = {
+      data: {
+        addressIssuer: '{"attributes":{"address":{"postcode":"SW1A1AA","houseNumber":10}}}',
+        passportIssuer: '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"passportNo":"824159121","passportExpiryDate":"2030-01-01","dateOfBirth":"2021-03-01"},"gpg45Score":{"evidence":{"strength":5,"validity":3}}}',
+        fraudIssuer: '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"someFraudAttribute":"notsurewhatthatmightbe"},"gpg45Score":{"fraud":0}}'
+      },
+    };
+
+    beforeEach(() => {
+      req = {
+        session: {}
+      };
+    });
+
+    context("successfully gets issued credentials from core-back", () => {
+      it("should set issued credentials on request in session", async function () {
+        axiosStub.get = sinon.fake.returns(issuedCredentialsResponse);
+
+        await middleware.getIssuedCredentials(req, res, next);
+
+        expect(req.issuedCredentials.addressIssuer).to.eql(JSON.parse(issuedCredentialsResponse.data.addressIssuer));
+      });
+
+      it("should call next", async function () {
+        axiosStub.get = sinon.fake.returns(issuedCredentialsResponse);
+
+        await middleware.getIssuedCredentials(req, res, next);
+
+        expect(next).to.have.been.calledOnceWith();
+      });
+    });
+
+    context("failed to get issued credentials from core-back", () => {
+      it("should throw error", async function () {
+        axiosStub.get = sinon.fake.throws("Something bad happened...");
+
+        await middleware.getIssuedCredentials(req, res, next);
+
+        expect(res.error).to.be.eql("Error");
+      });
+    });
+  })
+
   describe("renderDebugPage", () => {
     it("should render debug page", () => {
       middleware.renderDebugPage(req, res);

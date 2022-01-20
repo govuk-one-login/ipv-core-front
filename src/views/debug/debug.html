@@ -15,24 +15,45 @@
 {% endblock %}
 
 {% block main %}
-  {% macro criDisplay(data) %}
-    {% for cri in data %}
+  {% macro criDisplay(cris, issuedCredentials) %}
+    {% for cri in cris %}
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <a class="govuk-heading-s" href="/credential-issuer/authorize?id={{ cri.id }}">{{cri.name}}</a>
           </dt>
+          {% if issuedCredentials[cri.id] %}
+            {% set issuedCredential = issuedCredentials[cri.id] %}
+            <dd class="govuk-summary-list__value">
+              <h3 class="govuk-heading-s">GPG45 Score</h3>
+
+              {% if issuedCredential.gpg45Score %}
+                <pre>{{ issuedCredential.gpg45Score | dump(2) }}</pre>
+              {% else %}
+                <p class="govuk-body">No GPG45 score found for this issued credential.<p class="govuk-body">
+              {% endif %}
+
+              <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">Credential attributes</span>
+                </summary>
+                <div class="govuk-details__text">
+                  <pre>{{ issuedCredential.attributes | dump(2) }}</pre>
+                </div>
+              </details>
+            </dd>
+          {% endif %}
         </div>
       </dl>
     {% endfor %}
   {% endmacro %}
-  
+
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
-          {{ criDisplay(criConfig) }}        
+          {{ criDisplay(criConfig, issuedCredentials) }}
           <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">

@@ -10,9 +10,10 @@ if (!appEnv.isLocal) {
 
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
-  AUTH_PATH: "/authorize",
-  API_REQUEST_EVIDENCE_PATH: "/request-evidence",
+  API_ISSUED_CREDENTIALS_PATH: "/issued-credentials",
   API_REQUEST_CONFIG_PATH: "/request-config",
+  API_REQUEST_EVIDENCE_PATH: "/request-evidence",
+  AUTH_PATH: "/authorize",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

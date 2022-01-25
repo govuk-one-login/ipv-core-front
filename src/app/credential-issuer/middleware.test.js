@@ -2,6 +2,99 @@ const { expect } = require("chai");
 const proxyquire = require("proxyquire");
 
 describe("credential issuer middleware", () => {
+  describe("getJwt", () => {
+    const axiosStub = {};
+    let axiosResponse;
+
+
+    const configStub = {
+      API_ISSUED_JWT_PATH: "/issued-jwt",
+      API_BASE_URL: "https://example.org/subpath",
+    };
+    
+    const middleware = proxyquire("./middleware", {
+      axios: axiosStub,
+      "../../lib/config": configStub,
+    });
+
+    let req;
+    let res;
+    let next;
+  
+    beforeEach(() => {
+      res = {
+        status: sinon.fake(),
+        redirect: sinon.fake(),
+        send: sinon.fake(),
+        render: sinon.fake(),
+      };
+      req = {
+        session: {}
+      };
+      next = sinon.fake();
+      
+      axiosResponse = {
+        jwt: undefined
+      };
+  
+      axiosStub.get = sinon.fake.returns(axiosResponse);
+    });
+
+    context("successfully gets issued jwt from core-back", () => {
+      beforeEach(() => {
+        axiosResponse.jwt = "test";
+      });
+      it("should set issued jwt on request in session", async function () {
+        await middleware.getJwt(req, res, next);
+
+        expect(req.session.jwt).to.eql(axiosResponse.jwt);
+      });
+
+      it("should call next", async function () {
+        await middleware.getJwt(req, res, next);
+
+        expect(next).to.have.been.called;
+      });
+    });
+
+    context("with missing jwt", () => {
+      beforeEach(() => {
+        axiosStub.get = sinon.fake.returns(axiosResponse);
+      });
+
+      it("should send a 500 error when jwt is missing", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(res.status).to.have.been.calledWith(500);
+      });
+
+      it("should not call next", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(next).to.not.have.been.called;
+      });
+    });
+
+    context("with axios error", () => {
+      let errorMessage;
+
+      beforeEach(() => {
+        errorMessage = "server error";
+        axiosStub.get = sinon.fake.throws(new Error(errorMessage));
+      });
+
+      it("should send call next with error when jwt is missing", async () => {
+        await middleware.getJwt(req, res, next);
+
+        expect(next).to.have.been.calledWith(
+          sinon.match
+            .instanceOf(Error)
+            .and(sinon.match.has("message", errorMessage))
+        );
+      });
+    });
+  });
+
   describe("redirectToAuthorize", () => {
     let req;
     let res;
@@ -82,7 +175,7 @@ describe("credential issuer middleware", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL.toString()).to.equal(
-        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3Fid%3DPassportIssuer"
+        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3Fid%3DPassportIssuer&request=undefined"
       );
     });
 

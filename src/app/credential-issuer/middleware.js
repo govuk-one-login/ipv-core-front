@@ -2,13 +2,40 @@ const axios = require("axios");
 const {
   API_BASE_URL,
   API_REQUEST_EVIDENCE_PATH,
+  API_ISSUED_JWT_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 
 module.exports = {
+  getJwt: async (req, res, next) =>  {
+    try {
+      const apiResponse = await axios.get(
+        `${API_BASE_URL}${API_ISSUED_JWT_PATH}`,
+        {
+          headers: {
+            "ipv-session-id": req.session.ipvSessionId
+          }
+        }
+      );
+
+      const jwt = apiResponse?.jwt;    //will need to be confirmed
+
+      if (!jwt) {
+        res.status(500);
+        return res.send("Missing jwt");
+      }
+
+      req.session.jwt = jwt;
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }, 
+
   buildCredentialIssuerRedirectURL: async (req, res, next) => {
     const cri = req.session?.criConfig?.find(criConfig => criConfig.id === req.query.id);
-
+   
     if (!cri) {
       res.status(500);
       return res.send("Could not find configured CRI");
@@ -19,6 +46,7 @@ module.exports = {
     req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
     req.redirectURL.searchParams.append("state", "test-state");
     req.redirectURL.searchParams.append("redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${cri.id}`);
+    req.redirectURL.searchParams.append("request", req.session.jwt);
 
     next();
   },

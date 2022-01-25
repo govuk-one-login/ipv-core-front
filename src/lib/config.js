@@ -11,6 +11,7 @@ if (!appEnv.isLocal) {
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_ISSUED_CREDENTIALS_PATH: "/issued-credentials",
+  API_ISSUED_JWT_PATH: "/issued-jwt",   //will need to be confirmed
   API_REQUEST_CONFIG_PATH: "/request-config",
   API_REQUEST_EVIDENCE_PATH: "/request-evidence",
   AUTH_PATH: "/authorize",

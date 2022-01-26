@@ -42,11 +42,10 @@ describe("credential issuer middleware", () => {
 
     context("successfully gets issued jwt from core-back", () => {
       beforeEach(() => {
-        axiosResponse.jwt = "test";
+        axiosResponse.jwt = "YXJuaXQ=";
       });
       it("should set issued jwt on request in session", async function () {
         await middleware.getJwt(req, res, next);
-
         expect(req.session.jwt).to.eql(axiosResponse.jwt);
       });
 
@@ -62,10 +61,51 @@ describe("credential issuer middleware", () => {
         axiosStub.get = sinon.fake.returns(axiosResponse);
       });
 
-      it("should send a 500 error when jwt is missing", async function () {
+      it("should send a 500 error with correct error message", async function () {
         await middleware.getJwt(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
+        expect(res.send).to.have.been.calledWith("Missing JWT");
+      });
+
+      it("should not call next", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(next).to.not.have.been.called;
+      });
+    });
+
+    context("with jwt being too large", () => {
+      beforeEach(() => {
+        axiosResponse.jwt = "YXJuaXQ" + "a".repeat(6000) + "=";
+      });
+
+      it("should send a 500 error with correct error message", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(res.status).to.have.been.calledWith(500);
+        expect(res.send).to.have.been.calledWith("JWT exceeds maximum limit");
+
+      });
+
+      it("should not call next", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(next).to.not.have.been.called;
+      });
+    });
+
+    context("with invalid base64 encoded jwt", () => {
+      beforeEach(() => {
+        axiosResponse.jwt = "example";
+      });
+
+      it("should send a 500 error with correct error message", async function () {
+        await middleware.getJwt(req, res);
+
+        expect(res.status).to.have.been.calledWith(500);
+        expect(res.send).to.have.been.calledWith("Invalid base64 encoded JWT");
+
       });
 
       it("should not call next", async function () {

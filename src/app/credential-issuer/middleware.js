@@ -19,10 +19,17 @@ module.exports = {
       );
 
       const jwt = apiResponse?.jwt;    //will need to be confirmed
+      const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
       if (!jwt) {
         res.status(500);
-        return res.send("Missing jwt");
+        return res.send("Missing JWT");
+      } else if (jwt.length > 6000) { // this figure can be changed
+        res.status(500);
+        return res.send("JWT exceeds maximum limit");
+      } else if (!base64regex.test(jwt)) { 
+        res.status(500);
+        return res.send("Invalid base64 encoded JWT");
       }
 
       req.session.jwt = jwt;

@@ -2,13 +2,12 @@ const { expect } = require("chai");
 const proxyquire = require("proxyquire");
 
 describe("credential issuer middleware", () => {
-  describe("getJwt", () => {
+  describe("getSharedAttributesJwt", () => {
     const axiosStub = {};
     let axiosResponse;
 
-
     const configStub = {
-      API_ISSUED_JWT_PATH: "/issued-jwt",
+      API_SHARED_ATTRIBUTES_JWT_PATH: "/shared-attributes",
       API_BASE_URL: "https://example.org/subpath",
     };
     
@@ -34,7 +33,9 @@ describe("credential issuer middleware", () => {
       next = sinon.fake();
       
       axiosResponse = {
-        jwt: undefined
+        data: {
+          sharedAttributesJwt: undefined,
+        },
       };
   
       axiosStub.get = sinon.fake.returns(axiosResponse);
@@ -42,15 +43,15 @@ describe("credential issuer middleware", () => {
 
     context("successfully gets issued jwt from core-back", () => {
       beforeEach(() => {
-        axiosResponse.jwt = "YXJuaXQ=";
+        axiosResponse.data.sharedAttributesJwt = "YXJuaXQ=";
       });
       it("should set issued jwt on request in session", async function () {
-        await middleware.getJwt(req, res, next);
-        expect(req.session.jwt).to.eql(axiosResponse.jwt);
+        await middleware.getSharedAttributesJwt(req, res, next);
+        expect(req.session.sharedAttributesJwt).to.eql(axiosResponse.data.sharedAttributesJwt);
       });
 
       it("should call next", async function () {
-        await middleware.getJwt(req, res, next);
+        await middleware.getSharedAttributesJwt(req, res, next);
 
         expect(next).to.have.been.called;
       });
@@ -62,14 +63,14 @@ describe("credential issuer middleware", () => {
       });
 
       it("should send a 500 error with correct error message", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
         expect(res.send).to.have.been.calledWith("Missing JWT");
       });
 
       it("should not call next", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(next).to.not.have.been.called;
       });
@@ -77,11 +78,11 @@ describe("credential issuer middleware", () => {
 
     context("with jwt being too large", () => {
       beforeEach(() => {
-        axiosResponse.jwt = "YXJuaXQ" + "a".repeat(6000) + "=";
+        axiosResponse.data.sharedAttributesJwt = "YXJuaXQ" + "a".repeat(6000) + "=";
       });
 
       it("should send a 500 error with correct error message", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
         expect(res.send).to.have.been.calledWith("JWT exceeds maximum limit");
@@ -89,7 +90,7 @@ describe("credential issuer middleware", () => {
       });
 
       it("should not call next", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(next).to.not.have.been.called;
       });
@@ -97,11 +98,11 @@ describe("credential issuer middleware", () => {
 
     context("with invalid base64 encoded jwt", () => {
       beforeEach(() => {
-        axiosResponse.jwt = "example";
+        axiosResponse.data.sharedAttributesJwt = "example";
       });
 
       it("should send a 500 error with correct error message", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
         expect(res.send).to.have.been.calledWith("Invalid base64 encoded JWT");
@@ -109,7 +110,7 @@ describe("credential issuer middleware", () => {
       });
 
       it("should not call next", async function () {
-        await middleware.getJwt(req, res);
+        await middleware.getSharedAttributesJwt(req, res);
 
         expect(next).to.not.have.been.called;
       });
@@ -124,7 +125,7 @@ describe("credential issuer middleware", () => {
       });
 
       it("should send call next with error when jwt is missing", async () => {
-        await middleware.getJwt(req, res, next);
+        await middleware.getSharedAttributesJwt(req, res, next);
 
         expect(next).to.have.been.calledWith(
           sinon.match

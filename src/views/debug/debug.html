@@ -27,7 +27,7 @@
             <dd class="govuk-summary-list__value">
               <h3 class="govuk-heading-s">GPG45 Score</h3>
 
-              {% if issuedCredential.gpg45Score %}
+              {% if issuedCredential.gpg45Score|length %}
                 <pre>{{ issuedCredential.gpg45Score | dump(2) }}</pre>
               {% else %}
                 <p class="govuk-body">No GPG45 score found for this issued credential.<p class="govuk-body">

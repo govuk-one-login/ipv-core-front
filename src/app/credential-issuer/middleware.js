@@ -19,7 +19,7 @@ module.exports = {
         }
       );
 
-      const sharedAttributesJwt = apiResponse?.data?.sharedAttributesJwt;
+      const sharedAttributesJwt = apiResponse?.data;
       const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
       if (!sharedAttributesJwt) {
@@ -28,7 +28,7 @@ module.exports = {
       } else if (sharedAttributesJwt.length > SHARED_ATTRIBUTES_JWT_SIZE_LIMIT) {
         res.status(500);
         return res.send("JWT exceeds maximum limit");
-      } else if (!base64regex.test(sharedAttributesJwt)) { 
+      } else if (base64regex.test(sharedAttributesJwt)) {
         res.status(500);
         return res.send("Invalid base64 encoded JWT");
       }
@@ -39,11 +39,11 @@ module.exports = {
     } catch (e) {
       next(e);
     }
-  }, 
+  },
 
   buildCredentialIssuerRedirectURL: async (req, res, next) => {
     const cri = req.session?.criConfig?.find(criConfig => criConfig.id === req.query.id);
-   
+
     if (!cri) {
       res.status(500);
       return res.send("Could not find configured CRI");

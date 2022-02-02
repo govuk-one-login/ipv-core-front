@@ -20,7 +20,7 @@ module.exports = {
       );
 
       const sharedAttributesJwt = apiResponse?.data;
-      const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+      const base64regex = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/;
 
       if (!sharedAttributesJwt) {
         res.status(500);
@@ -28,7 +28,7 @@ module.exports = {
       } else if (sharedAttributesJwt.length > SHARED_ATTRIBUTES_JWT_SIZE_LIMIT) {
         res.status(500);
         return res.send("JWT exceeds maximum limit");
-      } else if (base64regex.test(sharedAttributesJwt)) {
+      } else if (!base64regex.test(sharedAttributesJwt)) {
         res.status(500);
         return res.send("Invalid base64 encoded JWT");
       }

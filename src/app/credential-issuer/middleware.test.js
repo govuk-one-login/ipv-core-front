@@ -10,7 +10,7 @@ describe("credential issuer middleware", () => {
       API_SHARED_ATTRIBUTES_JWT_PATH: "/shared-attributes",
       API_BASE_URL: "https://example.org/subpath",
     };
-    
+
     const middleware = proxyquire("./middleware", {
       axios: axiosStub,
       "../../lib/config": configStub,
@@ -19,7 +19,7 @@ describe("credential issuer middleware", () => {
     let req;
     let res;
     let next;
-  
+
     beforeEach(() => {
       res = {
         status: sinon.fake(),
@@ -31,23 +31,21 @@ describe("credential issuer middleware", () => {
         session: {}
       };
       next = sinon.fake();
-      
+
       axiosResponse = {
-        data: {
-          sharedAttributesJwt: undefined,
-        },
+        data: undefined
       };
-  
+
       axiosStub.get = sinon.fake.returns(axiosResponse);
     });
 
     context("successfully gets issued jwt from core-back", () => {
       beforeEach(() => {
-        axiosResponse.data.sharedAttributesJwt = "YXJuaXQ=";
+        axiosResponse.data = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==";
       });
       it("should set issued jwt on request in session", async function () {
         await middleware.getSharedAttributesJwt(req, res, next);
-        expect(req.session.sharedAttributesJwt).to.eql(axiosResponse.data.sharedAttributesJwt);
+        expect(req.session.sharedAttributesJwt).to.eql(axiosResponse.data);
       });
 
       it("should call next", async function () {
@@ -78,7 +76,7 @@ describe("credential issuer middleware", () => {
 
     context("with jwt being too large", () => {
       beforeEach(() => {
-        axiosResponse.data.sharedAttributesJwt = "YXJuaXQ" + "a".repeat(6000) + "=";
+        axiosResponse.data = "YXJuaXQ" + "a".repeat(6000) + "=";
       });
 
       it("should send a 500 error with correct error message", async function () {
@@ -98,7 +96,7 @@ describe("credential issuer middleware", () => {
 
     context("with invalid base64 encoded jwt", () => {
       beforeEach(() => {
-        axiosResponse.data.sharedAttributesJwt = "example";
+        axiosResponse.data = "example";
       });
 
       it("should send a 500 error with correct error message", async function () {

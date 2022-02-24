@@ -1,3 +1,6 @@
+require("express");
+require("express-async-errors");
+
 const { PORT, SESSION_SECRET } = require("./lib/config");
 const { setup } = require("hmpo-app");
 

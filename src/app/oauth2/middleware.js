@@ -22,6 +22,10 @@ module.exports = {
     res.redirect("/debug");
   },
 
+  redirectToJourney: async (req, res) => {
+    res.redirect("/journey/next");
+  },
+
   setIpvSessionId: async (req, res, next) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/ipv-session`);

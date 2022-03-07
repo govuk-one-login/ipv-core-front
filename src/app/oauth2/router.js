@@ -6,16 +6,24 @@ const {
   addAuthParamsToSession,
   redirectToCallback,
   redirectToDebugPage,
+  redirectToJourney,
   retrieveAuthorizationCode,
   setIpvSessionId,
 } = require("./middleware");
 
 router.get(
-  "/authorize",
+  "/debug-authorize",
   addAuthParamsToSession,
   setIpvSessionId,
   redirectToDebugPage
 );
+
+router.get(
+  "/authorize",
+  setIpvSessionId,
+  redirectToJourney
+);
+
 router.post("/authorize", retrieveAuthorizationCode, redirectToCallback);
 
 module.exports = router;

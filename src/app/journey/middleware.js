@@ -45,7 +45,7 @@ module.exports = {
       const {pageId} = req.query;
       switch (pageId) {
         case 'transition':
-        return res.render('journey/transition')
+        return res.render('journey/transition', {message: 'You are about to be transitioned'})
       }
     }catch (error) {
       res.error = error.name;

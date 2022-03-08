@@ -1,0 +1,39 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %} {{ title }} – Example – GOV.UK Design System {% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+<link href="/public/stylesheets/application.css" rel="stylesheet" media="all" />
+{% endblock %}
+
+{% block header %}
+{{ govukHeader({
+homepageUrl: "https://www.gov.uk"
+}) }}
+{% endblock %}
+
+
+{% block main %}
+
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Transition page</h1>
+
+        <h2>{{message}}</h2>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+{% endblock %}

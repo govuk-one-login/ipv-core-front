@@ -45,13 +45,15 @@ module.exports = {
       const {pageId} = req.query;
       switch (pageId) {
         case 'transition':
-        return res.render('journey/transition', {message: 'You are about to be transitioned'})
+          return res.render('journey/transition', {message: 'You are about to be transitioned'})
+        default:
+          return res.render(`journey/${pageId}`);
       }
     }catch (error) {
       res.error = error.name;
-      return next(error);
+      res.status(500);
+      next(error);
     }
-    next()
   }
 };
 

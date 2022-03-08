@@ -22,19 +22,20 @@ describe("journey", () => {
 
   context("From a sequence of events that ends with a page response", () => {
 
+    const pageType = 'pageTransition';
     const eventResponses = [
       {
-        data: { redirect: { event: "/next" } }
+        data: { redirect: { event: "next" } }
       },
       {
-        data: { redirect: { event: "/startCri" } }
+        data: { redirect: { event: "startCri" } }
       },
       {
-        data: { page: { type: "/journeyTransition" } }
+        data: { page: { type: pageType } }
       }
     ];
 
-    let axiosStub = {};
+    const axiosStub = {};
     const configStub = {
       API_BASE_URL: "https://example.org/subpath",
     };
@@ -58,9 +59,9 @@ describe("journey", () => {
       };
     });
 
-    it("should redirect to journey transition page", async function() {
+    it("should redirect to journey transition page with message in query string", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.have.been.calledWith("/journeyTransition");
+      expect(res.redirect).to.have.been.calledWith(`/journey/journeyPage?pageId=${pageType}`);
     });
 
     it("should have called the network in the correct sequence", async function() {

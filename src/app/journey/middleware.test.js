@@ -2,10 +2,20 @@ const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("journey", () => {
+describe("journey middleware", () => {
   let req;
   let res;
   let next;
+
+  const axiosStub = {};
+  const configStub = {
+    API_BASE_URL: "https://example.org/subpath",
+  };
+
+  const middleware = proxyquire("./middleware", {
+    axios: axiosStub,
+    "../../lib/config": configStub,
+  });
 
   beforeEach(() => {
     res = {
@@ -20,8 +30,7 @@ describe("journey", () => {
     next = sinon.fake();
   });
 
-  context("From a sequence of events that ends with a page response", () => {
-
+  context("from a sequence of events that ends with a page response", () => {
     const pageType = 'pageTransition';
     const eventResponses = [
       {
@@ -34,16 +43,6 @@ describe("journey", () => {
         data: { page: { type: pageType } }
       }
     ];
-
-    const axiosStub = {};
-    const configStub = {
-      API_BASE_URL: "https://example.org/subpath",
-    };
-
-    const middleware = proxyquire("./middleware", {
-      axios: axiosStub,
-      "../../lib/config": configStub,
-    });
 
     const callBack = sinon.stub();
     axiosStub.post = callBack;
@@ -72,44 +71,35 @@ describe("journey", () => {
     });
   });
 
-  context('Calling JourneyPage', () => {
-    const axiosStub = {};
-    const configStub = {
-      API_BASE_URL: "https://example.org/subpath",
-    };
+  context('calling the journeyPage endpoint', () => {
+    beforeEach(() => {
+      req = {
+        baseURL: "/journey/journeyPage",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+    });
+    
+    it("should render generic transition page when given a valid pageId", async () => {
+      req = {
+        query: { pageId: 'transition' },
+      };
 
-    const middleware = proxyquire("./middleware", {
-      axios: axiosStub,
-      "../../lib/config": configStub,
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith("journey/transition");
     });
 
+    it("should render default case when given valid pageId", async () => {
+      req = {
+        query: { pageId: 'page-cri-start' },
+      };
 
-
-    describe("renderJourneyPage", () => {
-      it("should render transition page", async () => {
-
-        req = {
-          query: {pageId: 'transition'},
-          baseURL: "/journey/journeyPage",
-          session: { ipvSessionId: "ipv-session-id" },
-        };
-
-        await middleware.handleJourneyPage(req, res);
-
-        expect(res.render).to.have.been.calledWith("journey/transition");
-      });
-
-      it("on error", async () => {
-        req = {
-          baseURL: "/journey/journeyPage",
-          session: { ipvSessionId: "ipv-session-id" },
-        };
-
-        await middleware.handleJourneyPage(req, res, next);
-        expect(res.status).to.have.been.calledWith(500);
-      });
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith("journey/page-cri-start");
     });
 
-
-  })
+    it("should raise an error when missing pageId", async () => {
+      await middleware.handleJourneyPage(req, res, next);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+  });
 });

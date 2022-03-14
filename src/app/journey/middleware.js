@@ -8,7 +8,8 @@ async function journeyApi(action, ipvSessionId) {
   if(action.startsWith('/')){
     action = action.substr(1);
   }
-  return await axios.post(
+
+  return axios.post(
     `${API_BASE_URL}/journey/${action}`,
     {
       headers: {
@@ -17,7 +18,6 @@ async function journeyApi(action, ipvSessionId) {
     }
   );
 }
-
 
 async function handleJourneyResponse(action, res, ipvSessionId) {
   const response = await journeyApi(action, ipvSessionId);
@@ -45,16 +45,14 @@ module.exports = {
       const {pageId} = req.query;
       switch (pageId) {
         case 'transition':
-          return res.render('journey/transition', {message: 'You are about to be transitioned'})
+          return res.render('journey/transition')
         default:
           return res.render(`journey/${pageId}`);
       }
-    }catch (error) {
+    } catch (error) {
       res.error = error.name;
       res.status(500);
       next(error);
     }
   }
 };
-
-

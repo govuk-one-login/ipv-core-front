@@ -78,7 +78,7 @@ describe("journey middleware", () => {
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
-    
+
     it("should render generic transition page when given a valid pageId", async () => {
       req = {
         query: { pageId: 'transition' },
@@ -98,6 +98,55 @@ describe("journey middleware", () => {
     });
 
     it("should raise an error when missing pageId", async () => {
+      await middleware.handleJourneyPage(req, res, next);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+  });
+
+  context("handling CRI event response", () => {
+    const authorizeUrl = 'https://someurl.com';
+    let eventResponses = [];
+
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: { redirect: { cri: { id: 'someid', authorizeUrl: authorizeUrl, request: '' } } }
+        },
+      ];
+      req = {
+        baseURL: "/next",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+
+      const callBack = sinon.stub();
+      axiosStub.post = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+    });
+
+    it("should be redirected to the url supplied from authorizeUrl", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.redirect).to.have.been.calledWith(authorizeUrl);
+    });
+
+    it("should raise an error when missing authorizeUrl", async () => {
+      beforeEach(() => {
+        eventResponses = [
+          {
+            data: { redirect: { cri: { id: 'someid', authorizeUrl: '', request: '' } } }
+          },
+        ];
+
+        const callBack = sinon.stub();
+        axiosStub.post = callBack;
+
+        eventResponses.forEach((er, index) => {
+          callBack.onCall(index).returns(eventResponses[index]);
+        });
+      });
+
       await middleware.handleJourneyPage(req, res, next);
       expect(res.status).to.have.been.calledWith(500);
     });

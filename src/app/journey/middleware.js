@@ -21,8 +21,18 @@ async function journeyApi(action, ipvSessionId) {
 
 async function handleJourneyResponse(action, res, ipvSessionId) {
   const response = await journeyApi(action, ipvSessionId);
-  if (response.data?.redirect?.event) {
-    await handleJourneyResponse(response?.data?.redirect?.event, res);
+  if (response.data?.redirect) {
+    if(response.data?.redirect?.event) {
+      await handleJourneyResponse(response?.data?.redirect?.event, res);
+    }
+    if(response.data?.redirect?.cri) {
+      if(!response?.data?.redirect?.cri?.authorizeUrl) {
+        res.error = 'AuthorizeUrl is missing'
+        res.status(500);
+        return;
+      }
+      return res.redirect(`${response?.data?.redirect?.cri?.authorizeUrl}`);
+    }
     return;
   }
   if (response?.data?.page?.type) {

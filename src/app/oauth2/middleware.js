@@ -28,7 +28,7 @@ module.exports = {
 
   setIpvSessionId: async (req, res, next) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/ipv-session`);
+      const response = await axios.post(`${API_BASE_URL}/session/start`);
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
       res.error = error.name;

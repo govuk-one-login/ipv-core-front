@@ -2,7 +2,8 @@ const axios = require("axios");
 const {
   API_BASE_URL
 } = require("../../lib/config");
-
+const { getSharedAttributesJwt } = require("../shared/sharedAttributeHelper");
+const { buildCredentialIssuerRedirectURL } = require("../shared/criHelper");
 
 async function journeyApi(action, ipvSessionId) {
   if(action.startsWith('/')){
@@ -19,11 +20,11 @@ async function journeyApi(action, ipvSessionId) {
   );
 }
 
-async function handleJourneyResponse(action, res, ipvSessionId) {
-  const response = await journeyApi(action, ipvSessionId);
+async function handleJourneyResponse(req, res, action) {
+  const response = await journeyApi(action, req.session.ipvSessionId);
   if (response.data?.redirect) {
     if(response.data?.redirect?.event) {
-      await handleJourneyResponse(response?.data?.redirect?.event, res);
+      await handleJourneyResponse(req, res, response?.data?.redirect?.event);
     }
     if(response.data?.redirect?.cri) {
       if(!response?.data?.redirect?.cri?.authorizeUrl) {
@@ -31,7 +32,11 @@ async function handleJourneyResponse(action, res, ipvSessionId) {
         res.status(500);
         return;
       }
-      return res.redirect(`${response?.data?.redirect?.cri?.authorizeUrl}`);
+
+      await getSharedAttributesJwt(req, res);
+      req.cri = response?.data?.redirect?.cri;
+      await buildCredentialIssuerRedirectURL(req, res)
+      return res.redirect(req.redirectURL);
     }
     return;
   }
@@ -43,7 +48,7 @@ async function handleJourneyResponse(action, res, ipvSessionId) {
 module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
-      await handleJourneyResponse(req.baseURL, res, req.session.ipvSessionId);
+      await handleJourneyResponse(req, res, req.baseURL);
     } catch (error) {
       next(error);
     }

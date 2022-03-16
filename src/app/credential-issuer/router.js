@@ -7,7 +7,6 @@ const {
   getSharedAttributesJwt,
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
-  redirectToDebugPage,
   sendParamsToAPI,
 } = require("./middleware");
 
@@ -15,8 +14,7 @@ router.get("/authorize", getSharedAttributesJwt, buildCredentialIssuerRedirectUR
 router.get(
   "/callback",
   addCallbackParamsToRequest,
-  sendParamsToAPI,
-  redirectToDebugPage
+  sendParamsToAPI
 );
 
 module.exports = router;

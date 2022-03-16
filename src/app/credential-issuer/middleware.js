@@ -91,7 +91,8 @@ module.exports = {
         config
       );
       res.status = apiResponse?.status;
-      next();
+
+      res.redirect("/journey/next")
     } catch (error) {
       if (error?.response?.status == 404) {
         res.status = error.response.status;

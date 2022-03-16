@@ -4,14 +4,16 @@ const router = express.Router();
 
 const {
   addCallbackParamsToRequest,
-  getSharedAttributesJwt,
-  buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
   redirectToDebugPage,
   sendParamsToAPI,
 } = require("./middleware");
 
+const { buildCredentialIssuerRedirectURL } = require('../shared/criHelper');
+const { getSharedAttributesJwt } = require('../shared/sharedAttributeHelper');
+
 router.get("/authorize", getSharedAttributesJwt, buildCredentialIssuerRedirectURL, redirectToAuthorize);
+
 router.get(
   "/callback",
   addCallbackParamsToRequest,

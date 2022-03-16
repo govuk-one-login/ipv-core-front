@@ -77,4 +77,30 @@ describe("cri Helper", () => {
       });
     });
   });
+
+  describe("redirectToAuthorize", () => {
+    let req;
+    let res;
+    let configStub;
+
+    beforeEach(() => {
+      req = {
+        redirectURL: "http://the.credentialissuer.authorize.url",
+      };
+      res = {
+        redirect: sinon.fake(),
+        send: sinon.fake(),
+      };
+      configStub = {};
+    });
+    it("should successfully be redirected", async function () {
+      const { redirectToAuthorize } = proxyquire("../shared/criHelper", {
+        "../../lib/config": configStub,
+      });
+  
+      await redirectToAuthorize(req, res);
+
+      expect(res.redirect).to.have.been.calledWith(req.redirectURL);
+    });
+  });
 });

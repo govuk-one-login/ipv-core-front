@@ -26,6 +26,7 @@ async function handleJourneyResponse(req, res, action) {
     if(response.data?.redirect?.event) {
       await handleJourneyResponse(req, res, response?.data?.redirect?.event);
     }
+
     if(response.data?.redirect?.cri) {
       if(!response?.data?.redirect?.cri?.authorizeUrl) {
         res.error = 'AuthorizeUrl is missing'
@@ -38,6 +39,12 @@ async function handleJourneyResponse(req, res, action) {
       await buildCredentialIssuerRedirectURL(req, res)
       return redirectToAuthorize(req, res);
     }
+
+    if(response.data?.redirect?.client) {
+      const { callBackUrl, authCode} = response.data.redirect.client;
+      return res.redirect(`${callBackUrl}?code=${authCode}`);
+    }
+
     return;
   }
   if (response?.data?.page?.type) {

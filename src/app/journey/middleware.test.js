@@ -175,4 +175,37 @@ describe("journey middleware", () => {
       expect(res.status).to.have.been.calledWith(500);
     });
   });
+
+  context("handling Client event response", () => {
+    let eventResponses = [];
+
+    const callBackUrl = 'https://someurl.org';
+    const authCode = 'ABC123'
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: { redirect: { client: { callBackUrl: callBackUrl , authCode: authCode} } }
+        },
+      ];
+
+      req = {
+        baseURL: "/next",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+
+      const callBack = sinon.stub();
+      axiosStub.post = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+
+    });
+
+    it("should be redirected to a valid Client URL with Authcode", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.redirect).to.be.calledWith(`${callBackUrl}?code=${authCode}`);
+
+  });
 });
+})

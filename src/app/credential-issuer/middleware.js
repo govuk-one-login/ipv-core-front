@@ -46,10 +46,4 @@ module.exports = {
       next(error);
     }
   },
-  redirectToAuthorize: async (req, res) => {
-    res.redirect(req.redirectURL);
-  },
-  redirectToDebugPage: async (req, res) => {
-    res.redirect("/debug/");
-  },
 };

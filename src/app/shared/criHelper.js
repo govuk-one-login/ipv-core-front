@@ -20,7 +20,7 @@ module.exports = {
       next();
     }
   },
-    redirectToAuthorize: async (req, res) => {
+  redirectToAuthorize: async (req, res) => {
     res.redirect(req.redirectURL);
   }
 }

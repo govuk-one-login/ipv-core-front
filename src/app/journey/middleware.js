@@ -3,7 +3,7 @@ const {
   API_BASE_URL
 } = require("../../lib/config");
 const { getSharedAttributesJwt } = require("../shared/sharedAttributeHelper");
-const { buildCredentialIssuerRedirectURL } = require("../shared/criHelper");
+const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require("../shared/criHelper");
 
 async function journeyApi(action, ipvSessionId) {
   if(action.startsWith('/')){
@@ -36,7 +36,7 @@ async function handleJourneyResponse(req, res, action) {
       await getSharedAttributesJwt(req, res);
       req.cri = response?.data?.redirect?.cri;
       await buildCredentialIssuerRedirectURL(req, res)
-      return res.redirect(req.redirectURL);
+      return redirectToAuthorize(req, res);
     }
     return;
   }

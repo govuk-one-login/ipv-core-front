@@ -2,32 +2,6 @@ const { expect } = require("chai");
 const proxyquire = require("proxyquire");
 
 describe("credential issuer middleware", () => {
-  describe("redirectToAuthorize", () => {
-    let req;
-    let res;
-    let configStub;
-
-    beforeEach(() => {
-      req = {
-        redirectURL: "http://the.credentialissuer.authorize.url",
-      };
-      res = {
-        redirect: sinon.fake(),
-        send: sinon.fake(),
-      };
-      configStub = {};
-    });
-    it("should successfully be redirected", async function () {
-      const { redirectToAuthorize } = proxyquire("./middleware", {
-        "../../lib/config": configStub,
-      });
-
-      await redirectToAuthorize(req, res);
-
-      expect(res.redirect).to.have.been.calledWith(req.redirectURL);
-    });
-  });
-
   describe("addCallbackParamsToRequest", () => {
     let req;
     let res;
@@ -62,29 +36,6 @@ describe("credential issuer middleware", () => {
       await addCallbackParamsToRequest(req, res, next);
 
       expect(next).to.have.been.called;
-    });
-  });
-
-  describe("renderDebugPage", () => {
-    let req;
-    let res;
-    let configStub;
-
-    beforeEach(() => {
-      res = {
-        redirect: sinon.fake(),
-      };
-      configStub = {};
-    });
-
-    it("should redirectToDebugPage", () => {
-      const { redirectToDebugPage } = proxyquire("./middleware", {
-        "../../lib/config": configStub,
-      });
-
-      redirectToDebugPage(req, res);
-
-      expect(res.redirect).to.have.been.calledWith("/debug/");
     });
   });
 

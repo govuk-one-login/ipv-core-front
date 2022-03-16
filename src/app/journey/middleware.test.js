@@ -31,9 +31,6 @@ describe("journey middleware", () => {
     "../shared/../shared/criHelper": sharedCriHelper,
   });
 
-
-
-
   beforeEach(() => {
     res = {
       status: sinon.fake(),

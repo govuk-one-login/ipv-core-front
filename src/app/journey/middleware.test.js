@@ -67,7 +67,7 @@ describe("journey middleware", () => {
 
     beforeEach(() => {
       req = {
-        baseURL: "/next",
+        url: "/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
@@ -88,7 +88,7 @@ describe("journey middleware", () => {
   context('calling the journeyPage endpoint', () => {
     beforeEach(() => {
       req = {
-        baseURL: "/journey/journeyPage",
+        url: "/journey/journeyPage",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
@@ -128,7 +128,7 @@ describe("journey middleware", () => {
         },
       ];
       req = {
-        baseURL: "/next",
+        url: "/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -189,7 +189,7 @@ describe("journey middleware", () => {
       ];
 
       req = {
-        baseURL: "/next",
+        url: "/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -205,7 +205,67 @@ describe("journey middleware", () => {
     it("should be redirected to a valid Client URL with Authcode", async function() {
       await middleware.updateJourneyState(req, res, next);
       expect(res.redirect).to.be.calledWith(`${callBackUrl}?code=${authCode}`);
-
   });
 });
+
+  context("handling missing callBackUrl Client event response", () => {
+    let eventResponses = [];
+
+    const authCode = 'ABC123'
+
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: { redirect: { client: { callBackUrl: null , authCode: authCode} } }
+        },
+      ];
+
+      req = {
+        url: "/next",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+
+      const callBack = sinon.stub();
+      axiosStub.post = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+    });
+
+    it("status error is callBackUrl is missing", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+  });
+
+  context("handling missing authCode Client event response", () => {
+    let eventResponses = [];
+
+    const callBackUrl = 'https://someurl.org';
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: { redirect: { client: { callBackUrl: callBackUrl , authCode: null} } }
+        },
+      ];
+
+      req = {
+        url: "/next",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+
+      const callBack = sinon.stub();
+      axiosStub.post = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+    });
+
+    it("status error is authCode is missing", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.status).to.have.been.calledWith(500);
+    });
+  });
 })

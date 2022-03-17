@@ -42,6 +42,19 @@ async function handleJourneyResponse(req, res, action) {
 
     if(response.data?.redirect?.client) {
       const { callBackUrl, authCode} = response.data.redirect.client;
+
+      if(!callBackUrl) {
+        res.error = 'CallBackUrl is missing'
+        res.status(500);
+        return;
+      }
+
+      if(!authCode) {
+        res.error = 'Authcode is missing'
+        res.status(500);
+        return;
+      }
+
       return res.redirect(`${callBackUrl}?code=${authCode}`);
     }
 
@@ -55,7 +68,7 @@ async function handleJourneyResponse(req, res, action) {
 module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
-      await handleJourneyResponse(req, res, req.baseURL);
+      await handleJourneyResponse(req, res, req.url);
     } catch (error) {
       next(error);
     }

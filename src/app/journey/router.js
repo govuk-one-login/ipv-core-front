@@ -5,6 +5,6 @@ const router = express.Router();
 const { updateJourneyState, handleJourneyPage } = require("./middleware");
 
 router.get("/journeyPage", handleJourneyPage)
-router.get("/*", updateJourneyState);
+router.get("/", updateJourneyState);
 
 module.exports = router;

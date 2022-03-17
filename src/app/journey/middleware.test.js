@@ -44,6 +44,23 @@ describe("journey middleware", () => {
     next = sinon.fake();
   });
 
+  context("request to updateJourneyState not in allowedList ", () => {
+
+    beforeEach(() => {
+      req = {
+        url: "/foo",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+    });
+
+    it("should return 400", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.status).to.have.been.calledWith(400);
+    });
+
+
+  });
+
   context("from a sequence of events that ends with a page response", () => {
     const pageType = 'pageTransition';
     const eventResponses = [

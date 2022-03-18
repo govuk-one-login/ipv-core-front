@@ -2,18 +2,6 @@ const axios = require("axios");
 const { API_BASE_URL, AUTH_PATH } = require("../../lib/config");
 
 module.exports = {
-  addAuthParamsToSession: async (req, res, next) => {
-    const authParams = {
-      response_type: req.query.response_type,
-      client_id: req.query.client_id,
-      state: req.query.state,
-      redirect_uri: req.query.redirect_uri,
-    };
-
-    req.session.authParams = authParams;
-
-    next();
-  },
   renderOauthPage: async (req, res) => {
     res.render("index-hmpo");
   },
@@ -28,7 +16,15 @@ module.exports = {
 
   setIpvSessionId: async (req, res, next) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/session/start`);
+      const authParams = {
+        responseType: req.query.response_type,
+        clientId: req.query.client_id,
+        redirectUri: req.query.redirect_uri,
+        state: req.query.state,
+        scope: req.query.scope
+      };
+
+      const response = await axios.post(`${API_BASE_URL}/session/start`, authParams);
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
       res.error = error.name;

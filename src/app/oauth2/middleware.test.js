@@ -26,7 +26,9 @@ describe("oauth middleware", () => {
     next = sinon.fake();
   });
 
-  describe("addAuthParamsToSession", () => {
+  describe("setIpvSessionId", () => {
+    let axiosResponse;
+
     beforeEach(() => {
       req = {
         query: {
@@ -36,33 +38,6 @@ describe("oauth middleware", () => {
           redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
           unusedParam: "not used",
         },
-        session: {},
-      };
-    });
-
-    it("should save authParams to session", async function () {
-      await middleware.addAuthParamsToSession(req, res, next);
-
-      expect(req.session.authParams).to.deep.equal({
-        response_type: req.query.response_type,
-        client_id: req.query.client_id,
-        state: req.query.state,
-        redirect_uri: req.query.redirect_uri,
-      });
-    });
-
-    it("should call next", async function () {
-      await middleware.addAuthParamsToSession(req, res, next);
-
-      expect(next).to.have.been.called;
-    });
-  });
-
-  describe("setIpvSessionId", () => {
-    let axiosResponse;
-
-    beforeEach(() => {
-      req = {
         session: {
           ipvSessionId: {},
         }

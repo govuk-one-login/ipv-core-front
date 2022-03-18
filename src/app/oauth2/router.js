@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  addAuthParamsToSession,
   redirectToCallback,
   redirectToDebugPage,
   redirectToJourney,
@@ -13,7 +12,6 @@ const {
 
 router.get(
   "/debug-authorize",
-  addAuthParamsToSession,
   setIpvSessionId,
   redirectToDebugPage
 );

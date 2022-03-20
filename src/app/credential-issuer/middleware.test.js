@@ -38,7 +38,6 @@ describe("credential issuer middleware", () => {
       expect(next).to.have.been.called;
     });
   });
-
   describe("sendParamsToAPI", function () {
     let req;
     let res;
@@ -135,5 +134,44 @@ describe("credential issuer middleware", () => {
 
       expect(res.error).to.be.eql("Error");
     });
+  });
+  describe("tryHandleRedirectError", async function () {
+    let req;
+    let res;
+    let next;
+    let axiosStub = {};
+    let configStub = {};
+    let middleware;
+
+    const error = 'access_denied';
+    const error_description = 'restart '
+
+    beforeEach(() => {
+      configStub.API_BASE_URL = "https://example.net/path";
+
+      middleware = proxyquire("./middleware", {
+       axios: axiosStub,
+        "../../lib/config": configStub,
+      });
+
+      req = {
+        url: `/callback`,
+        query: {error, error_description}
+      };
+
+      res = {
+        status: sinon.fake(),
+        render: sinon.fake()
+      };
+      next = sinon.fake();
+    });
+
+    it("should report error to journey api and render cri error template", async () => {
+      axiosStub.post = sinon.fake.returns({});
+      await middleware.tryHandleRedirectError(req, res, next);
+      expect(axiosStub.post).to.have.been.calledWith(`${configStub.API_BASE_URL}/event/cri/error`)
+      expect(res.render).to.have.been.calledWith('error/credential-issuer', {error, error_description})
+    })
+
   });
 });

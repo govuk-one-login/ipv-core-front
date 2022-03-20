@@ -46,4 +46,16 @@ module.exports = {
       next(error);
     }
   },
-};
+  tryHandleRedirectError : async (req, res, next)  => {
+    try {
+      const {error, error_description} = req.query;
+      if(error || error_description) {
+        await axios.post(`${API_BASE_URL}/event/cri/error`)
+        return res.render("error/credential-issuer", {error, error_description})
+      }
+    } catch (error) {
+      next(error)
+    }
+    next()
+  },
+ };

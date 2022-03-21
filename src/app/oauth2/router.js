@@ -7,17 +7,19 @@ const {
   redirectToDebugPage,
   redirectToJourney,
   retrieveAuthorizationCode,
-  setIpvSessionId,
+  setIpvSessionId, setDebugJourneyType, setRealJourneyType,
 } = require("./middleware");
 
 router.get(
   "/debug-authorize",
+  setDebugJourneyType,
   setIpvSessionId,
   redirectToDebugPage
 );
 
 router.get(
   "/authorize",
+  setRealJourneyType,
   setIpvSessionId,
   redirectToJourney
 );

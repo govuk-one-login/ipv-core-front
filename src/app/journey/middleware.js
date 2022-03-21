@@ -4,6 +4,7 @@ const {
 } = require("../../lib/config");
 const { getSharedAttributesJwt } = require("../shared/sharedAttributeHelper");
 const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require("../shared/criHelper");
+const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 async function journeyApi(action, ipvSessionId) {
   if(action.startsWith('/')){
@@ -12,11 +13,8 @@ async function journeyApi(action, ipvSessionId) {
 
   return axios.post(
     `${API_BASE_URL}/journey/${action}`,
-    {
-      headers: {
-        "ipv-session-id": ipvSessionId
-      }
-    }
+    {},
+    generateAxiosConfig(ipvSessionId)
   );
 }
 

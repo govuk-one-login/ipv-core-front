@@ -4,15 +4,9 @@ const {
   API_REQUEST_EVIDENCE_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
+const { generateAxiosConfig } = require("../shared/axiosHelper");
 
-function generateAxiosConfig(req) {
-  return {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "ipv-session-id": req.session.ipvSessionId
-      }
-    };
-}
+
 
 module.exports = {
   addCallbackParamsToRequest: async (req, res, next) => {
@@ -35,7 +29,7 @@ module.exports = {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_REQUEST_EVIDENCE_PATH}`,
         evidenceParam,
-        generateAxiosConfig(req)
+        generateAxiosConfig(req.session.ipvSessionId)
       );
       res.status = apiResponse?.status;
 
@@ -58,7 +52,7 @@ module.exports = {
           ["error_description", error_description],
         ]);
 
-        await axios.post(`${API_BASE_URL}/event/cri/error`, errorParams, generateAxiosConfig(req))
+        await axios.post(`${API_BASE_URL}/event/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
         return res.render("errors/credential-issuer", {error, error_description})
       }
     } catch (error) {

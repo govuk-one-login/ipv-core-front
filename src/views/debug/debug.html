@@ -20,7 +20,7 @@
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <a class="govuk-heading-s" href="/credential-issuer/authorize?id={{ cri.id }}">{{cri.name}}</a>
+            <a class="govuk-heading-s" href="/journey/start/{{ cri.id }}">{{cri.name}}</a>
           </dt>
           {% if issuedCredentials[cri.id] %}
             {% set issuedCredential = issuedCredentials[cri.id] %}

@@ -78,7 +78,7 @@ module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
       //valid list of allowed actions for route
-      const allowedActions = ['/next']
+      const allowedActions = ['/next', '/start/PassportIssuer', '/start/FraudIssuer', '/start/AddressIssuer']
       const validAction = allowedActions.find(x => x === req.url)
 
       if(validAction) {

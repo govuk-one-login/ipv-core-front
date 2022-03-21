@@ -5,6 +5,15 @@ const {
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 
+function generateAxiosConfig(req) {
+  return {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "ipv-session-id": req.session.ipvSessionId
+      }
+    };
+}
+
 module.exports = {
   addCallbackParamsToRequest: async (req, res, next) => {
     req.credentialIssuer = {};
@@ -21,18 +30,12 @@ module.exports = {
       ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`],
     ]);
 
-    const config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": req.session.ipvSessionId,
-      },
-    };
 
     try {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_REQUEST_EVIDENCE_PATH}`,
         evidenceParam,
-        config
+        generateAxiosConfig(req)
       );
       res.status = apiResponse?.status;
 
@@ -46,4 +49,21 @@ module.exports = {
       next(error);
     }
   },
-};
+  tryHandleRedirectError : async (req, res, next)  => {
+    try {
+      const {error, error_description} = req.query;
+      if(error || error_description) {
+        const errorParams = new URLSearchParams([
+          ["error", error],
+          ["error_description", error_description],
+        ]);
+
+        await axios.post(`${API_BASE_URL}/event/cri/error`, errorParams, generateAxiosConfig(req))
+        return res.render("errors/credential-issuer", {error, error_description})
+      }
+    } catch (error) {
+      next(error)
+    }
+    next()
+  },
+ };

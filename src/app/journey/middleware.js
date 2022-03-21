@@ -21,34 +21,72 @@ async function journeyApi(action, ipvSessionId) {
 }
 
 async function handleJourneyResponse(req, res, action) {
-  const response = await journeyApi(action, req.session.ipvSessionId);
-  if (response.data?.redirect) {
-    if(response.data?.redirect?.event) {
-      await handleJourneyResponse(req, res, response?.data?.redirect?.event);
-    }
-    if(response.data?.redirect?.cri) {
-      if(!response?.data?.redirect?.cri?.authorizeUrl) {
-        res.error = 'AuthorizeUrl is missing'
-        res.status(500);
-        return;
-      }
+  const response = (await journeyApi(action, req.session.ipvSessionId)).data;
 
-      await getSharedAttributesJwt(req, res);
-      req.cri = response?.data?.redirect?.cri;
-      await buildCredentialIssuerRedirectURL(req, res)
-      return redirectToAuthorize(req, res);
-    }
-    return;
+  if(response?.redirect?.event) {
+    await handleJourneyResponse(req, res, response.redirect.event);
   }
-  if (response?.data?.page?.type) {
-    return res.redirect(`/journey/journeyPage?pageId=${response?.data?.page?.type}`);
+
+  if(response?.redirect?.cri && validateCriResponse(response.redirect.cri, res)){
+    await getSharedAttributesJwt(req, res);
+    req.cri = response.redirect.cri;
+    await buildCredentialIssuerRedirectURL(req, res)
+    return redirectToAuthorize(req, res);
+  }
+
+  if(response.redirect?.client && validateClientResponse(response.redirect.client, res)) {
+    const { callBackUrl, authCode} = response.redirect.client;
+    return res.redirect(`${callBackUrl}?code=${authCode}`);
+  }
+
+  if (response?.page?.type) {
+    return res.redirect(`/journey/journeyPage?pageId=${response.page.type}`);
   }
 }
+
+function validateCriResponse(criResponse, res) {
+  if(!criResponse?.authorizeUrl) {
+    res.error = 'AuthorizeUrl is missing'
+    res.status(500);
+    return false;
+  }
+
+  return true;
+}
+
+function validateClientResponse(client, res) {
+  const { callBackUrl, authCode} = client;
+
+  if(!callBackUrl) {
+    res.error = 'CallBackUrl is missing'
+    res.status(500);
+    return false;
+  }
+
+  if(!authCode) {
+    res.error = 'Authcode is missing'
+    res.status(500);
+    return false;
+  }
+
+  return true;
+}
+
+
 
 module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
-      await handleJourneyResponse(req, res, req.baseURL);
+      //valid list of allowed actions for route
+      const allowedActions = ['/next']
+      const validAction = allowedActions.find(x => x === req.url)
+
+      if(validAction) {
+        await handleJourneyResponse(req, res, validAction);
+      } else {
+        res.status(400)
+      }
+
     } catch (error) {
       next(error);
     }

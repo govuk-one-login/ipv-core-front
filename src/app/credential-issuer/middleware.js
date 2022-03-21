@@ -51,7 +51,7 @@ module.exports = {
       const {error, error_description} = req.query;
       if(error || error_description) {
         await axios.post(`${API_BASE_URL}/event/cri/error`)
-        return res.render("error/credential-issuer", {error, error_description})
+        return res.render("errors/credential-issuer", {error, error_description})
       }
     } catch (error) {
       next(error)

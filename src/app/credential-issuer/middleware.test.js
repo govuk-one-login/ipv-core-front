@@ -170,7 +170,7 @@ describe("credential issuer middleware", () => {
       axiosStub.post = sinon.fake.returns({});
       await middleware.tryHandleRedirectError(req, res, next);
       expect(axiosStub.post).to.have.been.calledWith(`${configStub.API_BASE_URL}/event/cri/error`)
-      expect(res.render).to.have.been.calledWith('error/credential-issuer', {error, error_description})
+      expect(res.render).to.have.been.calledWith('errors/credential-issuer', {error, error_description})
     })
 
   });

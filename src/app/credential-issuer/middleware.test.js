@@ -156,7 +156,8 @@ describe("credential issuer middleware", () => {
 
       req = {
         url: `/callback`,
-        query: {error, error_description}
+        query: {error, error_description},
+        session: { ipvSessionId: "ipv-session-id" },
       };
 
       res = {
@@ -167,9 +168,25 @@ describe("credential issuer middleware", () => {
     });
 
     it("should report error to journey api and render cri error template", async () => {
+
+      const errorParams = new URLSearchParams([
+        ["error", error],
+        ["error_description", error_description],
+      ]);
+
       axiosStub.post = sinon.fake.returns({});
       await middleware.tryHandleRedirectError(req, res, next);
-      expect(axiosStub.post).to.have.been.calledWith(`${configStub.API_BASE_URL}/event/cri/error`)
+
+      expect(axiosStub.post).to.have.been.calledWith(
+        `${configStub.API_BASE_URL}/event/cri/error`,
+        errorParams,
+        sinon.match({
+          headers: {
+            "ipv-session-id": "ipv-session-id",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }));
+
       expect(res.render).to.have.been.calledWith('errors/credential-issuer', {error, error_description})
     })
 

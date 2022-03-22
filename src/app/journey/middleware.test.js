@@ -65,13 +65,13 @@ describe("journey middleware", () => {
     const pageType = 'pageTransition';
     const eventResponses = [
       {
-        data: { redirect: { event: "next" } }
+        data: { journey: "next"  }
       },
       {
-        data: { redirect: { event: "startCri" } }
+        data: { journey: "startCri" }
       },
       {
-        data: { page: { type: pageType } }
+        data: { page:  pageType }
       }
     ];
 
@@ -141,7 +141,9 @@ describe("journey middleware", () => {
     beforeEach(() => {
       eventResponses = [
         {
-          data: { redirect: { cri: { id: 'someid', authorizeUrl: authorizeUrl, request: 'req', ipvClientId: "clientId" } } }
+          data: {
+            cri: { id: 'someid', authorizeUrl: authorizeUrl, request: 'req', ipvClientId: "clientId" }
+          }
         },
       ];
       req = {
@@ -215,7 +217,7 @@ describe("journey middleware", () => {
     beforeEach(() => {
       eventResponses = [
         {
-          data: { redirect: { client: { callBackUrl: callBackUrl , authCode: authCode} } }
+          data: { client: { callBackUrl: callBackUrl , authCode: authCode } }
         },
       ];
 
@@ -247,7 +249,7 @@ describe("journey middleware", () => {
     beforeEach(() => {
       eventResponses = [
         {
-          data: { redirect: { client: { callBackUrl: null , authCode: authCode} } }
+          data: { client: { callBackUrl: null , authCode: authCode} }
         },
       ];
 
@@ -277,7 +279,7 @@ describe("journey middleware", () => {
     beforeEach(() => {
       eventResponses = [
         {
-          data: { redirect: { client: { callBackUrl: callBackUrl , authCode: null} } }
+          data: { client: { callBackUrl: callBackUrl , authCode: null} }
         },
       ];
 

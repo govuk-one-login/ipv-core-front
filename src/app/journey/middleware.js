@@ -21,24 +21,24 @@ async function journeyApi(action, ipvSessionId) {
 async function handleJourneyResponse(req, res, action) {
   const response = (await journeyApi(action, req.session.ipvSessionId)).data;
 
-  if(response?.redirect?.event) {
-    await handleJourneyResponse(req, res, response.redirect.event);
+  if(response?.journey) {
+    await handleJourneyResponse(req, res, response.journey);
   }
 
-  if(response?.redirect?.cri && validateCriResponse(response.redirect.cri, res)){
+  if(response?.cri && validateCriResponse(response.cri, res)){
     await getSharedAttributesJwt(req, res);
-    req.cri = response.redirect.cri;
+    req.cri = response.cri;
     await buildCredentialIssuerRedirectURL(req, res)
     return redirectToAuthorize(req, res);
   }
 
-  if(response.redirect?.client && validateClientResponse(response.redirect.client, res)) {
-    const { callBackUrl, authCode} = response.redirect.client;
+  if(response?.client && validateClientResponse(response.client, res)) {
+    const { callBackUrl, authCode} = response.client;
     return res.redirect(`${callBackUrl}?code=${authCode}`);
   }
 
-  if (response?.page?.type) {
-    return res.redirect(`/journey/journeyPage?pageId=${response.page.type}`);
+  if (response?.page) {
+    return res.redirect(`/journey/journeyPage?pageId=${response.page}`);
   }
 }
 

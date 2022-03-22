@@ -49,7 +49,7 @@ describe("credential issuer middleware", () => {
     let middleware;
 
     beforeEach(() => {
-      configStub.API_REQUEST_EVIDENCE_PATH = "/ADD-EVIDENCE";
+      configStub.API_CRI_RETURN_PATH = "/ADD-EVIDENCE";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";

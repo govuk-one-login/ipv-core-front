@@ -1,7 +1,7 @@
 const axios = require("axios");
 const {
   API_BASE_URL,
-  API_REQUEST_EVIDENCE_PATH,
+  API_CRI_RETURN_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
@@ -27,7 +27,7 @@ module.exports = {
 
     try {
       const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_REQUEST_EVIDENCE_PATH}`,
+        `${API_BASE_URL}${API_CRI_RETURN_PATH}`,
         evidenceParam,
         generateAxiosConfig(req.session.ipvSessionId)
       );

@@ -65,10 +65,10 @@ describe("journey middleware", () => {
     const pageType = 'pageTransition';
     const eventResponses = [
       {
-        data: { journey: "next"  }
+        data: { journey: "journey/next"  }
       },
       {
-        data: { journey: "startCri" }
+        data: { journey: "journey/startCri" }
       },
       {
         data: { page:  pageType }
@@ -82,9 +82,16 @@ describe("journey middleware", () => {
       callBack.onCall(index).returns(eventResponses[index]);
     });
 
+    const headers = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'ipv-session-id': 'ipv-session-id'
+      }
+    }
+
     beforeEach(() => {
       req = {
-        url: "/next",
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
@@ -96,9 +103,9 @@ describe("journey middleware", () => {
 
     it("should have called the network in the correct sequence", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(axiosStub.post.getCall(0)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/next`);
-      expect(axiosStub.post.getCall(1)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/next`);
-      expect(axiosStub.post.getCall(2)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/startCri`);
+      expect(axiosStub.post.getCall(0)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/next`, {}, headers);
+      expect(axiosStub.post.getCall(1)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/next`, {}, headers);
+      expect(axiosStub.post.getCall(2)).to.have.been.calledWith(`${configStub.API_BASE_URL}/journey/startCri`, {}, headers);
     });
   });
 
@@ -147,7 +154,7 @@ describe("journey middleware", () => {
         },
       ];
       req = {
-        url: "/next",
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -179,7 +186,7 @@ describe("journey middleware", () => {
         },
       ];
       req = {
-        url: "/start/PassportIssuer",
+        url: "/journey/start/PassportIssuer",
         session: { ipvSessionId: "ipv-session-id" },
       };
       await middleware.updateJourneyState(req, res, next);
@@ -222,7 +229,7 @@ describe("journey middleware", () => {
       ];
 
       req = {
-        url: "/next",
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -254,7 +261,7 @@ describe("journey middleware", () => {
       ];
 
       req = {
-        url: "/next",
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -284,7 +291,7 @@ describe("journey middleware", () => {
       ];
 
       req = {
-        url: "/next",
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
 

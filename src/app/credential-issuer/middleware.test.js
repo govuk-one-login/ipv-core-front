@@ -109,11 +109,14 @@ describe("credential issuer middleware", () => {
     });
 
     it("should call /journey/next", async () => {
+      axiosResponse.data = {
+        journey: "/journey/next"
+      };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith("/journey/next");
+      expect(res.redirect).to.have.been.calledWith("/journey/journey/next");
     });
 
     it("should send code to core backend and return with a 404 response", async () => {

@@ -13,7 +13,7 @@ module.exports = {
   API_ISSUED_CREDENTIALS_PATH: "/issued-credentials",
   API_SHARED_ATTRIBUTES_JWT_PATH: "/shared-attributes",
   API_REQUEST_CONFIG_PATH: "/request-config",
-  API_REQUEST_EVIDENCE_PATH: "/request-evidence",
+  API_CRI_RETURN_PATH: "/journey/cri/return",
   AUTH_PATH: "/authorize",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,

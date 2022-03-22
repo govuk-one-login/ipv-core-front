@@ -11,7 +11,7 @@ module.exports = {
   },
 
   redirectToJourney: async (req, res) => {
-    res.redirect("/journey/next");
+    res.redirect("/journey/journey/next");
   },
 
   setDebugJourneyType: (req, res, next) => {

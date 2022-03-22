@@ -121,7 +121,7 @@ describe("oauth middleware", () => {
     it("should redirect to journey route", () => {
       middleware.redirectToJourney(req, res);
 
-      expect(res.redirect).to.have.been.calledWith("/journey/next");
+      expect(res.redirect).to.have.been.calledWith("/journey/journey/next");
     });
   });
 

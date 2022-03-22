@@ -12,7 +12,7 @@ async function journeyApi(action, ipvSessionId) {
   }
 
   return axios.post(
-    `${API_BASE_URL}/journey/${action}`,
+    `${API_BASE_URL}/${action}`,
     {},
     generateAxiosConfig(ipvSessionId)
   );
@@ -38,7 +38,7 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if (response?.page) {
-    return res.redirect(`/journey/journeyPage?pageId=${response.page}`);
+     return res.redirect(`/journey/journeyPage?pageId=${response.page}`);
   }
 }
 
@@ -76,7 +76,7 @@ module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
       //valid list of allowed actions for route
-      const allowedActions = ['/next', '/start/PassportIssuer', '/start/FraudIssuer', '/start/AddressIssuer']
+      const allowedActions = ['/journey/next', '/journey/start/PassportIssuer', '/journey/start/FraudIssuer', '/journey/start/AddressIssuer']
       const validAction = allowedActions.find(x => x === req.url)
 
       if(validAction) {
@@ -89,7 +89,6 @@ module.exports = {
       next(error);
     }
 
-    next();
   },
   handleJourneyPage: async (req, res, next) => {
     try {

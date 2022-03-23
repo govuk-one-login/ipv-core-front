@@ -116,7 +116,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith("/journey/journey/next");
+      expect(res.redirect).to.have.been.calledWith("/ipv/journey/next");
     });
 
     it("should send code to core backend and return with a 404 response", async () => {

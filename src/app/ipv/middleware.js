@@ -38,7 +38,7 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if (response?.page) {
-     return res.redirect(`/journey/journeyPage?pageId=${response.page}`);
+     return res.redirect(`/ipv/journeyPage?pageId=${response.page}`);
   }
 }
 
@@ -76,7 +76,7 @@ module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
       //valid list of allowed actions for route
-      const allowedActions = ['/journey/next', '/journey/start/PassportIssuer', '/journey/start/FraudIssuer', '/journey/start/AddressIssuer']
+      const allowedActions = ['/journey/next', '/journey/cri/start/ukPassport', '/journey/cri/start/fraud', '/journey/cri/start/address', '/journey/cri/start/kbv', '/journey/cri/start/activityHistory', '/journey/session/end']
       const validAction = allowedActions.find(x => x === req.url)
 
       if(validAction) {
@@ -94,10 +94,12 @@ module.exports = {
     try {
       const {pageId} = req.query;
       switch (pageId) {
-        case 'transition':
-          return res.render('journey/transition')
+        case 'page-ipv-debug':
+          return res.redirect("/debug");
+        case 'page-transition-default':
+          return res.render('ipv/page-transition-default')
         default:
-          return res.render(`journey/${pageId}`);
+          return res.render(`ipv/${pageId}`);
       }
     } catch (error) {
       res.error = error.name;

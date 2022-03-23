@@ -33,7 +33,7 @@ module.exports = {
       );
       res.status = apiResponse?.status;
 
-      res.redirect("/journey/next")
+      res.redirect(`/journey${apiResponse.data?.journey}`);
     } catch (error) {
       if (error?.response?.status === 404) {
         res.status = error.response.status;

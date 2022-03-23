@@ -33,8 +33,8 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if(response?.client && validateClientResponse(response.client, res)) {
-    const { callBackUrl, authCode} = response.client;
-    return res.redirect(`${callBackUrl}?code=${authCode}`);
+    const { redirectUrl, authCode} = response.client;
+    return res.redirect(`${redirectUrl}?code=${authCode}`);
   }
 
   if (response?.page) {
@@ -53,10 +53,10 @@ function validateCriResponse(criResponse, res) {
 }
 
 function validateClientResponse(client, res) {
-  const { callBackUrl, authCode} = client;
+  const { redirectUrl, authCode} = client;
 
-  if(!callBackUrl) {
-    res.error = 'CallBackUrl is missing'
+  if(!redirectUrl) {
+    res.error = 'Redirect url is missing'
     res.status(500);
     return false;
   }

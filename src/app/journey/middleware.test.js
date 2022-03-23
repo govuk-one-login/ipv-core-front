@@ -219,12 +219,12 @@ describe("journey middleware", () => {
   context("handling Client event response", () => {
     let eventResponses = [];
 
-    const callBackUrl = 'https://someurl.org';
+    const redirectUrl = 'https://someurl.org';
     const authCode = 'ABC123'
     beforeEach(() => {
       eventResponses = [
         {
-          data: { client: { callBackUrl: callBackUrl , authCode: authCode } }
+          data: { client: { redirectUrl: redirectUrl , authCode: authCode } }
         },
       ];
 
@@ -244,7 +244,7 @@ describe("journey middleware", () => {
 
     it("should be redirected to a valid Client URL with Authcode", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.be.calledWith(`${callBackUrl}?code=${authCode}`);
+      expect(res.redirect).to.be.calledWith(`${redirectUrl}?code=${authCode}`);
   });
 });
 

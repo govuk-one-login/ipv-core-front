@@ -4,10 +4,18 @@
 
 
 {% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">CRI transition page</h1>
 
-  {{ govukButton({
-    text: "Continue"
-    href:"/ipv/journey/next"
-  }) }}
-
+          {{ govukButton({
+          text: "Continue",
+          href:"/ipv/journey/next"
+          }) }}
+        </div>
+      </div>
+    </main>
+  </div>
 {% endblock %}

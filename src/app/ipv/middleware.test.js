@@ -98,7 +98,7 @@ describe("journey middleware", () => {
 
     it("should redirect to journey transition page with message in query string", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(`/journey/journeyPage?pageId=${pageType}`);
+      expect(res.redirect).to.have.been.calledWith(`/ipv/journeyPage?pageId=${pageType}`);
     });
 
     it("should have called the network in the correct sequence", async function() {
@@ -112,18 +112,18 @@ describe("journey middleware", () => {
   context('calling the journeyPage endpoint', () => {
     beforeEach(() => {
       req = {
-        url: "/journey/journeyPage",
+        url: "/ipv/journeyPage",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
 
     it("should render generic transition page when given a valid pageId", async () => {
       req = {
-        query: { pageId: 'transition' },
+        query: { pageId: 'page-transition-default' },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("journey/transition");
+      expect(res.render).to.have.been.calledWith("ipv/page-transition-default");
     });
 
     it("should render default case when given valid pageId", async () => {
@@ -132,7 +132,7 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("journey/page-cri-start");
+      expect(res.render).to.have.been.calledWith("ipv/page-cri-start");
     });
 
     it("should raise an error when missing pageId", async () => {
@@ -186,7 +186,7 @@ describe("journey middleware", () => {
         },
       ];
       req = {
-        url: "/journey/start/PassportIssuer",
+        url: "/journey/cri/start/ukPassport",
         session: { ipvSessionId: "ipv-session-id" },
       };
       await middleware.updateJourneyState(req, res, next);

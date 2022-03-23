@@ -20,7 +20,7 @@
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <a class="govuk-heading-s" href="/journey/start/{{ cri.id }}">{{cri.name}}</a>
+            <a class="govuk-heading-s" href="/ipv/journey/cri/start/{{ cri.id }}">{{cri.name}}</a>
           </dt>
           {% if issuedCredentials[cri.id] %}
             {% set issuedCredential = issuedCredentials[cri.id] %}
@@ -60,9 +60,9 @@
                 Return
               </dt>
               <dd class="govuk-summary-list__value">
-                <form action="/oauth2/authorize" method="POST">
-                  <input type="submit" class="govuk-button" data-module="govuk-button" value="Authorize and Return">
-                </form>
+                <a href="/ipv/journey/session/end">
+                  <input type="button" class="govuk-button" data-module="govuk-button" value="Authorize and Return">
+                </a>
               </dd>
             </div>
           </dl>

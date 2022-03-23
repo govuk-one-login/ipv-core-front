@@ -1,0 +1,13 @@
+{% extends "hmpo-template.njk" %}
+{% set hmpoPageKey = "pageCriTransition" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% block main %}
+
+  {{ govukButton({
+    text: "Continue"
+    href:"/ipv/journey/next"
+  }) }}
+
+{% endblock %}

@@ -52,7 +52,7 @@ module.exports = {
           ["error_description", error_description],
         ]);
 
-        await axios.post(`${API_BASE_URL}/event/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
+        await axios.post(`${API_BASE_URL}/journey/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
         return res.render("errors/credential-issuer", {error, error_description})
       }
     } catch (error) {

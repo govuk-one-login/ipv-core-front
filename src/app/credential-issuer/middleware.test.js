@@ -181,7 +181,7 @@ describe("credential issuer middleware", () => {
       await middleware.tryHandleRedirectError(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/event/cri/error`,
+        `${configStub.API_BASE_URL}/journey/cri/error`,
         errorParams,
         sinon.match({
           headers: {

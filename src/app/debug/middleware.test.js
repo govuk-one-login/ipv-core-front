@@ -169,7 +169,7 @@ describe("debug middleware", () => {
     it("should render debug page", () => {
       middleware.renderDebugPage(req, res);
 
-      expect(res.render).to.have.been.calledWith("debug/debug");
+      expect(res.render).to.have.been.calledWith("debug/page-ipv-debug");
     });
   });
 });

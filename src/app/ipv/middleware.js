@@ -25,14 +25,14 @@ async function handleJourneyResponse(req, res, action) {
     await handleJourneyResponse(req, res, response.journey);
   }
 
-  if(response?.cri && validateCriResponse(response.cri, res)){
+  if(response?.cri && tryValidateCriResponse(response.cri)){
     await getSharedAttributesJwt(req, res);
     req.cri = response.cri;
     await buildCredentialIssuerRedirectURL(req, res)
     return redirectToAuthorize(req, res);
   }
 
-  if(response?.client && validateClientResponse(response.client, res)) {
+  if(response?.client && tryValidateClientResponse(response.client)) {
     const { redirectUrl, authCode} = response.client;
     return res.redirect(`${redirectUrl}?code=${authCode}`);
   }
@@ -42,35 +42,27 @@ async function handleJourneyResponse(req, res, action) {
   }
 }
 
-function validateCriResponse(criResponse, res) {
+function tryValidateCriResponse(criResponse) {
   if(!criResponse?.authorizeUrl) {
-    res.error = 'AuthorizeUrl is missing'
-    res.status(500);
-    return false;
+    throw new Error(`CRI response AuthorizeUrl is missing`)
   }
 
   return true;
 }
 
-function validateClientResponse(client, res) {
+function tryValidateClientResponse(client) {
   const { redirectUrl, authCode} = client;
 
   if(!redirectUrl) {
-    res.error = 'Redirect url is missing'
-    res.status(500);
-    return false;
+    throw new Error(`Client Response Redirect url is missing`)
   }
 
   if(!authCode) {
-    res.error = 'Authcode is missing'
-    res.status(500);
-    return false;
+    throw new Error(`Client Response Authcode is missing is missing`)
   }
 
   return true;
 }
-
-
 
 module.exports = {
   updateJourneyState: async (req, res, next) => {
@@ -82,7 +74,7 @@ module.exports = {
       if(validAction) {
         await handleJourneyResponse(req, res, validAction);
       } else {
-        res.status(400)
+        next(new Error(`Action ${req.url} not valid`));
       }
 
     } catch (error) {

@@ -18,7 +18,7 @@ module.exports = {
       );
 
       const sharedAttributesJwt = apiResponse?.data;
-      const base64regex = /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/;
+      const base64regex = /^([A-Za-z0-9-_=]+\.){2}([A-Za-z0-9-_=]+)$/;
 
       if (!sharedAttributesJwt) {
         res.status(500);

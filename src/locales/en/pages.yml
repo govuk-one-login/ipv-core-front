@@ -1,16 +1,8 @@
 index:
   title: di-ipv-core-front
 
-pageIpvStart:
-  title: Start page
-  content:
-    - "Example content - This is the first transition page a user will see"
-
 pageIpvError:
   title: Error page
-
-pageCriTransition:
-  title: CRI Transition page
 
 pageIpvEnd:
   title: End page

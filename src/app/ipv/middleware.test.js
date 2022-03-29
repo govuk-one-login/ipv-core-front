@@ -53,9 +53,9 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should return 400", async function() {
+    it("should call next with error message", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.status).to.have.been.calledWith(400);
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Action /foo not valid'));
     });
 
 
@@ -273,20 +273,20 @@ describe("journey middleware", () => {
       });
     });
 
-    it("status error is callBackUrl is missing", async function() {
+    it("should call next with error message Redirect url is missing", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.status).to.have.been.calledWith(500);
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response Redirect url is missing'));
     });
   });
 
   context("handling missing authCode Client event response", () => {
     let eventResponses = [];
 
-    const callBackUrl = 'https://someurl.org';
+    const redirectUrl = 'https://someurl.org';
     beforeEach(() => {
       eventResponses = [
         {
-          data: { client: { callBackUrl: callBackUrl , authCode: null} }
+          data: { client: { redirectUrl , authCode: null} }
         },
       ];
 
@@ -303,9 +303,9 @@ describe("journey middleware", () => {
       });
     });
 
-    it("status error is authCode is missing", async function() {
+    it("should call next with error message authCode is missing", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.status).to.have.been.calledWith(500);
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response Authcode is missing is missing'));
     });
   });
 })

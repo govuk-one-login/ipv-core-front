@@ -2,7 +2,6 @@ const axios = require("axios");
 const {
   API_BASE_URL,
   API_CRI_RETURN_PATH,
-  EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
@@ -21,7 +20,6 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", req.query.id],
-      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`],
     ]);
 
 

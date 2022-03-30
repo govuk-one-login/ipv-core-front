@@ -33,8 +33,12 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if(response?.client && tryValidateClientResponse(response.client)) {
-    const { redirectUrl, authCode} = response.client;
-    return res.redirect(`${redirectUrl}?code=${authCode}`);
+    const { redirectUrl, authCode, state} = response.client;
+    let redirectWithQueryParams = `${redirectUrl}?code=${authCode}`
+    if (response.client.state) {
+      redirectWithQueryParams += `&state=${state}`
+    }
+    return res.redirect(redirectWithQueryParams);
   }
 
   if (response?.page) {
@@ -54,11 +58,11 @@ function tryValidateClientResponse(client) {
   const { redirectUrl, authCode} = client;
 
   if(!redirectUrl) {
-    throw new Error(`Client Response Redirect url is missing`)
+    throw new Error(`Client Response redirect url is missing`)
   }
 
   if(!authCode) {
-    throw new Error(`Client Response Authcode is missing is missing`)
+    throw new Error(`Client Response authcode is missing`)
   }
 
   return true;

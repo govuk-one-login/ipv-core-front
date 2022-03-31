@@ -221,42 +221,54 @@ describe("journey middleware", () => {
 
     const redirectUrl = 'https://someurl.org';
     const authCode = 'ABC123'
+    const state = 'test-state'
+
+    const callBack = sinon.stub();
+
     beforeEach(() => {
+
+      axiosStub.post = callBack;
+
       eventResponses = [
+        {
+          data: { client: { redirectUrl: redirectUrl , authCode: authCode, state: state } }
+        },
         {
           data: { client: { redirectUrl: redirectUrl , authCode: authCode } }
         },
       ];
 
-      req = {
-        url: "/journey/next",
-        session: { ipvSessionId: "ipv-session-id" },
-      };
-
-      const callBack = sinon.stub();
-      axiosStub.post = callBack;
-
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
 
+      req = {
+        url: "/journey/next",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
     });
 
-    it("should be redirected to a valid Client URL with Authcode", async function() {
+    it("should be redirected to a valid Client URL with Authcode and state", async function() {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.redirect).to.be.calledWith(`${redirectUrl}?code=${authCode}&state=${state}`);
+    });
+
+    it("should be redirected to a valid Client URL with Authcode when no state is provided", async function() {
       await middleware.updateJourneyState(req, res, next);
       expect(res.redirect).to.be.calledWith(`${redirectUrl}?code=${authCode}`);
+    });
   });
-});
 
   context("handling missing callBackUrl Client event response", () => {
     let eventResponses = [];
 
     const authCode = 'ABC123'
+    const state = 'test-state'
 
     beforeEach(() => {
       eventResponses = [
         {
-          data: { client: { callBackUrl: null , authCode: authCode} }
+          data: { client: { redirectUrl: null , authCode: authCode, state: state} }
         },
       ];
 
@@ -275,7 +287,7 @@ describe("journey middleware", () => {
 
     it("should call next with error message Redirect url is missing", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response Redirect url is missing'));
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response redirect url is missing'));
     });
   });
 
@@ -283,10 +295,12 @@ describe("journey middleware", () => {
     let eventResponses = [];
 
     const redirectUrl = 'https://someurl.org';
+    const state = 'test-state'
+
     beforeEach(() => {
       eventResponses = [
         {
-          data: { client: { redirectUrl , authCode: null} }
+          data: { client: { redirectUrl: redirectUrl, authCode: null, state: state} }
         },
       ];
 
@@ -305,7 +319,7 @@ describe("journey middleware", () => {
 
     it("should call next with error message authCode is missing", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response Authcode is missing is missing'));
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response authcode is missing'));
     });
   });
 })

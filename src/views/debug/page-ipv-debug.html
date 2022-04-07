@@ -20,15 +20,15 @@
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <a class="govuk-heading-s" href="/ipv/journey/cri/start/{{ cri.id }}">{{cri.name}}</a>
+            <a id="cri-link-{{ cri.id }}" class="govuk-heading-s" href="/ipv/journey/cri/start/{{ cri.id }}">{{cri.name}}</a>
           </dt>
           {% if issuedCredentials[cri.id] %}
             {% set issuedCredential = issuedCredentials[cri.id] %}
             <dd class="govuk-summary-list__value">
               <h3 class="govuk-heading-s">GPG45 Score</h3>
 
-              {% if issuedCredential.gpg45Score|length %}
-                <pre>{{ issuedCredential.gpg45Score | dump(2) }}</pre>
+              {% if issuedCredential.evidence|length %}
+                <pre>{{ issuedCredential.evidence | dump(2) }}</pre>
               {% else %}
                 <p class="govuk-body">No GPG45 score found for this issued credential.<p class="govuk-body">
               {% endif %}

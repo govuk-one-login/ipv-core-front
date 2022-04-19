@@ -1013,15 +1013,10 @@ decompress-response@^3.3.0:
   dependencies:
     mimic-response "^1.0.0"
 
-deep-clone-merge@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.2.tgz#6f0de61c8303c412b26316d3c359b657127d4409"
-  integrity sha512-L7uj428fAzPsSZoMmEH8QT62bOd9ZAifYo9c1H5omewOxQdPV0khjX8q4grPsuvMNo7X7B6BmDQPiLg3LBvzyA==
-
-deep-clone-merge@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.3.tgz#20bd56815546c451c05745d5c177b8a4b4b751b2"
-  integrity sha512-EC1JkJkChD+K038oGnV2E/aNcYw9OcNA1lQtZXPO3vzcXpik/FfDX/pP/mnBgDXX72bVsjhqI0wLXBSvDGENzg==
+deep-clone-merge@^1.5.2, deep-clone-merge@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.4.tgz#d2ecb85bc1bf8bb9313dd118c6674f690ae94677"
+  integrity sha512-Gb/b8aAFUeX/ZkQwfpYlzVXaUOnHj0jPmh8uwF0eBGhAuFMZA1IxeuSzLGG4B1lzrp0SZsd3UhL6zvhDY7l6ZQ==
 
 deep-eql@^3.0.1:
   version "3.0.1"
@@ -1788,13 +1783,13 @@ hmpo-app@1.0.2:
     underscore "^1.13.1"
     uuid "^8.3.2"
 
-hmpo-components@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.1.0.tgz#07a21e927b092ae902faa4d856c9b95710015ed7"
-  integrity sha512-OhszOQdfS+uQq32Rd/hu/BDeKxDW0DxDio5DftN6fVzvvao4r7W4L4xoQvJrqsjolzQHbyca52VJoQIyaq/Xgw==
+hmpo-components@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.3.0.tgz#922dcdad7767b59cd1b4fe6e823beac8313cf6db"
+  integrity sha512-zU7zn9d3tDKq3sONScASI/ld660hkY+OAQ8saLp48MRo071OkDORjDHKGnFkx0xoQwUlPOnzxHzW7zqlAfdAiw==
   dependencies:
-    deep-clone-merge "^1.5.3"
-    moment "^2.29.1"
+    deep-clone-merge "^1.5.4"
+    moment "^2.29.2"
     underscore "^1.13.2"
 
 hmpo-config@2.2.0:
@@ -2572,10 +2567,10 @@ module-not-found-error@^1.0.1:
   resolved "https://registry.yarnpkg.com/module-not-found-error/-/module-not-found-error-1.0.1.tgz#cf8b4ff4f29640674d6cdd02b0e3bc523c2bbdc0"
   integrity sha1-z4tP9PKWQGdNbN0CsOO8UjwrvcA=
 
-moment@^2.29.1:
-  version "2.29.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
-  integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==
+moment@^2.29.1, moment@^2.29.2:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.3.tgz#edd47411c322413999f7a5940d526de183c031f3"
+  integrity sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==
 
 ms@2.0.0:
   version "2.0.0"

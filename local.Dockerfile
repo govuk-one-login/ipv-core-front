@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine
+FROM node:18.0.0-alpine
 ENV PORT 3000
 WORKDIR /app
 RUN yarn set version 1.22.17

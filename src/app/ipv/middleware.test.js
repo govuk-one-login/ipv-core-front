@@ -14,10 +14,6 @@ describe("journey middleware", () => {
     EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org"
   };
 
-  const sharedAttributeHelper = proxyquire("../shared/sharedAttributeHelper", {
-    axios: axiosStub,
-    "../../lib/config": configStub,
-  });
 
   const sharedCriHelper = proxyquire("../shared/criHelper", {
     axios: axiosStub,
@@ -27,7 +23,6 @@ describe("journey middleware", () => {
   const middleware = proxyquire("./middleware", {
     axios: axiosStub,
     "../../lib/config": configStub,
-    "../shared/sharedAttributeHelper": sharedAttributeHelper,
     "../shared/../shared/criHelper": sharedCriHelper,
   });
 
@@ -149,7 +144,7 @@ describe("journey middleware", () => {
       eventResponses = [
         {
           data: {
-            cri: { id: 'someid', authorizeUrl: authorizeUrl, request: 'req', ipvClientId: "clientId" }
+            cri: { id: 'someid', authorizeUrl: authorizeUrl, ipvClientId: "clientId", request: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw=='}
           }
         },
       ];
@@ -165,13 +160,6 @@ describe("journey middleware", () => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
 
-      const getStub = sinon.stub();
-      getStub.withArgs(`${configStub.API_BASE_URL}${configStub.API_SHARED_ATTRIBUTES_JWT_PATH}`,
-        {
-          headers : {"ipv-session-id": req.session.ipvSessionId}
-        })
-        .returns({data: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw=='})
-      axiosStub.get = getStub;
     });
 
     it("should be redirected to a valid redirectURL", async function() {

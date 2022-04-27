@@ -14,7 +14,7 @@ module.exports = {
     req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
     req.redirectURL.searchParams.append("state", "test-state");
     req.redirectURL.searchParams.append("redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${cri.id}`);
-    req.redirectURL.searchParams.append("request", req.session.sharedAttributesJwt);
+    req.redirectURL.searchParams.append("request", cri.request);
 
     if(next) {
       next();

@@ -2,7 +2,6 @@ const axios = require("axios");
 const {
   API_BASE_URL
 } = require("../../lib/config");
-const { getSharedAttributesJwt } = require("../shared/sharedAttributeHelper");
 const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require("../shared/criHelper");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
@@ -26,7 +25,6 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if(response?.cri && tryValidateCriResponse(response.cri)){
-    await getSharedAttributesJwt(req, res);
     req.cri = response.cri;
     await buildCredentialIssuerRedirectURL(req, res)
     return redirectToAuthorize(req, res);

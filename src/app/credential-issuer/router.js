@@ -9,9 +9,8 @@ const {
 } = require("./middleware");
 
 const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require('../shared/criHelper');
-const { getSharedAttributesJwt } = require('../shared/sharedAttributeHelper');
 
-router.get("/authorize", getSharedAttributesJwt, buildCredentialIssuerRedirectURL, redirectToAuthorize);
+router.get("/authorize", buildCredentialIssuerRedirectURL, redirectToAuthorize);
 
 router.get(
   "/callback",

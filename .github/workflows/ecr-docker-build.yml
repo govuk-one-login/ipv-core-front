@@ -2,7 +2,7 @@ name: Docker build and push to ECR
 on:
   push:
     branches:
-      - PYIC-1018-docker_ecr_build
+      - main
 jobs:
   dockerBuildAndPush:
     name: Docker build and push
@@ -35,7 +35,6 @@ jobs:
           cd ${GITHUB_WORKSPACE}
           docker build -t "core-front-build:${IMAGE_TAG}" .
           docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
-          docker image ls
       - name: Push docker image
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}

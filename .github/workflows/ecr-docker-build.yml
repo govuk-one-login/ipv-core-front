@@ -23,13 +23,29 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
+      - name: Create tag
+        id: create-tag
+        run: |
+          IMAGE_TAG="${{ github.sha }}-$(date +'%Y-%m-%d-%H%M%S')"
+          echo "::set-output name=image_tag::$IMAGE_TAG"
       - name: Build docker image
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE}
-          docker build -t core-front-build:${{ github.sha }} .
-          docker tag core-front-build:${{ github.sha }} ${{ steps.login-ecr.outputs.registry }}/core-front-build:${{ github.sha }}
+          docker build -t "core-front-build:${IMAGE_TAG}" .
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
           docker image ls
-          uname -a
       - name: Push docker image
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          docker push ${{ steps.login-ecr.outputs.registry }}/core-front-build:${{ github.sha }}
+          docker push "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
+      - name: Create template.yaml and sha zip file and upload to artifacts S3
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy
+          echo "${IMAGE_TAG}" > image_tag.txt
+          zip template.zip template.yaml image_tag.txt
+          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/

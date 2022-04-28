@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: write
+      contents: read
     environment: test
     steps:
       - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
@@ -29,6 +29,7 @@ jobs:
           docker build -t core-front-build:${{ github.sha }} .
           docker tag core-front-build:${{ github.sha }} ${{ steps.login-ecr.outputs.registry }}/core-front-build:${{ github.sha }}
           docker image ls
+          uname -a
       - name: Push docker image
         run: |
           docker push ${{ steps.login-ecr.outputs.registry }}/core-front-build:${{ github.sha }}

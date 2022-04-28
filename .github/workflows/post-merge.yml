@@ -1,4 +1,4 @@
-name: Docker build and push to ECR
+name: Docker build, ECR push, template copy to S3 
 on:
   push:
     branches:
@@ -32,7 +32,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE}
+          cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:${IMAGE_TAG}" .
           docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
       - name: Push docker image
@@ -44,7 +44,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy
+          cd ${GITHUB_WORKSPACE}/deploy || exit 1
           echo "${IMAGE_TAG}" > image_tag.txt
           zip template.zip template.yaml image_tag.txt
           aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/

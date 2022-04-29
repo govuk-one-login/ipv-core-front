@@ -1,0 +1,271 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >-
+  This creates the necessary components to deploy IPV Core Front onto ECS
+  Fargate within an existing VPC and private subnets (provided as parameters).
+  Core Front can be invoked via the public API Gateway on the url in the
+  CoreFrontUrl output.
+
+  The ingress route in summary is: API Gateway -> VPC link -> private ALB ->
+  Core Front ECS Service
+
+  Core Front egress to Core Back's API Gateway is via a NAT Gateway, not created
+  here, which should have a route in the provided private subnets' route table.
+
+Parameters:
+  Environment:
+    Description: The name of the environment to deploy to.
+    Type: String
+    AllowedValues:
+      - development
+      - build
+      - staging
+      - integration
+      - production
+  ImageTag:
+    Description: The tag of core-front image to deploy in the task definition.
+    Type: String
+  ApiBaseUrl:
+    Description: The url for the core internal API gateway.
+    Type: String
+  SubnetIds:
+    Description: >-
+      A comma separated list of subnet ids to create the ECS service and Load Balancer
+      within. Each subnet must have a route to a public NAT gateway since
+      the ECS Service are provisioned without a public IP address.
+      Example "sg-123, sg-567, sg-8910"
+    Type: List<String>
+  VpcId:
+    Description: >-
+      The VPC id in which to create the components.
+      Example "vpc-123"
+    Type: String
+  DesiredTaskCount:
+    Description: >-
+      The number of core front ecs tasks to run.
+    Type: Number
+
+Resources:
+  # Security Groups for the ECS service and load balancer
+  LoadBalancerSG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: >-
+        Core Front LoadBalancer Security Group
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow from anyone on port 80
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+      VpcId: !Ref VpcId
+
+  LoadBalancerSGEgressToECSSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroupEgress'
+    Properties:
+      GroupId: !GetAtt LoadBalancerSG.GroupId
+      IpProtocol: tcp
+      Description: >-
+        Egress between the Core Front load balancer and
+        the core front ECS security group
+      DestinationSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
+      FromPort: 8080
+      ToPort: 8080
+
+  ECSSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: >-
+        Core Front ECS Security Group permitting outbound
+        to anywhere.
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: '-1'
+      VpcId: !Ref VpcId
+
+  ECSSecurityGroupIngressFromLoadBalancer:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      IpProtocol: tcp
+      Description: >-
+        Core Front ECS permits inbound from the Core Front
+        load balancer.
+      FromPort: 8080
+      ToPort: 8080
+      GroupId: !GetAtt ECSSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
+
+  # Private Application Load Balancer
+  LoadBalancer:
+    Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+    Properties:
+      Scheme: internal
+      SecurityGroups:
+        - !GetAtt LoadBalancerSG.GroupId
+      Subnets: !Ref SubnetIds
+      Type: application
+
+  LoadBalancerListenerTargetGroupECS:
+    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      Matcher:
+        HttpCode: 200-499
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId: !Ref VpcId
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60
+
+  LoadBalancerListener:
+    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
+          Type: forward
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+
+  # ECS cluster, service and task definition
+  CoreFrontEcsCluster:
+    Type: 'AWS::ECS::Cluster'
+
+  CoreFrontEcsService:
+    Type: 'AWS::ECS::Service'
+    Properties:
+      Cluster: !Ref CoreFrontEcsCluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+        DeploymentCircuitBreaker:
+          Enable: TRUE
+          Rollback: TRUE
+      DesiredCount: !Ref DesiredTaskCount
+      EnableECSManagedTags: false
+      HealthCheckGracePeriodSeconds: 60
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: app
+          ContainerPort: 8080
+          TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups:
+            - !GetAtt ECSSecurityGroup.GroupId
+          Subnets: !Ref SubnetIds
+      TaskDefinition: !Ref ECSServiceTaskDefinition
+    DependsOn:
+      - LoadBalancerListener
+
+  ECSServiceTaskDefinition:
+    Type: 'AWS::ECS::TaskDefinition'
+    Properties:
+      ContainerDefinitions:
+        - Essential: true
+          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-${Environment}:${ImageTag}
+          Name: app
+          Environment:
+            - Name: API_BASE_URL
+              Value: !Ref ApiBaseUrl
+            - Name: EXTERNAL_WEBSITE_HOST
+              Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+          PortMappings:
+            - ContainerPort: 8080
+              Protocol: tcp
+      Cpu: '512'
+      ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
+      Memory: '1024'
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn: !GetAtt ECSTaskRole.Arn
+
+  ECSTaskExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: 2012-10-17
+      Policies:
+        - PolicyName: PullCoreFrontImage
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "ecr:BatchGetImage"
+                  - "ecr:GetDownloadUrlForLayer"
+                  - "ecr:GetAuthorizationToken"
+                Resource:
+                  - '*'
+
+  ECSTaskRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: 2012-10-17
+
+  # Create the VPC Link to join the API Gateway to the
+  # private Load Balancer in front of Core Front ECS
+  # Service.
+  VpcLink:
+      Type: 'AWS::ApiGatewayV2::VpcLink'
+      Properties:
+          Name: ApiGwVpcLinkToLoadBalancer
+          SubnetIds: !Ref SubnetIds
+          SecurityGroupIds: []
+
+  ApiGwHttpEndpoint:
+      Type: 'AWS::ApiGatewayV2::Api'
+      Properties:
+          Name: !Sub ipv-core-front-${Environment}
+          ProtocolType: HTTP
+
+  ApiGwHttpEndpointIntegration:
+      Type: 'AWS::ApiGatewayV2::Integration'
+      Properties:
+        ApiId: !Ref ApiGwHttpEndpoint
+        IntegrationType: HTTP_PROXY
+        ConnectionId: !Ref VpcLink
+        ConnectionType: VPC_LINK
+        IntegrationMethod: ANY
+        IntegrationUri: !Ref LoadBalancerListener
+        PayloadFormatVersion: '1.0'
+
+  APIGWRoute:
+    Type: 'AWS::ApiGatewayV2::Route'
+    Properties:
+      ApiId: !Ref ApiGwHttpEndpoint
+      RouteKey: 'ANY /{proxy+}'
+      Target: !Join 
+        - /
+        - - integrations
+          - !Ref ApiGwHttpEndpointIntegration
+
+  APIStageDefault:
+    Type: 'AWS::ApiGatewayV2::Stage'
+    Properties:
+      ApiId: !Ref ApiGwHttpEndpoint
+      StageName: $default
+      AutoDeploy: true
+
+Outputs:
+  CoreFrontUrl:
+    Description: >-
+      The API Gateway URL which Core Front can be invoked on.
+    Value: !GetAtt  ApiGwHttpEndpoint.ApiEndpoint

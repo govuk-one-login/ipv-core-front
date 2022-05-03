@@ -57,9 +57,10 @@ describe("oauth middleware", () => {
           state: "xyz",
           redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
           unusedParam: "not used",
+          request:"test request"
         },
         session: {
-          ipvSessionId: {},
+          ipvSessionId: "abadcafe",
         }
       };
       axiosResponse = {
@@ -92,14 +93,35 @@ describe("oauth middleware", () => {
     context("with missing ipvSessionId", () => {
       it("should throw error", async function () {
         axiosStub.post = sinon.fake.throws(axiosResponse);
-
         await middleware.setIpvSessionId(req, res, next);
+        expect(res.error).to.be.eql("Error");
+      });
+ 
+    });
 
+    context("with missing Request JWT", () => {
+      it("should throw error", async function () {
+        axiosStub.post = sinon.fake.throws(axiosResponse);
+        await middleware.setIpvSessionId(req, res, next);
         expect(res.error).to.be.eql("Error");
       });
     });
 
+    context("with Client ID missing", () => {
+
+      beforeEach(() => {
+        axiosResponse.data.clientId = null;
+      });
+
+      it("should throw error", async function () {
+        axiosStub.post = sinon.fake.throws(axiosResponse);
+        await middleware.setIpvSessionId(req, res, next);
+        expect(res.error).to.be.eql("Error");
+      });
+  
   });
+
+});
 
   describe("renderOauthPage", () => {
     it("should render index page", () => {

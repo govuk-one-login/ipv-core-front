@@ -263,6 +263,14 @@ Resources:
       ApiId: !Ref ApiGwHttpEndpoint
       StageName: $default
       AutoDeploy: true
+      AccessLogSettings:
+        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
+        Format: $context.identity.sourceIp - - [$context.requestTime] $context.httpMethod $context.path $context.routeKey $context.protocol $context.status $context.responseLength $context.requestId
+
+  APIGWAccessLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
 
 Outputs:
   CoreFrontUrl:

@@ -204,6 +204,10 @@ Resources:
     DependsOn:
       - LoadBalancerListener
 
+  ECSAccessLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
   ECSServiceTaskDefinition:
     Type: 'AWS::ECS::TaskDefinition'
     Properties:
@@ -219,6 +223,12 @@ Resources:
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group : !Ref ECSAccessLogsGroup
+              awslogs-region : !Sub ${AWS::Region}
+              awslogs-stream-prefix : !Sub core-front-${Environment}
       Cpu: '512'
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       Memory: '1024'
@@ -249,7 +259,13 @@ Resources:
                   - "ecr:GetAuthorizationToken"
                 Resource:
                   - '*'
-
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource:
+                  - !GetAtt "ECSAccessLogsGroup.Arn"
+                  - !Sub "${ECSAccessLogsGroup.Arn}:*"
   ECSTaskRole:
     Type: 'AWS::IAM::Role'
     Properties:

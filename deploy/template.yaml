@@ -208,6 +208,15 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
+      RetentionInDays: 14
+
+  ECSAccessLogsGroupSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prod"
+      FilterPattern: ""
+      LogGroupName: !Ref ECSAccessLogsGroup
+
   ECSServiceTaskDefinition:
     Type: 'AWS::ECS::TaskDefinition'
     Properties:
@@ -309,7 +318,7 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       RouteKey: 'ANY /{proxy+}'
-      Target: !Join 
+      Target: !Join
         - /
         - - integrations
           - !Ref ApiGwHttpEndpointIntegration
@@ -339,6 +348,13 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
+
+  APIGWAccessLogsGroupSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prod"
+      FilterPattern: ""
+      LogGroupName: !Ref APIGWAccessLogsGroup
 
 Outputs:
   CoreFrontUrl:

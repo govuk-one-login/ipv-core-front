@@ -37,7 +37,9 @@ module.exports = {
         request: req.query.request
       };
       
-      if(!authParams.request){ return next(new Error('Request JWT Missing'));}
+ // TODO: restore this code when the OAuth flow is standardised
+      // if(!authParams.request){ return next(new Error('Request JWT Missing'));}
+      
       if(!authParams.clientId){ return next(new Error('Client ID Missing'));}
 
       const response = await axios.post(`${API_BASE_URL}/session/start`, authParams);

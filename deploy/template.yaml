@@ -265,7 +265,18 @@ Resources:
       AutoDeploy: true
       AccessLogSettings:
         DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
-        Format: $context.identity.sourceIp - - [$context.requestTime] $context.httpMethod $context.path $context.routeKey $context.protocol $context.status $context.responseLength $context.requestId
+        Format: >-
+          {
+          "requestId":"$context.requestId",
+          "ip": "$context.identity.sourceIp",
+          "requestTime":"$context.requestTime",
+          "httpMethod":"$context.httpMethod",
+          "path": "$context.path",
+          "routeKey":"$context.routeKey",
+          "status":"$context.status",
+          "protocol":"$context.protocol",
+          "responseLength":"$context.responseLength"
+          }
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup

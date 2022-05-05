@@ -70,7 +70,7 @@ module.exports = {
   updateJourneyState: async (req, res, next) => {
     try {
       //valid list of allowed actions for route
-      const allowedActions = ['/journey/next', '/journey/cri/start/ukPassport', '/journey/cri/start/fraud', '/journey/cri/start/address', '/journey/cri/start/kbv', '/journey/cri/start/activityHistory', '/journey/session/end']
+      const allowedActions = ['/journey/next', '/journey/cri/start/ukPassport', '/journey/cri/start/fraud', '/journey/cri/start/address', '/journey/cri/start/kbv', '/journey/cri/start/activityHistory', '/journey/cri/start/debugAddress', '/journey/session/end']
       const validAction = allowedActions.find(x => x === req.url)
 
       if(validAction) {

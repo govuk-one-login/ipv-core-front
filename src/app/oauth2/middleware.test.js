@@ -168,7 +168,7 @@ describe("oauth middleware", () => {
     beforeEach(() => {
       req = {
         session: {
-          authParams: {
+          oauthParams: {
             response_type: "code",
             client_id: "s6BhdRkqt3",
             state: "xyz",
@@ -196,7 +196,7 @@ describe("oauth middleware", () => {
         expect(axiosStub.get).to.have.been.calledWith(
           "https://example.org/subpath/subsubpath/auth",
           sinon.match({
-            params: { ...req.session.authParams },
+            params: { ...req.session.oauthParams },
             headers: { "ipv-session-id": "abadcafe" },
           })
         );
@@ -264,7 +264,7 @@ describe("oauth middleware", () => {
     beforeEach(() => {
       req = {
         session: {
-          authParams: {
+          oauthParams: {
             redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
           },
         },

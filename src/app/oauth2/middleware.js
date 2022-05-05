@@ -44,6 +44,8 @@ module.exports = {
 
       const response = await axios.post(`${API_BASE_URL}/session/start`, authParams);
       req.session.ipvSessionId = response?.data?.ipvSessionId;
+      req.session.oauthParams = response?.data;
+
     } catch (error) {
       res.error = error.name;
       return next(error);
@@ -55,8 +57,7 @@ module.exports = {
   retrieveAuthorizationCode: async (req, res, next) => {
     try {
       const oauthParams = {
-        ...req.session.authParams,
-        scope: "openid",
+        ...req.session.oauthParams,
       };
 
       const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
@@ -80,7 +81,7 @@ module.exports = {
   },
 
   redirectToCallback: async (req, res) => {
-    const redirectURL = `${req.session.authParams.redirect_uri}?code=${req.authorization_code}`;
+    const redirectURL = `${req.session.oauthParams.redirect_uri}?code=${req.authorization_code}`;
 
     res.redirect(redirectURL);
   },

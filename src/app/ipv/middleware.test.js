@@ -10,7 +10,6 @@ describe("journey middleware", () => {
   const axiosStub = {};
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
-    API_SHARED_ATTRIBUTES_JWT_PATH: '/jwtPath',
     EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org"
   };
 

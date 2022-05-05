@@ -11,12 +11,10 @@ if (!appEnv.isLocal) {
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_ISSUED_CREDENTIALS_PATH: "/issued-credentials",
-  API_SHARED_ATTRIBUTES_JWT_PATH: "/shared-attributes",
   API_REQUEST_CONFIG_PATH: "/request-config",
   API_CRI_RETURN_PATH: "/journey/cri/return",
   AUTH_PATH: "/authorize",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,
-  SHARED_ATTRIBUTES_JWT_SIZE_LIMIT: process.env.SHARED_ATTRIBUTES_JWT_SIZE_LIMIT || 6000,
 };

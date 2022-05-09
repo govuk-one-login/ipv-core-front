@@ -16,12 +16,7 @@ Parameters:
   Environment:
     Description: The name of the environment to deploy to.
     Type: String
-    AllowedValues:
-      - development
-      - build
-      - staging
-      - integration
-      - production
+    AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev.*))
   ImageTag:
     Description: The tag of core-front image to deploy in the task definition.
     Type: String
@@ -44,6 +39,13 @@ Parameters:
     Description: >-
       The number of core front ecs tasks to run.
     Type: Number
+
+Conditions:
+  IsNotDevelopment: !Or
+    - !Equals [ !Ref Environment, build ]
+    - !Equals [ !Ref Environment, staging ]
+    - !Equals [ !Ref Environment, integration ]
+    - !Equals [ !Ref Environment, production ]
 
 Resources:
   # Security Groups for the ECS service and load balancer
@@ -213,7 +215,7 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-${Environment}:${ImageTag}
+          Image: !If [IsNotDevelopment, !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-${Environment}:${ImageTag}", !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}"]
           Name: app
           Environment:
             - Name: API_BASE_URL

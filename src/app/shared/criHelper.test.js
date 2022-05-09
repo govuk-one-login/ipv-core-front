@@ -56,7 +56,7 @@ describe("cri Helper", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL.toString()).to.equal(
-        "http://passport-stub-1/authorize?response_type=code&client_id=test-ipv-client&state=test-state&redirect_uri=https%3A%2F%2Fexample.org%2Fsubpath%2Fcredential-issuer%2Fcallback%3Fid%3DPassportIssuer&request=undefined"
+        "http://passport-stub-1/authorize?client_id=test-ipv-client&request=undefined"
       );
     });
 
@@ -97,7 +97,7 @@ describe("cri Helper", () => {
       const { redirectToAuthorize } = proxyquire("../shared/criHelper", {
         "../../lib/config": configStub,
       });
-  
+
       await redirectToAuthorize(req, res);
 
       expect(res.redirect).to.have.been.calledWith(req.redirectURL);

@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - PYIC-1018-docker-ecr-build-artifact
+      - main
 jobs:
   dockerBuildAndPush:
     name: Docker build and push

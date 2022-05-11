@@ -91,35 +91,31 @@ describe("oauth middleware", () => {
     });
 
     context("with missing ipvSessionId", () => {
-
-       it("should throw error", async function () {
+      it("should throw error", async function () {
         axiosStub.post = sinon.fake.throws(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(res.error).to.be.eql("Error");
       });
- 
     });
 
-    // TODO: restore this code when the OAuth flow is standardised
-    // context("with missing Request JWT", () => {
-    //   beforeEach(() => {
-    //     req.query.request = null;
-    //   });
+    context("with missing Request JWT", () => {
+      beforeEach(() => {
+        req.query.request = null;
+      });
 
-    //   it("should throw error", async function () {
-    //     axiosStub.post = sinon.fake.throws(axiosResponse);
-    //     await middleware.setIpvSessionId(req, res, next);
+      it("should throw error", async function () {
+        axiosStub.post = sinon.fake.throws(axiosResponse);
+        await middleware.setIpvSessionId(req, res, next);
 
-    //     expect(next).to.have.been.calledWith(
-    //       sinon.match
-    //         .instanceOf(Error)
-    //         .and(sinon.match.has("message", "Request JWT Missing"))
-    //     );
-    //   });
-    // });
+        expect(next).to.have.been.calledWith(
+          sinon.match
+            .instanceOf(Error)
+            .and(sinon.match.has("message", "Request JWT Missing"))
+        );
+      });
+    });
 
     context("with Client ID missing", () => {
-
       beforeEach(() => {
         req.query.client_id = null;
       });

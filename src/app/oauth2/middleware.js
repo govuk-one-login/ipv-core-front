@@ -34,7 +34,7 @@ module.exports = {
         state: req.query.state,
         scope: req.query.scope,
         isDebugJourney: req.session.isDebugJourney,
-        request: req.query.request
+    //  request: req.query.request
       };
       
  // TODO: restore this code when the OAuth flow is standardised

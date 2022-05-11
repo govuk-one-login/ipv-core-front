@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - main
+      - PYIC-1018-docker-ecr-build-artifact
 jobs:
   dockerBuildAndPush:
     name: Docker build and push
@@ -42,8 +42,9 @@ jobs:
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+          ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy || exit 1
           echo "${IMAGE_TAG}" > image_tag.txt
           zip template.zip template.yaml image_tag.txt
-          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/
+          aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/core-front/template.zip"

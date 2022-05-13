@@ -224,7 +224,7 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !If [IsNotDevelopment, !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-${Environment}:${ImageTag}", !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}"]
+          Image: !If [IsNotDevelopment, !Sub "457601271792.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-build:${ImageTag}", !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}"] # Uses build account and ECR when not in development.
           Name: app
           Environment:
             - Name: API_BASE_URL

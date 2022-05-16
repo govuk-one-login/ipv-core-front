@@ -43,13 +43,12 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          docker push "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          docker push "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
       - name: Push docker image to development
-        env:
-          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         env:
           ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-development
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
            docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
            docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"

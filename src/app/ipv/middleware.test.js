@@ -204,11 +204,7 @@ describe("journey middleware", () => {
   });
 
   context("handling Client event response", () => {
-    let eventResponses = [];
-
     const redirectUrl = 'https://someurl.org';
-    const authCode = 'ABC123'
-    const state = 'test-state'
 
     const callBack = sinon.stub();
 
@@ -216,17 +212,8 @@ describe("journey middleware", () => {
 
       axiosStub.post = callBack;
 
-      eventResponses = [
-        {
-          data: { client: { redirectUrl: redirectUrl , authCode: authCode, state: state } }
-        },
-        {
-          data: { client: { redirectUrl: redirectUrl , authCode: authCode } }
-        },
-      ];
-
-      eventResponses.forEach((er, index) => {
-        callBack.onCall(index).returns(eventResponses[index]);
+      callBack.onCall(0).returns({
+        data: { client: { redirectUrl: redirectUrl } }
       });
 
       req = {
@@ -235,15 +222,11 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should be redirected to a valid Client URL with Authcode and state", async function() {
+    it("should be redirected to a valid Client URL", async function() {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.be.calledWith(`${redirectUrl}?code=${authCode}&state=${state}`);
+      expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
     });
 
-    it("should be redirected to a valid Client URL with Authcode when no state is provided", async function() {
-      await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.be.calledWith(`${redirectUrl}?code=${authCode}`);
-    });
   });
 
   context("handling missing callBackUrl Client event response", () => {
@@ -275,38 +258,6 @@ describe("journey middleware", () => {
     it("should call next with error message Redirect url is missing", async function() {
       await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response redirect url is missing'));
-    });
-  });
-
-  context("handling missing authCode Client event response", () => {
-    let eventResponses = [];
-
-    const redirectUrl = 'https://someurl.org';
-    const state = 'test-state'
-
-    beforeEach(() => {
-      eventResponses = [
-        {
-          data: { client: { redirectUrl: redirectUrl, authCode: null, state: state} }
-        },
-      ];
-
-      req = {
-        url: "/journey/next",
-        session: { ipvSessionId: "ipv-session-id" },
-      };
-
-      const callBack = sinon.stub();
-      axiosStub.post = callBack;
-
-      eventResponses.forEach((er, index) => {
-        callBack.onCall(index).returns(eventResponses[index]);
-      });
-    });
-
-    it("should call next with error message authCode is missing", async function() {
-      await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(sinon.match.has('message', 'Client Response authcode is missing'));
     });
   });
 })

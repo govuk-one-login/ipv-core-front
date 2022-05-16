@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { API_BASE_URL, AUTH_PATH } = require("../../lib/config");
+const { API_BASE_URL } = require("../../lib/config");
 
 module.exports = {
   renderOauthPage: async (req, res) => {
@@ -26,7 +26,6 @@ module.exports = {
 
   setIpvSessionId: async (req, res, next) => {
     try {
-
       const authParams = {
         responseType: req.query.response_type,
         clientId: req.query.client_id,
@@ -48,38 +47,5 @@ module.exports = {
     }
 
     next();
-  },
-
-  retrieveAuthorizationCode: async (req, res, next) => {
-    try {
-      const oauthParams = {
-        ...req.session.authParams,
-        scope: "openid",
-      };
-
-      const apiResponse = await axios.get(`${API_BASE_URL}${AUTH_PATH}`, {
-        params: oauthParams,
-        headers: { "ipv-session-id": req.session.ipvSessionId },
-      });
-
-      const code = apiResponse?.data?.code?.value;
-
-      if (!code) {
-        res.status(500);
-        return res.send("Missing authorization code");
-      }
-
-      req.authorization_code = code;
-
-      next();
-    } catch (e) {
-      next(e);
-    }
-  },
-
-  redirectToCallback: async (req, res) => {
-    const redirectURL = `${req.session.authParams.redirect_uri}?code=${req.authorization_code}`;
-
-    res.redirect(redirectURL);
   },
 };

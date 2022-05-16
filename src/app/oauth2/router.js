@@ -3,10 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  redirectToCallback,
   redirectToDebugPage,
   redirectToJourney,
-  retrieveAuthorizationCode,
   setIpvSessionId, setDebugJourneyType, setRealJourneyType,
 } = require("./middleware");
 
@@ -23,7 +21,5 @@ router.get(
   setIpvSessionId,
   redirectToJourney
 );
-
-router.post("/authorize", retrieveAuthorizationCode, redirectToCallback);
 
 module.exports = router;

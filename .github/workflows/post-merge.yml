@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - main
+      - PYIC-1197_use_latest_tag
 jobs:
   dockerBuildAndPush:
     name: Docker build and push

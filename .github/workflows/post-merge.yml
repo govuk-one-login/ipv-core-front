@@ -22,6 +22,8 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
+        with:
+          registries: "130355686670,457601271792"
       - name: Create tag
         id: create-tag
         run: |
@@ -33,17 +35,16 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:${IMAGE_TAG}" .
-          docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
-          docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:latest"
-      - name: Cleanup ecr latest tag
-        run: |
-          aws ecr batch-delete-image --repository-name core-front-build --image-ids imageTag=latest
-      - name: Push docker image
+          docker tag "core-front-build:${IMAGE_TAG}" "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+      - name: Push docker image to build
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          docker push "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
-          docker push "${{ steps.login-ecr.outputs.registry }}/core-front-build:latest"
+          docker push "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+      - name: Push docker image to development
+        run: |
+          docker push "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}

@@ -2,7 +2,7 @@ name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - main
+      - PYIC-1197_use_latest_tag
 
 jobs:
   dockerBuildAndPush:
@@ -24,7 +24,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registries: 130355686670,457601271792
+          registries: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }},${{ secrets.BUILD_ACCOUNT_ID }}
       - name: Create tag
         id: create-tag
         run: |
@@ -36,8 +36,8 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:${IMAGE_TAG}" .
-          docker tag "core-front-build:${IMAGE_TAG}" "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
-          docker tag "core-front-build:${IMAGE_TAG}" "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Push docker image to build
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
@@ -45,10 +45,10 @@ jobs:
           docker push "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
       - name: Push docker image to development
         env:
-          ECR_REGISTRY: 130355686670.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-development
         run: |
-           docker push "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+           docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}

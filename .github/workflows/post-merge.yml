@@ -43,6 +43,9 @@ jobs:
         run: |
           docker push "457601271792.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
       - name: Push docker image to development
+        env:
+          ECR_REGISTRY: 130355686670.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_REPOSITORY: core-front-development
         run: |
           docker push "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3

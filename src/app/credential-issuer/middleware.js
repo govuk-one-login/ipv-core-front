@@ -56,8 +56,7 @@ module.exports = {
         return res.render("errors/credential-issuer", {error, error_description})
       }
     } catch (error) {
-      next(error)
+     return next(error)
     }
-    next()
   },
  };

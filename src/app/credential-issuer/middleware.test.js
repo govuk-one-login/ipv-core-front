@@ -193,5 +193,17 @@ describe("credential issuer middleware", () => {
       expect(res.render).to.have.been.calledWith('errors/credential-issuer', {error, error_description})
     })
 
+    it("should call next with error if api call errors", async () => {
+      let axiosResponse = {};
+      axiosResponse.status = 404;
+      const axiosError = new Error("api error");
+      axiosError.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(axiosError);
+      await middleware.tryHandleRedirectError(req, res, next);
+
+      expect(next).to.have.been.calledWith(sinon.match.has('message', 'api error'));
+      expect(next).to.have.been.calledOnce;
+    })
+
   });
 });

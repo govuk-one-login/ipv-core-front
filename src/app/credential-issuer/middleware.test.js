@@ -193,6 +193,49 @@ describe("credential issuer middleware", () => {
       expect(res.render).to.have.been.calledWith('errors/credential-issuer', {error, error_description})
     })
 
+    it("should report error to journey api and render cri error template when only error description is present", async () => {
+
+      const errorParams = new URLSearchParams([
+        ["error", null],
+        ["error_description", error_description],
+      ]);
+
+      req = {
+        url: `/callback`,
+        query: {error_description},
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+      axiosStub.post = sinon.fake.returns({});
+
+      await middleware.tryHandleRedirectError(req, res, next);
+
+      expect(axiosStub.post).to.have.been.calledWith(
+        `${configStub.API_BASE_URL}/journey/cri/error`,
+        errorParams,
+        sinon.match({
+          headers: {
+            "ipv-session-id": "ipv-session-id",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }));
+
+      expect(res.render).to.have.been.calledWith('errors/credential-issuer', {  error: undefined, error_description})
+    })
+
+    it("should call next if no error and error_description is present in the query string", async () => {
+
+      req = {
+        url: `/callback`,
+        query: {},
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+      axiosStub.post = sinon.fake.returns({});
+
+      await middleware.tryHandleRedirectError(req, res, next);
+
+      expect(next).to.have.been.calledOnce;
+    })
+
     it("should call next with error if api call errors", async () => {
       let axiosResponse = {};
       axiosResponse.status = 404;

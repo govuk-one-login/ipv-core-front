@@ -47,7 +47,7 @@ jobs:
           ECR_REGISTRY: 130355686670.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-development
         run: |
-          docker push "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+           docker push "130355686670.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}

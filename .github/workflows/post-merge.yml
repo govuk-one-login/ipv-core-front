@@ -34,11 +34,16 @@ jobs:
           cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:${IMAGE_TAG}" .
           docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ steps.login-ecr.outputs.registry }}/core-front-build:latest"
+      - name: Cleanup ecr latest tag
+        run: |
+          aws ecr batch-delete-image --repository-name core-front-build --image-ids imageTag=latest
       - name: Push docker image
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           docker push "${{ steps.login-ecr.outputs.registry }}/core-front-build:${IMAGE_TAG}"
+          docker push "${{ steps.login-ecr.outputs.registry }}/core-front-build:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}

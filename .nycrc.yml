@@ -5,6 +5,9 @@ include:
 exclude:
   - "**/*.test.js"
   - "**/*router.js"
+  - "src/assets/javascripts/*.js"
+  - "src/lib/config.js"
+  - "src/app.js"
 report-dir: coverage
 statements: 80
 branches: 80

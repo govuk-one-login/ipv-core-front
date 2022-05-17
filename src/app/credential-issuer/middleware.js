@@ -7,7 +7,6 @@ const {
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 
-
 module.exports = {
   addCallbackParamsToRequest: async (req, res, next) => {
     req.credentialIssuer = {};
@@ -46,6 +45,7 @@ module.exports = {
   tryHandleRedirectError : async (req, res, next)  => {
     try {
       const {error, error_description} = req.query;
+
       if(error || error_description) {
         const errorParams = new URLSearchParams([
           ["error", error],
@@ -55,9 +55,11 @@ module.exports = {
         await axios.post(`${API_BASE_URL}/journey/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
         return res.render("errors/credential-issuer", {error, error_description})
       }
+
+      return next();
+
     } catch (error) {
-      next(error)
+     return next(error)
     }
-    next()
   },
  };

@@ -363,3 +363,9 @@ Outputs:
     Description: >-
       The API Gateway URL which Core Front can be invoked on.
     Value: !GetAtt  ApiGwHttpEndpoint.ApiEndpoint
+  IPVCoreFrontGatewayID:
+    Description: Core Front API Gateway ID
+    Export:
+      Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
+    Value: !Ref ApiGwHttpEndpoint
+

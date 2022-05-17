@@ -1,33 +1,6 @@
 {% extends "hmpo-template.njk" %}
-
-{% block pageTitle %}
-Prove your identity - GDS 
-{% endblock %}
-
-{# {% set hmpoPageKey = "pageIpvIdentityStart" %} #}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set hmpoPageKey = "pageIpvIdentityStart" %}
 
 {% block beforeContent %}
   {% include "../shared/phase-banner.html" %}
-{% endblock %}
-
-{% block content %}
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form class="form" action="passport-details" method="get">
-        <h1 class="govuk-heading-l">
-          You’ve signed in to your GOV.UK account
-        </h1>
-        <p>You can now continue to prove your identity.</p>
-
-        {{ govukButton({
-          text: "Continue",
-          href:"/ipv/journey/next"
-          }) }}
-
-      </form>
-    </div>
-  </div>
-
 {% endblock %}

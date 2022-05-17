@@ -1,37 +1,6 @@
 {% extends "hmpo-template.njk" %}
-
-{% block pageTitle %}
-  You’ve successfully proved your identity - Prove your identity - GDS 
-{% endblock %}
-
-{# {% set hmpoPageKey = "pageIpvIdentityStart" %} #}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set hmpoPageKey = "pageIpvSuccess" %}
 
 {% block beforeContent %}
   {% include "../shared/phase-banner.html" %}
-{% endblock %}
-
-{% block content %}
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-
-        <h1 class="govuk-heading-l">
-          You've successfully proved your identity
-        </h1>
-
-        <p>Now continue to use the <strong>Request a basic DBS check</strong> service.</p>
-
-        <p>Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service.</p>
-
-
-        {{ govukButton({
-          text: "Continue",
-          href:"/ipv/journey/next"
-          }) }}
-
-      </form>
-    </div>
-  </div>
-
 {% endblock %}

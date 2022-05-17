@@ -12,48 +12,40 @@ Answer Security Questions - Prove your identity - GDS
 {% endblock %}
 
 {% block content %}
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-     
-        <h1 class="govuk-heading-l">Answer security questions</h1>
+{% block mainContent %}
 
-         <p>We'll ask you some security questions that only you should know the answers to. This will help us stop anyone else who might have your details from pretending to be you.</p>
+<h1 id="header" data-page="{{hmpoPageKey}}">{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) | safe }}</h1>
 
-        <p>The questions will be about things like your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.</p>
-        
-        <p>You'll have 15 minutes to answer these questions.</p>
-        
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
-            Make sure you answer these questions as accurately as you can. You will not get another chance to answer them if you get them wrong.
-          </strong>
-        </div>
-        
-        <p>We will not keep your answers.</p>
+{% from "hmpo-html/macro.njk" import hmpoHtml %}
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentStart")) 
+}}
 
-        <details class="govuk-details" data-module="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">How we know what questions to ask you</span>
-          </summary>
-          <div class="govuk-details__text">
-            <p>We'll work with <a href="https://www.experian.co.uk/" class="govuk-link" rel="noreferrer noopener" target="_blank">Experian (opens in new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p>
-            
-            <p><a href="#">Read our privacy notice</a> if you'd like to know more about how your details will be used to prove your identity.</p>
-          </div>
-        </details>
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-        
+{{ govukWarningText({
+  text: translate("pages." + hmpoPageKey + ".warningText"),
+  iconFallbackText: translate("pages." + hmpoPageKey + ".iconFallbackText")
+}) 
+}}
+    
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentContinue")) 
+}}
 
-        {{ govukButton({
-          text: "Start",
-          href:"/ipv/journey/next"
-          }) }}
 
-      </form>
-    </div>
-  </div>
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{{ govukDetails({
+  summaryText: translate("pages." + hmpoPageKey + ".detailsSummaryText"),
+  html: translate("pages." + hmpoPageKey + ".detailsHTML")
+}) }}
+
+<p><a href="/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a></p>
+
+{% endblock %}
+</div>
+</div>
 
 {% endblock %}

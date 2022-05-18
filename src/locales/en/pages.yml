@@ -12,11 +12,11 @@ criRedirectionError:
 
 # Pages created from the prototype
 
-pageIpvIdentityStart: 
+pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account
-  content: 
+  content:
     - You can now continue to prove your identity.
-    - <a href="/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>
 
 pagePreKbvTransition:
   title: Answer Security Questions
@@ -37,7 +37,7 @@ pagePreKbvTransition:
 
 pageIpvSuccess:
   title: You’ve successfully proved your identity
-  content: 
+  content:
     - Now continue to use the <strong>Request a basic DBS check</strong> service.
     - Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service.
-    - <a href="/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>

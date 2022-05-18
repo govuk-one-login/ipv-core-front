@@ -5,10 +5,9 @@ buttons:
   cancel: Cancel
   credentialIssuer: Credential Issuer
 govuk:
-  serviceName: Prove your identity
+  serviceName: " "
   backLink: Back
   errorSummaryTitle: There’s a problem
   error: Error
   warning: Warning
   skipLink: Skip to main content
-

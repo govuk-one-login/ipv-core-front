@@ -59,7 +59,7 @@ describe("credential issuer middleware", () => {
         "../../lib/config": configStub,
       });
       req = {
-        credentialIssuer: { code: "authorize-code-issued" },
+        credentialIssuer: { code: "authorize-code-issued", state: "oauth-state" },
         session: { ipvSessionId: "ipv-session-id" },
         query: { id: "PassportIssuer" }
       };
@@ -82,6 +82,7 @@ describe("credential issuer middleware", () => {
           ["authorization_code", req.credentialIssuer.code],
           ["credential_issuer_id", req.query.id],
           ["redirect_uri", `http://example.com/credential-issuer/callback?id=${req.query.id}`],
+          ["state", req.credentialIssuer.state],
         ]);
 
         await middleware.sendParamsToAPI(req, res, next);

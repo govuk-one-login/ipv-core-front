@@ -12,6 +12,7 @@ module.exports = {
     req.credentialIssuer = {};
 
     req.credentialIssuer.code = req.query?.code;
+    req.credentialIssuer.state = req.query?.state;
 
     next();
   },
@@ -21,6 +22,7 @@ module.exports = {
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", req.query.id],
       ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`],
+      ["state", req.credentialIssuer.state],
     ]);
 
 

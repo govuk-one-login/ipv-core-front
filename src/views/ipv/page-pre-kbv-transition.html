@@ -1,7 +1,7 @@
 {% extends "hmpo-template.njk" %}
 
 {% block pageTitle %}
-Answer Security Questions - Prove your identity - GDS 
+Answer Security Questions - Prove your identity - GDS
 {% endblock %}
 
 {% set hmpoPageKey = "pagePreKbvTransition" %}
@@ -21,7 +21,7 @@ Answer Security Questions - Prove your identity - GDS
 <h1 id="header" data-page="{{hmpoPageKey}}">{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) | safe }}</h1>
 
 {% from "hmpo-html/macro.njk" import hmpoHtml %}
-{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentStart")) 
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentStart"))
 }}
 
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -29,10 +29,10 @@ Answer Security Questions - Prove your identity - GDS
 {{ govukWarningText({
   text: translate("pages." + hmpoPageKey + ".warningText"),
   iconFallbackText: translate("pages." + hmpoPageKey + ".iconFallbackText")
-}) 
+})
 }}
-    
-{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentContinue")) 
+
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentContinue"))
 }}
 
 
@@ -43,7 +43,7 @@ Answer Security Questions - Prove your identity - GDS
   html: translate("pages." + hmpoPageKey + ".detailsHTML")
 }) }}
 
-<p><a href="/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a></p>
+<p><a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a></p>
 
 {% endblock %}
 </div>

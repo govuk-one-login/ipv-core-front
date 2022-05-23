@@ -166,19 +166,25 @@ describe("credential issuer middleware", () => {
 
       res = {
         status: sinon.fake(),
-        render: sinon.fake()
+        render: sinon.fake(),
+        redirect: sinon.fake()
       };
       next = sinon.fake();
     });
 
-    it("should report error to journey api and render cri error template", async () => {
+    it("should report error to journey api and redirect using response's journey value", async () => {
+      const axiosResponse = {};
+
+      axiosResponse.data = {
+        journey: "/journey/cri/error"
+      };
+      axiosStub.post = sinon.fake.returns(axiosResponse);
 
       const errorParams = new URLSearchParams([
         ["error", error],
         ["error_description", error_description],
       ]);
 
-      axiosStub.post = sinon.fake.returns({});
       await middleware.tryHandleRedirectError(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
@@ -191,10 +197,17 @@ describe("credential issuer middleware", () => {
           },
         }));
 
-      expect(res.render).to.have.been.calledWith('errors/credential-issuer', {error, error_description})
+      expect(res.redirect).to.have.been.calledWith('/ipv/journey/cri/error')
     })
 
-    it("should report error to journey api and render cri error template when only error description is present", async () => {
+    it("should report error to journey api and redirect to journey value when only error description is present", async () => {
+      const axiosResponse = {};
+
+      axiosResponse.data = {
+        journey: "/journey/cri/error"
+      };
+
+      axiosStub.post = sinon.fake.returns(axiosResponse);
 
       const errorParams = new URLSearchParams([
         ["error", null],
@@ -206,7 +219,6 @@ describe("credential issuer middleware", () => {
         query: {error_description},
         session: { ipvSessionId: "ipv-session-id" },
       };
-      axiosStub.post = sinon.fake.returns({});
 
       await middleware.tryHandleRedirectError(req, res, next);
 
@@ -220,7 +232,7 @@ describe("credential issuer middleware", () => {
           },
         }));
 
-      expect(res.render).to.have.been.calledWith('errors/credential-issuer', {  error: undefined, error_description})
+      expect(res.redirect).to.have.been.calledWith('/ipv/journey/cri/error')
     })
 
     it("should call next if no error and error_description is present in the query string", async () => {

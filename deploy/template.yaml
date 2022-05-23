@@ -230,7 +230,12 @@ Resources:
           Name: app
           Environment:
             - Name: API_BASE_URL
-              Value: !Ref ApiBaseUrl
+              Value: !Sub
+                  - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
+                  - APIGatewayId:
+                      Fn::ImportValue:
+                        !Sub ipv-core-back-${Environment}-IPVCorePrivateAPIGatewayID
+                    Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
           PortMappings:

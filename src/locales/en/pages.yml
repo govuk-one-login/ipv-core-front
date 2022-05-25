@@ -16,10 +16,19 @@ pyiNoMatch:
     - This might be because we could not match your details to information from another database
     - To keep your information safe, we cannot show which of your details we had trouble finding a match for.
     - This could also be because you were unsuccessful when you've previously tried to prove your identity online.
-    - <h2 class="govuk-heading-m"> What you can do </h2>
+    - <h2> What you can do </h2>
     - Continue to the service you were trying to use and look for other ways to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button"> {{ translate("buttons.next") }} </a>
-    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link"> Contact the GOV.UK account team (opens in a new tab) </a>
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
+    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
+
+pyiTechnical:
+  title: Sorry, there is a problem with the service
+  content:
+    - We cannot prove your identity right now.
+    - <h2>What you can do</h2>
+    - Continue to the service you were trying to use and look for other ways to prove your identity.
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
+    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pyiKbvFail:
   title: Sorry, we cannot prove your identity right now
@@ -35,7 +44,7 @@ pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account
   content:
     - You can now continue to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
 
 pagePreKbvTransition:
   title: Answer Security Questions
@@ -59,4 +68,4 @@ pageIpvSuccess:
   content:
     - Now continue to use the <strong>Request a basic DBS check</strong> service.
     - Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a>
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>

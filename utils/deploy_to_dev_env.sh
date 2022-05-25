@@ -68,7 +68,6 @@ aws cloudformation update-stack \
   --template-body file://../deploy/template.yaml \
   --parameters ParameterKey=ImageTag,ParameterValue="${DEV_IMAGE_TAG}" \
                ParameterKey=Environment,UsePreviousValue=true \
-               ParameterKey=ApiBaseUrl,UsePreviousValue=true \
                ParameterKey=SubnetIds,UsePreviousValue=true \
                ParameterKey=VpcId,UsePreviousValue=true \
                ParameterKey=DesiredTaskCount,UsePreviousValue=true \

@@ -17,7 +17,7 @@ async function journeyApi(action, ipvSessionId) {
   );
 }
 
-async function handleJourneyResponse(req, res, action) {
+async function handleJourneyResponse(req, res, action, next) {
   const response = (await journeyApi(action, req.session.ipvSessionId)).data;
 
   if(response?.journey) {
@@ -36,7 +36,21 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if (response?.page) {
-     return res.redirect(`/ipv/journeyPage?pageId=${response.page}`);
+    try {
+      const pageId = response.page;
+      switch (pageId) {
+        case 'page-ipv-debug':
+          return res.redirect("/debug");
+        case 'page-transition-default':
+          return res.render('ipv/page-transition-default')
+        default:
+          return res.render(`ipv/${pageId}`);
+      }
+    } catch (error) {
+      res.error = error.name;
+      res.status(500);
+      next(error);
+    }
   }
 }
 
@@ -66,30 +80,12 @@ module.exports = {
       const validAction = allowedActions.find(x => x === req.url)
 
       if(validAction) {
-        await handleJourneyResponse(req, res, validAction);
+        await handleJourneyResponse(req, res, validAction, next);
       } else {
         next(new Error(`Action ${req.url} not valid`));
       }
 
     } catch (error) {
-      next(error);
-    }
-
-  },
-  handleJourneyPage: async (req, res, next) => {
-    try {
-      const {pageId} = req.query;
-      switch (pageId) {
-        case 'page-ipv-debug':
-          return res.redirect("/debug");
-        case 'page-transition-default':
-          return res.render('ipv/page-transition-default')
-        default:
-          return res.render(`ipv/${pageId}`);
-      }
-    } catch (error) {
-      res.error = error.name;
-      res.status(500);
       next(error);
     }
   }

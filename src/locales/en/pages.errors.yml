@@ -1,13 +1,21 @@
 
 error:
-  title: Something went wrong!
+  title: Sorry, there is a problem with the service
   content:
-    - '{{ error.message }}'
-    - '{{ error | dump }}'
-    - '{% if showStack %}<pre>{{error.stack | safe}}</pre>{% endif %}'
+    - We cannot prove your identity right now.
+    - <h2>What you can do</h2>
+    - Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage
+    - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
+    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pageNotFound:
   title: Page not found
+  content:
+  - If you typed the web address, check it’s correct.
+  - If you pasted the web address, check you copied the entire address.
+  - You can also go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.
+  - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
+  - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 sessionEnded:
   title: Session expired

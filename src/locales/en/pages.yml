@@ -21,8 +21,15 @@ pyiNoMatch:
     - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button"> {{ translate("buttons.next") }} </a>
     - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link"> Contact the GOV.UK account team (opens in a new tab) </a>
 
-
-# Pages created from the prototype
+pyiKbvFail:
+  title: Sorry, we cannot prove your identity right now
+  content:
+    - This might be because you gave the wrong answer to some of the security questions.
+    - To keep your information safe, we cannot show which questions you answered incorrectly. 
+    - <h2 class="govuk-heading-m"> What you can do </h2>
+    - Continue to the service you were trying to use and look for other ways to prove your identity.
+    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button"> {{ translate("buttons.next") }} </a>
+    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link"> Contact the GOV.UK account team (opens in a new tab) </a>
 
 pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account

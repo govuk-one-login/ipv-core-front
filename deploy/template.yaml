@@ -20,10 +20,6 @@ Parameters:
   ImageTag:
     Description: The tag of core-front image to deploy in the task definition.
     Type: String
-  ApiBaseUrl:
-    Description: The url for the core internal API gateway.
-    Type: String
-    Default: This is being removed. Default value in the interim whilst we update Concourse.
   SubnetIds:
     Description: >-
       A comma separated list of subnet ids to create the ECS service and Load Balancer

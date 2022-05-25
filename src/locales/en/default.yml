@@ -4,6 +4,7 @@ buttons:
   next: Continue
   cancel: Cancel
   credentialIssuer: Credential Issuer
+  govUkHomepage: Go to the GOV.UK homepage
 govuk:
   serviceName: " "
   backLink: Back

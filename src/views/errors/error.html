@@ -1,2 +1,6 @@
 {% extends "hmpo-template.njk" %}
 {% set hmpoPageKey = "errors.error" %}
+
+{% block beforeContent %}
+  {% include "../shared/phase-banner.html" %}
+{% endblock %}

@@ -8,7 +8,7 @@ const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 
 module.exports = {
-  addCallbackParamsToRequest: async (req, res, next) => {
+  addCallbackParamsToRequest: async (req, _res, next) => {
     req.credentialIssuer = {};
 
     req.credentialIssuer.code = req.query?.code;

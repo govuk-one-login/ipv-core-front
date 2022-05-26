@@ -2,24 +2,24 @@ const axios = require("axios");
 const { API_BASE_URL } = require("../../lib/config");
 
 module.exports = {
-  renderOauthPage: async (req, res) => {
+  renderOauthPage: async (_req, res) => {
     res.render("index-hmpo");
   },
 
-  redirectToDebugPage: async (req, res) => {
+  redirectToDebugPage: async (_req, res) => {
     res.redirect("/debug");
   },
 
-  redirectToJourney: async (req, res) => {
+  redirectToJourney: async (_req, res) => {
     res.redirect("/ipv/journey/next");
   },
 
-  setDebugJourneyType: (req, res, next) => {
+  setDebugJourneyType: (req, _res, next) => {
     req.session.isDebugJourney = true;
     next();
   },
 
-  setRealJourneyType: (req, res, next) => {
+  setRealJourneyType: (req, _res, next) => {
     req.session.isDebugJourney = false;
     next();
   },
@@ -35,7 +35,7 @@ module.exports = {
         isDebugJourney: req.session.isDebugJourney,
         request: req.query.request
       };
-      
+
       if(!authParams.request){ return next(new Error('Request JWT Missing'));}
       if(!authParams.clientId){ return next(new Error('Client ID Missing'));}
 

@@ -55,7 +55,7 @@ module.exports = {
         ]);
 
         const journeyResponse = await axios.post(`${API_BASE_URL}/journey/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
-        res.redirect(`/ipv${journeyResponse.data?.journey}`);
+        return res.redirect(`/ipv${journeyResponse.data?.journey}`);
       }
 
       return next();

@@ -8,7 +8,7 @@ const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 
 module.exports = {
-  addCallbackParamsToRequest: async (req, res, next) => {
+  addCallbackParamsToRequest: async (req, _res, next) => {
     req.credentialIssuer = {};
 
     req.credentialIssuer.code = req.query?.code;
@@ -55,7 +55,7 @@ module.exports = {
         ]);
 
         const journeyResponse = await axios.post(`${API_BASE_URL}/journey/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
-        res.redirect(`/ipv${journeyResponse.data?.journey}`);
+        return res.redirect(`/ipv${journeyResponse.data?.journey}`);
       }
 
       return next();

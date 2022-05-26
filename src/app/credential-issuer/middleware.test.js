@@ -210,7 +210,7 @@ describe("credential issuer middleware", () => {
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
       const errorParams = new URLSearchParams([
-        ["error", null],
+        ["error", 'undefined'],
         ["error_description", error_description],
       ]);
 

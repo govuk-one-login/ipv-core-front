@@ -13,13 +13,13 @@ criRedirectionError:
 pyiNoMatch:
   title: Sorry, we cannot prove your identity right now
   content:
-    - This might be because we could not match your details to information from another database
+    - This might be because we could not match your details to information from another database.
     - To keep your information safe, we cannot show which of your details we had trouble finding a match for.
     - This could also be because you were unsuccessful when you've previously tried to prove your identity online.
-    - <h2> What you can do </h2>
+    - <h2>What you can do</h2>
     - Continue to the service you were trying to use and look for other ways to prove your identity.
     - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
-    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
+    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pyiTechnical:
   title: Sorry, there is a problem with the service
@@ -28,17 +28,17 @@ pyiTechnical:
     - <h2>What you can do</h2>
     - Continue to the service you were trying to use and look for other ways to prove your identity.
     - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
-    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
+    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pyiKbvFail:
   title: Sorry, we cannot prove your identity right now
   content:
     - This might be because you gave the wrong answer to some of the security questions.
     - To keep your information safe, we cannot show which questions you answered incorrectly. 
-    - <h2 class="govuk-heading-m"> What you can do </h2>
+    - <h2>What you can do</h2>
     - Continue to the service you were trying to use and look for other ways to prove your identity.
     - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button"> {{ translate("buttons.next") }} </a>
-    - <a href="https://signin.account.gov.uk/contact-us" class="govuk-link"> Contact the GOV.UK account team (opens in a new tab) </a>
+    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account
@@ -61,7 +61,7 @@ pagePreKbvTransition:
   detailsSummaryText:
   - How we know what questions to ask you
   detailsHTML:
-  - <p>We’ll work with <a href="https://www.experian.co.uk/">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p><a href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice</a> if you’d like to know more about how your details will be used to prove your identity.</p>
+  - <p>We’ll work with <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p><a href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice</a> if you’d like to know more about how your details will be used to prove your identity.</p>
 
 pageIpvSuccess:
   title: You’ve successfully proved your identity

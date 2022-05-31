@@ -12,3 +12,17 @@ govuk:
   error: Error
   warning: Warning
   skipLink: Skip to main content
+  betaBannerRequired: true
+  footerNavItems:
+    meta:
+      items:
+          - href: 'https://signin.account.gov.uk/contact-us'
+            text: 'Help'
+          - href: 'https://signin.account.gov.uk/privacy-notice'
+            text: 'Privacy'
+          - href: 'https://www.gov.uk/help/cookies'
+            text: 'Cookies'
+          - href: 'https://signin.account.gov.uk/accessibility-statement'
+            text: 'Accessibility'
+          - href: 'https://signin.account.gov.uk/terms-and-conditions'
+            text: 'Terms and conditions'

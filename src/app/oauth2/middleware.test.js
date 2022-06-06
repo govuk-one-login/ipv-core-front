@@ -139,14 +139,6 @@ describe("oauth middleware", () => {
     });
   });
 
-  describe("redirectToDebugPage", () => {
-    it("should redirect to debug page", () => {
-      middleware.redirectToDebugPage(req, res);
-
-      expect(res.redirect).to.have.been.calledWith("/debug");
-    });
-  });
-
   describe("redirectToJourney", () => {
     it("should redirect to journey route", () => {
       middleware.redirectToJourney(req, res);

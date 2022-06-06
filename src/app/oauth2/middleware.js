@@ -6,10 +6,6 @@ module.exports = {
     res.render("index-hmpo");
   },
 
-  redirectToDebugPage: async (_req, res) => {
-    res.redirect("/debug");
-  },
-
   redirectToJourney: async (_req, res) => {
     res.redirect("/ipv/journey/next");
   },

@@ -15,7 +15,7 @@ const sessionConfig = {
   secret: SESSION_SECRET,
 };
 
-const { router } = setup({
+const { app, router } = setup({
   config: { APP_ROOT: __dirname },
   port: PORT,
   logs: loggerConfig,
@@ -26,6 +26,8 @@ const { router } = setup({
   publicDirs: ["../dist/public"],
   dev: true,
 });
+
+app.set('trust proxy', 2)
 
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));

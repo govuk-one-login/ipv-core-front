@@ -41,6 +41,8 @@ module.exports = {
   },
 
   renderDebugPage: async (req, res) => {
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(req.headers));
     res.render("debug/page-ipv-debug", {
       criConfig: req.session.criConfig,
       issuedCredentials: req.issuedCredentials

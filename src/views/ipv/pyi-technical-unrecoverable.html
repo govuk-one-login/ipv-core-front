@@ -1,6 +1,4 @@
-{% extends "hmpo-template.njk" %}
+{%- set assetPath = "/public/" -%}
+{% extends "ipv/ipv-template.html" %}
 {% set hmpoPageKey = "errors.error" %}
 
-{% block beforeContent %}
-  {% include "../shared/phase-banner.html" %}
-{% endblock %}

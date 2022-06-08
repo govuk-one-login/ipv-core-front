@@ -1,25 +1,8 @@
-{% extends "hmpo-template.njk" %}
+{%- set assetPath = "/public/" -%}
+{% extends "ipv/ipv-template.html" %}
 {% set hmpoPageKey = "errors.pageNotFound" %}
 
-{# import beta banner boolean and footer link content #}
-{% set betaBannerRequired = translate("govuk.betaBannerRequired") %}
-{% set footerNavItems = translate("govuk.footerNavItems") %}
 
-{# if service name is not set, overwrite the page title from gov-uk/template.njk #}
-{% set hmpoPageTitle = "pages."+hmpoPageKey+".title" %}
-{% block pageTitle %}
-{{ translate(hmpoPageTitle) }} – GOV.UK
-{% endblock %}
 
-{# show the beta banner if the boolean is true #}
-{% block beforeContent %}
-{% if 'true' in betaBannerRequired %}
-{% include "../shared/phase-banner.html" %}
-{% endif %}
-{% endblock %}
 
-{# output the correct service footer #}
-{% block footer %}
-{{ govukFooter( footerNavItems ) }}
-{% endblock %}
 

@@ -111,14 +111,6 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should render generic transition page when given a valid pageId", async () => {
-      req = {
-        query: { pageId: 'page-transition-default' },
-      };
-
-      await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/page-transition-default");
-    });
 
     it("should render debug page when page-ipv-debug", async () => {
       req = {

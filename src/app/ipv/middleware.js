@@ -87,8 +87,6 @@ module.exports = {
       switch (pageId) {
         case 'page-ipv-debug':
           return res.redirect("/debug");
-        case 'page-transition-default':
-          return res.render('ipv/page-transition-default')
         default:
           return res.render(`ipv/${pageId}`);
       }

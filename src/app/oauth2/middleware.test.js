@@ -131,13 +131,7 @@ describe("oauth middleware", () => {
     });
   });
 
-  describe("renderOauthPage", () => {
-    it("should render index page", () => {
-      middleware.renderOauthPage(req, res);
 
-      expect(res.render).to.have.been.calledWith("index-hmpo");
-    });
-  });
 
   describe("redirectToDebugPage", () => {
     it("should redirect to debug page", () => {

@@ -67,7 +67,7 @@ pagePreKbvTransition:
   summaryText:
   - How we know what questions to ask you
   summaryHtml:
-  - '<p>We’ll work with <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p><a href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice</a> if you’d like to know more about how your details will be used to prove your identity.</p>'
+  - '<p>We’ll work with <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.<p><p><a href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice</a> if you’d like to know more about how your details will be used to prove your identity.</p>'
   continueButton:
   - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">{{ translate("buttons.next") }}</a>
 

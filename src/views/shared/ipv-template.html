@@ -1,0 +1,34 @@
+{% extends "hmpo-template.njk" %}
+
+{% from "govuk/components/button/macro.njk"                 import govukButton %}
+{% from "govuk/components/phase-banner/macro.njk"           import govukPhaseBanner %}
+{% from "govuk/components/warning-text/macro.njk"           import govukWarningText %}
+{% from "govuk/components/details/macro.njk"                import govukDetails %}
+
+{% set hmpoPageTitle = "pages."+hmpoPageKey+".title" %}
+{% set hmpoPageTitleServiceNameRequired = "pages."+hmpoPageKey+".serviceNameRequired" %}
+{% set hmpoPageHtmlContent = "pages."+hmpoPageKey+".htmlContent" %}
+
+{% block pageTitle %}
+    {% if translate("pages."+hmpoPageKey+".serviceNameRequired") == 'true' %}
+        {{ translate(hmpoPageTitle) }} – Prove your identity – GOV.UK
+    {% else %}
+        {{ translate(hmpoPageTitle) }} – GOV.UK
+    {% endif %}
+{% endblock %}
+
+{# the BETA banner is added to all pages using this template by default #}
+{% block beforeContent %}
+    {{ govukPhaseBanner({
+    tag: { text: "beta" },
+    html: 'This is a new service – your <a class="govuk-link" href="https://signin.account.gov.uk/contact-us">feedback</a> will help us to improve it.'
+    }) }}
+{% endblock %}
+
+
+{# generate the specific footer items required for the PYI flows #}
+
+{% set footerNavItems = translate("govuk.footerNavItems") %}
+{% block footer %}
+    {{ govukFooter( footerNavItems ) }}
+{% endblock %}

@@ -1,18 +1,20 @@
 
-# this page is the default error page for core-front. \
+# the error page content directly below is the default error page for core-front.
 # WARNING: the content for error: is also used to generate the content for views/ipv/pyi-technical-unrecoverable.html
 
 error:
   title: Sorry, there is a problem with the service
+  serviceNameRequired: true
   content:
     - We cannot prove your identity right now.
-    - <h2>What you can do</h2>
+    - '## What you can do'
     - Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.
     - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
     - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pageNotFound:
   title: Page not found
+  serviceNameRequired: true
   content:
   - If you typed the web address, check it’s correct.
   - If you pasted the web address, check you copied the entire address.

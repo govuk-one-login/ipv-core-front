@@ -1,52 +1,22 @@
-{% extends "hmpo-template.njk" %}
-
-{% block pageTitle %}
-Answer Security Questions - Prove your identity - GDS
-{% endblock %}
-
+{% extends "shared/ipv-template.html" %}
+{% from "hmpo-html/macro.njk" import hmpoHtml %}
 {% set hmpoPageKey = "pagePreKbvTransition" %}
 
-{% from "govuk/components/button/macro.njk" import govukButton %}
-
-{% block beforeContent %}
-  {% include "../shared/phase-banner.html" %}
-{% endblock %}
-
-{% block content %}
-<div class="govuk-grid-row">
-<div class="govuk-grid-column-two-thirds">
-
 {% block mainContent %}
-
 <h1 id="header" data-page="{{hmpoPageKey}}">{{ translate("pages." + hmpoPageKey + ".h1", { default: hmpoTitle }) | safe }}</h1>
 
-{% from "hmpo-html/macro.njk" import hmpoHtml %}
-{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentStart"))
-}}
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".content", { default: [] })) }}
 
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{{ govukWarningText({ text: translate("pages." + hmpoPageKey + ".warningTextContent") | safe, iconFallbackText: translate("pages." + hmpoPageKey + ".warningTextFallback") | safe }) }}
 
-{{ govukWarningText({
-  text: translate("pages." + hmpoPageKey + ".warningText"),
-  iconFallbackText: translate("pages." + hmpoPageKey + ".iconFallbackText")
-})
-}}
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentAddition", { default: [] })) }}
 
-{{ hmpoHtml(translate("pages." + hmpoPageKey + ".contentContinue"))
-}}
+{{ govukDetails({ summaryText: translate("pages." + hmpoPageKey + ".summaryText") | safe, html: translate("pages." + hmpoPageKey + ".summaryHtml") | safe  }) }}
 
-
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-
-{{ govukDetails({
-  summaryText: translate("pages." + hmpoPageKey + ".detailsSummaryText"),
-  html: translate("pages." + hmpoPageKey + ".detailsHTML")
-}) }}
-
-<p><a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button">{{ translate("buttons.next") }}</a></p>
+{{ hmpoHtml(translate("pages." + hmpoPageKey + ".continueButton", { default: [] })) }}
 
 {% endblock %}
-</div>
-</div>
 
-{% endblock %}
+
+
+

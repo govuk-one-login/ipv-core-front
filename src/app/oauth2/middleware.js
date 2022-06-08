@@ -2,9 +2,7 @@ const axios = require("axios");
 const { API_BASE_URL } = require("../../lib/config");
 
 module.exports = {
-  renderOauthPage: async (_req, res) => {
-    res.render("index-hmpo");
-  },
+
 
   redirectToJourney: async (_req, res) => {
     res.redirect("/ipv/journey/next");

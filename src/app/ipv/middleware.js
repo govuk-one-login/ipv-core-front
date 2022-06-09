@@ -67,7 +67,7 @@ module.exports = {
         /^\/journey\/(next|error|fail)$/,
         /^\/journey\/cri\/start\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
         /^\/journey\/session\/end$/,
-        /^\/journey\/cri\/validate\/(ukPassport|fraud|address|kbv)$/
+        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/
       ]
 
       if(allowedActions.some((actionRegex) => actionRegex.test(action))) {

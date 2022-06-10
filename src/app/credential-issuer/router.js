@@ -8,10 +8,6 @@ const {
   tryHandleRedirectError
 } = require("./middleware");
 
-const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require('../shared/criHelper');
-
-router.get("/authorize", buildCredentialIssuerRedirectURL, redirectToAuthorize);
-
 router.get(
   "/callback",
   tryHandleRedirectError,

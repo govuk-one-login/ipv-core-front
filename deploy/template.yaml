@@ -96,7 +96,6 @@ Resources:
       SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
 
   AccessLogsBucket:
-    Condition: IsNotDevelopment
     Type: AWS::S3::Bucket
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
     Properties:
@@ -115,7 +114,6 @@ Resources:
               SSEAlgorithm: AES256
 
   CoreFrontAccessLogsBucketPolicy:
-    Condition: IsNotDevelopment
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref AccessLogsBucket
@@ -167,6 +165,7 @@ Resources:
           - Key: access_logs.s3.prefix
             Value: !Sub core-front-${Environment}
           - !Ref AWS::NoValue
+    DependsOn: CoreFrontAccessLogsBucketPolicy
 
   LoadBalancerListenerTargetGroupECS:
     Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'

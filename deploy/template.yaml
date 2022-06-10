@@ -114,23 +114,6 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
 
-  AccessLoggingBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Condition: IsNotDevelopment
-      Properties:
-        Bucket: !Ref AccessLogsBucket
-        PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: logging.s3.amazonaws.com
-              Action: s3:PutObject
-              Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
-              Condition:
-                StringEquals:
-                  'aws:SourceAccount': !Sub "${AWS::AccountId}"
-
   CoreFrontAccessLogsBucketPolicy:
     Condition: IsNotDevelopment
     Type: AWS::S3::BucketPolicy
@@ -147,6 +130,14 @@ Resources:
               - s3:PutObject
             Resource:
               - !Sub arn:aws:s3:::${AccessLogsBucket}/core-front-${Environment}/AWSLogs/${AWS::AccountId}/*
+          - Effect: Allow
+            Principal:
+              Service: logging.s3.amazonaws.com
+            Action: s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
+            Condition:
+              StringEquals:
+                'aws:SourceAccount': !Sub "${AWS::AccountId}"
 
   # Private Application Load Balancer
   LoadBalancer:

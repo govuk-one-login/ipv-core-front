@@ -1,7 +1,5 @@
-console.log('GTM test active. Click the feedback link in the phase banner to test.');
 const feedback = document.querySelector('.govuk-phase-banner a');
-feedback.addEventListener("click", event => {
-  console.log('Feedback link clicked');
+feedback.addEventListener("click", event => { // eslint-disable-line no-unused-vars
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: "gaEvent",

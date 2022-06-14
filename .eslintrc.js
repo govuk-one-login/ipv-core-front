@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
     es2020: true,
     mocha: true,
+    browser: true
   },
   globals: {
     sinon: true,

@@ -1,5 +1,5 @@
 const feedback = document.querySelector('.govuk-phase-banner a');
-feedback.addEventListener("click", event => { // eslint-disable-line no-unused-vars
+feedback.addEventListener("click", function(event){ // eslint-disable-line no-unused-vars
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: "gaEvent",

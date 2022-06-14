@@ -210,8 +210,10 @@ Resources:
         MaximumPercent: 200
         MinimumHealthyPercent: 50
         DeploymentCircuitBreaker:
-          Enable: TRUE
-          Rollback: TRUE
+          Enable: true
+          Rollback: true
+      DeploymentController:
+        Type: ECS
       DesiredCount: !Ref DesiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 60

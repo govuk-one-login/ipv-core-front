@@ -48,11 +48,18 @@
     {% endif %}
 {% endblock %}
 
+
+{% block govukHeader %}
+    {# to remediate accessibility issues the header does not include the service name #}
+    {# this overrides the behaviour in hmpo-template.njk and calls the 'minimal' GOV.UK header #}
+    {{ govukHeader({}) }}
+{% endblock %}
+
 {# the BETA banner is added to all pages using this template by default #}
 {% block beforeContent %}
     {{ govukPhaseBanner({
     tag: { text: "beta" },
-    html: 'This is a new service – your <a class="govuk-link" href="https://signin.account.gov.uk/contact-us">feedback</a> will help us to improve it.'
+    html: 'This is a new service – your <a class="govuk-link" href="https://signin.account.gov.uk/contact-us">feedback</a>  will help us to improve it.'
     }) }}
 {% endblock %}
 

@@ -88,7 +88,7 @@ module.exports = {
         case 'page-ipv-debug':
           return res.redirect("/debug");
         default:
-          return res.render(`ipv/${pageId}`);
+          return res.redirect(`/ipv/${pageId}`);
       }
     } catch (error) {
       res.error = error.name;

@@ -121,13 +121,13 @@ describe("journey middleware", () => {
       expect(res.redirect).to.have.been.calledWith("/debug");
     });
 
-    it("should render default case when given valid pageId", async () => {
+    it("should redirect to default case when given valid pageId", async () => {
       req = {
         query: { pageId: 'page-cri-start' },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/page-cri-start");
+      expect(res.redirect).to.have.been.calledWith("/ipv/page-cri-start");
     });
 
     it("should raise an error when missing pageId", async () => {

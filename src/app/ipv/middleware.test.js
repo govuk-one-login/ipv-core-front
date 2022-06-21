@@ -127,7 +127,7 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.redirect).to.have.been.calledWith("/ipv/page-cri-start");
+      expect(res.redirect).to.have.been.calledWith("/ipv/journeyPage?pageId=page-cri-start");
     });
 
     it("should raise an error when missing pageId", async () => {

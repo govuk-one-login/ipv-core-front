@@ -1062,7 +1062,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4:
+debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -1892,10 +1892,10 @@ hmpo-i18n@5.0.1:
     js-yaml "^4.1.0"
     lodash "^4.17.21"
 
-hmpo-logger@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/hmpo-logger/-/hmpo-logger-6.0.0.tgz#8492d9ddfd0f4e56dc2204e2b167b3b576a47059"
-  integrity sha512-EXs69N1dUbC2DDuxieM2k2GrOqBkb3bZWd4K5fuDKGnZeX4RiXjCh/lbeYbCvPgRoZJDaOZhNS0IdjnT7SpQ5w==
+hmpo-logger@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/hmpo-logger/-/hmpo-logger-6.1.0.tgz#33c8089b35ed3efb1ee1c5de25e30e307be63cb5"
+  integrity sha512-0rFR/if1DsSm2EQK0oQkh2gEZjOlbe01FLRGLIsug6a4yvm0i4CUsqVdM5kNaLTC490+cfPW6W8Nj3ctoMGiOQ==
   dependencies:
     chalk "=4"
     debug "^4.3.4"

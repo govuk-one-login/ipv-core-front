@@ -6,7 +6,6 @@ const {
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
-
 module.exports = {
   addCallbackParamsToRequest: async (req, _res, next) => {
     req.credentialIssuer = {};
@@ -21,10 +20,12 @@ module.exports = {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", req.query.id],
-      ["redirect_uri", `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`],
+      [
+        "redirect_uri",
+        `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
+      ],
       ["state", req.credentialIssuer.state],
     ]);
-
 
     try {
       const apiResponse = await axios.post(
@@ -44,24 +45,27 @@ module.exports = {
       next(error);
     }
   },
-  tryHandleRedirectError : async (req, res, next)  => {
+  tryHandleRedirectError: async (req, res, next) => {
     try {
-      const {error, error_description} = req.query;
+      const { error, error_description } = req.query;
 
-      if(error || error_description) {
+      if (error || error_description) {
         const errorParams = new URLSearchParams([
           ["error", error],
           ["error_description", error_description],
         ]);
 
-        const journeyResponse = await axios.post(`${API_BASE_URL}/journey/cri/error`, errorParams, generateAxiosConfig(req.session.ipvSessionId))
+        const journeyResponse = await axios.post(
+          `${API_BASE_URL}/journey/cri/error`,
+          errorParams,
+          generateAxiosConfig(req.session.ipvSessionId)
+        );
         return res.redirect(`/ipv${journeyResponse.data?.journey}`);
       }
 
       return next();
-
     } catch (error) {
-     return next(error)
+      return next(error);
     }
   },
- };
+};

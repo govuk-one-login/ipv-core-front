@@ -59,9 +59,12 @@ describe("credential issuer middleware", () => {
         "../../lib/config": configStub,
       });
       req = {
-        credentialIssuer: { code: "authorize-code-issued", state: "oauth-state" },
+        credentialIssuer: {
+          code: "authorize-code-issued",
+          state: "oauth-state",
+        },
         session: { ipvSessionId: "ipv-session-id" },
-        query: { id: "PassportIssuer" }
+        query: { id: "PassportIssuer" },
       };
       res = {
         status: sinon.fake(),
@@ -81,7 +84,10 @@ describe("credential issuer middleware", () => {
         const searchParams = new URLSearchParams([
           ["authorization_code", req.credentialIssuer.code],
           ["credential_issuer_id", req.query.id],
-          ["redirect_uri", `http://example.com/credential-issuer/callback?id=${req.query.id}`],
+          [
+            "redirect_uri",
+            `http://example.com/credential-issuer/callback?id=${req.query.id}`,
+          ],
           ["state", req.credentialIssuer.state],
         ]);
 
@@ -111,7 +117,7 @@ describe("credential issuer middleware", () => {
 
     it("should call /journey/next", async () => {
       axiosResponse.data = {
-        journey: "/journey/next"
+        journey: "/journey/next",
       };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
@@ -147,27 +153,27 @@ describe("credential issuer middleware", () => {
     let configStub = {};
     let middleware;
 
-    const error = 'access_denied';
-    const error_description = 'restart '
+    const error = "access_denied";
+    const error_description = "restart ";
 
     beforeEach(() => {
       configStub.API_BASE_URL = "https://example.net/path";
 
       middleware = proxyquire("./middleware", {
-       axios: axiosStub,
+        axios: axiosStub,
         "../../lib/config": configStub,
       });
 
       req = {
         url: `/callback`,
-        query: {error, error_description},
+        query: { error, error_description },
         session: { ipvSessionId: "ipv-session-id" },
       };
 
       res = {
         status: sinon.fake(),
         render: sinon.fake(),
-        redirect: sinon.fake()
+        redirect: sinon.fake(),
       };
       next = sinon.fake();
     });
@@ -176,7 +182,7 @@ describe("credential issuer middleware", () => {
       const axiosResponse = {};
 
       axiosResponse.data = {
-        journey: "/journey/cri/error"
+        journey: "/journey/cri/error",
       };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
@@ -195,28 +201,29 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "ipv-session-id",
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }));
+        })
+      );
 
-      expect(res.redirect).to.have.been.calledWith('/ipv/journey/cri/error')
-    })
+      expect(res.redirect).to.have.been.calledWith("/ipv/journey/cri/error");
+    });
 
     it("should report error to journey api and redirect to journey value when only error description is present", async () => {
       const axiosResponse = {};
 
       axiosResponse.data = {
-        journey: "/journey/cri/error"
+        journey: "/journey/cri/error",
       };
 
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
       const errorParams = new URLSearchParams([
-        ["error", 'undefined'],
+        ["error", "undefined"],
         ["error_description", error_description],
       ]);
 
       req = {
         url: `/callback`,
-        query: {error_description},
+        query: { error_description },
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -230,13 +237,13 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "ipv-session-id",
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }));
+        })
+      );
 
-      expect(res.redirect).to.have.been.calledWith('/ipv/journey/cri/error')
-    })
+      expect(res.redirect).to.have.been.calledWith("/ipv/journey/cri/error");
+    });
 
     it("should call next if no error and error_description is present in the query string", async () => {
-
       req = {
         url: `/callback`,
         query: {},
@@ -247,7 +254,7 @@ describe("credential issuer middleware", () => {
       await middleware.tryHandleRedirectError(req, res, next);
 
       expect(next).to.have.been.calledOnce;
-    })
+    });
 
     it("should call next with error if api call errors", async () => {
       let axiosResponse = {};
@@ -257,9 +264,10 @@ describe("credential issuer middleware", () => {
       axiosStub.post = sinon.fake.throws(axiosError);
       await middleware.tryHandleRedirectError(req, res, next);
 
-      expect(next).to.have.been.calledWith(sinon.match.has('message', 'api error'));
+      expect(next).to.have.been.calledWith(
+        sinon.match.has("message", "api error")
+      );
       expect(next).to.have.been.calledOnce;
-    })
-
+    });
   });
 });

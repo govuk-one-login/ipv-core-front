@@ -17,7 +17,7 @@ $govuk-assets-path: "/public/";
 
 .app-task-list__section {
   display: table;
-  @include govuk-font($size:24, $weight: bold);
+  @include govuk-font($size: 24, $weight: bold);
 }
 
 .app-task-list__section-number {

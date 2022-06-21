@@ -2,8 +2,6 @@ const axios = require("axios");
 const { API_BASE_URL } = require("../../lib/config");
 
 module.exports = {
-
-
   redirectToJourney: async (_req, res) => {
     res.redirect("/ipv/journey/next");
   },
@@ -27,13 +25,20 @@ module.exports = {
         state: req.query.state,
         scope: req.query.scope,
         isDebugJourney: req.session.isDebugJourney,
-        request: req.query.request
+        request: req.query.request,
       };
 
-      if(!authParams.request){ return next(new Error('Request JWT Missing'));}
-      if(!authParams.clientId){ return next(new Error('Client ID Missing'));}
+      if (!authParams.request) {
+        return next(new Error("Request JWT Missing"));
+      }
+      if (!authParams.clientId) {
+        return next(new Error("Client ID Missing"));
+      }
 
-      const response = await axios.post(`${API_BASE_URL}/session/start`, authParams);
+      const response = await axios.post(
+        `${API_BASE_URL}/session/start`,
+        authParams
+      );
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
       res.error = error.name;

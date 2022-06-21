@@ -39,15 +39,15 @@ Parameters:
 
 Conditions:
   IsNotDevelopment: !Or
-    - !Equals [ !Ref Environment, build ]
-    - !Equals [ !Ref Environment, staging ]
-    - !Equals [ !Ref Environment, integration ]
-    - !Equals [ !Ref Environment, production ]
+    - !Equals [!Ref Environment, build]
+    - !Equals [!Ref Environment, staging]
+    - !Equals [!Ref Environment, integration]
+    - !Equals [!Ref Environment, production]
 
 Resources:
   # Security Groups for the ECS service and load balancer
   LoadBalancerSG:
-    Type: 'AWS::EC2::SecurityGroup'
+    Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
@@ -60,7 +60,7 @@ Resources:
       VpcId: !Ref VpcId
 
   LoadBalancerSGEgressToECSSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroupEgress'
+    Type: "AWS::EC2::SecurityGroupEgress"
     Properties:
       GroupId: !GetAtt LoadBalancerSG.GroupId
       IpProtocol: tcp
@@ -72,7 +72,7 @@ Resources:
       ToPort: 8080
 
   ECSSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
+    Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
         Core Front ECS Security Group permitting outbound
@@ -80,11 +80,11 @@ Resources:
       SecurityGroupEgress:
         - CidrIp: 0.0.0.0/0
           Description: Allow all outbound traffic by default
-          IpProtocol: '-1'
+          IpProtocol: "-1"
       VpcId: !Ref VpcId
 
   ECSSecurityGroupIngressFromLoadBalancer:
-    Type: 'AWS::EC2::SecurityGroupIngress'
+    Type: "AWS::EC2::SecurityGroupIngress"
     Properties:
       IpProtocol: tcp
       Description: >-
@@ -135,11 +135,11 @@ Resources:
             Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
             Condition:
               StringEquals:
-                'aws:SourceAccount': !Sub "${AWS::AccountId}"
+                "aws:SourceAccount": !Sub "${AWS::AccountId}"
 
   # Private Application Load Balancer
   LoadBalancer:
-    Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
       Scheme: internal
       SecurityGroups:
@@ -168,7 +168,7 @@ Resources:
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
   LoadBalancerListenerTargetGroupECS:
-    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
@@ -183,7 +183,7 @@ Resources:
           Value: 60
 
   LoadBalancerListener:
-    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
       # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
       # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
@@ -196,14 +196,14 @@ Resources:
 
   # ECS cluster, service and task definition
   CoreFrontEcsCluster:
-    Type: 'AWS::ECS::Cluster'
+    Type: "AWS::ECS::Cluster"
     Properties:
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
 
   CoreFrontEcsService:
-    Type: 'AWS::ECS::Service'
+    Type: "AWS::ECS::Service"
     Properties:
       Cluster: !Ref CoreFrontEcsCluster
       DeploymentConfiguration:
@@ -247,20 +247,23 @@ Resources:
       LogGroupName: !Ref ECSAccessLogsGroup
 
   ECSServiceTaskDefinition:
-    Type: 'AWS::ECS::TaskDefinition'
+    Type: "AWS::ECS::TaskDefinition"
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !If [IsNotDevelopment, !Sub "457601271792.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-build:${ImageTag}", !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}"] # Uses build account and ECR when not in development.
+          Image: !If [
+              IsNotDevelopment,
+              !Sub "457601271792.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-build:${ImageTag}",
+              !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
+            ] # Uses build account and ECR when not in development.
           Name: app
           Environment:
             - Name: API_BASE_URL
               Value: !Sub
-                  - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
-                  - APIGatewayId:
-                      Fn::ImportValue:
-                        !Sub ipv-core-back-${Environment}-IPVCorePrivateAPIGatewayID
-                    Environment: !Ref Environment
+                - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
+                - APIGatewayId:
+                    Fn::ImportValue: !Sub ipv-core-back-${Environment}-IPVCorePrivateAPIGatewayID
+                  Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
           PortMappings:
@@ -269,23 +272,23 @@ Resources:
           LogConfiguration:
             LogDriver: awslogs
             Options:
-              awslogs-group : !Ref ECSAccessLogsGroup
-              awslogs-region : !Sub ${AWS::Region}
-              awslogs-stream-prefix : !Sub core-front-${Environment}
-      Cpu: '512'
+              awslogs-group: !Ref ECSAccessLogsGroup
+              awslogs-region: !Sub ${AWS::Region}
+              awslogs-stream-prefix: !Sub core-front-${Environment}
+      Cpu: "512"
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-      Memory: '1024'
+      Memory: "1024"
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
 
   ECSTaskExecutionRole:
-    Type: 'AWS::IAM::Role'
+    Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument:
         Statement:
-          - Action: 'sts:AssumeRole'
+          - Action: "sts:AssumeRole"
             Effect: Allow
             Principal:
               Service: ecs-tasks.amazonaws.com
@@ -301,7 +304,7 @@ Resources:
                   - "ecr:GetDownloadUrlForLayer"
                   - "ecr:GetAuthorizationToken"
                 Resource:
-                  - '*'
+                  - "*"
               - Effect: Allow
                 Action:
                   - "logs:CreateLogStream"
@@ -310,11 +313,11 @@ Resources:
                   - !GetAtt "ECSAccessLogsGroup.Arn"
                   - !Sub "${ECSAccessLogsGroup.Arn}:*"
   ECSTaskRole:
-    Type: 'AWS::IAM::Role'
+    Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument:
         Statement:
-          - Action: 'sts:AssumeRole'
+          - Action: "sts:AssumeRole"
             Effect: Allow
             Principal:
               Service: ecs-tasks.amazonaws.com
@@ -324,41 +327,41 @@ Resources:
   # private Load Balancer in front of Core Front ECS
   # Service.
   VpcLink:
-      Type: 'AWS::ApiGatewayV2::VpcLink'
-      Properties:
-          Name: ApiGwVpcLinkToLoadBalancer
-          SubnetIds: !Ref SubnetIds
-          SecurityGroupIds: []
+    Type: "AWS::ApiGatewayV2::VpcLink"
+    Properties:
+      Name: ApiGwVpcLinkToLoadBalancer
+      SubnetIds: !Ref SubnetIds
+      SecurityGroupIds: []
 
   ApiGwHttpEndpoint:
-      Type: 'AWS::ApiGatewayV2::Api'
-      Properties:
-          Name: !Sub ipv-core-front-${Environment}
-          ProtocolType: HTTP
+    Type: "AWS::ApiGatewayV2::Api"
+    Properties:
+      Name: !Sub ipv-core-front-${Environment}
+      ProtocolType: HTTP
 
   ApiGwHttpEndpointIntegration:
-      Type: 'AWS::ApiGatewayV2::Integration'
-      Properties:
-        ApiId: !Ref ApiGwHttpEndpoint
-        IntegrationType: HTTP_PROXY
-        ConnectionId: !Ref VpcLink
-        ConnectionType: VPC_LINK
-        IntegrationMethod: ANY
-        IntegrationUri: !Ref LoadBalancerListener
-        PayloadFormatVersion: '1.0'
-
-  APIGWRoute:
-    Type: 'AWS::ApiGatewayV2::Route'
+    Type: "AWS::ApiGatewayV2::Integration"
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
-      RouteKey: 'ANY /{proxy+}'
+      IntegrationType: HTTP_PROXY
+      ConnectionId: !Ref VpcLink
+      ConnectionType: VPC_LINK
+      IntegrationMethod: ANY
+      IntegrationUri: !Ref LoadBalancerListener
+      PayloadFormatVersion: "1.0"
+
+  APIGWRoute:
+    Type: "AWS::ApiGatewayV2::Route"
+    Properties:
+      ApiId: !Ref ApiGwHttpEndpoint
+      RouteKey: "ANY /{proxy+}"
       Target: !Join
         - /
         - - integrations
           - !Ref ApiGwHttpEndpointIntegration
 
   APIStageDefault:
-    Type: 'AWS::ApiGatewayV2::Stage'
+    Type: "AWS::ApiGatewayV2::Stage"
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       StageName: $default
@@ -393,40 +396,39 @@ Resources:
       LogGroupName: !Ref APIGWAccessLogsGroup
 
   LoggingKmsKey:
-      Type: AWS::KMS::Key
-      Properties:
-        EnableKeyRotation: true
-        KeyPolicy:
-          Version: 2012-10-17
-          Statement:
-            - Effect: Allow
-              Principal:
-                AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
-              Action:
-                - kms:*
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                Service: !Sub "logs.${AWS::Region}.amazonaws.com"
-              Action:
-                - "kms:Encrypt*"
-                - "kms:Decrypt*"
-                - "kms:ReEncrypt*"
-                - "kms:GenerateDataKey*"
-                - "kms:Describe*"
-              Resource: "*"
-              Condition:
-                ArnLike:
-                  "kms:EncryptionContext:aws:logs:arn": !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
+    Type: AWS::KMS::Key
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - kms:*
+            Resource: "*"
+          - Effect: Allow
+            Principal:
+              Service: !Sub "logs.${AWS::Region}.amazonaws.com"
+            Action:
+              - "kms:Encrypt*"
+              - "kms:Decrypt*"
+              - "kms:ReEncrypt*"
+              - "kms:GenerateDataKey*"
+              - "kms:Describe*"
+            Resource: "*"
+            Condition:
+              ArnLike:
+                "kms:EncryptionContext:aws:logs:arn": !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
 
 Outputs:
   CoreFrontUrl:
     Description: >-
       The API Gateway URL which Core Front can be invoked on.
-    Value: !GetAtt  ApiGwHttpEndpoint.ApiEndpoint
+    Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
   IPVCoreFrontGatewayID:
     Description: Core Front API Gateway ID
     Export:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
     Value: !Ref ApiGwHttpEndpoint
-

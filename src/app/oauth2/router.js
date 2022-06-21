@@ -4,7 +4,9 @@ const router = express.Router();
 
 const {
   redirectToJourney,
-  setIpvSessionId, setDebugJourneyType, setRealJourneyType,
+  setIpvSessionId,
+  setDebugJourneyType,
+  setRealJourneyType,
 } = require("./middleware");
 
 router.get(

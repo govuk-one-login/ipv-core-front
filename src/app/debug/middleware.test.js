@@ -33,7 +33,7 @@ describe("debug middleware", () => {
     describe("without criConfig in current session", () => {
       beforeEach(() => {
         req = {
-          session: {}
+          session: {},
         };
         axiosResponse = {
           data: [
@@ -43,7 +43,7 @@ describe("debug middleware", () => {
               authorizeUrl: "http://passport-stub-1/authorize",
               tokenUrl: "http://passport-stub-1/token",
               credentialUrl: "http://passport-stub-1/credential",
-              ipvClientId: "test-ipv-client"
+              ipvClientId: "test-ipv-client",
             },
             {
               id: "FraudIssuer",
@@ -51,7 +51,7 @@ describe("debug middleware", () => {
               authorizeUrl: "http://fraud-stub-1/authorize",
               tokenUrl: "http://fraud-stub-1/token",
               credentialUrl: "http://fraud-stub-1/credential",
-              ipvClientId: "test-ipv-client"
+              ipvClientId: "test-ipv-client",
             },
             {
               id: "AddressIssuer",
@@ -59,8 +59,8 @@ describe("debug middleware", () => {
               authorizeUrl: "http://address-stub-1/authorize",
               tokenUrl: "http://address-stub-1/token",
               credentialUrl: "http://address-stub-1/credential",
-              ipvClientId: "test-ipv-client"
-            }
+              ipvClientId: "test-ipv-client",
+            },
           ],
         };
       });
@@ -103,11 +103,11 @@ describe("debug middleware", () => {
                 authorizeUrl: "http://passport-stub-1/authorize",
                 tokenUrl: "http://passport-stub-1/token",
                 credentialUrl: "http://passport-stub-1/credential",
-                ipvClientId: "test-ipv-client"
-              }
-            ]
-          }
-        }
+                ipvClientId: "test-ipv-client",
+              },
+            ],
+          },
+        };
       });
 
       it("request-config endpoint has not been called", async function () {
@@ -116,23 +116,25 @@ describe("debug middleware", () => {
         await middleware.setCriConfig(req, res, next);
 
         expect(axiosStub.get).to.not.have.been.called;
-      })
+      });
     });
   });
 
   describe("getIssuedCredentials", () => {
-
     const issuedCredentialsResponse = {
       data: {
-        addressIssuer: '{"attributes":{"address":{"postcode":"SW1A1AA","houseNumber":10}}}',
-        passportIssuer: '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"passportNo":"824159121","passportExpiryDate":"2030-01-01","dateOfBirth":"2021-03-01"},"gpg45Score":{"evidence":{"strength":5,"validity":3}}}',
-        fraudIssuer: '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"someFraudAttribute":"notsurewhatthatmightbe"},"gpg45Score":{"fraud":0}}'
+        addressIssuer:
+          '{"attributes":{"address":{"postcode":"SW1A1AA","houseNumber":10}}}',
+        passportIssuer:
+          '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"passportNo":"824159121","passportExpiryDate":"2030-01-01","dateOfBirth":"2021-03-01"},"gpg45Score":{"evidence":{"strength":5,"validity":3}}}',
+        fraudIssuer:
+          '{"attributes":{"names":{"givenNames":["Mary"],"familyName":"Watson"},"someFraudAttribute":"notsurewhatthatmightbe"},"gpg45Score":{"fraud":0}}',
       },
     };
 
     beforeEach(() => {
       req = {
-        session: {}
+        session: {},
       };
     });
 
@@ -142,7 +144,9 @@ describe("debug middleware", () => {
 
         await middleware.getIssuedCredentials(req, res, next);
 
-        expect(req.issuedCredentials.addressIssuer).to.eql(JSON.parse(issuedCredentialsResponse.data.addressIssuer));
+        expect(req.issuedCredentials.addressIssuer).to.eql(
+          JSON.parse(issuedCredentialsResponse.data.addressIssuer)
+        );
       });
 
       it("should call next", async function () {
@@ -163,7 +167,7 @@ describe("debug middleware", () => {
         expect(res.error).to.be.eql("Error");
       });
     });
-  })
+  });
 
   describe("renderDebugPage", () => {
     it("should render debug page", () => {

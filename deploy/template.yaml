@@ -315,19 +315,17 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - "dynamodb:BatchGet*"
-                  - "dynamodb:DescribeStream"
+                  - "dynamodb:BatchGetItem"
                   - "dynamodb:DescribeTable"
-                  - "dynamodb:Get*"
+                  - "dynamodb:GetItem"
                   - "dynamodb:Query"
                   - "dynamodb:Scan"
-                  - "dynamodb:BatchWrite*"
-                  - "dynamodb:CreateTable"
-                  - "dynamodb:Delete*"
-                  - "dynamodb:Update*"
+                  - "dynamodb:BatchWriteItem"
+                  - "dynamodb:DeleteItem"
+                  - "dynamodb:UpdateItem"
                   - "dynamodb:PutItem"
                 Resource:
-                  - "arn:aws:dynamodb:*:*:table/core-front-sessions-*"
+                  - !GetAtt CoreFrontSessionsTable.Arn
 
   ECSTaskRole:
     Type: 'AWS::IAM::Role'

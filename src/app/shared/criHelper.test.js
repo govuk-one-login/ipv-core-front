@@ -18,7 +18,7 @@ describe("cri Helper", () => {
               authorizeUrl: "http://passport-stub-1/authorize",
               tokenUrl: "http://passport-stub-1/token",
               credentialUrl: "http://passport-stub-1/credential",
-              ipvClientId: "test-ipv-client"
+              ipvClientId: "test-ipv-client",
             },
             {
               id: "FraudIssuer",
@@ -26,7 +26,7 @@ describe("cri Helper", () => {
               authorizeUrl: "http://fraud-stub-1/authorize",
               tokenUrl: "http://fraud-stub-1/token",
               credentialUrl: "http://fraud-stub-1/credential",
-              ipvClientId: "test-ipv-client"
+              ipvClientId: "test-ipv-client",
             },
             {
               id: "AddressIssuer",
@@ -34,13 +34,13 @@ describe("cri Helper", () => {
               authorizeUrl: "http://address-stub-1/authorize",
               tokenUrl: "http://address-stub-1/token",
               credentialUrl: "http://address-stub-1/credential",
-              ipvClientId: "test-ipv-client"
-            }
-          ]
+              ipvClientId: "test-ipv-client",
+            },
+          ],
         },
         query: {
-          id: "PassportIssuer"
-        }
+          id: "PassportIssuer",
+        },
       };
       res = { send: sinon.fake(), status: sinon.fake() };
       next = sinon.fake();
@@ -49,9 +49,12 @@ describe("cri Helper", () => {
 
     it("should successfully return expected redirect url", async function () {
       configStub.EXTERNAL_WEBSITE_HOST = "https://example.org/subpath";
-      const { buildCredentialIssuerRedirectURL } = proxyquire("../shared/criHelper", {
-        "../../lib/config": configStub,
-      });
+      const { buildCredentialIssuerRedirectURL } = proxyquire(
+        "../shared/criHelper",
+        {
+          "../../lib/config": configStub,
+        }
+      );
 
       await buildCredentialIssuerRedirectURL(req, res, next);
 
@@ -73,7 +76,9 @@ describe("cri Helper", () => {
         await buildCredentialIssuerRedirectURL(req, res);
 
         expect(res.status).to.have.been.calledWith(500);
-        expect(res.send).to.have.been.calledWith("Could not find configured CRI");
+        expect(res.send).to.have.been.calledWith(
+          "Could not find configured CRI"
+        );
       });
     });
   });

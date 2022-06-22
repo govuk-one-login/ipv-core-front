@@ -3,8 +3,8 @@ module.exports = {
     return {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": sessionId
-      }
+        "ipv-session-id": sessionId,
+      },
     };
-  }
+  },
 };

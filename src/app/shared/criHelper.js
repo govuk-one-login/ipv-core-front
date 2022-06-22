@@ -1,6 +1,10 @@
 module.exports = {
   buildCredentialIssuerRedirectURL: async (req, res, next) => {
-    const cri = req.cri ? req.cri : req.session?.criConfig?.find(criConfig => criConfig.id === req.query.id);
+    const cri = req.cri
+      ? req.cri
+      : req.session?.criConfig?.find(
+          (criConfig) => criConfig.id === req.query.id
+        );
 
     if (!cri) {
       res.status(500);
@@ -11,11 +15,11 @@ module.exports = {
     req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
     req.redirectURL.searchParams.append("request", cri.request);
 
-    if(next) {
+    if (next) {
       next();
     }
   },
   redirectToAuthorize: async (req, res) => {
     res.redirect(req.redirectURL);
-  }
-}
+  },
+};

@@ -1,2 +1,4 @@
 # Ignore artifacts:
 coverage
+src/views*
+src/assets/javascript/application.js

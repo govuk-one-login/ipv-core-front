@@ -1,12 +1,13 @@
 const axios = require("axios");
+const { API_BASE_URL } = require("../../lib/config");
 const {
-  API_BASE_URL
-} = require("../../lib/config");
-const { buildCredentialIssuerRedirectURL, redirectToAuthorize } = require("../shared/criHelper");
+  buildCredentialIssuerRedirectURL,
+  redirectToAuthorize,
+} = require("../shared/criHelper");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 async function journeyApi(action, ipvSessionId) {
-  if(action.startsWith('/')){
+  if (action.startsWith("/")) {
     action = action.substr(1);
   }
 
@@ -20,29 +21,29 @@ async function journeyApi(action, ipvSessionId) {
 async function handleJourneyResponse(req, res, action) {
   const response = (await journeyApi(action, req.session.ipvSessionId)).data;
 
-  if(response?.journey) {
+  if (response?.journey) {
     await handleJourneyResponse(req, res, response.journey);
   }
 
-  if(response?.cri && tryValidateCriResponse(response.cri)){
+  if (response?.cri && tryValidateCriResponse(response.cri)) {
     req.cri = response.cri;
-    await buildCredentialIssuerRedirectURL(req, res)
+    await buildCredentialIssuerRedirectURL(req, res);
     return redirectToAuthorize(req, res);
   }
 
-  if(response?.client && tryValidateClientResponse(response.client)) {
+  if (response?.client && tryValidateClientResponse(response.client)) {
     const { redirectUrl } = response.client;
     return res.redirect(redirectUrl);
   }
 
   if (response?.page) {
-     return res.redirect(`/ipv/journeyPage?pageId=${response.page}`);
+    return res.redirect(`/ipv/journeyPage?pageId=${response.page}`);
   }
 }
 
 function tryValidateCriResponse(criResponse) {
-  if(!criResponse?.authorizeUrl) {
-    throw new Error(`CRI response AuthorizeUrl is missing`)
+  if (!criResponse?.authorizeUrl) {
+    throw new Error(`CRI response AuthorizeUrl is missing`);
   }
 
   return true;
@@ -51,8 +52,8 @@ function tryValidateCriResponse(criResponse) {
 function tryValidateClientResponse(client) {
   const { redirectUrl } = client;
 
-  if(!redirectUrl) {
-    throw new Error(`Client Response redirect url is missing`)
+  if (!redirectUrl) {
+    throw new Error(`Client Response redirect url is missing`);
   }
 
   return true;
@@ -67,25 +68,23 @@ module.exports = {
         /^\/journey\/(next|error|fail)$/,
         /^\/journey\/cri\/start\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
         /^\/journey\/session\/end$/,
-        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/
-      ]
+        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/,
+      ];
 
-      if(allowedActions.some((actionRegex) => actionRegex.test(action))) {
+      if (allowedActions.some((actionRegex) => actionRegex.test(action))) {
         await handleJourneyResponse(req, res, action);
       } else {
         next(new Error(`Action ${action} not valid`));
       }
-
     } catch (error) {
       next(error);
     }
-
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-      const {pageId} = req.query;
+      const { pageId } = req.query;
       switch (pageId) {
-        case 'page-ipv-debug':
+        case "page-ipv-debug":
           return res.redirect("/debug");
         default:
           return res.render(`ipv/${pageId}`);
@@ -95,5 +94,5 @@ module.exports = {
       res.status(500);
       next(error);
     }
-  }
+  },
 };

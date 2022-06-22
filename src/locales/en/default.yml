@@ -1,4 +1,3 @@
-
 buttons:
   authorizeAndReturn: Authorize And Return
   next: Continue
@@ -16,13 +15,13 @@ govuk:
   footerNavItems:
     meta:
       items:
-        - href: 'https://signin.account.gov.uk/accessibility-statement'
-          text: 'Accessibility statement'
-        - href: 'https://www.gov.uk/help/cookies'
-          text: 'Cookies'
-        - href: 'https://signin.account.gov.uk/terms-and-conditions'
-          text: 'Terms and conditions'
-        - href: 'https://signin.account.gov.uk/privacy-notice'
-          text: 'Privacy notice'
-        - href: 'https://signin.account.gov.uk/contact-us'
-          text: 'Support'
+        - href: "https://signin.account.gov.uk/accessibility-statement"
+          text: "Accessibility statement"
+        - href: "https://www.gov.uk/help/cookies"
+          text: "Cookies"
+        - href: "https://signin.account.gov.uk/terms-and-conditions"
+          text: "Terms and conditions"
+        - href: "https://signin.account.gov.uk/privacy-notice"
+          text: "Privacy notice"
+        - href: "https://signin.account.gov.uk/contact-us"
+          text: "Support"

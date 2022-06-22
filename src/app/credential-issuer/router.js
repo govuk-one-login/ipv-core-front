@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   addCallbackParamsToRequest,
   sendParamsToAPI,
-  tryHandleRedirectError
+  tryHandleRedirectError,
 } = require("./middleware");
 
 router.get(

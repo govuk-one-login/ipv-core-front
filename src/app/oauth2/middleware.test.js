@@ -16,7 +16,7 @@ describe("oauth middleware", () => {
 
   beforeEach(() => {
     req = {
-      session: {}
+      session: {},
     };
 
     res = {
@@ -56,11 +56,11 @@ describe("oauth middleware", () => {
           state: "xyz",
           redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
           unusedParam: "not used",
-          request:"test request"
+          request: "test request",
         },
         session: {
           ipvSessionId: "abadcafe",
-        }
+        },
       };
       axiosResponse = {
         data: {
@@ -130,8 +130,6 @@ describe("oauth middleware", () => {
       });
     });
   });
-
-
 
   describe("redirectToJourney", () => {
     it("should redirect to journey route", () => {

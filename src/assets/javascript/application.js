@@ -4,11 +4,11 @@ feedback.addEventListener("click", function(event){ // eslint-disable-line no-un
   window.dataLayer.push({
     event: "gaEvent",
     "component":{
-    'category':'navigation',
-    'section':'phase banner',
-    'main_type':'link',
-    'action':'click',
-    'text':'feedback',
-    'url':'https://signin.account.gov.uk/contact-us?supportType=PUBLIC'}
+      'category':'navigation',
+      'section':'phase banner',
+      'main_type':'link',
+      'action':'click',
+      'text':'feedback',
+      'url':'https://signin.account.gov.uk/contact-us?supportType=PUBLIC'}
   });
 });

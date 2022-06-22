@@ -86,8 +86,17 @@ module.exports = {
       switch (pageId) {
         case "page-ipv-debug":
           return res.redirect("/debug");
-        default:
+        case "page-ipv-error":
+        case "page-ipv-identity-start":
+        case "page-ipv-success":
+        case "page-pre-kbv-transition":
+        case "pyi-kbv-fail":
+        case "pyi-no-match":
+        case "pyi-technical":
+        case "pyi-technical-unrecoverable":
           return res.render(`ipv/${pageId}`);
+        default:
+          return res.render(`ipv/pyi-technical`);
       }
     } catch (error) {
       res.error = error.name;

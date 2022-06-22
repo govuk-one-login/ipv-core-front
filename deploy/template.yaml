@@ -32,13 +32,6 @@ Parameters:
       The VPC id in which to create the components.
       Example "vpc-123"
     Type: String
-  DesiredTaskCount:
-    Description: >-
-      This is being replaced by the desiredTaskCount with the Mapping section. Its removal
-      must be coordinated with changes to our CI configuration to avoid breaking
-      deployments in the interim.
-    Type: Number
-    Default: 1
 
 Conditions:
   IsNotDevelopment: !Or

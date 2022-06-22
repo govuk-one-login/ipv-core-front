@@ -27,7 +27,12 @@ DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
 if ! aws cloudformation describe-stacks \
     --stack-name "$STACK_NAME" \
     --region eu-west-2 > /dev/null 2>&1 ; then
-  echo "The stack 'core-front-${ENVIRONMENT}' does not exist. Ask in ipv-tech for help"
+  echo "The stack 'core-front-${ENVIRONMENT}' has not been found."
+  echo " - check the script has been run with the required permissions, e.g. aws-vault exec <profile> -- $0"
+  echo " - check you are on the VPN"
+  echo " - check whether your stack exists via the console or cli, if not you may need to: "
+  echo "    - Run your developer pipeline in Concourse to create it"
+  echo "    - if you do not have a developer pipeline then ask a team member to update di-ipv-config/core/ci/core-developer-pipelines"
   exit 1
 fi
 
@@ -70,7 +75,6 @@ aws cloudformation update-stack \
                ParameterKey=Environment,UsePreviousValue=true \
                ParameterKey=SubnetIds,UsePreviousValue=true \
                ParameterKey=VpcId,UsePreviousValue=true \
-               ParameterKey=DesiredTaskCount,UsePreviousValue=true \
   --capabilities CAPABILITY_IAM \
   --region eu-west-2
 

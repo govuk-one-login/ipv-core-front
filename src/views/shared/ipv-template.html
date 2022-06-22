@@ -9,6 +9,7 @@
 {% set hmpoPageTitleServiceNameRequired = "pages."+hmpoPageKey+".serviceNameRequired" %}
 {% set hmpoPageHtmlContent = "pages."+hmpoPageKey+".htmlContent" %}
 
+
 {% block head %}
 {# super copies over the code for this block from HMPO template #}
 {{ super() }}
@@ -40,6 +41,7 @@
 <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
 
+
 {% block pageTitle %}
     {% if translate("pages."+hmpoPageKey+".serviceNameRequired") == 'true' %}
         {{ translate(hmpoPageTitle) }} – Prove your identity – GOV.UK
@@ -59,10 +61,9 @@
 {% block beforeContent %}
     {{ govukPhaseBanner({
     tag: { text: "beta" },
-    html: 'This is a new service – your <a class="govuk-link" href="https://signin.account.gov.uk/contact-us">feedback</a>  will help us to improve it.'
+    html: 'This is a new service – your <a class="govuk-link" rel="noopener" target="_blank" href="https://signin.account.gov.uk/contact-us">feedback (opens in new tab)</a>  will help us to improve it.'
     }) }}
 {% endblock %}
-
 
 {# generate the specific footer items required for the PYI flows #}
 

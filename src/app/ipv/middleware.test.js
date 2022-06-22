@@ -132,13 +132,22 @@ describe("journey middleware", () => {
       expect(res.redirect).to.have.been.calledWith("/debug");
     });
 
-    it("should render default case when given valid pageId", async () => {
+    it("should render page case when given valid pageId", async () => {
       req = {
-        query: { pageId: "page-cri-start" },
+        query: { pageId: "page-ipv-identity-start" },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/page-cri-start");
+      expect(res.render).to.have.been.calledWith("ipv/page-ipv-identity-start");
+    });
+
+    it("should render technical error page when given invalid pageId", async () => {
+      req = {
+        query: { pageId: "../debug/page-ipv-debug" },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical");
     });
 
     it("should raise an error when missing pageId", async () => {

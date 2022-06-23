@@ -54,7 +54,7 @@ describe("journey middleware", () => {
   });
 
   context("from a sequence of events that ends with a page response", () => {
-    const pageType = "pageTransition";
+    const pageId = "pageTransition";
     const eventResponses = [
       {
         data: { journey: "journey/next" },
@@ -63,7 +63,7 @@ describe("journey middleware", () => {
         data: { journey: "journey/startCri" },
       },
       {
-        data: { page: pageType },
+        data: { page: pageId },
       },
     ];
 
@@ -90,9 +90,7 @@ describe("journey middleware", () => {
 
     it("should redirect to journey transition page with message in query string", async function () {
       await middleware.updateJourneyState(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(
-        `/ipv/journeyPage?pageId=${pageType}`
-      );
+      expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
 
     it("should have called the network in the correct sequence", async function () {
@@ -118,14 +116,14 @@ describe("journey middleware", () => {
   context("calling the journeyPage endpoint", () => {
     beforeEach(() => {
       req = {
-        url: "/ipv/journeyPage",
+        url: "/ipv/page",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
 
     it("should render debug page when page-ipv-debug", async () => {
       req = {
-        query: { pageId: "page-ipv-debug" },
+        params: { pageId: "page-ipv-debug" },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -134,7 +132,7 @@ describe("journey middleware", () => {
 
     it("should render page case when given valid pageId", async () => {
       req = {
-        query: { pageId: "page-ipv-identity-start" },
+        params: { pageId: "page-ipv-identity-start" },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -143,7 +141,7 @@ describe("journey middleware", () => {
 
     it("should render technical error page when given invalid pageId", async () => {
       req = {
-        query: { pageId: "../debug/page-ipv-debug" },
+        params: { pageId: "../debug/page-ipv-debug" },
       };
 
       await middleware.handleJourneyPage(req, res);

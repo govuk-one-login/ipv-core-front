@@ -37,7 +37,7 @@ async function handleJourneyResponse(req, res, action) {
   }
 
   if (response?.page) {
-    return res.redirect(`/ipv/journeyPage?pageId=${response.page}`);
+    return res.redirect(`/ipv/page/${response.page}`);
   }
 }
 
@@ -82,7 +82,7 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-      const { pageId } = req.query;
+      const { pageId } = req.params;
       switch (pageId) {
         case "page-ipv-debug":
           return res.redirect("/debug");

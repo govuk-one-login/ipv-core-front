@@ -16,4 +16,5 @@ module.exports = {
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,
+  SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
 };

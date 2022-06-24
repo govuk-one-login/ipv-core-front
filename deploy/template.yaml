@@ -63,6 +63,7 @@ Resources:
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
+      # checkov:skip=CKV_AWS_260: Security group rules to be reviewed in JIRA PYIC-1464
       SecurityGroupIngress:
         - CidrIp: 0.0.0.0/0
           Description: Allow from anyone on port 80
@@ -340,6 +341,18 @@ Resources:
                 Resource:
                   - !GetAtt "ECSAccessLogsGroup.Arn"
                   - !Sub "${ECSAccessLogsGroup.Arn}:*"
+
+  ECSTaskRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: "sts:AssumeRole"
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: 2012-10-17
+      Policies:
         - PolicyName: CoreFrontDynamoDBSessionAccess
           PolicyDocument:
             Version: "2012-10-17"
@@ -357,17 +370,6 @@ Resources:
                   - "dynamodb:PutItem"
                 Resource:
                   - !GetAtt CoreFrontSessionsTable.Arn
-
-  ECSTaskRole:
-    Type: "AWS::IAM::Role"
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action: "sts:AssumeRole"
-            Effect: Allow
-            Principal:
-              Service: ecs-tasks.amazonaws.com
-        Version: 2012-10-17
 
   # Create the VPC Link to join the API Gateway to the
   # private Load Balancer in front of Core Front ECS

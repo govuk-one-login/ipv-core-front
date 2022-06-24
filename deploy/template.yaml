@@ -63,6 +63,7 @@ Resources:
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
+      # checkov:skip=CKV_AWS_260: Security group rules to be reviewed in JIRA PYIC-1464
       SecurityGroupIngress:
         - CidrIp: 0.0.0.0/0
           Description: Allow from anyone on port 80

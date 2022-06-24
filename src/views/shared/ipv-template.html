@@ -34,12 +34,17 @@
 <!-- End Google Tag Manager -->
 {% endblock %}
 
+<!-- temporarily remove the cookie banner -->
+{% block cookieBanner %}
+{% endblock %}
+
 {% block bodyStart %}
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TK92W68"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
+
 
 
 {% block pageTitle %}
@@ -54,7 +59,7 @@
 {% block govukHeader %}
     {# to remediate accessibility issues the header does not include the service name #}
     {# this overrides the behaviour in hmpo-template.njk and calls the 'minimal' GOV.UK header #}
-    {{ govukHeader({}) }}
+    {{ govukHeader({homepageUrl:"https://www.gov.uk"}) }}
 {% endblock %}
 
 {# the BETA banner is added to all pages using this template by default #}

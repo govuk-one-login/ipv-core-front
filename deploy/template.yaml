@@ -298,6 +298,9 @@ Resources:
                 - APIGatewayId:
                     Fn::ImportValue: !Sub ipv-core-back-${Environment}-IPVCorePrivateAPIGatewayID
                   Environment: !Ref Environment
+            - Name: SESSION_TABLE_NAME
+              Value: !Sub
+                - "core-front-sessions-${Environment}"
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
           PortMappings:

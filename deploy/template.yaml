@@ -301,6 +301,7 @@ Resources:
             - Name: SESSION_TABLE_NAME
               Value: !Sub
                 - "core-front-sessions-${Environment}"
+                - Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
           PortMappings:

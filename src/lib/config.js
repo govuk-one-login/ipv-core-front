@@ -17,4 +17,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
+  GTM_ID: process.env.GTM_ID,
+  GTM_ANALYTICS_COOKIE_DOMAIN: process.env.GTM_ANALYTICS_COOKIE_DOMAIN
 };
+

@@ -4,48 +4,11 @@
 {% from "govuk/components/phase-banner/macro.njk"           import govukPhaseBanner %}
 {% from "govuk/components/warning-text/macro.njk"           import govukWarningText %}
 {% from "govuk/components/details/macro.njk"                import govukDetails %}
+{% from "govuk/components/cookie-banner/macro.njk"          import govukCookieBanner %}
 
 {% set hmpoPageTitle = "pages."+hmpoPageKey+".title" %}
 {% set hmpoPageTitleServiceNameRequired = "pages."+hmpoPageKey+".serviceNameRequired" %}
 {% set hmpoPageHtmlContent = "pages."+hmpoPageKey+".htmlContent" %}
-
-
-{% block head %}
-{# super copies over the code for this block from HMPO template #}
-{{ super() }}
-<script>
-    dataLayer = [{
-        'gtm.allowlist': ['google'],
-        'gtm.blocklist': ['adm', 'awct', 'sp', 'gclidw', 'gcs', 'opt' ]
-    }];
-</script>
-<!-- Google Tag Manager -->
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-
-})(window,document,'script','dataLayer','GTM-TK92W68');</script>
-
-<!-- End Google Tag Manager -->
-{% endblock %}
-
-<!-- temporarily remove the cookie banner -->
-{% block cookieBanner %}
-{% endblock %}
-
-{% block bodyStart %}
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TK92W68"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-{% endblock %}
-
-
 
 {% block pageTitle %}
     {% if translate("pages."+hmpoPageKey+".serviceNameRequired") == 'true' %}
@@ -56,11 +19,16 @@
 {% endblock %}
 
 
-{% block govukHeader %}
-    {# to remediate accessibility issues the header does not include the service name #}
-    {# this overrides the behaviour in hmpo-template.njk and calls the 'minimal' GOV.UK header #}
-    {{ govukHeader({homepageUrl:"https://www.gov.uk"}) }}
+{% block cookieBanner %}
+{% include 'shared/banner.njk' %}
 {% endblock %}
+
+{% block govukHeader %}
+{# to remediate accessibility issues the header does not include the service name #}
+{# this overrides the behaviour in hmpo-template.njk and calls the 'minimal' GOV.UK header #}
+{{ govukHeader({ homepageUrl: "https://www.gov.uk/" }) }}
+{% endblock %}
+
 
 {# the BETA banner is added to all pages using this template by default #}
 {% block beforeContent %}
@@ -75,4 +43,11 @@
 {% set footerNavItems = translate("govuk.footerNavItems") %}
 {% block footer %}
     {{ govukFooter( footerNavItems ) }}
+{% endblock %}
+
+{% block bodyEnd %}
+{% block scripts %}{% endblock %}
+<script type="text/javascript"  src="/public/javascripts/application.js"></script>
+{{ GTM | dump }}
+<script type="text/javascript" nonce='{{ scriptNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ hmpoPageKey }}")</script>
 {% endblock %}

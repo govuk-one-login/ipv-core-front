@@ -4,6 +4,7 @@ const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
+
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
 async function journeyApi(action, ipvSessionId) {
@@ -82,7 +83,9 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
+
       const { pageId } = req.params;
+
       switch (pageId) {
         case "page-ipv-debug":
           return res.redirect("/debug");

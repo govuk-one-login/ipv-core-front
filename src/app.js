@@ -6,16 +6,17 @@ const DynamoDBStore = require("connect-dynamodb")(session);
 
 const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
+const {getGTM} = require("./lib/locals");
 
-AWS.config.update({
-  region: "eu-west-2",
-});
-const dynamodb = new AWS.DynamoDB();
-
-const dynamoDBSessionStore = new DynamoDBStore({
-  client: dynamodb,
-  table: SESSION_TABLE_NAME,
-});
+// AWS.config.update({
+//   region: "eu-west-2",
+// });
+// const dynamodb = new AWS.DynamoDB();
+//
+// const dynamoDBSessionStore = new DynamoDBStore({
+//   client: dynamodb,
+//   table: SESSION_TABLE_NAME,
+// });
 
 const loggerConfig = {
   console: true,
@@ -26,7 +27,7 @@ const loggerConfig = {
 const sessionConfig = {
   cookieName: "ipv_core_service_session",
   secret: SESSION_SECRET,
-  sessionStore: dynamoDBSessionStore,
+  //sessionStore: dynamoDBSessionStore,
 };
 
 const { router } = setup({
@@ -34,7 +35,7 @@ const { router } = setup({
   port: PORT,
   logs: loggerConfig,
   session: sessionConfig,
-  redis: false,
+  //redis: false,
   urls: {
     public: "/public",
   },
@@ -42,6 +43,8 @@ const { router } = setup({
   dev: true,
 });
 
+
+router.use(getGTM);
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/debug", require("./app/debug/router"));

@@ -8,15 +8,15 @@ const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
 const {getGTM} = require("./lib/locals");
 
-// AWS.config.update({
-//   region: "eu-west-2",
-// });
-// const dynamodb = new AWS.DynamoDB();
-//
-// const dynamoDBSessionStore = new DynamoDBStore({
-//   client: dynamodb,
-//   table: SESSION_TABLE_NAME,
-// });
+AWS.config.update({
+  region: "eu-west-2",
+});
+const dynamodb = new AWS.DynamoDB();
+
+const dynamoDBSessionStore = new DynamoDBStore({
+  client: dynamodb,
+  table: SESSION_TABLE_NAME,
+});
 
 const loggerConfig = {
   console: true,

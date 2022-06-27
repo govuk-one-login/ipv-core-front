@@ -27,7 +27,7 @@ const loggerConfig = {
 const sessionConfig = {
   cookieName: "ipv_core_service_session",
   secret: SESSION_SECRET,
-  //sessionStore: dynamoDBSessionStore,
+  sessionStore: dynamoDBSessionStore,
 };
 
 const { router } = setup({
@@ -35,7 +35,7 @@ const { router } = setup({
   port: PORT,
   logs: loggerConfig,
   session: sessionConfig,
-  //redis: false,
+  redis: false,
   urls: {
     public: "/public",
   },

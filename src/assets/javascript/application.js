@@ -1,3 +1,4 @@
+/* global dataLayer */
 "use strict";
 
 // based on the code at

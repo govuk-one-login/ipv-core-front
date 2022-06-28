@@ -6,7 +6,7 @@ const DynamoDBStore = require("connect-dynamodb")(session);
 
 const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
-const {getGTM} = require("./lib/locals");
+const { getGTM } = require("./lib/locals");
 
 AWS.config.update({
   region: "eu-west-2",
@@ -42,7 +42,6 @@ const { router } = setup({
   publicDirs: ["../dist/public"],
   dev: true,
 });
-
 
 router.use(getGTM);
 router.use("/oauth2", require("./app/oauth2/router"));

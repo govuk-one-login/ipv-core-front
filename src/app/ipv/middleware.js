@@ -83,7 +83,6 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-
       const { pageId } = req.params;
 
       switch (pageId) {

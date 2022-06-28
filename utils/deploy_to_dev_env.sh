@@ -81,17 +81,18 @@ function init() {
   fi
 
   STACK_NAME="core-front-${ENVIRONMENT}"
+  DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
   echo -e "\nCurrent Environment Configuration, as follows:"
-  echo -e "\t* Region: '${region}'"
-  echo -e "\t* Account ID: '${account_id}'"
+  echo -e "\t* Region:      '${region}'"
+  echo -e "\t* Account ID:  '${account_id}'"
   echo -e "\t* Environment: '${ENVIRONMENT}'"
-  echo -e "\t* Stack Name: '${STACK_NAME}'\n"
+  echo -e "\t* Stack Name:  '${STACK_NAME}'"
+  echo -e "\t* Image Tag:   '${DEV_IMAGE_TAG}'\n"
   check_dependencies
   check_connection
 }
 
 function build_image() {
-  DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
   local IMAGE_NAME_AND_TAG="core-front:${DEV_IMAGE_TAG}"
   local ecr_registry="130355686670.dkr.ecr.${region}.amazonaws.com"
   local REMOTE_IMAGE_NAME_AND_TAG="${ecr_registry}/core-front-development:${DEV_IMAGE_TAG}"

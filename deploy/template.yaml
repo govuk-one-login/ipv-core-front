@@ -39,6 +39,7 @@ Conditions:
     - !Equals [!Ref Environment, staging]
     - !Equals [!Ref Environment, integration]
     - !Equals [!Ref Environment, production]
+  IsProduction: !Equals [ !Ref Environment, production ]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -304,6 +305,10 @@ Resources:
                 - Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+            - Name: GTM_ID
+              Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
+            - Name: ANALYTICS_DOMAIN
+              Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

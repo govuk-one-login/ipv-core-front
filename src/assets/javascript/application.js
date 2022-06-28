@@ -72,14 +72,8 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
     },
       {
         'event': "progEvent",
-        'ProgrammeName': '{DI - PYI}'
-      },
-      {
-      department: {
-        programmeteam: "di",
-        productteam: "core"
-      }
-    } ];
+        'ProgrammeName': 'DI - PYI'
+      } ];
     var sessionJourney = getJourneyMapping(journeyState);
     function gtag(obj) {
       dataLayer.push(obj);

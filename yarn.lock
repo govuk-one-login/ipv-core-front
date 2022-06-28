@@ -1889,10 +1889,15 @@ he@1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-hmpo-app@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/hmpo-app/-/hmpo-app-2.2.1.tgz#e5839fb49f550aeec531f5a1b9851471b67c59d8"
-  integrity sha512-XBe8/KCiMqrvFWTqqFGxoJ5WnihBpiEA8uRekidGKXj9ev7cOrO7R6iSNkzZfVUwyGzOISNqlJ9oZYybNoRZyg==
+helmet@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-5.1.0.tgz#e98a5d4bf89ab8119c856018a3bcc82addadcd47"
+  integrity sha512-klsunXs8rgNSZoaUrNeuCiWUxyc+wzucnEnFejUg3/A+CaF589k9qepLZZ1Jehnzig7YbD4hEuscGXuBY3fq+g==
+
+hmpo-app@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/hmpo-app/-/hmpo-app-2.3.0.tgz#9ac43f50bbe1d22acdbb0df0e0775dc76496bd6a"
+  integrity sha512-okBETJEmTQyQNZ0HaYQtpiKdWcwqBaokmGU1wqZ1KfMRxuXxbIuc/5t9g7f7khG4RbMLuaJ8e+H7ZyVIVdO78A==
   dependencies:
     async "^3.2.4"
     body-parser "^1.20.0"
@@ -1904,6 +1909,7 @@ hmpo-app@2.2.1:
     express-session "^1.17.3"
     fakeredis "^2.0.0"
     frameguard "^4.0.0"
+    helmet "5.1.0"
     nocache "^3.0.4"
     on-finished "^2.4.1"
     redis "4.0.x"

@@ -40,6 +40,12 @@ const { router } = setup({
   },
   publicDirs: ["../dist/public"],
   dev: true,
+  middlewareSetupFn: (app) => {
+    app.use(function (req, res, next) {
+      req.headers["x-forwarded-proto"] = "https";
+      next();
+    });
+  },
 });
 
 router.use("/oauth2", require("./app/oauth2/router"));

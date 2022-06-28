@@ -18,12 +18,18 @@ function print_error() {
   printf "\t$0: Error: %s\n\n" "$*" >&2;
 }
 
+function print_error_exit() {
+  printf "\t$0: Error: %s\n\n" "$*" >&2;
+  exit 1
+}
+
+
 function process_args() {
   if [[ $# -lt 1 ]]; then
-    print_usage
+    print_usage && exit 1
   fi
 
-  while getopts fhx:i:e: flag; do
+  while getopts he: flag; do
     case $flag in
       e) ENVIRONMENT=${OPTARG}
       ;;
@@ -31,26 +37,24 @@ function process_args() {
       ;;
       \?)
         print_error "Unrecognized argument '${OPTARG}'"
+        print_usage && exit 1
       ;;
-      *) print_usage >&2
-         exit 1
+      *) print_usage && exit 1
       ;;
     esac
   done
 
   [ -z "$ENVIRONMENT" ] || export ENVIRONMENT=$ENVIRONMENT
-  [ -z "$ENVIRONMENT" ] && print_error "Environment Name: ${ENVIRONMENT} not provided (-e) :: exiting" && exit 1
+  [ -z "$ENVIRONMENT" ] && print_error_exit "Environment Name: ${ENVIRONMENT} not provided (-e) :: exiting"
 }
 
 function check_dependencies() {
   if ! which jq >/dev/null; then
-    print_error "Please install jq to use this script - more info here: https://formulae.brew.sh/formula/jq"
-    exit 1
+    print_error_exit "Please install jq to use this script - more info here: https://formulae.brew.sh/formula/jq"
   fi
 
   if ! docker info > /dev/null 2>&1 ; then
-    print_error "Docker engine is not running, please start it. more info here: https://www.docker.com/products/docker-desktop/"
-    exit 1
+    print_error_exit "Docker engine is not running, please start it. more info here: https://www.docker.com/products/docker-desktop/"
   fi
 }
 
@@ -70,18 +74,14 @@ function check_connection() {
 }
 
 function clone_config_repo() {
-  git clone git@github.com:alphagov/di-ipv-config.git config-repo
-  list_of_developers="config-repo/core/ci/core-developer-pipelines/generate-pipelines/list_of_developers.txt"
-  while IFS= read -r line || [[ "$line" ]]; do
-    environments+=("$line")
-  done < "${list_of_developers}"
+  [ -d config-repo ] && rm -rf config-repo
+  list_of_developers="core/ci/core-developer-pipelines/generate-pipelines/list_of_developers.txt"
+  git clone --no-checkout --depth=1 --sparse --quiet git@github.com:alphagov/di-ipv-config.git config-repo
+  environments=($(cd config-repo || print_error_exit "Cannot find config-repo"; git show HEAD:"${list_of_developers}"))
   rm -rf config-repo
 }
 
-
 function init() {
-  clone_config_repo
-
   if [[ " ${environments[*]} " =~ " ${ENVIRONMENT} " ]]; then
     echo "Environment: ${ENVIRONMENT} is good, proceeding"
   else
@@ -154,6 +154,7 @@ function update_stack() {
 }
 
 
+clone_config_repo
 process_args "$@"
 init
 build_image

@@ -51,11 +51,11 @@ Mappings:
     "457601271792": # Build
       desiredTaskCount: 1
     "335257547869": # Staging
-      desiredTaskCount: 1
+      desiredTaskCount: 2
     "991138514218": # Integration
-      desiredTaskCount: 1
+      desiredTaskCount: 2
     "075701497069": # Production
-      desiredTaskCount: 1
+      desiredTaskCount: 2
 
 Resources:
   # Security Groups for the ECS service and load balancer

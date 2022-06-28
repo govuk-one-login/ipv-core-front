@@ -69,7 +69,12 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
     window.dataLayer = [ {
       "gtm.allowlist": [ "google" ],
       "gtm.blocklist": [ "adm", "awct", "sp", "gclidw", "gcs", "opt" ]
-    }, {
+    },
+      {
+        'event': "progEvent",
+        'ProgrammeName': '{DI - PYI}'
+      },
+      {
       department: {
         programmeteam: "di",
         productteam: "core"

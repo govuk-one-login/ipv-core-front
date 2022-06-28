@@ -4,11 +4,9 @@
 # This can be achieved by using aws-vault and an amin role for example
 # aws-vault exec di-ipv-dev -- ./deploy_to_dev_env.sh
 
-declare -a stack_status=("UPDATE_COMPLETE", "UPDATE_ROLLBACK_COMPLETE")
-declare -a environments=("dev-danw" "dev-danp" "dev-danh" "dev-chrisw" "dev-amrits" "dev-kerrr" "dev-lait" "dev-ianj" "dev-derrenw" "dev-patrickb" "dev-vamh" "dev-wojciecho" "dev-aprilm")
+declare -a stack_status=("UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE")
+declare -a environments
 
-export region=`aws configure get region`
-export account_id=`aws sts get-caller-identity --query Account --output text`
 
 function print_usage() {
   echo -e "\nUsage: $0:"
@@ -21,7 +19,7 @@ function print_error() {
 }
 
 function process_args() {
-  if [[ $# < 1 ]]; then
+  if [[ $# -lt 1 ]]; then
     print_usage
   fi
 
@@ -40,8 +38,8 @@ function process_args() {
     esac
   done
 
-  [ -z $ENVIRONMENT ] || export ENVIRONMENT=$ENVIRONMENT
-  [ -z $ENVIRONMENT ] && print_error "Environment Name: ${ENVIRONMENT} not provided (-e) :: exiting" && exit 1
+  [ -z "$ENVIRONMENT" ] || export ENVIRONMENT=$ENVIRONMENT
+  [ -z "$ENVIRONMENT" ] && print_error "Environment Name: ${ENVIRONMENT} not provided (-e) :: exiting" && exit 1
 }
 
 function check_dependencies() {
@@ -60,8 +58,8 @@ function check_connection() {
 
   if ! aws cloudformation describe-stacks \
       --stack-name "$STACK_NAME" \
-      --region ${region} > /dev/null 2>&1 ; then
-    echo "The stack 'core-front-${ENVIRONMENT}' has not been found in region: ${region}."
+      --region "${region}" > /dev/null 2>&1 ; then
+    echo "The stack 'core-front-${ENVIRONMENT}' has not been found in region: '${region}'."
     echo " - check the script has been run with the required permissions, e.g. aws-vault exec <profile> -- $0"
     echo " - check you are on the VPN"
     echo " - check whether your stack exists via the console or cli, if not you may need to: "
@@ -71,7 +69,19 @@ function check_connection() {
   fi
 }
 
+function clone_config_repo() {
+  git clone git@github.com:alphagov/di-ipv-config.git config-repo
+  list_of_developers="config-repo/core/ci/core-developer-pipelines/generate-pipelines/list_of_developers.txt"
+  while IFS= read -r line || [[ "$line" ]]; do
+    environments+=("$line")
+  done < "${list_of_developers}"
+  rm -rf config-repo
+}
+
+
 function init() {
+  clone_config_repo
+
   if [[ " ${environments[*]} " =~ " ${ENVIRONMENT} " ]]; then
     echo "Environment: ${ENVIRONMENT} is good, proceeding"
   else
@@ -80,6 +90,8 @@ function init() {
     exit 1
   fi
 
+  region=$(aws configure get region)
+  account_id=$(aws sts get-caller-identity --query Account --output text)
   STACK_NAME="core-front-${ENVIRONMENT}"
   DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
   echo -e "\nCurrent Environment Configuration, as follows:"
@@ -99,7 +111,7 @@ function build_image() {
 
   docker build -t "$IMAGE_NAME_AND_TAG" ../
   echo "Logging into developement ECR registry"
-  aws ecr get-login-password --region ${region} | \
+  aws ecr get-login-password --region "${region}" | \
   docker login --username AWS --password-stdin "${ecr_registry}"
   echo "Tagging docker image"
   docker tag "${IMAGE_NAME_AND_TAG}" "$REMOTE_IMAGE_NAME_AND_TAG"
@@ -114,7 +126,7 @@ function isStackUpdateComplete() {
     | jq '.Stacks[].StackStatus' -r )"
 
   echo "Current status is: ${status}"
-  if [[ " ${stack_status[*]} " =~ "${status}" ]]; then
+  if [[ " ${stack_status[*]} " =~ " ${status} " ]]; then
     return 0
   fi
   return 1

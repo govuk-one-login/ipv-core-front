@@ -211,4 +211,14 @@ window.GOVSignIn.Cookies = cookies;
     cookies.cookieBannerInit();
   }
   w.GOVSignIn.appInit = appInit;
+
+  function disableAfterClick(link) {
+
+    link.onclick = function(event) {
+      event.preventDefault();
+    }
+  }
+
+  w.disableAfterClick = disableAfterClick;
+
 })(window);

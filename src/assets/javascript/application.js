@@ -74,12 +74,15 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
         'event': "progEvent",
         'ProgrammeName': 'DI - PYI'
       } ];
-    var sessionJourney = getJourneyMapping(journeyState);
+    //var sessionJourney = getJourneyMapping(journeyState);
     function gtag(obj) {
       dataLayer.push(obj);
     }
-    if (sessionJourney) {
-      gtag(sessionJourney);
+    if (journeyState) {
+      dataLayer.push({
+        event: "journeyEvent",
+        JourneyStatus: journeyState
+      })
     }
     gtag({
       "gtm.start": new Date().getTime(),
@@ -128,21 +131,18 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
   }
   function generateSessionJourney(journey, status) {
     return {
-      sessionjourney: {
-        journey: journey,
-        status: status
-      }
+      JourneyStatus: status
     };
   }
   function getJourneyMapping(journeyState) {
     // what is journeyState set to if a variable isn't passed?
     const JOURNEY_DATA_LAYER_PATHS = {
       // successful journey points
-      "pageIpvIdentityStart": generateSessionJourney("journeyEvent", "pyi-start"),
-      "pagePreKbvTransition": generateSessionJourney("journeyEvent", "kbv-start"),
-      "pageIpvSuccess": generateSessionJourney("journeyEvent", "pyi-end"),
+      "pageIpvIdentityStart": generateSessionJourney("journeyEvent", "pyi - start"),
+      "pagePreKbvTransition": generateSessionJourney("journeyEvent", "kbv - start"),
+      "pageIpvSuccess": generateSessionJourney("journeyEvent", "pyi - end"),
       // user-related KBV issues
-      "pyiKbvFail": generateSessionJourney("journeyEvent", "kbv-fail"),
+      "pyiKbvFail": generateSessionJourney("journeyEvent", "kbv - fail"),
       "pyiNoMatch": generateSessionJourney("journeyEvent", "no-database-match"),
       // System errors
       "errors.pageNotFound": generateSessionJourney("journeyError", "page-not-found"),

@@ -5,12 +5,12 @@
 # aws-vault exec di-ipv-dev -- ./deploy_to_dev_env.sh
 
 declare -a stack_status=("UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE")
-declare -a environments
-
 
 function print_usage() {
   echo -e "\nUsage: $0:"
-  echo -e "\t[-e] Provide environment name from: ${environments[*]}\n"
+  echo -e "\t[-e] Provide environment name it should be something like: 'dev-<yourusername>'"
+  echo -e "\t     if unsure check https://github.com/alphagov/di-ipv-config/blob/main/core/ci/core-developer-pipelines/generate-pipelines/list_of_developers.txt"
+  echo -e "\t     for your username\n"
   echo -e "\t[-h] Print this usage guide\n"
 }
 
@@ -73,23 +73,7 @@ function check_connection() {
   fi
 }
 
-function clone_config_repo() {
-  [ -d config-repo ] && rm -rf config-repo
-  list_of_developers="core/ci/core-developer-pipelines/generate-pipelines/list_of_developers.txt"
-  git clone --no-checkout --depth=1 --sparse --quiet git@github.com:alphagov/di-ipv-config.git config-repo
-  environments=($(cd config-repo || print_error_exit "Cannot find config-repo"; git show HEAD:"${list_of_developers}"))
-  rm -rf config-repo
-}
-
 function init() {
-  if [[ " ${environments[*]} " =~ " ${ENVIRONMENT} " ]]; then
-    echo "Environment: ${ENVIRONMENT} is good, proceeding"
-  else
-    print_error "'$ENVIRONMENT' does not match any of the valid known environments: ${environments[*]}"
-    print_usage
-    exit 1
-  fi
-
   region=$(aws configure get region)
   account_id=$(aws sts get-caller-identity --query Account --output text)
   STACK_NAME="core-front-${ENVIRONMENT}"
@@ -154,7 +138,6 @@ function update_stack() {
 }
 
 
-clone_config_repo
 process_args "$@"
 init
 build_image

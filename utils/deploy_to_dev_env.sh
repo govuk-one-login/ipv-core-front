@@ -5,6 +5,7 @@
 # aws-vault exec di-ipv-dev -- ./deploy_to_dev_env.sh
 
 declare -a stack_status=("UPDATE_COMPLETE" "UPDATE_ROLLBACK_COMPLETE")
+dev_account_id="130355686670"
 
 function print_usage() {
   echo -e "\nUsage: $0:"
@@ -78,14 +79,20 @@ function init() {
   account_id=$(aws sts get-caller-identity --query Account --output text)
   STACK_NAME="core-front-${ENVIRONMENT}"
   DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
+
   echo -e "\nCurrent Environment Configuration, as follows:"
   echo -e "\t* Region:      '${region}'"
   echo -e "\t* Account ID:  '${account_id}'"
   echo -e "\t* Environment: '${ENVIRONMENT}'"
   echo -e "\t* Stack Name:  '${STACK_NAME}'"
   echo -e "\t* Image Tag:   '${DEV_IMAGE_TAG}'\n"
+
   check_dependencies
-  check_connection
+  if [[ "${dev_account_id}" != "${account_id}" ]]; then
+    print_error "'${account_id}' does not match dev account id: ${dev_account_id} please connect to the dev account"
+    check_connection
+  fi
+
 }
 
 function build_image() {

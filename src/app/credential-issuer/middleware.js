@@ -47,12 +47,13 @@ module.exports = {
   },
   tryHandleRedirectError: async (req, res, next) => {
     try {
-      const { error, error_description } = req.query;
+      const { error, error_description, id } = req.query;
 
       if (error || error_description) {
         const errorParams = new URLSearchParams([
           ["error", error],
           ["error_description", error_description],
+          ["credential_issuer_id", id],
         ]);
 
         const journeyResponse = await axios.post(

@@ -23,10 +23,10 @@ const loggerConfig = {
   consoleJSON: true,
   app: false,
   requestMeta: {
-    ipvSessionId: 'req.session.ipvSessionId',
+    ipvSessionId: "session.ipvSessionId",
   },
   meta: {
-    ipvSessionId: 'req.session.ipvSessionId'
+    ipvSessionId: "req.session.ipvSessionId",
   },
 };
 

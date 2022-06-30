@@ -155,6 +155,7 @@ describe("credential issuer middleware", () => {
 
     const error = "access_denied";
     const error_description = "restart ";
+    const id = "ukPassport";
 
     beforeEach(() => {
       configStub.API_BASE_URL = "https://example.net/path";
@@ -166,7 +167,7 @@ describe("credential issuer middleware", () => {
 
       req = {
         url: `/callback`,
-        query: { error, error_description },
+        query: { error, error_description, id },
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -189,6 +190,7 @@ describe("credential issuer middleware", () => {
       const errorParams = new URLSearchParams([
         ["error", error],
         ["error_description", error_description],
+        ["credential_issuer_id", "ukPassport"],
       ]);
 
       await middleware.tryHandleRedirectError(req, res, next);
@@ -219,11 +221,12 @@ describe("credential issuer middleware", () => {
       const errorParams = new URLSearchParams([
         ["error", "undefined"],
         ["error_description", error_description],
+        ["credential_issuer_id", "ukPassport"],
       ]);
 
       req = {
         url: `/callback`,
-        query: { error_description },
+        query: { error_description, id },
         session: { ipvSessionId: "ipv-session-id" },
       };
 

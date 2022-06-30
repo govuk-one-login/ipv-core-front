@@ -13,9 +13,12 @@
 
 {{ govukDetails({ summaryText: translate("pages." + hmpoPageKey + ".summaryText") | safe, html: translate("pages." + hmpoPageKey + ".summaryHtml") | safe  }) }}
 
-{{ hmpoHtml(translate("pages." + hmpoPageKey + ".continueButton", { default: [] })) }}
+  {% block cta %}
+    {% include 'shared/journey-next-form.njk' %}
+  {% endblock%}
 
 {% endblock %}
+
 
 
 

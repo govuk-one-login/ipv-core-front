@@ -102,7 +102,10 @@ module.exports = {
         case "pyi-no-match":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${pageId}`);
+          return res.render(`ipv/${pageId}`, {
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
         default:
           return res.render(`ipv/pyi-technical`);
       }
@@ -115,6 +118,13 @@ module.exports = {
       });
       res.error = error.name;
       res.status(500);
+      next(error);
+    }
+  },
+  handleJourneyNext: async (req, res, next) => {
+    try {
+      await handleJourneyResponse(req, res, "journey/next");
+    } catch (error) {
       next(error);
     }
   },

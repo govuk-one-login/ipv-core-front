@@ -3,17 +3,13 @@ const { API_BASE_URL } = require("../../lib/config");
 const logger = require("hmpo-logger").get();
 
 module.exports = {
-  redirectToJourney: async (_req, res) => {
-    res.redirect("/ipv/journey/next");
-  },
-
-  setDebugJourneyType: (req, res, next) => {
-    logger.info("starting debug journey", { req, res });
+  setDebugJourneyType: (req, _res, next) => {
     req.session.isDebugJourney = true;
     next();
   },
 
-  setRealJourneyType: (req, _res, next) => {
+  setRealJourneyType: (req, res, next) => {
+    logger.info("starting debug journey", { req, res });
     req.session.isDebugJourney = false;
     next();
   },

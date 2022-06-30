@@ -130,12 +130,4 @@ describe("oauth middleware", () => {
       });
     });
   });
-
-  describe("redirectToJourney", () => {
-    it("should redirect to journey route", () => {
-      middleware.redirectToJourney(req, res);
-
-      expect(res.redirect).to.have.been.calledWith("/ipv/journey/next");
-    });
-  });
 });

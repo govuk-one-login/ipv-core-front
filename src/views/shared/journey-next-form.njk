@@ -1,0 +1,10 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<form action="/ipv/page/{{pageId}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    {{ govukButton({
+        text: translate("buttons.next"),
+        preventDoubleClick: true
+    }) }}
+</form>

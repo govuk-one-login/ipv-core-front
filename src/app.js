@@ -22,6 +22,12 @@ const loggerConfig = {
   console: true,
   consoleJSON: true,
   app: false,
+  requestMeta: {
+    ipvSessionId: 'req.session.ipvSessionId',
+  },
+  meta: {
+    ipvSessionId: 'req.session.ipvSessionId'
+  },
 };
 
 const sessionConfig = {

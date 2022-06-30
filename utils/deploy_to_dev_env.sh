@@ -75,7 +75,7 @@ function check_connection() {
 }
 
 function init() {
-  region=$(aws configure get region)
+  region='eu-west-2'
   account_id=$(aws sts get-caller-identity --query Account --output text)
   STACK_NAME="core-front-${ENVIRONMENT}"
   DEV_IMAGE_TAG="${ENVIRONMENT}-$(date +%s)"
@@ -113,7 +113,7 @@ function build_image() {
 function isStackUpdateComplete() {
   status="$(aws cloudformation describe-stacks \
     --stack-name "$STACK_NAME" \
-    --region eu-west-2 \
+    --region "${region}" \
     | jq '.Stacks[].StackStatus' -r )"
 
   echo "Current status is: ${status}"
@@ -133,7 +133,7 @@ function update_stack() {
                  ParameterKey=SubnetIds,UsePreviousValue=true \
                  ParameterKey=VpcId,UsePreviousValue=true \
     --capabilities CAPABILITY_IAM \
-    --region eu-west-2
+    --region "${region}"
 
   while ! isStackUpdateComplete
   do

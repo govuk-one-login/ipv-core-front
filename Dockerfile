@@ -26,11 +26,11 @@ USER appuser:appgroup
 
 WORKDIR /app
 # Copy in compile assets and deps from build container
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/yarn.lock ./
+COPY --chown=appuser:appgroup --from=builder /app/node_modules ./node_modules
+COPY --chown=appuser:appgroup --from=builder /app/dist ./dist
+COPY --chown=appuser:appgroup --from=builder /app/src ./src
+COPY --chown=appuser:appgroup --from=builder /app/package.json ./
+COPY --chown=appuser:appgroup --from=builder /app/yarn.lock ./
 
 ENV PORT 8080
 EXPOSE 8080

@@ -1,12 +1,9 @@
 FROM node:16.13.1-alpine3.15@sha256:a2c7f8ebdec79619fba306cec38150db44a45b48380d09603d3602139c5a5f92 AS builder
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser:appgroup
-
 WORKDIR /app
 RUN [ "yarn", "set", "version", "1.22.17" ]
-COPY --chown=appuser:appgroup  /src ./src
-COPY --chown=appuser:appgroup  package.json ./
-COPY --chown=appuser:appgroup  yarn.lock ./
+COPY /src ./src
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install
 RUN yarn build

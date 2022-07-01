@@ -3,8 +3,7 @@
 <form action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    {{ govukButton({
-        text: translate("buttons.next"),
-        preventDoubleClick: true
-    }) }}
+    <button class="govuk-button" data-module="govuk-button" onclick="this.disabled=true;this.form.submit();">
+        {{translate("buttons.next")}}
+    </button>
 </form>

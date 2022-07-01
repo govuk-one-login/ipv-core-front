@@ -9,7 +9,7 @@ module.exports = {
   },
 
   setRealJourneyType: (req, res, next) => {
-    logger.info("starting debug journey", { req, res });
+    logger.info("starting real journey", { req, res });
     req.session.isDebugJourney = false;
     next();
   },

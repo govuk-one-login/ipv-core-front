@@ -126,6 +126,7 @@ describe("journey middleware", () => {
       req = {
         params: { pageId: "page-ipv-debug" },
         csrfToken: sinon.fake(),
+        session: { currentPage: "page-ipv-debug" },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -136,6 +137,7 @@ describe("journey middleware", () => {
       req = {
         params: { pageId: "page-ipv-identity-start" },
         csrfToken: sinon.fake(),
+        session: { currentPage: "page-ipv-identity-start" },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -145,6 +147,7 @@ describe("journey middleware", () => {
     it("should render technical error page when given invalid pageId", async () => {
       req = {
         params: { pageId: "../debug/page-ipv-debug" },
+        session: { currentPage: "../debug/page-ipv-debug" },
       };
 
       await middleware.handleJourneyPage(req, res);

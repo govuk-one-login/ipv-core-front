@@ -28,3 +28,7 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # obtained from https://sonarcloud.io
+      - name: Build docker image
+        run: |
+          cd ${GITHUB_WORKSPACE} || exit 1
+          docker build -t "core-front-build:test" .

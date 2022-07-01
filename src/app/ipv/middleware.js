@@ -32,18 +32,21 @@ async function handleJourneyResponse(req, res, action) {
   if (response?.cri && tryValidateCriResponse(response.cri)) {
     logger.info("cri response received", { req, res });
     req.cri = response.cri;
+    req.session.currentPage = req.cri.id;
     await buildCredentialIssuerRedirectURL(req, res);
     return redirectToAuthorize(req, res);
   }
 
   if (response?.client && tryValidateClientResponse(response.client)) {
     logger.info("client response received", { req, res });
+    req.session.currentPage = "orchestrator";
     const { redirectUrl } = response.client;
     return res.redirect(redirectUrl);
   }
 
   if (response?.page) {
     logger.info("page response received", { req, res });
+    req.session.currentPage = response.page;
     return res.redirect(`/ipv/page/${response.page}`);
   }
 }
@@ -90,6 +93,20 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
+
+      if (req.session.currentPage !== pageId) {
+        logger.error(
+          "page :pageId doesn't match expected session page :expectedPage",
+          {
+            req,
+            res,
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          }
+        );
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(req.session.currentPage);
+      }
 
       switch (pageId) {
         case "page-ipv-debug":

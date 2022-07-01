@@ -5,6 +5,7 @@ const {
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
+const logger = require("hmpo-logger").get();
 
 module.exports = {
   addCallbackParamsToRequest: async (req, _res, next) => {
@@ -28,6 +29,7 @@ module.exports = {
     ]);
 
     try {
+      logger.info("calling cri return lambda", { req, res });
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_RETURN_PATH}`,
         evidenceParam,
@@ -37,6 +39,7 @@ module.exports = {
 
       res.redirect(`/ipv${apiResponse.data?.journey}`);
     } catch (error) {
+      logger.error("error calling cri return lambda", { req, res, error });
       if (error?.response?.status === 404) {
         res.status = error.response.status;
       } else {
@@ -50,6 +53,10 @@ module.exports = {
       const { error, error_description, id } = req.query;
 
       if (error || error_description) {
+        logger.error("error or error_description received in callback", {
+          req,
+          res,
+        });
         const errorParams = new URLSearchParams([
           ["error", error],
           ["error_description", error_description],
@@ -66,6 +73,7 @@ module.exports = {
 
       return next();
     } catch (error) {
+      logger.error("error calling cri error lambda", { req, res, error });
       return next(error);
     }
   },

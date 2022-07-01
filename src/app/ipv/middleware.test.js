@@ -33,6 +33,7 @@ describe("journey middleware", () => {
     };
     req = {
       session: { ipvSessionId: "ipv-session-id" },
+      csrfToken: sinon.fake(),
     };
     next = sinon.fake();
   });
@@ -124,6 +125,7 @@ describe("journey middleware", () => {
     it("should render debug page when page-ipv-debug", async () => {
       req = {
         params: { pageId: "page-ipv-debug" },
+        csrfToken: sinon.fake(),
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -133,6 +135,7 @@ describe("journey middleware", () => {
     it("should render page case when given valid pageId", async () => {
       req = {
         params: { pageId: "page-ipv-identity-start" },
+        csrfToken: sinon.fake(),
       };
 
       await middleware.handleJourneyPage(req, res);

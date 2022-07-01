@@ -22,8 +22,6 @@ pyiNoMatch:
     - This could also be because you were unsuccessful when you've previously tried to prove your identity online.
     - "## What you can do"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);">{{ translate("buttons.next") }}</a>
-    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pyiTechnical:
   title: Sorry, there is a problem with the service
@@ -32,8 +30,6 @@ pyiTechnical:
     - We cannot prove your identity right now.
     - "## What you can do"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);">{{ translate("buttons.next") }}</a>
-    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pyiKbvFail:
   title: Sorry, we cannot prove your identity right now
@@ -43,15 +39,12 @@ pyiKbvFail:
     - To keep your information safe, we cannot show which questions you answered incorrectly.
     - "## What you can do"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);"> {{ translate("buttons.next") }} </a>
-    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account
   serviceNameRequired: true
   content:
     - You can now continue to prove your identity.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);">{{ translate("buttons.next") }}</a>
 
 pagePreKbvTransition:
   title: Answer security questions
@@ -67,8 +60,6 @@ pagePreKbvTransition:
     - How we know what questions to ask you
   summaryHtml:
     - '<p>We’ll work with <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.<p><p><a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>'
-  continueButton:
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);">{{ translate("buttons.next") }}</a>
 
 pageIpvSuccess:
   title: You’ve successfully proved your identity
@@ -76,4 +67,3 @@ pageIpvSuccess:
   content:
     - Now continue to use the <strong>Request a basic DBS check</strong> service.
     - Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service.
-    - <a href="/ipv/journey/next" class="govuk-button" data-module="govuk-button" onclick="window.disableAfterClick(this);">{{ translate("buttons.next") }}</a>

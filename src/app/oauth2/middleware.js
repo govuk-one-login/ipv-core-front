@@ -1,12 +1,14 @@
 const axios = require("axios");
 const { API_BASE_URL } = require("../../lib/config");
+const logger = require("hmpo-logger").get();
 
 module.exports = {
   redirectToJourney: async (_req, res) => {
     res.redirect("/ipv/journey/next");
   },
 
-  setDebugJourneyType: (req, _res, next) => {
+  setDebugJourneyType: (req, res, next) => {
+    logger.info("starting debug journey", { req, res });
     req.session.isDebugJourney = true;
     next();
   },
@@ -35,12 +37,14 @@ module.exports = {
         return next(new Error("Client ID Missing"));
       }
 
+      logger.info("calling session start lambda", { req, res });
       const response = await axios.post(
         `${API_BASE_URL}/session/start`,
         authParams
       );
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
+      logger.error("error calling session start lambda", { req, res, error });
       res.error = error.name;
       return next(error);
     }

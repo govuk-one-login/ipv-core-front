@@ -4,40 +4,46 @@ const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
+const logger = require("hmpo-logger").get();
 
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 
-async function journeyApi(action, ipvSessionId) {
+async function journeyApi(action, req) {
   if (action.startsWith("/")) {
     action = action.substr(1);
   }
 
+  logger.info("calling backend with action: :action", { req, action: action });
   return axios.post(
     `${API_BASE_URL}/${action}`,
     {},
-    generateAxiosConfig(ipvSessionId)
+    generateAxiosConfig(req.session.ipvSessionId)
   );
 }
 
 async function handleJourneyResponse(req, res, action) {
-  const response = (await journeyApi(action, req.session.ipvSessionId)).data;
+  const response = (await journeyApi(action, req)).data;
 
   if (response?.journey) {
+    logger.info("journey response received", { req, res });
     await handleJourneyResponse(req, res, response.journey);
   }
 
   if (response?.cri && tryValidateCriResponse(response.cri)) {
+    logger.info("cri response received", { req, res });
     req.cri = response.cri;
     await buildCredentialIssuerRedirectURL(req, res);
     return redirectToAuthorize(req, res);
   }
 
   if (response?.client && tryValidateClientResponse(response.client)) {
+    logger.info("client response received", { req, res });
     const { redirectUrl } = response.client;
     return res.redirect(redirectUrl);
   }
 
   if (response?.page) {
+    logger.info("page response received", { req, res });
     return res.redirect(`/ipv/page/${response.page}`);
   }
 }
@@ -101,6 +107,12 @@ module.exports = {
           return res.render(`ipv/pyi-technical`);
       }
     } catch (error) {
+      logger.error("error handling journey page: :pageId", {
+        req,
+        res,
+        pageId: req.params,
+        error,
+      });
       res.error = error.name;
       res.status(500);
       next(error);

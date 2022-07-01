@@ -26,7 +26,7 @@ const loggerConfig = {
     ipvSessionId: "session.ipvSessionId",
   },
   meta: {
-    ipvSessionId: "req.session.ipvSessionId",
+    ipvSessionId: "session.ipvSessionId",
   },
 };
 

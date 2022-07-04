@@ -47,6 +47,7 @@ describe("credential issuer middleware", () => {
 
     let configStub = {};
     let middleware;
+    let ipvMiddlewareStub = {};
 
     beforeEach(() => {
       configStub.API_CRI_RETURN_PATH = "/ADD-EVIDENCE";
@@ -54,9 +55,12 @@ describe("credential issuer middleware", () => {
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
+      ipvMiddlewareStub.handleJourneyResponse = sinon.fake();
+
       middleware = proxyquire("./middleware", {
         axios: axiosStub,
         "../../lib/config": configStub,
+        "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
         credentialIssuer: {
@@ -108,6 +112,7 @@ describe("credential issuer middleware", () => {
 
     it("should send code to core backend and return with 200 response", async () => {
       axiosResponse.status = 200;
+      axiosResponse.data = { journey: "journey/next" };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);
@@ -117,13 +122,15 @@ describe("credential issuer middleware", () => {
 
     it("should call /journey/next", async () => {
       axiosResponse.data = {
-        journey: "/journey/next",
+        journey: "journey/next",
       };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith("/ipv/journey/next");
+      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+        "journey/next"
+      );
     });
 
     it("should send code to core backend and return with a 404 response", async () => {
@@ -152,6 +159,7 @@ describe("credential issuer middleware", () => {
     let axiosStub = {};
     let configStub = {};
     let middleware;
+    let ipvMiddlewareStub = {};
 
     const error = "access_denied";
     const error_description = "restart ";
@@ -159,10 +167,12 @@ describe("credential issuer middleware", () => {
 
     beforeEach(() => {
       configStub.API_BASE_URL = "https://example.net/path";
+      ipvMiddlewareStub.handleJourneyResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
         axios: axiosStub,
         "../../lib/config": configStub,
+        "../ipv/middleware": ipvMiddlewareStub,
       });
 
       req = {
@@ -183,7 +193,7 @@ describe("credential issuer middleware", () => {
       const axiosResponse = {};
 
       axiosResponse.data = {
-        journey: "/journey/cri/error",
+        journey: "journey/cri/error",
       };
       axiosStub.post = sinon.fake.returns(axiosResponse);
 
@@ -206,14 +216,16 @@ describe("credential issuer middleware", () => {
         })
       );
 
-      expect(res.redirect).to.have.been.calledWith("/ipv/journey/cri/error");
+      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+        "journey/cri/error"
+      );
     });
 
     it("should report error to journey api and redirect to journey value when only error description is present", async () => {
       const axiosResponse = {};
 
       axiosResponse.data = {
-        journey: "/journey/cri/error",
+        journey: "journey/cri/error",
       };
 
       axiosStub.post = sinon.fake.returns(axiosResponse);
@@ -243,7 +255,9 @@ describe("credential issuer middleware", () => {
         })
       );
 
-      expect(res.redirect).to.have.been.calledWith("/ipv/journey/cri/error");
+      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+        "journey/cri/error"
+      );
     });
 
     it("should call next if no error and error_description is present in the query string", async () => {

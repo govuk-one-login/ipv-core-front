@@ -5,6 +5,7 @@ const {
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
+const { handleJourneyResponse } = require("../ipv/middleware");
 const logger = require("hmpo-logger").get();
 
 module.exports = {
@@ -16,7 +17,6 @@ module.exports = {
 
     next();
   },
-
   sendParamsToAPI: async (req, res, next) => {
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
@@ -37,7 +37,7 @@ module.exports = {
       );
       res.status = apiResponse?.status;
 
-      res.redirect(`/ipv${apiResponse.data?.journey}`);
+      return handleJourneyResponse(req, res, apiResponse.data?.journey);
     } catch (error) {
       logger.error("error calling cri return lambda", { req, res, error });
       if (error?.response?.status === 404) {
@@ -57,6 +57,7 @@ module.exports = {
           req,
           res,
         });
+
         const errorParams = new URLSearchParams([
           ["error", error],
           ["error_description", error_description],
@@ -68,7 +69,7 @@ module.exports = {
           errorParams,
           generateAxiosConfig(req.session.ipvSessionId)
         );
-        return res.redirect(`/ipv${journeyResponse.data?.journey}`);
+        return handleJourneyResponse(req, res, journeyResponse.data?.journey);
       }
 
       return next();

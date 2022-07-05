@@ -38,6 +38,22 @@ describe("journey middleware", () => {
     next = sinon.fake();
   });
 
+  context("request to updateJourneyState not in allowedList ", () => {
+    beforeEach(() => {
+      req = {
+        url: "/foo",
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+    });
+
+    it("should call next with error message", async function () {
+      await middleware.updateJourneyState(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match.has("message", "Action /foo not valid")
+      );
+    });
+  });
+
   context("from a sequence of events that ends with a page response", () => {
     const pageId = "pageTransition";
     const eventResponses = [
@@ -68,12 +84,18 @@ describe("journey middleware", () => {
 
     beforeEach(() => {
       req = {
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
 
+    it("should redirect to journey transition page with message in query string", async function () {
+      await middleware.updateJourneyState(req, res, next);
+      expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
+    });
+
     it("should have called the network in the correct sequence", async function () {
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      await middleware.updateJourneyState(req, res, next);
       expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
         {},
@@ -89,8 +111,6 @@ describe("journey middleware", () => {
         {},
         headers
       );
-
-      expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
   });
 
@@ -176,7 +196,7 @@ describe("journey middleware", () => {
     });
 
     it("should be redirected to a valid redirectURL", async function () {
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      await middleware.updateJourneyState(req, res, next);
       expect(req.redirectURL.toString()).to.equal(
         "https://someurl.com/?client_id=clientId&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw%3D%3D"
       );
@@ -198,13 +218,10 @@ describe("journey middleware", () => {
         },
       ];
       req = {
+        url: "/journey/cri/start/ukPassport",
         session: { ipvSessionId: "ipv-session-id" },
       };
-      await middleware.handleJourneyResponse(
-        req,
-        res,
-        "/journey/cri/start/ukPassport"
-      );
+      await middleware.updateJourneyState(req, res, next);
       expect(req.redirectURL.toString()).to.equal(
         "https://someurl.com/?client_id=clientId&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw%3D%3D"
       );
@@ -231,6 +248,7 @@ describe("journey middleware", () => {
           },
         ];
         req = {
+          url: "/journey/next",
           session: { ipvSessionId: "ipv-session-id" },
         };
 
@@ -243,7 +261,7 @@ describe("journey middleware", () => {
       });
 
       it("should raise an error ", async () => {
-        await middleware.handleJourneyNext(req, res, next);
+        await middleware.updateJourneyState(req, res, next);
         expect(next).to.have.been.calledWith(
           sinon.match.has("message", "CRI response AuthorizeUrl is missing")
         );
@@ -264,12 +282,13 @@ describe("journey middleware", () => {
       });
 
       req = {
+        url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
       };
     });
 
     it("should be redirected to a valid Client URL", async function () {
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      await middleware.updateJourneyState(req, res, next);
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
     });
   });
@@ -303,7 +322,7 @@ describe("journey middleware", () => {
     });
 
     it("should call next with error message Redirect url is missing", async function () {
-      await middleware.handleJourneyNext(req, res, next);
+      await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match.has("message", "Client Response redirect url is missing")
       );

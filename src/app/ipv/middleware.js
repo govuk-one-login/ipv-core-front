@@ -70,26 +70,6 @@ function tryValidateClientResponse(client) {
 }
 
 module.exports = {
-  updateJourneyState: async (req, res, next) => {
-    try {
-      const action = req.url;
-      //valid list of allowed actions for route
-      const allowedActions = [
-        /^\/journey\/(next|error|fail)$/,
-        /^\/journey\/cri\/start\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
-        /^\/journey\/session\/end$/,
-        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/,
-      ];
-
-      if (allowedActions.some((actionRegex) => actionRegex.test(action))) {
-        await handleJourneyResponse(req, res, action);
-      } else {
-        next(new Error(`Action ${action} not valid`));
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;

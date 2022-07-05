@@ -1,9 +1,18 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<form action="/ipv/page/{{pageId}}" method="POST">
+<form id="nextForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return nextFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-
-    <button class="govuk-button" data-module="govuk-button" onclick="this.disabled=true;this.form.submit();">
-        {{translate("buttons.next")}}
-    </button>
+    <input id="nextSubmit" type="submit" class="govuk-button" value="{{translate("buttons.next")}}">
 </form>
+
+<script>
+    let disableSubmit = false;
+    function nextFormSubmit() {
+      if(!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('nextSubmit').disabled = true;
+        return true
+      }
+      return false;
+    }
+</script>

@@ -96,11 +96,6 @@ Resources:
         Core Front ECS Security Group outbound permissions ruleset
       SecurityGroupEgress:
         - CidrIp: !ImportValue CoreVPCCIDR
-          Description: Allow tcp port 80 traffic out to vpc cidr
-          FromPort: 80
-          IpProtocol: tcp
-          ToPort: 80
-        - CidrIp: !ImportValue CoreVPCCIDR
           Description: Allow tcp port 443 traffic out to vpc cidr
           FromPort: 443
           IpProtocol: tcp

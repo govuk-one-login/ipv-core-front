@@ -56,6 +56,10 @@ Mappings:
       desiredTaskCount: 2
     "075701497069": # Production
       desiredTaskCount: 2
+  SecurityGroups:
+    PrefixListIds:
+      dynamodb: "pl-b3a742da"
+      s3: "pl-7ca54015"
 
 Resources:
   # Security Groups for the ECS service and load balancer
@@ -89,12 +93,28 @@ Resources:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
-        Core Front ECS Security Group permitting outbound
-        to anywhere.
+        Core Front ECS Security Group outbound permissions ruleset
       SecurityGroupEgress:
-        - CidrIp: 0.0.0.0/0
-          Description: Allow all outbound traffic by default
-          IpProtocol: "-1"
+        - CidrIp: !ImportValue CoreVPCCIDR
+          Description: Allow tcp port 80 traffic out to vpc cidr
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+        - CidrIp: !ImportValue CoreVPCCIDR
+          Description: Allow tcp port 443 traffic out to vpc cidr
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, dynamodb]
+          Description: Allow outbound traffic to dynamodb vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, s3]
+          Description: Allow outbound traffic to s3 vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
       VpcId: !Ref VpcId
 
   ECSSecurityGroupIngressFromLoadBalancer:

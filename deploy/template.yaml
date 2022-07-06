@@ -115,6 +115,11 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
+        - DestinationSecurityGroupId: !ImportValue ApiGatewayVpcEndpointSecurityGroupId
+          Description: Allow outbound traffic to api gateway vpc endpoint security group
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
       VpcId: !Ref VpcId
 
   ECSSecurityGroupIngressFromLoadBalancer:

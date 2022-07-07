@@ -71,7 +71,12 @@ function tryValidateClientResponse(client) {
 
 module.exports = {
   updateJourneyState: async (req, res, next) => {
+    //routine to be removed once debug journey rewrite is complete
     try {
+      if (!req.session.isDebugJourney) {
+        return next(new Error("Debug operation not available"));
+      }
+
       const action = req.url;
       //valid list of allowed actions for route
       const allowedActions = [

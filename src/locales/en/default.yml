@@ -33,7 +33,7 @@ govuk:
       items:
         - href: "https://signin.account.gov.uk/accessibility-statement"
           text: "Accessibility statement"
-        - href: "https://www.gov.uk/help/cookies"
+        - href: "https://account.gov.uk/cookies"
           text: "Cookies"
         - href: "https://signin.account.gov.uk/terms-and-conditions"
           text: "Terms and conditions"

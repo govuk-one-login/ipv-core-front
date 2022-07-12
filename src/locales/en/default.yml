@@ -27,13 +27,14 @@ govuk:
         paragraph2: " at any time."
       buttonAcceptText: Accept analytics cookies
       buttonRejectText: Reject analytics cookies
+      linkViewCookies: View cookies
       cookieBannerHideLink: Hide this message
   footerNavItems:
     meta:
       items:
         - href: "https://signin.account.gov.uk/accessibility-statement"
           text: "Accessibility statement"
-        - href: "https://www.gov.uk/help/cookies"
+        - href: "https://signin.account.gov.uk/cookies"
           text: "Cookies"
         - href: "https://signin.account.gov.uk/terms-and-conditions"
           text: "Terms and conditions"

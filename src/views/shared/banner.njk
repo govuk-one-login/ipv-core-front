@@ -5,12 +5,17 @@
     <p class="govuk-body">{{ 'govuk.cookie.cookieBanner.paragraph2' | translate }}</p>
 {% endset %}
 
+{# create a variable that sends the user to the location where they can control their cookies #}
+{% set cookieLocation %}
+    https://account.gov.uk/cookies
+{% endset %}
+
 {% set acceptHtml %}
-    <p class="govuk-body">{{ 'govuk.cookie.cookieBanner.cookieBannerAccept.paragraph1' | translate }}<a class="govuk-link" href="https://www.gov.uk/help/cookies">{{ 'govuk.cookie.cookieBanner.changeCookiePreferencesLink' | translate }}</a> {{ 'govuk.cookie.cookieBanner.cookieBannerAccept.paragraph2' | translate }}</p>
+    <p class="govuk-body">{{ 'govuk.cookie.cookieBanner.cookieBannerAccept.paragraph1' | translate }}<a class="govuk-link" href="{{ 'cookieLocation' | trim }}">{{ 'govuk.cookie.cookieBanner.changeCookiePreferencesLink' | translate }}</a> {{ 'govuk.cookie.cookieBanner.cookieBannerAccept.paragraph2' | translate }}</p>
 {% endset %}
 
 {% set rejectedHtml %}
-    <p class="govuk-body">{{ 'govuk.cookie.cookieBanner.cookieBannerReject.paragraph1' | translate }}<a class="govuk-link" href="https://www.gov.uk/help/cookies">{{ 'govuk.cookie.cookieBanner.changeCookiePreferencesLink' | translate }}</a> {{ 'govuk.cookie.cookieBanner.cookieBannerReject.paragraph2' | translate }}</p>
+    <p class="govuk-body">{{ 'govuk.cookie.cookieBanner.cookieBannerReject.paragraph1' | translate }}<a class="govuk-link" href="{{ 'cookieLocation' | trim }}">{{ 'govuk.cookie.cookieBanner.changeCookiePreferencesLink' | translate }}</a> {{ 'govuk.cookie.cookieBanner.cookieBannerReject.paragraph2' | translate }}</p>
 {% endset %}
 
 {{ govukCookieBanner({
@@ -37,8 +42,8 @@
                 value: "reject"
             },
             {
-                text: "View cookies",
-                href: "https://www.gov.uk/help/cookies"
+                text: 'govuk.cookie.cookieBanner.linkViewCookies' | translate,
+                href: cookieLocation | trim
             }
         ]
         },

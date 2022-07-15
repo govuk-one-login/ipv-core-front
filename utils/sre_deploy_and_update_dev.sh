@@ -13,7 +13,7 @@ function print_usage() {
   echo -e "\t     if unsure check https://github.com/alphagov/di-ipv-config/blob/main/core/ci/core-developer-pipelines/gene  rate-pipelines/list_of_developers.txt"
   echo -e "\t     for your username\n"
   echo -e "\t[-i] Provide Image Tag\n"
-  echo -e "\t[-t] Provide deployment type from: ${deploy_types[*]}, defaults to 'update'\n"
+  echo -e "\t[-t] Provide deployment type from: '${deploy_types[*]}', defaults to 'update'\n"
   echo -e "\t[-h] Print this usage guide\n"
 }
 

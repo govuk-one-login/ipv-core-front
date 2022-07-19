@@ -2,7 +2,7 @@
 
 <form id="nextForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return nextFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <input id="nextSubmit" type="submit" class="govuk-button" value="{{translate("buttons.next")}}">
+    <input type="submit" name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton" value="{{translate("buttons.next")}}">
 </form>
 
 <script>
@@ -10,7 +10,7 @@
     function nextFormSubmit() {
       if(!disableSubmit) {
         disableSubmit = true;
-        document.getElementById('nextSubmit').disabled = true;
+        document.getElementById('submitButton').disabled = true;
         return true
       }
       return false;

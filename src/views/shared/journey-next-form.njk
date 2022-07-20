@@ -2,7 +2,9 @@
 
 <form id="nextForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return nextFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <input type="submit" name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton" value="{{translate("buttons.next")}}">
+    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+        {{translate("buttons.next")}}
+    </button>
 </form>
 
 <script>

@@ -1125,7 +1125,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
+debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -1945,16 +1945,16 @@ hmpo-components@5.3.0:
     moment "^2.29.2"
     underscore "^1.13.2"
 
-hmpo-config@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-2.2.0.tgz#4718f149882f07c4d75147669778d169753f86e0"
-  integrity sha512-pdfUTGrR+dDN60VISTn2d7rVeqvzw7MQS3YhZXcaD+bSPqcev67FPDHIc/yH+58PN72UrI8DIPle+EWH+SsbNg==
+hmpo-config@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-2.2.1.tgz#520b27ca7a0003cb0622c70c68b299e1ea6fa50e"
+  integrity sha512-xza3G9NwtVyhljO2IXF+2CbS7BSJgMEmDycyOyYejzP9UzlBooha8LE2jzqGKnU988e6ercp4+d45oFp/96SFQ==
   dependencies:
     app-root-path "^3.0.0"
-    debug "^4.3.1"
-    deep-clone-merge "^1.5.2"
+    debug "^4.3.4"
+    deep-clone-merge "^1.5.4"
     js-yaml "^4.1.0"
-    json5 "^2.2.0"
+    json5 "^2.2.1"
 
 hmpo-form-wizard@12.0.3:
   version "12.0.3"
@@ -2402,7 +2402,7 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-json5@^2.1.2, json5@^2.2.0, json5@^2.2.1:
+json5@^2.1.2, json5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==

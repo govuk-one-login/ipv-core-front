@@ -1935,14 +1935,14 @@ hmpo-app@2.3.0:
     underscore "^1.13.4"
     uuid "^8.3.2"
 
-hmpo-components@5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.3.0.tgz#922dcdad7767b59cd1b4fe6e823beac8313cf6db"
-  integrity sha512-zU7zn9d3tDKq3sONScASI/ld660hkY+OAQ8saLp48MRo071OkDORjDHKGnFkx0xoQwUlPOnzxHzW7zqlAfdAiw==
+hmpo-components@5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.3.2.tgz#e4dbb48deed5e1303a39a14645ad455c546ff807"
+  integrity sha512-ijHg1XRz3bjhV5lXqBqCrH8kuNLfQKodbtLDi7mpM5+u326C9L4/HmjLC2eMtA7PDcDgX8hPr3XWfRnYkF6LuA==
   dependencies:
     deep-clone-merge "^1.5.4"
-    moment "^2.29.2"
-    underscore "^1.13.2"
+    moment "^2.29.3"
+    underscore "^1.13.4"
 
 hmpo-config@2.2.0:
   version "2.2.0"
@@ -2769,7 +2769,7 @@ module-not-found-error@^1.0.1:
   resolved "https://registry.yarnpkg.com/module-not-found-error/-/module-not-found-error-1.0.1.tgz#cf8b4ff4f29640674d6cdd02b0e3bc523c2bbdc0"
   integrity sha1-z4tP9PKWQGdNbN0CsOO8UjwrvcA=
 
-moment@^2.29.2, moment@^2.29.3:
+moment@^2.29.3:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
@@ -3915,7 +3915,7 @@ underscore@1.12.x:
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.12.1.tgz#7bb8cc9b3d397e201cf8553336d262544ead829e"
   integrity sha512-hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==
 
-underscore@^1.13.2, underscore@^1.13.4:
+underscore@^1.13.4:
   version "1.13.4"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.4.tgz#7886b46bbdf07f768e0052f1828e1dcab40c0dee"
   integrity sha512-BQFnUDuAQ4Yf/cYY5LNrK9NCJFKriaRbD9uR1fTeXnBeoa97W0i41qkZfGO9pSo8I5KzjAcSY2XYtdf0oKd7KQ==

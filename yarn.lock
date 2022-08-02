@@ -1902,10 +1902,10 @@ hmpo-app@2.3.0:
     underscore "^1.13.4"
     uuid "^8.3.2"
 
-hmpo-components@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.3.2.tgz#e4dbb48deed5e1303a39a14645ad455c546ff807"
-  integrity sha512-ijHg1XRz3bjhV5lXqBqCrH8kuNLfQKodbtLDi7mpM5+u326C9L4/HmjLC2eMtA7PDcDgX8hPr3XWfRnYkF6LuA==
+hmpo-components@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.4.0.tgz#9741a4d75a3720b4a9228ea737bece1b292077e8"
+  integrity sha512-r90KLgJipUYdDTmRU1vRGoXJg8ldgFQP88lxjDAzpdE3e8zd+KI8jpFpMLZafI9VTwKOQdcMfPiA1bOmG6ptFA==
   dependencies:
     deep-clone-merge "^1.5.4"
     moment "^2.29.3"
@@ -1922,10 +1922,10 @@ hmpo-config@2.2.1:
     js-yaml "^4.1.0"
     json5 "^2.2.1"
 
-hmpo-form-wizard@12.0.5:
-  version "12.0.5"
-  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.5.tgz#b59fc7e33e66f8e03a53fde326fc4d707ce077e7"
-  integrity sha512-YTkZJWQzjl2JDlWxWP7fCjczD5TEA9I7JS6TTfF9ZPGa+Nf8yAH5q9DFEQ/ye9kK8kGtZOazJ0C7pDkYTQzIaw==
+hmpo-form-wizard@12.0.6:
+  version "12.0.6"
+  resolved "https://registry.yarnpkg.com/hmpo-form-wizard/-/hmpo-form-wizard-12.0.6.tgz#b0750d5f719abda0bd0b8d856e9268470bff3b4c"
+  integrity sha512-sjtnoS87wRF0M2c0/KMM6Kf+MBK4q11e2jSIwoVYsF9INDWT6sp7YT+54LQb4CgDLxr7I4mIQ1LcXP5qsQWhNg==
   dependencies:
     body-parser "^1.20.0"
     csrf "^3.1.0"

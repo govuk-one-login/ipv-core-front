@@ -1,7 +1,7 @@
 const axios = require("axios");
 const {
   API_BASE_URL,
-  API_CRI_RETURN_PATH,
+  API_CRI_ACCESS_TOKEN_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
@@ -29,9 +29,9 @@ module.exports = {
     ]);
 
     try {
-      logger.info("calling cri return lambda", { req, res });
+      logger.info("calling build-cri-oauth-access-token lambda", { req, res });
       const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_RETURN_PATH}`,
+        `${API_BASE_URL}${API_CRI_ACCESS_TOKEN_PATH}`,
         evidenceParam,
         generateAxiosConfig(req.session.ipvSessionId)
       );
@@ -39,7 +39,11 @@ module.exports = {
 
       return handleJourneyResponse(req, res, apiResponse.data?.journey);
     } catch (error) {
-      logger.error("error calling cri return lambda", { req, res, error });
+      logger.error("error calling  build-cri-oauth-access-token lambda", {
+        req,
+        res,
+        error,
+      });
       if (error?.response?.status === 404) {
         res.status = error.response.status;
       } else {

@@ -50,7 +50,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_RETURN_PATH = "/ADD-EVIDENCE";
+      configStub.API_CRI_ACCESS_TOKEN_PATH = "/access-token";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -98,7 +98,7 @@ describe("credential issuer middleware", () => {
         await middleware.sendParamsToAPI(req, res, next);
 
         expect(axiosStub.post).to.have.been.calledWith(
-          "https://example.net/path/ADD-EVIDENCE",
+          "https://example.net/path/access-token",
           searchParams,
           sinon.match({
             headers: {

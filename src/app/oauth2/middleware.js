@@ -33,14 +33,18 @@ module.exports = {
         return next(new Error("Client ID Missing"));
       }
 
-      logger.info("calling session start lambda", { req, res });
+      logger.info("calling initialise-ipv-session lambda", { req, res });
       const response = await axios.post(
         `${API_BASE_URL}/session/initialise`,
         authParams
       );
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
-      logger.error("error calling session start lambda", { req, res, error });
+      logger.error("error calling initialise-ipv-session lambda", {
+        req,
+        res,
+        error,
+      });
       res.error = error.name;
       return next(error);
     }

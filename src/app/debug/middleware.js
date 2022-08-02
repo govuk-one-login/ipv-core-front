@@ -26,7 +26,7 @@ module.exports = {
 
   getIssuedCredentials: async (req, res, next) => {
     try {
-      logger.info("calling issued credentials lambda", { req, res });
+      logger.info("calling build-debug-credential-data lambda", { req, res });
       const apiResponse = await axios.get(
         `${API_BASE_URL}${API_BUILD_DEBUG_CREDENTIAL_DATA_PATH}`,
         {
@@ -43,7 +43,7 @@ module.exports = {
 
       req.issuedCredentials = parsedResponse;
     } catch (error) {
-      logger.error("error fetching issued credentials", { req, res, error });
+      logger.error("error fetching debug credential data", { req, res, error });
       res.error = error.name;
       return next(error);
     }

@@ -35,7 +35,7 @@ module.exports = {
 
       logger.info("calling session start lambda", { req, res });
       const response = await axios.post(
-        `${API_BASE_URL}/session/start`,
+        `${API_BASE_URL}/session/initialise`,
         authParams
       );
       req.session.ipvSessionId = response?.data?.ipvSessionId;

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const {
   API_BASE_URL,
-  API_CRI_RETURN_PATH,
+  API_CRI_ACCESS_TOKEN_PATH,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
@@ -31,7 +31,7 @@ module.exports = {
     try {
       logger.info("calling cri return lambda", { req, res });
       const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_RETURN_PATH}`,
+        `${API_BASE_URL}${API_CRI_ACCESS_TOKEN_PATH}`,
         evidenceParam,
         generateAxiosConfig(req.session.ipvSessionId)
       );

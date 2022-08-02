@@ -10,9 +10,9 @@ if (!appEnv.isLocal) {
 
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
-  API_ISSUED_CREDENTIALS_PATH: "/issued-credentials",
+  API_BUILD_DEBUG_CREDENTIAL_DATA_PATH: "/debug-credential-data",
   API_REQUEST_CONFIG_PATH: "/request-config",
-  API_CRI_RETURN_PATH: "/journey/cri/return",
+  API_CRI_ACCESS_TOKEN_PATH: "/journey/cri/access-token",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

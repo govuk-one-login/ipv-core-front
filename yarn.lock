@@ -1902,10 +1902,10 @@ hmpo-app@2.3.0:
     underscore "^1.13.4"
     uuid "^8.3.2"
 
-hmpo-components@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.3.2.tgz#e4dbb48deed5e1303a39a14645ad455c546ff807"
-  integrity sha512-ijHg1XRz3bjhV5lXqBqCrH8kuNLfQKodbtLDi7mpM5+u326C9L4/HmjLC2eMtA7PDcDgX8hPr3XWfRnYkF6LuA==
+hmpo-components@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.4.0.tgz#9741a4d75a3720b4a9228ea737bece1b292077e8"
+  integrity sha512-r90KLgJipUYdDTmRU1vRGoXJg8ldgFQP88lxjDAzpdE3e8zd+KI8jpFpMLZafI9VTwKOQdcMfPiA1bOmG6ptFA==
   dependencies:
     deep-clone-merge "^1.5.4"
     moment "^2.29.3"

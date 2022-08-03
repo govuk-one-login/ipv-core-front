@@ -15,7 +15,7 @@ jobs:
       - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 16.13.1
+          node-version: 16.15.0
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install

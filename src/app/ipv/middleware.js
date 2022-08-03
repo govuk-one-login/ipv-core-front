@@ -76,7 +76,7 @@ module.exports = {
       //valid list of allowed actions for route
       const allowedActions = [
         /^\/journey\/(next|error|fail)$/,
-        /^\/journey\/cri\/start\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
+        /^\/journey\/cri\/build-oauth-request\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
         /^\/journey\/session\/end$/,
         /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/,
       ];

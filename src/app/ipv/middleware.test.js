@@ -218,7 +218,7 @@ describe("journey middleware", () => {
         },
       ];
       req = {
-        url: "/journey/cri/start/ukPassport",
+        url: "/journey/cri/build-oauth-request/ukPassport",
         session: { ipvSessionId: "ipv-session-id" },
       };
       await middleware.updateJourneyState(req, res, next);

@@ -77,7 +77,7 @@ module.exports = {
       const allowedActions = [
         /^\/journey\/(next|error|fail)$/,
         /^\/journey\/cri\/build-oauth-request\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|debugAddress)$/,
-        /^\/journey\/session\/end$/,
+        /^\/journey\/build-client-oauth-response$/,
         /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv)$/,
       ];
 

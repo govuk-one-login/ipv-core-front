@@ -2,9 +2,6 @@
 {% set hmpoPageKey = "pyiNoMatch" %}
 
 {% block cta %}
-  {% include 'shared/journey-next-form.njk' %}
-  <p>
-    <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
-  </p>
-{% endblock%}
-
+{% include 'shared/journey-next-form.njk' %}
+{{ translate("pages.errors.contactAccountTeamHTML") | safe }}
+{% endblock %}

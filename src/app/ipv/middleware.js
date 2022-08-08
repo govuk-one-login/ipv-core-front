@@ -116,6 +116,7 @@ module.exports = {
         case "page-ipv-success":
         case "page-pre-kbv-transition":
         case "pyi-kbv-fail":
+        case "pyi-kbv-thin-file":
         case "pyi-no-match":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":

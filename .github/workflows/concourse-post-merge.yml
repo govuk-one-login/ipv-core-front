@@ -58,13 +58,13 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" template.yml
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           echo "${IMAGE_TAG}" > image_tag.txt
           zip template.zip template.yaml image_tag.txt
           aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/

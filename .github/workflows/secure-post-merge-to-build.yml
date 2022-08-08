@@ -45,19 +45,19 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: SAM Validate
-        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy-sp/template.yaml
 
       - name: Update SAM template with ECR image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" template.yaml
 
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           sam build -t template.yaml
           mv .aws-sam/build/template.yaml cf-template.yaml
           zip template.zip cf-template.yaml
@@ -66,5 +66,5 @@ jobs:
         env:
           ARTIFACT_BUCKET: ${{ secrets.BUILD_ARTIFACT_BUCKET }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

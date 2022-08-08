@@ -12,6 +12,9 @@ govuk:
   warning: Warning
   skipLink: Skip to main content
   betaBannerRequired: true
+  betaBannerContent:
+    betaBannerContentLabel: beta
+    betaBannerContentHTML: 'This is a new service – your <a class="govuk-link" rel="noopener" target="_blank" href="https://signin.account.gov.uk/contact-us">feedback (opens in new tab)</a>  will help us to improve it.'
   cookie:
     cookieBanner:
       title: Cookies on GOV.UK account

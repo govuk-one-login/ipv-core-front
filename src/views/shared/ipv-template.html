@@ -33,8 +33,8 @@
 {# the BETA banner is added to all pages using this template by default #}
 {% block beforeContent %}
     {{ govukPhaseBanner({
-    tag: { text: "beta" },
-    html: 'This is a new service – your <a class="govuk-link" rel="noopener" target="_blank" href="https://signin.account.gov.uk/contact-us">feedback (opens in new tab)</a>  will help us to improve it.'
+    tag: { text: translate("govuk.betaBannerContent.betaBannerContentLabel") },
+    html: translate("govuk.betaBannerContent.betaBannerContentHTML")
     }) }}
 {% endblock %}
 

@@ -20,6 +20,7 @@ Parameters:
   ImageTag:
     Description: The tag of core-front image to deploy in the task definition.
     Type: String
+    Default: "none"
   VpcStackName:
     Description: >
       The name of the stack that defines the VPC in which this container will
@@ -315,7 +316,7 @@ Resources:
         - Essential: true
           Image: !If [
               IsNotDevelopment,
-              !Sub "457601271792.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-build:${ImageTag}",
+              CONTAINER-IMAGE-PLACEHOLDER,
               !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
             ] # Uses build account and ECR when not in development.
           Name: app

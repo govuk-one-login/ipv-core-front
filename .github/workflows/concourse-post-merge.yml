@@ -28,7 +28,7 @@ jobs:
       - name: Create tag
         id: create-tag
         run: |
-          IMAGE_TAG="${{ github.sha }}-$(date +'%Y-%m-%d-%H%M%S')"
+          IMAGE_TAG="${{ github.sha }}-concourse-$(date +'%Y-%m-%d-%H%M%S')"
           echo "::set-output name=image_tag::$IMAGE_TAG"
       - name: Build docker image
         env:
@@ -67,4 +67,4 @@ jobs:
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           echo "${IMAGE_TAG}" > image_tag.txt
           zip template.zip template.yaml image_tag.txt
-          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/
+          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front-secure-pipeline/

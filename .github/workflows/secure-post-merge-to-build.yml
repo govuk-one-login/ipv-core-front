@@ -31,7 +31,7 @@ jobs:
       - name: Create tag
         id: create-tag
         run: |
-          IMAGE_TAG="${{ github.sha }}-$(date +'%Y-%m-%d-%H%M%S')"
+          IMAGE_TAG="${{ github.sha }}-secure-pipeline-$(date +'%Y-%m-%d-%H%M%S')"
           echo "::set-output name=image_tag::$IMAGE_TAG"
 
       - name: Build, tag, and push image to Amazon ECR
@@ -67,4 +67,4 @@ jobs:
           ARTIFACT_BUCKET: ${{ secrets.BUILD_ARTIFACT_BUCKET }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
-          aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+          aws s3 cp template.zip "s3://$ARTIFACT_SOURCE_BUCKET_NAME/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

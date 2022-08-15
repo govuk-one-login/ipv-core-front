@@ -1,0 +1,70 @@
+name: Docker build, ECR push, template copy to S3
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dockerBuildAndPush:
+    name: Docker build and push
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-west-2
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Set up AWS creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          aws-region: eu-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Create tag
+        id: create-tag
+        run: |
+          IMAGE_TAG="${{ github.sha }}-secure-pipeline-$(date +'%Y-%m-%d-%H%M%S')"
+          echo "::set-output name=image_tag::$IMAGE_TAG"
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          cd ${GITHUB_WORKSPACE} || exit 1
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: SAM Validate
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy-sp/template.yaml
+
+      - name: Update SAM template with ECR image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
+          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" template.yaml
+
+      - name: Create template.yaml and sha zip file and upload to artifacts S3
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
+          sam build -t template.yaml
+          mv .aws-sam/build/template.yaml cf-template.yaml
+          zip template.zip cf-template.yaml
+
+      - name: Upload CloudFormation artifacts to S3
+        env:
+          ARTIFACT_BUCKET: ${{ secrets.BUILD_ARTIFACT_BUCKET }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
+          aws s3 cp template.zip "s3://$ARTIFACT_SOURCE_BUCKET_NAME/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

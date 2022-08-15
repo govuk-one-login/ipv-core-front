@@ -1,0 +1,70 @@
+name: Docker build, ECR push, template copy to S3
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dockerBuildAndPush:
+    name: Docker build and push
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+        with:
+          fetch-depth: '0'
+      - name: Set up AWS creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.ACTIONS_ROLE_ARN }}
+          aws-region: eu-west-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registries: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }},${{ secrets.BUILD_ACCOUNT_ID }}
+      - name: Create tag
+        id: create-tag
+        run: |
+          IMAGE_TAG="${{ github.sha }}-concourse-$(date +'%Y-%m-%d-%H%M%S')"
+          echo "::set-output name=image_tag::$IMAGE_TAG"
+      - name: Build docker image
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          cd ${GITHUB_WORKSPACE} || exit 1
+          docker build -t "core-front-build:${IMAGE_TAG}" .
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+      - name: Push docker image to build
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          docker push "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+      - name: Push docker image to development
+        env:
+          ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_REPOSITORY: core-front-development
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+           docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
+           docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+      - name: Update SAM template with ECR image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
+          sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" template.yml
+      - name: Create template.yaml and sha zip file and upload to artifacts S3
+        env:
+          IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
+        run: |
+          cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
+          echo "${IMAGE_TAG}" > image_tag.txt
+          zip template.zip template.yaml image_tag.txt
+          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front-secure-pipeline/

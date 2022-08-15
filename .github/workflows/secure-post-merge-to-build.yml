@@ -1,4 +1,4 @@
-name: Docker build, ECR push, template copy to S3
+name: SecurePipeline Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
@@ -64,7 +64,7 @@ jobs:
 
       - name: Upload CloudFormation artifacts to S3
         env:
-          ARTIFACT_BUCKET: ${{ secrets.BUILD_ARTIFACT_BUCKET }}
+          ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
-          aws s3 cp template.zip "s3://$ARTIFACT_SOURCE_BUCKET_NAME/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+          aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

@@ -1,4 +1,4 @@
-name: Docker build, ECR push, template copy to S3
+name: Concourse SecurePipeline Docker build, ECR push, template copy to S3
 on:
   push:
     branches:

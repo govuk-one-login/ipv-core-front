@@ -19,6 +19,8 @@ describe("cri Helper", () => {
               tokenUrl: "http://passport-stub-1/token",
               credentialUrl: "http://passport-stub-1/credential",
               ipvClientId: "test-ipv-client",
+              redirectUrl:
+                "http://passport-stub-1/authorize?client_id=test-ipv-client&request=test-request",
             },
             {
               id: "FraudIssuer",
@@ -27,6 +29,8 @@ describe("cri Helper", () => {
               tokenUrl: "http://fraud-stub-1/token",
               credentialUrl: "http://fraud-stub-1/credential",
               ipvClientId: "test-ipv-client",
+              redirectUrl:
+                "http://fraud-stub-1/authorize?client_id=test-ipv-client&request=test-request",
             },
             {
               id: "AddressIssuer",
@@ -35,6 +39,8 @@ describe("cri Helper", () => {
               tokenUrl: "http://address-stub-1/token",
               credentialUrl: "http://address-stub-1/credential",
               ipvClientId: "test-ipv-client",
+              redirectUrl:
+                "http://address-stub-1/authorize?client_id=test-ipv-client&request=test-request",
             },
           ],
         },
@@ -59,7 +65,7 @@ describe("cri Helper", () => {
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL.toString()).to.equal(
-        "http://passport-stub-1/authorize?client_id=test-ipv-client&request=undefined"
+        "http://passport-stub-1/authorize?client_id=test-ipv-client&request=test-request"
       );
     });
 

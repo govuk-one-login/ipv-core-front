@@ -10,10 +10,7 @@ module.exports = {
       res.status(500);
       return res.send("Could not find configured CRI");
     }
-
-    req.redirectURL = new URL(cri.authorizeUrl);
-    req.redirectURL.searchParams.append("client_id", cri.ipvClientId);
-    req.redirectURL.searchParams.append("request", cri.request);
+    req.redirectURL = new URL(cri.redirectUrl);
 
     if (next) {
       next();

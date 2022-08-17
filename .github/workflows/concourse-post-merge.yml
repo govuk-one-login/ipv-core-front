@@ -32,20 +32,26 @@ jobs:
           echo "::set-output name=image_tag::$IMAGE_TAG"
       - name: Build docker image
         env:
+          ECR_BUILD_REG: ${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_BUILD_REPO: core-front-build
+          ECR_DEV_REG: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_DEV_REPO: core-front-development
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
           echo "Not Running This currently Skipping" ## Exiting - for now this is not used
           #docker build -t "core-front-build:${IMAGE_TAG}" .
-          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
-          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
-          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_BUILD_REG}/${ECR_BUILD_REPO}:${IMAGE_TAG}"
+          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:${IMAGE_TAG}"
+          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:latest"
       - name: Push docker image to build
         env:
+          ECR_REGISTRY: ${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_REPOSITORY: core-front-build
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-          #docker push "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
       - name: Push docker image to development
         env:
           ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
@@ -53,12 +59,12 @@ jobs:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
            echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-           #docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
-           #docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+           #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+           #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
       - name: Update SAM template with ECR image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          ECR_REGISTRY: ${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
+          ECR_REPOSITORY: core-front-build
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1

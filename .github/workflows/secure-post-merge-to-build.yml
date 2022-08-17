@@ -66,7 +66,7 @@ jobs:
 
       - name: Upload CloudFormation artifacts to S3
         env:
-          ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
+          ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_BUCKET_NAME }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
           sleep 300 ## Adding a 5 minute sleep to stop the pipelines from interfering with each other

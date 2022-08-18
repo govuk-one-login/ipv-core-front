@@ -53,7 +53,7 @@ async function handleJourneyResponse(req, res, action) {
 
 function tryValidateCriResponse(criResponse) {
   if (!criResponse?.redirectUrl) {
-    throw new Error(`CRI response AuthorizeUrl is missing`);
+    throw new Error(`CRI response RedirectUrl is missing`);
   }
 
   return true;

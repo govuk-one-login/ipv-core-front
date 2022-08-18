@@ -2,7 +2,7 @@
 # WARNING: the content for error: is also used to generate the content for views/ipv/pyi-technical-unrecoverable.html
 
 error:
-  title: Sorry, there is a problem with the service
+  title: Sorry, there is a problem
   serviceNameRequired: true
   content:
     - We cannot prove your identity right now.

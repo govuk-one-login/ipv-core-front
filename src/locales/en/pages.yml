@@ -24,7 +24,7 @@ pyiNoMatch:
     - Continue to the service you were trying to use and look for other ways to prove your identity.
 
 pyiTechnical:
-  title: Sorry, there is a problem with the service
+  title: Sorry, there is a problem
   serviceNameRequired: true
   content:
     - We cannot prove your identity right now.

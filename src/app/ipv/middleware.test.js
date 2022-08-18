@@ -141,7 +141,7 @@ describe("journey middleware", () => {
   });
 
   context("handling CRI event response", async () => {
-    const authorizeUrl = "https://someurl.com";
+    const redirectUrl = "https://someurl.com";
     let eventResponses = [];
     let clientId = "test-client-id";
     let request =
@@ -154,10 +154,7 @@ describe("journey middleware", () => {
           data: {
             cri: {
               id: "someid",
-              authorizeUrl: authorizeUrl,
-              ipvClientId: clientId,
-              request: request,
-              redirectUrl: `${authorizeUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
+              redirectUrl: `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
             },
           },
         },
@@ -193,10 +190,7 @@ describe("journey middleware", () => {
             redirect: {
               cri: {
                 id: "PassportIssuer",
-                authorizeUrl: authorizeUrl,
-                request: "req",
-                ipvClientId: clientId,
-                redirectUrl: `${authorizeUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
+                redirectUrl: `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
               },
             },
           },
@@ -217,7 +211,7 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handling CRI event response that has missing authorizeUrl",
+    "handling CRI event response that has missing redirectUrl",
     async () => {
       let eventResponses = [];
 
@@ -227,10 +221,7 @@ describe("journey middleware", () => {
             data: {
               cri: {
                 id: "someid3",
-                authorizeUrl: "",
-                ipvClientId: "clientId",
-                request:
-                  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==",
+                redirectUrl: "",
               },
             },
           },
@@ -250,7 +241,7 @@ describe("journey middleware", () => {
       it("should raise an error ", async () => {
         await middleware.handleJourneyNext(req, res, next);
         expect(next).to.have.been.calledWith(
-          sinon.match.has("message", "CRI response AuthorizeUrl is missing")
+          sinon.match.has("message", "CRI response RedirectUrl is missing")
         );
       });
     }

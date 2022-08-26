@@ -13,6 +13,7 @@ describe("credential issuer middleware", () => {
         query: {
           code: "xyz",
         },
+        params: {},
         session: {},
       };
       configStub = {};
@@ -67,6 +68,7 @@ describe("credential issuer middleware", () => {
           code: "authorize-code-issued",
           state: "oauth-state",
         },
+        params: {},
         session: { ipvSessionId: "ipv-session-id" },
         query: { id: "PassportIssuer" },
       };
@@ -178,6 +180,7 @@ describe("credential issuer middleware", () => {
       req = {
         url: `/callback`,
         query: { error, error_description, id },
+        params: {},
         session: { ipvSessionId: "ipv-session-id" },
       };
 
@@ -239,6 +242,7 @@ describe("credential issuer middleware", () => {
       req = {
         url: `/callback`,
         query: { error_description, id },
+        params: {},
         session: { ipvSessionId: "ipv-session-id" },
       };
 

@@ -15,4 +15,11 @@ router.get(
   sendParamsToAPI
 );
 
+router.get(
+  "/callback/:criId",
+  tryHandleRedirectError,
+  addCallbackParamsToRequest,
+  sendParamsToAPI
+);
+
 module.exports = router;

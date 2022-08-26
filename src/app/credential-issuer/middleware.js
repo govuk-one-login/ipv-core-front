@@ -18,13 +18,16 @@ module.exports = {
     next();
   },
   sendParamsToAPI: async (req, res, next) => {
+    const { id } = req.query;
+
+    const criId = req.params.criId || id;
+    const redirectUri = ["dcmaw, stubDcmaw"].includes(criId)
+      ? `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback/${criId}`
+      : `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`;
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
-      ["credential_issuer_id", req.query.id],
-      [
-        "redirect_uri",
-        `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
-      ],
+      ["credential_issuer_id", criId],
+      ["redirect_uri", redirectUri],
       ["state", req.credentialIssuer.state],
     ]);
 
@@ -56,6 +59,8 @@ module.exports = {
     try {
       const { error, error_description, id } = req.query;
 
+      const criId = req.params.criId || id;
+
       if (error || error_description) {
         logger.error("error or error_description received in callback", {
           req,
@@ -65,7 +70,7 @@ module.exports = {
         const errorParams = new URLSearchParams([
           ["error", error],
           ["error_description", error_description],
-          ["credential_issuer_id", id],
+          ["credential_issuer_id", criId],
         ]);
 
         const journeyResponse = await axios.post(

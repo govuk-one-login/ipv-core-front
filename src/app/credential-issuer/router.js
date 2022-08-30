@@ -5,6 +5,7 @@ const router = express.Router();
 const {
   addCallbackParamsToRequest,
   sendParamsToAPI,
+  sendParamsToAPIV2,
   tryHandleRedirectError,
 } = require("./middleware");
 
@@ -13,6 +14,13 @@ router.get(
   tryHandleRedirectError,
   addCallbackParamsToRequest,
   sendParamsToAPI
+);
+
+router.get(
+  "/callback/:criId",
+  tryHandleRedirectError,
+  addCallbackParamsToRequest,
+  sendParamsToAPIV2
 );
 
 module.exports = router;

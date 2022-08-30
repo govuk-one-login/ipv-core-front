@@ -154,6 +154,122 @@ describe("credential issuer middleware", () => {
       expect(res.error).to.be.eql("Error");
     });
   });
+
+  describe("sendParamsToAPIV2", function () {
+    let req;
+    let res;
+    let next;
+    let axiosResponse;
+    let axiosStub = {};
+
+    let configStub = {};
+    let middleware;
+    let ipvMiddlewareStub = {};
+
+    beforeEach(() => {
+      configStub.API_CRI_ACCESS_TOKEN_PATH = "/access-token";
+      configStub.API_BASE_URL = "https://example.net/path";
+      configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
+      configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
+
+      ipvMiddlewareStub.handleJourneyResponse = sinon.fake();
+
+      middleware = proxyquire("./middleware", {
+        axios: axiosStub,
+        "../../lib/config": configStub,
+        "../ipv/middleware": ipvMiddlewareStub,
+      });
+      req = {
+        credentialIssuer: {
+          code: "authorize-code-issued",
+          state: "oauth-state",
+        },
+        params: { criId: "PassportIssuer" },
+        session: { ipvSessionId: "ipv-session-id" },
+      };
+      res = {
+        status: sinon.fake(),
+        redirect: sinon.fake(),
+      };
+      next = sinon.fake();
+      axiosResponse = {
+        status: {},
+      };
+    });
+
+    context("add-evidence request", () => {
+      it("should call axios with correct parameters", async () => {
+        req.session.ipvSessionId = "abadcafe";
+        axiosStub.post = sinon.fake();
+
+        const searchParams = new URLSearchParams([
+          ["authorization_code", req.credentialIssuer.code],
+          ["credential_issuer_id", req.params.criId],
+          [
+            "redirect_uri",
+            `http://example.com/credential-issuer/callback/${req.params.criId}`,
+          ],
+          ["state", req.credentialIssuer.state],
+        ]);
+
+        await middleware.sendParamsToAPIV2(req, res, next);
+
+        expect(axiosStub.post).to.have.been.calledWith(
+          "https://example.net/path/access-token",
+          searchParams,
+          sinon.match({
+            headers: {
+              "ipv-session-id": "abadcafe",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+        );
+      });
+    });
+
+    it("should send code to core backend and return with 200 response", async () => {
+      axiosResponse.status = 200;
+      axiosResponse.data = { journey: "journey/next" };
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+
+      await middleware.sendParamsToAPIV2(req, res, next);
+
+      expect(res.status).to.be.eql(200);
+    });
+
+    it("should call /journey/next", async () => {
+      axiosResponse.data = {
+        journey: "journey/next",
+      };
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+
+      await middleware.sendParamsToAPIV2(req, res, next);
+
+      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+        "journey/next"
+      );
+    });
+
+    it("should send code to core backend and return with a 404 response", async () => {
+      axiosResponse.status = 404;
+      const axiosError = new Error("api error");
+      axiosError.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(axiosError);
+
+      await middleware.sendParamsToAPIV2(req, res, next);
+
+      expect(res.status).to.be.eql(404);
+    });
+
+    it("should send code to core backend and return with an error", async () => {
+      axiosStub.post = sinon.fake.throws(axiosResponse);
+
+      await middleware.sendParamsToAPIV2(req, res, next);
+
+      expect(res.error).to.be.eql("Error");
+    });
+  });
+
   describe("tryHandleRedirectError", async function () {
     let req;
     let res;

@@ -18,12 +18,45 @@ module.exports = {
     next();
   },
   sendParamsToAPI: async (req, res, next) => {
-    const { id } = req.query;
+    const evidenceParam = new URLSearchParams([
+      ["authorization_code", req.credentialIssuer.code],
+      ["credential_issuer_id", req.query.id],
+      [
+        "redirect_uri",
+        `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
+      ],
+      ["state", req.credentialIssuer.state],
+    ]);
 
-    const criId = req.params.criId || id;
-    const redirectUri = ["dcmaw, stubDcmaw"].includes(criId)
-      ? `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback/${criId}`
-      : `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`;
+    try {
+      logger.info("calling build-cri-oauth-access-token lambda", { req, res });
+      const apiResponse = await axios.post(
+        `${API_BASE_URL}${API_CRI_ACCESS_TOKEN_PATH}`,
+        evidenceParam,
+        generateAxiosConfig(req.session.ipvSessionId)
+      );
+      res.status = apiResponse?.status;
+
+      return handleJourneyResponse(req, res, apiResponse.data?.journey);
+    } catch (error) {
+      logger.error("error calling  build-cri-oauth-access-token lambda", {
+        req,
+        res,
+        error,
+      });
+      if (error?.response?.status === 404) {
+        res.status = error.response.status;
+      } else {
+        res.error = error.name;
+      }
+      next(error);
+    }
+  },
+  // Temporary - this will replace the above method once all CRI's have been migrated across to use the new endpoint
+  sendParamsToAPIV2: async (req, res, next) => {
+    const criId = req.params.criId;
+    const redirectUri = `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback/${req.params.criId}`;
+
     const evidenceParam = new URLSearchParams([
       ["authorization_code", req.credentialIssuer.code],
       ["credential_issuer_id", criId],

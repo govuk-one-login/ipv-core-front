@@ -55,7 +55,7 @@ pageIpvIdentityStart:
   title: Rydych wedi mewngofnodi i’ch cyfrif GOV.UK
   serviceNameRequired: true
   content:
-     - Gallwch nawr barhau i brofi pwy ydych chi.
+    - Gallwch nawr barhau i brofi pwy ydych chi.
 
 pagePreKbvTransition:
   title: Ateb cwestiynau diogelwc
@@ -66,7 +66,7 @@ pagePreKbvTransition:
   warningTextContent: Ceisiwch ateb y cwestiynau hyn mor gywir ag y gallwch. Ni fyddwch yn gallu newid eich atebion os gwnewch gamgymeriad.
   warningTextFallback: Rhybudd
   contentAddition:
-     - Ni fyddwn yn cadw eich atebion.
+    - Ni fyddwn yn cadw eich atebion.
   summaryText:
     - Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi
   summaryHtml:

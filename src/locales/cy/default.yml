@@ -1,0 +1,47 @@
+buttons:
+  authorizeAndReturn: Awdurdodi a Dychwelyd
+  next: Parhau
+  cancel: Canslo
+  credentialIssuer: Cyhoeddwr Cymhwyster
+  govUkHomepage: Ewch i hafan GOV.UK
+govuk:
+  serviceName: " "
+  backLink: Yn ôl
+  errorSummaryTitle: Mae problem
+  error: Gwall
+  warning: Rhybudd
+  skipLink: Neidio i’r prif gynnwys
+  betaBannerRequired: true
+  betaBannerContent:
+    betaBannerContentLabel: beta
+    betaBannerContentHTML: 'Mae hwn yn wasanaeth newydd – bydd eich <a class="govuk-link" rel="noopener" target="_blank" href="https://signin.account.gov.uk/contact-us">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella.'
+  cookie:
+    cookieBanner:
+      title: Cwcis ar gyfrif GOV.UK
+      heading: Cwcis ar gyfrif GOV.UK
+      paragraph1: Rydym yn defnyddio rhai cwcis hanfodol i wneud i’r gwasanaeth hwn weithio.
+      paragraph2: Hoffem osod cwcis ychwanegol er mwyn i ni allu cofio eich gosodiadau, deall sut rydych yn defnyddio’r gwasanaeth a gwneud gwelliannau.
+      changeCookiePreferencesLink: newid eich gosodiadau cwcis
+      cookieBannerAccept:
+        paragraph1: "Rydych wedi derbyn cwcis ychwanegol. Gallwch "
+        paragraph2: " unrhyw bryd."
+      cookieBannerReject:
+        paragraph1: "Rydych wedi gwrthod cwcis ychwanegol. Gallwch "
+        paragraph2: " unrhyw bryd."
+      buttonAcceptText: Derbyn cwcis dadansoddi
+      buttonRejectText: Gwrthod cwcis dadansoddi
+      linkViewCookies: Gweld cwcis
+      cookieBannerHideLink: Cuddio'r neges yma
+  footerNavItems:
+    meta:
+      items:
+        - href: "https://signin.account.gov.uk/accessibility-statement"
+          text: "Datganiad hygyrchedd"
+        - href: "https://signin.account.gov.uk/cookies"
+          text: "Cwcis"
+        - href: "https://signin.account.gov.uk/terms-and-conditions"
+          text: "Telerau ac amodau"
+        - href: "https://signin.account.gov.uk/privacy-notice"
+          text: "Hysbysiad preifatrwydd"
+        - href: "https://signin.account.gov.uk/contact-us"
+          text: "Cymorth"

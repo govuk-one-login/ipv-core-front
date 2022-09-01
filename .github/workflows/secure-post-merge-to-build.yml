@@ -41,7 +41,6 @@ jobs:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
-          sleep 600 ## Adding a 5 minute sleep to stop the pipelines from interfering with each other
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
@@ -69,5 +68,4 @@ jobs:
           ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_BUCKET_NAME }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
-          sleep 300 ## Adding a 5 minute sleep to stop the pipelines from interfering with each other
           aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

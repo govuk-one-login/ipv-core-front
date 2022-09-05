@@ -50,6 +50,11 @@ const { router } = setup({
     public: "/public",
   },
   publicDirs: ["../dist/public"],
+  translation: {
+    allowedLangs: ["en", "cy"],
+    fallbackLang: ["en"],
+    cookie: { name: "lng" },
+  },
   dev: true,
   middlewareSetupFn: (app) => {
     app.use(function (req, res, next) {

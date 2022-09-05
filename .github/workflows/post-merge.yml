@@ -1,4 +1,4 @@
-name: Docker build, ECR push, template copy to S3 
+name: Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
@@ -34,29 +34,33 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE} || exit 1
-          docker build -t "core-front-build:${IMAGE_TAG}" .
-          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
-          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
-          docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+          echo "Build Docker Image has been Disabled - Using New Compatible Template Method"
+          #cd ${GITHUB_WORKSPACE} || exit 1
+          #docker build -t "core-front-build:${IMAGE_TAG}" .
+          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
+          #docker tag "core-front-build:${IMAGE_TAG}" "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Push docker image to build
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          docker push "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
+          echo "Push Docker Image to build has been Disabled - Using New Compatible Template Method"
+          #docker push "${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-build:${IMAGE_TAG}"
       - name: Push docker image to development
         env:
           ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-development
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-           docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
-           docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
+           echo "Push Docker Image to dev has been Disabled - Using New Compatible Template Method"
+           #docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:${IMAGE_TAG}"
+           #docker push "${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/core-front-development:latest"
       - name: Create template.yaml and sha zip file and upload to artifacts S3
         env:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          cd ${GITHUB_WORKSPACE}/deploy || exit 1
-          echo "${IMAGE_TAG}" > image_tag.txt
-          zip template.zip template.yaml image_tag.txt
-          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/
+          echo "Create template and upload to s3 Disabled - Using New Compatible Template Method"
+          #cd ${GITHUB_WORKSPACE}/deploy || exit 1
+          #echo "${IMAGE_TAG}" > image_tag.txt
+          #zip template.zip template.yaml image_tag.txt
+          #aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/

@@ -39,28 +39,25 @@ jobs:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
-          echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-          #docker build -t "core-front-build:${IMAGE_TAG}" .
-          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_BUILD_REG}/${ECR_BUILD_REPO}:${IMAGE_TAG}"
-          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:${IMAGE_TAG}"
-          #docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:latest"
+          docker build -t "core-front-build:${IMAGE_TAG}" .
+          docker tag "core-front-build:${IMAGE_TAG}" "${ECR_BUILD_REG}/${ECR_BUILD_REPO}:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:${IMAGE_TAG}"
+          docker tag "core-front-build:${IMAGE_TAG}" "${ECR_DEV_REG}/${ECR_DEV_REPO}:latest"
       - name: Push docker image to build
         env:
           ECR_REGISTRY: ${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-build
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-          echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-          #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
       - name: Push docker image to development
         env:
           ECR_REGISTRY: ${{ secrets.DEVELOPMENT_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
           ECR_REPOSITORY: core-front-development
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
-           echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-           #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
-           #docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
+           docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+           docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
       - name: Update SAM template with ECR image
         env:
           ECR_REGISTRY: ${{ secrets.BUILD_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com
@@ -74,8 +71,7 @@ jobs:
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
         run: |
           cd ${GITHUB_WORKSPACE}/deploy-sp || exit 1
-          echo "Not Running This currently Skipping" ## Exiting - for now this is not used
-          #echo "${IMAGE_TAG}" > image_tag.txt
-          #zip template.zip template.yaml image_tag.txt
-          #sleep 300 ## Adding a 5 minute sleep to stop pipelines from interfering with each other
-          #aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front-secure-pipeline/
+          echo "${IMAGE_TAG}" > image_tag.txt
+          sleep 600 ## Adding a 10 minute sleep to stop the pipelines from interfering with each other
+          zip template.zip template.yaml image_tag.txt
+          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front-secure-pipeline/

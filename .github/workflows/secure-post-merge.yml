@@ -55,10 +55,6 @@ jobs:
         working-directory: ./deploy-sp
         run: sam validate --region ${{ env.AWS_REGION }}
 
-          #- name: SAM Build
-          #working-directory: ./deploy-sp
-          #run: sam build
-
       - name: SAM Package
         working-directory: ./deploy-sp
         env:
@@ -71,7 +67,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ steps.create-tag.outputs.image_tag }}
-        run: sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" template.yaml
+        run: sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" cf-template.yaml
 
       - name: Compress Template
         working-directory: ./deploy-sp

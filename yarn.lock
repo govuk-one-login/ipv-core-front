@@ -1196,10 +1196,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dotenv@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
-  integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
+dotenv@^16.0.2:
+  version "16.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.2.tgz#0b0f8652c016a3858ef795024508cddc4bffc5bf"
+  integrity sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -1979,10 +1979,10 @@ hmpo-app@2.4.0:
     underscore "^1.13.4"
     uuid "^8.3.2"
 
-hmpo-components@5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.4.0.tgz#9741a4d75a3720b4a9228ea737bece1b292077e8"
-  integrity sha512-r90KLgJipUYdDTmRU1vRGoXJg8ldgFQP88lxjDAzpdE3e8zd+KI8jpFpMLZafI9VTwKOQdcMfPiA1bOmG6ptFA==
+hmpo-components@5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-5.5.0.tgz#5cd4c7c3f7367efdce592f61bf6106dcd26d4123"
+  integrity sha512-MVJkI5pcoz1KOe6n+SUuwFgw1BGh8qfsYhh4oey/auK7QB9VVH1Sk+CVsgjnFohisA5OZwTTf2BcTeXKL/clBQ==
   dependencies:
     deep-clone-merge "^1.5.4"
     moment "^2.29.3"

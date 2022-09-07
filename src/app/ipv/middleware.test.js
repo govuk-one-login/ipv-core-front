@@ -134,9 +134,40 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith("ipv/pyi-technical");
     });
 
+    it("should render unrecoverable technical error page when current page is not equal to pageId", async () => {
+      req = {
+        params: { pageId: "invalid-page-id" },
+        session: { currentPage: "../debug/page-ipv-debug" },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+      expect(res.redirect).to.have.been.calledWith(
+        "pyi-technical-unrecoverable"
+      );
+    });
+
     it("should raise an error when missing pageId", async () => {
       await middleware.handleJourneyPage(req, res, next);
       expect(res.status).to.have.been.calledWith(500);
+    });
+  });
+
+  context("calling the updateJourneyState", () => {
+    it("should raise an error when debug is set to false", async () => {
+      req.session.isDebugJourney = false;
+      await middleware.updateJourneyState(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match.has("message", "Debug operation not available")
+      );
+    });
+
+    it("should raise an error when given an invalid action", async () => {
+      req.session.isDebugJourney = true;
+      req.url = "/invalidCri";
+      await middleware.updateJourneyState(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match.has("message", "Action /invalidCri not valid")
+      );
     });
   });
 

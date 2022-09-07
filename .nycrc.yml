@@ -5,9 +5,8 @@ include:
 exclude:
   - "**/*.test.js"
   - "**/*router.js"
-  - "src/assets/javascripts/*.js"
-  - "src/assets/javascript/*.js"
-  - "src/lib/config.js"
+  - "src/assets/*"
+  - "src/lib/*"
   - "src/app.js"
 report-dir: coverage
 statements: 80

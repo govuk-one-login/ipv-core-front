@@ -74,4 +74,4 @@ jobs:
           echo "${IMAGE_TAG}" > image_tag.txt
           sleep 600 ## Adding a 10 minute sleep to stop the pipelines from interfering with each other
           zip template.zip template.yaml image_tag.txt
-          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front-secure-pipeline/
+          aws s3 cp template.zip s3://di-ipv-core-build-artifacts/core-front/

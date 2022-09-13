@@ -1,10 +1,10 @@
 error:
-  title: Mae'n ddrwg gennym, mae problem
+  title: Mae’n ddrwg gennym, mae problem
   serviceNameRequired: true
   content:
     - Ni allwn brofi pwy ydych chi ar hyn o bryd.
     - "## Beth allwch chi ei wneud"
-    - Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio'ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.
+    - Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.
     - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
     - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a>
 
@@ -20,4 +20,5 @@ pageNotFound:
 
 sessionEnded:
   title: Sesiwn wedi dod i ben
-  contactAccountTeamHTML: <p><a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a></p>
+
+contactAccountTeamHTML: <p><a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a></p>

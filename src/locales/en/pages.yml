@@ -72,6 +72,12 @@ pagePreKbvTransition:
   summaryHtml:
     - '<p>We’ll work with <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.<p><p><a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/privacy-statement">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>'
 
+pageDcmawApp:
+  title: We’ve successfully matched you to the photo on your ID
+  serviceNameRequired: true
+  content:
+    - You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.
+
 pageIpvSuccess:
   title: You’ve successfully proved your identity
   serviceNameRequired: true

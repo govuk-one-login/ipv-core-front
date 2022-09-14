@@ -98,7 +98,6 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-
       if (req.session.currentPage !== pageId) {
         logger.error(
           "page :pageId doesn't match expected session page :expectedPage",
@@ -120,6 +119,7 @@ module.exports = {
         case "page-ipv-identity-start":
         case "page-ipv-success":
         case "page-pre-kbv-transition":
+        case "page-dcmaw-success":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":

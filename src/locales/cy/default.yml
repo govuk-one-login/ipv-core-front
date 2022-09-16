@@ -46,6 +46,6 @@ govuk:
         - href: "https://signin.account.gov.uk/contact-us"
           text: "Cymorth"
     contentLicence:
-      text: "Mae’r holl gynnwys ar gael o dan Trwydded Llywodraeth Agored v3.0, oni nodir yn wahanol"
+      html: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Trwydded Llywodraeth Agored v3.0</a>, oni nodir yn wahanol'
     copyright:
       text: "© Hawlfraint y goron"

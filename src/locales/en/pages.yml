@@ -87,6 +87,11 @@ pagePassportDocCheck:
       - your current home address (you might also need your previous address if you’ve recently moved)
       - to answer some questions that only you should know the answers to
     - "## What would you like to do?"
+  formRadioButtons:
+      continueButtonText: Continue to prove your identity this way
+      continueButtonHint: You’ll need a UK passport
+      otherWayButtonText: Prove your identity another way
+      otherWayButtonHint: You can prove your identity online with GOV.UK Verify or take your identity documents to be checked in person.
 
 pageIpvSuccess:
   title: You’ve successfully proved your identity

@@ -1,0 +1,45 @@
+{% extends "shared/ipv-template.html" %}
+{% set hmpoPageKey = "pagePassportDocCheck" %}
+
+
+{% block cta %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+<form id="nextForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return nextFormSubmit()">
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+  {{ govukRadios({
+  idPrefix: "journey",
+  name: "journey",
+  items: [
+          {
+            value: "next",
+            text: "Continue to prove your identity this way",
+            hint: {text:"You’ll need a UK passport"}
+          },
+          {
+            value: "end",
+            text: "Prove your identity another way",
+            hint: {text:"You can prove your identity online with GOV.UK Verify or take your identity documents to be checked in person."}
+          }
+  ]
+  })
+  }}
+  <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+    {{translate("buttons.next")}}
+  </button>
+</form>
+
+<script>
+  let disableSubmit = false;
+  function nextFormSubmit() {
+    if(!disableSubmit) {
+      disableSubmit = true;
+      document.getElementById('submitButton').disabled = true;
+      return true
+    }
+    return false;
+  }
+</script>
+
+{% endblock %}

@@ -83,6 +83,7 @@ module.exports = {
         /^\/journey\/(next|error|fail)$/,
         /^\/journey\/cri\/build-oauth-request\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|dcmaw|stubDcmaw|debugAddress)$/,
         /^\/journey\/build-client-oauth-response$/,
+        /^\/journey\/retrieve-cri-credential$/,
         /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|dcmaw|stubDcmaw)$/,
       ];
 

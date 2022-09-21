@@ -52,17 +52,17 @@ jobs:
           cosign sign --key awskms:///${CONTAINER_SIGN_KEY} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: SAM Validate
-        working-directory: ./deploy-sp
+        working-directory: ./deploy
         run: sam validate --region ${{ env.AWS_REGION }}
 
       - name: SAM Package
-        working-directory: ./deploy-sp
+        working-directory: ./deploy
         env:
           ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_BUCKET_NAME }}
         run: sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml
 
       - name: Update SAM template with ECR image
-        working-directory: ./deploy-sp
+        working-directory: ./deploy
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -70,11 +70,11 @@ jobs:
         run: sed -i "s|CONTAINER-IMAGE-PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|" cf-template.yaml
 
       - name: Compress Template
-        working-directory: ./deploy-sp
+        working-directory: ./deploy
         run: zip template.zip cf-template.yaml
 
       - name: Upload Compressed CloudFormation artifacts to S3
-        working-directory: ./deploy-sp
+        working-directory: ./deploy
         env:
           ARTIFACT_BUCKET: ${{ secrets.ARTIFACT_BUCKET_NAME }}
         run: aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

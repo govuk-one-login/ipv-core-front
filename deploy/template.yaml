@@ -20,18 +20,16 @@ Parameters:
   ImageTag:
     Description: The tag of core-front image to deploy in the task definition.
     Type: String
-  SubnetIds:
-    Description: >-
-      A comma separated list of subnet ids to create the ECS service and Load Balancer
-      within. Each subnet must have a route to a public NAT gateway since
-      the ECS Service are provisioned without a public IP address.
-      Example "sg-123, sg-567, sg-8910"
-    Type: List<String>
-  VpcId:
-    Description: >-
-      The VPC id in which to create the components.
-      Example "vpc-123"
+    Default: "none"
+  VpcStackName:
+    Description: >
+      The name of the stack that defines the VPC in which this container will
+      run.
     Type: String
+  PermissionsBoundary:
+    Description: "The ARN of the permissions boundary to apply when creating IAM roles"
+    Type: String
+    Default: "none"
 
 Conditions:
   IsNotDevelopment: !Or
@@ -40,6 +38,11 @@ Conditions:
     - !Equals [!Ref Environment, integration]
     - !Equals [!Ref Environment, production]
   IsProduction: !Equals [ !Ref Environment, production ]
+  UsePermissionsBoundary:
+    Fn::Not:
+      - Fn::Equals:
+          - !Ref PermissionsBoundary
+          - "none"
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -75,7 +78,8 @@ Resources:
           FromPort: 80
           IpProtocol: tcp
           ToPort: 80
-      VpcId: !Ref VpcId
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
   LoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"
@@ -110,7 +114,8 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-      VpcId: !Ref VpcId
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
   ECSSecurityGroupIngressFromLoadBalancer:
     Type: "AWS::EC2::SecurityGroupIngress"
@@ -185,7 +190,10 @@ Resources:
       Scheme: internal
       SecurityGroups:
         - !GetAtt LoadBalancerSG.GroupId
-      Subnets: !Ref SubnetIds
+      Subnets:
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -224,7 +232,8 @@ Resources:
       Port: 80
       Protocol: HTTP
       TargetType: ip
-      VpcId: !Ref VpcId
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: 60
@@ -277,7 +286,10 @@ Resources:
           AssignPublicIp: DISABLED
           SecurityGroups:
             - !GetAtt ECSSecurityGroup.GroupId
-          Subnets: !Ref SubnetIds
+          Subnets:
+            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - LoadBalancerListener
@@ -304,7 +316,7 @@ Resources:
         - Essential: true
           Image: !If [
               IsNotDevelopment,
-              !Sub "457601271792.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-build:${ImageTag}",
+              CONTAINER-IMAGE-PLACEHOLDER,
               !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
             ] # Uses build account and ECR when not in development.
           Name: app
@@ -371,6 +383,10 @@ Resources:
                 Resource:
                   - !GetAtt "ECSAccessLogsGroup.Arn"
                   - !Sub "${ECSAccessLogsGroup.Arn}:*"
+      PermissionsBoundary: !If
+        - UsePermissionsBoundary
+        - !Ref PermissionsBoundary
+        - !Ref AWS::NoValue
 
   ECSTaskRole:
     Type: "AWS::IAM::Role"
@@ -400,6 +416,10 @@ Resources:
                   - "dynamodb:PutItem"
                 Resource:
                   - !GetAtt CoreFrontSessionsTable.Arn
+      PermissionsBoundary: !If
+        - UsePermissionsBoundary
+        - !Ref PermissionsBoundary
+        - !Ref AWS::NoValue
 
   # Create the VPC Link to join the API Gateway to the
   # private Load Balancer in front of Core Front ECS
@@ -408,7 +428,10 @@ Resources:
     Type: "AWS::ApiGatewayV2::VpcLink"
     Properties:
       Name: ApiGwVpcLinkToLoadBalancer
-      SubnetIds: !Ref SubnetIds
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       SecurityGroupIds: []
 
   ApiGwHttpEndpoint:

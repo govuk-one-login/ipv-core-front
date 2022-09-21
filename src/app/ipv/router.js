@@ -6,14 +6,14 @@ const router = express.Router();
 const {
   updateJourneyState,
   handleJourneyPage,
-  handleJourneyNext,
+  handleJourneyAction,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
 router.get("/page/:pageId", csrfProtection, handleJourneyPage);
-router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyNext);
+router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 
 module.exports = router;

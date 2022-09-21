@@ -7,7 +7,7 @@ describe("journey middleware", () => {
   let res;
   let next;
 
-  const axiosStub = {};
+  const axiosStub = { post: sinon.stub() };
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
     EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org",
@@ -36,43 +36,44 @@ describe("journey middleware", () => {
       csrfToken: sinon.fake(),
     };
     next = sinon.fake();
+    axiosStub.post.reset();
   });
 
   context("from a sequence of events that ends with a page response", () => {
-    const pageId = "pageTransition";
-    const eventResponses = [
-      {
-        data: { journey: "journey/next" },
-      },
-      {
-        data: { journey: "journey/startCri" },
-      },
-      {
-        data: { page: pageId },
-      },
-    ];
-
-    const callBack = sinon.stub();
-    axiosStub.post = callBack;
-
-    eventResponses.forEach((er, index) => {
-      callBack.onCall(index).returns(eventResponses[index]);
-    });
-
-    const headers = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": "ipv-session-id",
-      },
-    };
-
-    beforeEach(() => {
-      req = {
-        session: { ipvSessionId: "ipv-session-id" },
-      };
-    });
-
     it("should have called the network in the correct sequence", async function () {
+      const pageId = "pageTransition";
+      const eventResponses = [
+        {
+          data: { journey: "journey/next" },
+        },
+        {
+          data: { journey: "journey/startCri" },
+        },
+        {
+          data: { page: pageId },
+        },
+      ];
+
+      const callBack = sinon.stub();
+      axiosStub.post = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+
+      const headers = {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "ipv-session-id": "ipv-session-id",
+        },
+      };
+
+      beforeEach(() => {
+        req = {
+          session: { ipvSessionId: "ipv-session-id" },
+        };
+      });
+
       await middleware.handleJourneyResponse(req, res, "/journey/next");
       expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
@@ -270,7 +271,7 @@ describe("journey middleware", () => {
       });
 
       it("should raise an error ", async () => {
-        await middleware.handleJourneyNext(req, res, next);
+        await middleware.handleJourneyAction(req, res, next);
         expect(next).to.have.been.calledWith(
           sinon.match.has("message", "CRI response RedirectUrl is missing")
         );
@@ -330,10 +331,34 @@ describe("journey middleware", () => {
     });
 
     it("should call next with error message Redirect url is missing", async function () {
-      await middleware.handleJourneyNext(req, res, next);
+      await middleware.handleJourneyAction(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match.has("message", "Client Response redirect url is missing")
       );
     });
   });
+
+  context(
+    "handling different journey actions being passed into the request",
+    () => {
+      it("should post with journey/end", async function () {
+        req = {
+          body: { journey: "end" },
+          session: { ipvSessionId: "ipv-session-id" },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/end`
+        );
+      });
+
+      it("should post with journey/next by default", async function () {
+        await middleware.handleJourneyAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/next`
+        );
+      });
+    }
+  );
 });

@@ -108,6 +108,7 @@ module.exports = {
             expectedPage: req.session.currentPage,
           }
         );
+
         req.session.currentPage = "pyi-technical-unrecoverable";
         return res.redirect(req.session.currentPage);
       }
@@ -145,9 +146,13 @@ module.exports = {
       next(error);
     }
   },
-  handleJourneyNext: async (req, res, next) => {
+  handleJourneyAction: async (req, res, next) => {
     try {
-      await handleJourneyResponse(req, res, "journey/next");
+      if (req.body?.journey === "end") {
+        await handleJourneyResponse(req, res, "journey/end");
+      } else {
+        await handleJourneyResponse(req, res, "journey/next");
+      }
     } catch (error) {
       next(error);
     }

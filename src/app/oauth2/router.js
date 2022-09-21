@@ -8,20 +8,20 @@ const {
   setRealJourneyType,
 } = require("./middleware");
 
-const { handleJourneyNext } = require("../ipv/middleware");
+const { handleJourneyAction } = require("../ipv/middleware");
 
 router.get(
   "/debug-authorize",
   setDebugJourneyType,
   setIpvSessionId,
-  handleJourneyNext
+  handleJourneyAction
 );
 
 router.get(
   "/authorize",
   setRealJourneyType,
   setIpvSessionId,
-  handleJourneyNext
+  handleJourneyAction
 );
 
 module.exports = router;

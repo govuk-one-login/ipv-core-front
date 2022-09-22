@@ -63,6 +63,12 @@ Mappings:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
       s3: "pl-7ca54015"
+  IPVCorePrivateAPIGatewayID:
+    Environment:
+      build: "hb3ce8qur8"
+      staging: "wc9dvjkcyg"
+      integration: "f9iosl4a7c"
+      production: "4gd474o112"
 
 Resources:
   # Security Groups for the ECS service and load balancer
@@ -324,8 +330,7 @@ Resources:
             - Name: API_BASE_URL
               Value: !Sub
                 - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
-                - APIGatewayId:
-                    Fn::ImportValue: !Sub ipv-core-back-${Environment}-IPVCorePrivateAPIGatewayID
+                - APIGatewayId: !FindInMap [IPVCorePrivateAPIGatewayID, Environment, !Ref Environment]
                   Environment: !Ref Environment
             - Name: SESSION_TABLE_NAME
               Value: !Sub

@@ -19,7 +19,7 @@ pyiNoMatch:
   content:
     - This might be because we could not match your details to information from another database.
     - To keep your information safe, we cannot show which of your details we had trouble finding a match for.
-    - This could also be because you were unsuccessful when you've previously tried to prove your identity online.
+    - This could also be because you were unsuccessful when you’ve previously tried to prove your identity online.
     - "## What you can do"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
 
@@ -45,7 +45,7 @@ pyiKbvThinFile:
   serviceNameRequired: false
   content:
     - Our security questions are based on information held by another organisation. This organisation does not have much information about you.
-    - This means we cannot ask you the number of questions that we'd need to be sure that you are who you say you are.
+    - This means we cannot ask you the number of questions that we’d need to be sure that you are who you say you are.
     - "## What you can do"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
     - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>

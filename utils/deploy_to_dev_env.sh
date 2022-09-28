@@ -130,8 +130,7 @@ function update_stack() {
     --template-body file://../deploy/template.yaml \
     --parameters ParameterKey=ImageTag,ParameterValue="${DEV_IMAGE_TAG}" \
                  ParameterKey=Environment,UsePreviousValue=true \
-                 ParameterKey=SubnetIds,UsePreviousValue=true \
-                 ParameterKey=VpcId,UsePreviousValue=true \
+                 ParameterKey=VpcStackName,UsePreviousValue=true \
     --capabilities CAPABILITY_IAM \
     --region "${region}"
 

@@ -72,6 +72,28 @@ pagePreKbvTransition:
   summaryHtml:
     - <p>Byddwn yn gweithio gyda <a target="_blank" rel="noopener noreferrer" href="https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services">Experian (agor mewn tab newydd)</a>  i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.<p><p><a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/privacy-statement">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>
 
+pageDcmawApp:
+  title: Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun
+  serviceNameRequired: true
+  content:
+    - Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau.
+
+pagePassportDocCheck:
+  title: Rhowch fanylion eich pasbort ac atebwch y cwestiynau diogelwch
+  serviceNameRequired: true
+  content:
+    - "I brofi pwy ydych chi yn y ffordd hyn, byddwch angen:"
+    - - manylion eich pasbort y DU (gan gynnwys eich enw, rhif pasbort a’r dyddiad mae eich pasbort yn dod i ben)
+      - cyfeiriad eich cartref presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)
+      - ateb rhai cwestiynau mai dim ond chi ddylai wybod yr atebion iddynt
+    - "## Beth hoffech chi ei wneud?"
+  formRadioButtons:
+    continueButtonText: Parhau i brofi pwy ydych chi yn y ffordd hyn
+    continueButtonHint: Byddwch angen pasbort y DU
+    otherWayButtonText: Profi pwy ydych chi mewn ffordd arall
+    otherWayButtonHint: Gallwch brofi pwy ydych chi ar-lein gyda GOV.UK Verify neu gymryd eich dogfennau hunaniaeth i’w gwirio’n bersonol.
+
+
 pageIpvSuccess:
   title: Rydych wedi profi pwy ydych chi yn llwyddiannus
   serviceNameRequired: true

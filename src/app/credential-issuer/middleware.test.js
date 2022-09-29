@@ -51,7 +51,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_ACCESS_TOKEN_PATH = "/access-token";
+      configStub.API_CRI_VALIDATE_CALLBACK = "/journey/cri/validate-callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -100,7 +100,7 @@ describe("credential issuer middleware", () => {
         await middleware.sendParamsToAPI(req, res, next);
 
         expect(axiosStub.post).to.have.been.calledWith(
-          "https://example.net/path/access-token",
+          "https://example.net/path/journey/cri/validate-callback",
           searchParams,
           sinon.match({
             headers: {
@@ -167,7 +167,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_ACCESS_TOKEN_PATH = "/access-token";
+      configStub.API_CRI_VALIDATE_CALLBACK = "/journey/cri/validate-callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -215,7 +215,7 @@ describe("credential issuer middleware", () => {
         await middleware.sendParamsToAPIV2(req, res, next);
 
         expect(axiosStub.post).to.have.been.calledWith(
-          "https://example.net/path/access-token",
+          "https://example.net/path/journey/cri/validate-callback",
           searchParams,
           sinon.match({
             headers: {

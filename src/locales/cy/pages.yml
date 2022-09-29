@@ -93,7 +93,6 @@ pagePassportDocCheck:
     otherWayButtonText: Profi pwy ydych chi mewn ffordd arall
     otherWayButtonHint: Gallwch brofi pwy ydych chi ar-lein gyda GOV.UK Verify neu gymryd eich dogfennau hunaniaeth i’w gwirio’n bersonol.
 
-
 pageIpvSuccess:
   title: Rydych wedi profi pwy ydych chi yn llwyddiannus
   serviceNameRequired: true

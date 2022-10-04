@@ -341,6 +341,14 @@ Resources:
       FilterPattern: ""
       LogGroupName: !Ref ECSAccessLogsGroup
 
+  ECSAccessLogsGroupSubscriptionFilterOld:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: IsNotDevelopment
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prod"
+      FilterPattern: ""
+      LogGroupName: !Ref ECSAccessLogsGroup
+
   ECSServiceTaskDefinition:
     Type: "AWS::ECS::TaskDefinition"
     Properties:
@@ -527,6 +535,14 @@ Resources:
     Condition: IsNotDevelopment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
+      FilterPattern: ""
+      LogGroupName: !Ref APIGWAccessLogsGroup
+
+  APIGWAccessLogsGroupSubscriptionFilterOld:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: IsNotDevelopment
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prod"
       FilterPattern: ""
       LogGroupName: !Ref APIGWAccessLogsGroup
 

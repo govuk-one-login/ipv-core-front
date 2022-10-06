@@ -6,6 +6,7 @@ const {
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
 const { handleJourneyResponse } = require("../ipv/middleware");
+const { transformError } = require("../shared/loggerHelper");
 const logger = require("hmpo-logger").get();
 
 module.exports = {
@@ -46,16 +47,7 @@ module.exports = {
 
       return handleJourneyResponse(req, res, apiResponse.data?.journey);
     } catch (error) {
-      logger.error("error calling validate-callback lambda", {
-        req,
-        res,
-        error,
-      });
-      if (error?.response?.status === 404) {
-        res.status = error.response.status;
-      } else {
-        res.error = error.name;
-      }
+      transformError(error, "error calling validate-callback lambda");
       next(error);
     }
   },
@@ -89,16 +81,7 @@ module.exports = {
 
       return handleJourneyResponse(req, res, apiResponse.data?.journey);
     } catch (error) {
-      logger.error("error calling validate-callback lambda", {
-        req,
-        res,
-        error,
-      });
-      if (error?.response?.status === 404) {
-        res.status = error.response.status;
-      } else {
-        res.error = error.name;
-      }
+      transformError(error, "error calling validate-callback lambda");
       next(error);
     }
   },

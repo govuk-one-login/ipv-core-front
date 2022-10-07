@@ -193,7 +193,6 @@ Resources:
       Subnets:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -289,7 +288,6 @@ Resources:
           Subnets:
             - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
             - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - LoadBalancerListener
@@ -464,15 +462,7 @@ Resources:
   # Create the VPC Link to join the API Gateway to the
   # private Load Balancer in front of Core Front ECS
   # Service.
-  VpcLink:
-    Type: "AWS::ApiGatewayV2::VpcLink"
-    Properties:
-      Name: ApiGwVpcLinkToLoadBalancer
-      SubnetIds:
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
-      SecurityGroupIds: []
+  # VPC Link moved to the ip dev platform vpc
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
@@ -485,7 +475,8 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId: !Ref VpcLink
+      ConnectionId:
+        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref LoadBalancerListener

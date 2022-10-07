@@ -95,8 +95,10 @@ Resources:
       GroupDescription: >-
         Core Front ECS Security Group outbound permissions ruleset
       SecurityGroupEgress:
-        - DestinationSecurityGroupId:
-            Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+        - DestinationSecurityGroupId: !If
+            - IsNotDevelopment
+            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+            - !ImportValue InterfaceVpcEndpointSecurityGroupId
           Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443

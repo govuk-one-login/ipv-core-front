@@ -6,21 +6,10 @@ const {
   addCallbackParamsToRequest,
   sendParamsToAPI,
   sendParamsToAPIV2,
-  tryHandleRedirectError,
 } = require("./middleware");
 
-router.get(
-  "/callback",
-  tryHandleRedirectError,
-  addCallbackParamsToRequest,
-  sendParamsToAPI
-);
+router.get("/callback", addCallbackParamsToRequest, sendParamsToAPI);
 
-router.get(
-  "/callback/:criId",
-  tryHandleRedirectError,
-  addCallbackParamsToRequest,
-  sendParamsToAPIV2
-);
+router.get("/callback/:criId", addCallbackParamsToRequest, sendParamsToAPIV2);
 
 module.exports = router;

@@ -28,6 +28,13 @@ module.exports = {
       ["state", req.credentialIssuer.state],
     ]);
 
+    if (req.query?.error) {
+      evidenceParam.append("error", req.query.error);
+      if (req.query.error_description) {
+        evidenceParam.append("error_description", req.query.error_description);
+      }
+    }
+
     try {
       logger.info("calling validate-callback lambda", { req, res });
       const apiResponse = await axios.post(
@@ -64,6 +71,13 @@ module.exports = {
       ["state", req.credentialIssuer.state],
     ]);
 
+    if (req.query?.error) {
+      evidenceParam.append("error", req.query.error);
+      if (req.query.error_description) {
+        evidenceParam.append("error_description", req.query.error_description);
+      }
+    }
+
     try {
       logger.info("calling validate-callback lambda", { req, res });
       const apiResponse = await axios.post(
@@ -86,38 +100,6 @@ module.exports = {
         res.error = error.name;
       }
       next(error);
-    }
-  },
-  tryHandleRedirectError: async (req, res, next) => {
-    try {
-      const { error, error_description, id } = req.query;
-
-      const criId = req.params.criId || id;
-
-      if (error || error_description) {
-        logger.error("error or error_description received in callback", {
-          req,
-          res,
-        });
-
-        const errorParams = new URLSearchParams([
-          ["error", error],
-          ["error_description", error_description],
-          ["credential_issuer_id", criId],
-        ]);
-
-        const journeyResponse = await axios.post(
-          `${API_BASE_URL}/journey/cri/error`,
-          errorParams,
-          generateAxiosConfig(req.session.ipvSessionId)
-        );
-        return handleJourneyResponse(req, res, journeyResponse.data?.journey);
-      }
-
-      return next();
-    } catch (error) {
-      logger.error("error calling cri error lambda", { req, res, error });
-      return next(error);
     }
   },
 };

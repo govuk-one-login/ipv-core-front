@@ -1,10 +1,8 @@
 {% extends "shared/ipv-template.html" %}
 {% set hmpoPageKey = "pyiKbvThinFile" %}
-{% set hmpoPageTitle = "pages."+hmpoThinFile+".title" %}
+
 
 {% block cta %}
-  {# unsure if this is required: page is still under development
   {% include 'shared/journey-next-form.njk' %}
   {{ translate("pages.errors.contactAccountTeamHTML") | safe }}
-  #}
 {% endblock %}

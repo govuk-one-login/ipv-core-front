@@ -149,7 +149,7 @@ describe("journey middleware", () => {
 
     it("should raise an error when missing pageId", async () => {
       await middleware.handleJourneyPage(req, res, next);
-      expect(res.status).to.have.been.calledWith(500);
+      expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
   });
 

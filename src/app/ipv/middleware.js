@@ -7,6 +7,7 @@ const {
 const logger = require("hmpo-logger").get();
 
 const { generateAxiosConfig } = require("../shared/axiosHelper");
+const { transformError } = require("../shared/loggerHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -135,14 +136,7 @@ module.exports = {
           return res.render(`ipv/pyi-technical`);
       }
     } catch (error) {
-      logger.error("error handling journey page: :pageId", {
-        req,
-        res,
-        pageId: req.params,
-        error,
-      });
-      res.error = error.name;
-      res.status(500);
+      transformError(error, `error handling journey page: ${req.params}`);
       next(error);
     }
   },
@@ -154,6 +148,7 @@ module.exports = {
         await handleJourneyResponse(req, res, "journey/next");
       }
     } catch (error) {
+      transformError(error, "error invoking handleJourneyAction");
       next(error);
     }
   },

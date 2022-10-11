@@ -1,4 +1,5 @@
 const proxyquire = require("proxyquire");
+const { expect } = require("chai");
 
 const axiosStub = {};
 const configStub = {
@@ -84,7 +85,6 @@ describe("oauth middleware", () => {
 
       it("should call next", async function () {
         await middleware.setIpvSessionId(req, res, next);
-
         expect(next).to.have.been.called;
       });
     });
@@ -93,7 +93,7 @@ describe("oauth middleware", () => {
       it("should throw error", async function () {
         axiosStub.post = sinon.fake.throws(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
-        expect(res.error).to.be.eql("Error");
+        expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
       });
     });
 

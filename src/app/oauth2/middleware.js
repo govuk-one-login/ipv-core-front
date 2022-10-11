@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { API_BASE_URL } = require("../../lib/config");
+const { transformError } = require("../shared/loggerHelper");
 const logger = require("hmpo-logger").get();
 
 module.exports = {
@@ -40,12 +41,7 @@ module.exports = {
       );
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
-      logger.error("error calling initialise-ipv-session lambda", {
-        req,
-        res,
-        error,
-      });
-      res.error = error.name;
+      transformError(error, "error calling initialise-ipv-session lambda");
       return next(error);
     }
 

@@ -166,7 +166,7 @@ describe("credential issuer middleware", () => {
       );
     });
 
-    it("should send code to core backend and return with a 404 response", async () => {
+    it("should send code to core backend and call next with error", async () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
@@ -174,15 +174,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.status).to.be.eql(404);
-    });
-
-    it("should send code to core backend and return with an error", async () => {
-      axiosStub.post = sinon.fake.throws(axiosResponse);
-
-      await middleware.sendParamsToAPI(req, res, next);
-
-      expect(res.error).to.be.eql("Error");
+      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
   });
 
@@ -313,7 +305,7 @@ describe("credential issuer middleware", () => {
       );
     });
 
-    it("should send code to core backend and return with a 404 response", async () => {
+    it("should send code to core backend and call next with error", async () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
@@ -321,15 +313,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(res.status).to.be.eql(404);
-    });
-
-    it("should send code to core backend and return with an error", async () => {
-      axiosStub.post = sinon.fake.throws(axiosResponse);
-
-      await middleware.sendParamsToAPIV2(req, res, next);
-
-      expect(res.error).to.be.eql("Error");
+      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
   });
 });

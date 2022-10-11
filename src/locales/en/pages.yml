@@ -42,14 +42,12 @@ pyiKbvFail:
 
 pyiKbvThinFile:
   title: Sorry, we cannot prove your identity right now
-  serviceNameRequired: false
+  serviceNameRequired: true
   content:
     - Our security questions are based on information held by another organisation. This organisation does not have much information about you.
     - This means we cannot ask you the number of questions that we’d need to be sure that you are who you say you are.
-    - "## What you can do"
+    - "## What would you like to do?"
     - Continue to the service you were trying to use and look for other ways to prove your identity.
-    - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
-    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Contact the GOV.UK account team (opens in a new tab)</a>
 
 pageIpvIdentityStart:
   title: You’ve signed in to your GOV.UK account

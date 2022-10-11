@@ -46,10 +46,8 @@ pyiKbvThinFile:
   content:
     - Mae ein cwestiynau diogelwch yn seiliedig ar wybodaeth sy’n cael ei gadw gan sefydliad arall. Nid oes gan y sefydliad hwn lawer o wybodaeth amdanoch chi.
     - Mae hyn yn golygu na allwn ofyn i chi’r nifer o gwestiynau y byddai angen i ni fod yn sicr mai chi yw pwy rydych yn ei ddweud ydych chi.
-    - "## Beth allwch chi ei wneud"
+    - "## Beth hoffech chi ei wneud?"
     - Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.
-    - <a href="https://www.gov.uk/" class="govuk-button" data-module="govuk-button">{{ translate("buttons.govUkHomepage") }}</a>
-    - <a target="_blank" rel="noopener noreferrer" href="https://signin.account.gov.uk/contact-us" class="govuk-link">Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)</a>
 
 pageIpvIdentityStart:
   title: Rydych wedi mewngofnodi i’ch cyfrif GOV.UK

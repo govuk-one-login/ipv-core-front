@@ -56,7 +56,7 @@ describe("credential issuer middleware", () => {
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
-      ipvMiddlewareStub.handleJourneyResponse = sinon.fake();
+      ipvMiddlewareStub.handleBackendResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
         axios: axiosStub,
@@ -161,7 +161,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+      expect(ipvMiddlewareStub.handleBackendResponse.lastArg.journey).to.equal(
         "journey/next"
       );
     });
@@ -195,7 +195,7 @@ describe("credential issuer middleware", () => {
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
-      ipvMiddlewareStub.handleJourneyResponse = sinon.fake();
+      ipvMiddlewareStub.handleBackendResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
         axios: axiosStub,
@@ -300,7 +300,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(ipvMiddlewareStub.handleJourneyResponse.lastArg).to.equal(
+      expect(ipvMiddlewareStub.handleBackendResponse.lastArg.journey).to.equal(
         "journey/next"
       );
     });

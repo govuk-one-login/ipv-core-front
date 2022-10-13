@@ -5,7 +5,7 @@ const {
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
-const { handleJourneyResponse } = require("../ipv/middleware");
+const { handleBackendResponse } = require("../ipv/middleware");
 const { transformError } = require("../shared/loggerHelper");
 const logger = require("hmpo-logger").get();
 
@@ -45,7 +45,7 @@ module.exports = {
       );
       res.status = apiResponse?.status;
 
-      return handleJourneyResponse(req, res, apiResponse.data?.journey);
+      return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
       transformError(error, "error calling validate-callback lambda");
       next(error);
@@ -79,7 +79,7 @@ module.exports = {
       );
       res.status = apiResponse?.status;
 
-      return handleJourneyResponse(req, res, apiResponse.data?.journey);
+      return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
       transformError(error, "error calling validate-callback lambda");
       next(error);

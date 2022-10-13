@@ -23,32 +23,38 @@ async function journeyApi(action, req) {
 }
 
 async function handleJourneyResponse(req, res, action) {
-  const response = (await journeyApi(action, req)).data;
+  const backendResponse = (await journeyApi(action, req)).data;
+  return await handleBackendResponse(req, res, backendResponse);
+}
 
-  if (response?.journey) {
+async function handleBackendResponse(req, res, backendResponse) {
+  if (backendResponse?.journey) {
     logger.info("journey response received", { req, res });
-    await handleJourneyResponse(req, res, response.journey);
+    return await handleJourneyResponse(req, res, backendResponse.journey);
   }
 
-  if (response?.cri && tryValidateCriResponse(response.cri)) {
+  if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
     logger.info("cri response received", { req, res });
-    req.cri = response.cri;
+    req.cri = backendResponse.cri;
     req.session.currentPage = req.cri.id;
     await buildCredentialIssuerRedirectURL(req, res);
     return redirectToAuthorize(req, res);
   }
 
-  if (response?.client && tryValidateClientResponse(response.client)) {
+  if (
+    backendResponse?.client &&
+    tryValidateClientResponse(backendResponse.client)
+  ) {
     logger.info("client response received", { req, res });
     req.session.currentPage = "orchestrator";
-    const { redirectUrl } = response.client;
+    const { redirectUrl } = backendResponse.client;
     return res.redirect(redirectUrl);
   }
 
-  if (response?.page) {
+  if (backendResponse?.page) {
     logger.info("page response received", { req, res });
-    req.session.currentPage = response.page;
-    return res.redirect(`/ipv/page/${response.page}`);
+    req.session.currentPage = backendResponse.page;
+    return res.redirect(`/ipv/page/${backendResponse.page}`);
   }
 }
 
@@ -153,4 +159,5 @@ module.exports = {
     }
   },
   handleJourneyResponse,
+  handleBackendResponse,
 };

@@ -7,4 +7,12 @@ module.exports = {
       },
     };
   },
+  generateJsonAxiosConfig: (sessionId) => {
+    return {
+      headers: {
+        "Content-Type": "application/json",
+        "ipv-session-id": sessionId,
+      },
+    };
+  },
 };

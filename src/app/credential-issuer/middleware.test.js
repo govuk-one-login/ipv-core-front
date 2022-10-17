@@ -14,7 +14,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_VALIDATE_CALLBACK = "/journey/cri/validate-callback";
+      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -27,13 +27,13 @@ describe("credential issuer middleware", () => {
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
-        credentialIssuer: {
+        params: {},
+        session: { ipvSessionId: "ipv-session-id" },
+        query: {
+          id: "PassportIssuer",
           code: "authorize-code-issued",
           state: "oauth-state",
         },
-        params: {},
-        session: { ipvSessionId: "ipv-session-id" },
-        query: { id: "PassportIssuer" },
       };
       res = {
         status: sinon.fake(),
@@ -49,25 +49,22 @@ describe("credential issuer middleware", () => {
       req.session.ipvSessionId = "abadcafe";
       axiosStub.post = sinon.fake();
 
-      const searchParams = new URLSearchParams([
-        ["authorization_code", req.credentialIssuer.code],
-        ["credential_issuer_id", req.query.id],
-        [
-          "redirect_uri",
-          `http://example.com/credential-issuer/callback?id=${req.query.id}`,
-        ],
-        ["state", req.credentialIssuer.state],
-      ]);
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.query.id,
+        redirectUri: `http://example.com/credential-issuer/callback?id=${req.query.id}`,
+        state: req.query.state,
+      };
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/validate-callback",
-        searchParams,
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
         sinon.match({
           headers: {
             "ipv-session-id": "abadcafe",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
           },
         })
       );
@@ -80,27 +77,24 @@ describe("credential issuer middleware", () => {
       req.query.error = "access_denied";
       req.query.error_description = "Access was denied!";
 
-      const searchParams = new URLSearchParams([
-        ["authorization_code", req.credentialIssuer.code],
-        ["credential_issuer_id", req.query.id],
-        [
-          "redirect_uri",
-          `http://example.com/credential-issuer/callback?id=${req.query.id}`,
-        ],
-        ["state", req.credentialIssuer.state],
-        ["error", req.query.error],
-        ["error_description", req.query.error_description],
-      ]);
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.query.id,
+        redirectUri: `http://example.com/credential-issuer/callback?id=${req.query.id}`,
+        state: req.query.state,
+        error: req.query.error,
+        errorDescription: req.query.error_description,
+      };
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/validate-callback",
-        searchParams,
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
         sinon.match({
           headers: {
             "ipv-session-id": "abadcafe",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
           },
         })
       );
@@ -153,7 +147,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_VALIDATE_CALLBACK = "/journey/cri/validate-callback";
+      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -166,13 +160,12 @@ describe("credential issuer middleware", () => {
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
-        credentialIssuer: {
+        params: { criId: "PassportIssuer" },
+        session: { ipvSessionId: "ipv-session-id" },
+        query: {
           code: "authorize-code-issued",
           state: "oauth-state",
         },
-        params: { criId: "PassportIssuer" },
-        session: { ipvSessionId: "ipv-session-id" },
-        query: {},
       };
       res = {
         status: sinon.fake(),
@@ -188,25 +181,22 @@ describe("credential issuer middleware", () => {
       req.session.ipvSessionId = "abadcafe";
       axiosStub.post = sinon.fake();
 
-      const searchParams = new URLSearchParams([
-        ["authorization_code", req.credentialIssuer.code],
-        ["credential_issuer_id", req.params.criId],
-        [
-          "redirect_uri",
-          `http://example.com/credential-issuer/callback/${req.params.criId}`,
-        ],
-        ["state", req.credentialIssuer.state],
-      ]);
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.params.criId,
+        redirectUri: `http://example.com/credential-issuer/callback/${req.params.criId}`,
+        state: req.query.state,
+      };
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/validate-callback",
-        searchParams,
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
         sinon.match({
           headers: {
             "ipv-session-id": "abadcafe",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
           },
         })
       );
@@ -219,27 +209,24 @@ describe("credential issuer middleware", () => {
       req.query.error = "access_denied";
       req.query.error_description = "Access was denied!";
 
-      const searchParams = new URLSearchParams([
-        ["authorization_code", req.credentialIssuer.code],
-        ["credential_issuer_id", req.query.id],
-        [
-          "redirect_uri",
-          `http://example.com/credential-issuer/callback?id=${req.query.id}`,
-        ],
-        ["state", req.credentialIssuer.state],
-        ["error", req.query.error],
-        ["error_description", req.query.error_description],
-      ]);
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.params.criId,
+        redirectUri: `http://example.com/credential-issuer/callback/${req.params.criId}`,
+        state: req.query.state,
+        error: req.query.error,
+        errorDescription: req.query.error_description,
+      };
 
-      await middleware.sendParamsToAPI(req, res, next);
+      await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/validate-callback",
-        searchParams,
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
         sinon.match({
           headers: {
             "ipv-session-id": "abadcafe",
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
           },
         })
       );

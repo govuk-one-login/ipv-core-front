@@ -6,8 +6,8 @@ const {
 } = require("../../lib/config");
 const { generateJsonAxiosConfig } = require("../shared/axiosHelper");
 const { handleBackendResponse } = require("../ipv/middleware");
-const { transformError } = require("../shared/loggerHelper");
-const logger = require("hmpo-logger").get();
+const { logError, logCoreBackCall } = require("../shared/loggerHelper");
+const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
@@ -27,7 +27,11 @@ module.exports = {
     }
 
     try {
-      logger.info("calling CRI callback step function", { req, res });
+      logCoreBackCall(req, {
+        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
+        path: API_CRI_CALLBACK,
+      });
+
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
@@ -37,7 +41,7 @@ module.exports = {
 
       return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
-      transformError(error, "error calling CRI callback step function");
+      logError(req, error, "error calling validate-callback lambda");
       next(error);
     }
   },
@@ -61,7 +65,11 @@ module.exports = {
     }
 
     try {
-      logger.info("calling CRI callback step function", { req, res });
+      logCoreBackCall(req, {
+        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
+        path: API_CRI_CALLBACK,
+      });
+
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
@@ -71,7 +79,7 @@ module.exports = {
 
       return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
-      transformError(error, "error calling CRI callback step function");
+      logError(req, error, "error calling validate-callback lambda");
       next(error);
     }
   },

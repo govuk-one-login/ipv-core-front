@@ -7,7 +7,13 @@ const DynamoDBStore = require("connect-dynamodb")(session);
 const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
 const { getGTM } = require("./lib/locals");
-const { loggerMiddleware } = require("./lib/logger");
+const { loggerMiddleware, logger } = require("./lib/logger");
+const { randomUUID } = require("node:crypto");
+const { logCoreBackCall } = require("./app/shared/loggerHelper");
+const {
+  LOG_COMMUNICATION_TYPE_REQUEST,
+  LOG_TYPE_JOURNEY,
+} = require("./app/shared/loggerConstants");
 
 let sessionStore;
 
@@ -32,7 +38,7 @@ const sessionConfig = {
 const { router } = setup({
   config: { APP_ROOT: __dirname },
   port: PORT,
-  logs: false,
+  logs: { console: false, consoleJSON: false, app: false },
   session: sessionConfig,
   redis: !sessionStore,
   urls: {
@@ -51,8 +57,26 @@ const { router } = setup({
       next();
     });
 
+    //generate request id for logging correlation
+    app.use(function (req, res, next) {
+      let id = req.get("x-request-id");
+      if (!id) {
+        id = randomUUID();
+      }
+      req.requestId = id;
+      next();
+    });
+
     app.use(loggerMiddleware);
   },
+});
+
+// due to the sequencing
+router.use((req, res, next) => {
+  req.log = logger.child({
+    ipvSessionId: req.session?.ipvSessionId,
+  });
+  next();
 });
 
 router.use(getGTM);

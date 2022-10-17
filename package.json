@@ -8,7 +8,8 @@
     "yarn": "1.22.x"
   },
   "scripts": {
-    "start": "node src/app.js  | pino-pretty",
+    "start": "node src/app.js",
+    "start-dev": "node src/app.js | pino-pretty",
     "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
     "build": "yarn minfiy-build-front-end-gov-js && yarn build-sass && yarn copy-locales",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",

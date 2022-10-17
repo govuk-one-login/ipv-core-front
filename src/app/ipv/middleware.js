@@ -4,22 +4,31 @@ const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-const logger = require("hmpo-logger").get();
+
 
 const { generateAxiosConfig } = require("../shared/axiosHelper");
-const { transformError } = require("../shared/loggerHelper");
+const { logError, logCoreBackCall } = require("../shared/loggerHelper");
+const {
+  LOG_COMMUNICATION_TYPE_REQUEST,
+  LOG_TYPE_JOURNEY,
+  LOG_COMMUNICATION_TYPE_RESPONSE,
+  LOG_TYPE_CRI,
+  LOG_TYPE_CLIENT,
+  LOG_TYPE_PAGE,
+} = require("../shared/loggerConstants");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
     action = action.substr(1);
   }
 
-  logger.info("calling backend with action: :action", { req, action: action });
-  return axios.post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    generateAxiosConfig(req.session.ipvSessionId)
-  );
+  logCoreBackCall(req, {
+    logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
+    type: LOG_TYPE_JOURNEY,
+    path: action,
+  });
+
+  return axios.post(`${API_BASE_URL}/${action}`, {}, generateAxiosConfig(req));
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -29,12 +38,20 @@ async function handleJourneyResponse(req, res, action) {
 
 async function handleBackendResponse(req, res, backendResponse) {
   if (backendResponse?.journey) {
-    logger.info("journey response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_JOURNEY,
+      path: backendResponse.journey,
+    });
     return await handleJourneyResponse(req, res, backendResponse.journey);
   }
 
   if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
-    logger.info("cri response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_CRI,
+      path: req.cri,
+    });
     req.cri = backendResponse.cri;
     req.session.currentPage = req.cri.id;
     await buildCredentialIssuerRedirectURL(req, res);
@@ -45,14 +62,24 @@ async function handleBackendResponse(req, res, backendResponse) {
     backendResponse?.client &&
     tryValidateClientResponse(backendResponse.client)
   ) {
-    logger.info("client response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_CLIENT,
+      path: backendResponse.client,
+    });
+
     req.session.currentPage = "orchestrator";
     const { redirectUrl } = backendResponse.client;
     return res.redirect(redirectUrl);
   }
 
   if (backendResponse?.page) {
-    logger.info("page response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_PAGE,
+      path: backendResponse.page,
+      requestId: req.requestId,
+    });
     req.session.currentPage = backendResponse.page;
     return res.redirect(`/ipv/page/${backendResponse.page}`);
   }
@@ -106,14 +133,13 @@ module.exports = {
     try {
       const { pageId } = req.params;
       if (req.session.currentPage !== pageId) {
-        logger.error(
-          "page :pageId doesn't match expected session page :expectedPage",
+        logError(
+          req,
           {
-            req,
-            res,
             pageId: pageId,
             expectedPage: req.session.currentPage,
-          }
+          },
+          "page :pageId doesn't match expected session page :expectedPage"
         );
 
         req.session.currentPage = "pyi-technical-unrecoverable";
@@ -142,7 +168,7 @@ module.exports = {
           return res.render(`ipv/pyi-technical`);
       }
     } catch (error) {
-      transformError(error, `error handling journey page: ${req.params}`);
+      logError(req, error, `error handling journey page: ${req.params}`);
       next(error);
     }
   },
@@ -154,7 +180,7 @@ module.exports = {
         await handleJourneyResponse(req, res, "journey/next");
       }
     } catch (error) {
-      transformError(error, "error invoking handleJourneyAction");
+      logError(req, error, "error invoking handleJourneyAction");
       next(error);
     }
   },

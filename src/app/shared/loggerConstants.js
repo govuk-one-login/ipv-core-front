@@ -1,0 +1,14 @@
+const LOG_COMMUNICATION_TYPE_REQUEST = "request";
+const LOG_COMMUNICATION_TYPE_RESPONSE = "response";
+const LOG_TYPE_JOURNEY = "journey";
+const LOG_TYPE_PAGE = "page";
+const LOG_TYPE_CRI = "cri";
+const LOG_TYPE_CLIENT = "client";
+module.exports = {
+  LOG_COMMUNICATION_TYPE_REQUEST,
+  LOG_COMMUNICATION_TYPE_RESPONSE,
+  LOG_TYPE_JOURNEY,
+  LOG_TYPE_PAGE,
+  LOG_TYPE_CRI,
+  LOG_TYPE_CLIENT,
+};

@@ -12,7 +12,7 @@ module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_BUILD_DEBUG_CREDENTIAL_DATA_PATH: "/debug-credential-data",
   API_REQUEST_CONFIG_PATH: "/request-config",
-  API_CRI_VALIDATE_CALLBACK: "/journey/cri/validate-callback",
+  API_CRI_CALLBACK: "/journey/cri/callback",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

@@ -2,43 +2,6 @@ const { expect } = require("chai");
 const proxyquire = require("proxyquire");
 
 describe("credential issuer middleware", () => {
-  describe("addCallbackParamsToRequest", () => {
-    let req;
-    let res;
-    let next;
-    let configStub;
-
-    beforeEach(() => {
-      req = {
-        query: {
-          code: "xyz",
-        },
-        params: {},
-        session: {},
-      };
-      configStub = {};
-      next = sinon.fake();
-    });
-
-    it("should save code to request", async function () {
-      const { addCallbackParamsToRequest } = proxyquire("./middleware", {
-        "../../lib/config": configStub,
-      });
-      await addCallbackParamsToRequest(req, res, next);
-
-      expect(req.credentialIssuer.code).to.equal(req.query.code);
-    });
-
-    it("should call next", async function () {
-      const { addCallbackParamsToRequest } = proxyquire("./middleware", {
-        "../../lib/config": configStub,
-      });
-
-      await addCallbackParamsToRequest(req, res, next);
-
-      expect(next).to.have.been.called;
-    });
-  });
   describe("sendParamsToAPI", function () {
     let req;
     let res;

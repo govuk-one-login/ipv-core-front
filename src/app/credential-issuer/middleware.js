@@ -1,7 +1,7 @@
 const axios = require("axios");
 const {
   API_BASE_URL,
-  API_CRI_VALIDATE_CALLBACK,
+  API_CRI_CALLBACK,
   EXTERNAL_WEBSITE_HOST,
 } = require("../../lib/config");
 const { generateAxiosConfig } = require("../shared/axiosHelper");
@@ -10,24 +10,13 @@ const { transformError } = require("../shared/loggerHelper");
 const logger = require("hmpo-logger").get();
 
 module.exports = {
-  addCallbackParamsToRequest: async (req, _res, next) => {
-    req.credentialIssuer = {};
-
-    req.credentialIssuer.code = req.query?.code;
-    req.credentialIssuer.state = req.query?.state;
-
-    next();
-  },
   sendParamsToAPI: async (req, res, next) => {
-    const evidenceParam = new URLSearchParams([
-      ["authorization_code", req.credentialIssuer.code],
-      ["credential_issuer_id", req.query.id],
-      [
-        "redirect_uri",
-        `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
-      ],
-      ["state", req.credentialIssuer.state],
-    ]);
+    const oauthParams = {
+      authorizationCode: req.query?.code,
+      credentialIssuerId: req.query.id,
+      redirectUri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
+      state: req.query?.state,
+    };
 
     if (req.query?.error) {
       evidenceParam.append("error", req.query.error);
@@ -39,7 +28,7 @@ module.exports = {
     try {
       logger.info("calling validate-callback lambda", { req, res });
       const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_VALIDATE_CALLBACK}`,
+        `${API_BASE_URL}${API_CRI_CALLBACK}`,
         evidenceParam,
         generateAxiosConfig(req.session.ipvSessionId)
       );
@@ -57,10 +46,10 @@ module.exports = {
     const redirectUri = `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback/${req.params.criId}`;
 
     const evidenceParam = new URLSearchParams([
-      ["authorization_code", req.credentialIssuer.code],
+      ["authorization_code", req.query?.code],
       ["credential_issuer_id", criId],
       ["redirect_uri", redirectUri],
-      ["state", req.credentialIssuer.state],
+      ["state", req.query?.state],
     ]);
 
     if (req.query?.error) {
@@ -73,7 +62,7 @@ module.exports = {
     try {
       logger.info("calling validate-callback lambda", { req, res });
       const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_VALIDATE_CALLBACK}`,
+        `${API_BASE_URL}${API_CRI_CALLBACK}`,
         evidenceParam,
         generateAxiosConfig(req.session.ipvSessionId)
       );

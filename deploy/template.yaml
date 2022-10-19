@@ -202,11 +202,6 @@ Resources:
           - Key: access_logs.s3.prefix
             Value: !Sub core-front-${Environment}
           - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: deletion_protection.enabled
-            Value: true
-          - !Ref AWS::NoValue
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
   LoadBalancerListenerTargetGroupECS:

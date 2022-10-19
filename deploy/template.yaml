@@ -59,6 +59,10 @@ Mappings:
       desiredTaskCount: 2
     "075701497069": # Production
       desiredTaskCount: 2
+  SecurityGroups:
+    PrefixListIds:
+      dynamodb: "pl-b3a742da"
+      s3: "pl-7ca54015"
 
 Resources:
   # Security Groups for the ECS service and load balancer
@@ -95,6 +99,16 @@ Resources:
       GroupDescription: >-
         Core Front ECS Security Group outbound permissions ruleset
       SecurityGroupEgress:
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, dynamodb]
+          Description: Allow outbound traffic to dynamodb vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, s3]
+          Description: Allow outbound traffic to s3 vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
         - DestinationSecurityGroupId: !If
             - IsNotDevelopment
             - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId

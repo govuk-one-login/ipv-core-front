@@ -173,7 +173,7 @@ Resources:
                 "s3:TlsVersion": "1.2"
 
   # Private Application Load Balancer
-  LoadBalancer:
+  PrivateLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
       Scheme: internal
@@ -229,7 +229,7 @@ Resources:
       DefaultActions:
         - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
           Type: forward
-      LoadBalancerArn: !Ref LoadBalancer
+      LoadBalancerArn: !Ref PrivateLoadBalancer
       Port: 80
       Protocol: HTTP
 

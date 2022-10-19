@@ -241,7 +241,7 @@ Resources:
         - Name: containerInsights
           Value: enabled
 
-  CoreFrontEcsService:
+  CoreFrontServiceEcsService:
     Type: "AWS::ECS::Service"
     Properties:
       Cluster: !Ref CoreFrontEcsCluster
@@ -285,7 +285,7 @@ Resources:
         - '/'
         - - "service"
           - !Ref CoreFrontEcsCluster
-          - !GetAtt CoreFrontEcsService.Name
+          - !GetAtt CoreFrontServiceEcsService.Name
       RoleARN: !Sub "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
@@ -300,7 +300,7 @@ Resources:
         - '/'
         - - "service"
           - !Ref CoreFrontEcsCluster
-          - !GetAtt CoreFrontEcsService.Name
+          - !GetAtt CoreFrontServiceEcsService.Name
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
       TargetTrackingScalingPolicyConfiguration:

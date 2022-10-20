@@ -65,8 +65,9 @@ Mappings:
       s3: "pl-7ca54015"
 
 Resources:
-  # Security Groups for the ECS service and load balancer
-  LoadBalancerSG:
+
+ # Security Groups for the ECS service and load balancer
+  PrivateLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
@@ -81,6 +82,36 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
+  PrivateLoadBalancerSGEgressToECSSecurityGroup:
+    Type: "AWS::EC2::SecurityGroupEgress"
+    Properties:
+      GroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      IpProtocol: tcp
+      Description: >-
+        Egress between the Core Front load balancer and
+        the core front ECS security group
+      DestinationSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
+      FromPort: 8080
+      ToPort: 8080
+
+  # Security Groups for the ECS service and load balancer
+  # Deprecated will be removed once migrated to new vpc
+  LoadBalancerSG:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: >-
+        Core Front LoadBalancer Security Group
+      SecurityGroupIngress:
+        - CidrIp:
+            Fn::ImportValue: CoreVPCCIDR
+          Description: Allow vpc cidr ingress to port 80
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+
+  # Deprecated will be removed once migrated to new vpc
   LoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"
     Properties:
@@ -130,7 +161,7 @@ Resources:
       FromPort: 8080
       ToPort: 8080
       GroupId: !GetAtt ECSSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
+      SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
 
   AccessLogsBucket:
     Type: AWS::S3::Bucket
@@ -192,7 +223,7 @@ Resources:
     Properties:
       Scheme: internal
       SecurityGroups:
-        - !GetAtt LoadBalancerSG.GroupId
+        - !GetAtt PrivateLoadBalancerSG.GroupId
       Subnets:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
@@ -368,6 +399,7 @@ Resources:
         - Name: containerInsights
           Value: enabled
 
+  # Deprecated will be removed once migrated to new vpc
   CoreFrontEcsService:
     Type: "AWS::ECS::Service"
     Properties:

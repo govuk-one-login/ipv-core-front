@@ -90,7 +90,7 @@ Resources:
       Description: >-
         Egress between the Core Front load balancer and
         the core front ECS security group
-      DestinationSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
+      DestinationSecurityGroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
       FromPort: 8080
       ToPort: 8080
 
@@ -109,7 +109,7 @@ Resources:
           IpProtocol: tcp
           ToPort: 80
       VpcId:
-        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+        Fn::ImportValue: !Sub networking-${Environment}-VpcId
 
   # Deprecated will be removed once migrated to new vpc
   LoadBalancerSGEgressToECSSecurityGroup:
@@ -124,7 +124,7 @@ Resources:
       FromPort: 8080
       ToPort: 8080
 
-  ECSSecurityGroup:
+  CoreFrontECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
@@ -151,6 +151,45 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
+  CoreFrontECSSecurityGroupIngressFromLoadBalancer:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    Properties:
+      IpProtocol: tcp
+      Description: >-
+        Core Front ECS permits inbound from the Core Front
+        load balancer.
+      FromPort: 8080
+      ToPort: 8080
+      GroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+
+
+  # Deprecated will be removed when vpc migration is complete
+  ECSSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: >-
+        Core Front ECS Security Group outbound permissions ruleset
+      SecurityGroupEgress:
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, dynamodb]
+          Description: Allow outbound traffic to dynamodb vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, s3]
+          Description: Allow outbound traffic to s3 vpc endpoint
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - DestinationSecurityGroupId: !ImportValue InterfaceVpcEndpointSecurityGroupId
+          Description: Allow outbound traffic to Interface vpc endpoint security group
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+      VpcId:
+        Fn::ImportValue: !Sub networking-${Environment}-VpcId
+
+  # Deprecated will be removed when vpc migration is complete
   ECSSecurityGroupIngressFromLoadBalancer:
     Type: "AWS::EC2::SecurityGroupIngress"
     Properties:
@@ -161,7 +200,7 @@ Resources:
       FromPort: 8080
       ToPort: 8080
       GroupId: !GetAtt ECSSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
 
   AccessLogsBucket:
     Type: AWS::S3::Bucket
@@ -382,7 +421,7 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: DISABLED
           SecurityGroups:
-            - !GetAtt ECSSecurityGroup.GroupId
+            - !GetAtt CoreFrontECSSecurityGroup.GroupId
           Subnets:
             - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
             - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB

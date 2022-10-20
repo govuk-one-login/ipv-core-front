@@ -148,6 +148,13 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
+      SecurityGroupIngress:
+        - CidrIp:
+            Fn::ImportValue: !Sub ${VpcStackName}-VpcCidr
+          Description: Allow inbound traffic from vpc cidr to port 443
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
@@ -162,7 +169,6 @@ Resources:
       ToPort: 8080
       GroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
       SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
-
 
   # Deprecated will be removed when vpc migration is complete
   ECSSecurityGroup:

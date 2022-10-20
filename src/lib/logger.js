@@ -3,21 +3,21 @@ const { randomUUID } = require("node:crypto");
 const logger = pino({
   name: "di-ipv-core",
   level: process.env.LOGS_LEVEL || "debug",
+  messageKey: "message", // rename default msg property to message
   serializers: {
     req: (req) => {
       return {
-        id: req.id,
+        requestId: req.id,
         method: req.method,
         url: req.url,
+        ipvSessionId: req.session?.ipvSessionId,
+        sessionId: req.sessionId,
       };
     },
     res: (res) => {
       return {
         status: res.statusCode,
         sessionId: res.locals.sessionId,
-        clientSessionId: res.locals.clientSessionId,
-        persistentSessionId: res.locals.persistentSessionId,
-        languageFromCookie: res.locals.language?.toUpperCase(),
       };
     },
   },
@@ -29,7 +29,7 @@ const loggerMiddleware = require("pino-http")({
 
   // Define a custom request id function
   genReqId: function (req, res) {
-    if (req.requestId) return req.requestId;
+    if (req.id) return req.id;
     let id = req.get("x-request-id");
     if (id) return id;
     id = randomUUID();
@@ -38,8 +38,7 @@ const loggerMiddleware = require("pino-http")({
   },
 
   // Set to `false` to prevent standard serializers from being wrapped.
-  wrapSerializers: true,
-  quietReqLogger: true,
+  wrapSerializers: false,
   autoLogging: {
     ignorePaths: [
       "/public/scripts/cookies.js",
@@ -54,30 +53,49 @@ const loggerMiddleware = require("pino-http")({
       "/assets/fonts/light-94a07e06a1-v2.woff2",
     ],
   },
-  customErrorMessage: function (error, res) {
+  // Define a custom receive message
+  customReceivedMessage: function (req) {
+    return "request received: " + req.method;
+  },
+  customReceivedObject: function (req, res, val) {
+    return {
+      ...val,
+      requestId: req.id,
+      ipvSessionId: req.session?.ipvSessionId,
+      sessionId: req.sessionId,
+    };
+  },
+  customErrorMessage: function (error, req, res) {
     return "request errored with status code: " + res.statusCode;
   },
-  customSuccessMessage: function (res) {
+  customErrorObject: (req, res, error, val) => {
+    return {
+      ...val,
+      requestId: req.id,
+      ipvSessionId: req.session?.ipvSessionId,
+      sessionId: req.sessionId,
+    };
+  },
+  customSuccessMessage: function (req, res) {
     if (res.statusCode === 404) {
       return "resource not found";
     }
     return `request completed with status code of:${res.statusCode}`;
+  },
+  customSuccessObject: function (req, res, val) {
+    return {
+      ...val,
+      requestId: req.id,
+      ipvSessionId: req.session?.ipvSessionId,
+      sessionId: req.sessionId,
+    };
   },
   customAttributeKeys: {
     responseTime: "timeTaken",
   },
 });
 
-function handle(req, res, next) {
-  logger.child({
-    requestId: req.requestId,
-  });
-
-  loggerMiddleware(req, res);
-  next();
-}
-
 module.exports = {
-  loggerMiddleware: handle,
+  loggerMiddleware,
   logger,
 };

@@ -8,12 +8,6 @@ const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
 const { getGTM } = require("./lib/locals");
 const { loggerMiddleware, logger } = require("./lib/logger");
-const { randomUUID } = require("node:crypto");
-const { logCoreBackCall } = require("./app/shared/loggerHelper");
-const {
-  LOG_COMMUNICATION_TYPE_REQUEST,
-  LOG_TYPE_JOURNEY,
-} = require("./app/shared/loggerConstants");
 
 let sessionStore;
 
@@ -56,24 +50,13 @@ const { router } = setup({
       req.headers["x-forwarded-proto"] = "https";
       next();
     });
-
-    //generate request id for logging correlation
-    app.use(function (req, res, next) {
-      let id = req.get("x-request-id");
-      if (!id) {
-        id = randomUUID();
-      }
-      req.requestId = id;
-      next();
-    });
-
     app.use(loggerMiddleware);
   },
 });
 
-// due to the sequencing
 router.use((req, res, next) => {
   req.log = logger.child({
+    requestId: req.id,
     ipvSessionId: req.session?.ipvSessionId,
   });
   next();

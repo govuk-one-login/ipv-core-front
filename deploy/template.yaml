@@ -71,10 +71,10 @@ Resources:
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
-      # checkov:skip=CKV_AWS_260: Security group rules to be reviewed in JIRA PYIC-1464
       SecurityGroupIngress:
-        - CidrIp: !ImportValue CoreVPCCIDR
-          Description: Allow from anyone on port 80
+        - CidrIp:
+            Fn::ImportValue: !Sub ${VpcStackName}-VpcCidr
+          Description: Allow vpc cidr ingress to port 80
           FromPort: 80
           IpProtocol: tcp
           ToPort: 80
@@ -109,8 +109,11 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-        - DestinationSecurityGroupId: !ImportValue InterfaceVpcEndpointSecurityGroupId
-          Description: Allow outbound traffic to Interface vpc endpoint security group
+        - DestinationSecurityGroupId: !If
+            - IsNotDevelopment
+            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+            - !ImportValue InterfaceVpcEndpointSecurityGroupId
+          Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
@@ -184,7 +187,7 @@ Resources:
                 "s3:TlsVersion": "1.2"
 
   # Private Application Load Balancer
-  LoadBalancer:
+  PrivateLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
       Scheme: internal
@@ -193,7 +196,6 @@ Resources:
       Subnets:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -221,7 +223,7 @@ Resources:
           - !Ref AWS::NoValue
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
-  LoadBalancerListenerTargetGroupECS:
+  PrivateLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       HealthCheckEnabled: TRUE
@@ -238,6 +240,70 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 60
 
+  PrivateLoadBalancerListener:
+    Type: "AWS::ElasticLoadBalancingV2::Listener"
+    Properties:
+      # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
+      # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
+      DefaultActions:
+        - TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+          Type: forward
+      LoadBalancerArn: !Ref PrivateLoadBalancer
+      Port: 80
+      Protocol: HTTP
+
+  # Private Application Load Balancer - deprecated (will be removed once migrated to new vpc)
+  LoadBalancer:
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    Properties:
+      Scheme: internal
+      SecurityGroups:
+        - !GetAtt LoadBalancerSG.GroupId
+      Subnets:
+        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdC
+      Type: application
+      #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
+      LoadBalancerAttributes:
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: true
+        - !If
+          - IsNotDevelopment
+          - Key: access_logs.s3.enabled
+            Value: true
+          - !Ref AWS::NoValue
+        - !If
+          - IsNotDevelopment
+          - Key: access_logs.s3.bucket
+            Value: !Ref AccessLogsBucket
+          - !Ref AWS::NoValue
+        - !If
+          - IsNotDevelopment
+          - Key: access_logs.s3.prefix
+            Value: !Sub core-front-${Environment}
+          - !Ref AWS::NoValue
+    DependsOn: CoreFrontAccessLogsBucketPolicy
+
+  # Deprecated will be removed once migrated to new vpc
+  LoadBalancerListenerTargetGroupECS:
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue: !Sub networking-${Environment}-VpcId
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60
+
+  # Deprecated will be removed once migrated to new vpc
   LoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
@@ -251,6 +317,50 @@ Resources:
       Protocol: HTTP
 
   # ECS cluster, service and task definition
+  CoreFrontCluster:
+    Type: "AWS::ECS::Cluster"
+    Properties:
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+
+  CoreFrontService:
+    Type: "AWS::ECS::Service"
+    Properties:
+      Cluster: !Ref CoreFrontCluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+        DeploymentCircuitBreaker:
+          Enable: true
+          Rollback: true
+      DeploymentController:
+        Type: ECS
+      DesiredCount: !FindInMap
+        - EcsConfiguration
+        - !Ref AWS::AccountId
+        - desiredTaskCount
+      EnableECSManagedTags: false
+      HealthCheckGracePeriodSeconds: 60
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: app
+          ContainerPort: 8080
+          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups:
+            - !GetAtt ECSSecurityGroup.GroupId
+          Subnets:
+            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+      TaskDefinition: !Ref ECSServiceTaskDefinition
+    DependsOn:
+      - PrivateLoadBalancerListener
+
+  # ECS cluster, service and task definition
+  # Deprecated will be removed once migrated to new vpc
   CoreFrontEcsCluster:
     Type: "AWS::ECS::Cluster"
     Properties:
@@ -287,9 +397,9 @@ Resources:
           SecurityGroups:
             - !GetAtt ECSSecurityGroup.GroupId
           Subnets:
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
+            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdA
+            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdB
+            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdC
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - LoadBalancerListener
@@ -302,8 +412,8 @@ Resources:
       ResourceId: !Join
         - '/'
         - - "service"
-          - !Ref CoreFrontEcsCluster
-          - !GetAtt CoreFrontEcsService.Name
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
       RoleARN: !Sub "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
@@ -317,8 +427,8 @@ Resources:
       ResourceId: !Join
         - '/'
         - - "service"
-          - !Ref CoreFrontEcsCluster
-          - !GetAtt CoreFrontEcsService.Name
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
       TargetTrackingScalingPolicyConfiguration:
@@ -464,15 +574,7 @@ Resources:
   # Create the VPC Link to join the API Gateway to the
   # private Load Balancer in front of Core Front ECS
   # Service.
-  VpcLink:
-    Type: "AWS::ApiGatewayV2::VpcLink"
-    Properties:
-      Name: ApiGwVpcLinkToLoadBalancer
-      SubnetIds:
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
-      SecurityGroupIds: []
+  # VPC Link moved to the ip dev platform vpc
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
@@ -485,10 +587,11 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId: !Ref VpcLink
+      ConnectionId:
+        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
-      IntegrationUri: !Ref LoadBalancerListener
+      IntegrationUri: !Ref PrivateLoadBalancerListener
       PayloadFormatVersion: "1.0"
 
   APIGWRoute:

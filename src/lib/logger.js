@@ -7,11 +7,8 @@ const logger = pino({
   serializers: {
     req: (req) => {
       return {
-        requestId: req.id,
         method: req.method,
         url: req.url,
-        ipvSessionId: req.session?.ipvSessionId,
-        sessionId: req.sessionId,
       };
     },
     res: (res) => {
@@ -55,7 +52,7 @@ const loggerMiddleware = require("pino-http")({
   },
   // Define a custom receive message
   customReceivedMessage: function (req) {
-    return "request received: " + req.method;
+    return "REQUEST RECEIVED: " + req.method;
   },
   customReceivedObject: function (req, res, val) {
     return {
@@ -66,7 +63,7 @@ const loggerMiddleware = require("pino-http")({
     };
   },
   customErrorMessage: function (error, req, res) {
-    return "request errored with status code: " + res.statusCode;
+    return "REQUEST ERRORED WITH STATUS CODE: " + res.status;
   },
   customErrorObject: (req, res, error, val) => {
     return {
@@ -78,9 +75,9 @@ const loggerMiddleware = require("pino-http")({
   },
   customSuccessMessage: function (req, res) {
     if (res.statusCode === 404) {
-      return "resource not found";
+      return "RESOURCE NOT FOUND";
     }
-    return `request completed with status code of:${res.statusCode}`;
+    return `REQUEST COMPLETED WITH STATUS CODE OF :${res.statusCode}`;
   },
   customSuccessObject: function (req, res, val) {
     return {

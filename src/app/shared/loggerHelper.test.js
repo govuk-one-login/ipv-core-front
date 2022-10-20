@@ -2,6 +2,7 @@ const { expect } = require("chai");
 const { logError } = require("./loggerHelper");
 
 describe("logger helper", () => {
+  beforeEach();
   describe("when error.response.status has a value", () => {
     it("should error.response.status to error.status for logging consistency", () => {
       const error = new Error("Some error");

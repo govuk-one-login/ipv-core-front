@@ -1,9 +1,14 @@
 const pino = require("pino");
 const { randomUUID } = require("node:crypto");
 const logger = pino({
-  name: "di-ipv-core",
+  name: "di-ipv-core-front",
   level: process.env.LOGS_LEVEL || "debug",
-  messageKey: "message", // rename default msg property to message
+  messageKey: "message", // rename default msg property to message,
+  formatters: {
+    level(label) {
+      return { level: label.toUpperCase() };
+    },
+  },
   serializers: {
     req: (req) => {
       return {
@@ -89,6 +94,13 @@ const loggerMiddleware = require("pino-http")({
   },
   customAttributeKeys: {
     responseTime: "timeTaken",
+  },
+  // Define a custom logger level
+  customLogLevel: function (req, res, err) {
+    if (res.statusCode >= 400 || err) {
+      return "error";
+    }
+    return "info";
   },
 });
 

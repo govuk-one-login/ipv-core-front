@@ -5,9 +5,12 @@ const {
   redirectToAuthorize,
 } = require("../shared/criHelper");
 
-
 const { generateAxiosConfig } = require("../shared/axiosHelper");
-const { logError, logCoreBackCall } = require("../shared/loggerHelper");
+const {
+  logError,
+  logCoreBackCall,
+  transformError,
+} = require("../shared/loggerHelper");
 const {
   LOG_COMMUNICATION_TYPE_REQUEST,
   LOG_TYPE_JOURNEY,
@@ -168,7 +171,7 @@ module.exports = {
           return res.render(`ipv/pyi-technical`);
       }
     } catch (error) {
-      logError(req, error, `error handling journey page: ${req.params}`);
+      transformError(error, `error handling journey page: ${req.params}`);
       next(error);
     }
   },
@@ -180,7 +183,7 @@ module.exports = {
         await handleJourneyResponse(req, res, "journey/next");
       }
     } catch (error) {
-      logError(req, error, "error invoking handleJourneyAction");
+      transformError(error, "error invoking handleJourneyAction");
       next(error);
     }
   },

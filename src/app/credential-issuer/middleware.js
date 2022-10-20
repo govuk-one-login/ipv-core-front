@@ -6,7 +6,7 @@ const {
 } = require("../../lib/config");
 const { generateJsonAxiosConfig } = require("../shared/axiosHelper");
 const { handleBackendResponse } = require("../ipv/middleware");
-const { logError, logCoreBackCall } = require("../shared/loggerHelper");
+const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
 
       return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
-      logError(req, error, "error calling validate-callback lambda");
+      transformError(error, "error calling validate-callback lambda");
       next(error);
     }
   },
@@ -79,7 +79,7 @@ module.exports = {
 
       return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {
-      logError(req, error, "error calling validate-callback lambda");
+      transformError(error, "error calling validate-callback lambda");
       next(error);
     }
   },

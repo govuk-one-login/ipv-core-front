@@ -4,6 +4,7 @@ const {
   API_REQUEST_CONFIG_PATH,
   API_BUILD_DEBUG_CREDENTIAL_DATA_PATH,
 } = require("../../lib/config");
+const { transformError } = require("../shared/loggerHelper");
 
 module.exports = {
   setCriConfig: async (req, res, next) => {
@@ -15,8 +16,7 @@ module.exports = {
         );
         req.session.criConfig = apiResponse.data;
       } catch (error) {
-        req.log.error("error calling cri config lambda", { req, res, error });
-        res.error = error.name;
+        transformError(error, "error calling cri config lambda");
         return next(error);
       }
     }
@@ -42,12 +42,7 @@ module.exports = {
 
       req.issuedCredentials = parsedResponse;
     } catch (error) {
-      req.log.error("error fetching debug credential data", {
-        req,
-        res,
-        error,
-      });
-      res.error = error.name;
+      transformError(error, "error fetching debug credential data");
       return next(error);
     }
     next();

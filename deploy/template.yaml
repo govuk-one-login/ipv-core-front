@@ -270,8 +270,8 @@ Resources:
       SecurityGroups:
         - !GetAtt PrivateLoadBalancerSG.GroupId
       Subnets:
-        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -429,8 +429,8 @@ Resources:
           SecurityGroups:
             - !GetAtt CoreFrontECSSecurityGroup.GroupId
           Subnets:
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-            - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+            - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+            - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - PrivateLoadBalancerListener

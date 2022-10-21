@@ -270,8 +270,8 @@ Resources:
       SecurityGroups:
         - !GetAtt PrivateLoadBalancerSG.GroupId
       Subnets:
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -652,6 +652,14 @@ Resources:
   # private Load Balancer in front of Core Front ECS
   # Service.
   # VPC Link moved to the ip dev platform vpc
+  VpcLink:
+    Type: "AWS::ApiGatewayV2::VpcLink"
+    Properties:
+      Name: ApiGwVpcLinkToLoadBalancer
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
+      SecurityGroupIds: []
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
@@ -664,8 +672,7 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+      ConnectionId: !Ref VpcLink
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref PrivateLoadBalancerListener

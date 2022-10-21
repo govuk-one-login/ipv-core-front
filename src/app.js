@@ -54,6 +54,7 @@ const { router } = setup({
     allowedLangs: ["en", "cy"],
     fallbackLang: ["en"],
     cookie: { name: "lng" },
+    query: "lng",
   },
   dev: true,
   middlewareSetupFn: (app) => {

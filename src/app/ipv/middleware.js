@@ -14,7 +14,7 @@ async function journeyApi(action, req) {
     action = action.substr(1);
   }
 
-  logger.info("calling backend with action: :action", { req, action: action });
+  logger.info("callring backend with action: :action", { req, action: action });
   return axios.post(
     `${API_BASE_URL}/${action}`,
     {},

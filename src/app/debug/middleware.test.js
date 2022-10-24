@@ -1,5 +1,4 @@
 const proxyquire = require("proxyquire");
-
 const axiosStub = {};
 
 const configStub = {
@@ -25,6 +24,11 @@ describe("debug middleware", () => {
       render: sinon.fake(),
     };
 
+    req = {
+      session: {},
+      log: { info: sinon.fake(), error: sinon.fake() },
+    };
+
     next = sinon.fake();
   });
 
@@ -34,6 +38,7 @@ describe("debug middleware", () => {
       beforeEach(() => {
         req = {
           session: {},
+          log: { info: sinon.fake(), error: sinon.fake() },
         };
         axiosResponse = {
           data: [
@@ -87,7 +92,7 @@ describe("debug middleware", () => {
 
           await middleware.setCriConfig(req, res, next);
 
-          expect(res.error).to.be.eql("Error");
+          expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
         });
       });
     });
@@ -135,6 +140,7 @@ describe("debug middleware", () => {
     beforeEach(() => {
       req = {
         session: {},
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
     });
 
@@ -164,7 +170,7 @@ describe("debug middleware", () => {
 
         await middleware.getIssuedCredentials(req, res, next);
 
-        expect(res.error).to.be.eql("Error");
+        expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
       });
     });
   });
@@ -172,7 +178,6 @@ describe("debug middleware", () => {
   describe("renderDebugPage", () => {
     it("should render debug page", () => {
       middleware.renderDebugPage(req, res);
-
       expect(res.render).to.have.been.calledWith("debug/page-ipv-debug");
     });
   });

@@ -1,13 +1,12 @@
 const { expect } = require("chai");
-const { logError } = require("./loggerHelper");
+const { transformError } = require("./loggerHelper");
 
 describe("logger helper", () => {
-  beforeEach();
   describe("when error.response.status has a value", () => {
     it("should error.response.status to error.status for logging consistency", () => {
       const error = new Error("Some error");
       error.response = { status: 400 };
-      logError(error);
+      transformError(error);
       expect(error.status).to.equal(400);
     });
   });
@@ -16,7 +15,7 @@ describe("logger helper", () => {
     it("should append to error object", () => {
       const extraMessage = "some message";
       const error = new Error("Some error");
-      logError(error, extraMessage);
+      transformError(error, extraMessage);
       expect(error.messageContext).to.equal(extraMessage);
     });
   });

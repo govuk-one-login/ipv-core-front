@@ -25,7 +25,7 @@ module.exports = {
 
   getIssuedCredentials: async (req, res, next) => {
     try {
-      req.log.info("calling build-debug-credential-data lambda", { req, res });
+      req.log.info("calling build-debug-credential-data lambda");
       const apiResponse = await axios.get(
         `${API_BASE_URL}${API_BUILD_DEBUG_CREDENTIAL_DATA_PATH}`,
         {

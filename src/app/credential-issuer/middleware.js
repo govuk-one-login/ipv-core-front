@@ -35,11 +35,11 @@ module.exports = {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req.session.ipvSessionId)
+        generateJsonAxiosConfig(req)
       );
       res.status = apiResponse?.status;
 
-      return handleBackendResponse(req, res, apiResponse.data);
+      return handleBackendResponse(req, res, apiResponse?.data);
     } catch (error) {
       transformError(error, "error calling validate-callback lambda");
       next(error);
@@ -73,7 +73,7 @@ module.exports = {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req.session.ipvSessionId)
+        generateJsonAxiosConfig(req)
       );
       res.status = apiResponse?.status;
 

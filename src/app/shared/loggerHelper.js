@@ -20,7 +20,7 @@ module.exports = {
         errorMessage: error.message,
       },
       level: "ERROR",
-      requestId: req.requestId,
+      requestId: req.id,
     });
   },
   logCoreBackCall: (req, { logCommunicationType, type, path, info }) => {
@@ -32,6 +32,6 @@ module.exports = {
     if (type) {
       message.type = type;
     }
-    req.log.info({ message, level: "INFO", requestId: req.requestId });
+    req.log.info({ message, level: "INFO", requestId: req.id });
   },
 };

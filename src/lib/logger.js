@@ -29,7 +29,7 @@ const loggerMiddleware = require("pino-http")({
   // Reuse an existing logger instance
   logger,
 
-  // Define a custom request id function
+  // Define a custom request id function, this will be assigned to req.id
   genReqId: function (req, res) {
     if (req.id) return req.id;
     let id = req.get("x-request-id");
@@ -64,7 +64,7 @@ const loggerMiddleware = require("pino-http")({
       ...val,
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.sessionId,
+      sessionId: req.session?.id,
     };
   },
   customErrorMessage: function (error, req, res) {
@@ -75,7 +75,7 @@ const loggerMiddleware = require("pino-http")({
       ...val,
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.sessionId,
+      sessionId: req.session?.id,
     };
   },
   customSuccessMessage: function (req, res) {
@@ -89,7 +89,7 @@ const loggerMiddleware = require("pino-http")({
       ...val,
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.sessionId,
+      sessionId: req.session?.id,
     };
   },
   customAttributeKeys: {

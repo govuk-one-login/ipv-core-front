@@ -58,6 +58,7 @@ router.use((req, res, next) => {
   req.log = logger.child({
     requestId: req.id,
     ipvSessionId: req.session?.ipvSessionId,
+    sessionId: req.session?.id,
   });
   next();
 });

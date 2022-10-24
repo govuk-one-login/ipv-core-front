@@ -1,17 +1,19 @@
 module.exports = {
-  generateAxiosConfig: (sessionId) => {
+  generateAxiosConfig: (req) => {
     return {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": sessionId,
+        "ipv-session-id": req.session.ipvSessionId,
+        "x-request-id": req.id,
       },
     };
   },
-  generateJsonAxiosConfig: (sessionId) => {
+  generateJsonAxiosConfig: (req) => {
     return {
       headers: {
         "Content-Type": "application/json",
-        "ipv-session-id": sessionId,
+        "ipv-session-id": req.session.ipvSessionId,
+        "x-request-id": req.id,
       },
     };
   },

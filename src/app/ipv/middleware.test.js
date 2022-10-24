@@ -30,16 +30,26 @@ describe("journey middleware", () => {
       redirect: sinon.fake(),
       send: sinon.fake(),
       render: sinon.fake(),
+      log: { info: sinon.fake(), error: sinon.fake() },
     };
     req = {
       session: { ipvSessionId: "ipv-session-id" },
       csrfToken: sinon.fake(),
+      log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
     axiosStub.post.reset();
   });
 
   context("from a sequence of events that ends with a page response", () => {
+    beforeEach(() => {
+      req = {
+        id: "1",
+        session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+    });
+
     it("should have called the network in the correct sequence", async function () {
       const pageId = "pageTransition";
       const eventResponses = [
@@ -65,14 +75,9 @@ describe("journey middleware", () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "ipv-session-id": "ipv-session-id",
+          "x-request-id": "1",
         },
       };
-
-      beforeEach(() => {
-        req = {
-          session: { ipvSessionId: "ipv-session-id" },
-        };
-      });
 
       await middleware.handleJourneyResponse(req, res, "/journey/next");
       expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
@@ -98,16 +103,20 @@ describe("journey middleware", () => {
   context("calling the journeyPage endpoint", () => {
     beforeEach(() => {
       req = {
+        id: "1",
         url: "/ipv/page",
         session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
     });
 
     it("should render debug page when page-ipv-debug", async () => {
       req = {
+        id: "1",
         params: { pageId: "page-ipv-debug" },
         csrfToken: sinon.fake(),
         session: { currentPage: "page-ipv-debug" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -116,9 +125,11 @@ describe("journey middleware", () => {
 
     it("should render page case when given valid pageId", async () => {
       req = {
+        id: "1",
         params: { pageId: "page-ipv-identity-start" },
         csrfToken: sinon.fake(),
         session: { currentPage: "page-ipv-identity-start" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -127,8 +138,10 @@ describe("journey middleware", () => {
 
     it("should render technical error page when given invalid pageId", async () => {
       req = {
+        id: "1",
         params: { pageId: "../debug/page-ipv-debug" },
         session: { currentPage: "../debug/page-ipv-debug" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -137,8 +150,10 @@ describe("journey middleware", () => {
 
     it("should render unrecoverable technical error page when current page is not equal to pageId", async () => {
       req = {
+        id: "1",
         params: { pageId: "invalid-page-id" },
         session: { currentPage: "../debug/page-ipv-debug" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -192,8 +207,10 @@ describe("journey middleware", () => {
         },
       ];
       req = {
+        id: "1",
         url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       const callBack = sinon.stub();
@@ -229,7 +246,9 @@ describe("journey middleware", () => {
         },
       ];
       req = {
+        id: "1",
         session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
       await middleware.handleJourneyResponse(
         req,
@@ -259,7 +278,9 @@ describe("journey middleware", () => {
           },
         ];
         req = {
+          id: "1",
           session: { ipvSessionId: "ipv-session-id" },
+          log: { info: sinon.fake(), error: sinon.fake() },
         };
 
         const callBack = sinon.stub();
@@ -292,7 +313,9 @@ describe("journey middleware", () => {
       });
 
       req = {
+        id: "1",
         session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
     });
 
@@ -318,8 +341,10 @@ describe("journey middleware", () => {
       ];
 
       req = {
+        id: "1",
         url: "/journey/next",
         session: { ipvSessionId: "ipv-session-id" },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       const callBack = sinon.stub();
@@ -343,8 +368,10 @@ describe("journey middleware", () => {
     () => {
       it("should post with journey/end", async function () {
         req = {
+          id: "1",
           body: { journey: "end" },
           session: { ipvSessionId: "ipv-session-id" },
+          log: { info: sinon.fake(), error: sinon.fake() },
         };
 
         await middleware.handleJourneyAction(req, res, next);

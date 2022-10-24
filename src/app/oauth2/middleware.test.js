@@ -18,6 +18,7 @@ describe("oauth middleware", () => {
   beforeEach(() => {
     req = {
       session: {},
+      log: { info: sinon.fake(), error: sinon.fake() },
     };
 
     res = {

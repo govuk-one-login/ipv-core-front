@@ -7,6 +7,7 @@ const DynamoDBStore = require("connect-dynamodb")(session);
 const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 const { setup } = require("hmpo-app");
 const { getGTM } = require("./lib/locals");
+const { loggerMiddleware, logger } = require("./lib/logger");
 
 let sessionStore;
 
@@ -22,18 +23,6 @@ if (process.env.NODE_ENV !== "local") {
   });
 }
 
-const loggerConfig = {
-  console: true,
-  consoleJSON: true,
-  app: false,
-  requestMeta: {
-    ipvSessionId: "session.ipvSessionId",
-  },
-  meta: {
-    ipvSessionId: "session.ipvSessionId",
-  },
-};
-
 const sessionConfig = {
   cookieName: "ipv_core_service_session",
   secret: SESSION_SECRET,
@@ -43,7 +32,7 @@ const sessionConfig = {
 const { router } = setup({
   config: { APP_ROOT: __dirname },
   port: PORT,
-  logs: loggerConfig,
+  logs: { console: false, consoleJSON: false, app: false },
   session: sessionConfig,
   redis: !sessionStore,
   urls: {
@@ -61,7 +50,17 @@ const { router } = setup({
       req.headers["x-forwarded-proto"] = "https";
       next();
     });
+    app.use(loggerMiddleware);
   },
+});
+
+router.use((req, res, next) => {
+  req.log = logger.child({
+    requestId: req.id,
+    ipvSessionId: req.session?.ipvSessionId,
+    sessionId: req.session?.id,
+  });
+  next();
 });
 
 router.use(getGTM);

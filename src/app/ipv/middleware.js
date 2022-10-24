@@ -4,22 +4,34 @@ const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-const logger = require("hmpo-logger").get();
 
 const { generateAxiosConfig } = require("../shared/axiosHelper");
-const { transformError } = require("../shared/loggerHelper");
+const {
+  logError,
+  logCoreBackCall,
+  transformError,
+} = require("../shared/loggerHelper");
+const {
+  LOG_COMMUNICATION_TYPE_REQUEST,
+  LOG_TYPE_JOURNEY,
+  LOG_COMMUNICATION_TYPE_RESPONSE,
+  LOG_TYPE_CRI,
+  LOG_TYPE_CLIENT,
+  LOG_TYPE_PAGE,
+} = require("../shared/loggerConstants");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
     action = action.substr(1);
   }
 
-  logger.info("calling backend with action: :action", { req, action: action });
-  return axios.post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    generateAxiosConfig(req.session.ipvSessionId)
-  );
+  logCoreBackCall(req, {
+    logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
+    type: LOG_TYPE_JOURNEY,
+    path: action,
+  });
+
+  return axios.post(`${API_BASE_URL}/${action}`, {}, generateAxiosConfig(req));
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -29,12 +41,20 @@ async function handleJourneyResponse(req, res, action) {
 
 async function handleBackendResponse(req, res, backendResponse) {
   if (backendResponse?.journey) {
-    logger.info("journey response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_JOURNEY,
+      path: backendResponse.journey,
+    });
     return await handleJourneyResponse(req, res, backendResponse.journey);
   }
 
   if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
-    logger.info("cri response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_CRI,
+      path: req.cri,
+    });
     req.cri = backendResponse.cri;
     req.session.currentPage = req.cri.id;
     await buildCredentialIssuerRedirectURL(req, res);
@@ -45,14 +65,24 @@ async function handleBackendResponse(req, res, backendResponse) {
     backendResponse?.client &&
     tryValidateClientResponse(backendResponse.client)
   ) {
-    logger.info("client response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_CLIENT,
+      path: backendResponse.client,
+    });
+
     req.session.currentPage = "orchestrator";
     const { redirectUrl } = backendResponse.client;
     return res.redirect(redirectUrl);
   }
 
   if (backendResponse?.page) {
-    logger.info("page response received", { req, res });
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_PAGE,
+      path: backendResponse.page,
+      requestId: req.requestId,
+    });
     req.session.currentPage = backendResponse.page;
     return res.redirect(`/ipv/page/${backendResponse.page}`);
   }
@@ -84,19 +114,42 @@ module.exports = {
         return next(new Error("Debug operation not available"));
       }
 
-      const action = req.url;
-      //valid list of allowed actions for route
       const allowedActions = [
-        /^\/journey\/(next|error|fail)$/,
-        /^\/journey\/cri\/build-oauth-request\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|dcmaw|stubDcmaw|debugAddress)$/,
-        /^\/journey\/build-client-oauth-response$/,
-        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|dcmaw|stubDcmaw)$/,
+        "/journey/next",
+        "/journey/error",
+        "/journey/fail",
+        "/journey/cri/build-oauth-request/ukPassport",
+        "/journey/cri/build-oauth-request/stubUkPassport",
+        "/journey/cri/build-oauth-request/fraud",
+        "/journey/cri/build-oauth-request/stubFraud",
+        "/journey/cri/build-oauth-request/address",
+        "/journey/cri/build-oauth-request/stubAddress",
+        "/journey/cri/build-oauth-request/kbv",
+        "/journey/cri/build-oauth-request/stubKbv",
+        "/journey/cri/build-oauth-request/activityHistory",
+        "/journey/cri/build-oauth-request/stubActivityHistory",
+        "/journey/cri/build-oauth-request/dcmaw",
+        "/journey/cri/build-oauth-request/stubDcmaw",
+        "/journey/cri/build-oauth-request/debugAddress",
+        "/journey/build-client-oauth-response",
+        "/journey/cri/validate/ukPassport",
+        "/journey/cri/validate/stubUkPassport",
+        "/journey/cri/validate/fraud",
+        "/journey/cri/validate/stubFraud",
+        "/journey/cri/validate/address",
+        "/journey/cri/validate/stubAddress",
+        "/journey/cri/validate/kbv",
+        "/journey/cri/validate/stubKbv",
+        "/journey/cri/validate/dcmaw",
+        "/journey/cri/validate/stubDcmaw",
       ];
 
-      if (allowedActions.some((actionRegex) => actionRegex.test(action))) {
+      const action = allowedActions.find((x) => x === req.url);
+
+      if (action) {
         await handleJourneyResponse(req, res, action);
       } else {
-        next(new Error(`Action ${action} not valid`));
+        next(new Error(`Action ${req.url} not valid`));
       }
     } catch (error) {
       next(error);
@@ -106,14 +159,13 @@ module.exports = {
     try {
       const { pageId } = req.params;
       if (req.session.currentPage !== pageId) {
-        logger.error(
-          "page :pageId doesn't match expected session page :expectedPage",
+        logError(
+          req,
           {
-            req,
-            res,
             pageId: pageId,
             expectedPage: req.session.currentPage,
-          }
+          },
+          "page :pageId doesn't match expected session page :expectedPage"
         );
 
         req.session.currentPage = "pyi-technical-unrecoverable";

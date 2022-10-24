@@ -4,20 +4,19 @@ const {
   API_REQUEST_CONFIG_PATH,
   API_BUILD_DEBUG_CREDENTIAL_DATA_PATH,
 } = require("../../lib/config");
-const logger = require("hmpo-logger").get();
+const { transformError } = require("../shared/loggerHelper");
 
 module.exports = {
   setCriConfig: async (req, res, next) => {
     if (!req.session.criConfig) {
       try {
-        logger.info("calling cri config lambda", { req, res });
+        req.log.info("calling cri config lambda", { req, res });
         const apiResponse = await axios.get(
           `${API_BASE_URL}${API_REQUEST_CONFIG_PATH}`
         );
         req.session.criConfig = apiResponse.data;
       } catch (error) {
-        logger.error("error calling cri config lambda", { req, res, error });
-        res.error = error.name;
+        transformError(error, "error calling cri config lambda");
         return next(error);
       }
     }
@@ -26,7 +25,7 @@ module.exports = {
 
   getIssuedCredentials: async (req, res, next) => {
     try {
-      logger.info("calling build-debug-credential-data lambda", { req, res });
+      req.log.info("calling build-debug-credential-data lambda");
       const apiResponse = await axios.get(
         `${API_BASE_URL}${API_BUILD_DEBUG_CREDENTIAL_DATA_PATH}`,
         {
@@ -43,8 +42,7 @@ module.exports = {
 
       req.issuedCredentials = parsedResponse;
     } catch (error) {
-      logger.error("error fetching debug credential data", { req, res, error });
-      res.error = error.name;
+      transformError(error, "error fetching debug credential data");
       return next(error);
     }
     next();

@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const proxyquire = require("proxyquire");
+const sinon = require("sinon");
 
 describe("credential issuer middleware", () => {
   describe("sendParamsToAPI", function () {
@@ -27,6 +28,7 @@ describe("credential issuer middleware", () => {
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
+        id: "1",
         params: {},
         session: { ipvSessionId: "ipv-session-id" },
         query: {
@@ -34,6 +36,7 @@ describe("credential issuer middleware", () => {
           code: "authorize-code-issued",
           state: "oauth-state",
         },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
       res = {
         status: sinon.fake(),
@@ -65,6 +68,7 @@ describe("credential issuer middleware", () => {
           headers: {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
+            "x-request-id": "1",
           },
         })
       );
@@ -93,6 +97,7 @@ describe("credential issuer middleware", () => {
         expectedBody,
         sinon.match({
           headers: {
+            "x-request-id": "1",
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
           },
@@ -160,12 +165,14 @@ describe("credential issuer middleware", () => {
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
+        id: "1",
         params: { criId: "PassportIssuer" },
         session: { ipvSessionId: "ipv-session-id" },
         query: {
           code: "authorize-code-issued",
           state: "oauth-state",
         },
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
       res = {
         status: sinon.fake(),
@@ -197,6 +204,7 @@ describe("credential issuer middleware", () => {
           headers: {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
+            "x-request-id": "1",
           },
         })
       );
@@ -225,6 +233,7 @@ describe("credential issuer middleware", () => {
         expectedBody,
         sinon.match({
           headers: {
+            "x-request-id": "1",
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
           },

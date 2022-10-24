@@ -1,7 +1,7 @@
 const axios = require("axios");
-const { API_BASE_URL } = require("../../lib/config");
-const { transformError } = require("../shared/loggerHelper");
-const logger = require("hmpo-logger").get();
+const { API_BASE_URL, API_SESSION_INITIALISE } = require("../../lib/config");
+const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
+const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 
 module.exports = {
   setDebugJourneyType: (req, _res, next) => {
@@ -10,7 +10,7 @@ module.exports = {
   },
 
   setRealJourneyType: (req, res, next) => {
-    logger.info("starting real journey", { req, res });
+    req.log.info("starting real journey");
     req.session.isDebugJourney = false;
     next();
   },
@@ -34,14 +34,19 @@ module.exports = {
         return next(new Error("Client ID Missing"));
       }
 
-      logger.info("calling initialise-ipv-session lambda", { req, res });
+      logCoreBackCall(req, {
+        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
+        path: API_SESSION_INITIALISE,
+      });
+
       const response = await axios.post(
-        `${API_BASE_URL}/session/initialise`,
+        `${API_BASE_URL}${API_SESSION_INITIALISE}`,
         authParams
       );
+
       req.session.ipvSessionId = response?.data?.ipvSessionId;
     } catch (error) {
-      transformError(error, "error calling initialise-ipv-session lambda");
+      transformError(error, `error handling journey page: ${req.params}`);
       return next(error);
     }
 

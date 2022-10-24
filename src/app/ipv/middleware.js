@@ -114,19 +114,42 @@ module.exports = {
         return next(new Error("Debug operation not available"));
       }
 
-      const action = req.url;
-      //valid list of allowed actions for route
       const allowedActions = [
-        /^\/journey\/(next|error|fail)$/,
-        /^\/journey\/cri\/build-oauth-request\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|activityHistory|stubActivityHistory|dcmaw|stubDcmaw|debugAddress)$/,
-        /^\/journey\/build-client-oauth-response$/,
-        /^\/journey\/cri\/validate\/(ukPassport|stubUkPassport|fraud|stubFraud|address|stubAddress|kbv|stubKbv|dcmaw|stubDcmaw)$/,
+        "/journey/next",
+        "/journey/error",
+        "/journey/fail",
+        "/journey/cri/build-oauth-request/ukPassport",
+        "/journey/cri/build-oauth-request/stubUkPassport",
+        "/journey/cri/build-oauth-request/fraud",
+        "/journey/cri/build-oauth-request/stubFraud",
+        "/journey/cri/build-oauth-request/address",
+        "/journey/cri/build-oauth-request/stubAddress",
+        "/journey/cri/build-oauth-request/kbv",
+        "/journey/cri/build-oauth-request/stubKbv",
+        "/journey/cri/build-oauth-request/activityHistory",
+        "/journey/cri/build-oauth-request/stubActivityHistory",
+        "/journey/cri/build-oauth-request/dcmaw",
+        "/journey/cri/build-oauth-request/stubDcmaw",
+        "/journey/cri/build-oauth-request/debugAddress",
+        "/journey/build-client-oauth-response",
+        "/journey/cri/validate/ukPassport",
+        "/journey/cri/validate/stubUkPassport",
+        "/journey/cri/validate/fraud",
+        "/journey/cri/validate/stubFraud",
+        "/journey/cri/validate/address",
+        "/journey/cri/validate/stubAddress",
+        "/journey/cri/validate/kbv",
+        "/journey/cri/validate/stubKbv",
+        "/journey/cri/validate/dcmaw",
+        "/journey/cri/validate/stubDcmaw",
       ];
 
-      if (allowedActions.some((actionRegex) => actionRegex.test(action))) {
+      const action = allowedActions.find((x) => x === req.url);
+
+      if (action) {
         await handleJourneyResponse(req, res, action);
       } else {
-        next(new Error(`Action ${action} not valid`));
+        next(new Error(`Action ${req.url} not valid`));
       }
     } catch (error) {
       next(error);

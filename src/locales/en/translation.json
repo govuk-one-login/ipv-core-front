@@ -1,0 +1,235 @@
+{
+  "general": {
+    "buttons": {
+      "authorizeAndReturn": "Authorize And Return",
+      "next": "Continue",
+      "cancel": "Cancel",
+      "govUkHomepage": "Go to the GOV.UK homepage"
+    },
+    "govuk": {
+      "serviceNameTitle": "",
+      "backLink": "Back",
+      "errorSummaryTitle": "There’s is a problem",
+      "error": "Error",
+      "warning": "Warning",
+      "phaseBanner": {
+        "tag": "beta",
+        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">feedback (opens in new tab)</a>  will help us to improve it."
+      }
+    },
+    "cookie": {
+      "cookieBanner": {
+        "title": "Cookies on GOV.UK account",
+        "heading": "Cookies on GOV.UK account",
+        "paragraph1": "We use some essential cookies to make this service work.",
+        "paragraph2": "We’d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.",
+        "changeCookiePreferencesLink": "change your cookie settings",
+        "cookieBannerAccept": {
+          "paragraph1": "You’ve accepted additional cookies. You can ",
+          "paragraph2": " at any time."
+        },
+        "cookieBannerReject": {
+          "paragraph1": "You’ve rejected additional cookies. You can ",
+          "paragraph2": " at any time."
+        },
+        "buttonAcceptText": "Accept analytics cookies",
+        "buttonRejectText": "Reject analytics cookies",
+        "linkViewCookies": "View cookies",
+        "cookieBannerHideLink": "Hide this message"
+      } 
+    },
+    "header": {
+      "homepageHref": "https://www.gov.uk/"
+    },
+    "footer": {
+      "accessibilityStatement": {
+        "pageTitle": "Accessibility statement",
+        "linkText": "Accessibility statement"
+      },
+      "cookies": {
+        "pageTitle": "Cookie Policy",
+        "linkText": "Cookies"
+      },
+      "terms": {
+        "pageTitle": "Terms and conditions",
+        "linkText": "Terms and conditions"
+      },
+      "privacy": {
+        "pageTitle": "Privacy notice",
+        "linkText": "Privacy notice"
+      },
+      "support": {
+        "pageTitle": "Support",
+        "linkText": "Support (opens in new tab)"
+      },
+      "copyright": {
+        "linkText": "© Crown copyright"
+      },
+      "contentLicence": {
+        "linkText": "All content is available under the <a class=\"govuk-footer__link\" href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\" rel=\"licence\">Open Government Licence v3.0</a>, except where otherwise stated"
+      }
+    }
+  },
+  "error": {
+    "defaultError": {
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now.",
+        "subHeading": "What you can do",
+        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pageNotFound": {
+      "title": "Page not found",
+      "header": "Page not found",
+      "content": {
+        "paragraph1": "If you typed the web address, check it’s correct.",
+        "paragraph2": "If you pasted the web address, check you copied the entire address.",
+        "paragraph3": "You can also go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "sessionEnded": {
+      "title": "Session expired",
+      "header": "Session expired",
+      "content": {
+        "subHeading": "What you can do",
+        "paragraph1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    }
+  },
+  "pages": {
+    "pageIpvError": {
+      "title": "Error page",
+      "header": "Error page",
+      "content": {
+        "paragraph1": "An error has occurred."
+      }
+    },
+    "pyiNoMatch": {
+      "title": "Sorry, we cannot prove your identity right now",
+      "header": "Sorry, we cannot prove your identity right now",
+      "content": {
+        "paragraph1": "This might be because we could not match your details to information from another database.",
+        "paragraph2": "To keep your information safe, we cannot show which of your details we had trouble finding a match for.",
+        "paragraph3": "This could also be because you were unsuccessful when you’ve previously tried to prove your identity online.",
+        "subHeading": "What you can do",
+        "paragraph4": "Continue to the service you were trying to use and look for other ways to prove your identity.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pyiTechnical": {
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now.",
+        "subHeading": "What you can do",
+        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pyiTechnicalUnrecoverable": {
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now.",
+        "subHeading": "What you can do",
+        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pyiKbvFail": {
+      "title": "Sorry, we cannot prove your identity right now",
+      "header": "Sorry, we cannot prove your identity right now",
+      "content": {
+        "paragraph1": "This might be because you gave the wrong answer to some of the security questions.",
+        "paragraph2": "To keep your information safe, we cannot show which questions you answered incorrectly.",
+        "subHeading": "What you can do",
+        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pyiKbvThinFile": {
+      "title": "Sorry, we cannot prove your identity right now",
+      "header": "Sorry, we cannot prove your identity right now",
+      "content": {
+        "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
+        "paragraph2": "This means we cannot ask you the number of questions that we’d need to be sure that you are who you say you are.",
+        "subHeading": "What would you like to do?",
+        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      }
+    },
+    "pageIpvIdentityStart": {
+      "title": "You’ve signed in to your GOV.UK account",
+      "header": "You’ve signed in to your GOV.UK account",
+      "content": {
+        "paragraph1": "You can now continue to prove your identity."
+      }
+    },
+    "pagePreKbvTransition": {
+      "title": "Answer security questions",
+      "header": "Answer security questions",
+      "content": {
+        "paragraph1": "We’ll ask you some security questions that only you should know the answers to. This will help us stop anyone else who might have your details from pretending to be you.",
+        "paragraph2": "The questions will be about things like your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.",
+        "paragraph3": "We will not keep your answers."
+      },
+      "warningTextContent": "Try to answer these questions as accurately as you can. You will not be able to change your answers if you make a mistake.",
+      "warningTextFallback": "Warning",
+      "summaryText": "How we know what questions to ask you",
+      "summaryHtml": "We’ll work with <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.<br><br><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity."
+    },
+    "pageDcmawSuccess": {
+      "title": "We’ve successfully matched you to the photo on your ID",
+      "header": "We’ve successfully matched you to the photo on your ID",
+      "content": {
+        "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
+      }
+    },
+    "pagePassportDocCheck": {
+      "title": "Enter your passport details and answer security questions",
+      "header": "Enter your passport details and answer security questions",
+      "content": {
+        "paragraph1": "To prove your identity this way, you’ll need:",
+        "bullet1": "your UK passport details (including your name, passport number and the date your passport expires)",
+        "bullet2": "your current home address (you might also need your previous address if you’ve recently moved)",
+        "bullet3": "to answer some questions that only you should know the answers to",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "continueButtonText": "Continue to prove your identity this way",
+          "continueButtonHint": "You’ll need a UK passport",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonHint": "You can prove your identity online with GOV.UK Verify or take your identity documents to be checked in person."
+        }
+      }
+    },
+    "pageIpvSuccess": {
+      "title": "You’ve successfully proved your identity",
+      "header": "You’ve successfully proved your identity",
+      "content": {
+        "paragraph1": "Now continue to use the <strong>Request a basic DBS check</strong> service.",
+        "paragraph2": "Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service"
+      }
+    }
+  }
+}

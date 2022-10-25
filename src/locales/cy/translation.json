@@ -1,0 +1,230 @@
+{
+  "general": {
+    "buttons": {
+      "authorizeAndReturn": "Awdurdodi a Dychwelyd",
+      "next": "Parhau",
+      "cancel": "Canslo",
+      "govUkHomepage": " Ewch i hafan GOV.UK"
+    },
+    "govuk": {
+      "serviceNameTitle": "",
+      "backLink": "Yn ôl",
+      "errorSummaryTitle": "Mae problem",
+      "error": "Gwall",
+      "warning": "Rhybudd",
+      "phaseBanner": {
+        "tag": "beta",
+        "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
+      }
+    },
+    "cookie": {
+      "cookieBanner": {
+        "title": " Cwcis ar gyfrif GOV.UK",
+        "heading": "Cwcis ar gyfrif GOV.UK",
+        "paragraph1": "Rydym yn defnyddio rhai cwcis hanfodol i wneud i’r gwasanaeth hwn weithio.",
+        "paragraph2": "Hoffem osod cwcis ychwanegol er mwyn i ni allu cofio eich gosodiadau, deall sut rydych yn defnyddio’r gwasanaeth a gwneud gwelliannau.",
+        "changeCookiePreferencesLink": "newid eich gosodiadau cwcis",
+        "cookieBannerAccept": {
+          "paragraph1": "newid eich gosodiadau cwcis",
+          "paragraph2": " unrhyw bryd."
+        },
+        "cookieBannerReject": {
+          "paragraph1": "Rydych wedi gwrthod cwcis ychwanegol. Gallwch ",
+          "paragraph2": " unrhyw bryd."
+        },
+        "buttonAcceptText": "Derbyn cwcis dadansoddi",
+        "buttonRejectText": "Gwrthod cwcis dadansoddi",
+        "linkViewCookies": "Gweld cwcis",
+        "cookieBannerHideLink": "Cuddio’r neges yma"
+      } 
+    },
+    "header": {
+      "homepageHref": "https://www.gov.uk/"
+    },
+    "footer": {
+      "accessibilityStatement": {
+        "linkText": "Datganiad hygyrchedd"
+      },
+      "cookies": {
+        "linkText": "Cwcis"
+      },
+      "terms": {
+        "linkText": "Telerau ac amodau"
+      },
+      "privacy": {
+        "linkText": "Hysbysiad preifatrwydd"
+      },
+      "support": {
+        "linkText": "Cymorth"
+      },
+      "copyright": {
+        "linkText": "© Hawlfraint y goron"
+      },
+      "contentLicence": {
+        "linkText": "Mae’r holl gynnwys ar gael o dan <a class=\"govuk-footer__link\" href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\">Trwydded Llywodraeth Agored v3.0</a>, oni nodir yn wahanol"
+      }
+    }
+  },
+  "error": {
+    "defaultError": {
+      "title": "Mae’n ddrwg gennym, mae problem",
+      "header": "Mae’n ddrwg gennym, mae problem",
+      "content": {
+        "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pageNotFound": {
+      "title": "Tudalen heb ei darganfod",
+      "header": "Tudalen heb ei darganfod",
+      "content": {
+        "paragraph1": "Os ydych wedi teipio’r cyfeiriad gwe, edrychwch i weld ei fod yn gywir.",
+        "paragraph2": "Os ydych wedi gludo’r cyfeiriad gwe, edrychwch i weld eich bod wedi copïo’r cyfeiriad cyfan.",
+        "paragraph3": "Gallwch hefyd fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "sessionEnded": {
+      "title": "Sesiwn wedi dod i ben",
+      "header": "Sesiwn wedi dod i ben",
+      "content": {
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    }
+  },
+  "pages": {
+    "pageIpvError": {
+      "title": "Tudalen gwall",
+      "header": "Tudalen gwall",
+      "content": {
+        "paragraph1": "Mae gwall wedi digwydd."
+      }
+    },
+    "pyiNoMatch": {
+      "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "content": {
+        "paragraph1": "Efallai bod hyn oherwydd nad oeddem yn gallu paru eich manylion i wybodaeth o gronfa ddata arall.",
+        "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddangos pa un o’ch manylion y cawsom drafferth ei baru.",
+        "paragraph3": "Gallai hyn hefyd fod oherwydd eich bod yn aflwyddiannus pan rydych wedi ceisio profi pwy ydych chi ar-lein yn y gorffennol.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph4": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pyiTechnical": {
+      "title": "Mae’n ddrwg gennym, mae problem",
+      "header": "Mae’n ddrwg gennym, mae problem",
+      "content": {
+        "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pyiTechnicalUnrecoverable": {
+      "title": "Mae’n ddrwg gennym, mae problem",
+      "header": "Mae’n ddrwg gennym, mae problem",
+      "content": {
+        "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
+        "govUKHomepageButtonHref": "https://www.gov.uk/",
+        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pyiKbvFail": {
+      "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "content": {
+        "paragraph1": "Efallai mai’r rheswm am hyn yw eich bod wedi rhoi’r ateb anghywir i rai o’r cwestiynau diogelwch.",
+        "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddangos pa gwestiynau yr ateboch yn anghywir.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pyiKbvThinFile": {
+      "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
+      "content": {
+        "paragraph1": "Mae ein cwestiynau diogelwch yn seiliedig ar wybodaeth sy’n cael ei gadw gan sefydliad arall. Nid oes gan y sefydliad hwn lawer o wybodaeth amdanoch chi.",
+        "paragraph2": "Mae hyn yn golygu na allwn ofyn i chi’r nifer o gwestiynau y byddai angen i ni fod yn sicr mai chi yw pwy rydych yn ei ddweud ydych chi.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
+        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+      }
+    },
+    "pageIpvIdentityStart": {
+      "title": "Rydych wedi mewngofnodi i’ch cyfrif GOV.UK",
+      "header": "Rydych wedi mewngofnodi i’ch cyfrif GOV.UK",
+      "content": {
+        "paragraph1": "Gallwch nawr barhau i brofi pwy ydych chi."
+      }
+    },
+    "pagePreKbvTransition": {
+      "title": "Ateb cwestiynau diogelwch",
+      "header": "Ateb cwestiynau diogelwch",
+      "content": {
+        "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt. Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph2": "Bydd y cwestiynau’n ymwneud â phethau fel eich contract ffôn symudol, cyfrif banc, ac unrhyw gardiau credyd, benthyciadau neu forgeisi sydd gennych.",
+        "paragraph3": "Ni fyddwn yn cadw eich atebion."
+      },
+      "warningTextContent": "Ceisiwch ateb y cwestiynau hyn mor gywir ag y gallwch. Ni fyddwch yn gallu newid eich atebion os gwnewch gamgymeriad.",
+      "warningTextFallback": "Rhybudd",
+      "summaryText": "Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi",
+      "summaryHtml": "Byddwn yn gweithio gyda <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a>  i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.<br><br><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi."
+    },
+    "pageDcmawSuccess": {
+      "title": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "content": {
+        "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
+      }
+    },
+    "pagePassportDocCheck": {
+      "title": "Rhowch fanylion eich pasbort ac atebwch y cwestiynau diogelwch",
+      "header": "Rhowch fanylion eich pasbort ac atebwch y cwestiynau diogelwch",
+      "content": {
+        "paragraph1": "I brofi pwy ydych chi yn y ffordd hyn, byddwch angen:",
+        "bullet1": "manylion eich pasbort y DU (gan gynnwys eich enw, rhif pasbort a’r dyddiad mae eich pasbort yn dod i ben)",
+        "bullet2": "cyfeiriad eich cartref presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)",
+        "bullet3": "ateb rhai cwestiynau mai dim ond chi ddylai wybod yr atebion iddynt",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueButtonText": "Parhau i brofi pwy ydych chi yn y ffordd hyn",
+          "continueButtonHint": "Byddwch angen pasbort y DU",
+          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall",
+          "otherWayButtonHint": "Gallwch brofi pwy ydych chi ar-lein gyda GOV.UK Verify neu gymryd eich dogfennau hunaniaeth i’w gwirio’n bersonol."
+        }
+      }
+    },
+    "pageIpvSuccess": {
+      "title": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
+      "header": "You’ve successfully proved your identity",
+      "content": {
+        "paragraph1": "Nawr ewch yn eich blaen i ddefnyddio’r gwasanaeth <strong>Gwneud cais am DBS sylfaenol</strong>.",
+        "paragraph2": "Efallai bydd rhywfaint o’r wybodaeth rydych eisoes wedi ei rhannu pan wnaethoch brofi pwy ydych chi yn cael ei defnyddio i lenwi ffurflenni o fewn y gwasanaeth yn awtomatig."
+      }
+    }
+  }
+}

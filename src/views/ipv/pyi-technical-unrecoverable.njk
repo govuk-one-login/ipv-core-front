@@ -1,0 +1,18 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiTechnicalUnrecoverable.title' | translate %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{'pages.pyiTechnicalUnrecoverable.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiTechnicalUnrecoverable.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiTechnicalUnrecoverable.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiTechnicalUnrecoverable.content.paragraph2' | translate }}</p>
+
+  {{ govukButton({
+    "text": button_text|default('pages.pyiTechnicalUnrecoverable.content.govUKHomepageButtonText' | translate, true),
+    "type": "Submit",
+    "href": 'pages.pyiTechnicalUnrecoverable.content.govUKHomepageButtonHref' | translate
+  }) }}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'pages.pyiTechnicalUnrecoverable.content.contactLinkHref' | translate }}" class="govuk-link">{{'pages.pyiTechnicalUnrecoverable.content.contactLinkText' | translate }}</a></p>
+{% endblock %}

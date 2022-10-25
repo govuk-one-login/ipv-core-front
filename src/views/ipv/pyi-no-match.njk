@@ -1,0 +1,16 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiNoMatch.title' | translate %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{'pages.pyiNoMatch.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph3' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph4' | translate }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'pages.pyiNoMatch.content.contactLinkHref' | translate }}" class="govuk-link">{{'pages.pyiNoMatch.content.contactLinkText' | translate }}</a></p>
+{% endblock %}

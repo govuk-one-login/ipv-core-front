@@ -1,0 +1,15 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiKbvFail.title' | translate %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{'pages.pyiKbvFail.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiKbvFail.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{'pages.pyiKbvFail.content.paragraph2' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiKbvFail.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiKbvFail.content.paragraph3' | translate }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'pages.pyiKbvFail.content.contactLinkHref' | translate }}" class="govuk-link">{{'pages.pyiKbvFail.content.contactLinkText' | translate }}</a></p>
+{% endblock %}

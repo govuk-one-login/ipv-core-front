@@ -14,6 +14,10 @@ const { configureNunjucks } = require("./config/nunjucks");
 const csurf = require("csurf");
 const cookieParser = require("cookie-parser");
 const { getCSRFCookieOptions } = require("./config/cookie");
+const i18next = require("i18next");
+const Backend = require("i18next-fs-backend");
+const i18nextMiddleware = require("i18next-http-middleware");
+const { i18nextConfigurationOptions } = require("./config/i18next");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),
@@ -50,8 +54,21 @@ app.use(
   "/assets",
   express.static(path.resolve("node_modules/govuk-frontend/govuk/assets"))
 );
-app.use("/public", express.static(path.join(__dirname, "public")));
-app.set("view engine", configureNunjucks(app, "views"));
+
+app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+
+app.set("view engine", configureNunjucks(app, APP_VIEWS));
+
+i18next
+  .use(Backend)
+  .use(i18nextMiddleware.LanguageDetector)
+  .init(
+    i18nextConfigurationOptions(
+      path.join(__dirname, "locales/{{lng}}/{{ns}}.json")
+    )
+  );
+
+app.use(i18nextMiddleware.handle(i18next));
 
 app.use(
   session({
@@ -86,8 +103,14 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  return res.render(`ipv/page-ipv-success`);
+  return res.render(`ipv/page-pre-kbv-transition.njk`);
 });
+
+router.use(getGTM);
+router.use("/oauth2", require("./app/oauth2/router"));
+router.use("/credential-issuer", require("./app/credential-issuer/router"));
+router.use("/debug", require("./app/debug/router"));
+router.use("/ipv", require("./app/ipv/router"));
 
 app.use(router);
 

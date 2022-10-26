@@ -59,6 +59,17 @@ Mappings:
       desiredTaskCount: 2
     "075701497069": # Production
       desiredTaskCount: 2
+  EnvironmentConfiguration:
+    "130355686670": # Development
+      gw500ErrorLimit: 1
+    "457601271792": # Build
+      gw500ErrorLimit: 1
+    "335257547869": # Staging
+      gw500ErrorLimit: 1
+    "991138514218": # Integration
+      gw500ErrorLimit: 1
+    "075701497069": # Production
+      gw500ErrorLimit: 1
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -592,6 +603,38 @@ Resources:
         # checkov:skip=CKV_AWS_119: Implement Customer Managed Keys in PYIC-1391
         SSEEnabled: true
         SSEType: KMS
+
+  CoreApiGw5xxErrors:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: ExternalApiGateWay5xxAlarm
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: []
+      EvaluationPeriods: 3
+      DatapointsToAlarm: 3
+      Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, gw500ErrorLimit ]
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: Sum-of-5xx-Errors
+          ReturnData: true
+          Expression: SUM(METRICS())
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: 5XXError
+              Dimensions:
+                - Name: ApiName
+                  Value: !Sub IPV Core External API Gateway ${Environment}
+            Period: 300
+            Stat: Sum
 
 Outputs:
   CoreFrontUrl:

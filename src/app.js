@@ -112,12 +112,15 @@ router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/debug", require("./app/debug/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
+router.get("/healthcheck", (req, res, next) => {
+  return res.status(200).send("OK");
+});
+
 app.use(router);
 
-const port = 3000;
 app
-  .listen(port, () => {
-    logger.info(`Server listening on port ${port}`);
+  .listen(PORT, () => {
+    logger.info(`Server listening on port ${PORT}`);
     app.emit("appStarted");
   })
   .on("error", (error) => {
@@ -163,3 +166,4 @@ app
 // router.use("/credential-issuer", require("./app/credential-issuer/router"));
 // router.use("/debug", require("./app/debug/router"));
 // router.use("/ipv", require("./app/ipv/router"));
+module.exports = app;

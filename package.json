@@ -14,7 +14,7 @@
     "build": "yarn minfiy-build-front-end-gov-js && yarn build-sass && yarn copy-locales",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-locales": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ ",
-    "minfiy-build-front-end-gov-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js node_modules/hmpo-components/all.js src/assets/javascript/application.js -o dist/public/javascripts/application.js -c -m ",
+    "minfiy-build-front-end-gov-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js -o dist/public/javascripts/application.js -c -m ",
     "lint": "prettier --check src test && eslint .",
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",

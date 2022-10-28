@@ -104,7 +104,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
-app.use(csurf({ cookie: getCSRFCookieOptions(true) }));
+//app.use(csurf({ cookie: getCSRFCookieOptions(true) }));
 
 const router = express.Router();
 

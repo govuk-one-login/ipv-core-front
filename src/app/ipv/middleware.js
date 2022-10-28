@@ -193,7 +193,7 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         default:
-          return res.render(`ipv/pyi-technical`);
+          return res.render(`ipv/pyi-technical.njk`);
       }
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);

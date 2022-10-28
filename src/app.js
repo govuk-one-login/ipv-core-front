@@ -47,9 +47,15 @@ const sessionConfig = {
 const app = express();
 
 app.enable("trust proxy");
+app.use(function (req, res, next) {
+  req.headers["x-forwarded-proto"] = "https";
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(loggerMiddleware);
+
 app.use(
   "/assets",
   express.static(path.resolve("node_modules/govuk-frontend/govuk/assets"))
@@ -75,18 +81,27 @@ app.use(
     name: "ipv_core_service_session",
     store: sessionStore,
     saveUninitialized: false,
-    secret: SESSION_SECRET,
+    secret: SESSION_SECRET ? SESSION_SECRET : "Ipv123",
     unset: "destroy",
     resave: false,
     cookie: {
       name: "ipv_core_service_session",
       maxAge: 720000,
-      secret: SESSION_SECRET,
+      secret: SESSION_SECRET ? SESSION_SECRET : "Ipv123",
       signed: true,
-      secure: true,
+      secure: "auto",
     },
   })
 );
+
+app.use((req, res, next) => {
+  req.log = logger.child({
+    requestId: req.id,
+    ipvSessionId: req.session?.ipvSessionId,
+    sessionId: req.session?.id,
+  });
+  next();
+});
 
 app.use(cookieParser());
 app.use(csurf({ cookie: getCSRFCookieOptions(true) }));

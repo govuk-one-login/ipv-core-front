@@ -94,36 +94,6 @@ Resources:
       FromPort: 8080
       ToPort: 8080
 
-  # Security Groups for the ECS service and load balancer
-  # Deprecated will be removed once migrated to new vpc
-  LoadBalancerSG:
-    Type: "AWS::EC2::SecurityGroup"
-    Properties:
-      GroupDescription: >-
-        Core Front LoadBalancer Security Group
-      SecurityGroupIngress:
-        - CidrIp:
-            Fn::ImportValue: CoreVPCCIDR
-          Description: Allow vpc cidr ingress to port 80
-          FromPort: 80
-          IpProtocol: tcp
-          ToPort: 80
-      VpcId:
-        Fn::ImportValue: !Sub networking-${Environment}-VpcId
-
-  # Deprecated will be removed once migrated to new vpc
-  LoadBalancerSGEgressToECSSecurityGroup:
-    Type: "AWS::EC2::SecurityGroupEgress"
-    Properties:
-      GroupId: !GetAtt LoadBalancerSG.GroupId
-      IpProtocol: tcp
-      Description: >-
-        Egress between the Core Front load balancer and
-        the core front ECS security group
-      DestinationSecurityGroupId: !GetAtt ECSSecurityGroup.GroupId
-      FromPort: 8080
-      ToPort: 8080
-
   CoreFrontECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -169,44 +139,6 @@ Resources:
       ToPort: 8080
       GroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
       SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
-
-  # Deprecated will be removed when vpc migration is complete
-  ECSSecurityGroup:
-    Type: "AWS::EC2::SecurityGroup"
-    Properties:
-      GroupDescription: >-
-        Core Front ECS Security Group outbound permissions ruleset
-      SecurityGroupEgress:
-        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, dynamodb]
-          Description: Allow outbound traffic to dynamodb vpc endpoint
-          IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-        - DestinationPrefixListId: !FindInMap [SecurityGroups, PrefixListIds, s3]
-          Description: Allow outbound traffic to s3 vpc endpoint
-          IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-        - DestinationSecurityGroupId: !ImportValue InterfaceVpcEndpointSecurityGroupId
-          Description: Allow outbound traffic to Interface vpc endpoint security group
-          IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-      VpcId:
-        Fn::ImportValue: !Sub networking-${Environment}-VpcId
-
-  # Deprecated will be removed when vpc migration is complete
-  ECSSecurityGroupIngressFromLoadBalancer:
-    Type: "AWS::EC2::SecurityGroupIngress"
-    Properties:
-      IpProtocol: tcp
-      Description: >-
-        Core Front ECS permits inbound from the Core Front
-        load balancer.
-      FromPort: 8080
-      ToPort: 8080
-      GroupId: !GetAtt ECSSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt LoadBalancerSG.GroupId
 
   AccessLogsBucket:
     Type: AWS::S3::Bucket
@@ -328,70 +260,6 @@ Resources:
       Port: 80
       Protocol: HTTP
 
-  # Private Application Load Balancer - deprecated (will be removed once migrated to new vpc)
-  LoadBalancer:
-    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
-    Properties:
-      Scheme: internal
-      SecurityGroups:
-        - !GetAtt LoadBalancerSG.GroupId
-      Subnets:
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdC
-      Type: application
-      #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
-      LoadBalancerAttributes:
-        - Key: routing.http.drop_invalid_header_fields.enabled
-          Value: true
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.enabled
-            Value: true
-          - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.bucket
-            Value: !Ref AccessLogsBucket
-          - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.prefix
-            Value: !Sub core-front-${Environment}
-          - !Ref AWS::NoValue
-    DependsOn: CoreFrontAccessLogsBucketPolicy
-
-  # Deprecated will be removed once migrated to new vpc
-  LoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
-    Properties:
-      HealthCheckEnabled: TRUE
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId:
-        Fn::ImportValue: !Sub networking-${Environment}-VpcId
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 60
-
-  # Deprecated will be removed once migrated to new vpc
-  LoadBalancerListener:
-    Type: "AWS::ElasticLoadBalancingV2::Listener"
-    Properties:
-      # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
-      # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
-      DefaultActions:
-        - TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
-          Type: forward
-      LoadBalancerArn: !Ref LoadBalancer
-      Port: 80
-      Protocol: HTTP
-
   # ECS cluster, service and task definition
   CoreFrontCluster:
     Type: "AWS::ECS::Cluster"
@@ -434,52 +302,6 @@ Resources:
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - PrivateLoadBalancerListener
-
-  # ECS cluster, service and task definition
-  # Deprecated will be removed once migrated to new vpc
-  CoreFrontEcsCluster:
-    Type: "AWS::ECS::Cluster"
-    Properties:
-      ClusterSettings:
-        - Name: containerInsights
-          Value: enabled
-
-  # Deprecated will be removed once migrated to new vpc
-  CoreFrontEcsService:
-    Type: "AWS::ECS::Service"
-    Properties:
-      Cluster: !Ref CoreFrontEcsCluster
-      DeploymentConfiguration:
-        MaximumPercent: 200
-        MinimumHealthyPercent: 50
-        DeploymentCircuitBreaker:
-          Enable: true
-          Rollback: true
-      DeploymentController:
-        Type: ECS
-      DesiredCount: !FindInMap
-        - EcsConfiguration
-        - !Ref AWS::AccountId
-        - desiredTaskCount
-      EnableECSManagedTags: false
-      HealthCheckGracePeriodSeconds: 60
-      LaunchType: FARGATE
-      LoadBalancers:
-        - ContainerName: app
-          ContainerPort: 8080
-          TargetGroupArn: !Ref LoadBalancerListenerTargetGroupECS
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          AssignPublicIp: DISABLED
-          SecurityGroups:
-            - !GetAtt ECSSecurityGroup.GroupId
-          Subnets:
-            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdA
-            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdB
-            - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdC
-      TaskDefinition: !Ref ECSServiceTaskDefinition
-    DependsOn:
-      - LoadBalancerListener
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
@@ -647,20 +469,6 @@ Resources:
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
-
-  # Create the VPC Link to join the API Gateway to the
-  # private Load Balancer in front of Core Front ECS
-  # Service.
-  # This is deprecated - VPC Link moved to the ip dev platform vpc
-  VpcLink:
-    Type: "AWS::ApiGatewayV2::VpcLink"
-    Properties:
-      Name: ApiGwVpcLinkToLoadBalancer
-      SubnetIds:
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdB
-        - Fn::ImportValue: !Sub networking-${Environment}-PrivateSubnetIdC
-      SecurityGroupIds: []
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"

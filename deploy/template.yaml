@@ -59,6 +59,32 @@ Mappings:
       desiredTaskCount: 2
     "075701497069": # Production
       desiredTaskCount: 2
+  EnvironmentConfiguration:
+    "130355686670": # Development
+      lb500ErrorLimit: 1
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 10
+      tg500ErrorWindow: 300
+    "457601271792": # Build
+      lb500ErrorLimit: 1
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 10
+      tg500ErrorWindow: 300
+    "335257547869": # Staging
+      lb500ErrorLimit: 1
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 10
+      tg500ErrorWindow: 300
+    "991138514218": # Integration
+      lb500ErrorLimit: 1
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 10
+      tg500ErrorWindow: 300
+    "075701497069": # Production
+      lb500ErrorLimit: 2
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 30
+      tg500ErrorWindow: 300
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -624,6 +650,70 @@ Resources:
                 "kms:ViaService":
                   - "dynamodb.amazonaws.com"
                   - "ecs-tasks.amazonaws.com"
+
+  FrontLoadBalancer5xxErrors:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: FrontLoadBalancer5xxAlarm
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: []
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: Sum-of-5xx-Errors
+          ReturnData: true
+          Expression: SUM(METRICS())
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: HTTPCode_ELB_5XX_Count
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorWindow ]
+            Stat: Sum
+
+  FrontTargetGroup5xxErrors:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: FrontTargetGroup5xxAlarm
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: [ ]
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorLimit ]
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: Sum-of-5xx-Errors
+          ReturnData: true
+          Expression: SUM(METRICS())
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: HTTPCode_Target_5XX_Count
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
+            Stat: Sum
 
 Outputs:
   CoreFrontUrl:

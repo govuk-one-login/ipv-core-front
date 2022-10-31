@@ -679,7 +679,7 @@ Resources:
               MetricName: HTTPCode_ELB_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorWindow ]
             Stat: Sum
 
@@ -711,7 +711,7 @@ Resources:
               MetricName: HTTPCode_Target_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 

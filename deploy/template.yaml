@@ -32,12 +32,15 @@ Parameters:
     Default: "none"
 
 Conditions:
-  IsNotDevelopment: !Or
-    - !Equals [!Ref Environment, build]
-    - !Equals [!Ref Environment, staging]
-    - !Equals [!Ref Environment, integration]
-    - !Equals [!Ref Environment, production]
+  IsDevelopment: !Not
+    - !Or
+      - !Equals [ !Ref Environment, "build"]
+      - !Equals [ !Ref Environment, "staging"]
+      - !Equals [ !Ref Environment, "integration"]
+      - !Equals [ !Ref Environment, "production"]
+  IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
+
   UsePermissionsBoundary:
     Fn::Not:
       - Fn::Equals:
@@ -493,6 +496,22 @@ Resources:
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
 
+  # Create the VPC Link to join the API Gateway to the
+  # private Load Balancer in front of Core Front ECS
+  # Service.
+  # VPC Link moved to the ip dev platform vpc
+  # This is only used for the dev environment
+  VpcLink:
+    Type: "AWS::ApiGatewayV2::VpcLink"
+    Condition: IsDevelopment
+    Properties:
+      Name: ApiGwVpcLinkToLoadBalancer
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
+      SecurityGroupIds: []
+
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
     Properties:
@@ -504,8 +523,10 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+      ConnectionId: !If
+        - IsDevelopment
+        - !Ref VpcLink
+        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref PrivateLoadBalancerListener
@@ -637,6 +658,7 @@ Resources:
 
   FrontLoadBalancer5xxErrors:
     Type: AWS::CloudWatch::Alarm
+    Condition: IsNotDevelopment
     Properties:
       AlarmName: FrontLoadBalancer5xxAlarm
       ActionsEnabled: true
@@ -669,6 +691,7 @@ Resources:
 
   FrontTargetGroup5xxErrors:
     Type: AWS::CloudWatch::Alarm
+    Condition: IsNotDevelopment
     Properties:
       AlarmName: FrontTargetGroup5xxAlarm
       ActionsEnabled: true

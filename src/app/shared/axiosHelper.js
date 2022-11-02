@@ -5,6 +5,7 @@ module.exports = {
         "Content-Type": "application/x-www-form-urlencoded",
         "ipv-session-id": req.session.ipvSessionId,
         "x-request-id": req.id,
+        "ip-address": req.session.ipAddress,
       },
     };
   },
@@ -14,6 +15,7 @@ module.exports = {
         "Content-Type": "application/json",
         "ipv-session-id": req.session.ipvSessionId,
         "x-request-id": req.id,
+        "ip-address": req.session.ipAddress,
       },
     };
   },

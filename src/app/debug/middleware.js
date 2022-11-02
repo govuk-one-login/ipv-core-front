@@ -31,6 +31,7 @@ module.exports = {
         {
           headers: {
             "ipv-session-id": req.session.ipvSessionId,
+            "ip-address": req.session.ipAddress,
           },
         }
       );

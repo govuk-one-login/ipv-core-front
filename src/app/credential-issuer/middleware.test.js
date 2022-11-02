@@ -30,7 +30,7 @@ describe("credential issuer middleware", () => {
       req = {
         id: "1",
         params: {},
-        session: { ipvSessionId: "ipv-session-id" },
+        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
         query: {
           id: "PassportIssuer",
           code: "authorize-code-issued",
@@ -50,6 +50,7 @@ describe("credential issuer middleware", () => {
 
     it("should call axios with correct parameters", async () => {
       req.session.ipvSessionId = "abadcafe";
+      req.session.ipAddress = "ip-address";
       axiosStub.post = sinon.fake();
 
       const expectedBody = {
@@ -69,6 +70,7 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
             "x-request-id": "1",
+            "ip-address": "ip-address",
           },
         })
       );
@@ -76,6 +78,7 @@ describe("credential issuer middleware", () => {
 
     it("should add error parameters if they exist", async () => {
       req.session.ipvSessionId = "abadcafe";
+      req.session.ipAddress = "ip-address";
       axiosStub.post = sinon.fake();
 
       req.query.error = "access_denied";
@@ -100,6 +103,7 @@ describe("credential issuer middleware", () => {
             "x-request-id": "1",
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
+            "ip-address": "ip-address",
           },
         })
       );
@@ -167,7 +171,7 @@ describe("credential issuer middleware", () => {
       req = {
         id: "1",
         params: { criId: "PassportIssuer" },
-        session: { ipvSessionId: "ipv-session-id" },
+        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
         query: {
           code: "authorize-code-issued",
           state: "oauth-state",
@@ -186,6 +190,7 @@ describe("credential issuer middleware", () => {
 
     it("should call axios with correct parameters", async () => {
       req.session.ipvSessionId = "abadcafe";
+      req.session.ipAddress = "ip-address";
       axiosStub.post = sinon.fake();
 
       const expectedBody = {
@@ -205,6 +210,7 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
             "x-request-id": "1",
+            "ip-address": "ip-address",
           },
         })
       );
@@ -212,6 +218,7 @@ describe("credential issuer middleware", () => {
 
     it("should add error parameters if they exist", async () => {
       req.session.ipvSessionId = "abadcafe";
+      req.session.ipAddress = "ip-address";
       axiosStub.post = sinon.fake();
 
       req.query.error = "access_denied";
@@ -236,6 +243,7 @@ describe("credential issuer middleware", () => {
             "x-request-id": "1",
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
+            "ip-address": "ip-address",
           },
         })
       );

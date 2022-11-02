@@ -15,6 +15,16 @@ module.exports = {
     next();
   },
 
+  setIpAddress: (req, res, next) => {
+    if (req.headers && req.headers["forwarded"]) {
+      const ipAddress = req.headers["forwarded"].split(";")[0].split("=")[1];
+      req.session.ipAddress = ipAddress || "unknown";
+    } else {
+      req.session.ipAddress = "unknown";
+    }
+    next();
+  },
+
   setIpvSessionId: async (req, res, next) => {
     try {
       const authParams = {
@@ -41,7 +51,8 @@ module.exports = {
 
       const response = await axios.post(
         `${API_BASE_URL}${API_SESSION_INITIALISE}`,
-        authParams
+        authParams,
+        { headers: { "ip-address": req.session.ipAddress } }
       );
 
       req.session.ipvSessionId = response?.data?.ipvSessionId;

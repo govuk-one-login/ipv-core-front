@@ -15,142 +15,140 @@
 {% endblock %}
 
 {% block main %}
-<div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
-        <table class="govuk-table">
-          <caption class="govuk-table__caption govuk-table__caption--m"></caption>
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">Credential Issuers</th>
-              <th scope="col" class="govuk-table__header"></th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            {% for cri in criConfig %}
-              <tr class="govuk-table__row">
-                <th scope="row" class="govuk-table__header">
-                  <a id="cri-link-{{ cri.id }}" class="govuk-heading-s" href="/ipv/journey/cri/build-oauth-request/{{ cri.id }}">{{cri.name}}</a>
-                </th>
-                <td class="govuk-table__cell">
-                  {% if issuedCredentials[cri.id] %}
-                    {% set issuedCredential = issuedCredentials[cri.id] %}
+  {% macro criDisplay(cris, issuedCredentials) %}
+    {% for cri in cris %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <a id="cri-link-{{ cri.id }}" class="govuk-heading-s" href="/ipv/journey/cri/build-oauth-request/{{ cri.id }}">{{cri.name}}</a>
+          </dt>
+          {% if issuedCredentials[cri.id] %}
+            {% set issuedCredential = issuedCredentials[cri.id] %}
+            <dd class="govuk-summary-list__value">
+              <h3 class="govuk-heading-s">GPG45 Score</h3>
 
-                    <h3 class="govuk-heading-s">GPG45 Score</h3>
+              {% if issuedCredential.evidence|length %}
+                <pre>{{ issuedCredential.evidence | dump(2) }}</pre>
+              {% else %}
+                <p class="govuk-body">No GPG45 score found for this issued credential.<p class="govuk-body">
+              {% endif %}
 
-                    {% if issuedCredential.evidence|length %}
-                      <pre>{{ issuedCredential.evidence | dump(2) }}</pre>
-                    {% else %}
-                      <p class="govuk-body">No GPG45 score found for this issued credential.<p class="govuk-body">
-                    {% endif %}
+              <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">Credential attributes</span>
+                </summary>
+                <div class="govuk-details__text">
+                  <pre>{{ issuedCredential.attributes | dump(2) }}</pre>
+                </div>
+              </details>
+            </dd>
+          {% endif %}
+        </div>
+      </dl>
+    {% endfor %}
+  {% endmacro %}
 
-                    <details class="govuk-details" data-module="govuk-details">
-                      <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">Credential attributes</span>
-                      </summary>
-                      <div class="govuk-details__text">
-                        <pre>{{ issuedCredential.attributes | dump(2) }}</pre>
-                      </div>
-                    </details>
-
-                {% endif %}
-                </td>
-              </tr>
-            {% endfor %}
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Return</th>
-              <td class="govuk-table__cell">
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">di-ipv-core-front</h1>
+          {{ criDisplay(criConfig, issuedCredentials) }}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Return
+              </dt>
+              <dd class="govuk-summary-list__value">
                 <a href="/ipv/journey/build-client-oauth-response">
                   <input type="button" class="govuk-button" data-module="govuk-button" value="Authorize and Return">
                 </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
-        <table class="govuk-table">
-          <caption class="govuk-table__caption govuk-table__caption--m"></caption>
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">List of all pages in di-ipv-core-front</th>
-              <th scope="col" class="govuk-table__header"></th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-ipv-identity-start</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-ipv-identity-start?lang=en">English</a> / <a href="/ipv/page/page-ipv-identity-start?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-pre-kbv-transition</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-pre-kbv-transition?lang=en">English</a> / <a href="/ipv/page/page-pre-kbv-transition?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-dcmaw-success</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-dcmaw-success?lang=en">English</a> / <a href="/ipv/page/page-dcmaw-success?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-passport-doc-check</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-passport-doc-check?lang=en">English</a> / <a href="/ipv/page/page-passport-doc-check?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-ipv-success</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-ipv-success?lang=en">English</a> / <a href="/ipv/page/page-ipv-success?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">page-ipv-error</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/page-ipv-error?lang=en">English</a> / <a href="/ipv/page/page-ipv-error?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">pyi-kbv-fail</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/pyi-kbv-fail?lang=en">English</a> / <a href="/ipv/page/pyi-kbv-fail?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">pyi-kbv-thin-file</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/pyi-kbv-thin-file?lang=en">English</a> / <a href="/ipv/page/pyi-kbv-thin-file?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">pyi-no-match</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/pyi-no-match?lang=en">English</a> / <a href="/ipv/page//pyi-no-match?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">pyi-technical</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/pyi-technical?lang=en">English</a> / <a href="/ipv/page/pyi-technical?lang=cy">Welsh</a>
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">pyi-technical-unrecoverable</th>
-              <td class="govuk-table__cell">
-                <a href="/ipv/page/pyi-technical-unrecoverable?lang=en">English</a> / <a href="/ipv/page/pyi-technical-unrecoverable?lang=cy">Welsh</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </dd>
+            </div>
+          </dl>
+          <br>
+          <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m"></caption>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">List of all pages in di-ipv-core-front</th>
+                <th scope="col" class="govuk-table__header"></th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-ipv-identity-start</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-ipv-identity-start?lang=en">English</a> / <a href="/ipv/page/page-ipv-identity-start?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-pre-kbv-transition</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-pre-kbv-transition?lang=en">English</a> / <a href="/ipv/page/page-pre-kbv-transition?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-dcmaw-success</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-dcmaw-success?lang=en">English</a> / <a href="/ipv/page/page-dcmaw-success?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-passport-doc-check</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-passport-doc-check?lang=en">English</a> / <a href="/ipv/page/page-passport-doc-check?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-ipv-success</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-ipv-success?lang=en">English</a> / <a href="/ipv/page/page-ipv-success?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-ipv-error</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/page-ipv-error?lang=en">English</a> / <a href="/ipv/page/page-ipv-error?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">pyi-kbv-fail</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/pyi-kbv-fail?lang=en">English</a> / <a href="/ipv/page/pyi-kbv-fail?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">pyi-kbv-thin-file</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/pyi-kbv-thin-file?lang=en">English</a> / <a href="/ipv/page/pyi-kbv-thin-file?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">pyi-no-match</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/pyi-no-match?lang=en">English</a> / <a href="/ipv/page//pyi-no-match?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">pyi-technical</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/pyi-technical?lang=en">English</a> / <a href="/ipv/page/pyi-technical?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">pyi-technical-unrecoverable</th>
+                <td class="govuk-table__cell">
+                  <a href="/ipv/page/pyi-technical-unrecoverable?lang=en">English</a> / <a href="/ipv/page/pyi-technical-unrecoverable?lang=cy">Welsh</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 {% endblock %}
+
 {% block bodyEnd %}
 {% endblock %}

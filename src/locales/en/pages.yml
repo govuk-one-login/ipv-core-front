@@ -95,5 +95,5 @@ pageIpvSuccess:
   title: You’ve successfully proved your identity
   serviceNameRequired: true
   content:
-    - Now continue to use the <strong>Request a basic DBS check</strong> service.
+    - You can now continue to the service you want to use.
     - Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service.

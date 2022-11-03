@@ -1,4 +1,6 @@
 const axios = require("axios");
+const sanitize = require("sanitize-filename");
+
 const { API_BASE_URL } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -158,7 +160,7 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      if (req.session.currentPage !== pageId) {
+      if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
         logError(
           req,
           {
@@ -186,7 +188,7 @@ module.exports = {
         case "pyi-no-match":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${pageId}`, {
+          return res.render(`ipv/${sanitize(pageId)}`, {
             pageId,
             csrfToken: req.csrfToken(),
           });

@@ -72,6 +72,7 @@
     "nunjucks": "3.2.3",
     "nyc": "15.1.0",
     "pino": "8.6.1",
-    "pino-http": "8.2.1"
+    "pino-http": "8.2.1",
+    "sanitize-filename": "^1.6.3"
   }
 }

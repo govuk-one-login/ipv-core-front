@@ -3,12 +3,13 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% set pageTitleName = 'pages.pagePreKbvTransition.title' | translate %}
+{% set googleTagManagerPageId = "pagePreKbvTransition" %}
 
 {% block content %}
   <h1 class="govuk-heading-l">{{'pages.pagePreKbvTransition.header' | translate }}</h1>
   <p class="govuk-body">{{'pages.pagePreKbvTransition.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{'pages.pagePreKbvTransition.content.paragraph2' | translate }}</p>
-  
+
   {{ govukWarningText({
     text: 'pages.pagePreKbvTransition.warningTextContent' | translate,
     iconFallbackText: 'pages.pagePreKbvTransition.warningTextFallback' | translate

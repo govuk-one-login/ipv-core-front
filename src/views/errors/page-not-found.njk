@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleName = 'error.pageNotFound.title' | translate %}
+{% set googleTagManagerPageId = "errors.pageNotFound" %}
 
 {% block content %}
   <h1 class="govuk-heading-l">{{'error.pageNotFound.header' | translate }}</h1>

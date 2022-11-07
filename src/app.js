@@ -11,9 +11,8 @@ const { getGTM } = require("./lib/locals");
 const { loggerMiddleware, logger } = require("./lib/logger");
 const express = require("express");
 const { configureNunjucks } = require("./config/nunjucks");
-const csurf = require("csurf");
+
 const cookieParser = require("cookie-parser");
-const { getCSRFCookieOptions } = require("./config/cookie");
 const i18next = require("i18next");
 const Backend = require("i18next-fs-backend");
 const i18nextMiddleware = require("i18next-http-middleware");
@@ -37,12 +36,6 @@ if (process.env.NODE_ENV !== "local") {
     table: SESSION_TABLE_NAME,
   });
 }
-
-const sessionConfig = {
-  cookieName: "ipv_core_service_session",
-  secret: SESSION_SECRET,
-  sessionStore: sessionStore,
-};
 
 const app = express();
 
@@ -118,7 +111,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/", (req, res, next) => {
+router.get("/", (req, res) => {
   return res.render(`ipv/page-pre-kbv-transition.njk`);
 });
 
@@ -128,7 +121,7 @@ router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/debug", require("./app/debug/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
-router.get("/healthcheck", (req, res, next) => {
+router.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
@@ -143,43 +136,4 @@ app
     logger.error(`Unable to start server because of ${error.message}`);
   });
 
-// const { router } = setup({
-//   config: { APP_ROOT: __dirname },
-//   port: PORT,
-//   logs: { console: false, consoleJSON: false, app: false },
-//   session: sessionConfig,
-//   redis: !sessionStore,
-//   urls: {
-//     public: "/public",
-//   },
-//   publicDirs: ["../dist/public"],
-//   translation: {
-//     allowedLangs: ["en", "cy"],
-//     fallbackLang: ["en"],
-//     cookie: { name: "lng" },
-//   },
-//   dev: true,
-//   middlewareSetupFn: (app) => {
-//     app.use(function (req, res, next) {
-//       req.headers["x-forwarded-proto"] = "https";
-//       next();
-//     });
-//     app.use(loggerMiddleware);
-//   },
-// });
-
-// router.use((req, res, next) => {
-//   req.log = logger.child({
-//     requestId: req.id,
-//     ipvSessionId: req.session?.ipvSessionId,
-//     sessionId: req.session?.id,
-//   });
-//   next();
-// });
-//
-// router.use(getGTM);
-// router.use("/oauth2", require("./app/oauth2/router"));
-// router.use("/credential-issuer", require("./app/credential-issuer/router"));
-// router.use("/debug", require("./app/debug/router"));
-// router.use("/ipv", require("./app/ipv/router"));
 module.exports = app;

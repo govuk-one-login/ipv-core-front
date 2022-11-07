@@ -49,7 +49,7 @@ module.exports = {
   },
 
   renderDebugPage: async (req, res) => {
-    res.render("debug/page-ipv-debug", {
+    res.render("debug/page-ipv-debug.njk", {
       criConfig: req.session.criConfig,
       issuedCredentials: req.issuedCredentials,
     });

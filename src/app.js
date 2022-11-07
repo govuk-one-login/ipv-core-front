@@ -76,13 +76,13 @@ app.use(
     name: "ipv_core_service_session",
     store: sessionStore,
     saveUninitialized: false,
-    secret: SESSION_SECRET ? SESSION_SECRET : "Ipv123",
+    secret: SESSION_SECRET,
     unset: "destroy",
     resave: false,
     cookie: {
       name: "ipv_core_service_session",
       maxAge: 720000,
-      secret: SESSION_SECRET ? SESSION_SECRET : "Ipv123",
+      secret: SESSION_SECRET,
       signed: true,
       secure: "auto",
     },
@@ -99,7 +99,6 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
-//app.use(csurf({ cookie: getCSRFCookieOptions(true) }));
 
 const router = express.Router();
 
@@ -110,10 +109,6 @@ router.use((req, res, next) => {
     sessionId: req.session?.id,
   });
   next();
-});
-
-router.get("/", (req, res) => {
-  return res.render(`ipv/page-pre-kbv-transition.njk`);
 });
 
 router.use(getGTM);

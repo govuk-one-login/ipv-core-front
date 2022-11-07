@@ -7,7 +7,6 @@
       "govUkHomepage": " Ewch i hafan GOV.UK"
     },
     "govuk": {
-      "serviceNameTitle": "",
       "backLink": "Yn ôl",
       "errorSummaryTitle": "Mae problem",
       "error": "Gwall",
@@ -16,6 +15,12 @@
         "tag": "beta",
         "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
       }
+    },
+    "shared": {
+      "govUKHomepageButtonHref": "https://www.gov.uk/",
+      "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+      "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+      "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
     },
     "cookie": {
       "cookieBanner": {
@@ -72,11 +77,7 @@
       "content": {
         "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
       }
     },
     "pageNotFound": {
@@ -85,11 +86,7 @@
       "content": {
         "paragraph1": "Os ydych wedi teipio’r cyfeiriad gwe, edrychwch i weld ei fod yn gywir.",
         "paragraph2": "Os ydych wedi gludo’r cyfeiriad gwe, edrychwch i weld eich bod wedi copïo’r cyfeiriad cyfan.",
-        "paragraph3": "Gallwch hefyd fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph3": "Gallwch hefyd fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
       }
     },
     "sessionEnded": {
@@ -97,11 +94,7 @@
       "header": "Sesiwn wedi dod i ben",
       "content": {
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
       }
     }
   },
@@ -114,9 +107,7 @@
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddangos pa un o’ch manylion y cawsom drafferth ei baru.",
         "paragraph3": "Gallai hyn hefyd fod oherwydd eich bod yn aflwyddiannus pan rydych wedi ceisio profi pwy ydych chi ar-lein yn y gorffennol.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph4": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph4": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
       }
     },
     "pyiTechnical": {
@@ -125,9 +116,7 @@
       "content": {
         "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
       }
     },
     "pyiTechnicalUnrecoverable": {
@@ -136,11 +125,7 @@
       "content": {
         "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
       }
     },
     "pyiKbvFail": {
@@ -150,9 +135,7 @@
         "paragraph1": "Efallai mai’r rheswm am hyn yw eich bod wedi rhoi’r ateb anghywir i rai o’r cwestiynau diogelwch.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddangos pa gwestiynau yr ateboch yn anghywir.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
       }
     },
     "pyiKbvThinFile": {
@@ -162,9 +145,7 @@
         "paragraph1": "Mae ein cwestiynau diogelwch yn seiliedig ar wybodaeth sy’n cael ei gadw gan sefydliad arall. Nid oes gan y sefydliad hwn lawer o wybodaeth amdanoch chi.",
         "paragraph2": "Mae hyn yn golygu na allwn ofyn i chi’r nifer o gwestiynau y byddai angen i ni fod yn sicr mai chi yw pwy rydych yn ei ddweud ydych chi.",
         "subHeading": "Beth hoffech chi ei wneud?",
-        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Cysylltu â thîm cyfrif GOV.UK (agor mewn tab newydd)"
+        "paragraph3": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
       }
     },
     "pageIpvIdentityStart": {

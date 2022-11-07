@@ -7,7 +7,6 @@
       "govUkHomepage": "Go to the GOV.UK homepage"
     },
     "govuk": {
-      "serviceNameTitle": "",
       "backLink": "Back",
       "errorSummaryTitle": "There’s is a problem",
       "error": "Error",
@@ -16,6 +15,12 @@
         "tag": "beta",
         "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">feedback (opens in new tab)</a>  will help us to improve it."
       }
+    },
+    "shared": {
+      "govUKHomepageButtonHref": "https://www.gov.uk/",
+      "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+      "contactLinkHref": "https://signin.account.gov.uk/contact-us",
+      "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
     },
     "cookie": {
       "cookieBanner": {
@@ -43,23 +48,18 @@
     },
     "footer": {
       "accessibilityStatement": {
-        "pageTitle": "Accessibility statement",
         "linkText": "Accessibility statement"
       },
       "cookies": {
-        "pageTitle": "Cookie Policy",
         "linkText": "Cookies"
       },
       "terms": {
-        "pageTitle": "Terms and conditions",
         "linkText": "Terms and conditions"
       },
       "privacy": {
-        "pageTitle": "Privacy notice",
         "linkText": "Privacy notice"
       },
       "support": {
-        "pageTitle": "Support",
         "linkText": "Support (opens in new tab)"
       },
       "copyright": {
@@ -77,11 +77,7 @@
       "content": {
         "paragraph1": "We cannot prove your identity right now.",
         "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     },
     "pageNotFound": {
@@ -90,11 +86,7 @@
       "content": {
         "paragraph1": "If you typed the web address, check it’s correct.",
         "paragraph2": "If you pasted the web address, check you copied the entire address.",
-        "paragraph3": "You can also go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph3": "You can also go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     },
     "sessionEnded": {
@@ -102,11 +94,7 @@
       "header": "Session expired",
       "content": {
         "subHeading": "What you can do",
-        "paragraph1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     }
   },
@@ -119,9 +107,7 @@
         "paragraph2": "To keep your information safe, we cannot show which of your details we had trouble finding a match for.",
         "paragraph3": "This could also be because you were unsuccessful when you’ve previously tried to prove your identity online.",
         "subHeading": "What you can do",
-        "paragraph4": "Continue to the service you were trying to use and look for other ways to prove your identity.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph4": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
     "pyiTechnical": {
@@ -130,9 +116,7 @@
       "content": {
         "paragraph1": "We cannot prove your identity right now.",
         "subHeading": "What you can do",
-        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
     "pyiTechnicalUnrecoverable": {
@@ -141,11 +125,7 @@
       "content": {
         "paragraph1": "We cannot prove your identity right now.",
         "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-        "govUKHomepageButtonHref": "https://www.gov.uk/",
-        "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     },
     "pyiKbvFail": {
@@ -155,9 +135,7 @@
         "paragraph1": "This might be because you gave the wrong answer to some of the security questions.",
         "paragraph2": "To keep your information safe, we cannot show which questions you answered incorrectly.",
         "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
     "pyiKbvThinFile": {
@@ -167,9 +145,7 @@
         "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
         "paragraph2": "This means we cannot ask you the number of questions that we’d need to be sure that you are who you say you are.",
         "subHeading": "What would you like to do?",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity.",
-        "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-        "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
     "pageIpvIdentityStart": {

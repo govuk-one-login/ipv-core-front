@@ -9,10 +9,10 @@
   <p class="govuk-body">{{'error.sessionEnded.content.paragraph1' | translate }}</p>
 
   {{ govukButton({
-    "text": button_text|default('error.sessionEnded.content.govUKHomepageButtonText' | translate, true),
+    "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true),
     "type": "Submit",
-    "href": 'error.sessionEnded.content.govUKHomepageButtonHref' | translate
+    "href": 'general.shared.govUKHomepageButtonHref' | translate
   }) }}
 
-  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'error.sessionEnded.content.contactLinkHref' | translate }}" class="govuk-link">{{'error.sessionEnded.content.contactLinkText' | translate }}</a></p>
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

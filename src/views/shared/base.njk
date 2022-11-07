@@ -24,16 +24,12 @@
 
 {% endblock %}
 
-{% block pageTitle %}
+{% block pageTitle-%}
     {% if error or errors %}
-        {{ 'general.govuk.errorTitlePrefix' | translate }}
-        -
+      {{ 'general.govuk.errorTitlePrefix' | translate }}
+      -
     {% endif %}
-    {% if pageTitleName %}
-        {{ pageTitleName }}
-        -
-    {% endif %}
-    {{ 'general.govuk.serviceNameTitle' | translate }}
+    {% if pageTitleName %}{{ pageTitleName }}{% endif %}
 {% endblock %}
 
 {% block bodyStart %}
@@ -107,21 +103,8 @@
     }) }}
 {% endblock %}
 
- - href: "https://signin.account.gov.uk/accessibility-statement"
-          text: "Accessibility statement"
-        - href: "https://signin.account.gov.uk/cookies"
-          text: "Cookies"
-        - href: "https://signin.account.gov.uk/terms-and-conditions"
-          text: "Terms and conditions"
-        - href: "https://signin.account.gov.uk/privacy-notice"
-          text: "Privacy notice"
-        - href: "https://signin.account.gov.uk/contact-us"
-          text: "Support"
-
-
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
     <script type="text/javascript"  src="/public/javascripts/application.js"></script>
     <script type="text/javascript" nonce='{{ scriptNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ googleTagManagerPageId }}")</script>
 {% endblock %}
-

@@ -47,15 +47,16 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(loggerMiddleware);
+
 app.use(
   "/assets",
   express.static(
     path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
   )
 );
-
 app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+
+app.use(loggerMiddleware);
 
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 

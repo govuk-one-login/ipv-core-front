@@ -187,7 +187,7 @@ module.exports = {
         case "pyi-no-match":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${sanitize(pageId)}`, {
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
             csrfToken: req.csrfToken(),
           });

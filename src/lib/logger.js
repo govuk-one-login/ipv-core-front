@@ -42,18 +42,7 @@ const loggerMiddleware = require("pino-http")({
   // Set to `false` to prevent standard serializers from being wrapped.
   wrapSerializers: false,
   autoLogging: {
-    ignorePaths: [
-      "/public/scripts/cookies.js",
-      "/public/scripts/all.js",
-      "/public/style.css",
-      "/public/scripts",
-      "/public/scripts/application.js",
-      "/assets/images/govuk-crest-2x.png",
-      "/assets/fonts/bold-b542beb274-v2.woff2",
-      "/assets/fonts/bold-b542beb274-v2.woff2",
-      "/assets/images/favicon.ico",
-      "/assets/fonts/light-94a07e06a1-v2.woff2",
-    ],
+    ignorePaths: [],
   },
   // Define a custom receive message
   customReceivedMessage: function (req) {

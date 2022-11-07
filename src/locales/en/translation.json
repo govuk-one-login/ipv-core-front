@@ -36,7 +36,7 @@
         "buttonRejectText": "Reject analytics cookies",
         "linkViewCookies": "View cookies",
         "cookieBannerHideLink": "Hide this message"
-      } 
+      }
     },
     "header": {
       "homepageHref": "https://www.gov.uk/"
@@ -227,7 +227,7 @@
       "title": "You’ve successfully proved your identity",
       "header": "You’ve successfully proved your identity",
       "content": {
-        "paragraph1": "Now continue to use the <strong>Request a basic DBS check</strong> service.",
+        "paragraph1": "You can now continue to the service you want to use.",
         "paragraph2": "Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service"
       }
     }

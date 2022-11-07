@@ -106,13 +106,6 @@
     }
   },
   "pages": {
-    "pageIpvError": {
-      "title": "Tudalen gwall",
-      "header": "Tudalen gwall",
-      "content": {
-        "paragraph1": "Mae gwall wedi digwydd."
-      }
-    },
     "pyiNoMatch": {
       "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
       "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",

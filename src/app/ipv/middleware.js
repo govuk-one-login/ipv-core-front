@@ -177,7 +177,6 @@ module.exports = {
       switch (pageId) {
         case "page-ipv-debug":
           return res.redirect("/debug");
-        case "page-ipv-error":
         case "page-ipv-identity-start":
         case "page-ipv-success":
         case "page-pre-kbv-transition":

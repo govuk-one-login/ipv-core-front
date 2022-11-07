@@ -111,13 +111,6 @@
     }
   },
   "pages": {
-    "pageIpvError": {
-      "title": "Error page",
-      "header": "Error page",
-      "content": {
-        "paragraph1": "An error has occurred."
-      }
-    },
     "pyiNoMatch": {
       "title": "Sorry, we cannot prove your identity right now",
       "header": "Sorry, we cannot prove your identity right now",

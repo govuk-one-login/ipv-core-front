@@ -6,6 +6,7 @@ const {
   setIpvSessionId,
   setDebugJourneyType,
   setRealJourneyType,
+  setIpAddress,
 } = require("./middleware");
 
 const { handleJourneyAction } = require("../ipv/middleware");
@@ -13,6 +14,7 @@ const { handleJourneyAction } = require("../ipv/middleware");
 router.get(
   "/debug-authorize",
   setDebugJourneyType,
+  setIpAddress,
   setIpvSessionId,
   handleJourneyAction
 );
@@ -20,6 +22,7 @@ router.get(
 router.get(
   "/authorize",
   setRealJourneyType,
+  setIpAddress,
   setIpvSessionId,
   handleJourneyAction
 );

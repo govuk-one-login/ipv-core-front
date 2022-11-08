@@ -131,4 +131,41 @@ describe("oauth middleware", () => {
       });
     });
   });
+
+  describe("setIpAddress", () => {
+    beforeEach(() => {
+      req = {
+        headers: {
+          forwarded: "for=1.2.3.4;proto=https;by=4.3.2.1",
+        },
+        session: {
+          ipAddress: "",
+        },
+      };
+    });
+
+    context("with forwarded", () => {
+      it("should set ipAddress in session", async function () {
+        await middleware.setIpAddress(req, res, next);
+
+        expect(req.session.ipAddress).to.eq("1.2.3.4");
+      });
+
+      it("should call next", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(next).to.have.been.called;
+      });
+    });
+
+    context("with missing forwarded", () => {
+      beforeEach(() => {
+        req.headers.forwarded = null;
+      });
+
+      it("should set ipAddress as 'unknown'", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(req.session.ipAddress).to.eq("unknown");
+      });
+    });
+  });
 });

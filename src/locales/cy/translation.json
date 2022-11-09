@@ -194,7 +194,7 @@
     },
     "pageIpvSuccess": {
       "title": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
-      "header": "You’ve successfully proved your identity",
+      "header": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
       "content": {
         "paragraph1": "Gallwch nawr barhau i ddefnyddio’r gwasanaeth rydych am ei ddefnyddio.",
         "paragraph2": "Efallai bydd rhywfaint o’r wybodaeth rydych eisoes wedi ei rhannu pan wnaethoch brofi pwy ydych chi yn cael ei defnyddio i lenwi ffurflenni o fewn y gwasanaeth yn awtomatig."

@@ -4,7 +4,7 @@
 {% set googleTagManagerPageId = "pageDcmawApp" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">{{'pages.pageDcmawSuccess.header' | translate }}</h1>
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageDcmawSuccess.header' | translate }}</h1>
   <p class="govuk-body">{{'pages.pageDcmawSuccess.content.paragraph1' | translate }}</p>
 
   {% include 'shared/journey-next-form.njk' %}

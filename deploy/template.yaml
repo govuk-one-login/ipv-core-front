@@ -407,6 +407,8 @@ Resources:
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
             - Name: ANALYTICS_DOMAIN
               Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+            - Name: SESSION_SECRET
+              Value: "no-secret"
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

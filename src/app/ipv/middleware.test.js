@@ -134,7 +134,9 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/page-ipv-identity-start");
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page-ipv-identity-start.njk"
+      );
     });
 
     it("should render technical error page when given invalid pageId", async () => {
@@ -146,7 +148,7 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical");
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
     });
 
     it("should render unrecoverable technical error page when current page is not equal to pageId", async () => {

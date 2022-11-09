@@ -177,7 +177,6 @@ module.exports = {
       switch (pageId) {
         case "page-ipv-debug":
           return res.redirect("/debug");
-        case "page-ipv-error":
         case "page-ipv-identity-start":
         case "page-ipv-success":
         case "page-pre-kbv-transition":
@@ -188,12 +187,12 @@ module.exports = {
         case "pyi-no-match":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${sanitize(pageId)}`, {
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
             csrfToken: req.csrfToken(),
           });
         default:
-          return res.render(`ipv/pyi-technical`);
+          return res.render(`ipv/pyi-technical.njk`);
       }
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);

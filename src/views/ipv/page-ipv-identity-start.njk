@@ -1,0 +1,11 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pageIpvIdentityStart.title' | translate %}
+{% set googleTagManagerPageId = "pageIpvIdentityStart" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvIdentityStart.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pageIpvIdentityStart.content.paragraph1' | translate }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'error.sessionEnded.title' | translate %}
+{% set googleTagManagerPageId = "errors.sessionEnded" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{'error.sessionEnded.header' | translate }}</h1>
+  <h2 class="govuk-heading-m">{{'error.sessionEnded.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'error.sessionEnded.content.paragraph1' | translate }}</p>
+
+  {{ govukButton({
+    "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true),
+    "type": "Submit",
+    "href": 'general.shared.govUKHomepageButtonHref' | translate
+  }) }}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

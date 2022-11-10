@@ -71,15 +71,6 @@
     }
   },
   "error": {
-    "defaultError": {
-      "title": "Sorry, there is a problem",
-      "header": "Sorry, there is a problem",
-      "content": {
-        "paragraph1": "We cannot prove your identity right now.",
-        "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
-      }
-    },
     "pageNotFound": {
       "title": "Page not found",
       "header": "Page not found",

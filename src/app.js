@@ -17,6 +17,10 @@ const i18next = require("i18next");
 const Backend = require("i18next-fs-backend");
 const i18nextMiddleware = require("i18next-http-middleware");
 const { i18nextConfigurationOptions } = require("./config/i18next");
+const {
+  serverErrorHandler,
+} = require("./handlers/internal-server-error-handler");
+const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),
@@ -122,6 +126,9 @@ router.get("/healthcheck", (req, res) => {
 });
 
 app.use(router);
+
+app.use(serverErrorHandler);
+app.use(pageNotFoundHandler);
 
 app
   .listen(PORT, () => {

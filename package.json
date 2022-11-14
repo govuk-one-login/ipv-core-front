@@ -40,7 +40,7 @@
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
     "mocha": "10.0.0",
-    "nodemon": "2.0.19",
+    "nodemon": "2.0.20",
     "pino-pretty": "9.1.1",
     "prettier": "2.7.1",
     "proxyquire": "2.1.3",

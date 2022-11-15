@@ -56,8 +56,8 @@ const loggerMiddleware = require("pino-http")({
       sessionId: req.session?.id,
     };
   },
-  customErrorMessage: function (error, req, res) {
-    return "REQUEST ERRORED WITH STATUS CODE: " + res.status;
+  customErrorMessage: function (req, res) {
+    return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
   },
   customErrorObject: (req, res, error, val) => {
     return {
@@ -71,7 +71,7 @@ const loggerMiddleware = require("pino-http")({
     if (res.statusCode === 404) {
       return "RESOURCE NOT FOUND";
     }
-    return `REQUEST COMPLETED WITH STATUS CODE OF :${res.statusCode}`;
+    return `REQUEST COMPLETED WITH STATUS CODE OF: ${res.statusCode}`;
   },
   customSuccessObject: function (req, res, val) {
     return {

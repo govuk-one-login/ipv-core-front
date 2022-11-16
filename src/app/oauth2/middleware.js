@@ -1,7 +1,7 @@
-const axios = require("axios");
 const { API_BASE_URL, API_SESSION_INITIALISE } = require("../../lib/config");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
+const { getAxios } = require("../shared/axiosHelper");
 
 module.exports = {
   setDebugJourneyType: (req, _res, next) => {
@@ -49,7 +49,7 @@ module.exports = {
         path: API_SESSION_INITIALISE,
       });
 
-      const response = await axios.post(
+      const response = await getAxios(req).post(
         `${API_BASE_URL}${API_SESSION_INITIALISE}`,
         authParams,
         { headers: { "ip-address": req.session.ipAddress } }

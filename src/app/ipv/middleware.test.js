@@ -7,19 +7,22 @@ describe("journey middleware", () => {
   let res;
   let next;
 
+  let axiosHelperStub = {};
   const axiosStub = { post: sinon.stub() };
+  axiosHelperStub.getAxios = () => axiosStub;
+
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
     EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org",
   };
 
   const sharedCriHelper = proxyquire("../shared/criHelper", {
-    axios: axiosStub,
+    "../shared/axiosHelper": axiosHelperStub,
     "../../lib/config": configStub,
   });
 
   const middleware = proxyquire("./middleware", {
-    axios: axiosStub,
+    "../shared/axiosHelper": axiosHelperStub,
     "../../lib/config": configStub,
     "../shared/../shared/criHelper": sharedCriHelper,
   });

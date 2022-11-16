@@ -11,6 +11,7 @@ module.exports = {
     }
 
     res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
+    res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
     res.render("ipv/pyi-technical-unrecoverable.njk");
   },
 };

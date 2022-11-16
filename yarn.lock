@@ -1759,10 +1759,10 @@ husky@8.0.2:
   resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.2.tgz#5816a60db02650f1f22c8b69b928fd6bcd77a236"
   integrity sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==
 
-i18next-fs-backend@^1.1.5:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.2.0.tgz#c498c68c8e6a8ae5ed59bea5e5392a11991de696"
-  integrity sha512-pUx3AcgXCbur0jpFA7U67Z2RJflAcIi698Y8VL+phdOqUchahxriV3Cs+M6UkPNQSS/zPEzWLfdJ8EgjB7HVxg==
+i18next-fs-backend@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.0.0.tgz#d4c6430254cbb0b4e3e05249c0f0cfeaabed65af"
+  integrity sha512-zlwzcoUKlveoRt/SxgeP8i/6p1rxwxZ+x0w4sfCTY1zgUlhhnoxBSRX3GjVIsDJm5mky8Hpr//UX93UIknK7yQ==
 
 i18next-http-middleware@^3.2.1:
   version "3.2.1"

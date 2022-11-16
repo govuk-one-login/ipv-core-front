@@ -1,13 +1,14 @@
 const proxyquire = require("proxyquire");
 const axiosStub = {};
-
+let axiosHelperStub = {};
 const configStub = {
   API_REQUEST_CONFIG_PATH: "/request-config",
   API_BASE_URL: "https://example.org/subpath",
 };
 
+axiosHelperStub.getAxios = () => axiosStub;
 const middleware = proxyquire("./middleware", {
-  axios: axiosStub,
+  "../shared/axiosHelper": axiosHelperStub,
   "../../lib/config": configStub,
 });
 
@@ -68,6 +69,7 @@ describe("debug middleware", () => {
             },
           ],
         };
+        axiosHelperStub.getAxios = () => axiosStub;
       });
 
       context("successfully gets criConfig from core-back", () => {

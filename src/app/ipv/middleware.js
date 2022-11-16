@@ -1,4 +1,3 @@
-const axios = require("axios");
 const sanitize = require("sanitize-filename");
 
 const { API_BASE_URL } = require("../../lib/config");
@@ -7,7 +6,7 @@ const {
   redirectToAuthorize,
 } = require("../shared/criHelper");
 
-const { generateAxiosConfig } = require("../shared/axiosHelper");
+const { generateAxiosConfig, getAxios } = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -33,7 +32,11 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axios.post(`${API_BASE_URL}/${action}`, {}, generateAxiosConfig(req));
+  return getAxios(req).post(
+    `${API_BASE_URL}/${action}`,
+    {},
+    generateAxiosConfig(req)
+  );
 }
 
 async function handleJourneyResponse(req, res, action) {

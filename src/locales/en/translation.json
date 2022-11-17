@@ -8,7 +8,7 @@
     },
     "govuk": {
       "backLink": "Back",
-      "errorSummaryTitle": "There’s is a problem",
+      "errorSummaryTitle": "There’s a problem",
       "error": "Error",
       "warning": "Warning",
       "phaseBanner": {

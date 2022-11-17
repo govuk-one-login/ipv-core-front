@@ -3,17 +3,6 @@ const { logError } = require("../app/shared/loggerHelper");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
-    // if (req.log) {
-    //   req.log.info({
-    //     message: {
-    //       label: "internal-server-error-handler - extra error details",
-    //       error: err,
-    //       req,
-    //       res,
-    //     },
-    //   });
-    // }
-
     if (res.headersSent) {
       return next(err);
     }

@@ -18,7 +18,7 @@ const logger = pino({
     },
     res: (res) => {
       return {
-        status: res.statusCode,
+        statusCode: res.statusCode,
         sessionId: res.locals.sessionId,
       };
     },

@@ -64,22 +64,22 @@ Mappings:
       desiredTaskCount: 2
   EnvironmentConfiguration:
     "130355686670": # Development
-      lb500ErrorLimit: 1
+      lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
     "457601271792": # Build
-      lb500ErrorLimit: 1
+      lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
     "335257547869": # Staging
-      lb500ErrorLimit: 1
+      lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
     "991138514218": # Integration
-      lb500ErrorLimit: 1
+      lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300

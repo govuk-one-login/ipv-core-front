@@ -185,6 +185,7 @@ module.exports = {
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
         case "page-passport-doc-check":
+        case "page-multiple-doc-check":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":

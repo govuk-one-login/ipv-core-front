@@ -178,8 +178,24 @@
         "formRadioButtons": {
           "continueButtonText": "Parhau i brofi pwy ydych chi yn y ffordd hyn",
           "continueButtonHint": "Byddwch angen pasbort y DU",
-          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall",
-          "otherWayButtonHint": "Gallwch brofi pwy ydych chi ar-lein gyda GOV.UK Verify neu gymryd eich dogfennau hunaniaeth i’w gwirio’n bersonol."
+          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall"
+        }
+      }
+    },
+    "pageMultipleDocCheck": {
+      "title": "Rhowch y manylion o’ch ID gyda llun ac ateb cwestiynau diogelwch",
+      "header": "Rhowch y manylion o’ch ID gyda llun ac ateb cwestiynau diogelwch",
+      "content": {
+        "paragraph1": "I brofi pwy ydych, bydd angen i chi:",
+        "bullet1": "rhoi’r manylion o’ch trwydded yrru y DU neu basbort y DU (efallai y byddwch yn ei chael hi’n haws i wneud hyn os oes gennych ID gyda llun rydych am ei ddefnyddio gyda chi)",
+        "bullet2": "rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)",
+        "bullet3": "ateb rhai cwestiynau mai dim ond chi ddylai wybod yr atebion iddynt",
+        "subHeading": "Pa ID gyda llun hoffech chi ei ddefnyddio?",
+        "formRadioButtons": {
+          "continuePassportButtonText": "Pasbort y DU",
+          "continueDrivingLicenceButtonText": "Trwydded yrru’r DU",
+          "separateOptionsInFormText": "neu",
+          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall"
         }
       }
     },

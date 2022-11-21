@@ -13,7 +13,7 @@
     <li>{{'pages.pagePassportDocCheck.content.bullet3' | translate | safe }}</li>
   </ul>
 
-  <p class="govuk-body">{{'pages.pagePassportDocCheck.content.subHeading' | translate }}</p>
+ <h2 class="govuk-heading-m">{{'pages.pagePassportDocCheck.content.subHeading' | translate }}</h2>
 
   <form id="passportDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return passportDocCheckingFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
@@ -28,13 +28,12 @@
               },
               {
                 value: "end",
-                text: 'pages.pagePassportDocCheck.content.formRadioButtons.otherWayButtonText' | translate,
-                hint: {text: 'pages.pagePassportDocCheck.content.formRadioButtons.otherWayButtonHint' | translate}
+                text: 'pages.pagePassportDocCheck.content.formRadioButtons.otherWayButtonText' | translate
               }
             ]
       })
     }}
-    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{'general.buttons.next' | translate }}
     </button>
   </form>

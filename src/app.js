@@ -8,6 +8,7 @@ const DynamoDBStore = require("connect-dynamodb")(session);
 const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
 
 const { getGTM } = require("./lib/locals");
+
 const { loggerMiddleware, logger } = require("./lib/logger");
 const express = require("express");
 const { configureNunjucks } = require("./config/nunjucks");
@@ -92,6 +93,15 @@ app.use(
     },
   })
 );
+
+app.use((req, res, next) => {
+  if (req.i18n) {
+    res.locals.htmlLang = req.i18n.language;
+    res.locals.pageTitleLang = req.i18n.language;
+    res.locals.mainLang = req.i18n.language;
+    next();
+  }
+});
 
 app.use((req, res, next) => {
   req.log = logger.child({

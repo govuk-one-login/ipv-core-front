@@ -57,7 +57,22 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
     loadGtmScript();
     initGtm();
     initLinkerHandlers();
+    pushLanguageToDataLayer();
   }
+
+  function pushLanguageToDataLayer() {
+    var language = document.querySelector('html') &&
+      document.querySelector('html').getAttribute('lang');
+
+    if (language) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "langEvent",
+        language: language
+      });
+    }
+  }
+
   function loadGtmScript() {
     var gtmScriptTag = document.createElement("script");
     gtmScriptTag.type = "text/javascript";

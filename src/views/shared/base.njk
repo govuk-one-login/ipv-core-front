@@ -27,9 +27,9 @@
 {% block pageTitle-%}
     {%- if error or errors %}
       {{ 'general.govuk.errorTitlePrefix' | translate }}
-      -
+      – GOV.UK
     {%- endif %}
-    {%- if pageTitleName %}{{ pageTitleName }}{% endif %}
+    {%- if pageTitleName %}{{ pageTitleName }} – GOV.UK{% endif %}
 {%- endblock %}
 
 {% block bodyStart %}

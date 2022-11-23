@@ -25,12 +25,12 @@
 {% endblock %}
 
 {% block pageTitle-%}
-    {% if error or errors %}
+    {%- if error or errors %}
       {{ 'general.govuk.errorTitlePrefix' | translate }}
       -
-    {% endif %}
-    {% if pageTitleName %}{{ pageTitleName }}{% endif %}
-{% endblock %}
+    {%- endif %}
+    {%- if pageTitleName %}{{ pageTitleName }}{% endif %}
+{%- endblock %}
 
 {% block bodyStart %}
     {% include 'shared/banner.njk' %}

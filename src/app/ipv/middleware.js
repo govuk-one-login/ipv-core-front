@@ -165,19 +165,30 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "page :pageId doesn't match expected session page :expectedPage"
-        );
+      // if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
+      //   logError(
+      //     req,
+      //     {
+      //       pageId: pageId,
+      //       expectedPage: req.session.currentPage,
+      //     },
+      //     "page :pageId doesn't match expected session page :expectedPage"
+      //   );
+      //
+      //   req.session.currentPage = "pyi-technical-unrecoverable";
+      //   return res.redirect(req.session.currentPage);
+      // }
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(req.session.currentPage);
-      }
+      // Full name guidance? Do we show middle name(s)?
+      // Date of birth formatting guidance https://www.gov.uk/guidance/style-guide/a-to-z-of-gov-uk-style#dates
+      // Address formatting guidance https://www.gov.uk/guidance/style-guide/a-to-z-of-gov-uk-style#addresses-in-the-uk
+
+      const userDetails =
+        {
+          'name': 'Hubert Blaine Wolfeschlegelsteinhausenbergerdorff',
+          'dateOfBirth': '4 December 1975',
+          'addressDetails': 'The Old Vicarage<br>251 St Martin-in-the-Fields Church Path<br>Sutton-Under-Whitestonecliffe<br>SK11 8JA'
+        };
 
       switch (pageId) {
         case "page-ipv-debug":
@@ -188,6 +199,12 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-passport-doc-check":
         case "page-multiple-doc-check":
+        case "page-persist-identity":
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":

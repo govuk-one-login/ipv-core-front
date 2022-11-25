@@ -1,6 +1,9 @@
 const sanitize = require("sanitize-filename");
 
-const { API_BASE_URL } = require("../../lib/config");
+const {
+  API_BASE_URL,
+  API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+} = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
@@ -20,6 +23,7 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
+const { generateHTMLofAddress } = require("../shared/addressHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -165,30 +169,19 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      // if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
-      //   logError(
-      //     req,
-      //     {
-      //       pageId: pageId,
-      //       expectedPage: req.session.currentPage,
-      //     },
-      //     "page :pageId doesn't match expected session page :expectedPage"
-      //   );
-      //
-      //   req.session.currentPage = "pyi-technical-unrecoverable";
-      //   return res.redirect(req.session.currentPage);
-      // }
+      if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
+        logError(
+          req,
+          {
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          },
+          "page :pageId doesn't match expected session page :expectedPage"
+        );
 
-      // Full name guidance? Do we show middle name(s)?
-      // Date of birth formatting guidance https://www.gov.uk/guidance/style-guide/a-to-z-of-gov-uk-style#dates
-      // Address formatting guidance https://www.gov.uk/guidance/style-guide/a-to-z-of-gov-uk-style#addresses-in-the-uk
-
-      const userDetails =
-        {
-          'name': 'Hubert Blaine Wolfeschlegelsteinhausenbergerdorff',
-          'dateOfBirth': '4 December 1975',
-          'addressDetails': 'The Old Vicarage<br>251 St Martin-in-the-Fields Church Path<br>Sutton-Under-Whitestonecliffe<br>SK11 8JA'
-        };
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(req.session.currentPage);
+      }
 
       switch (pageId) {
         case "page-ipv-debug":
@@ -199,12 +192,6 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-passport-doc-check":
         case "page-multiple-doc-check":
-        case "page-persist-identity":
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            userDetails,
-            pageId,
-            csrfToken: req.csrfToken(),
-          });
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
@@ -214,6 +201,26 @@ module.exports = {
             pageId,
             csrfToken: req.csrfToken(),
           });
+        case "page-persist-identity": {
+          const userDetailsResponse = await getAxios(req).get(
+            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
+            generateAxiosConfig(req)
+          );
+
+          const userDetails = {
+            name: userDetailsResponse.data?.name,
+            dateOfBirth: userDetailsResponse.data?.dateOfBirth,
+            addressDetails: generateHTMLofAddress(
+              userDetailsResponse.data?.addressDetails
+            ),
+          };
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        }
         default:
           return res.render(`ipv/pyi-technical.njk`);
       }

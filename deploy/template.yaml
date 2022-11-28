@@ -377,7 +377,7 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 0.7
+        TargetValue: 70
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup

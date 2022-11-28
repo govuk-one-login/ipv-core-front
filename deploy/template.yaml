@@ -68,26 +68,36 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      fargateCPUsize: 256
+      fargateRAMsize: 512
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      fargateCPUsize: 256
+      fargateRAMsize: 512
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      fargateCPUsize: 256
+      fargateRAMsize: 512
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      fargateCPUsize: 512
+      fargateRAMsize: 1024
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 30
       tg500ErrorWindow: 300
+      fargateCPUsize: 1024
+      fargateRAMsize: 2048
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -418,9 +428,9 @@ Resources:
               awslogs-group: !Ref ECSAccessLogsGroup
               awslogs-region: !Sub ${AWS::Region}
               awslogs-stream-prefix: !Sub core-front-${Environment}
-      Cpu: "512"
+      Cpu: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, fargateCPUsize ]
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-      Memory: "1024"
+      Memory: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, fargateRAMsize ]
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE

@@ -70,6 +70,7 @@ Mappings:
       tg500ErrorWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
+      nodeOldSpaceLimit: "384"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -77,6 +78,7 @@ Mappings:
       tg500ErrorWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
+      nodeOldSpaceLimit: "256"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -84,6 +86,7 @@ Mappings:
       tg500ErrorWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
+      nodeOldSpaceLimit: "256"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -91,6 +94,7 @@ Mappings:
       tg500ErrorWindow: 300
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
+      nodeOldSpaceLimit: "768"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -98,6 +102,7 @@ Mappings:
       tg500ErrorWindow: 300
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
+      nodeOldSpaceLimit: "1792"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -419,6 +424,11 @@ Resources:
               Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
             - Name: SESSION_SECRET
               Value: "no-secret"
+            - Name: NODE_OPTIONS
+              Value: !Join
+                - ''
+                - - '--max-old-space-size='
+                  - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

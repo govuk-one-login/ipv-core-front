@@ -20,7 +20,7 @@
       <dl class="govuk-summary-list">
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
-            <a id="cri-link-{{ cri.id }}" class="govuk-heading-s govuk-link"" href="/ipv/journey/cri/build-oauth-request/{{ cri.id }}">{{cri.name}}</a>
+            <a id="cri-link-{{ cri.id }}" class="govuk-heading-s govuk-link" href="/ipv/journey/cri/build-oauth-request/{{ cri.id }}">{{cri.name}}</a>
           </dt>
           {% if issuedCredentials[cri.id] %}
             {% set issuedCredential = issuedCredentials[cri.id] %}
@@ -104,6 +104,12 @@
                 <th scope="row" class="govuk-table__header">page-ipv-success</th>
                 <td class="govuk-table__cell">
                   <a class="govuk-link" href="/ipv/page/page-ipv-success?lang=en">English</a> / <a class="govuk-link" href="/ipv/page/page-ipv-success?lang=cy">Welsh</a>
+                </td>
+              </tr>
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">page-persist-identity</th>
+                <td class="govuk-table__cell">
+                  <a class="govuk-link" href="/ipv/page/page-persist-identity?lang=en">English</a> / <a class="govuk-link" href="/ipv/page/page-persist-identity?lang=cy">Welsh</a>
                 </td>
               </tr>
               <tr class="govuk-table__row">

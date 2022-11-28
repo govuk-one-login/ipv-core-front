@@ -24,6 +24,7 @@ const {
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
 const { generateHTMLofAddress } = require("../shared/addressHelper");
+const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -202,10 +203,16 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         case "page-persist-identity": {
-          const userDetailsResponse = await getAxios(req).get(
-            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-            generateAxiosConfig(req)
-          );
+          let userDetailsResponse = {};
+
+          if (req.session.isDebugJourney) {
+            userDetailsResponse = samplePersistedUserDetails;
+          } else {
+            userDetailsResponse = await getAxios(req).get(
+              `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
+              generateAxiosConfig(req)
+            );
+          }
 
           const userDetails = {
             name: userDetailsResponse.data?.name,

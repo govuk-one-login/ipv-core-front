@@ -200,15 +200,16 @@
       }
     },
     "pagePersistIdentity": {
-      "title": "You’ve signed in to your GOV.UK account",
-      "header": "You’ve signed in to your GOV.UK account",
+      "title": "You have already proved your identity",
+      "header": "You have already proved your identity",
       "content": {
         "paragraph1": "You proved your identity when you used your GOV.UK account before. You will\nnot need to do it again to use this service.",
+        "subHeading": "Check your details",
         "paragraph2": "If you have not signed in to your GOV.UK account in a while, you might want to\ncheck your details are still correct.",
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
-          "homeAddress": "Current Home Address"
+          "homeAddress": "Current home address"
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",

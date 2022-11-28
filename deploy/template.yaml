@@ -68,22 +68,22 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
-      fargateCPUsize: 256
-      fargateRAMsize: 512
+      fargateCPUsize: 512
+      fargateRAMsize: 1024
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
-      fargateCPUsize: 256
-      fargateRAMsize: 512
+      fargateCPUsize: 512
+      fargateRAMsize: 1024
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
-      fargateCPUsize: 256
-      fargateRAMsize: 512
+      fargateCPUsize: 512
+      fargateRAMsize: 1024
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300

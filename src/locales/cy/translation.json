@@ -199,6 +199,23 @@
         }
       }
     },
+    "pagePersistIdentity": {
+      "title": "Rydych wedi mewngofnodi i’ch cyfrif GOV.UK",
+      "header": "Rydych wedi mewngofnodi i’ch cyfrif GOV.UK",
+      "content": {
+        "paragraph1": "Rydych wedi brofi pwy ydych chi pan wnaethoch ddefnyddio eich cyfrif GOV.UK o'r blaen. Nid oes angen i chi wneud hyn eto i ddefnyddio'r gwasanaeth hwn.",
+        "paragraph2": "Os nad ydych wedi mewngofnodi i'ch cyfrif GOV.UK ers amser, efallai y byddwch am wirio bod eich manylion dal yn gywir.",
+        "userDetailsInformation": {
+          "fullName": "Enw",
+          "dateOfBirth": "Dyddiad geni",
+          "homeAddress": "Cyfeiriad cartref presennol"
+        },
+        "updateUserDetailsInformation": {
+          "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
+          "updateDetailsHtml": "Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">gysylltu â'r tîm cefnogi cyfrif (agor mewn tab newydd)</a> i ddiweddaru eich manylion."
+        }
+      }
+    },
     "pageIpvSuccess": {
       "title": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
       "header": "Rydych wedi profi pwy ydych chi yn llwyddiannus",

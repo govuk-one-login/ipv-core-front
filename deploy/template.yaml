@@ -51,17 +51,6 @@ Conditions:
 # multiple developer environments and it is undesirable to have to keep this
 # mapping up to date with each developer environment.
 Mappings:
-  EcsConfiguration:
-    "130355686670": # Development
-      desiredTaskCount: 1
-    "457601271792": # Build
-      desiredTaskCount: 1
-    "335257547869": # Staging
-      desiredTaskCount: 2
-    "991138514218": # Integration
-      desiredTaskCount: 2
-    "075701497069": # Production
-      desiredTaskCount: 2
   EnvironmentConfiguration:
     "130355686670": # Development
       lb500ErrorLimit: 2
@@ -71,6 +60,7 @@ Mappings:
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
+      desiredTaskCount: 1
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -79,6 +69,7 @@ Mappings:
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
+      desiredTaskCount: 1
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -87,6 +78,7 @@ Mappings:
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
+      desiredTaskCount: 1
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -95,6 +87,7 @@ Mappings:
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
+      desiredTaskCount: 1
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -103,6 +96,7 @@ Mappings:
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
+      desiredTaskCount: 2
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -325,7 +319,7 @@ Resources:
       DeploymentController:
         Type: ECS
       DesiredCount: !FindInMap
-        - EcsConfiguration
+        - EnvironmentConfiguration
         - !Ref AWS::AccountId
         - desiredTaskCount
       EnableECSManagedTags: false
@@ -378,6 +372,9 @@ Resources:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
         TargetValue: 70
+        ScaleInCooldown: 300
+        ScaleOutCooldown: 60
+
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup

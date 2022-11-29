@@ -13,9 +13,9 @@ module.exports = {
     const fullLocality = localityNames.join(" ");
 
     if (fullStreetName) {
-      return `${fullBuildingName}<br>${fullStreetName},<br>${fullLocality},<br>${address.postalCode}<br>`;
+      return `${fullBuildingName}<br>${fullStreetName},<br>${fullLocality},<br>${address.postalCode}`;
     } else {
-      return `${fullBuildingName},<br>${fullLocality},<br>${address.postalCode}<br>`;
+      return `${fullBuildingName},<br>${fullLocality},<br>${address.postalCode}`;
     }
   },
 };

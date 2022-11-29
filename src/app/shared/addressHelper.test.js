@@ -8,7 +8,7 @@ describe("Address Helper", () => {
         {
           address: {
             organisationName: "My company",
-            departmentName: "My deparment",
+            departmentName: "My department",
             buildingName: "my building",
             subBuildingName: "Room 5",
             buildingNumber: "1",
@@ -19,7 +19,7 @@ describe("Address Helper", () => {
             addressLocality: "my town",
             postalCode: "myCode",
           },
-          text: "My company My deparment my building Room 5 1<br>My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode<br>",
+          text: "My company My department my building Room 5 1<br>My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode<br>",
         },
       ];
 

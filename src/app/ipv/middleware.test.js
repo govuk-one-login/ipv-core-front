@@ -424,7 +424,7 @@ describe("journey middleware", () => {
         name: "firstName LastName",
         dateOfBirth: "01 11 1973",
         addressDetails:
-          "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode<br>",
+          "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
       };
 
       axiosStub.get = sinon.fake.returns(axiosResponse);

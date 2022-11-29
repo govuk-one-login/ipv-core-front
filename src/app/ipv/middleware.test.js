@@ -1,6 +1,7 @@
 const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
+const { API_BUILD_PROVEN_USER_IDENTITY_DETAILS } = require("../../lib/config");
 
 describe("journey middleware", () => {
   let req;
@@ -8,7 +9,7 @@ describe("journey middleware", () => {
   let next;
 
   let axiosHelperStub = {};
-  const axiosStub = { post: sinon.stub() };
+  const axiosStub = { post: sinon.stub(), get: sinon.stub() };
   axiosHelperStub.getAxios = () => axiosStub;
 
   const configStub = {
@@ -41,7 +42,8 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
-    axiosStub.post.reset();
+    axiosStub.post = sinon.stub();
+    axiosStub.get = sinon.stub();
   });
 
   context("from a sequence of events that ends with a page response", () => {
@@ -394,4 +396,73 @@ describe("journey middleware", () => {
       });
     }
   );
+
+  context("handling page-persist-identity journey route", () => {
+    const pageId = "page-persist-identity";
+    it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async function () {
+      const axiosResponse = {};
+      axiosResponse.status = 200;
+      axiosResponse.data = {
+        name: "firstName LastName",
+        dateOfBirth: "01 11 1973",
+        addressDetails: {
+          organisationName: "My company",
+          departmentName: "My deparment",
+          buildingName: "my building",
+          subBuildingName: "Room 5",
+          buildingNumber: "1",
+          dependentStreetName: "My outter street",
+          streetName: "my inner street",
+          doubleDependentAddressLocality: "My double dependant town",
+          dependentAddressLocality: "my dependant town",
+          addressLocality: "my town",
+          postalCode: "myCode",
+        },
+      };
+
+      const expectedUserDetail = {
+        name: "firstName LastName",
+        dateOfBirth: "01 11 1973",
+        addressDetails:
+          "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
+      };
+
+      axiosStub.get = sinon.fake.returns(axiosResponse);
+
+      req = {
+        id: "1",
+        params: { pageId: pageId },
+        csrfToken: sinon.fake(),
+        session: { currentPage: pageId },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+
+      expect(axiosStub.get.firstCall).to.have.been.calledWith(
+        `${configStub.API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`
+      );
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/${pageId}.njk`,
+        sinon.match.has("userDetails", expectedUserDetail)
+      );
+    });
+
+    it("should not call build-proven-user-identity-details endpoint when debug mode", async function () {
+      req = {
+        id: "1",
+        params: { pageId: pageId },
+        csrfToken: sinon.fake(),
+        session: { currentPage: pageId, isDebugJourney: true },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+
+      expect(axiosStub.get).to.not.have.been.called;
+
+      expect(res.render).to.have.been.calledWith(`ipv/${pageId}.njk`);
+    });
+  });
 });

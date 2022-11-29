@@ -1,6 +1,9 @@
 const sanitize = require("sanitize-filename");
 
-const { API_BASE_URL } = require("../../lib/config");
+const {
+  API_BASE_URL,
+  API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+} = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
@@ -20,6 +23,8 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
+const { generateHTMLofAddress } = require("../shared/addressHelper");
+const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -149,6 +154,7 @@ module.exports = {
         "/journey/cri/validate/stubDcmaw",
         "/journey/end-mitigation-journey/MJ01",
         "/journey/end-mitigation-journey/MJ02",
+        "/journey/build-proven-user-identity-details",
       ];
 
       const action = allowedActions.find((x) => x === req.url);
@@ -197,6 +203,32 @@ module.exports = {
             pageId,
             csrfToken: req.csrfToken(),
           });
+        case "page-persist-identity": {
+          let userDetailsResponse = {};
+
+          if (req.session.isDebugJourney) {
+            userDetailsResponse = samplePersistedUserDetails;
+          } else {
+            userDetailsResponse = await getAxios(req).get(
+              `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
+              generateAxiosConfig(req)
+            );
+          }
+
+          const userDetails = {
+            name: userDetailsResponse.data?.name,
+            dateOfBirth: userDetailsResponse.data?.dateOfBirth,
+            addressDetails: generateHTMLofAddress(
+              userDetailsResponse.data?.addressDetails
+            ),
+          };
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        }
         default:
           return res.render(`ipv/pyi-technical.njk`);
       }

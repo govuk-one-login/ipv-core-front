@@ -199,6 +199,24 @@
         }
       }
     },
+    "pagePersistIdentity": {
+      "title": "You have already proved your identity",
+      "header": "You have already proved your identity",
+      "content": {
+        "paragraph1": "You proved your identity when you used your GOV.UK account before. You will not need to do it again to use this service.",
+        "subHeading": "Check your details",
+        "paragraph2": "If you have not signed in to your GOV.UK account in a while, you might want to check your details are still correct.",
+        "userDetailsInformation": {
+          "fullName": "Name",
+          "dateOfBirth": "Date of birth",
+          "homeAddress": "Current home address"
+        },
+        "updateUserDetailsInformation": {
+          "updateDetailsLabel": "How to update your details",
+          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK account support team (opens in a new tab)</a> to update your details."
+        }
+      }
+    },
     "pageIpvSuccess": {
       "title": "You’ve successfully proved your identity",
       "header": "You’ve successfully proved your identity",

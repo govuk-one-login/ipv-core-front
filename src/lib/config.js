@@ -14,6 +14,8 @@ module.exports = {
   API_REQUEST_CONFIG_PATH: "/request-config",
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
+  API_BUILD_PROVEN_USER_IDENTITY_DETAILS:
+    "/journey/build-proven-user-identity-details",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

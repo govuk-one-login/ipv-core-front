@@ -42,7 +42,8 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
-    axiosStub.post.reset();
+    axiosStub.post = sinon.stub();
+    axiosStub.get = sinon.stub();
   });
 
   context("from a sequence of events that ends with a page response", () => {
@@ -446,6 +447,22 @@ describe("journey middleware", () => {
         `ipv/${pageId}.njk`,
         sinon.match.has("userDetails", expectedUserDetail)
       );
+    });
+
+    it("should not call build-proven-user-identity-details endpoint when debug mode", async function () {
+      req = {
+        id: "1",
+        params: { pageId: pageId },
+        csrfToken: sinon.fake(),
+        session: { currentPage: pageId, isDebugJourney: true },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+
+      expect(axiosStub.get).to.not.have.been.called;
+
+      expect(res.render).to.have.been.calledWith(`ipv/${pageId}.njk`);
     });
   });
 });

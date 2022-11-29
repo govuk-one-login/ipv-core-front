@@ -154,6 +154,7 @@ module.exports = {
         "/journey/cri/validate/stubDcmaw",
         "/journey/end-mitigation-journey/MJ01",
         "/journey/end-mitigation-journey/MJ02",
+        "/journey/build-proven-user-identity-details",
       ];
 
       const action = allowedActions.find((x) => x === req.url);

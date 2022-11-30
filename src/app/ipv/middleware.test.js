@@ -397,8 +397,8 @@ describe("journey middleware", () => {
     }
   );
 
-  context("handling page-persist-identity journey route", () => {
-    const pageId = "page-persist-identity";
+  context("handling page-ipv-reuse journey route", () => {
+    const pageId = "page-ipv-reuse";
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async function () {
       const axiosResponse = {};
       axiosResponse.status = 200;

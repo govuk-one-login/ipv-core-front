@@ -203,7 +203,7 @@ module.exports = {
             pageId,
             csrfToken: req.csrfToken(),
           });
-        case "page-persist-identity": {
+        case "page-ipv-reuse": {
           let userDetailsResponse = {};
 
           if (req.session.isDebugJourney) {

@@ -199,7 +199,7 @@
         }
       }
     },
-    "pagePersistIdentity": {
+    "pageIpvReuse": {
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",
       "content": {

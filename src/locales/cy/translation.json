@@ -199,7 +199,7 @@
         }
       }
     },
-    "pagePersistIdentity": {
+    "pageIpvReuse": {
       "title": "Rydych wedi profi pwy ydych chi yn barod",
       "header": "Rydych wedi profi pwy ydych chi yn barod",
       "content": {

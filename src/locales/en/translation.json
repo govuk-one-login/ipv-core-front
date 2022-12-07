@@ -210,7 +210,7 @@
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
           "currentAddress": "Current home address",
-          "previousAddress" : "Previous address"
+          "previousAddress": "Previous address"
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",

@@ -209,7 +209,8 @@
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
-          "homeAddress": "Current home address"
+          "currentAddress": "Current home address",
+          "previousAddress" : "Previous address"
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",

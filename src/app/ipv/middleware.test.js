@@ -405,19 +405,21 @@ describe("journey middleware", () => {
       axiosResponse.data = {
         name: "firstName LastName",
         dateOfBirth: "01 11 1973",
-        addressDetails: {
-          organisationName: "My company",
-          departmentName: "My deparment",
-          buildingName: "my building",
-          subBuildingName: "Room 5",
-          buildingNumber: "1",
-          dependentStreetName: "My outter street",
-          streetName: "my inner street",
-          doubleDependentAddressLocality: "My double dependant town",
-          dependentAddressLocality: "my dependant town",
-          addressLocality: "my town",
-          postalCode: "myCode",
-        },
+        addresses: [
+          {
+            organisationName: "My company",
+            departmentName: "My deparment",
+            buildingName: "my building",
+            subBuildingName: "Room 5",
+            buildingNumber: "1",
+            dependentStreetName: "My outter street",
+            streetName: "my inner street",
+            doubleDependentAddressLocality: "My double dependant town",
+            dependentAddressLocality: "my dependant town",
+            addressLocality: "my town",
+            postalCode: "myCode",
+          },
+        ],
       };
 
       const expectedUserDetail = {

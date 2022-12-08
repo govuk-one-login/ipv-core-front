@@ -12,33 +12,43 @@
     <h2 class="govuk-heading-m">{{ 'pages.pageIpvReuse.content.subHeading' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
 
-    {{ govukSummaryList({
-        rows: [
-            {
-                key: {
+    {% set rows = [
+        {
+            key: {
                 text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translate
             },
-                value: {
+            value: {
                 text: userDetails.name
             }
-            },
-            {
-                key: {
+        },
+        {
+            key: {
                 text: 'pages.pageIpvReuse.content.userDetailsInformation.dateOfBirth' | translate
             },
-                value: {
+            value: {
                 text: userDetails.dateOfBirth
             }
-            },
+        }
+    ] %}
+
+    {% for addressDetail in userDetails.addresses %}
+        {% set addressRow =
             {
-                key: {
-                text: 'pages.pageIpvReuse.content.userDetailsInformation.homeAddress' | translate
-            },
-                value: {
-                html: userDetails.addressDetails
+                key:
+                {
+                    text: addressDetail.label
+                },
+                value:
+                {
+                    text: addressDetail.addressDetailHtml | safe
+                }
             }
-            }
-        ]
+        %}
+        {% set rows =(rows.push(addressRow), rows) %}
+    {% endfor %}
+
+    {{ govukSummaryList({
+        rows: rows
     }) }}
 
     {{ govukDetails({

@@ -209,7 +209,8 @@
         "userDetailsInformation": {
           "fullName": "Enw",
           "dateOfBirth": "Dyddiad geni",
-          "homeAddress": "Cyfeiriad cartref presennol"
+          "currentAddress": "Cyfeiriad cartref presennol",
+          "previousAddress": "Cyfeiriad blaenorol"
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Sut i ddiweddaru eich manylion",

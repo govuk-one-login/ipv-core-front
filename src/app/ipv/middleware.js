@@ -215,11 +215,25 @@ module.exports = {
             );
           }
 
+          const i18n = req.i18n;
+
           const userDetails = {
             name: userDetailsResponse.data?.name,
             dateOfBirth: userDetailsResponse.data?.dateOfBirth,
-            addressDetails: generateHTMLofAddress(
-              userDetailsResponse.data?.addressDetails
+            addresses: userDetailsResponse.data?.addresses.map(
+              (address, idx) => {
+                const addressDetailHtml = generateHTMLofAddress(address);
+                const label =
+                  idx === 0
+                    ? i18n.t(
+                        "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
+                      )
+                    : `${i18n.t(
+                        "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
+                      )} ${idx}`;
+
+                return { label, addressDetailHtml };
+              }
             ),
           };
 

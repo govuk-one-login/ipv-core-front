@@ -405,26 +405,33 @@ describe("journey middleware", () => {
       axiosResponse.data = {
         name: "firstName LastName",
         dateOfBirth: "01 11 1973",
-        addressDetails: {
-          organisationName: "My company",
-          departmentName: "My deparment",
-          buildingName: "my building",
-          subBuildingName: "Room 5",
-          buildingNumber: "1",
-          dependentStreetName: "My outter street",
-          streetName: "my inner street",
-          doubleDependentAddressLocality: "My double dependant town",
-          dependentAddressLocality: "my dependant town",
-          addressLocality: "my town",
-          postalCode: "myCode",
-        },
+        addresses: [
+          {
+            organisationName: "My company",
+            departmentName: "My deparment",
+            buildingName: "my building",
+            subBuildingName: "Room 5",
+            buildingNumber: "1",
+            dependentStreetName: "My outter street",
+            streetName: "my inner street",
+            doubleDependentAddressLocality: "My double dependant town",
+            dependentAddressLocality: "my dependant town",
+            addressLocality: "my town",
+            postalCode: "myCode",
+          },
+        ],
       };
 
       const expectedUserDetail = {
         name: "firstName LastName",
         dateOfBirth: "01 11 1973",
-        addressDetails:
-          "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
+        addresses: [
+          {
+            label: "Some label",
+            addressDetailHtml:
+              "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
+          },
+        ],
       };
 
       axiosStub.get = sinon.fake.returns(axiosResponse);
@@ -435,6 +442,7 @@ describe("journey middleware", () => {
         csrfToken: sinon.fake(),
         session: { currentPage: pageId },
         log: { info: sinon.fake(), error: sinon.fake() },
+        i18n: { t: () => "Some label" },
       };
 
       await middleware.handleJourneyPage(req, res);
@@ -456,6 +464,7 @@ describe("journey middleware", () => {
         csrfToken: sinon.fake(),
         session: { currentPage: pageId, isDebugJourney: true },
         log: { info: sinon.fake(), error: sinon.fake() },
+        i18n: { t: () => "Some label" },
       };
 
       await middleware.handleJourneyPage(req, res);

@@ -61,6 +61,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       desiredTaskCount: 1
+      subdomain: ".dev"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -70,6 +71,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       desiredTaskCount: 1
+      subdomain: ".build"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -79,6 +81,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       desiredTaskCount: 1
+      subdomain: ".staging"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -88,6 +91,7 @@ Mappings:
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
       desiredTaskCount: 1
+      subdomain: ".integration"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -97,6 +101,7 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
       desiredTaskCount: 2
+      subdomain: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -105,25 +110,22 @@ Mappings:
 Resources:
 
  # Security Groups for the ECS service and load balancer
-  PrivateLoadBalancerSG:
+  PublicLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
       SecurityGroupIngress:
-        - CidrIp:
-            Fn::ImportValue: !Sub ${VpcStackName}-VpcCidr
-          Description: Allow vpc cidr ingress to port 80
-          FromPort: 80
+        - CidrIp: "0.0.0.0/32"
+          Description: Allow port 443 access from anywhere
+          FromPort: 443
           IpProtocol: tcp
-          ToPort: 80
-      VpcId:
-        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+          ToPort: 443
 
-  PrivateLoadBalancerSGEgressToECSSecurityGroup:
+  PublicLoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"
     Properties:
-      GroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      GroupId: !GetAtt PublicLoadBalancerSG.GroupId
       IpProtocol: tcp
       Description: >-
         Egress between the Core Front load balancer and
@@ -176,7 +178,7 @@ Resources:
       FromPort: 8080
       ToPort: 8080
       GroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      SourceSecurityGroupId: !GetAtt PublicLoadBalancerSG.GroupId
 
   AccessLogsBucket:
     Type: AWS::S3::Bucket
@@ -232,13 +234,34 @@ Resources:
               NumericLessThan:
                 "s3:TlsVersion": "1.2"
 
-  # Private Application Load Balancer
-  PrivateLoadBalancer:
+  # Route 53 domain alias
+  PublicLoadBalancerDomainAlias:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt PublicLoadBalancer.DNSName
+        EvaluateTargetHealth: true #for now
+        HostedZoneId: !GetAtt PublicLoadBalancer.CanonicalHostedZoneID
+      HostedZoneName: !Join
+        - ""
+        - - "identity"
+          - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+          - ".account.gov.uk."
+      Name: !Join
+        - ""
+        - - "identity"
+          - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+          - ".account.gov.uk."
+      Type: "A"
+      Region: !Ref "AWS::Region"
+
+  # Public Application Load Balancer
+  PublicLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
-      Scheme: internal
+      Scheme: internet-facing
       SecurityGroups:
-        - !GetAtt PrivateLoadBalancerSG.GroupId
+        - !GetAtt PublicLoadBalancerSG.GroupId
       Subnets:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
@@ -269,7 +292,7 @@ Resources:
           - !Ref AWS::NoValue
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
-  PrivateLoadBalancerListenerTargetGroupECS:
+  PublicLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       HealthCheckEnabled: TRUE
@@ -286,15 +309,15 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 60
 
-  PrivateLoadBalancerListener:
+  PublicLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
       # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
       # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
       DefaultActions:
-        - TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+        - TargetGroupArn: !Ref PublicLoadBalancerListenerTargetGroupECS
           Type: forward
-      LoadBalancerArn: !Ref PrivateLoadBalancer
+      LoadBalancerArn: !Ref PublicLoadBalancer
       Port: 80
       Protocol: HTTP
 
@@ -328,7 +351,7 @@ Resources:
       LoadBalancers:
         - ContainerName: app
           ContainerPort: 8080
-          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+          TargetGroupArn: !Ref PublicLoadBalancerListenerTargetGroupECS
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: DISABLED
@@ -339,7 +362,7 @@ Resources:
             - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
-      - PrivateLoadBalancerListener
+      - PublicLoadBalancerListener
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
@@ -414,7 +437,7 @@ Resources:
                 - "core-front-sessions-${Environment}"
                 - Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
-              Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+              Value: !Ref PublicLoadBalancerDomainAlias
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
             - Name: ANALYTICS_DOMAIN
@@ -531,72 +554,72 @@ Resources:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       SecurityGroupIds: []
 
-  ApiGwHttpEndpoint:
-    Type: "AWS::ApiGatewayV2::Api"
-    Properties:
-      Name: !Sub ipv-core-front-${Environment}
-      ProtocolType: HTTP
+# ApiGwHttpEndpoint:
+#   Type: "AWS::ApiGatewayV2::Api"
+#   Properties:
+#     Name: !Sub ipv-core-front-${Environment}
+#     ProtocolType: HTTP
 
-  ApiGwHttpEndpointIntegration:
-    Type: "AWS::ApiGatewayV2::Integration"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      IntegrationType: HTTP_PROXY
-      ConnectionId: !If
-        - IsDevelopment
-        - !Ref VpcLink
-        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
-      ConnectionType: VPC_LINK
-      IntegrationMethod: ANY
-      IntegrationUri: !Ref PrivateLoadBalancerListener
-      PayloadFormatVersion: "1.0"
-
-  APIGWRoute:
-    Type: "AWS::ApiGatewayV2::Route"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      RouteKey: "ANY /{proxy+}"
-      Target: !Join
-        - /
-        - - integrations
-          - !Ref ApiGwHttpEndpointIntegration
-
-  APIStageDefault:
-    Type: "AWS::ApiGatewayV2::Stage"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      StageName: $default
-      AutoDeploy: true
-      AccessLogSettings:
-        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
-        Format: >-
-          {
-          "requestId":"$context.requestId",
-          "ip": "$context.identity.sourceIp",
-          "requestTime":"$context.requestTime",
-          "httpMethod":"$context.httpMethod",
-          "path": "$context.path",
-          "routeKey":"$context.routeKey",
-          "status":"$context.status",
-          "protocol":"$context.protocol",
-          "responseLength":"$context.responseLength",
-          "responseLatency":"$context.responseLatency"
-          }
-
-  APIGWAccessLogsGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 14
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
-
-  APIGWAccessLogsGroupSubscriptionFilter:
-    Type: AWS::Logs::SubscriptionFilter
-    Condition: IsNotDevelopment
-    Properties:
-      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
-      FilterPattern: ""
-      LogGroupName: !Ref APIGWAccessLogsGroup
+#  ApiGwHttpEndpointIntegration:
+#    Type: "AWS::ApiGatewayV2::Integration"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      IntegrationType: HTTP_PROXY
+#      ConnectionId: !If
+#        - IsDevelopment
+#        - !Ref VpcLink
+#        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+#      ConnectionType: VPC_LINK
+#      IntegrationMethod: ANY
+#      IntegrationUri: !Ref PrivateLoadBalancerListener
+#      PayloadFormatVersion: "1.0"
+#
+#  APIGWRoute:
+#    Type: "AWS::ApiGatewayV2::Route"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      RouteKey: "ANY /{proxy+}"
+#      Target: !Join
+#        - /
+#        - - integrations
+#          - !Ref ApiGwHttpEndpointIntegration
+#
+#  APIStageDefault:
+#    Type: "AWS::ApiGatewayV2::Stage"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      StageName: $default
+#      AutoDeploy: true
+#      AccessLogSettings:
+#        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
+#        Format: >-
+#          {
+#          "requestId":"$context.requestId",
+#          "ip": "$context.identity.sourceIp",
+#          "requestTime":"$context.requestTime",
+#          "httpMethod":"$context.httpMethod",
+#          "path": "$context.path",
+#          "routeKey":"$context.routeKey",
+#          "status":"$context.status",
+#          "protocol":"$context.protocol",
+#          "responseLength":"$context.responseLength",
+#          "responseLatency":"$context.responseLatency"
+#          }
+#
+#  APIGWAccessLogsGroup:
+#    Type: AWS::Logs::LogGroup
+#    Properties:
+#      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
+#      RetentionInDays: 14
+#      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+#
+#  APIGWAccessLogsGroupSubscriptionFilter:
+#    Type: AWS::Logs::SubscriptionFilter
+#    Condition: IsNotDevelopment
+#    Properties:
+#      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
+#      FilterPattern: ""
+#      LogGroupName: !Ref APIGWAccessLogsGroup
 
   CoreFrontSessionsTable:
     Type: AWS::DynamoDB::Table
@@ -704,7 +727,7 @@ Resources:
               MetricName: HTTPCode_ELB_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PublicLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorWindow ]
             Stat: Sum
 
@@ -737,17 +760,17 @@ Resources:
               MetricName: HTTPCode_Target_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PublicLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 
-Outputs:
-  CoreFrontUrl:
-    Description: >-
-      The API Gateway URL which Core Front can be invoked on.
-    Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
-  IPVCoreFrontGatewayID:
-    Description: Core Front API Gateway ID
-    Export:
-      Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
-    Value: !Ref ApiGwHttpEndpoint
+#Outputs:
+  #CoreFrontUrl:
+  #  Description: >-
+  #    The API Gateway URL which Core Front can be invoked on.
+  #  Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+  #IPVCoreFrontGatewayID:
+  #  Description: Core Front API Gateway ID
+  #  Export:
+  #    Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
+  #  Value: !Ref ApiGwHttpEndpoint

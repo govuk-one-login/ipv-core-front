@@ -91,7 +91,7 @@ Mappings:
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
-      tg500ErrorLimit: 30
+      tg500ErrorLimit: 50
       tg500ErrorWindow: 300
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"

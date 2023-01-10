@@ -121,6 +121,8 @@ Resources:
           FromPort: 443
           IpProtocol: tcp
           ToPort: 443
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
   PublicLoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"

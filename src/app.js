@@ -19,6 +19,9 @@ const Backend = require("i18next-fs-backend");
 const i18nextMiddleware = require("i18next-http-middleware");
 const { i18nextConfigurationOptions } = require("./config/i18next");
 const {
+  journeyEventErrorHandler,
+} = require("./handlers/journey-event-error-handler");
+const {
   serverErrorHandler,
 } = require("./handlers/internal-server-error-handler");
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
@@ -137,6 +140,7 @@ router.get("/healthcheck", (req, res) => {
 
 app.use(router);
 
+app.use(journeyEventErrorHandler);
 app.use(serverErrorHandler);
 app.use(pageNotFoundHandler);
 

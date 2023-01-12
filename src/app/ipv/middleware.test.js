@@ -388,6 +388,20 @@ describe("journey middleware", () => {
         );
       });
 
+      it("should post with journey/end", async function () {
+        req = {
+          id: "1",
+          body: { journey: "attempt-recovery" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/attempt-recovery`
+        );
+      });
+
       it("should post with journey/next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(

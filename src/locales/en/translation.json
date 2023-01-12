@@ -90,6 +90,13 @@
     }
   },
   "pages": {
+    "pyiAttemptRecovery": {
+      "title": "Attempt Recovery Page - Sorry, there is a problem",
+      "header": "Attempt Recovery Page - Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now."
+      }
+    },
     "pyiNoMatch": {
       "title": "Sorry, we cannot prove your identity right now",
       "header": "Sorry, we cannot prove your identity right now",

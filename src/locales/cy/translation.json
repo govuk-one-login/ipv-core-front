@@ -90,6 +90,13 @@
     }
   },
   "pages": {
+    "pyiAttemptRecovery": {
+      "title": "Attempt Recovery Page - Sorry, there is a problem",
+      "header": "Attempt Recovery Page - Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now."
+      }
+    },
     "pyiNoMatch": {
       "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",
       "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi ar hyn o bryd",

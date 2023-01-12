@@ -1,3 +1,5 @@
+const sanitize = require("sanitize-filename");
+
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
     if (res.headersSent) {
@@ -8,7 +10,7 @@ module.exports = {
 
     if (res.err?.response?.data?.page) {
       res.status(res.err.response.data.statusCode);
-      return res.render(`ipv/${res.err.response.data.page}.njk`);
+      return res.render(`ipv/${sanitize(res.err.response.data.page)}.njk`);
     }
 
     next(err);

@@ -117,6 +117,9 @@ function tryValidateClientResponse(client) {
 }
 
 module.exports = {
+  renderAttemptRecoveryPage: async (req, res) => {
+    res.render("ipv/ipv-attempt-recovery.njk");
+  },
   updateJourneyState: async (req, res, next) => {
     //routine to be removed once debug journey rewrite is complete
     try {
@@ -195,7 +198,7 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-passport-doc-check":
         case "page-multiple-doc-check":
-        case "pyi-recovery":
+        case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":

@@ -117,6 +117,11 @@ function tryValidateClientResponse(client) {
 }
 
 module.exports = {
+  renderAttemptRecoveryPage: async (req, res) => {
+    res.render("ipv/pyi-attempt-recovery.njk", {
+      csrfToken: req.csrfToken(),
+    });
+  },
   updateJourneyState: async (req, res, next) => {
     //routine to be removed once debug journey rewrite is complete
     try {
@@ -128,6 +133,7 @@ module.exports = {
         "/journey/next",
         "/journey/error",
         "/journey/fail",
+        "/journey/attempt-recovery",
         "/journey/cri/build-oauth-request/ukPassport",
         "/journey/cri/build-oauth-request/stubUkPassport",
         "/journey/cri/build-oauth-request/fraud",
@@ -194,6 +200,7 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-passport-doc-check":
         case "page-multiple-doc-check":
+        case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
@@ -255,6 +262,8 @@ module.exports = {
     try {
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
+      } else if (req.body?.journey === "attempt-recovery") {
+        await handleJourneyResponse(req, res, "journey/attempt-recovery");
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }

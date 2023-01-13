@@ -1,0 +1,31 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiAttemptRecovery.title' | translate %}
+{% set googleTagManagerPageId = "pyiAttemptRecovery" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiAttemptRecovery.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiAttemptRecovery.content.paragraph1' | translate }}</p>
+
+  <form id="attemptRecoveryForm" action="/ipv/page/pyi-attempt-recovery" method="POST" onsubmit="return attemptRecoveryFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="journey" value="attempt-recovery">
+    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+      {{'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <script>
+    let disableSubmit = false;
+    function attemptRecoveryFormSubmit() {
+      if(!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('submitButton').disabled = true;
+        return true
+      }
+      return false;
+    }
+  </script>
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

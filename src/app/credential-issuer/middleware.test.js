@@ -32,6 +32,7 @@ describe("credential issuer middleware", () => {
       req = {
         id: "1",
         params: {},
+        csrfToken: sinon.fake(),
         session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
         query: {
           id: "PassportIssuer",

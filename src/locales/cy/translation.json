@@ -178,7 +178,8 @@
         "formRadioButtons": {
           "continueButtonText": "Parhau i brofi pwy ydych chi yn y ffordd hyn",
           "continueButtonHint": "Byddwch angen pasbort y DU",
-          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall"
+          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall",
+          "otherWayButtonHint": "Parhau i’r gwasanaeth rydych am ei ddefnyddio ac edrych am ffyrdd eraill o brofi pwy ydych"
         }
       }
     },

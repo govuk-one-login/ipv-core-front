@@ -178,7 +178,8 @@
         "formRadioButtons": {
           "continueButtonText": "Continue to prove your identity this way",
           "continueButtonHint": "You’ll need a UK passport",
-          "otherWayButtonText": "Prove your identity another way"
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonHint": "Continue to the service you want to use and look for other ways to prove your identity"
         }
       }
     },

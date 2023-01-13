@@ -187,7 +187,7 @@ module.exports = {
           "page :pageId doesn't match expected session page :expectedPage"
         );
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
+        req.session.currentPage = "pyi-attempt-recovery";
         return res.redirect(req.session.currentPage);
       }
 

@@ -156,7 +156,7 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
     });
 
-    it("should render unrecoverable technical error page when current page is not equal to pageId", async () => {
+    it("should render attempt recovery error page when current page is not equal to pageId", async () => {
       req = {
         id: "1",
         params: { pageId: "invalid-page-id" },
@@ -165,9 +165,7 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.redirect).to.have.been.calledWith(
-        "pyi-technical-unrecoverable"
-      );
+      expect(res.redirect).to.have.been.calledWith("pyi-attempt-recovery");
     });
 
     it("should raise an error when missing pageId", async () => {

@@ -10,7 +10,9 @@ module.exports = {
 
     if (res.err?.response?.data?.page) {
       res.status(res.err.response.data.statusCode);
-      return res.render(`ipv/${sanitize(res.err.response.data.page)}.njk`);
+      return res.render(`ipv/${sanitize(res.err.response.data.page)}.njk`, {
+        csrfToken: err.csrfToken,
+      });
     }
 
     next(err);

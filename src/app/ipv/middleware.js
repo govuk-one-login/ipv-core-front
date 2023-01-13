@@ -118,7 +118,9 @@ function tryValidateClientResponse(client) {
 
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
-    res.render("ipv/ipv-attempt-recovery.njk");
+    res.render("ipv/pyi-attempt-recovery.njk", {
+      csrfToken: req.csrfToken(),
+    });
   },
   updateJourneyState: async (req, res, next) => {
     //routine to be removed once debug journey rewrite is complete

@@ -7,7 +7,7 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiAttemptRecovery.header' | translate }}</h1>
   <p class="govuk-body">{{'pages.pyiAttemptRecovery.content.paragraph1' | translate }}</p>
 
-  <form id="attemptRecoveryForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return attemptRecoveryFormSubmit()">
+  <form id="attemptRecoveryForm" action="/ipv/page/pyi-attempt-recovery" method="POST" onsubmit="return attemptRecoveryFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="journey" value="attempt-recovery">
     <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">

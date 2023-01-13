@@ -388,7 +388,7 @@ describe("journey middleware", () => {
         );
       });
 
-      it("should post with journey/end", async function () {
+      it("should post with journey/attempt-recovery", async function () {
         req = {
           id: "1",
           body: { journey: "attempt-recovery" },

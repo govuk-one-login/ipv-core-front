@@ -20,6 +20,7 @@ module.exports = {
       logError(req, e, "Bad response - status is not a function");
     }
 
-    res.render("ipv/pyi-technical-unrecoverable.njk");
+    req.session.currentPage = "pyi-technical-unrecoverable";
+    res.redirect("/ipv/page/pyi-technical-unrecoverable");
   },
 };

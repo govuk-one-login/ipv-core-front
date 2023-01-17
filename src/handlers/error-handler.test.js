@@ -54,8 +54,8 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledOnceWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-technical-unrecoverable"
       );
     });
 
@@ -65,8 +65,8 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledOnceWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-technical-unrecoverable"
       );
     });
 
@@ -103,7 +103,9 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(400);
-      expect(res.render).to.have.been.calledOnceWith("ipv/pyi-technical.njk");
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-technical"
+      );
     });
   });
 });

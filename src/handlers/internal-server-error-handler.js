@@ -3,7 +3,18 @@ const { logError } = require("../app/shared/loggerHelper");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
+    const message = {
+      err: err,
+      description: "Error recieved in server error handler"
+    };
+    req.log.error({ message, level: "ERROR", requestId: req.id });
+
     if (res.headersSent) {
+      const message = {
+        description: "res.headers sent is true"
+      };
+      req.log.info({ message, level: "INFO", requestId: req.id });
+
       return next(err);
     }
 

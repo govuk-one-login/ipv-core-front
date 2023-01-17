@@ -93,10 +93,12 @@
   },
   "pages": {
     "pyiAttemptRecovery": {
-      "title": "Attempt Recovery Page - Sorry, there is a problem",
-      "header": "Attempt Recovery Page - Sorry, there is a problem",
+      "title": "Sorry, you cannot go back",
+      "header": "Sorry, you cannot go back",
       "content": {
-        "paragraph1": "We cannot prove your identity right now."
+        "paragraph1": "You cannot go back if you’ve already started entering information to prove your identity online.",
+        "subHeading": "What you can do",
+        "paragraph2": "Continue proving your identity online."
       }
     },
     "pyiNoMatch": {

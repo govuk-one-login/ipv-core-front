@@ -93,10 +93,12 @@
   },
   "pages": {
     "pyiAttemptRecovery": {
-      "title": "Attempt Recovery Page - Sorry, there is a problem",
-      "header": "Attempt Recovery Page - Sorry, there is a problem",
+      "title": "Mae'n ddrwg gennym, ni allwch fynd yn ôl",
+      "header": "Mae'n ddrwg gennym, ni allwch fynd yn ôl",
       "content": {
-        "paragraph1": "We cannot prove your identity right now."
+        "paragraph1": "Ni allwch fynd yn ôl os ydych eisoes wedi dechrau rhoi gwybodaeth i brofi pwy ydych chi ar-lein.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Parhau i brofi pwy ydych chi ar-lein"
       }
     },
     "pyiNoMatch": {

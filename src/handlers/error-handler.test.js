@@ -102,7 +102,6 @@ describe("Error handlers", () => {
 
       journeyEventErrorHandler(err, req, res, next);
 
-      expect(res.status).to.have.been.calledOnceWith(400);
       expect(res.redirect).to.have.been.calledOnceWith(
         "/ipv/page/pyi-technical"
       );

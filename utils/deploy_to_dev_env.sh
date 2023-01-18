@@ -131,7 +131,7 @@ function update_stack() {
     --parameters ParameterKey=ImageTag,ParameterValue="${DEV_IMAGE_TAG}" \
                  ParameterKey=Environment,UsePreviousValue=true \
                  ParameterKey=VpcStackName,UsePreviousValue=true \
-    --capabilities CAPABILITY_IAM \
+    --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND\
     --region "${region}"
 
   while ! isStackUpdateComplete

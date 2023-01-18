@@ -685,7 +685,7 @@ Resources:
         - !ImportValue sns-topics-AlarmTopic
       OKActions:
         - !ImportValue sns-topics-AlarmTopic
-      InsufficientDataActions: []
+      InsufficientDataActions: [ ]
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
       Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
@@ -740,6 +740,26 @@ Resources:
                   Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
+
+  ### Lambda metrics with session ID as dimension
+  LambdaInvocationsBySessId:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 90
+      LogGroupName: !Sub LambdaInvocationsBySessId-${Environment}
+
+  BuildClientOAuthResponseInvocationsBySessId:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      #FilterName: !Sub BuildClientOAuthResponseInvocationsBySessId-${Environment}
+      FilterPattern: "{ $.ipvSessionId = \"*\" }"
+      LogGroupName: "/aws/lambda/build-client-oauth-response-dev-tobys"
+      MetricTransformations:
+        - DefaultValue: 0
+          MetricName: !Sub BuildClientOAuthResponseInvocationsBySessIdMetric-${Environment}
+          MetricNamespace: !Sub InvocationsBySessId-${Environment}
+          MetricValue: 1
+          Unit: Count
 
 Outputs:
   CoreFrontUrl:

@@ -30,6 +30,15 @@ Parameters:
     Description: "The ARN of the permissions boundary to apply when creating IAM roles"
     Type: String
     Default: "none"
+  CidrBlock:
+    Description: >
+      The CIDR block that defines the IP range that the VPC will use. Defaults
+      to 10.0.0.0/16 and there is no specific reason to change this unless you
+      have multiple VPCs that are going to be peered or connected via a Transit
+      Gateway. Must be a /16.
+    Type: "String"
+    Default: "10.120.128.0/24"
+    AllowedPattern: "([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/24)?"
 
 Conditions:
   IsDevelopment: !Not
@@ -62,6 +71,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       desiredTaskCount: 1
+      subdomain: ".dev"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -72,6 +82,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       desiredTaskCount: 1
+      subdomain: ".build"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -82,6 +93,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       desiredTaskCount: 1
+      subdomain: ".staging"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -92,6 +104,7 @@ Mappings:
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
       desiredTaskCount: 1
+      subdomain: ".integration"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -102,33 +115,42 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
       desiredTaskCount: 2
+      subdomain: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
       s3: "pl-7ca54015"
-
+  SubnetZoneIds:
+    eu-west-2:
+      "a": "euw2-az1"
+      "b": "euw2-az2"
+      "c": "euw2-az3"
 Resources:
 
  # Security Groups for the ECS service and load balancer
-  PrivateLoadBalancerSG:
+  PublicLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
       SecurityGroupIngress:
-        - CidrIp:
-            Fn::ImportValue: !Sub ${VpcStackName}-VpcCidr
-          Description: Allow vpc cidr ingress to port 80
+        - CidrIp: "0.0.0.0/0"
+          Description: Allow port 443 access from anywhere
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
+        - CidrIp: "0.0.0.0/0"
+          Description: Allow port 80 access from anywhere
           FromPort: 80
           IpProtocol: tcp
           ToPort: 80
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
 
-  PrivateLoadBalancerSGEgressToECSSecurityGroup:
+  PublicLoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"
     Properties:
-      GroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      GroupId: !GetAtt PublicLoadBalancerSG.GroupId
       IpProtocol: tcp
       Description: >-
         Egress between the Core Front load balancer and
@@ -181,7 +203,92 @@ Resources:
       FromPort: 8080
       ToPort: 8080
       GroupId: !GetAtt CoreFrontECSSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt PrivateLoadBalancerSG.GroupId
+      SourceSecurityGroupId: !GetAtt PublicLoadBalancerSG.GroupId
+
+# WAF
+  WAFv2ACL:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      DefaultAction:
+        Block: { }
+      Scope: REGIONAL
+      Rules:
+        # Optional rule set to restrict to GDS IP addresses.
+        # See WAFv2GDSIPSet resource further on.
+        - Name: GDSIPs
+          Action:
+            Allow: { }
+          Priority: 10
+          Statement:
+            IPSetReferenceStatement:
+              Arn: !GetAtt WAFv2GDSIPSet.Arn
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: TRUE
+            MetricName: !Sub "${AWS::StackName}-WAFGDSIPhits"
+            SampledRequestsEnabled: FALSE
+        - Name: AWS-AWMManagedRuleCommonRuleSet
+          OverrideAction:
+            None: { }
+          Priority: 20
+          Statement:
+            ManagedRuleGroupStatement:
+              Name: AWSManagedRulesCommonRuleSet
+              VendorName: AWS
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: TRUE
+            MetricName: !Sub "${AWS::StackName}-AWSCRShits"
+            SampledRequestsEnabled: FALSE
+        - Name: AWS-AWSManagedRulesKnownBadInputsRuleSet
+          Priority: 30
+          OverrideAction:
+            None: { }
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesKnownBadInputsRuleSet
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: TRUE
+            MetricName: !Sub "${AWS::StackName}-AWSKBIhits"
+            SampledRequestsEnabled: FALSE
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: TRUE
+        MetricName: !Sub "${AWS::StackName}-WAFv2hits"
+        SampledRequestsEnabled: FALSE
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-WAFv2"
+        - Key: Service
+          Value: "IPV Core"
+
+  # The IP address blocks below are referenced from here:
+  # https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-gds/gds-internal-it/gds-internal-it-network-public-ip-addresses
+  WAFv2GDSIPSet:
+    Type: AWS::WAFv2::IPSet
+    Properties:
+      Addresses:
+        - "213.86.153.211/32"
+        - "213.86.153.212/32"
+        - "213.86.153.213/32"
+        - "213.86.153.214/32"
+        - "213.86.153.231/32"
+        - "213.86.153.235/32"
+        - "213.86.153.236/32"
+        - "213.86.153.237/32"
+        - "85.133.67.244/32"
+        - "51.149.8.0/25"
+        - "51.149.8.128/29"
+      IPAddressVersion: IPV4
+      Scope: REGIONAL
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-WAFv2GDSIPSet"
+        - Key: Service
+          Value: "IPV Core"
+  WAFv2ACLAssociation:
+    Type: AWS::WAFv2::WebACLAssociation
+    Properties:
+      ResourceArn: !Ref PublicLoadBalancer
+      WebACLArn: !GetAtt WAFv2ACL.Arn
 
   AccessLogsBucket:
     Type: AWS::S3::Bucket
@@ -237,16 +344,171 @@ Resources:
               NumericLessThan:
                 "s3:TlsVersion": "1.2"
 
-  # Private Application Load Balancer
-  PrivateLoadBalancer:
+  # Route 53 domain alias
+  PublicLoadBalancerDomainAlias:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt PublicLoadBalancer.DNSName
+        EvaluateTargetHealth: true #for now
+        HostedZoneId: !GetAtt PublicLoadBalancer.CanonicalHostedZoneID
+      SetIdentifier: "PublicLoadBalancerRecordset"
+      HostedZoneName: !Join
+        - ""
+        - - "identity"
+          - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+          - ".account.gov.uk."
+      Name: !Join
+        - ""
+        - - !If
+            - IsDevelopment
+            - !Sub "${Environment}."
+            - !Ref AWS::NoValue
+          - "identity"
+          - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+          - ".account.gov.uk"
+      Type: "A"
+      Region: !Ref "AWS::Region"
+
+  # Public subnets for load balancer
+
+  PublicSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZoneId: !FindInMap [ SubnetZoneIds, !Ref AWS::Region, "a" ]
+      CidrBlock: !Select [ 4, !Cidr [ !Ref CidrBlock, 6, 5 ] ]
+      MapPublicIpOnLaunch: true
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicSubnetA"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "alphagov/di-ipv-core-front/deploy/template.yaml"
+
+  PublicRouteTableA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicRouteTableA"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "alphagov/di-ipv-core-front/deploy/template.yaml"
+
+  RouteTableAssociationForPublicSubnetA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTableA
+      SubnetId: !Ref PublicSubnetA
+
+  InternetRoutePublicSubnetA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTableA
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: "igw-054f65273cb50cd73"
+
+  PublicSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZoneId: !FindInMap [ SubnetZoneIds, !Ref AWS::Region, "b" ]
+      CidrBlock: !Select [ 5, !Cidr [ !Ref CidrBlock, 6, 5 ] ]
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicSubnetB"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "di-ipv-core-front/deploy/template.yaml"
+
+  PublicRouteTableB:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicRouteTableB"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "alphagov/di-ipv-core-front/deploy/template.yaml"
+
+  RouteTableAssociationForPublicSubnetB:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTableB
+      SubnetId: !Ref PublicSubnetB
+
+  InternetRoutePublicSubnetB:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTableB
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: "igw-054f65273cb50cd73"
+
+  PublicSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZoneId: !FindInMap [ SubnetZoneIds, !Ref AWS::Region, "c" ]
+      CidrBlock: !Select [ 3, !Cidr [ !Ref CidrBlock, 6, 5 ] ]
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicSubnetC"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "di-ipv-core-front/deploy/template.yaml"
+
+  PublicRouteTableC:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      Tags:
+        - Key: "Name"
+          Value: !Sub "${AWS::StackName}-PublicRouteTableC"
+        - Key: "Service"
+          Value: "IPV Core"
+        - Key: "Source"
+          Value: "alphagov/di-ipv-core-front/deploy/template.yaml"
+
+  RouteTableAssociationForPublicSubnetC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTableC
+      SubnetId: !Ref PublicSubnetC
+
+  InternetRoutePublicSubnetC:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTableC
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: "igw-054f65273cb50cd73"
+
+  # Public Application Load Balancer
+  PublicLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
-      Scheme: internal
+      Scheme: internet-facing
       SecurityGroups:
-        - !GetAtt PrivateLoadBalancerSG.GroupId
+        - !GetAtt PublicLoadBalancerSG.GroupId
       Subnets:
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - !Ref PublicSubnetA
+        - !Ref PublicSubnetB
+        - !Ref PublicSubnetC
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
@@ -274,7 +536,7 @@ Resources:
           - !Ref AWS::NoValue
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
-  PrivateLoadBalancerListenerTargetGroupECS:
+  PublicLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       HealthCheckEnabled: TRUE
@@ -291,17 +553,64 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 60
 
-  PrivateLoadBalancerListener:
+  PublicLBCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Join
+        - ""
+        - - !If
+            - IsDevelopment
+            - !Sub "${Environment}."
+            - !Ref AWS::NoValue
+          - "identity"
+          - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+          - ".account.gov.uk"
+      SubjectAlternativeNames:
+        - !Join
+          - ""
+          - - !If
+              - IsDevelopment
+              - !Sub "${Environment}."
+              - !Ref AWS::NoValue
+            - "api.identity"
+            - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+            - ".account.gov.uk"
+      DomainValidationOptions:
+        - DomainName: !Join
+          - ""
+          - - !If
+              - IsDevelopment
+              - !Sub "${Environment}."
+              - !Ref AWS::NoValue
+            - "identity"
+            - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+            - ".account.gov.uk"
+          HostedZoneId: !ImportValue PublicHostedZoneId
+        - DomainName: !Join
+            - ""
+            - - !If
+                - IsDevelopment
+                - !Sub "${Environment}."
+                - !Ref AWS::NoValue
+              - "api.identity"
+              - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, subdomain ]
+              - ".account.gov.uk"
+          HostedZoneId: !ImportValue PublicHostedZoneId
+      ValidationMethod: DNS
+
+  PublicLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
       # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
       # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
       DefaultActions:
-        - TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+        - TargetGroupArn: !Ref PublicLoadBalancerListenerTargetGroupECS
           Type: forward
-      LoadBalancerArn: !Ref PrivateLoadBalancer
-      Port: 80
-      Protocol: HTTP
+      LoadBalancerArn: !Ref PublicLoadBalancer
+      Port: 443
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: !Ref PublicLBCertificate
 
   # ECS cluster, service and task definition
   CoreFrontCluster:
@@ -333,7 +642,7 @@ Resources:
       LoadBalancers:
         - ContainerName: app
           ContainerPort: 8080
-          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+          TargetGroupArn: !Ref PublicLoadBalancerListenerTargetGroupECS
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: DISABLED
@@ -344,7 +653,7 @@ Resources:
             - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
-      - PrivateLoadBalancerListener
+      - PublicLoadBalancerListener
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
@@ -419,7 +728,7 @@ Resources:
                 - "core-front-sessions-${Environment}"
                 - Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
-              Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+              Value: !Ref PublicLoadBalancerDomainAlias
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
             - Name: ANALYTICS_DOMAIN
@@ -536,72 +845,72 @@ Resources:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       SecurityGroupIds: []
 
-  ApiGwHttpEndpoint:
-    Type: "AWS::ApiGatewayV2::Api"
-    Properties:
-      Name: !Sub ipv-core-front-${Environment}
-      ProtocolType: HTTP
+# ApiGwHttpEndpoint:
+#   Type: "AWS::ApiGatewayV2::Api"
+#   Properties:
+#     Name: !Sub ipv-core-front-${Environment}
+#     ProtocolType: HTTP
 
-  ApiGwHttpEndpointIntegration:
-    Type: "AWS::ApiGatewayV2::Integration"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      IntegrationType: HTTP_PROXY
-      ConnectionId: !If
-        - IsDevelopment
-        - !Ref VpcLink
-        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
-      ConnectionType: VPC_LINK
-      IntegrationMethod: ANY
-      IntegrationUri: !Ref PrivateLoadBalancerListener
-      PayloadFormatVersion: "1.0"
-
-  APIGWRoute:
-    Type: "AWS::ApiGatewayV2::Route"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      RouteKey: "ANY /{proxy+}"
-      Target: !Join
-        - /
-        - - integrations
-          - !Ref ApiGwHttpEndpointIntegration
-
-  APIStageDefault:
-    Type: "AWS::ApiGatewayV2::Stage"
-    Properties:
-      ApiId: !Ref ApiGwHttpEndpoint
-      StageName: $default
-      AutoDeploy: true
-      AccessLogSettings:
-        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
-        Format: >-
-          {
-          "requestId":"$context.requestId",
-          "ip": "$context.identity.sourceIp",
-          "requestTime":"$context.requestTime",
-          "httpMethod":"$context.httpMethod",
-          "path": "$context.path",
-          "routeKey":"$context.routeKey",
-          "status":"$context.status",
-          "protocol":"$context.protocol",
-          "responseLength":"$context.responseLength",
-          "responseLatency":"$context.responseLatency"
-          }
-
-  APIGWAccessLogsGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 14
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
-
-  APIGWAccessLogsGroupSubscriptionFilter:
-    Type: AWS::Logs::SubscriptionFilter
-    Condition: IsNotDevelopment
-    Properties:
-      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
-      FilterPattern: ""
-      LogGroupName: !Ref APIGWAccessLogsGroup
+#  ApiGwHttpEndpointIntegration:
+#    Type: "AWS::ApiGatewayV2::Integration"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      IntegrationType: HTTP_PROXY
+#      ConnectionId: !If
+#        - IsDevelopment
+#        - !Ref VpcLink
+#        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+#      ConnectionType: VPC_LINK
+#      IntegrationMethod: ANY
+#      IntegrationUri: !Ref PrivateLoadBalancerListener
+#      PayloadFormatVersion: "1.0"
+#
+#  APIGWRoute:
+#    Type: "AWS::ApiGatewayV2::Route"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      RouteKey: "ANY /{proxy+}"
+#      Target: !Join
+#        - /
+#        - - integrations
+#          - !Ref ApiGwHttpEndpointIntegration
+#
+#  APIStageDefault:
+#    Type: "AWS::ApiGatewayV2::Stage"
+#    Properties:
+#      ApiId: !Ref ApiGwHttpEndpoint
+#      StageName: $default
+#      AutoDeploy: true
+#      AccessLogSettings:
+#        DestinationArn: !GetAtt APIGWAccessLogsGroup.Arn
+#        Format: >-
+#          {
+#          "requestId":"$context.requestId",
+#          "ip": "$context.identity.sourceIp",
+#          "requestTime":"$context.requestTime",
+#          "httpMethod":"$context.httpMethod",
+#          "path": "$context.path",
+#          "routeKey":"$context.routeKey",
+#          "status":"$context.status",
+#          "protocol":"$context.protocol",
+#          "responseLength":"$context.responseLength",
+#          "responseLatency":"$context.responseLatency"
+#          }
+#
+#  APIGWAccessLogsGroup:
+#    Type: AWS::Logs::LogGroup
+#    Properties:
+#      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
+#      RetentionInDays: 14
+#      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+#
+#  APIGWAccessLogsGroupSubscriptionFilter:
+#    Type: AWS::Logs::SubscriptionFilter
+#    Condition: IsNotDevelopment
+#    Properties:
+#      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
+#      FilterPattern: ""
+#      LogGroupName: !Ref APIGWAccessLogsGroup
 
   CoreFrontSessionsTable:
     Type: AWS::DynamoDB::Table
@@ -709,7 +1018,7 @@ Resources:
               MetricName: HTTPCode_ELB_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PublicLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorWindow ]
             Stat: Sum
 
@@ -742,7 +1051,7 @@ Resources:
               MetricName: HTTPCode_Target_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
-                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+                  Value: !GetAtt PublicLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 
@@ -761,14 +1070,33 @@ Resources:
       DatapointsToAlarm: 6
       Threshold: 0
       ComparisonOperator: LessThanThreshold
-      EvaluateLowSampleCountPercentile: ignore
       TreatMissingData: notBreaching
       Metrics:
-        - Id: l1
-          Label: IdentitiesProvedPerSessionStart
+        - Id: r1
+          Label: LambdasOutOfSync
           ReturnData: true
-          Expression: IF(l3 > 0, IF(l2/l3 > 0.2, 0, -1), 0)
-        - Id: l2
+          Expression: c1 + c2 + c3 + c4 + c5
+        - Id: c1
+          Label: IdentitiesBuiltPerSessionStart
+          ReturnData: false
+          Expression: IF(l1 > 0 && l2 > 0, IF(l1/l2 > 0.2, 0, -1), 0) # l1 +20% of l2
+        - Id: c2
+          Label: OAuthResponseBuiltPerIdentitiesBuilt
+          ReturnData: false
+          Expression: IF(l3 - l2 > 3, -1, IF(l2 - l3 > 3, -1, 0)) # l2 and l3 +- 3
+        - Id: c3
+          Label: OAuthResponseBuiltPerClientAccessTokensIssued
+          ReturnData: false
+          Expression: IF(l3 - l4 > 3, -1, IF(l4 - l3 > 3, -1, 0)) # l3 and l4 +- 3
+        - Id: c4
+          Label: CriOAuthResponseBuiltPerCriSelected
+          ReturnData: false
+          Expression: IF(l6 > 0 && l5 > 0, IF( l6/l5 < 0.8, -1, IF( l5/l6 < 0.8, -1, 0)), 0) # l6 and l5 +-20%
+        - Id: c5
+          Label: InitialiseIPVSessionPerCheckExistingIdentity
+          ReturnData: false
+          Expression: IF( l2 > 0 && l7 > 0, IF( l2/l7 < 0.8, -1, IF( l7/l2 < 0.8, -1, 0)), 0) # l2 and l7 +- 20%
+        - Id: l1
           ReturnData: false
           MetricStat:
             Metric:
@@ -779,7 +1107,7 @@ Resources:
                   Value: !Sub build-user-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
-        - Id: l3
+        - Id: l2
           ReturnData: false
           MetricStat:
             Metric:
@@ -790,6 +1118,63 @@ Resources:
                   Value: !Sub initialise-ipv-session-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
+        - Id: l3
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-client-oauth-response-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l4
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub issue-client-access-token-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l5
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub select-cri-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l6
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-cri-oauth-request-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l7
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub check-existing-identity-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+
+
   BuildClientOAuthResponseInvocationsBySessId:
     Type: AWS::Logs::MetricFilter
     Properties:
@@ -806,10 +1191,10 @@ Resources:
 Outputs:
   CoreFrontUrl:
     Description: >-
-      The API Gateway URL which Core Front can be invoked on.
-    Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
-  IPVCoreFrontGatewayID:
-    Description: Core Front API Gateway ID
-    Export:
-      Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
-    Value: !Ref ApiGwHttpEndpoint
+      The LoadBalancer URL which Core Front can be invoked on.
+    Value: !Ref PublicLoadBalancerDomainAlias
+  #IPVCoreFrontGatewayID:
+  #  Description: Core Front API Gateway ID
+  #  Export:
+  #    Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
+  #  Value: !Ref ApiGwHttpEndpoint

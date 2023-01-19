@@ -768,7 +768,7 @@ Resources:
         - Id: c2
           Label: OAuthResponseBuiltPerIdentitiesBuilt
           ReturnData: false
-          Expression: IF(l3 - l2 > 3, -1, IF(l2 - l3 > 3, -1, 0)) # l2 and l3 +- 3
+          Expression: IF(l3 - l1 > 3, -1, IF(l1 - l3 > 3, -1, 0)) # l1 and l3 +- 3
         - Id: c3
           Label: OAuthResponseBuiltPerClientAccessTokensIssued
           ReturnData: false

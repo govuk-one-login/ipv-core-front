@@ -57,6 +57,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
@@ -66,6 +67,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
@@ -75,6 +77,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
@@ -84,6 +87,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
@@ -93,6 +97,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 50
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
@@ -742,12 +747,49 @@ Resources:
             Stat: Sum
 
   ### Lambda metrics with session ID as dimension
-  LambdaInvocationsBySessId:
-    Type: AWS::Logs::LogGroup
+  #LambdaInvocationsBySessId:
+  #  Type: AWS::Logs::LogGroup
+  #  Properties:
+  #    RetentionInDays: 90
+  #    LogGroupName: !Sub LambdaInvocationsBySessId-${Environment}
+  LambdaInvocationsOutOfSync:
+    Type: AWS::CloudWatch::Alarm
     Properties:
-      RetentionInDays: 90
-      LogGroupName: !Sub LambdaInvocationsBySessId-${Environment}
-
+      AlarmName: !Sub LambdaInvocationsOutOfSync-${Environment}
+      ActionsEnabled: False
+      EvaluationPeriods: 6
+      DatapointsToAlarm: 6
+      Threshold: 0
+      ComparisonOperator: LessThanThreshold
+      EvaluateLowSampleCountPercentile: ignore
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: l1
+          Label: IdentitiesProvedPerSessionStart
+          ReturnData: true
+          Expression: IF(l3 > 0, IF(l2/l3 > 0.2, 0, -1), 0)
+        - Id: l2
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-user-identity-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l3
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub initialise-ipv-session-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
   BuildClientOAuthResponseInvocationsBySessId:
     Type: AWS::Logs::MetricFilter
     Properties:

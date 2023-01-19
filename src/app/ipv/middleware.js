@@ -82,6 +82,14 @@ async function handleBackendResponse(req, res, backendResponse) {
     });
 
     req.session.currentPage = "orchestrator";
+
+    const message = {
+      description:
+        "Deleting the core-back ipvSessionId from core-front session",
+    };
+    req.log.info({ message, level: "INFO", requestId: req.id });
+
+    req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;
     return res.redirect(redirectUrl);
   }
@@ -177,7 +185,22 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      if (!req.session.isDebugJourney && req.session.currentPage !== pageId) {
+      if (req.session?.ipvSessionId === null) {
+        logError(
+          req,
+          {
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          },
+          "req.ipvSessionId is missing"
+        );
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (
+        !req.session.isDebugJourney &&
+        req.session.currentPage !== pageId
+      ) {
         logError(
           req,
           {

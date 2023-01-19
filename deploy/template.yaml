@@ -57,6 +57,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
@@ -66,6 +67,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
@@ -75,6 +77,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
@@ -84,6 +87,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
@@ -93,6 +97,7 @@ Mappings:
       lb500ErrorWindow: 300
       tg500ErrorLimit: 50
       tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
@@ -739,6 +744,119 @@ Resources:
                 - Name: LoadBalancer
                   Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
+            Stat: Sum
+
+  LambdaInvocationsOutOfSync:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub LambdaInvocationsOutOfSync-${Environment}
+      ActionsEnabled: False
+      EvaluationPeriods: 6
+      DatapointsToAlarm: 6
+      Threshold: 0
+      ComparisonOperator: LessThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: r1
+          Label: LambdasOutOfSync
+          ReturnData: true
+          Expression: c1 + c2 + c3 + c4 + c5
+        - Id: c1
+          Label: IdentitiesBuiltPerSessionStart
+          ReturnData: false
+          Expression: IF(l1 > 0 && l2 > 0, IF(l1/l2 > 0.2, 0, -1), 0) # l1 +20% of l2
+        - Id: c2
+          Label: OAuthResponseBuiltPerIdentitiesBuilt
+          ReturnData: false
+          Expression: IF(l3 - l2 > 3, -1, IF(l2 - l3 > 3, -1, 0)) # l2 and l3 +- 3
+        - Id: c3
+          Label: OAuthResponseBuiltPerClientAccessTokensIssued
+          ReturnData: false
+          Expression: IF(l3 - l4 > 3, -1, IF(l4 - l3 > 3, -1, 0)) # l3 and l4 +- 3
+        - Id: c4
+          Label: CriOAuthResponseBuiltPerCriSelected
+          ReturnData: false
+          Expression: IF(l6 > 0 && l5 > 0, IF( l6/l5 < 0.8, -1, IF( l5/l6 < 0.8, -1, 0)), 0) # l6 and l5 +-20%
+        - Id: c5
+          Label: InitialiseIPVSessionPerCheckExistingIdentity
+          ReturnData: false
+          Expression: IF( l2 > 0 && l7 > 0, IF( l2/l7 < 0.8, -1, IF( l7/l2 < 0.8, -1, 0)), 0) # l2 and l7 +- 20%
+        - Id: l1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-user-identity-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l2
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub initialise-ipv-session-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l3
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-client-oauth-response-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l4
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub issue-client-access-token-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l5
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub select-cri-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l6
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub build-cri-oauth-request-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
+            Stat: Sum
+        - Id: l7
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/Lambda
+              MetricName: Invocations
+              Dimensions:
+                - Name: FunctionName
+                  Value: !Sub check-existing-identity-${Environment}
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
 
 Outputs:

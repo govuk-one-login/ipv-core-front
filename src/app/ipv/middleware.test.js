@@ -172,6 +172,20 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res, next);
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
+
+    it("should render pyi-technical-unrecoverable page if ipvSessionId is missing", async () => {
+      req = {
+        id: "1",
+        params: { pageId: "../debug/page-ipv-debug" },
+        session: { currentPage: "page-ipv-success", ipvSessionId: null },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-technical-unrecoverable.njk"
+      );
+    });
   });
 
   context("calling the updateJourneyState", () => {

@@ -20,12 +20,12 @@
       "govUKHomepageButtonHref": "https://www.gov.uk/",
       "govUKHomepageButtonText": "Go to the GOV.UK homepage",
       "contactLinkHref": "https://signin.account.gov.uk/contact-us",
-      "contactLinkText": "Contact the GOV.UK account team (opens in a new tab)"
+      "contactLinkText": "Contact the GOV.UK One Login team (opens in a new tab)"
     },
     "cookie": {
       "cookieBanner": {
-        "title": "Cookies on GOV.UK account",
-        "heading": "Cookies on GOV.UK account",
+        "title": "Cookies on GOV.UK One Login",
+        "heading": "Cookies on GOV.UK One Login",
         "paragraph1": "We use some essential cookies to make this service work.",
         "paragraph2": "We’d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.",
         "changeCookiePreferencesLink": "change your cookie settings",
@@ -150,8 +150,8 @@
       }
     },
     "pageIpvIdentityStart": {
-      "title": "You’ve signed in to your GOV.UK account",
-      "header": "You’ve signed in to your GOV.UK account",
+      "title": "You’ve signed in to GOV.UK One Login",
+      "header": "You’ve signed in to GOV.UK One Login",
       "content": {
         "paragraph1": "You can now continue to prove your identity."
       }
@@ -214,9 +214,9 @@
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",
       "content": {
-        "paragraph1": "You proved your identity when you used your GOV.UK account before. You will not need to do it again to use this service.",
+        "paragraph1": "You proved your identity when you used GOV.UK One Login before. You will not need to do it again to use this service.",
         "subHeading": "Check your details",
-        "paragraph2": "If you have not signed in to your GOV.UK account in a while, you might want to check your details are still correct.",
+        "paragraph2": "If you have not signed in to GOV.UK One Login in a while, you might want to check your details are still correct.",
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",

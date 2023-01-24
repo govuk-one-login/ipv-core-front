@@ -89,7 +89,7 @@ app.use(
     resave: false,
     cookie: {
       name: "ipv_core_service_session",
-      maxAge: 720000,
+      expires: false,
       secret: SESSION_SECRET,
       signed: true,
       secure: "auto",

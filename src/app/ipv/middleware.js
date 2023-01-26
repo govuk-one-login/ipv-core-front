@@ -25,6 +25,7 @@ const {
 } = require("../shared/loggerConstants");
 const { generateHTMLofAddress } = require("../shared/addressHelper");
 const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
+const { HTTP_STATUS_CODES } = require("../../app.constants");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -192,7 +193,7 @@ module.exports = {
             pageId: pageId,
             expectedPage: req.session.currentPage,
           },
-          "req.ipvSessionId is missing"
+          "req.ipvSessionId is null"
         );
 
         req.session.currentPage = "pyi-technical-unrecoverable";
@@ -283,6 +284,14 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "attempt-recovery") {

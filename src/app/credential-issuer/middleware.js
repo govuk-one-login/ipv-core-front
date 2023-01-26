@@ -5,8 +5,13 @@ const {
 } = require("../../lib/config");
 const { generateJsonAxiosConfig, getAxios } = require("../shared/axiosHelper");
 const { handleBackendResponse } = require("../ipv/middleware");
-const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
+const {
+  logCoreBackCall,
+  transformError,
+  logError,
+} = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
+const { HTTP_STATUS_CODES } = require("../../app.constants");
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
@@ -26,6 +31,15 @@ module.exports = {
     }
 
     try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("cri req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+
       logCoreBackCall(req, {
         logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
         path: API_CRI_CALLBACK,
@@ -65,6 +79,15 @@ module.exports = {
     }
 
     try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("cri req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+
       logCoreBackCall(req, {
         logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
         path: API_CRI_CALLBACK,

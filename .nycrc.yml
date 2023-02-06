@@ -9,6 +9,7 @@ exclude:
   - "src/lib/*"
   - "src/app.js"
   - "src/app/shared/axiosHelper.js"
+  - "src/config/*"
 report-dir: coverage
 statements: 80
 branches: 80

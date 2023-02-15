@@ -1,5 +1,6 @@
 const proxyquire = require("proxyquire");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
 let axiosHelperStub = {};
 const axiosStub = {};
@@ -55,6 +56,7 @@ describe("oauth middleware", () => {
 
     beforeEach(() => {
       req = {
+        log: { info: sinon.fake(), error: sinon.fake() },
         query: {
           response_type: "code",
           client_id: "s6BhdRkqt3",
@@ -81,9 +83,7 @@ describe("oauth middleware", () => {
 
       it("should set ipvSessionId in session", async function () {
         axiosStub.post = sinon.fake.returns(axiosResponse);
-
         await middleware.setIpvSessionId(req, res, next);
-
         expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
       });
 

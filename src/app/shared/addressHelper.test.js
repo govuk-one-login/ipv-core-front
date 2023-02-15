@@ -3,7 +3,7 @@ const { generateHTMLofAddress } = require("./addressHelper");
 
 describe("Address Helper", () => {
   context("generateHTMLofAddress", () => {
-    it("should generate HTML with street name", () => {
+    it("should generate HTML with full street name", () => {
       const data = [
         {
           address: {
@@ -19,43 +19,39 @@ describe("Address Helper", () => {
             addressLocality: "my town",
             postalCode: "myCode",
           },
-          text: "My company My department my building Room 5 1<br>My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode<br>",
+          text: "My department My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
         },
       ];
 
-      data.forEach((addressData, index) => {
-        it(`should match test address ${index} to its expected text output`, () => {
-          const output = generateHTMLofAddress(addressData.address);
-          expect(output).to.equal(addressData.text);
-        });
+      data.forEach((addressData) => {
+        const output = generateHTMLofAddress(addressData.address);
+        expect(output).to.equal(addressData.text);
       });
     });
 
-    it("should generate HTML without street name", () => {
+    it("should generate HTML without full street name", () => {
       const data = [
         {
           address: {
             organisationName: "My company",
-            departmentName: "My deparment",
+            departmentName: "My department",
             buildingName: "my building",
             subBuildingName: "Room 5",
-            buildingNumber: "1",
-            dependentStreetName: "My outter street",
-            streetName: "my inner street",
+            buildingNumber: "",
+            dependentStreetName: "",
+            streetName: "",
             doubleDependentAddressLocality: "My double dependant town",
             dependentAddressLocality: "my dependant town",
             addressLocality: "my town",
             postalCode: "myCode",
           },
-          text: "My company My deparment my building Room 5 1<br>My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode<br>",
+          text: "My department My company Room 5 my building,<br>My double dependant town my dependant town my town,<br>myCode",
         },
       ];
 
-      data.forEach((addressData, index) => {
-        it(`should match test address ${index} to its expected text output`, () => {
-          const output = generateHTMLofAddress(addressData.address);
-          expect(output).to.equal(addressData.text);
-        });
+      data.forEach((addressData) => {
+        const output = generateHTMLofAddress(addressData.address);
+        expect(output).to.equal(addressData.text);
       });
     });
   });

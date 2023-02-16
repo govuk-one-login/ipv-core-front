@@ -230,11 +230,11 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
-      "header": "Rydych wedi profi pwy ydych chi yn llwyddiannus",
+      "title": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
+      "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
       "content": {
-        "paragraph1": "Gallwch nawr barhau i ddefnyddio’r gwasanaeth rydych am ei ddefnyddio.",
-        "paragraph2": "Efallai bydd rhywfaint o’r wybodaeth rydych eisoes wedi ei rhannu pan wnaethoch brofi pwy ydych chi yn cael ei defnyddio i lenwi ffurflenni o fewn y gwasanaeth yn awtomatig."
+        "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
+        "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     }
   }

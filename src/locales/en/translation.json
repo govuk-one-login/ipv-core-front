@@ -230,11 +230,11 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "You’ve successfully proved your identity",
-      "header": "You’ve successfully proved your identity",
+      "title": "Continue to the service you want to use",
+      "header": "Continue to the service you want to use",
       "content": {
-        "paragraph1": "You can now continue to the service you want to use.",
-        "paragraph2": "Some of the information you already shared when you proved your identity might be used to automatically fill in forms within the service"
+        "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
+        "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     }
   }

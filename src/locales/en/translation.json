@@ -140,8 +140,8 @@
       }
     },
     "pyiKbvThinFile": {
-      "title": "Sorry, we cannot prove your identity",
-      "header": "Sorry, we cannot prove your identity",
+      "title": "You need to prove your identity another way",
+      "header": "You need to prove your identity another way",
       "content": {
         "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
         "paragraph2": "This means we cannot ask you enough questions to be sure that you are who you say you are.",

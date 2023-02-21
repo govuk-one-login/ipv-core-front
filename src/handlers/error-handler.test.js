@@ -44,6 +44,13 @@ describe("Error handlers", () => {
         "errors/page-not-found.njk"
       );
     });
+
+    it("should call next if headers sent", () => {
+      res.headersSent = true;
+      pageNotFoundHandler(req, res, next);
+
+      expect(next).to.be.have.been.calledOnce;
+    });
   });
 
   describe("serverErrorHandler", () => {
@@ -80,23 +87,46 @@ describe("Error handlers", () => {
         "errors/session-ended.njk"
       );
     });
+
+    it("should log error when status is not defined", () => {
+      const err = new Error("some error");
+      res.status = null;
+
+      serverErrorHandler(err, req, res, next);
+
+      expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
+        "Bad response - status is not a function"
+      );
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-technical-unrecoverable"
+      );
+    });
+
+    it("should call next if headers sent", () => {
+      res.headersSent = true;
+      const err = new Error("some error");
+      serverErrorHandler(err, req, res, next);
+
+      expect(next).to.be.have.been.calledOnce;
+    });
   });
 
   describe("journeyEventErrorHandler", () => {
+    let axiosResponse;
+    let axiosStub = {};
+    let axiosHelperStub = {};
+    axiosHelperStub.getAxios = () => axiosStub;
+    axiosResponse = {
+      status: {},
+    };
+
     it("should render page with provided pageId", () => {
-      let axiosResponse;
-      let axiosStub = {};
-      let axiosHelperStub = {};
-      axiosHelperStub.getAxios = () => axiosStub;
-      axiosResponse = {
-        status: {},
-      };
       axiosResponse.data = {
         page: "pyi-technical",
         statusCode: 400,
       };
 
-      const err = new Error();
+      const err = new Error("some error");
       err.response = axiosResponse;
       axiosStub.post = sinon.fake.throws(err);
 
@@ -105,6 +135,27 @@ describe("Error handlers", () => {
       expect(res.redirect).to.have.been.calledOnceWith(
         "/ipv/page/pyi-technical"
       );
+    });
+
+    it("should call next with error when there is no pageId", () => {
+      axiosResponse.data = {
+        statusCode: 400,
+      };
+
+      const err = new Error("some error");
+      err.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(err);
+      journeyEventErrorHandler(err, req, res, next);
+
+      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+    });
+
+    it("should call next if headers sent", () => {
+      res.headersSent = true;
+      const err = new Error("some error");
+      journeyEventErrorHandler(err, req, res, next);
+
+      expect(next).to.be.have.been.calledOnce;
     });
   });
 });

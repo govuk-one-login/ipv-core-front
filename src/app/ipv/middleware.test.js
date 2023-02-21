@@ -205,6 +205,28 @@ describe("journey middleware", () => {
         sinon.match.has("message", "Action /invalidCri not valid")
       );
     });
+
+    it("should call next with error when issue calling handleJourneyResponse", async () => {
+      req.session.isDebugJourney = true;
+      req.url = "/journey/cri/build-oauth-request/ukPassport";
+      const axiosResponse = undefined;
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+
+      await middleware.updateJourneyState(req, res, next);
+      expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+    });
+
+    it("should call handleJourneyResponse when given a valid action", async () => {
+      req.session.isDebugJourney = true;
+      req.url = "/journey/cri/build-oauth-request/ukPassport";
+      const axiosResponse = {};
+      axiosStub.post = sinon.fake.returns(axiosResponse);
+
+      await middleware.updateJourneyState(req, res, next);
+      expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        `${configStub.API_BASE_URL}/journey/cri/build-oauth-request/ukPassport`
+      );
+    });
   });
 
   context("handling CRI event response", async () => {
@@ -517,6 +539,15 @@ describe("journey middleware", () => {
       expect(axiosStub.get).to.not.have.been.called;
 
       expect(res.render).to.have.been.calledWith(`ipv/${pageId}.njk`);
+    });
+  });
+
+  context("renderAttemptRecoveryPage", () => {
+    it("should render attempt recovery page", () => {
+      middleware.renderAttemptRecoveryPage(req, res);
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-attempt-recovery.njk"
+      );
     });
   });
 });

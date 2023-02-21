@@ -111,6 +111,18 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiTimeOut": {
+      "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "content": {
+        "paragraph1": "Gallai hyn fod oherwydd:",
+        "bullet1": "mae wedi bod dros 2 awr ers i chi fewngofnodi",
+        "bullet2": "rydych wedi allgofnodi o GOV.UK One Login tra roeddech yn defnyddio gwasanaeth arall",
+        "paragraph2": "Rydym wedi eich allgofnodi i gadw eich gwybodaeth yn ddiogel.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph3": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
+      }
+    },
     "pyiTechnical": {
       "title": "Mae’n ddrwg gennym, mae problem",
       "header": "Mae’n ddrwg gennym, mae problem",

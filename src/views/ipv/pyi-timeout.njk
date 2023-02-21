@@ -1,0 +1,24 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiTimeOut.title' | translate %}
+{% set googleTagManagerPageId = "pyiTimeOut" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTimeOut.header' | translate }}</h1>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{'pages.pyiTimeOut.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pyiTimeOut.content.bullet1' | translate }}</li>
+    <li>{{'pages.pyiTimeOut.content.bullet2' | translate }}</li>
+  </ul>
+  <p class="govuk-body">{{'pages.pyiTimeOut.content.paragraph2' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiTimeOut.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiTimeOut.content.paragraph3' | translate }}</p>
+
+  {{ govukButton({
+    "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true),
+    "type": "Submit",
+    "href": 'general.shared.govUKHomepageButtonHref' | translate
+  }) }}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

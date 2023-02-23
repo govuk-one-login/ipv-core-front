@@ -18,7 +18,8 @@
     "lint": "prettier --check src test && eslint .",
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "check-translation": "node ./test/translations/checkTranslations.js"
   },
   "repository": {
     "type": "git",

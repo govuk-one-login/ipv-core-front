@@ -68,10 +68,10 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "256"
-      desiredTaskCount: 1
+      fargateCPUsize: "1024"
+      fargateRAMsize: "2048"
+      nodeOldSpaceLimit: "1792"
+      desiredTaskCount: 2
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300

@@ -68,9 +68,9 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "1024"
-      fargateRAMsize: "2048"
-      nodeOldSpaceLimit: "1792"
+      fargateCPUsize: "2048"
+      fargateRAMsize: "4096"
+      nodeOldSpaceLimit: "3792"
       desiredTaskCount: 2
     "335257547869": # Staging
       lb500ErrorLimit: 2
@@ -349,7 +349,7 @@ Resources:
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MaxCapacity: 5
+      MaxCapacity: 15
       MinCapacity: 2
       ResourceId: !Join
         - '/'

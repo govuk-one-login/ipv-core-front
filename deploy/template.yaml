@@ -70,7 +70,7 @@ Mappings:
       lambdaInvokeCompareWindow: 300
       fargateCPUsize: "2048"
       fargateRAMsize: "4096"
-      nodeOldSpaceLimit: "1792"
+      nodeOldSpaceLimit: "3792"
       desiredTaskCount: 2
     "335257547869": # Staging
       lb500ErrorLimit: 2

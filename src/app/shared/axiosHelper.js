@@ -5,7 +5,6 @@ const axiosRequestHandler = (axiosRequest, req) => {
       label: "axios request",
       method: axiosRequest.method?.toUpperCase(),
       url: axiosRequest.url,
-      body: axiosRequest.data,
     },
   });
   return axiosRequest;
@@ -17,7 +16,6 @@ const axiosResponseHandler = (axiosResponse, req) => {
       status: axiosResponse.status,
       method: axiosResponse.config?.method?.toUpperCase(),
       url: axiosResponse.config?.url,
-      body: axiosResponse.data,
     },
   });
   return axiosResponse;

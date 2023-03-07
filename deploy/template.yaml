@@ -72,10 +72,10 @@ Mappings:
       #fargateRAMsize: "4096"
       #nodeOldSpaceLimit: "3792"
       #desiredTaskCount: 2
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "384"
-      desiredTaskCount: 1
+      fargateCPUsize: "512"
+      fargateRAMsize: "1024"
+      nodeOldSpaceLimit: "896"
+      desiredTaskCount: 2
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300

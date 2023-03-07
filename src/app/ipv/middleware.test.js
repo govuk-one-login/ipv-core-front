@@ -590,6 +590,4 @@ describe("journey middleware", () => {
       });
     }
   );
-
-
 });

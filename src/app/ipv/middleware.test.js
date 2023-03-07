@@ -550,4 +550,66 @@ describe("journey middleware", () => {
       );
     });
   });
+
+  context(
+    "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
+    () => {
+      it("should post with journey/ukPassport", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/passport" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleMultipleDocCheck(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/ukPassport`
+        );
+      });
+
+      it("should post with journey/drivingLicence", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/driving-licence" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleMultipleDocCheck(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/drivingLicence`
+        );
+      });
+
+      it("should post with journey/end by default", async function () {
+        await middleware.handleMultipleDocCheck(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/end`
+        );
+      });
+    }
+  );
+
+  context(
+    "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
+    () => {
+      it("should redirect to the technical unrecoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "page-ipv-identity-start",
+            ipvSessionId: null,
+            ipAddress: "ip-address",
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleMultipleDocCheck(req, res, next);
+        expect(res.redirect).to.have.been.calledWith(
+          "/ipv/page/pyi-technical-unrecoverable"
+        );
+      });
+    }
+  );
 });

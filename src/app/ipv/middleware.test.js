@@ -552,7 +552,7 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
+    "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
     () => {
       it("should post with journey/ukPassport", async function () {
         req = {
@@ -590,4 +590,23 @@ describe("journey middleware", () => {
       });
     }
   );
+
+  context("handleMultipleDocCheck: handling missing ipvSessionId before calling the backend", () => {
+    it("should redirect to the technical unrecoverable page", async function () {
+      req = {
+        id: "1",
+        session: {
+          currentPage: "page-ipv-identity-start",
+          ipvSessionId: null,
+          ipAddress: "ip-address",
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleMultipleDocCheck(req, res, next);
+      expect(res.redirect).to.have.been.calledWith(
+        "/ipv/page/pyi-technical-unrecoverable"
+      );
+    });
+  });
 });

@@ -304,6 +304,28 @@ module.exports = {
       next(error);
     }
   },
+  handleMultipleDocCheck: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+      if (req.body?.journey === "next/passport") {
+        await handleJourneyResponse(req, res, "journey/ukPassport");
+      } else if (req.body?.journey === "next/driving-licence") {
+        await handleJourneyResponse(req, res, "journey/drivingLicence");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleMultipleDocCheck");
+      next(error);
+    }
+  },
   handleJourneyResponse,
   handleBackendResponse,
 };

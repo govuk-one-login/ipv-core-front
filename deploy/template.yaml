@@ -353,7 +353,7 @@ Resources:
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MaxCapacity: 15
+      MaxCapacity: 30
       MinCapacity: 2
       ResourceId: !Join
         - '/'
@@ -382,7 +382,7 @@ Resources:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
         TargetValue: 70
         ScaleInCooldown: 300
-        ScaleOutCooldown: 30
+        ScaleOutCooldown: 5
 
 
   ECSAccessLogsGroup:

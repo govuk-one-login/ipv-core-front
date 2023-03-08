@@ -353,7 +353,7 @@ Resources:
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MaxCapacity: 30
+      MaxCapacity: 60
       MinCapacity: 2
       ResourceId: !Join
         - '/'

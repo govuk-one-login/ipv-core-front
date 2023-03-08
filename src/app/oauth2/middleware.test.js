@@ -2,15 +2,13 @@ const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-let axiosHelperStub = {};
-const axiosStub = {};
-axiosHelperStub.getAxios = () => axiosStub;
+let axiosStub = {};
 
 const configStub = {
   API_BASE_URL: "https://example.org/subpath",
 };
 const middleware = proxyquire("./middleware", {
-  "../shared/axiosHelper": axiosHelperStub,
+  axios: axiosStub,
   "../../lib/config": configStub,
 });
 

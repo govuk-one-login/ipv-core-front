@@ -12,7 +12,7 @@
     "start-dev": "node src/app.js | pino-pretty",
     "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
     "build": "yarn minfiy-build-front-end-gov-js && yarn build-sass && yarn copy-locales",
-    "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
+    "build-sass": "rm -rf dist/public/style.css && sass --load-path=node_modules/govuk-frontend/govuk --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-locales": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ ",
     "minfiy-build-front-end-gov-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js src/assets/javascript/application.js -o dist/public/javascripts/application.js -c -m ",
     "lint": "prettier --check src test && eslint .",

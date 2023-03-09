@@ -1,5 +1,31 @@
-@use "../../../node_modules/govuk-frontend/govuk/all";
-@import "../../../node_modules/govuk-frontend/govuk/base";
+$govuk-new-link-styles: true;
+
+// correct path to the node_module version of these gov.uk frontend files is set in package.json
+
+@import "base";
+@import "core/all";
+@import "utilities/all";
+@import "objects/all";
+@import "overrides/all";
+
+// global page layout components
+
+@import "components/cookie-banner/cookie-banner";
+@import "components/footer/footer";
+@import "components/header/header";
+@import "components/skip-link/skip-link";
+
+// start specific Design System component imports
+
+@import "components/button/index"; // use govukButton
+@import "components/summary-list/index"; // use govukSummaryList
+@import "components/details/index"; // use govukDetails
+@import "components/radios/index"; // use govukRadios
+@import "components/warning-text/index"; // use govukWarningText
+@import "components/cookie-banner/index"; // use govukCookieBanner
+@import "components/phase-banner/index"; // use govukPhaseBanner
+@import "components/back-link/index"; // use govukBackLink
+
 
 // Task list pattern
 

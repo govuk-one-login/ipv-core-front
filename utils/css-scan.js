@@ -1,14 +1,18 @@
-// scan the
+// scan the repository for Nunjucks macros that imply the use of component scss
+// the pattern is
+// {% from "govuk/components/[component]/macro.njk" import [component name] %}
 
 const fs = require("fs");
 const path = require("path");
 
 const componentsUsed = [];
 const allFiles = [];
-const testArray = [];
 
 function readFile(filepath) {
+  /* eslint-disable no-console */
   console.log("Checked for components: " + filepath);
+  /* eslint-enable no-console */
+
   return new Promise((resolve, reject) => {
     fs.readFile(filepath, "utf-8", (err, data) => {
       if (err) {
@@ -21,7 +25,6 @@ function readFile(filepath) {
 }
 
 function createOutput(data) {
-
   const possibleOutput = [
     ...data.matchAll(/{% from "([a-z-/.]*)" import ([a-zA-Z]*) %}/g),
   ];
@@ -35,17 +38,22 @@ function createOutput(data) {
     );
   }
   const CLIoutput = [...new Set(componentsUsed)];
-  console.log('...');
-  for(const line of CLIoutput){
+  // I will learn how to output this once
+  /* eslint-disable no-console */
+  // create a list we can output to the command line
+  console.log("...");
+  for (const line of CLIoutput) {
+    // prettier-ignore
     console.log(line);
   }
+  /* eslint-enable no-console */
 }
-
-
 
 function fromDir(startPath, filter) {
   if (!fs.existsSync(startPath)) {
+    /* eslint-disable no-console */
     console.log("There is no directory at: ", startPath);
+    /* eslint-enable no-console */
     return;
   }
 
@@ -69,9 +77,7 @@ fromDir("./src", ".njk");
 
 allFiles.forEach((file) => {
   readFile(file).then((data) => {
-    //console.log(data);
-    const whatisdata = createOutput(data);
-  })
-})
+    createOutput(data);
+  });
+});
 
-// create a list we can output to the command line

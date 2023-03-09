@@ -61,6 +61,7 @@ Mappings:
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
+      nodeEnv: "development"
       desiredTaskCount: 1
     "457601271792": # Build
       lb500ErrorLimit: 2
@@ -75,6 +76,7 @@ Mappings:
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
+      nodeEnv: "production"
       desiredTaskCount: 2
     "335257547869": # Staging
       lb500ErrorLimit: 2
@@ -85,6 +87,7 @@ Mappings:
       fargateCPUsize: "256"
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
+      nodeEnv: "production"
       desiredTaskCount: 1
     "991138514218": # Integration
       lb500ErrorLimit: 2
@@ -95,6 +98,7 @@ Mappings:
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
+      nodeEnv: "production"
       desiredTaskCount: 1
     "075701497069": # Production
       lb500ErrorLimit: 2
@@ -105,6 +109,7 @@ Mappings:
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
+      nodeEnv: "production"
       desiredTaskCount: 2
   SecurityGroups:
     PrefixListIds:
@@ -435,6 +440,8 @@ Resources:
                 - ''
                 - - '--max-old-space-size='
                   - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
+            - Name: NODE_ENV
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

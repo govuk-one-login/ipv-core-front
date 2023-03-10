@@ -16,7 +16,7 @@ module.exports = {
         caches: ["cookie"],
         ignoreCase: true,
         cookieSecure: true,
-        cookieDomain: "", //getServiceDomain(),
+        cookieDomain: process.env.GTM_ANALYTICS_COOKIE_DOMAIN,
         cookieSameSite: "",
       },
     };

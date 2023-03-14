@@ -16,7 +16,7 @@ module.exports = {
         caches: ["cookie"],
         ignoreCase: true,
         cookieSecure: true,
-        cookieDomain: process.env.GTM_ANALYTICS_COOKIE_DOMAIN,
+        cookieDomain: process.env.ANALYTICS_DOMAIN || '.account.gov.uk',
         cookieSameSite: "",
       },
     };

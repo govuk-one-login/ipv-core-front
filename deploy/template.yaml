@@ -432,7 +432,7 @@ Resources:
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
             - Name: ANALYTICS_DOMAIN
-              Value: "account.gov.uk"
+              Value: ".account.gov.uk"
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS

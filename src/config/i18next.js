@@ -16,7 +16,7 @@ module.exports = {
         caches: ["cookie"],
         ignoreCase: true,
         cookieSecure: true,
-        cookieDomain: "", //getServiceDomain(),
+        cookieDomain: process.env.ANALYTICS_DOMAIN || ".account.gov.uk",
         cookieSameSite: "",
       },
     };

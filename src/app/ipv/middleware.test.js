@@ -8,9 +8,7 @@ describe("journey middleware", () => {
   let res;
   let next;
 
-  let axiosHelperStub = {};
   const axiosStub = { post: sinon.stub(), get: sinon.stub() };
-  axiosHelperStub.getAxios = () => axiosStub;
 
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
@@ -18,12 +16,12 @@ describe("journey middleware", () => {
   };
 
   const sharedCriHelper = proxyquire("../shared/criHelper", {
-    "../shared/axiosHelper": axiosHelperStub,
+    axios: axiosStub,
     "../../lib/config": configStub,
   });
 
   const middleware = proxyquire("./middleware", {
-    "../shared/axiosHelper": axiosHelperStub,
+    axios: axiosStub,
     "../../lib/config": configStub,
     "../shared/../shared/criHelper": sharedCriHelper,
   });

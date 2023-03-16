@@ -114,8 +114,6 @@ describe("Error handlers", () => {
   describe("journeyEventErrorHandler", () => {
     let axiosResponse;
     let axiosStub = {};
-    let axiosHelperStub = {};
-    axiosHelperStub.getAxios = () => axiosStub;
     axiosResponse = {
       status: {},
     };

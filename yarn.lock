@@ -1801,10 +1801,10 @@ i18next-fs-backend@^2.0.0:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.0.0.tgz#d4c6430254cbb0b4e3e05249c0f0cfeaabed65af"
   integrity sha512-zlwzcoUKlveoRt/SxgeP8i/6p1rxwxZ+x0w4sfCTY1zgUlhhnoxBSRX3GjVIsDJm5mky8Hpr//UX93UIknK7yQ==
 
-i18next-http-middleware@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.2.1.tgz#a0dff150de2273ec650da67336ad882eef58d179"
-  integrity sha512-zBwXxDChT0YLoTXIR6jRuqnUUhXW0Iw7egoTnNXyaDRtTbfWNXwU0a53ThyuRPQ+k+tXu3ZMNKRzfLuononaRw==
+i18next-http-middleware@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.3.0.tgz#f4e504eea68adc5b8e881d9d6eb78f93f7a34dc0"
+  integrity sha512-WX6uqxNwXccdNm/md5VJ+Q47DF2gjqLvygvgNzb2tCJWPM86FCi2LIvKco70EttlpV9IkfkCVNVF07/56EsSEw==
 
 i18next@22.4.11:
   version "22.4.11"

@@ -870,6 +870,34 @@ Resources:
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
 
+
+  RUMAppMonitor:
+    Type: AWS::RUM::AppMonitor
+    Properties:
+      AppMonitorConfiguration:
+        AllowCookies: False
+        EnableXRay: False
+     #   ExcludedPages:
+     #     - ""
+     #   FavoritePages:
+     #     - ""
+     #   IdentityRoleArn:
+     #     - ""
+     #   IncludedPages:
+     #     - ""
+     #   MetricDestinations:
+     #     - Destination: "CloudWatch"
+        SessionSampleRate: 0.1
+        Telemetries:
+          - "errors"
+          - "performance"
+          - "http"
+      #CustomEvents:
+      #  CustomEvents
+      CwLogEnabled: true
+      Domain: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+      Name: CoreFrontRUM
+
 Outputs:
   CoreFrontUrl:
     Description: >-

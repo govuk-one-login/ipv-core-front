@@ -896,7 +896,7 @@ Resources:
       #  CustomEvents
       CwLogEnabled: true
       Domain: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
-      Name: CoreFrontRUM
+      Name: !Sub CoreFrontRUM-${AWS::StackName}
 
 Outputs:
   CoreFrontUrl:

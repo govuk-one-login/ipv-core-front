@@ -150,11 +150,8 @@
       }
     },
     "pageIpvIdentityStart": {
-      "title": "Rydych wedi mewngofnodi i GOV.UK One Login",
-      "header": "Rydych wedi mewngofnodi i GOV.UK One Login",
-      "content": {
-        "paragraph1": "Gallwch nawr barhau i brofi pwy ydych chi."
-      }
+      "title": "Parhau i brofi pwy ydych chi gyda GOV.UK One Login",
+      "header": "Parhau i brofi pwy ydych chi gyda GOV.UK One Login"
     },
     "pagePreKbvTransition": {
       "title": "Ateb cwestiynau diogelwch",

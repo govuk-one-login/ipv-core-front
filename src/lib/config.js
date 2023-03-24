@@ -23,5 +23,5 @@ module.exports = {
   GTM_ID: process.env.GTM_ID,
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   RUM_ACTIVE: process.env.RUM_ACTIVE,
-  RUM_ID: process.env.RUM_ID,
+  RUM_ID: process.env.RUM_ID
 };

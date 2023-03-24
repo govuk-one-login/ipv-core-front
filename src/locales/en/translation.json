@@ -150,8 +150,11 @@
       }
     },
     "pageIpvIdentityStart": {
-      "title": "Continue to prove your identity with GOV.UK One Login",
-      "header": "Continue to prove your identity with GOV.UK One Login"
+      "title": "You’ve signed in to GOV.UK One Login",
+      "header": "You’ve signed in to GOV.UK One Login",
+      "content": {
+        "paragraph1": "You can now continue to prove your identity."
+      }
     },
     "pagePreKbvTransition": {
       "title": "Answer security questions",

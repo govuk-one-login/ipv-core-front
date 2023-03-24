@@ -21,6 +21,7 @@ module.exports = {
   SESSION_SECRET: process.env.SESSION_SECRET,
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
   GTM_ID: process.env.GTM_ID,
-  RUM_ID: process.env.RUM_ID,
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
+  RUM_ACTIVE: process.env.RUM_ACTIVE,
+  RUM_ID: process.env.RUM_ID,
 };

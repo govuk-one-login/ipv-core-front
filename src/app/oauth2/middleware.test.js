@@ -185,5 +185,16 @@ describe("oauth middleware", () => {
         expect(req.session.ipAddress).to.eq("unknown");
       });
     });
+
+    context("with no ipv4 match in forwarded", () => {
+      beforeEach(() => {
+        req.headers.forwarded = "malformed-header";
+      });
+
+      it("should set ipAddress as 'unknown'", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(req.session.ipAddress).to.eq("unknown");
+      });
+    });
   });
 });

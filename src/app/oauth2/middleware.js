@@ -3,7 +3,7 @@ const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const axios = require("axios");
 
-const IPV4_MATCH = "\\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\\b";
+const IPV4_MATCH = "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b";
 
 module.exports = {
   setDebugJourneyType: (req, _res, next) => {
@@ -21,7 +21,7 @@ module.exports = {
     if (req.headers && req.headers["forwarded"]) {
       const ipAddress = req.headers["forwarded"].match(IPV4_MATCH);
       if (ipAddress) {
-        req.session.ipAddress = ipAddress[0]
+        req.session.ipAddress = ipAddress[0];
       } else {
         req.session.ipAddress = "unknown";
       }

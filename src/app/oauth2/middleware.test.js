@@ -160,7 +160,8 @@ describe("oauth middleware", () => {
 
     context("with forwarded multiple", () => {
       beforeEach(() => {
-        req.headers.forwarded = "for=1.2.3.4,1.2.3.4;proto=https;by=4.3.2.1,4.3.2.1";
+        req.headers.forwarded =
+          "for=1.2.3.4,1.2.3.4;proto=https;by=4.3.2.1,4.3.2.1";
       });
 
       it("should set first ipAddress in session", async function () {

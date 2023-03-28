@@ -64,7 +64,7 @@
     "express-session": "1.17.3",
     "govuk-frontend": "4.5.0",
     "i18next": "22.4.11",
-    "i18next-fs-backend": "^2.0.0",
+    "i18next-fs-backend": "^2.1.1",
     "i18next-http-middleware": "^3.3.0",
     "jsonwebtoken": "9.0.0",
     "nunjucks": "3.2.3",

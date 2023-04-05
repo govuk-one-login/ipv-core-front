@@ -143,13 +143,13 @@ describe("credential issuer middleware", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should redirect to technical unrecoverable when ipvSessionId is missing", async () => {
+    it("should redirect to core backend when ipvSessionId is missing", async () => {
       req.session.ipvSessionId = null;
 
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+        "/credential-issuer/callback?id=null"
       );
     });
   });

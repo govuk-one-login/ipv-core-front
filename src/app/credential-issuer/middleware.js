@@ -18,8 +18,8 @@ module.exports = {
   sendParamsToAPI: async (req, res, next) => {
     const body = {
       authorizationCode: req.query?.code,
-      credentialIssuerId: req.query.id,
-      redirectUri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query.id}`,
+      credentialIssuerId: req.query?.id,
+      redirectUri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query?.id}`,
       state: req.query?.state,
     };
 
@@ -32,15 +32,6 @@ module.exports = {
     }
 
     try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("cri req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
-      }
-
       logCoreBackCall(req, {
         logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
         path: API_CRI_CALLBACK,
@@ -80,15 +71,6 @@ module.exports = {
     }
 
     try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("cri req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
-      }
-
       logCoreBackCall(req, {
         logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
         path: API_CRI_CALLBACK,

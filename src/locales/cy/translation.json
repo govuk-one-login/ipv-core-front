@@ -111,6 +111,30 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiTimeoutRecoverable": {
+      "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "content": {
+        "paragraph1": "Gallai hyn fod oherwydd:",
+        "bullet1": "fe wnaethoch fewngofnodi dros 2 awr yn ôl",
+        "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
+        "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
+      }
+    },
+    "pyiTimeoutUnrecoverable": {
+      "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "content": {
+        "paragraph1": "Gallai hyn fod oherwydd:",
+        "bullet1": "fe wnaethoch fewngofnodi dros 2 awr yn ôl",
+        "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
+        "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
+      }
+    },
     "pyiTechnical": {
       "title": "Mae’n ddrwg gennym, mae problem",
       "header": "Mae’n ddrwg gennym, mae problem",

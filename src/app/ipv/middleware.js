@@ -225,6 +225,8 @@ module.exports = {
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
+        case "pyi-timeout-recoverable":
+        case "pyi-timeout-unrecoverable":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {

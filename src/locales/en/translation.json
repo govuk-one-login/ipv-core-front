@@ -2,6 +2,7 @@
   "general": {
     "buttons": {
       "authorizeAndReturn": "Authorize And Return",
+      "start": "Start",
       "next": "Continue",
       "cancel": "Cancel",
       "govUkHomepage": "Go to the GOV.UK homepage"
@@ -174,10 +175,10 @@
       }
     },
     "pageIpvIdentityStart": {
-      "title": "You’ve signed in to GOV.UK One Login",
-      "header": "You’ve signed in to GOV.UK One Login",
+      "title": "Start proving your identity with GOV.UK One Login",
+      "header": "Start proving your identity with GOV.UK One Login",
       "content": {
-        "paragraph1": "You can now continue to prove your identity."
+        "paragraph1": "First, you will be asked some questions to find the best way to prove your identity."
       }
     },
     "pagePreKbvTransition": {

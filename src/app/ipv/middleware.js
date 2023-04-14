@@ -195,6 +195,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (pageId === "pyi-timeout-unrecoverable") {
+        req.session.currentPage = "pyi-timeout-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
       } else if (
         !req.session.isDebugJourney &&
         req.session.currentPage !== pageId

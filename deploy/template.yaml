@@ -63,6 +63,7 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      rumAppId: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -78,6 +79,7 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
+      rumAppId: "1188b3f9-531a-4d2c-bc19-b0d645899ead"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -89,6 +91,7 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
+      rumAppId: ""
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -100,6 +103,7 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
+      rumAppId: ""
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -111,6 +115,7 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
+      rumAppId: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -442,6 +447,12 @@ Resources:
                   - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
             - Name: NODE_ENV
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
+            - Name: RUM_APPLICATION_ID
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, rumAppId ]
+            - Name: RUM_ROLE_ARN
+              Value: !GetAtt CWRumClientRole.Arn
+            - Name: RUM_COGNITO_POOL
+              Value: !Ref CWRumIdentityPool
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -896,7 +907,49 @@ Resources:
       #  CustomEvents
       CwLogEnabled: true
       Domain: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
-      Name: !Sub CoreFrontRUM-${AWS::StackName}
+      Name: !Sub ${AWS::StackName}-RUM
+
+  CWRumIdentityPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: !Sub ${AWS::StackName}-RUM
+      AllowUnauthenticatedIdentities: true
+
+  CWRumIdentityPoolRoles:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref CWRumIdentityPool
+      Roles:
+        unauthenticated: !GetAtt CWRumClientRole.Arn
+
+  CWRumClientRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated:
+                - cognito-identity.amazonaws.com
+            Action:
+              - sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud: !Ref CWRumIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: unauthenticated
+      Description: Unauthenticated Role for AWS RUM Clients
+      Path: /
+      Policies:
+        - PolicyName: AWSRumClientPut
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "rum:PutRumEvents"
+                Resource: !Sub arn:aws:rum:${AWS::Region}:${AWS::AccountId}:appmonitor/${AWS::StackName}-RUM
 
 Outputs:
   CoreFrontUrl:

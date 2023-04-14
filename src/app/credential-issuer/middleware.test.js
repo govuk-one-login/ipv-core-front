@@ -9,11 +9,9 @@ describe("credential issuer middleware", () => {
     let next;
     let axiosResponse;
     let axiosStub = {};
-
     let configStub = {};
     let middleware;
     let ipvMiddlewareStub = {};
-    let axiosHelperStub = {};
 
     beforeEach(() => {
       configStub.API_CRI_CALLBACK = "/journey/cri/callback";
@@ -22,10 +20,9 @@ describe("credential issuer middleware", () => {
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
       ipvMiddlewareStub.handleBackendResponse = sinon.fake();
-      axiosHelperStub.getAxios = () => axiosStub;
 
       middleware = proxyquire("./middleware", {
-        "../shared/axiosHelper": axiosHelperStub,
+        axios: axiosStub,
         "../../lib/config": configStub,
         "../ipv/middleware": ipvMiddlewareStub,
       });
@@ -163,11 +160,9 @@ describe("credential issuer middleware", () => {
     let next;
     let axiosResponse;
     let axiosStub = {};
-
     let configStub = {};
     let middleware;
     let ipvMiddlewareStub = {};
-    let axiosHelperStub = {};
 
     beforeEach(() => {
       configStub.API_CRI_CALLBACK = "/journey/cri/callback";
@@ -175,11 +170,10 @@ describe("credential issuer middleware", () => {
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
 
-      axiosHelperStub.getAxios = () => axiosStub;
       ipvMiddlewareStub.handleBackendResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
-        "../shared/axiosHelper": axiosHelperStub,
+        axios: axiosStub,
         "../../lib/config": configStub,
         "../ipv/middleware": ipvMiddlewareStub,
       });

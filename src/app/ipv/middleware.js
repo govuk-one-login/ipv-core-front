@@ -9,7 +9,7 @@ const {
   redirectToAuthorize,
 } = require("../shared/criHelper");
 
-const { generateAxiosConfig, getAxios } = require("../shared/axiosHelper");
+const { generateAxiosConfig } = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -26,6 +26,7 @@ const {
 const { generateHTMLofAddress } = require("../shared/addressHelper");
 const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
+const axios = require("axios");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -38,11 +39,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return getAxios(req).post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    generateAxiosConfig(req)
-  );
+  return axios.post(`${API_BASE_URL}/${action}`, {}, generateAxiosConfig(req));
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -228,6 +225,8 @@ module.exports = {
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
+        case "pyi-timeout-recoverable":
+        case "pyi-timeout-unrecoverable":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
@@ -240,7 +239,7 @@ module.exports = {
           if (req.session.isDebugJourney) {
             userDetailsResponse = samplePersistedUserDetails;
           } else {
-            userDetailsResponse = await getAxios(req).get(
+            userDetailsResponse = await axios.get(
               `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
               generateAxiosConfig(req)
             );

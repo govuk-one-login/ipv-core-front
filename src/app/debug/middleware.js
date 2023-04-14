@@ -4,14 +4,14 @@ const {
   API_BUILD_DEBUG_CREDENTIAL_DATA_PATH,
 } = require("../../lib/config");
 const { transformError } = require("../shared/loggerHelper");
-const { getAxios } = require("../shared/axiosHelper");
+const axios = require("axios");
 
 module.exports = {
   setCriConfig: async (req, res, next) => {
     if (!req.session.criConfig) {
       try {
         req.log.info("calling cri config lambda", { req, res });
-        const apiResponse = await getAxios(req).get(
+        const apiResponse = await axios.get(
           `${API_BASE_URL}${API_REQUEST_CONFIG_PATH}`
         );
         req.session.criConfig = apiResponse.data;
@@ -26,7 +26,7 @@ module.exports = {
   getIssuedCredentials: async (req, res, next) => {
     try {
       req.log.info("calling build-debug-credential-data lambda");
-      const apiResponse = await getAxios(req).get(
+      const apiResponse = await axios.get(
         `${API_BASE_URL}${API_BUILD_DEBUG_CREDENTIAL_DATA_PATH}`,
         {
           headers: {

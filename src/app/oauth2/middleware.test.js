@@ -2,15 +2,13 @@ const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-let axiosHelperStub = {};
-const axiosStub = {};
-axiosHelperStub.getAxios = () => axiosStub;
+let axiosStub = {};
 
 const configStub = {
   API_BASE_URL: "https://example.org/subpath",
 };
 const middleware = proxyquire("./middleware", {
-  "../shared/axiosHelper": axiosHelperStub,
+  axios: axiosStub,
   "../../lib/config": configStub,
 });
 
@@ -160,9 +158,37 @@ describe("oauth middleware", () => {
       });
     });
 
+    context("with forwarded multiple", () => {
+      beforeEach(() => {
+        req.headers.forwarded =
+          "for=1.2.3.4,1.2.3.4;proto=https;by=4.3.2.1,4.3.2.1";
+      });
+
+      it("should set first ipAddress in session", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(req.session.ipAddress).to.eq("1.2.3.4");
+      });
+
+      it("should call next", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(next).to.have.been.called;
+      });
+    });
+
     context("with missing forwarded", () => {
       beforeEach(() => {
         req.headers.forwarded = null;
+      });
+
+      it("should set ipAddress as 'unknown'", async function () {
+        await middleware.setIpAddress(req, res, next);
+        expect(req.session.ipAddress).to.eq("unknown");
+      });
+    });
+
+    context("with no ipv4 match in forwarded", () => {
+      beforeEach(() => {
+        req.headers.forwarded = "malformed-header";
       });
 
       it("should set ipAddress as 'unknown'", async function () {

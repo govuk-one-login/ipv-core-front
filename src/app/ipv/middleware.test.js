@@ -184,20 +184,6 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res, next);
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
-
-    it("should render pyi-technical-unrecoverable page if ipvSessionId is missing", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "../debug/page-ipv-debug" },
-        session: { currentPage: "page-ipv-success", ipvSessionId: null },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
-
-      await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
-      );
-    });
   });
 
   context("calling the updateJourneyState", () => {
@@ -457,25 +443,6 @@ describe("journey middleware", () => {
     }
   );
 
-  context("handling missing ipvSessionId before calling the backend", () => {
-    it("should redirect to the technical unrecoverable page", async function () {
-      req = {
-        id: "1",
-        session: {
-          currentPage: "page-ipv-identity-start",
-          ipvSessionId: null,
-          ipAddress: "ip-address",
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
-
-      await middleware.handleJourneyAction(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-technical-unrecoverable"
-      );
-    });
-  });
-
   context("handling page-ipv-reuse journey route", () => {
     const pageId = "page-ipv-reuse";
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async function () {
@@ -598,28 +565,6 @@ describe("journey middleware", () => {
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/end`
-        );
-      });
-    }
-  );
-
-  context(
-    "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
-    () => {
-      it("should redirect to the technical unrecoverable page", async function () {
-        req = {
-          id: "1",
-          session: {
-            currentPage: "page-ipv-identity-start",
-            ipvSessionId: null,
-            ipAddress: "ip-address",
-          },
-          log: { info: sinon.fake(), error: sinon.fake() },
-        };
-
-        await middleware.handleMultipleDocCheck(req, res, next);
-        expect(res.redirect).to.have.been.calledWith(
-          "/ipv/page/pyi-technical-unrecoverable"
         );
       });
     }

@@ -111,6 +111,30 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
+    "pyiTimeoutRecoverable": {
+      "title": "You have been signed out of your GOV.UK One Login",
+      "header": "You have been signed out of your GOV.UK One Login",
+      "content": {
+        "paragraph1": "This could be because:",
+        "bullet1": "you signed in over 2 hours ago",
+        "bullet2": "you signed out while you were using another service",
+        "bullet3": "more than one browser (for example Chrome, Safari) was used",
+        "subHeading": "What you can do",
+        "paragraph2": "Go back to the service you were trying to use and start again."
+      }
+    },
+    "pyiTimeoutUnrecoverable": {
+      "title": "You have been signed out of your GOV.UK One Login",
+      "header": "You have been signed out of your GOV.UK One Login",
+      "content": {
+        "paragraph1": "This could be because:",
+        "bullet1": "you signed in over 2 hours ago",
+        "bullet2": "you signed out while you were using another service",
+        "bullet3": "more than one browser (for example Chrome, Safari) was used",
+        "subHeading": "What you can do",
+        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
+      }
+    },
     "pyiTechnical": {
       "title": "Sorry, there is a problem",
       "header": "Sorry, there is a problem",

@@ -195,6 +195,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (pageId === "pyi-timeout-unrecoverable") {
+        req.session.currentPage = "pyi-timeout-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
       } else if (
         !req.session.isDebugJourney &&
         req.session.currentPage !== pageId
@@ -225,6 +228,8 @@ module.exports = {
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
+        case "pyi-timeout-recoverable":
+        case "pyi-timeout-unrecoverable":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {

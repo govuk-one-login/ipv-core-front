@@ -2,6 +2,7 @@
   "general": {
     "buttons": {
       "authorizeAndReturn": "Awdurdodi a Dychwelyd",
+      "start": "Dechrau",
       "next": "Parhau",
       "cancel": "Canslo",
       "govUkHomepage": " Ewch i hafan GOV.UK"
@@ -174,10 +175,10 @@
       }
     },
     "pageIpvIdentityStart": {
-      "title": "Rydych wedi mewngofnodi i GOV.UK One Login",
-      "header": "Rydych wedi mewngofnodi i GOV.UK One Login",
+      "title": "Dechrau profi pwy ydych chi gyda GOV.UK One Login",
+      "header": "Dechrau profi pwy ydych chi gyda GOV.UK One Login",
       "content": {
-        "paragraph1": "Gallwch nawr barhau i brofi pwy ydych chi."
+        "paragraph1": "Yn gyntaf, gofynnir rhai cwestiynau i chi i ddarganfod y ffordd orau o brofi pwy ydych chi."
       }
     },
     "pagePreKbvTransition": {

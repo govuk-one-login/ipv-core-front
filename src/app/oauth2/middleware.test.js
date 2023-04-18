@@ -65,11 +65,13 @@ describe("oauth middleware", () => {
         },
         session: {
           ipvSessionId: "abadcafe",
+          clientSessionId: "custsession",
         },
       };
       axiosResponse = {
         data: {
           ipvSessionId: {},
+          clientSessionId: {},
         },
       };
     });
@@ -77,12 +79,14 @@ describe("oauth middleware", () => {
     context("with ipvSessionId", () => {
       beforeEach(() => {
         axiosResponse.data.ipvSessionId = "abadcafe";
+        axiosResponse.data.clientSessionId = "custsession";
       });
 
-      it("should set ipvSessionId in session", async function () {
+      it("should set ipvSessionId and clientSessionId in session", async function () {
         axiosStub.post = sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
+        expect(req.session.clientSessionId).to.eq(axiosResponse.data.clientSessionId);
       });
 
       it("should call next", async function () {

@@ -62,6 +62,7 @@ module.exports = {
       );
 
       req.session.ipvSessionId = response?.data?.ipvSessionId;
+      req.session.clientSessionId = response?.data?.clientSessionId;
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       return next(error);

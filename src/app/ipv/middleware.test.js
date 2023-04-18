@@ -35,7 +35,11 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     req = {
-      session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address", clientSessionId: "client-session-id" },
+      session: {
+        ipvSessionId: "ipv-session-id",
+        ipAddress: "ip-address",
+        clientSessionId: "client-session-id",
+      },
       csrfToken: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
     };
@@ -48,7 +52,11 @@ describe("journey middleware", () => {
     beforeEach(() => {
       req = {
         id: "1",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address", clientSessionId: "client-session-id" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          clientSessionId: "client-session-id",
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
     });

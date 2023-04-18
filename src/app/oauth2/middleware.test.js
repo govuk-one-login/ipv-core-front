@@ -86,7 +86,9 @@ describe("oauth middleware", () => {
         axiosStub.post = sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
-        expect(req.session.clientSessionId).to.eq(axiosResponse.data.clientSessionId);
+        expect(req.session.clientSessionId).to.eq(
+          axiosResponse.data.clientSessionId
+        );
       });
 
       it("should call next", async function () {

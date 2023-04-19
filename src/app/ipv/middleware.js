@@ -290,7 +290,7 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId || !req.session?.clientOauthSessionId) {
+      if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
         const err = new Error(
           "req.ipvSessionId or req.clientOauthSessionId is missing"
         );

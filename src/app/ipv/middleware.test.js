@@ -80,6 +80,7 @@ describe("journey middleware", () => {
           "ipv-session-id": "ipv-session-id",
           "x-request-id": "1",
           "ip-address": "ip-address",
+          "client-session-id": undefined,
         },
       };
 

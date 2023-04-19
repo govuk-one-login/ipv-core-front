@@ -290,8 +290,10 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
+      if (!req.session?.ipvSessionId || !req.session?.clientOauthSessionId) {
+        const err = new Error(
+          "req.ipvSessionId or req.clientOauthSessionId is missing"
+        );
         err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
         logError(req, err);
 

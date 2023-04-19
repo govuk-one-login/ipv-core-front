@@ -5,10 +5,7 @@ const {
 } = require("../../lib/config");
 const { generateJsonAxiosConfig } = require("../shared/axiosHelper");
 const { handleBackendResponse } = require("../ipv/middleware");
-const {
-  logCoreBackCall,
-  transformError,
-} = require("../shared/loggerHelper");
+const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const axios = require("axios");
 

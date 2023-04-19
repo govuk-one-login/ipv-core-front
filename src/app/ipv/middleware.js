@@ -183,7 +183,19 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      if (pageId === "pyi-timeout-unrecoverable") {
+      if (req.session?.ipvSessionId === null) {
+        logError(
+          req,
+          {
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          },
+          "req.ipvSessionId is null"
+        );
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
       } else if (
@@ -274,6 +286,14 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "attempt-recovery") {
@@ -288,6 +308,14 @@ module.exports = {
   },
   handleMultipleDocCheck: async (req, res, next) => {
     try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
       } else if (req.body?.journey === "next/driving-licence") {

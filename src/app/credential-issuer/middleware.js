@@ -8,10 +8,8 @@ const { handleBackendResponse } = require("../ipv/middleware");
 const {
   logCoreBackCall,
   transformError,
-  logError,
 } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 
 module.exports = {

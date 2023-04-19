@@ -109,6 +109,19 @@ describe("Error handlers", () => {
 
       expect(next).to.be.have.been.calledOnce;
     });
+
+    it("should render pyi-timeout-recoverable page", () => {
+      res.statusCode = 401;
+      res.page = "pyi-timeout-recoverable";
+      res.criOAuthSessionId = "fake-session-id";
+      const err = new Error("timeout recoverable error");
+      serverErrorHandler(err, req, res, next);
+      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
+
+      expect(res.render).to.have.been.calledOnceWith(
+        "ipv/pyi-timeout-recoverable.njk"
+      );
+    });
   });
 
   describe("journeyEventErrorHandler", () => {

@@ -22,10 +22,7 @@ module.exports = {
     ) {
       const pageId = res.page;
       req.session.clientOauthSessionId = res?.criOAuthSessionId;
-      return res.render(`ipv/${sanitize(pageId)}.njk`, {
-        pageId,
-        csrfToken: req.csrfToken(),
-      });
+      return res.render(`ipv/${sanitize(pageId)}.njk`);
     }
 
     if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {

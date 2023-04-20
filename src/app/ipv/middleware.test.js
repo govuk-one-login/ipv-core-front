@@ -448,6 +448,20 @@ describe("journey middleware", () => {
         );
       });
 
+      it("should post with journey/timeout-recoverable", async function () {
+        req = {
+          id: "1",
+          body: { journey: "timeout-recoverable" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/timeout-recoverable`
+        );
+      });
+
       it("should post with journey/next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(

@@ -455,17 +455,17 @@ describe("journey middleware", () => {
         );
       });
 
-      it("should post with journey/timeout-recoverable", async function () {
+      it("should post with journey/build-client-oauth-response", async function () {
         req = {
           id: "1",
-          body: { journey: "timeout-recoverable" },
+          body: { journey: "build-client-oauth-response" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/timeout-recoverable`
+          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`
         );
       });
 

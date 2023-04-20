@@ -313,8 +313,12 @@ module.exports = {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
-      } else if (req.body?.journey === "timeout-recoverable") {
-        await handleJourneyResponse(req, res, "journey/timeout-recoverable");
+      } else if (req.body?.journey === "build-client-oauth-response") {
+        await handleJourneyResponse(
+          req,
+          res,
+          "journey/build-client-oauth-response"
+        );
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }

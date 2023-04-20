@@ -447,12 +447,15 @@ Resources:
                   - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
             - Name: NODE_ENV
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
-            #- Name: RUM_APPLICATION_ID
-            #  Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, rumAppId ]
-            #- Name: RUM_ROLE_ARN
-            #  Value: !GetAtt CWRumClientRole.Arn
-            #- Name: RUM_COGNITO_POOL
-            #  Value: !Ref CWRumIdentityPool
+            - Name: RUM_APPLICATION_ID
+              Value:
+                Fn::ImportValue: !Sub "AppMonitorId-${Environment}"
+            - Name: RUM_ROLE_ARN
+              Value:
+                Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}"
+            - Name: RUM_COGNITO_POOL
+              Value:
+                Fn::ImportValue: !Sub "CognitoPoolID-${Environment}"
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

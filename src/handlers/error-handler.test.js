@@ -148,6 +148,24 @@ describe("Error handlers", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
 
+    it("should render pyi-timeout-recoverable page", () => {
+      axiosResponse.data = {
+        page: "pyi-timeout-recoverable",
+        statusCode: 401,
+        clientOAuthSessionId: "fake-session-id",
+      };
+      res.statusCode = 401;
+      const err = new Error("timeout recoverable error");
+      err.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(err);
+      journeyEventErrorHandler(err, req, res, next);
+      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
+
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-timeout-recoverable"
+      );
+    });
+
     it("should call next if headers sent", () => {
       res.headersSent = true;
       const err = new Error("some error");

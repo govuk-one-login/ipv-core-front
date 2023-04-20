@@ -302,6 +302,8 @@ module.exports = {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
+      } else if (req.body?.journey === "timeout-recoverable") {
+        await handleJourneyResponse(req, res, "journey/timeout-recoverable");
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }

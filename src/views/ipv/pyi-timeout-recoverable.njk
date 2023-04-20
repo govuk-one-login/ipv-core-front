@@ -13,9 +13,9 @@
   </ul>
   <h2 class="govuk-heading-m">{{'pages.pyiTimeoutRecoverable.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph2' | translate }}</p>
-  <form id="attemptRecoveryForm" action="/ipv/page/pyi-attempt-recovery" method="POST" onsubmit="return attemptRecoveryFormSubmit()">
+  <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST" onsubmit="return timeoutRecoverableFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="journey" value="attempt-recovery">
+    <input type="hidden" name="journey" value="timeout-recoverable">
     <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
       {{'general.buttons.next' | translate }}
     </button>
@@ -23,7 +23,7 @@
 
   <script>
     let disableSubmit = false;
-    function attemptRecoveryFormSubmit() {
+    function timeoutRecoverableFormSubmit() {
       if(!disableSubmit) {
         disableSubmit = true;
         document.getElementById('submitButton').disabled = true;

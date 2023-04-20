@@ -92,10 +92,19 @@ describe("oauth middleware", () => {
     });
 
     context("with missing ipvSessionId", () => {
-      it("should throw error", async function () {
-        axiosStub.post = sinon.fake.throws(axiosResponse);
+      beforeEach(() => {
+        axiosResponse.data.ipvSessionId = null;
+      });
+
+      it("should set ipvSessionId as null in session", async function () {
+        axiosStub.post = sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
-        expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        expect(req.session.ipvSessionId).to.eq(null);
+      });
+
+      it("should call next", async function () {
+        await middleware.setIpvSessionId(req, res, next);
+        expect(next).to.have.been.called;
       });
     });
 

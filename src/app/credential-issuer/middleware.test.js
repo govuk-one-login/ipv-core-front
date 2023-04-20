@@ -143,13 +143,30 @@ describe("credential issuer middleware", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should redirect to technical unrecoverable when ipvSessionId is missing", async () => {
+    it("should call cri callback when ipvSessionId is missing", async () => {
+      axiosStub.post = sinon.fake();
       req.session.ipvSessionId = null;
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.query.id,
+        redirectUri: `http://example.com/credential-issuer/callback?id=${req.query.id}`,
+        state: req.query.state,
+      };
+
+      expect(axiosStub.post).to.have.been.calledWith(
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
+        sinon.match({
+          headers: {
+            "ipv-session-id": null,
+            "Content-Type": "application/json",
+            "x-request-id": "1",
+            "ip-address": "ip-address",
+          },
+        })
       );
     });
   });
@@ -292,13 +309,30 @@ describe("credential issuer middleware", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should redirect to technical unrecoverable when ipvSessionId is missing", async () => {
+    it("should call cri callback when ipvSessionId is missing", async () => {
+      axiosStub.post = sinon.fake();
       req.session.ipvSessionId = null;
+
+      const expectedBody = {
+        authorizationCode: req.query.code,
+        credentialIssuerId: req.params.criId,
+        redirectUri: `http://example.com/credential-issuer/callback/${req.params.criId}`,
+        state: req.query.state,
+      };
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      expect(axiosStub.post).to.have.been.calledWith(
+        "https://example.net/path/journey/cri/callback",
+        expectedBody,
+        sinon.match({
+          headers: {
+            "x-request-id": "1",
+            "ipv-session-id": null,
+            "Content-Type": "application/json",
+            "ip-address": "ip-address",
+          },
+        })
       );
     });
   });

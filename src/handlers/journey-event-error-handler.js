@@ -1,5 +1,4 @@
 const sanitize = require("sanitize-filename");
-const { HTTP_STATUS_CODES } = require("../app.constants");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
@@ -16,19 +15,13 @@ module.exports = {
 
     res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
 
-    if (
-      res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED &&
-      res.err?.response?.data?.criOAuthSessionId &&
-      res.err?.response?.data?.page
-    ) {
-      const pageId = sanitize(res.err.response.data.page);
-      req.session.clientOauthSessionId =
-        res.err.response.data.criOAuthSessionId;
-      return res.render(`ipv/${pageId}.njk`);
-    }
-
     if (res.err?.response?.data?.page) {
       const pageId = sanitize(res.err.response.data.page);
+
+      if (res.err?.response?.data?.criOAuthSessionId) {
+        req.session.clientOauthSessionId =
+          res.err.response.data.criOAuthSessionId;
+      }
       req.session.currentPage = pageId;
       return res.redirect(`/ipv/page/${pageId}`);
     }

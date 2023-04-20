@@ -83,9 +83,13 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     const message = {
       description:
-        "Deleting the core-back ipvSessionId from core-front session",
+        "Deleting the core-back ipvSessionId and clientOauthSessionId from core-front session",
     };
     req.log.info({ message, level: "INFO", requestId: req.id });
+
+    if (req?.session?.clientOauthSessionId) {
+      req.session.clientOauthSessionId = null;
+    }
 
     req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;

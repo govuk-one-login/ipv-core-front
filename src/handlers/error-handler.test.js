@@ -161,8 +161,8 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
-      expect(res.render).to.have.been.calledOnceWith(
-        "ipv/pyi-timeout-recoverable.njk"
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-timeout-recoverable"
       );
     });
 

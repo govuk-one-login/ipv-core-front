@@ -1,4 +1,3 @@
-const sanitize = require("sanitize-filename");
 const { HTTP_STATUS_CODES } = require("../app.constants");
 const { logError } = require("../app/shared/loggerHelper");
 
@@ -13,16 +12,6 @@ module.exports = {
 
     if (res.headersSent) {
       return next(err);
-    }
-
-    if (
-      res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED &&
-      res?.criOAuthSessionId &&
-      res?.page
-    ) {
-      const pageId = res.page;
-      req.session.clientOauthSessionId = res?.criOAuthSessionId;
-      return res.render(`ipv/${sanitize(pageId)}.njk`);
     }
 
     if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {

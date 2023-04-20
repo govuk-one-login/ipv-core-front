@@ -109,19 +109,6 @@ describe("Error handlers", () => {
 
       expect(next).to.be.have.been.calledOnce;
     });
-
-    it("should render pyi-timeout-recoverable page", () => {
-      res.statusCode = 401;
-      res.page = "pyi-timeout-recoverable";
-      res.criOAuthSessionId = "fake-session-id";
-      const err = new Error("timeout recoverable error");
-      serverErrorHandler(err, req, res, next);
-      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
-
-      expect(res.render).to.have.been.calledOnceWith(
-        "ipv/pyi-timeout-recoverable.njk"
-      );
-    });
   });
 
   describe("journeyEventErrorHandler", () => {
@@ -159,6 +146,24 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
 
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+    });
+
+    it("should render pyi-timeout-recoverable page", () => {
+      axiosResponse.data = {
+        page: "pyi-timeout-recoverable",
+        statusCode: 401,
+        criOAuthSessionId: "fake-session-id",
+      };
+      res.statusCode = 401;
+      const err = new Error("timeout recoverable error");
+      err.response = axiosResponse;
+      axiosStub.post = sinon.fake.throws(err);
+      journeyEventErrorHandler(err, req, res, next);
+      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
+
+      expect(res.render).to.have.been.calledOnceWith(
+        "ipv/pyi-timeout-recoverable.njk"
+      );
     });
 
     it("should call next if headers sent", () => {

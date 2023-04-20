@@ -152,7 +152,7 @@ describe("Error handlers", () => {
       axiosResponse.data = {
         page: "pyi-timeout-recoverable",
         statusCode: 401,
-        criOAuthSessionId: "fake-session-id",
+        clientOAuthSessionId: "fake-session-id",
       };
       res.statusCode = 401;
       const err = new Error("timeout recoverable error");

@@ -18,9 +18,9 @@ module.exports = {
     if (res.err?.response?.data?.page) {
       const pageId = sanitize(res.err.response.data.page);
 
-      if (res.err?.response?.data?.criOAuthSessionId) {
+      if (res.err?.response?.data?.clientOAuthSessionId) {
         req.session.clientOauthSessionId =
-          res.err.response.data.criOAuthSessionId;
+          res.err.response.data.clientOAuthSessionId;
       }
       req.session.currentPage = pageId;
       return res.redirect(`/ipv/page/${pageId}`);

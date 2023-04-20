@@ -374,8 +374,10 @@ describe("journey middleware", () => {
     });
 
     it("should be redirected to a valid Client URL", async function () {
+      req.session.clientOauthSessionId = "fake-client-session";
       await middleware.handleJourneyResponse(req, res, "/journey/next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
+      expect(req.session.clientOauthSessionId).to.be.null;
     });
   });
 

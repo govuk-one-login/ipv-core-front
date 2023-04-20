@@ -9,7 +9,10 @@ const {
   redirectToAuthorize,
 } = require("../shared/criHelper");
 
-const { generateAxiosConfig } = require("../shared/axiosHelper");
+const {
+  generateAxiosConfig,
+  generateAxiosConfigWithClientSessionId,
+} = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -39,7 +42,13 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axios.post(`${API_BASE_URL}/${action}`, {}, generateAxiosConfig(req));
+  return axios.post(
+    `${API_BASE_URL}/${action}`,
+    {},
+    req.session?.clientOauthSessionId
+      ? generateAxiosConfigWithClientSessionId(req)
+      : generateAxiosConfig(req)
+  );
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -292,7 +301,7 @@ module.exports = {
     try {
       if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
         const err = new Error(
-          "req.ipvSessionId or req.clientOauthSessionId is missing"
+          "req.ipvSessionId and req.clientOauthSessionId is missing"
         );
         err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
         logError(req, err);

@@ -30,6 +30,7 @@ const { generateHTMLofAddress } = require("../shared/addressHelper");
 const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
+const { getIpAddress } = require("../shared/ipAddressHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -314,6 +315,9 @@ module.exports = {
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
+        req.session.ipAddress = req?.session?.ipAddress
+          ? req.session.ipAddress
+          : getIpAddress(req);
         await handleJourneyResponse(
           req,
           res,

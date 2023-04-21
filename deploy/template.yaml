@@ -40,7 +40,6 @@ Conditions:
       - !Equals [ !Ref Environment, "production"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
-
   UsePermissionsBoundary:
     Fn::Not:
       - Fn::Equals:
@@ -63,7 +62,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
-      rumAppId: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -79,7 +77,6 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
-      rumAppId: "1188b3f9-531a-4d2c-bc19-b0d645899ead"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -91,7 +88,6 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
-      rumAppId: ""
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -103,7 +99,6 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
-      rumAppId: ""
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -115,7 +110,6 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
-      rumAppId: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -394,7 +388,6 @@ Resources:
         ScaleInCooldown: 300
         ScaleOutCooldown: 5
 
-
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -448,14 +441,17 @@ Resources:
             - Name: NODE_ENV
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
             - Name: RUM_APPLICATION_ID
-              Value:
-                Fn::ImportValue: !Sub "AppMonitorId-${Environment}"
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
+                  !Ref AWS::NoValue ]
             - Name: RUM_ROLE_ARN
-              Value:
-                Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}"
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
+                  !Ref AWS::NoValue ]
             - Name: RUM_COGNITO_POOL
-              Value:
-                Fn::ImportValue: !Sub "CognitoPoolID-${Environment}"
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
+                  !Ref AWS::NoValue ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -704,6 +700,9 @@ Resources:
                 "kms:ViaService":
                   - "dynamodb.amazonaws.com"
                   - "ecs-tasks.amazonaws.com"
+
+
+
 
   FrontLoadBalancer5xxErrors:
     Type: AWS::CloudWatch::Alarm

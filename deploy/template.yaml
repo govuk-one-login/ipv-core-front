@@ -62,7 +62,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
-      assetsCloudfrontArn: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -78,7 +77,6 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
-      assetsCloudfrontArn: "somearn"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -90,7 +88,6 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsCloudfrontArn: "somearn"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -102,7 +99,6 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsCloudfrontArn: "somearn"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -114,7 +110,6 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
-      assetsCloudfrontArn: "somearn"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -774,14 +769,6 @@ Resources:
                   Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
-
-  #AssetsUploadInvoke:
-  #  Type: AWS::CloudFormation::CustomResource
-  #  Properties:
-  #    ServiceToken: !ImportValue
-  #      - !Sub "AssetsCDNUploadLambdaFunctionArn-{$Environment}"
-  #    FunctionName: !ImportValue
-  #      - !Sub "AssetsCDNUploadLambdaFunctionName-{$Environment}"
 
   LambdaInvocationsOutOfSync:
     Type: AWS::CloudWatch::Alarm

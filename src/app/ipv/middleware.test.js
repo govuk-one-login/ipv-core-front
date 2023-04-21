@@ -455,11 +455,12 @@ describe("journey middleware", () => {
         );
       });
 
-      it("should post with journey/build-client-oauth-response", async function () {
+      it("should post with journey/build-client-oauth-response and use ip address from header when not present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: { ipvSessionId: "ipv-session-id" },
+          headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
@@ -467,6 +468,23 @@ describe("journey middleware", () => {
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/build-client-oauth-response`
         );
+        expect(req.session.ipAddress).to.equal("1.1.1.1");
+      });
+
+      it("should post with journey/build-client-oauth-response and use ip address from session when it is present in session", async function () {
+        req = {
+          id: "1",
+          body: { journey: "build-client-oauth-response" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          headers: { forwarded: "1.1.1.1" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`
+        );
+        expect(req.session.ipAddress).to.equal("ip-address");
       });
 
       it("should post with journey/next by default", async function () {

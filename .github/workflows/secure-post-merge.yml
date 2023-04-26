@@ -24,13 +24,13 @@ jobs:
           role-to-assume: ${{ secrets.UPLOAD_ASSETS_GH_ACTIONS_ROLE_ARN }}
           aws-region: eu-west-2
 
-      - name: NPM build assets, zip and sign
+      - name: yarn build assets, zip and sign
         env:
           ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
-          npm install
-          npm run build
+          yarn install
+          yarn build
           zip -r ./public.zip ./dist/public/*
           md5sum ./public.zip | cut -c -32 > zipsum.txt
           aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature

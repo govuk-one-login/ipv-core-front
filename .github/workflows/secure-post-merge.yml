@@ -44,7 +44,7 @@ jobs:
       - name: Push assets to S3
         env:
           ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
-          run: aws s3 cp package.zip "s3://$ARTIFACT_BUCKET/package.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+        run: aws s3 cp package.zip "s3://$ARTIFACT_BUCKET/package.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
 
       - name: Upload Assets MD5Sum to S3
         env:

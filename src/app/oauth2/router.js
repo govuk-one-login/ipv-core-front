@@ -28,9 +28,6 @@ router.get(
   handleJourneyAction
 );
 
-router.get(
-  "/usefeatureset",
-  validateFeatureSet
-);
+router.get("/usefeatureset", validateFeatureSet);
 
 module.exports = router;

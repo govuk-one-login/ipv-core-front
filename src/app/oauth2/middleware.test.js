@@ -207,7 +207,7 @@ describe("oauth middleware", () => {
     });
   });
 
-  describe("validateFeatureSet", () => {  
+  describe("validateFeatureSet", () => {
     beforeEach(() => {
       req = {
         query: {},
@@ -216,14 +216,14 @@ describe("oauth middleware", () => {
       res = {};
       next = sinon.stub();
     });
-  
+
     it("should call next if featureSet is valid", async () => {
       req.query.featureSet = "F01";
       await middleware.validateFeatureSet(req, res, next);
       expect(req.session.featureSet).to.equal("F01");
       expect(next).to.have.been.calledOnce;
     });
-  
+
     it("should throw an error if featureSet is invalid", async () => {
       req.query.featureSet = "invalid-featureset";
       await middleware.validateFeatureSet(req, res, next);

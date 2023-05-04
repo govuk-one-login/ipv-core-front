@@ -63,7 +63,7 @@ module.exports = {
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;
-      const isValidFeatureSet = /^[a-zA-Z0-9_]{1,32}$/.test(featureSet);
+      const isValidFeatureSet = /^\w{1,32}$/.test(featureSet);
       if (!isValidFeatureSet) {
         throw new Error("Invalid feature set ID");
       }

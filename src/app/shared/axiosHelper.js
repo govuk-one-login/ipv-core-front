@@ -6,6 +6,7 @@ module.exports = {
         "ipv-session-id": req.session?.ipvSessionId,
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
+        "feature-set": req.session.featureSet,
       },
     };
   },
@@ -17,6 +18,7 @@ module.exports = {
         "client-session-id": req?.session?.clientOauthSessionId,
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
+        "feature-set": req.session.featureSet,
       },
     };
   },
@@ -27,6 +29,7 @@ module.exports = {
         "ipv-session-id": req.session?.ipvSessionId,
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
+        "feature-set": req.session.featureSet,
       },
     };
   },

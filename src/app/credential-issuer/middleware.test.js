@@ -30,7 +30,11 @@ describe("credential issuer middleware", () => {
         id: "1",
         params: {},
         csrfToken: sinon.fake(),
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          featureSet: "feature-set",
+        },
         query: {
           id: "PassportIssuer",
           code: "authorize-code-issued",
@@ -71,6 +75,7 @@ describe("credential issuer middleware", () => {
             "Content-Type": "application/json",
             "x-request-id": "1",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );
@@ -104,6 +109,7 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );
@@ -165,6 +171,7 @@ describe("credential issuer middleware", () => {
             "Content-Type": "application/json",
             "x-request-id": "1",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );
@@ -197,7 +204,11 @@ describe("credential issuer middleware", () => {
       req = {
         id: "1",
         params: { criId: "PassportIssuer" },
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          featureSet: "feature-set",
+        },
         query: {
           code: "authorize-code-issued",
           state: "oauth-state",
@@ -237,6 +248,7 @@ describe("credential issuer middleware", () => {
             "Content-Type": "application/json",
             "x-request-id": "1",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );
@@ -270,6 +282,7 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": "abadcafe",
             "Content-Type": "application/json",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );
@@ -331,6 +344,7 @@ describe("credential issuer middleware", () => {
             "ipv-session-id": null,
             "Content-Type": "application/json",
             "ip-address": "ip-address",
+            "feature-set": "feature-set",
           },
         })
       );

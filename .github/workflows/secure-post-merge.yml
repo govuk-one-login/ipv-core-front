@@ -33,7 +33,7 @@ jobs:
           yarn build
           zip -r ./public.zip ./dist/public/*
           md5sum ./public.zip | cut -c -32 > zipsum.txt
-          aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature > ZipSignature
+          aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
           zip -r ./package.zip ./public.zip ./ZipSignature
 
       - name: Push assets and md5sum to S3

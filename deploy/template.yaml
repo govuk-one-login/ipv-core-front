@@ -32,12 +32,10 @@ Parameters:
     Default: "none"
 
 Conditions:
-  IsDevelopment: !Not
-    - !Or
-      - !Equals [ !Ref Environment, "build"]
-      - !Equals [ !Ref Environment, "staging"]
-      - !Equals [ !Ref Environment, "integration"]
-      - !Equals [ !Ref Environment, "production"]
+  IsDevelopment: !Or
+    - !Equals [ !Ref AWS::AccountId, "130355686670"]
+    - !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
@@ -51,7 +49,18 @@ Conditions:
 # mapping up to date with each developer environment.
 Mappings:
   EnvironmentConfiguration:
-    "130355686670": # Development
+    "130355686670": # Old Development
+      lb500ErrorLimit: 2
+      lb500ErrorWindow: 300
+      tg500ErrorLimit: 10
+      tg500ErrorWindow: 300
+      lambdaInvokeCompareWindow: 300
+      fargateCPUsize: "256"
+      fargateRAMsize: "512"
+      nodeOldSpaceLimit: "384"
+      nodeEnv: "development"
+      desiredTaskCount: 1
+    "175872367215": # New Development
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -162,9 +171,9 @@ Resources:
           FromPort: 443
           ToPort: 443
         - DestinationSecurityGroupId: !If
-            - IsNotDevelopment
-            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+            - IsOldDevelopment
             - !ImportValue InterfaceVpcEndpointSecurityGroupId
+            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
           Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443
@@ -412,9 +421,9 @@ Resources:
       ContainerDefinitions:
         - Essential: true
           Image: !If [
-              IsNotDevelopment,
-              CONTAINER-IMAGE-PLACEHOLDER,
+              IsOldDevelopment,
               !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
+              CONTAINER-IMAGE-PLACEHOLDER,
             ] # Uses build account and ECR when not in development.
           Name: app
           Environment:
@@ -551,7 +560,7 @@ Resources:
   # This is only used for the dev environment
   VpcLink:
     Type: "AWS::ApiGatewayV2::VpcLink"
-    Condition: IsDevelopment
+    Condition: IsOldDevelopment
     Properties:
       Name: ApiGwVpcLinkToLoadBalancer
       SubnetIds:
@@ -572,7 +581,7 @@ Resources:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
       ConnectionId: !If
-        - IsDevelopment
+        - IsOldDevelopment
         - !Ref VpcLink
         - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
       ConnectionType: VPC_LINK

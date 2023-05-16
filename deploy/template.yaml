@@ -36,6 +36,7 @@ Conditions:
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
+  IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
@@ -204,7 +205,10 @@ Resources:
     Type: AWS::S3::Bucket
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
     Properties:
-      BucketName: !Sub ipv-core-${Environment}-access-logs
+      BucketName: !If
+        - IsNewDevelopment # existing bucket names exist in the current dev env
+        - !Sub ipv-core-access-logs-${Environment}
+        - !Sub ipv-core-${Environment}-access-logs
       AccessControl: LogDeliveryWrite
       VersioningConfiguration:
         Status: "Enabled"

@@ -88,3 +88,11 @@ core/deploy/dns-zones/template.yaml:20:3
 Checkov..............................................(no files to check)Skipped
 - hook id: checkov
 ```
+
+### Assets upload to  CDN
+There is a step in the github workflow secure-post-merge.yml which pushes a zip of the /public
+and /assets folders to an S3 bucket, this is then decompressed and put into another bucket
+which is behind a cloudfront distribution. The infra for this is in:
+[https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets](https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets)
+If you add a new mimetype to the /assets or /public folders it will need to be added to the cloudfront
+function in that repo.

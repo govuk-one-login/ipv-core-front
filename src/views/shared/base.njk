@@ -6,7 +6,7 @@
 {% block head %}
 
     <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet">
+    <link href="{{ assetsCdnDomain }}/public/stylesheets/application.css" rel="stylesheet">
     <!--<![endif]-->
 
     {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -105,6 +105,6 @@
 
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
-    <script type="text/javascript"  src="/public/javascripts/application.js"></script>
+    <script type="text/javascript"  src="{{ assetsCdnDomain }}/public/javascripts/application.js"></script>
     <script type="text/javascript" nonce='{{ scriptNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ googleTagManagerPageId }}")</script>
 {% endblock %}

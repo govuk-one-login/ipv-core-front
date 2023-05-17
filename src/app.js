@@ -5,7 +5,12 @@ const session = require("express-session");
 const AWS = require("aws-sdk");
 const DynamoDBStore = require("connect-dynamodb")(session);
 
-const { PORT, SESSION_SECRET, SESSION_TABLE_NAME } = require("./lib/config");
+const {
+  PORT,
+  SESSION_SECRET,
+  SESSION_TABLE_NAME,
+  ASSETS_CDN_DOMAIN,
+} = require("./lib/config");
 
 const { getGTM } = require("./lib/locals");
 
@@ -56,13 +61,19 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(
-  "/assets",
-  express.static(
-    path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
-  )
-);
-app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+if (ASSETS_CDN_DOMAIN) {
+  app.get(["/assets", "/public"], function (req, res) {
+    res.redirect(301, ASSETS_CDN_DOMAIN + req.originalUrl);
+  });
+} else {
+  app.use(
+    "/assets",
+    express.static(
+      path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
+    )
+  );
+  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+}
 
 app.use(loggerMiddleware);
 

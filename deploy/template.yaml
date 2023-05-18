@@ -35,6 +35,7 @@ Conditions:
   IsDevelopment: !Or
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsBuild: !Equals [ !Ref Environment, build ]
   IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
@@ -468,6 +469,15 @@ Resources:
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
                   !Ref AWS::NoValue ]
+            - Name: ASSETS_CDN_DOMAIN
+              Value: !If [ IsBuild,
+                           !Sub "https://assets.identity.${Environment}.account.gov.uk",
+                           !Ref AWS::NoValue ]
+              #!If [ IsNotDevelopment,
+              #    !If [ IsProduction,
+              #      "https://assets.identity.account.gov.uk",
+              #      !Sub "https://assets.identity.${Environment}.account.gov.uk" ],
+              #    !Ref AWS::NoValue ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

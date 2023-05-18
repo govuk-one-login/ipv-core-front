@@ -1,4 +1,8 @@
-const { GTM_ANALYTICS_COOKIE_DOMAIN, GTM_ID } = require("./config");
+const {
+  GTM_ANALYTICS_COOKIE_DOMAIN,
+  GTM_ID,
+  ASSETS_CDN_DOMAIN,
+} = require("./config");
 const { generateNonce } = require("./strings");
 
 module.exports = {
@@ -6,6 +10,7 @@ module.exports = {
     res.locals.gtmId = GTM_ID;
     res.locals.scriptNonce = generateNonce();
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
+    res.locals.assetsCdnDomain = ASSETS_CDN_DOMAIN;
     next();
   },
 };

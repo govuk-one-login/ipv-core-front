@@ -460,24 +460,24 @@ Resources:
             - Name: RUM_APPLICATION_ID
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
-                  !Ref AWS::NoValue ]
+                  ""]
             - Name: RUM_ROLE_ARN
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
-                  !Ref AWS::NoValue ]
+                  "" ]
             - Name: RUM_COGNITO_POOL
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
-                  !Ref AWS::NoValue ]
+                  "" ]
             - Name: ASSETS_CDN_DOMAIN
               Value: !If [ IsBuild,
-                           !Sub "https://assets.identity.${Environment}.account.gov.uk",
-                           !Ref AWS::NoValue ]
+                  !Sub "https://assets.identity.${Environment}.account.gov.uk",
+                  "" ]
               #!If [ IsNotDevelopment,
               #    !If [ IsProduction,
               #      "https://assets.identity.account.gov.uk",
               #      !Sub "https://assets.identity.${Environment}.account.gov.uk" ],
-              #    !Ref AWS::NoValue ]
+              #    "" ]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

@@ -405,6 +405,30 @@ Resources:
         ScaleInCooldown: 300
         ScaleOutCooldown: 5
 
+  CoreFrontStepScalingPolicy:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CoreFrontStepScalingPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 300
+        MinAdjustmentMagnitude: 3
+        StepAdjustments:
+          - MetricIntervalLowerBound: 80
+            MetricIntervalUpperBound: 100
+            ScalingAdjustment: 100
+
+
+
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:

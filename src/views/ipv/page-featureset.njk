@@ -1,0 +1,8 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block pageTitle %} {{ title }} Feature Set {% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header">Feature Set:</h1>
+  <p class="govuk-body">{{ featureSet }}</p>
+{% endblock %}

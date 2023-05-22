@@ -353,6 +353,26 @@ module.exports = {
       next(error);
     }
   },
+
+  renderFeatureSetPage: async (req, res) => {
+    res.render("ipv/page-featureset.njk", {
+      featureSet: req.session.featureSet,
+    });
+  },
+
+  validateFeatureSet: async (req, res, next) => {
+    try {
+      const featureSet = req.query.featureSet;
+      const isValidFeatureSet = /^\w{1,32}$/.test(featureSet);
+      if (!isValidFeatureSet) {
+        throw new Error("Invalid feature set ID");
+      }
+      req.session.featureSet = featureSet;
+      next();
+    } catch (error) {
+      return next(error);
+    }
+  },
   handleJourneyResponse,
   handleBackendResponse,
 };

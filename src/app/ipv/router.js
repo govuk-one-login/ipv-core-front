@@ -9,10 +9,14 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
+  renderFeatureSetPage,
+  validateFeatureSet,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
+
+router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, handleJourneyPage);

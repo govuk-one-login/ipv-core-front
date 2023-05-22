@@ -401,7 +401,7 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 70
+        TargetValue: 60
         ScaleInCooldown: 300
         ScaleOutCooldown: 5
 
@@ -421,10 +421,16 @@ Resources:
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
         Cooldown: 300
-        MinAdjustmentMagnitude: 3
+        MinAdjustmentMagnitude: 5
         StepAdjustments:
           - MetricIntervalLowerBound: 20
-            ScalingAdjustment: 100
+            MetricIntervalUpperBound: 30
+            ScalingAdjustment: 200
+          - MetricIntervalLowerBound: 30
+            MetricIntervalUpperBound: 35
+            ScalingAdjustment: 300
+          - MetricIntervalLowerBound: 35
+            ScalingAdjustment: 500
 
 
 

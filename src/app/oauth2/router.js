@@ -7,7 +7,6 @@ const {
   setDebugJourneyType,
   setRealJourneyType,
   setIpAddress,
-  validateFeatureSet,
 } = require("./middleware");
 
 const { handleJourneyAction } = require("../ipv/middleware");
@@ -27,7 +26,5 @@ router.get(
   setIpvSessionId,
   handleJourneyAction
 );
-
-router.get("/usefeatureset", validateFeatureSet);
 
 module.exports = router;

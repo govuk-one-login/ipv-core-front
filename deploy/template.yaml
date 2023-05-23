@@ -305,6 +305,9 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 2
+      HealthCheckIntervalSeconds: 5
+      HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
       Port: 80
@@ -314,7 +317,7 @@ Resources:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: 60
+          Value: 30
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -341,7 +344,7 @@ Resources:
     Properties:
       Cluster: !Ref CoreFrontCluster
       DeploymentConfiguration:
-        MaximumPercent: 200
+        MaximumPercent: 500
         MinimumHealthyPercent: 50
         DeploymentCircuitBreaker:
           Enable: true
@@ -353,7 +356,7 @@ Resources:
         - !Ref AWS::AccountId
         - desiredTaskCount
       EnableECSManagedTags: false
-      HealthCheckGracePeriodSeconds: 60
+      HealthCheckGracePeriodSeconds: 30
       LaunchType: FARGATE
       LoadBalancers:
         - ContainerName: app
@@ -401,9 +404,56 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 70
-        ScaleInCooldown: 300
-        ScaleOutCooldown: 5
+        TargetValue: 60
+        ScaleInCooldown: 420
+        ScaleOutCooldown: 60
+
+  CoreFrontStepScaleOutPolicy:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CoreFrontStepScalingOutPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 120
+        MinAdjustmentMagnitude: 5
+        StepAdjustments:
+          - MetricIntervalLowerBound: 20
+            MetricIntervalUpperBound: 30
+            ScalingAdjustment: 200
+          - MetricIntervalLowerBound: 30
+            MetricIntervalUpperBound: 35
+            ScalingAdjustment: 300
+          - MetricIntervalLowerBound: 35
+            ScalingAdjustment: 500
+
+  CoreFrontStepScaleInPolicy:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CoreFrontStepScalingInPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 240
+        StepAdjustments:
+          - MetricIntervalUpperBound: -20
+            ScalingAdjustment: -50
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup

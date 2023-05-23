@@ -3,6 +3,9 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
+{# The GOV.UK design system uses the assetPath variable in the head block for favicons #}
+{# So set it to the same value as our assetsCdnDomain #}
+{% set assetPath = assetsCdnDomain %}
 {% block head %}
 
     <!--[if !IE 8]><!-->

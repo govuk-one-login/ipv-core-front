@@ -317,7 +317,9 @@ Resources:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: 10
+          Value: 30
+
+
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -344,7 +346,7 @@ Resources:
     Properties:
       Cluster: !Ref CoreFrontCluster
       DeploymentConfiguration:
-        MaximumPercent: 200
+        MaximumPercent: 500
         MinimumHealthyPercent: 50
         DeploymentCircuitBreaker:
           Enable: true
@@ -408,11 +410,11 @@ Resources:
         ScaleInCooldown: 420
         ScaleOutCooldown: 60
 
-  CoreFrontStepScalingPolicy:
+  CoreFrontStepScaleOutPolicy:
     DependsOn: CoreFrontAutoScalingTarget
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
-      PolicyName: CoreFrontStepScalingPolicy
+      PolicyName: CoreFrontStepScalingOutPolicy
       PolicyType: StepScaling
       ResourceId: !Join
         - '/'
@@ -426,11 +428,6 @@ Resources:
         Cooldown: 120
         MinAdjustmentMagnitude: 5
         StepAdjustments:
-          - MetricIntervalUpperBound: -40
-            ScalingAdjustment: -50
-          - MetricIntervalLowerBound: -40
-            MetricIntervalUpperBound: 20
-            ScalingAdjustment: 0
           - MetricIntervalLowerBound: 20
             MetricIntervalUpperBound: 30
             ScalingAdjustment: 200
@@ -439,6 +436,26 @@ Resources:
             ScalingAdjustment: 300
           - MetricIntervalLowerBound: 35
             ScalingAdjustment: 500
+
+  CoreFrontStepScaleInPolicy:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CoreFrontStepScalingInPolicy
+      PolicyType: StepScaling
+      ResourceId: !Join
+        - '/'
+        - - "service"
+          - !Ref CoreFrontCluster
+          - !GetAtt CoreFrontService.Name
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      StepScalingPolicyConfiguration:
+        AdjustmentType: PercentChangeInCapacity
+        Cooldown: 240
+        StepAdjustments:
+          - MetricIntervalUpperBound: -20
+            ScalingAdjustment: -50
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup

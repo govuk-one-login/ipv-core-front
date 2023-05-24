@@ -457,6 +457,47 @@ Resources:
           - MetricIntervalUpperBound: -20
             ScalingAdjustment: -50
 
+  CoreFrontStepScaleOutAlarm:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+        - !Ref CoreFrontStepScaleOutPolicy
+      AlarmDescription: "CoreFrontClusterOver60PercentCPU"
+      ComparisonOperator: "GreaterThanThreshold"
+      DatapointsToAlarm: "2"
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref CoreFrontService
+      EvaluationPeriods: "2"
+      MetricName: "CPUUtilization"
+      Namespace: "AWS/EC2"
+      Statistic: "Average"
+      Period: "60"
+      Threshold: "60"
+
+  CoreFrontStepScaleInAlarm:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+        - !Ref CoreFrontStepScaleInPolicy
+      AlarmDescription: "CoreFrontClusterUnder60PercentCPU"
+      ComparisonOperator: "LessThanThreshold"
+      DatapointsToAlarm: "2"
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref CoreFrontService
+      EvaluationPeriods: "2"
+      MetricName: "CPUUtilization"
+      Namespace: "AWS/EC2"
+      Statistic: "Average"
+      Period: "60"
+      Threshold: "60"
+
+
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:

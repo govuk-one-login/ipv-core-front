@@ -468,8 +468,11 @@ Resources:
       ComparisonOperator: "GreaterThanThreshold"
       DatapointsToAlarm: "2"
       Dimensions:
-        - Name: AutoScalingGroupName
+        - Name: ClusterName
+          Value: !Ref CoreFrontCluster
+        - Name: ServiceName
           Value: !Ref CoreFrontService
+      Unit: "Percent"
       EvaluationPeriods: "2"
       MetricName: "CPUUtilization"
       Namespace: "AWS/EC2"
@@ -488,8 +491,11 @@ Resources:
       ComparisonOperator: "LessThanThreshold"
       DatapointsToAlarm: "2"
       Dimensions:
-        - Name: AutoScalingGroupName
+        - Name: ClusterName
+          Value: !Ref CoreFrontCluster
+        - Name: ServiceName
           Value: !Ref CoreFrontService
+      Unit: "Percent"
       EvaluationPeriods: "2"
       MetricName: "CPUUtilization"
       Namespace: "AWS/EC2"

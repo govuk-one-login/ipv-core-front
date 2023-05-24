@@ -48,7 +48,12 @@ module.exports = {
       const response = await axios.post(
         `${API_BASE_URL}${API_SESSION_INITIALISE}`,
         authParams,
-        { headers: { "ip-address": req.session.ipAddress } }
+        {
+          headers: {
+            "ip-address": req.session.ipAddress,
+            "feature-set": req.session.featureSet,
+          },
+        }
       );
 
       req.session.ipvSessionId = response?.data?.ipvSessionId;

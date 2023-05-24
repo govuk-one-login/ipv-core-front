@@ -471,7 +471,7 @@ Resources:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
-          Value: !Ref CoreFrontService
+          Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
       EvaluationPeriods: "2"
       MetricName: "CPUUtilization"
@@ -494,7 +494,7 @@ Resources:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
-          Value: !Ref CoreFrontService
+          Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
       EvaluationPeriods: "2"
       MetricName: "CPUUtilization"

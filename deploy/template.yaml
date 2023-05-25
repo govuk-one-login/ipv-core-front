@@ -452,9 +452,9 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 240
+        Cooldown: 420
         StepAdjustments:
-          - MetricIntervalUpperBound: -20
+          - MetricIntervalUpperBound: -40
             ScalingAdjustment: -50
 
   CoreFrontStepScaleOutAlarm:
@@ -489,14 +489,14 @@ Resources:
         - !Ref CoreFrontStepScaleInPolicy
       AlarmDescription: "CoreFrontClusterUnder60PercentCPU"
       ComparisonOperator: "LessThanThreshold"
-      DatapointsToAlarm: "2"
+      DatapointsToAlarm: "5"
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "2"
+      EvaluationPeriods: "5"
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"

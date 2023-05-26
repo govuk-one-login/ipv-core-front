@@ -652,13 +652,6 @@ describe("journey middleware", () => {
           `${configStub.API_BASE_URL}/journey/claimIdentity`
         );
       });
-
-//      it("should post with journey/end by default", async function () {
-//        await middleware.handleMultipleDocCheck(req, res, next);
-//        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-//          `${configStub.API_BASE_URL}/journey/end`
-//        );
-//      });
     }
   );
 

@@ -346,7 +346,7 @@ module.exports = {
       } else if (req.body?.journey === "next/driving-licence") {
         await handleJourneyResponse(req, res, "journey/drivingLicence");
       } else if (req.body?.journey === "next/claim-identity") {
-          await handleJourneyResponse(req, res, "journey/claimIdentity");
+        await handleJourneyResponse(req, res, "journey/claimIdentity");
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");

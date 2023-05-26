@@ -609,7 +609,7 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
+    "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/claimIdentity",
     () => {
       it("should post with journey/ukPassport", async function () {
         req = {
@@ -639,12 +639,26 @@ describe("journey middleware", () => {
         );
       });
 
-      it("should post with journey/end by default", async function () {
+      it("should post with journey/claimIdentity", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/claim-identity" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`
+          `${configStub.API_BASE_URL}/journey/claimIdentity`
         );
       });
+
+//      it("should post with journey/end by default", async function () {
+//        await middleware.handleMultipleDocCheck(req, res, next);
+//        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+//          `${configStub.API_BASE_URL}/journey/end`
+//        );
+//      });
     }
   );
 

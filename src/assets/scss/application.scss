@@ -70,3 +70,10 @@
     margin-bottom: 0;
   }
 }
+
+// Style the DS Panel component to indicate a waypoint rather than successful completion of a task
+
+.di-f2f-panel {
+  color: govuk-colour("black");
+  background-color: govuk-colour("light-grey");
+}

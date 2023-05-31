@@ -16,7 +16,11 @@ module.exports = {
 
     nunjucksEnv.addFilter("GDSDate", function(formatDate){
       let dateTransform = new Date(formatDate);
-      return dateTransform.toLocaleDateString('en-GB',{day:'numeric', month: 'long', year:'numeric' });
+      let dateFormat = 'en-GB'; // only using 'en' uses American month-first date formatting
+      if(this.ctx.i18n.language==="cy"){
+             dateFormat='cy';
+      }
+      return dateTransform.toLocaleDateString(dateFormat,{day:'numeric', month: 'long', year:'numeric' });
     })
 
     return nunjucksEnv;

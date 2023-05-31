@@ -2,7 +2,7 @@ module.exports = {
   samplePersistedUserDetails: {
     data: {
       name: "Alessandro Cholmondeley-Featherstonehaugh",
-      dateOfBirth: "2000-01-02",
+      dateOfBirth: "1984-02-29",
       addresses: [
         {
           subBuildingName:"Flat 24",

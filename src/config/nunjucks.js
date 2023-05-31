@@ -14,6 +14,11 @@ module.exports = {
       return translate(key, options);
     });
 
+    nunjucksEnv.addFilter("GDSDate", function(formatDate){
+      let dateTransform = new Date(formatDate);
+      return dateTransform.toLocaleDateString('en-GB',{day:'numeric', month: 'long', year:'numeric' });
+    })
+
     return nunjucksEnv;
   },
 };

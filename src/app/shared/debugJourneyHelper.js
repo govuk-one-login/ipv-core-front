@@ -1,26 +1,30 @@
 module.exports = {
   samplePersistedUserDetails: {
     data: {
-      name: "FirstName LastName",
-      dateOfBirth: "01 11 1973",
+      name: "Alessandro Cholmondeley-Featherstonehaugh",
+      dateOfBirth: "2000-01-02",
       addresses: [
         {
-          buildingNumber: "10",
-          streetName: "Downing Street 1",
+          subBuildingName:"Flat 24",
+          buildingName:"Wollatorn House",
+          buildingNumber: "7",
+          streetName: "Batchelor Street",
           addressLocality: "London",
-          postalCode: "SW1A 2AA ",
+          postalCode: "N15 0EY",
         },
         {
-          buildingNumber: "8",
-          streetName: "Downing Street 2",
+          subBuildingName:"Flat 18",
+          buildingName:"The Paper Apartments",
+          buildingNumber: "162",
+          streetName: "Offord Road",
           addressLocality: "London",
-          postalCode: "SW1A 2AA ",
+          postalCode: "N2 1NS",
         },
         {
-          buildingNumber: "6",
-          streetName: "Downing Street 3",
+          buildingNumber: "7",
+          streetName: "Acorne Terrace",
           addressLocality: "London",
-          postalCode: "SW1A 2AA ",
+          postalCode: "N16 4QF",
         },
       ],
     },

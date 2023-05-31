@@ -4,7 +4,7 @@ module.exports = {
     const { buildingNames, streetNames, localityNames } =
       extractAddressFields(address);
 
-    const fullBuildingName = buildingNames.join(" ");
+    const fullBuildingName = buildingNames.join(", ");
     let fullStreetName;
     if (streetNames) {
       fullStreetName = streetNames.join(" ");
@@ -13,9 +13,13 @@ module.exports = {
     const fullLocality = localityNames.join(" ");
 
     if (fullStreetName) {
-      return `${fullBuildingName}<br>${fullStreetName},<br>${fullLocality},<br>${address.postalCode}`;
+      if (fullBuildingName) {
+        return `${fullBuildingName}<br>${fullStreetName}<br>${fullLocality}<br>${address.postalCode}`;
+      } else {
+        return `${fullStreetName}<br>${fullLocality}<br>${address.postalCode}`;
+      }
     } else {
-      return `${fullBuildingName},<br>${fullLocality},<br>${address.postalCode}`;
+      return `${fullBuildingName}<br>${fullLocality}<br>${address.postalCode}`;
     }
   },
 };

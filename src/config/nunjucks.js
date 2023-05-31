@@ -14,14 +14,18 @@ module.exports = {
       return translate(key, options);
     });
 
-    nunjucksEnv.addFilter("GDSDate", function(formatDate){
+    nunjucksEnv.addFilter("GDSDate", function (formatDate) {
       let dateTransform = new Date(formatDate);
-      let dateFormat = 'en-GB'; // only using 'en' uses American month-first date formatting
-      if(this.ctx.i18n.language==="cy"){
-             dateFormat='cy';
+      let dateFormat = "en-GB"; // only using 'en' uses American month-first date formatting
+      if (this.ctx.i18n.language === "cy") {
+        dateFormat = "cy";
       }
-      return dateTransform.toLocaleDateString(dateFormat,{day:'numeric', month: 'long', year:'numeric' });
-    })
+      return dateTransform.toLocaleDateString(dateFormat, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    });
 
     return nunjucksEnv;
   },

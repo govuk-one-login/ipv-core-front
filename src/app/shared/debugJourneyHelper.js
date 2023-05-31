@@ -5,16 +5,16 @@ module.exports = {
       dateOfBirth: "1984-02-29",
       addresses: [
         {
-          subBuildingName:"Flat 24",
-          buildingName:"Wollatorn House",
+          subBuildingName: "Flat 24",
+          buildingName: "Wollatorn House",
           buildingNumber: "7",
           streetName: "Batchelor Street",
           addressLocality: "London",
           postalCode: "N15 0EY",
         },
         {
-          subBuildingName:"Flat 18",
-          buildingName:"The Paper Apartments",
+          subBuildingName: "Flat 18",
+          buildingName: "The Paper Apartments",
           buildingNumber: "162",
           streetName: "Offord Road",
           addressLocality: "London",

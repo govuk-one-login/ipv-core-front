@@ -234,6 +234,7 @@ module.exports = {
           return res.redirect("/debug");
         case "page-ipv-identity-start":
         case "page-ipv-success":
+        case "page-face-to-face-handoff":
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
         case "page-passport-doc-check":

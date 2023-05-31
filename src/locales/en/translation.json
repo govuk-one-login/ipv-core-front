@@ -194,6 +194,29 @@
       "summaryText": "How we know what questions to ask you",
       "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>"
     },
+    "pageF2fHandoff": {
+      "title": "Go to the Post Office within 10 days to finish proving your identity",
+      "panelText": "Go to the Post Office within 10 days to finish proving your identity",
+      "content": {
+        "paragraph1": "You’ve been sent a confirmation email with a link to download your Post Office customer letter.",
+        "paragraph2": "To finish proving your identity, you need to go to your chosen Post Office within the next 10 days.",
+        "subHeading1": "What you need to take to the Post Office",
+        "paragraph3": "When you go to the Post Office, make sure to take your:",
+        "bullet1": "chosen photo ID",
+        "bullet2": "Post Office customer letter (you can download your letter from your confirmation email)",
+        "subHeading2": "At the Post Office",
+        "paragraph4": "You’ll need to show your Post Office customer letter on your phone or tablet, or take a printed copy with you.",
+        "paragraph5": "A member of Post Office staff will scan your photo ID and take a photo of you.",
+        "paragraph6": "You’ll find details of your chosen Post Office in your customer letter. But you can",
+        "paragraph6LinkText": "go to any Post Office that offers in-branch verification (opens in new tab)",
+        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#:~:text=Find%20your%20nearest%20branch",
+        "insetText": "If you do not go to the Post Office within the next 10 days, you’ll need to start proving your identity again.",
+        "subHeading3": "After you’ve been to the Post Office",
+        "paragraph7": "You’ll get an email about the result of your identity check – usually within a day of going to the Post Office.",
+        "subHeading4": "If you need help",
+        "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us-questions?theme=proving_identity&referer="
+      }
+    },
     "pageDcmawSuccess": {
       "title": "We’ve successfully matched you to the photo on your ID",
       "header": "We’ve successfully matched you to the photo on your ID",

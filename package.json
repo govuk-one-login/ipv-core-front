@@ -50,7 +50,7 @@
     "uglify-js": "latest"
   },
   "dependencies": {
-    "aws-sdk": "^2.1382.0",
+    "aws-sdk": "^2.1389.0",
     "axios": "1.3.6",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",

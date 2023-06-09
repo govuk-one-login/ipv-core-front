@@ -32,11 +32,12 @@ jobs:
           yarn install
           yarn build
           cp -r ./node_modules/govuk-frontend/govuk/assets ./assets
+          cat ./node_modules/govuk-frontend/package.json | jq '.version' | tr -d '"' > ./govuk_fe_version.txt
           cp -r ./dist/public ./public
           zip -r ./public.zip ./public/* ./assets/*
           md5sum ./public.zip | cut -c -32 > zipsum.txt
           aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
-          zip -r ./package.zip ./public.zip ./ZipSignature
+          zip -r ./package.zip ./public.zip ./ZipSignature ./gov_uk_version.txt
 
       - name: Push assets and md5sum to S3
         env:

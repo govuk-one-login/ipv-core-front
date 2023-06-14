@@ -128,6 +128,50 @@ Mappings:
 
 Resources:
 
+  # ssl cert
+  DevSSLCert:
+    Type: AWS::CertificateManager::Certificate
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainValidationOptions:
+        - DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+          HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      ValidationMethod: DNS
+
+  # api domain entries / mapping
+  DevApiDomain:
+    Type: AWS::ApiGatewayV2::DomainName
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainNameConfigurations:
+        - CertificateArn: !Ref DevSSLCert
+          EndpointType: REGIONAL
+          SecurityPolicy: TLS_1_2
+
+  DevApiMapping:
+    Type: AWS::ApiGatewayV2::ApiMapping
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Ref DevApiDomain
+      ApiId: !Ref ApiGwHttpEndpoint
+      Stage: "$default"
+    DependsOn:
+      - APIStageDefault
+
+  # dns rcord
+  DevDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Condition: IsNewDevelopment
+    Properties:
+      Type: A
+      Name: !Ref DevApiDomain
+      HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      AliasTarget:
+        DNSName: !GetAtt DevApiDomain.RegionalDomainName
+        HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
+
  # Security Groups for the ECS service and load balancer
   PrivateLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"

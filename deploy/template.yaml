@@ -781,7 +781,10 @@ Resources:
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
+      LogGroupName: !If
+        - IsNewDevelopment
+        - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
+        - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
       RetentionInDays: 14
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 

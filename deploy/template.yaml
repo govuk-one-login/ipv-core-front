@@ -570,7 +570,7 @@ Resources:
                   "" ]
             - Name: ASSETS_CDN_DOMAIN
               Value: !If [ IsBuild,
-                  "", #"!Sub "https://assets.identity.${Environment}.account.gov.uk", Turned off while developing
+                  !Sub "https://assets.identity.${Environment}.account.gov.uk",
                   "" ]
               #!If [ IsNotDevelopment,
               #    !If [ IsProduction,

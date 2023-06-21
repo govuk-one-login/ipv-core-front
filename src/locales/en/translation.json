@@ -12,6 +12,7 @@
       "errorSummaryTitle": "There’s a problem",
       "error": "Error",
       "warning": "Warning",
+      "signOut": "Sign out",
       "phaseBanner": {
         "tag": "beta",
         "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">feedback (opens in new tab)</a>  will help us to improve it."

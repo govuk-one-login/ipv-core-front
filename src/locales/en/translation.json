@@ -278,6 +278,18 @@
         }
       }
     },
+    "pageIpvPending": {
+      "title": "You have not finished proving your identity",
+      "header": "You have not finished proving your identity",
+      "content": {
+        "paragraph1": "You need to go to a Post Office that offers in-branch verification to finish proving your identity.",
+        "paragraph2": "You should have received a confirmation email explaining what to take with you and what will happen at the Post Office.",
+        "subHeading": "If you've already been to the Post Office",
+        "paragraph3": "Your identity check is still being processed.",
+        "paragraph4": "You'll get an email when there's a result for your identity check - usually within a day of going to the Post Office.",
+        "subHeading2": "If you need help"
+      }
+    },
     "pageIpvSuccess": {
       "title": "Continue to the service you want to use",
       "header": "Continue to the service you want to use",

@@ -11,6 +11,7 @@ const {
   handleMultipleDocCheck,
   renderFeatureSetPage,
   validateFeatureSet,
+  handlePendingPageOptions,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -25,6 +26,12 @@ router.post(
   parseForm,
   csrfProtection,
   handleMultipleDocCheck
+);
+router.post(
+  "/page/page-ipv-pending",
+  parseForm,
+  csrfProtection,
+  handlePendingPageOptions
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

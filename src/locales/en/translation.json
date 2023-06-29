@@ -328,6 +328,29 @@
           "no": "No"
         }
       }
+    },
+    "pageIpvIdentityPostofficeStart": {
+      "title": "You may be able to prove your identity at a Post Office if you have one of the following documents",
+      "header": "You may be able to prove your identity at a Post Office if you have one of the following documents",
+      "content": {
+        "subHeading": "European Union (EU) photocard driving licence",
+        "paragraph1": "You can use an EU driving licence if:",
+        "list1": "it is a plastic photocard, not a paper or handwritten licence",
+        "list2": "it has not expired",
+        "list3": "the address on it is the same as your current address (if it has an address)",
+        "subHeading2": "Non-UK passport",
+        "paragraph2": "You can use a passport from any country, as long as it has not expired.",
+        "subHeading3": "National identity card from a European Economic Area (EEA) country",
+        "paragraph3": "You can use a national identity card from any country in the European Economic Area (EEA), except Denmark.",
+        "paragraph4": "You can use an EEA national identity card if:",
+        "list4": "it is a plastic photocard, not a paper or handwritten card",
+        "list5": "the address on it is the same as your current address (if it has an address)",
+        "subHeading4": "Do you have any of these documents?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      }
     }
   }
 }

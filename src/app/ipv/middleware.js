@@ -357,6 +357,27 @@ module.exports = {
     }
   },
 
+  handleDocumentStartPageOptions: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+      if (req.body?.journey === "next/multiple-doc-check") {
+        await handleJourneyResponse(req, res, "journey/document");
+      } else if (req.body?.journey === "next/postoffice-start") {
+        await handleJourneyResponse(req, res, "journey/postoffice");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handlePendingPageOptions");
+      next(error);
+    }
+  },
+
   renderFeatureSetPage: async (req, res) => {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,

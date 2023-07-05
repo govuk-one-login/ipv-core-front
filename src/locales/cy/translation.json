@@ -113,6 +113,17 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiEscape": {
+      "title": "Find another way to prove your identity",
+      "header": "Find another way to prove your identity",
+      "content": {
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
+          "restartButtonText": "Start again and try to prove your identity online with GOV.UK One Login"
+        }
+      }
+    },
     "pyiTimeoutRecoverable": {
       "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
       "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",

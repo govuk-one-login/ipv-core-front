@@ -244,6 +244,7 @@ module.exports = {
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
+        case "pyi-escape":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-technical":

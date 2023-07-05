@@ -1,0 +1,46 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiEscape.title' | translate %}
+{% set googleTagManagerPageId = "pyiEscape" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiEscape.header' | translate }}</h1>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiEscape.content.subHeading' | translate }}</h2>
+
+  <form id="pyiEscapeForm" action="/ipv/page/{{ pageId }}" method="POST"
+        onsubmit="return pyiEscapeFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {{ govukRadios({
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "end",
+          text: 'pages.pyiEscape.content.formRadioButtons.otherWayButtonText' | translate,
+        },
+        {
+          value: "next",
+          text: 'pages.pyiEscape.content.formRadioButtons.restartButtonText' | translate,
+        }
+      ]
+    }) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <script>
+      let disableSubmit = false;
+
+      function pyiEscapeFormSubmit() {
+          if (!disableSubmit) {
+              disableSubmit = true;
+              document.getElementById('submitButton').disabled = true;
+              return true
+          }
+          return false;
+      }
+  </script>
+{% endblock %}

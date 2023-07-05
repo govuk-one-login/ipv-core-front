@@ -78,3 +78,24 @@
   color: govuk-colour("black");
   background-color: govuk-colour("light-grey");
 }
+
+// To style a form submit button as an inline link
+.govuk-btn-as-link {
+  vertical-align: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+  color: $govuk-link-colour;
+  box-shadow: 0px 1px #ffffff;
+  margin: 0;
+  width: auto;
+}
+.govuk-btn-as-link:hover {
+  background: none;
+  color: $govuk-link-visited-colour;
+  text-decoration: underline;
+}
+.govuk-btn-link:hover {
+  background: none;
+}

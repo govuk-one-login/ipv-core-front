@@ -90,12 +90,15 @@
   box-shadow: 0px 1px #ffffff;
   margin: 0;
   width: auto;
+
+  &:hover {
+    background: none;
+    color: $govuk-link-hover-colour;
+    text-decoration: underline;
+  }
+
+  // ISSUE: can’t set a visited state for a button
+  // ISSUE: hover and hover focus states are slightly different to 'real' buttons
+
 }
-.govuk-btn-as-link:hover {
-  background: none;
-  color: $govuk-link-visited-colour;
-  text-decoration: underline;
-}
-.govuk-btn-link:hover {
-  background: none;
-}
+

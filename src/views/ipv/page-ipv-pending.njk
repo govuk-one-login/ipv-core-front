@@ -1,6 +1,4 @@
 {% extends "shared/base.njk" %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% set pageTitleName = 'pages.pageIpvPending.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvPending" %}
 
@@ -9,52 +7,19 @@
 
   <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph2' | translate }}</p>
+  <form id="pendingPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <div class="govuk-inset-text">
+      {{'pages.pageIpvPending.content.insetText' | translate }}
+      <input type="hidden" name="journey" value="next">
+      <button id="otherWayLink" data-prevent-double-click="true" class="govuk-button govuk-link govuk-btn-as-link" data-module="govuk-button">{{ 'pages.pageIpvPending.content.linkText' | translate }}</button>
+    </div>
+  </form>
+
   <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph3' | translate }}</p>
   <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph4' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading2' | translate }}</h2>
-
-  <form id="pendingPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return pendingPageOptionsFormSubmit()">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next/continue",
-                text: 'pages.pageIpvPending.content.formRadioButtons.continuePostOfficeButtonText' | translate
-              },
-              {
-                value: "next/sign-out",
-                text: 'pages.pageIpvPending.content.formRadioButtons.signOutButtonText' | translate
-              },
-              {
-                divider: 'pages.pageIpvPending.content.formRadioButtons.separateOptionsInFormText' | translate
-              },
-              {
-                value: "next/restart",
-                text: 'pages.pageIpvPending.content.formRadioButtons.restartButtonText' | translate
-              }
-            ]
-      })
-    }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{'general.buttons.next' | translate }}
-    </button>
-  </form>
-
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
-
-  <script>
-    let disableSubmit = false;
-    function pendingPageOptionsFormSubmit() {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-        return true
-      }
-      return false;
-    }
-  </script>
 {% endblock %}

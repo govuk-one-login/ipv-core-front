@@ -178,8 +178,6 @@ module.exports = {
         "/journey/cri/validate/stubKbv",
         "/journey/cri/validate/dcmaw",
         "/journey/cri/validate/stubDcmaw",
-        "/journey/end-mitigation-journey/MJ01",
-        "/journey/end-mitigation-journey/MJ02",
         "/journey/build-proven-user-identity-details",
       ];
 
@@ -233,8 +231,11 @@ module.exports = {
         case "page-ipv-debug":
           return res.redirect("/debug");
         case "page-ipv-identity-start":
+        case "page-ipv-identity-document-start":
+        case "page-ipv-identity-postoffice-start":
         case "page-ipv-success":
         case "page-face-to-face-handoff":
+        case "page-ipv-pending":
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
         case "page-passport-doc-check":
@@ -243,6 +244,7 @@ module.exports = {
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
+        case "pyi-escape":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-technical":

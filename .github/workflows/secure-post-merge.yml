@@ -32,15 +32,44 @@ jobs:
           yarn install
           yarn build
           cp -r ./node_modules/govuk-frontend/govuk/assets ./assets
+          cat ./node_modules/govuk-frontend/package.json | jq '.version' | tr -d '"' > ./govuk_fe_version.txt
           cp -r ./dist/public ./public
           zip -r ./public.zip ./public/* ./assets/*
           md5sum ./public.zip | cut -c -32 > zipsum.txt
           aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
-          zip -r ./package.zip ./public.zip ./ZipSignature
+          zip -r ./package.zip ./public.zip ./ZipSignature ./govuk_fe_version.txt
 
       - name: Push assets and md5sum to S3
         env:
           ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
+        run: |
+          aws s3 cp package.zip "s3://$ARTIFACT_BUCKET/package.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+          aws s3 cp zipsum.txt "s3://$ARTIFACT_BUCKET/zipsum.txt" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+
+      - name: Set up AWS creds - New #push assets to S3
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.UPLOAD_ASSETS_NEW_GH_ACTIONS_ROLE_ARN }}
+          aws-region: eu-west-2
+
+      - name: yarn build assets, zip and sign - New
+        env:
+          ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_NEW_ZIP_SIGNING_KEY }}
+        run: |
+          cd ${GITHUB_WORKSPACE} || exit 1
+          yarn install
+          yarn build
+          cp -r ./node_modules/govuk-frontend/govuk/assets ./assets
+          cat ./node_modules/govuk-frontend/package.json | jq '.version' | tr -d '"' > ./govuk_fe_version.txt
+          cp -r ./dist/public ./public
+          zip -r ./public.zip ./public/* ./assets/*
+          md5sum ./public.zip | cut -c -32 > zipsum.txt
+          aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
+          zip -r ./package.zip ./public.zip ./ZipSignature ./govuk_fe_version.txt
+
+      - name: Push assets and md5sum to S3 - New
+        env:
+          ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_NEW_SOURCE_BUCKET_NAME }}
         run: |
           aws s3 cp package.zip "s3://$ARTIFACT_BUCKET/package.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
           aws s3 cp zipsum.txt "s3://$ARTIFACT_BUCKET/zipsum.txt" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"

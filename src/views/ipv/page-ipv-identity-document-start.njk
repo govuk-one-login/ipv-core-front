@@ -6,6 +6,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvIdentityDocumentStart.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityDocumentStart.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
@@ -31,7 +32,7 @@
   <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
-  <form id="pendingPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
+  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {{ govukRadios({
     idPrefix: "journey",

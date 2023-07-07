@@ -298,27 +298,29 @@
       }
     },
     "pageIpvIdentityDocumentStart": {
-      "title": "Prove your identity online with the following documents",
-      "header": "Prove your identity online with the following documents",
+      "title": "Dywedwch wrthym os oes gennych un o'r mathau canlynol o ID gyda llun",
+      "header": "Dywedwch wrthym os oes gennych un o'r mathau canlynol o ID gyda llun",
       "content": {
-        "subHeading": "UK photocard driving licence",
-        "paragraph1": "You can use a UK driving licence if it:",
-        "list1": "has your photo",
-        "list2": "has not expired",
-        "paragraph2": "It can be full or provisional UK driving licence.",
-        "subHeading2": "UK passport",
-        "paragraph3": "You can use any UK passport. If your UK passport has expired, you can still use it to prove your identity up to 18 months after its expiry date.",
-        "subHeading3": "Non-UK passport with a biometric chip",
-        "paragraph4": "You can use a non-UK passport if it:",
-        "list3": "has a biometric chip",
-        "list4": "has not expired",
-        "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "subHeading4": "Biometric resident permit (BRP)",
-        "paragraph6": "You can use a biometric resident permit (BRP) that has not expired.",
-        "subHeading5": "Do you have any of these documents?",
+        "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i'r ffordd orau i chi brofi eich hunaniaeth.",
+        "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
+        "paragraph1": "Gallwch ddefnyddio trwydded yrru y DU os yw:",
+        "list1": "yn cynnwys eich llun",
+        "list2": "heb ddod i ben",
+        "paragraph2": "Gall fod yn drwydded yrru y DU llawn neu dros dro.",
+        "subHeading2": "Pasbort y DU",
+        "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU. Os yw'ch pasbort y DU wedi dod i ben, gallwch barhau i'w ddefnyddio i brofi eich hunaniaeth hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+        "subHeading3": "Pasbort o'r tu allan i'r DU gyda sglodion biometrig",
+        "paragraph4": "Gallwch ddefnyddio pasbort o'r tu allan i'r DU os:",
+        "list3": "mae ganddo sglodyn biometrig",
+        "list4": "nid yw wedi dod i ben",
+        "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
+        "imgAltText": "Clawr blaen pasbort gyda'r symbol sglodyn biometrig. Mae'r symbol yn betryal gyda chylch yn y canol.",
+        "subHeading4": "Trwydded breswylio biometrig y DU",
+        "paragraph6": "Gallwch ddefnyddio trwydded breswylio biometrig (BRP) y DU sydd heb ddod i ben.",
+        "subHeading5": "Oes gennych chi unrhyw un o'r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No"
+          "yes": "Oes",
+          "no": "Na"
         }
       }
     },

@@ -321,9 +321,10 @@
       }
     },
     "pageIpvIdentityDocumentStart": {
-      "title": "Prove your identity online with the following documents",
-      "header": "Prove your identity online with the following documents",
+      "title": "Tell us if you have one of the following types of photo ID",
+      "header": "Tell us if you have one of the following types of photo ID",
       "content": {
+        "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
         "paragraph1": "You can use a UK driving licence if it:",
         "list1": "has your photo",
@@ -336,9 +337,10 @@
         "list3": "has a biometric chip",
         "list4": "has not expired",
         "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "subHeading4": "Biometric resident permit (BRP)",
-        "paragraph6": "You can use a biometric resident permit (BRP) that has not expired.",
-        "subHeading5": "Do you have any of these documents?",
+        "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
+        "subHeading4": "UK biometric resident permit",
+        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired.",
+        "subHeading5": "Do you have any of these types of photo id?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"

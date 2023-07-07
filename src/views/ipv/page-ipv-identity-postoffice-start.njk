@@ -6,9 +6,11 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{'pages.pageIpvIdentityPostofficeStart.content.list1' | translate }}</li>
     <li>{{'pages.pageIpvIdentityPostofficeStart.content.list2' | translate }}</li>
@@ -16,19 +18,19 @@
   </ul>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
-
+  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph4' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading3' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph4' | translate }}</p>
+  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph5' | translate }}</p>
   <ul class="govuk-list  govuk-list--bullet">
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list3' | translate }}</li>
     <li>{{'pages.pageIpvIdentityPostofficeStart.content.list4' | translate }}</li>
+    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list5' | translate }}</li>
+    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list6' | translate }}</li>
   </ul>
+  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph6' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate }}</h2>
-  <form id="pendingPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityPostofficeStartPageOptionsFormSubmit()">
+  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityPostofficeStartPageOptionsFormSubmit()">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {{ govukRadios({
     idPrefix: "journey",

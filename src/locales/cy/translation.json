@@ -124,6 +124,15 @@
         }
       }
     },
+    "pyiAnotherWay": {
+      "title": "Profi eich hunaniaeth mewn ffordd arall",
+      "header": "Profi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Yn seiliedig beth rydych wedi'i ddweud wrthym, ni allwch brofi eich hunaniaeth ar-lein gyda GOV.UK One Login.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn eich blaen i'r gwasanaeth roeddech chi'n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
+      }
+    },
     "pyiTimeoutRecoverable": {
       "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
       "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",

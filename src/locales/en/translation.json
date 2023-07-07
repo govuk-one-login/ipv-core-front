@@ -124,6 +124,15 @@
         }
       }
     },
+    "pyiAnotherWay": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "Based on what you told us, you cannot prove your identity online with GOV.UK One Login.",
+        "subHeading": "What you can do",
+        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
+      }
+    },
     "pyiTimeoutRecoverable": {
       "title": "You have been signed out of your GOV.UK One Login",
       "header": "You have been signed out of your GOV.UK One Login",

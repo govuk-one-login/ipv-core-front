@@ -27,7 +27,6 @@ const {
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
 const { generateHTMLofAddress } = require("../shared/addressHelper");
-const { samplePersistedUserDetails } = require("../shared/debugJourneyHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
@@ -143,12 +142,7 @@ module.exports = {
     });
   },
   updateJourneyState: async (req, res, next) => {
-    //routine to be removed once debug journey rewrite is complete
     try {
-      if (!req.session.isDebugJourney) {
-        return next(new Error("Debug operation not available"));
-      }
-
       const allowedActions = [
         "/journey/next",
         "/journey/error",
@@ -166,7 +160,6 @@ module.exports = {
         "/journey/cri/build-oauth-request/stubActivityHistory",
         "/journey/cri/build-oauth-request/dcmaw",
         "/journey/cri/build-oauth-request/stubDcmaw",
-        "/journey/cri/build-oauth-request/debugAddress",
         "/journey/build-client-oauth-response",
         "/journey/cri/validate/ukPassport",
         "/journey/cri/validate/stubUkPassport",
@@ -210,10 +203,7 @@ module.exports = {
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
-      } else if (
-        !req.session.isDebugJourney &&
-        req.session.currentPage !== pageId
-      ) {
+      } else if (req.session.currentPage !== pageId) {
         logError(
           req,
           {
@@ -228,8 +218,6 @@ module.exports = {
       }
 
       switch (pageId) {
-        case "page-ipv-debug":
-          return res.redirect("/debug");
         case "page-ipv-identity-start":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
@@ -255,16 +243,10 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         case "page-ipv-reuse": {
-          let userDetailsResponse = {};
-
-          if (req.session.isDebugJourney) {
-            userDetailsResponse = samplePersistedUserDetails;
-          } else {
-            userDetailsResponse = await axios.get(
-              `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-              generateAxiosConfig(req)
-            );
-          }
+          let userDetailsResponse = await axios.get(
+            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
+            generateAxiosConfig(req)
+          );
 
           const i18n = req.i18n;
 

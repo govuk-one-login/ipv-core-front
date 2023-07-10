@@ -152,7 +152,6 @@ router.use((req, res, next) => {
 router.use(getGTM);
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
-router.use("/debug", require("./app/debug/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
 router.get("/healthcheck", (req, res) => {

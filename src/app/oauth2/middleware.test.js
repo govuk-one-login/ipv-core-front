@@ -33,22 +33,6 @@ describe("oauth middleware", () => {
     next = sinon.fake();
   });
 
-  describe("setDebugJourneyType", () => {
-    it("should set isDebugJourney to true in session", () => {
-      middleware.setDebugJourneyType(req, res, next);
-
-      expect(req.session.isDebugJourney).to.eq(true);
-    });
-  });
-
-  describe("setRealJourneyType", () => {
-    it("should set isDebugJourney to false in session", () => {
-      middleware.setRealJourneyType(req, res, next);
-
-      expect(req.session.isDebugJourney).to.eq(false);
-    });
-  });
-
   describe("setIpvSessionId", () => {
     let axiosResponse;
 

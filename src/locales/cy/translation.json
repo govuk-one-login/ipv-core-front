@@ -323,25 +323,28 @@
       }
     },
     "pageIpvIdentityPostofficeStart": {
-      "title": "You may be able to prove your identity at a Post Office if you have one of the following documents",
-      "header": "You may be able to prove your identity at a Post Office if you have one of the following documents",
+      "title": "Profi eich hunaniaeth mewn Swyddfa'r Post gydag un o'r mathau canlynol o ID gyda lun",
+      "header": "Profi eich hunaniaeth mewn Swyddfa'r Post gydag un o'r mathau canlynol o ID gyda lun",
       "content": {
-        "subHeading": "European Union (EU) photocard driving licence",
-        "paragraph1": "You can use an EU driving licence if:",
-        "list1": "it is a plastic photocard, not a paper or handwritten licence",
-        "list2": "it has not expired",
-        "list3": "the address on it is the same as your current address (if it has an address)",
-        "subHeading2": "Non-UK passport",
-        "paragraph2": "You can use a passport from any country, as long as it has not expired.",
-        "subHeading3": "National identity card from a European Economic Area (EEA) country",
-        "paragraph3": "You can use a national identity card from any country in the European Economic Area (EEA), except Denmark.",
-        "paragraph4": "You can use an EEA national identity card if:",
-        "list4": "it is a plastic photocard, not a paper or handwritten card",
-        "list5": "the address on it is the same as your current address (if it has an address)",
-        "subHeading4": "Do you have any of these documents?",
+        "paragraph1": "Yn seiliedig ar yr hyn a ddywedoch wrthym, ni allwch brofi eich hunaniaeth ar-lein.",
+        "paragraph2": "Os oes gennych unrhyw un o'r mathau canlynol o ID gyda llun, gallwch brofi eich hunaniaeth mewn Swyddfa'r Post yn lle hynny.",
+        "subHeading": "Trwydded yrru cerdyn gyda llun yr Undeb Ewropeaidd (UE)",
+        "paragraph3": "Gallwch ddefnyddio trwydded yrru'r UE os:",
+        "list1": "mae'n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
+        "list2": "nid yw wedi dod i ben",
+        "list3": "mae'r cyfeiriad arno yr un fath â'ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
+        "subHeading2": "Pasbort o'r tu allan i'r DU",
+        "paragraph4": "Gallwch ddefnyddio pasbort o'r tu allan i'r DU cyn belled nad yw wedi dod i ben.",
+        "subHeading3": "Cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd",
+        "paragraph5": "Gallwch ddefnyddio cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd os:",
+        "list4": "mae'n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
+        "list5": "nid yw wedi dod i ben",
+        "list6": "mae'r cyfeiriad arno yr un fath â'ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
+        "paragraph6": "Mae'r AEE yn cynnwys gwledydd yr UE, Norwy, Gwlad yr Iâ a Liechtenstein.",
+        "subHeading4": "Oes gennych chi unrhyw un o'r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No"
+          "yes": "Oes",
+          "no": "Na"
         }
       }
     }

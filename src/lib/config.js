@@ -10,8 +10,6 @@ if (!appEnv.isLocal) {
 
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
-  API_BUILD_DEBUG_CREDENTIAL_DATA_PATH: "/debug-credential-data",
-  API_REQUEST_CONFIG_PATH: "/request-config",
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS:

@@ -5,17 +5,6 @@ const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
 
 module.exports = {
-  setDebugJourneyType: (req, _res, next) => {
-    req.session.isDebugJourney = true;
-    next();
-  },
-
-  setRealJourneyType: (req, res, next) => {
-    req.log.info("starting real journey");
-    req.session.isDebugJourney = false;
-    next();
-  },
-
   setIpAddress: (req, res, next) => {
     req.session.ipAddress = getIpAddress(req);
     next();
@@ -29,7 +18,6 @@ module.exports = {
         redirectUri: req.query.redirect_uri,
         state: req.query.state,
         scope: req.query.scope,
-        isDebugJourney: req.session.isDebugJourney,
         request: req.query.request,
       };
 

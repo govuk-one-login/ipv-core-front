@@ -125,19 +125,6 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should render debug page when page-ipv-debug", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "page-ipv-debug" },
-        csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-debug" },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
-
-      await middleware.handleJourneyPage(req, res);
-      expect(res.redirect).to.have.been.calledWith("/debug");
-    });
-
     it("should render page case when given valid pageId", async () => {
       req = {
         id: "1",
@@ -156,8 +143,8 @@ describe("journey middleware", () => {
     it("should render technical error page when given invalid pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "../debug/page-ipv-debug" },
-        session: { currentPage: "../debug/page-ipv-debug" },
+        params: { pageId: "../ipv/page-this-is-invalid" },
+        session: { currentPage: "../ipv/page-this-is-invalid" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -169,7 +156,7 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         params: { pageId: "pyi-timeout-unrecoverable" },
-        session: { currentPage: "../debug/page-ipv-debug" },
+        session: { currentPage: "../ipv/page-multiple-doc-check" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -183,7 +170,7 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         params: { pageId: "invalid-page-id" },
-        session: { currentPage: "../debug/page-ipv-debug" },
+        session: { currentPage: "../ipv/page-multiple-doc-check" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -199,7 +186,7 @@ describe("journey middleware", () => {
     it("should render pyi-technical-unrecoverable page if ipvSessionId is missing", async () => {
       req = {
         id: "1",
-        params: { pageId: "../debug/page-ipv-debug" },
+        params: { pageId: "../ipv/page-multiple-doc-check" },
         session: { currentPage: "page-ipv-success", ipvSessionId: null },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
@@ -212,16 +199,7 @@ describe("journey middleware", () => {
   });
 
   context("calling the updateJourneyState", () => {
-    it("should raise an error when debug is set to false", async () => {
-      req.session.isDebugJourney = false;
-      await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match.has("message", "Debug operation not available")
-      );
-    });
-
     it("should raise an error when given an invalid action", async () => {
-      req.session.isDebugJourney = true;
       req.url = "/invalidCri";
       await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(
@@ -230,7 +208,6 @@ describe("journey middleware", () => {
     });
 
     it("should call next with error when issue calling handleJourneyResponse", async () => {
-      req.session.isDebugJourney = true;
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = undefined;
       axiosStub.post = sinon.fake.returns(axiosResponse);
@@ -240,7 +217,6 @@ describe("journey middleware", () => {
     });
 
     it("should call handleJourneyResponse when given a valid action", async () => {
-      req.session.isDebugJourney = true;
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = {};
       axiosStub.post = sinon.fake.returns(axiosResponse);
@@ -579,23 +555,6 @@ describe("journey middleware", () => {
         `ipv/${pageId}.njk`,
         sinon.match.has("userDetails", expectedUserDetail)
       );
-    });
-
-    it("should not call build-proven-user-identity-details endpoint when debug mode", async function () {
-      req = {
-        id: "1",
-        params: { pageId: pageId },
-        csrfToken: sinon.fake(),
-        session: { currentPage: pageId, isDebugJourney: true },
-        log: { info: sinon.fake(), error: sinon.fake() },
-        i18n: { t: () => "Some label" },
-      };
-
-      await middleware.handleJourneyPage(req, res);
-
-      expect(axiosStub.get).to.not.have.been.called;
-
-      expect(res.render).to.have.been.calledWith(`ipv/${pageId}.njk`);
     });
   });
 

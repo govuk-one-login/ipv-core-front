@@ -33,7 +33,7 @@ jobs:
           rm -rf ./assets
           yarn install
           yarn build
-          cp -r ./node_modules/govuk-frontend/govuk/assets/* ./assets/
+          cp -r ./node_modules/govuk-frontend/govuk/assets/* ./assets
           cat ./node_modules/govuk-frontend/package.json | jq '.version' | tr -d '"' > ./govuk_fe_version.txt
           cp -r ./dist/public/* ./public
           zip -r ./public.zip ./public/* ./assets/*

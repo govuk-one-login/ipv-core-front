@@ -29,8 +29,8 @@ jobs:
           ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
-          rm -r ./public
-          rm -r ./assets
+          rm -rf ./public
+          rm -rf ./assets
           yarn install
           yarn build
           cp -r ./node_modules/govuk-frontend/govuk/assets/* ./assets/
@@ -59,8 +59,8 @@ jobs:
           ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_NEW_ZIP_SIGNING_KEY }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
-          rm -r ./public
-          rm -r ./assets
+          rm -rf ./public
+          rm -rf ./assets
           yarn install
           yarn build
           cp -r ./node_modules/govuk-frontend/govuk/assets ./assets

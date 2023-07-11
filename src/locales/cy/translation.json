@@ -114,13 +114,13 @@
       }
     },
     "pyiEscape": {
-      "title": "Find another way to prove your identity",
-      "header": "Find another way to prove your identity",
+      "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
+      "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
       "content": {
-        "subHeading": "What would you like to do?",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
-          "restartButtonText": "Start again and try to prove your identity online with GOV.UK One Login"
+          "otherWayButtonText": "Mynd ymlaen i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
+          "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
         }
       }
     },

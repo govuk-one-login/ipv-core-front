@@ -218,7 +218,6 @@ module.exports = {
       }
 
       switch (pageId) {
-        case "page-ipv-identity-start":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
         case "page-ipv-success":

@@ -195,13 +195,6 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
-    "pageIpvIdentityStart": {
-      "title": "Dechrau profi pwy ydych chi gyda GOV.UK One Login",
-      "header": "Dechrau profi pwy ydych chi gyda GOV.UK One Login",
-      "content": {
-        "paragraph1": "Yn gyntaf, gofynnir rhai cwestiynau i chi i ddarganfod y ffordd orau o brofi pwy ydych chi."
-      }
-    },
     "pagePreKbvTransition": {
       "title": "Ateb cwestiynau diogelwch",
       "header": "Ateb cwestiynau diogelwch",

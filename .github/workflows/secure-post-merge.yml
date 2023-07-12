@@ -28,6 +28,7 @@ jobs:
         env:
           ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
           STACK_NAME: ${{ secrets.UPLOAD_ASSETS_STACK_NAME }}
+          ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
           rm -rf ./public
@@ -41,13 +42,7 @@ jobs:
           md5sum ./public.zip | cut -c -32 > zipsum.txt
           aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
           zip -r ./$STACK_NAME.zip ./public.zip ./ZipSignature ./govuk_fe_version.txt
-
-      - name: Push assets and md5sum to S3
-        env:
-          ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
-          STACK_NAME: ${{ secrets.UPLOAD_ASSETS_STACK_NAME }}
-        run: |
-          aws s3 cp package.zip "s3://$ARTIFACT_BUCKET/$STACK_NAME.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+          aws s3 cp $STACK_NAME.zip "s3://$ARTIFACT_BUCKET/$STACK_NAME.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
         uses: aws-actions/configure-aws-credentials@v2

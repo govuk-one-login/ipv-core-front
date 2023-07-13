@@ -128,15 +128,15 @@ describe("journey middleware", () => {
     it("should render page case when given valid pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "page-ipv-identity-start" },
+        params: { pageId: "page-ipv-identity-document-start" },
         csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-identity-start" },
+        session: { currentPage: "page-ipv-identity-document-start" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/page-ipv-identity-start.njk"
+        "ipv/page-ipv-identity-document-start.njk"
       );
     });
 
@@ -483,7 +483,7 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         session: {
-          currentPage: "page-ipv-identity-start",
+          currentPage: "page-ipv-identity-document-start",
           ipvSessionId: null,
           ipAddress: "ip-address",
         },
@@ -614,7 +614,7 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           session: {
-            currentPage: "page-ipv-identity-start",
+            currentPage: "page-ipv-identity-document-start",
             ipvSessionId: null,
             ipAddress: "ip-address",
           },

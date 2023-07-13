@@ -195,13 +195,6 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
-    "pageIpvIdentityStart": {
-      "title": "Start proving your identity with GOV.UK One Login",
-      "header": "Start proving your identity with GOV.UK One Login",
-      "content": {
-        "paragraph1": "First, you will be asked some questions to find the best way to prove your identity."
-      }
-    },
     "pagePreKbvTransition": {
       "title": "Answer security questions",
       "header": "Answer security questions",

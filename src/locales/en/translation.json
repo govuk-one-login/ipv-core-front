@@ -276,9 +276,11 @@
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",
       "content": {
-        "paragraph1": "You proved your identity when you used GOV.UK One Login before. You will not need to do it again to use this service.",
+        "paragraph1": "You have already proved your identity with GOV.UK One Login. You would have done this online or in person at the Post Office.",
+        "paragraph2": "You can now continue to the service you need to use.",
         "subHeading": "Check your details",
-        "paragraph2": "If you have not signed in to GOV.UK One Login in a while, you might want to check your details are still correct.",
+        "paragraph3": "You submitted the following details when you proved your identity. You might want to check your details are still correct if you’ve not signed in to GOV.UK One Login in a while.",
+        "paragraph4": "Some of these details might be used to automatically fill in the forms within the service you need to use.",
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
@@ -287,7 +289,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in a new tab)</a> to update your details."
+          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
         }
       }
     },
@@ -299,7 +301,7 @@
         "paragraph2": "You should have received a confirmation email explaining what to take with you and what will happen at the Post Office. Check the letter in your confirmation email.",
         "subHeading": "If you’ve already been to the Post Office",
         "paragraph3": "Your identity check is still being processed.",
-        "paragraph4": "You’ll get an email when there's a result for your identity check - usually within a day of going to the Post Office.",
+        "paragraph4": "You’ll get an email when there’s a result for your identity check - usually within a day of going to the Post Office.",
         "subHeading2": "If you need help",
         "paragraph5": "Contact us if you:",
         "list1": "need help to finish proving your identity with the Post Office",

@@ -119,7 +119,7 @@
       "content": {
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "otherWayButtonText": "Mynd ymlaen i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
+          "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
           "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
         }
       }
@@ -253,9 +253,11 @@
       "title": "Rydych wedi profi pwy ydych chi yn barod",
       "header": "Rydych wedi profi pwy ydych chi yn barod",
       "content": {
-        "paragraph1": "Rydych wedi profi pwy ydych chi gyda GOV.UK One Login o’r blaen. Nid oes angen i chi wneud hyn eto i ddefnyddio’r gwasanaeth hwn.",
+        "paragraph1": "Rydych eisoes wedi profi eich hunaniaeth gyda GOV.UK One Login. Byddech wedi gwneud hyn ar-lein neu’n bersonol yn Swyddfa’r Post.",
+        "paragraph2": "Gallwch nawr barhau i’r gwasanaeth rydych angen ei ddefnyddio.",
         "subHeading": "Gwirio eich manylion",
-        "paragraph2": "Os nad ydych wedi mewngofnodi i’ch GOV.UK One Login am beth amser, efallai y byddwch eisiau edrych i weld os yw eich manylion yn dal yn gywir.",
+        "paragraph3": "Fe wnaethoch gyflwyno’r manylion canlynol pan wnaethoch brofi eich hunaniaeth. Efallai y byddwch am wirio bod eich manylion yn dal yn gywir os nad ydych wedi mewngofnodi i GOV.UK One Login ers peth amser.",
+        "paragraph4": "Efallai y bydd rhai o’r manylion hyn yn cael eu defnyddio i lenwi’r ffurflenni yn awtomatig yn y gwasanaeth rydych angen ei ddefnyddio.",
         "userDetailsInformation": {
           "fullName": "Enw",
           "dateOfBirth": "Dyddiad geni",
@@ -264,19 +266,18 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsHtml": "Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">gysylltu â’r tîm GOV.UK One Login (agor mewn tab newydd)</a> i ddiweddaru eich manylion."
+          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">GOV.UK One Login (agor mewn tab newydd)</a>."
         }
-      }
     },
     "pageIpvPending": {
       "title": "Nid ydych wedi gorffen profi eich hunaniaeth",
       "header": "Nid ydych wedi gorffen profi eich hunaniaeth",
       "content": {
-        "paragraph1": "Mae angen i chi fynd i Swyddfa'r Post sy'n cynnig dilysu mewn canghennau i orffen profi eich hunaniaeth.",
-        "paragraph2": "Dylech fod wedi derbyn e-bost cadarnhau yn esbonio beth i fynd gyda chi a beth fydd yn digwydd yn Swyddfa'r Post. Gwiriwch y llythyr yn eich e-bost cadarnhau.",
-        "subHeading": "Os ydych eisoes wedi bod i Swyddfa'r Post",
+        "paragraph1": "Mae angen i chi fynd i Swyddfa’r Post sy’n cynnig dilysu mewn canghennau i orffen profi eich hunaniaeth.",
+        "paragraph2": "Dylech fod wedi derbyn e-bost cadarnhau yn esbonio beth i fynd gyda chi a beth fydd yn digwydd yn Swyddfa’r Post. Gwiriwch y llythyr yn eich e-bost cadarnhau.",
+        "subHeading": "Os ydych eisoes wedi bod i Swyddfa’r Post",
         "paragraph3": "Mae eich gwiriad hunaniaeth yn dal i gael ei brosesu.",
-        "paragraph4": "Byddwch yn cael e-bost pan fydd canlyniad i'ch gwiriad hunaniaeth - fel arfer o fewn diwrnod o fynd i Swyddfa'r Post.",
+        "paragraph4": "Byddwch yn cael e-bost pan fydd canlyniad i’ch gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
         "subHeading2": "Os ydych angen help",
         "paragraph5": "Contact us if you:",
         "list1": "need help to finish proving your identity with the Post Office",
@@ -319,29 +320,30 @@
       }
     },
     "pageIpvIdentityPostofficeStart": {
-      "title": "Profi eich hunaniaeth mewn Swyddfa'r Post gydag un o'r mathau canlynol o ID gyda lun",
-      "header": "Profi eich hunaniaeth mewn Swyddfa'r Post gydag un o'r mathau canlynol o ID gyda lun",
+      "title": "Profi eich hunaniaeth mewn Swyddfa’r Post gydag un o’r mathau canlynol o ID gyda lun",
+      "header": "Profi eich hunaniaeth mewn Swyddfa’r Post gydag un o’r mathau canlynol o ID gyda lun",
       "content": {
         "paragraph1": "Yn seiliedig ar yr hyn a ddywedoch wrthym, ni allwch brofi eich hunaniaeth ar-lein.",
-        "paragraph2": "Os oes gennych unrhyw un o'r mathau canlynol o ID gyda llun, gallwch brofi eich hunaniaeth mewn Swyddfa'r Post yn lle hynny.",
+        "paragraph2": "Os oes gennych unrhyw un o’r mathau canlynol o ID gyda llun, gallwch brofi eich hunaniaeth mewn Swyddfa’r Post yn lle hynny.",
         "subHeading": "Trwydded yrru cerdyn gyda llun yr Undeb Ewropeaidd (UE)",
-        "paragraph3": "Gallwch ddefnyddio trwydded yrru'r UE os:",
-        "list1": "mae'n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
+        "paragraph3": "Gallwch ddefnyddio trwydded yrru’r UE os:",
+        "list1": "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
         "list2": "nid yw wedi dod i ben",
-        "list3": "mae'r cyfeiriad arno yr un fath â'ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
-        "subHeading2": "Pasbort o'r tu allan i'r DU",
-        "paragraph4": "Gallwch ddefnyddio pasbort o'r tu allan i'r DU cyn belled nad yw wedi dod i ben.",
+        "list3": "mae’r cyfeiriad arno yr un fath â’ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
+        "subHeading2": "Pasbort o’r tu allan i’r DU",
+        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU cyn belled nad yw wedi dod i ben.",
         "subHeading3": "Cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd",
         "paragraph5": "Gallwch ddefnyddio cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd os:",
-        "list4": "mae'n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
+        "list4": "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
         "list5": "nid yw wedi dod i ben",
-        "list6": "mae'r cyfeiriad arno yr un fath â'ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
-        "paragraph6": "Mae'r AEE yn cynnwys gwledydd yr UE, Norwy, Gwlad yr Iâ a Liechtenstein.",
-        "subHeading4": "Oes gennych chi unrhyw un o'r mathau hyn o ID gyda llun?",
+        "list6": "mae’r cyfeiriad arno yr un fath â’ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)",
+        "paragraph6": "Mae’r AEE yn cynnwys gwledydd yr UE, Norwy, Gwlad yr Iâ a Liechtenstein.",
+        "subHeading4": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
         }
+      }
       }
     }
   }

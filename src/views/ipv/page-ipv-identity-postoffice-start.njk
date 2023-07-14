@@ -5,62 +5,67 @@
 {% set googleTagManagerPageId = "pageIpvIdentityPostofficeStart" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
-    <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
-
-  <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list1' | translate }}</li>
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list2' | translate }}</li>
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list3' | translate }}</li>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list" role="list">
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list1' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list2' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list3' | translate }}</li>
+      </ul>
+    </li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading2' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph4' | translate }}</p></li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading3' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph5' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list4' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list5' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list6' | translate }}</li>
+      </ul>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph6' | translate }}</p>
+    </li>
   </ul>
-
-  <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph4' | translate }}</p>
-
-  <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading3' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph5' | translate }}</p>
-  <ul class="govuk-list  govuk-list--bullet">
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list4' | translate }}</li>
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list5' | translate }}</li>
-    <li>{{'pages.pageIpvIdentityPostofficeStart.content.list6' | translate }}</li>
-  </ul>
-  <p class="govuk-body">{{'pages.pageIpvIdentityPostofficeStart.content.paragraph6' | translate }}</p>
-
-  <h2 class="govuk-heading-m">{{'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate }}</h2>
-  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityPostofficeStartPageOptionsFormSubmit()">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate }}</h2>
+  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST"
+        onsubmit="return identityPostofficeStartPageOptionsFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next",
-                text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.yes' | translate
-              },
-              {
-                value: "end",
-                text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.no' | translate
-              }
-            ]
-      })
-    }}
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "next",
+          text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.no' | translate
+        }
+      ]
+    }) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{'general.buttons.next' | translate }}
+      {{ 'general.buttons.next' | translate }}
     </button>
   </form>
 
   <script>
-    let disableSubmit = false;
-    function identityPostofficeStartPageOptionsFormSubmit() {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-        return true
+      let disableSubmit = false;
+
+      function identityPostofficeStartPageOptionsFormSubmit() {
+          if (!disableSubmit) {
+              disableSubmit = true;
+              document.getElementById('submitButton').disabled = true;
+              return true
+          }
+          return false;
       }
-      return false;
-    }
   </script>
 {% endblock %}

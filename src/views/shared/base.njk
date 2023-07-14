@@ -37,9 +37,7 @@
 {% endblock %}
 
 {% block header %}
-    {{ govukHeader({
-        homepageUrl: 'general.header.homepageHref' | translate
-    }) }}
+    {% include 'shared/sign-out-header.njk' %}
 {% endblock %}
 
 {% block main %}

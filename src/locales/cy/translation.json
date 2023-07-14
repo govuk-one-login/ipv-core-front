@@ -208,6 +208,32 @@
       "summaryText": "Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi",
       "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>"
     },
+    "pageF2fHandoff": {
+      "title": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",
+      "panelText": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Anfonwyd e-bost cadarnhau atoch gyda dolen i lawrlwytho eich llythyr cwsmer Swyddfa’r Post.",
+        "paragraph2": "I orffen profi eich hunaniaeth, mae angen i chi fynd i Swyddfa’r Post o’ch dewis o fewn y 10 diwrnod nesaf.",
+        "subHeading1": "Beth sydd angen i chi fynd gyda chi i Swyddfa’r Post",
+        "paragraph3": "Pan fyddwch yn mynd i Swyddfa’r Post, gwnewch yn siwr eich bod yn mynd â’ch:",
+        "bullet1": "ID gyda llun a ddewiswyd",
+        "bullet2": "Llythyr cwsmer Swyddfa’r Post (gallwch lawrlwytho eich llythyr o’ch e-bost cadarnhau)",
+        "subHeading2": "Yn y Swyddfa Bost",
+        "paragraph4": "Bydd angen i chi ddangos eich llythyr cwsmer Swyddfa’r Post ar eich ffôn neu dabled, neu fynd â chopi wedi’i argraffu gyda chi.",
+        "paragraph5": "Bydd aelod o staff Swyddfa’r Post yn sganio’ch ID gyda llun ac yn tynnu llun ohonoch chi.",
+        "paragraph6": "Fe welwch fanylion eich Swyddfa’r Post dewisol yn eich llythyr cwsmer. Ond gallwch",
+        "paragraph6LinkText": "fynd i unrhyw Swyddfa’r Post sy’n cynnig dilysu mewn canghennau (agor mewn tab newydd)",
+        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#bf-full-width",
+        "insetText": "Os na fyddwch yn mynd i Swyddfa’r Post o fewn y 10 diwrnod nesaf, bydd angen i chi ddechrau profi eich hunaniaeth eto.",
+        "subHeading3": "Ar ôl i chi fynd i Swyddfa’r Post",
+        "paragraph7": "Fe gewch e-bost am ganlyniad eich gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "subHeading4": "Os ydych angen help",
+        "paragraph8": "Cysylltwch â ni os:",
+        "bullet3": "ydych angen help i orffen profi eich hunaniaeth gyda Swyddfa’r Post",
+        "bullet4": "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall",
+        "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us-questions?theme=proving_identity&referer="
+      }
+    },
     "pageDcmawSuccess": {
       "title": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
       "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",

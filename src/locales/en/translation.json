@@ -259,19 +259,19 @@
       }
     },
     "pageMultipleDocCheck": {
-      "title": "Enter the details from your photo ID and answer security questions",
-      "header": "Enter the details from your photo ID and answer security questions",
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
       "content": {
-        "paragraph1": "To prove your identity, you’ll need to:",
-        "bullet1": "enter the details from your UK driving licence or UK passport (you might find it easier to do this if you have the photo ID you want to use with you)",
-        "bullet2": "enter your current home address (and your previous address if you’ve recently moved)",
-        "bullet3": "answer some questions that only you should know the answers to",
-        "subHeading": "Which photo ID would you like to use?",
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK passport or UK driving licence",
+        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
+        "paragraph2": "If you’re not sure you’ll be able to prove your identity this way, you can go back to the service you were trying to use and look for other ways to prove your identity.",
+        "subHeading": "How do you want to continue?",
         "formRadioButtons": {
-          "continuePassportButtonText": "UK passport",
-          "continueDrivingLicenceButtonText": "UK driving licence",
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Prove your identity another way"
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
         }
       }
     },

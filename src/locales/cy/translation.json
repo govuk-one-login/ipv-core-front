@@ -259,19 +259,19 @@
       }
     },
     "pageMultipleDocCheck": {
-      "title": "Rhowch y manylion o’ch ID gyda llun ac ateb cwestiynau diogelwch",
-      "header": "Rhowch y manylion o’ch ID gyda llun ac ateb cwestiynau diogelwch",
+      "title": "Parhau profi eich hunaniaeth ar-lein",
+      "header": "Parhau profi eich hunaniaeth ar-lein",
       "content": {
-        "paragraph1": "I brofi pwy ydych, bydd angen i chi:",
-        "bullet1": "rhoi’r manylion o’ch trwydded yrru y DU neu basbort y DU (efallai y byddwch yn ei chael hi’n haws i wneud hyn os oes gennych ID gyda llun rydych am ei ddefnyddio gyda chi)",
-        "bullet2": "rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)",
-        "bullet3": "ateb rhai cwestiynau mai dim ond chi ddylai wybod yr atebion iddynt",
-        "subHeading": "Pa ID gyda llun hoffech chi ei ddefnyddio?",
+        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein os:",
+        "bullet1": "oes gennych basbort y DU neu drwydded yrru y DU",
+        "bullet2": "rydych yn gallu ateb rhai cwestiynau diogelwch am bethau fel eich contract ffôn symudol, ac unrhyw gyfrifon banc, cardiau credyd, benthyciadau neu forgeisi sydd gennych o bosibl",
+        "paragraph2": "Os nad ydych yn siwr y gallwch ddarparu eich hunaniaeth fel hyn, gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth.",
+        "subHeading": "Sut ydych chi am barhau?",
         "formRadioButtons": {
-          "continuePassportButtonText": "Pasbort y DU",
-          "continueDrivingLicenceButtonText": "Trwydded yrru’r DU",
+          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU ac atebwch y cwestiynau diogelwch ar-lein",
+          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "separateOptionsInFormText": "neu",
-          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall"
+          "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth"
         }
       }
     },

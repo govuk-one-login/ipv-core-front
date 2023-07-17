@@ -82,9 +82,6 @@ jobs:
         with:
           use-installer: true
 
-      - name: sam fix https://github.com/aws/aws-sam-cli/issues/4527
-        run: $(dirname $(readlink $(which sam)))/pip install --force-reinstall "cryptography==38.0.4"
-
       - name: SAM Validate
         working-directory: ./deploy
         run: sam validate --region ${{ env.AWS_REGION }}

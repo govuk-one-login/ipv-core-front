@@ -275,6 +275,30 @@
         }
       }
     },
+    "pageMultipleF2FDocCheck": {
+      "title": "Parhau profi eich hunaniaeth ar-lein",
+      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "content": {
+        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein os:",
+        "bullet1": "oes gennych basbort y DU neu drwydded yrru y DU",
+        "bullet2": "rydych yn gallu ateb rhai cwestiynau diogelwch am bethau fel eich contract ffôn symudol, ac unrhyw gyfrifon banc, cardiau credyd, benthyciadau neu forgeisi sydd gennych o bosibl",
+        "paragraph2": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "subHeading": "Os nad ydych yn siwr y byddwch yn gallu profi eich hunaniaeth ar-lein",
+        "paragraph3": "Gallwch brofi eich hunaniaeth yn bersonol mewn Swyddfa'r Post yn lle hynny.",
+        "paragraph4": "Mae'r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa'r Post.",
+        "paragraph5": "Byddwch angen ID gyda llun o'r DU neu o'r tu allan i'r DU (fel pasbort, trwydded yrru, cerdyn adnabod cenedlaethol, neu drwydded preswylio biometrig).",
+        "paragraph6": "Gofynnir i chi:",
+        "bullet3": "nodi manylion o'ch ID gyda llun ar GOV. UK",
+        "bullet4": "mynd i Swyddfa'r Post lle byddant yn sganio'ch ID ac yn tynnu llun ohonoch chi",
+        "subHeading2": "Sut ydych chi am barhau?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU ac atebwch y cwestiynau diogelwch ar-lein",
+          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
+          "separateOptionsInFormText": "neu",
+          "otherWayButtonText": "Rhowch fanylion o'ch ID gyda llun ac ewch i Swyddfa'r Post"
+        }
+      }
+    },
     "pageIpvReuse": {
       "title": "Rydych wedi profi pwy ydych chi yn barod",
       "header": "Rydych wedi profi pwy ydych chi yn barod",

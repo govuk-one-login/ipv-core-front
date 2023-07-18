@@ -275,6 +275,30 @@
         }
       }
     },
+    "pageMultipleF2FDocCheck": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
+      "content": {
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK passport or UK driving licence",
+        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
+        "paragraph2": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "If you’re not sure you’ll be able to prove your identity online",
+        "paragraph3": "You can prove your identity in person at a Post Office instead.",
+        "paragraph4": "This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "paragraph5": "You’ll need a UK or non-UK photo ID (such as a passport, driving licence, national identity card, or biometric residence permit).",
+        "paragraph6": "You’ll be asked to:",
+        "bullet3": "enter details from your photo ID on GOV.UK",
+        "bullet4": "go a Post Office where they’ll scan your ID and take a photo of you",
+        "subHeading2": "How do you want to continue?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
+          "separateOptionsInFormText": "or",
+          "otherWayButtonText": "Enter your photo ID details and go to a Post Office"
+        }
+      }
+    },
     "pageIpvReuse": {
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",

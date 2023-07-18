@@ -614,12 +614,12 @@ Resources:
                   "" ]
             - Name: ASSETS_CDN_DOMAIN
               Value: !If [ IsBuild,
-                  "", #!Sub "https://assets.${Environment}.account.gov.uk",
+                  !Sub "https://assets.${Environment}.account.gov.uk/core-front",
                   "" ]
               #!If [ IsNotDevelopment,
               #    !If [ IsProduction,
-              #      "https://assets.identity.account.gov.uk",
-              #      !Sub "https://assets.identity.${Environment}.account.gov.uk" ],
+              #      "https://assets.identity.account.gov.uk/core-front",
+              #      !Sub "https://assets.identity.${Environment}.account.gov.uk/core-front" ],
               #    "" ]
           PortMappings:
             - ContainerPort: 8080

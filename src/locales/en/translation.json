@@ -195,13 +195,6 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
-    "pageIpvIdentityStart": {
-      "title": "Start proving your identity with GOV.UK One Login",
-      "header": "Start proving your identity with GOV.UK One Login",
-      "content": {
-        "paragraph1": "First, you will be asked some questions to find the best way to prove your identity."
-      }
-    },
     "pagePreKbvTransition": {
       "title": "Answer security questions",
       "header": "Answer security questions",
@@ -230,11 +223,14 @@
         "paragraph5": "A member of Post Office staff will scan your photo ID and take a photo of you.",
         "paragraph6": "You’ll find details of your chosen Post Office in your customer letter. But you can",
         "paragraph6LinkText": "go to any Post Office that offers in-branch verification (opens in new tab)",
-        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#:~:text=Find%20your%20nearest%20branch",
+        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#bf-full-width",
         "insetText": "If you do not go to the Post Office within the next 10 days, you’ll need to start proving your identity again.",
         "subHeading3": "After you’ve been to the Post Office",
         "paragraph7": "You’ll get an email about the result of your identity check – usually within a day of going to the Post Office.",
         "subHeading4": "If you need help",
+        "paragraph8": "Contact us if you:",
+        "bullet3": "need help to finish proving your identity with the Post Office",
+        "bullet4": "would prefer not to go to the Post Office and want to prove your identity another way",
         "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us-questions?theme=proving_identity&referer="
       }
     },
@@ -263,19 +259,43 @@
       }
     },
     "pageMultipleDocCheck": {
-      "title": "Enter the details from your photo ID and answer security questions",
-      "header": "Enter the details from your photo ID and answer security questions",
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
       "content": {
-        "paragraph1": "To prove your identity, you’ll need to:",
-        "bullet1": "enter the details from your UK driving licence or UK passport (you might find it easier to do this if you have the photo ID you want to use with you)",
-        "bullet2": "enter your current home address (and your previous address if you’ve recently moved)",
-        "bullet3": "answer some questions that only you should know the answers to",
-        "subHeading": "Which photo ID would you like to use?",
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK passport or UK driving licence",
+        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
+        "paragraph2": "If you’re not sure you’ll be able to prove your identity this way, you can go back to the service you were trying to use and look for other ways to prove your identity.",
+        "subHeading": "How do you want to continue?",
         "formRadioButtons": {
-          "continuePassportButtonText": "UK passport",
-          "continueDrivingLicenceButtonText": "UK driving licence",
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Prove your identity another way"
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        }
+      }
+    },
+    "pageF2FMultipleDockCheck": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
+      "content": {
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK passport or UK driving licence",
+        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
+        "paragraph2": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "If you’re not sure you’ll be able to prove your identity online",
+        "paragraph3": "You can prove your identity in person at a Post Office instead.",
+        "paragraph4": "This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "paragraph5": "You’ll need a UK or non-UK photo ID (such as a passport, driving licence, national identity card, or biometric residence permit).",
+        "paragraph6": "You’ll be asked to:",
+        "bullet3": "enter details from your photo ID on GOV.UK",
+        "bullet4": "go to a Post Office where they’ll scan your ID and take a photo of you",
+        "subHeading2": "How do you want to continue?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
+          "separateOptionsInFormText": "or",
+          "otherWayButtonText": "Enter your photo ID details and go to a Post Office"
         }
       }
     },
@@ -283,9 +303,11 @@
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",
       "content": {
-        "paragraph1": "You proved your identity when you used GOV.UK One Login before. You will not need to do it again to use this service.",
+        "paragraph1": "You have already proved your identity with GOV.UK One Login. You would have done this online or in person at the Post Office.",
+        "paragraph2": "You can now continue to the service you need to use.",
         "subHeading": "Check your details",
-        "paragraph2": "If you have not signed in to GOV.UK One Login in a while, you might want to check your details are still correct.",
+        "paragraph3": "You submitted the following details when you proved your identity. You might want to check your details are still correct if you’ve not signed in to GOV.UK One Login in a while.",
+        "paragraph4": "Some of these details might be used to automatically fill in the forms within the service you need to use.",
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
@@ -294,7 +316,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in a new tab)</a> to update your details."
+          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
         }
       }
     },
@@ -303,13 +325,14 @@
       "header": "You have not finished proving your identity",
       "content": {
         "paragraph1": "You need to go to a Post Office that offers in-branch verification to finish proving your identity.",
-        "paragraph2": "You should have received a confirmation email explaining what to take with you and what will happen at the Post Office. Check the letter attached to your confirmation email.",
-        "insetText": "If you'd prefer not to go to the Post Office, you can",
-        "linkText": " prove your identity another way.",
-        "subHeading": "If you've already been to the Post Office",
+        "paragraph2": "You should have received a confirmation email explaining what to take with you and what will happen at the Post Office. Check the letter in your confirmation email.",
+        "subHeading": "If you’ve already been to the Post Office",
         "paragraph3": "Your identity check is still being processed.",
-        "paragraph4": "You'll get an email when there's a result for your identity check - usually within a day of going to the Post Office.",
-        "subHeading2": "If you need help"
+        "paragraph4": "You’ll get an email when there’s a result for your identity check - usually within a day of going to the Post Office.",
+        "subHeading2": "If you need help",
+        "paragraph5": "Contact us if you:",
+        "list1": "need help to finish proving your identity with the Post Office",
+        "list2": "would prefer not to go to the Post Office and want to prove your identity another way"
       }
     },
     "pageIpvSuccess": {

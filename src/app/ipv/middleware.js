@@ -218,7 +218,6 @@ module.exports = {
       }
 
       switch (pageId) {
-        case "page-ipv-identity-start":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
         case "page-ipv-success":
@@ -228,6 +227,7 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-passport-doc-check":
         case "page-multiple-doc-check":
+        case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":

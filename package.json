@@ -35,7 +35,7 @@
   "devDependencies": {
     "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
     "husky": "8.0.3",
@@ -51,7 +51,7 @@
     "uglify-js": "latest"
   },
   "dependencies": {
-    "aws-sdk": "^2.1411.0",
+    "aws-sdk": "^2.1417.0",
     "axios": "1.4.0",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",
@@ -63,7 +63,7 @@
     "express": "4.18.2",
     "express-async-errors": "3.1.1",
     "express-session": "1.17.3",
-    "govuk-frontend": "4.6.0",
+    "govuk-frontend": "4.7.0",
     "i18next": "23.2.7",
     "i18next-fs-backend": "^2.1.2",
     "i18next-http-middleware": "^3.3.1",

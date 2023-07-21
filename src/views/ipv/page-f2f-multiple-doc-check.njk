@@ -1,0 +1,69 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pageF2FMultipleDockCheck.title' | translate %}
+{% set googleTagManagerPageId = "pageF2FMultipleDockCheck" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageF2FMultipleDockCheck.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph1' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet1' | translate | safe }}</li>
+    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet2' | translate | safe }}</li>
+  </ul>
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph2' | translate | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading' | translate }}</h2>
+
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph3' | translate | safe }}</p>
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph4' | translate | safe }}</p>
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph5' | translate | safe }}</p>
+  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph6' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet3' | translate | safe }}</li>
+    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet4' | translate | safe }}</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading2' | translate }}</h2>
+
+  <form id="faceToFacetMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return faceToFacetMultipleDocCheckingFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    {{ govukRadios({
+    idPrefix: "journey",
+    name: "journey",
+    items: [
+              {
+                value: "next/driving-licence",
+                text: 'pages.pageF2FMultipleDockCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+              },
+              {
+                value: "next/passport",
+                text: 'pages.pageF2FMultipleDockCheck.content.formRadioButtons.continuePassportButtonText' | translate
+              },
+              {
+                divider: 'pages.pageF2FMultipleDockCheck.content.formRadioButtons.separateOptionsInFormText' | translate
+              },
+              {
+                value: "end",
+                text: 'pages.pageF2FMultipleDockCheck.content.formRadioButtons.otherWayButtonText' | translate
+              }
+            ]
+      })
+    }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <script>
+    let disableSubmit = false;
+    function faceToFacetMultipleDocCheckingFormSubmit() {
+      if(!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('submitButton').disabled = true;
+        return true
+      }
+      return false;
+    }
+  </script>
+{% endblock %}

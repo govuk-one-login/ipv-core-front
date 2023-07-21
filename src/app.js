@@ -70,11 +70,11 @@ if (CDN_PATH) {
   app.use("/public", express.static(path.join(__dirname, "../dist/public")));
 }
 
-if(CDN_DOMAIN) {
+if (CDN_DOMAIN) {
   app.get(["/assets"], function (req, res) {
     res.redirect(301, CDN_DOMAIN + req.originalUrl);
   });
-}else{
+} else {
   app.use(
     "/assets",
     express.static(

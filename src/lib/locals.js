@@ -2,7 +2,7 @@ const {
   GTM_ANALYTICS_COOKIE_DOMAIN,
   GTM_ID,
   CDN_DOMAIN,
-  CDN_PATH
+  CDN_PATH,
 } = require("./config");
 const { generateNonce } = require("./strings");
 

@@ -20,5 +20,6 @@ module.exports = {
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
   GTM_ID: process.env.GTM_ID,
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
-  ASSETS_CDN_DOMAIN: process.env.ASSETS_CDN_DOMAIN,
+  CDN_PATH: process.env.CDN_PATH,
+  CDN_DOMAIN: process.env.CDN_DOMAIN,
 };

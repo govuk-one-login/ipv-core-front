@@ -9,7 +9,8 @@ const {
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
-  ASSETS_CDN_DOMAIN,
+  CDN_PATH,
+  CDN_DOMAIN,
 } = require("./lib/config");
 
 const { getGTM } = require("./lib/locals");
@@ -61,9 +62,17 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-if (ASSETS_CDN_DOMAIN) {
-  app.get(["/assets", "/public"], function (req, res) {
-    res.redirect(301, ASSETS_CDN_DOMAIN + req.originalUrl);
+if (CDN_PATH) {
+  app.get(["/public"], function (req, res) {
+    res.redirect(301, CDN_PATH + req.originalUrl);
+  });
+} else {
+  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+}
+
+if (CDN_DOMAIN) {
+  app.get(["/assets"], function (req, res) {
+    res.redirect(301, CDN_DOMAIN + req.originalUrl);
   });
 } else {
   app.use(
@@ -72,7 +81,6 @@ if (ASSETS_CDN_DOMAIN) {
       path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
     )
   );
-  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
 }
 
 app.use(loggerMiddleware);

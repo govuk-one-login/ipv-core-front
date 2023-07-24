@@ -146,7 +146,7 @@ module.exports = {
       const allowedActions = [
         "/journey/next",
         "/journey/error",
-        "/journey/fail",
+        "/journey/fail-with-no-ci",
         "/journey/attempt-recovery",
         "/journey/cri/build-oauth-request/ukPassport",
         "/journey/cri/build-oauth-request/stubUkPassport",
@@ -236,6 +236,7 @@ module.exports = {
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
+        case "pyi-f2f-technical":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {

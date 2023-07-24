@@ -195,6 +195,18 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiF2fTechnical": {
+      "title": "Sorry, there is a problem with the service",
+      "header": "Sorry, there is a problem with the service",
+      "content": {
+        "paragraph1": "We cannot prove your identity right now.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
+          "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        }
+      }
+    },
     "pagePreKbvTransition": {
       "title": "Ateb cwestiynau diogelwch",
       "header": "Ateb cwestiynau diogelwch",

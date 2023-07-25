@@ -120,7 +120,7 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
-          "restartButtonText": "Start again and try to prove your identity online with GOV.UK One Login"
+          "restartButtonText": "Try proving your identity with GOV.UK One Login again"
         }
       }
     },

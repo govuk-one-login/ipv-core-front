@@ -26,6 +26,12 @@ router.post(
   csrfProtection,
   handleMultipleDocCheck
 );
+router.post(
+  "/page/page-f2f-multiple-doc-check",
+  parseForm,
+  csrfProtection,
+  handleMultipleDocCheck
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

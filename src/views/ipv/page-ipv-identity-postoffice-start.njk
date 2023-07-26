@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleName = 'pages.pageIpvIdentityPostofficeStart.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvIdentityPostofficeStart" %}
 
@@ -9,6 +10,11 @@
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
+
+  {{ govukInsetText({
+    text: 'pages.pageIpvIdentityPostofficeStart.content.insetText' | translate
+  }) }}
+
   <ul class="govuk-list" role="list">
     <li>
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>

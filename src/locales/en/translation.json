@@ -302,6 +302,7 @@
         "paragraph6": "You’ll be asked to:",
         "bullet3": "enter details from your photo ID on GOV.UK",
         "bullet4": "go to a Post Office where they’ll scan your ID and take a photo of you",
+        "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
         "subHeading2": "How do you want to continue?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
@@ -388,6 +389,7 @@
       "content": {
         "paragraph1": "Based on what you told us, you cannot prove your identity online.",
         "paragraph2": "If you have any of the following types of photo ID, you can prove your identity at a Post Office instead.",
+        "insetText": "This option is not available in Welsh yet",
         "subHeading": "European Union (EU) photocard driving licence",
         "paragraph3": "You can use an EU driving licence if:",
         "list1": "it is a plastic photocard, not a paper or handwritten licence",

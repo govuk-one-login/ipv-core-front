@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleName = 'pages.pageF2FMultipleDockCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageF2FMultipleDockCheck" %}
 
@@ -23,6 +24,10 @@
     <li>{{'pages.pageF2FMultipleDockCheck.content.bullet3' | translate | safe }}</li>
     <li>{{'pages.pageF2FMultipleDockCheck.content.bullet4' | translate | safe }}</li>
   </ul>
+
+  {{ govukInsetText({
+    text: 'pages.pageF2FMultipleDockCheck.content.insetText' | translate
+  }) }}
 
   <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading2' | translate }}</h2>
 

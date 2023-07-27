@@ -195,6 +195,18 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
+    "pyiF2fTechnical": {
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
+      "content": {
+        "paragraph1": "We could not confirm your identity.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
+          "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        }
+      }
+    },
     "pagePreKbvTransition": {
       "title": "Answer security questions",
       "header": "Answer security questions",

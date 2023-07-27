@@ -236,6 +236,7 @@ module.exports = {
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
+        case "pyi-f2f-technical":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {

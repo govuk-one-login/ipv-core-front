@@ -195,6 +195,18 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiF2fTechnical": {
+      "title": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
+      "header": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
+      "content": {
+        "paragraph1": "We could not confirm your identity.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "tryAgainButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto",
+          "continueButtonText": "Parhau i'r gwasanaeth roeddech chi'n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
+        }
+      }
+    },
     "pagePreKbvTransition": {
       "title": "Ateb cwestiynau diogelwch",
       "header": "Ateb cwestiynau diogelwch",

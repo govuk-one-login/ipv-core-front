@@ -196,10 +196,10 @@
       }
     },
     "pyiF2fTechnical": {
-      "title": "Sorry, there is a problem with the service",
-      "header": "Sorry, there is a problem with the service",
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
       "content": {
-        "paragraph1": "We cannot prove your identity right now.",
+        "paragraph1": "We could not confirm your identity.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",

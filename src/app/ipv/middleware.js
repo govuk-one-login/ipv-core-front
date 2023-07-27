@@ -146,7 +146,7 @@ module.exports = {
       const allowedActions = [
         "/journey/next",
         "/journey/error",
-        "/journey/fail-with-no-ci",
+        "/journey/fail",
         "/journey/attempt-recovery",
         "/journey/cri/build-oauth-request/ukPassport",
         "/journey/cri/build-oauth-request/stubUkPassport",

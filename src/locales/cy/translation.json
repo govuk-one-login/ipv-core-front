@@ -196,14 +196,14 @@
       }
     },
     "pyiF2fTechnical": {
-      "title": "Sorry, there is a problem with the service",
-      "header": "Sorry, there is a problem with the service",
+      "title": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
+      "header": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
       "content": {
-        "paragraph1": "We cannot prove your identity right now.",
-        "subHeading": "What would you like to do?",
+        "paragraph1": "We could not confirm your identity.",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
-          "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+          "tryAgainButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto",
+          "continueButtonText": "Parhau i'r gwasanaeth roeddech chi'n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
         }
       }
     },

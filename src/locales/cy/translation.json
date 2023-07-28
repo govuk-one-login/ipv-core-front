@@ -302,6 +302,7 @@
         "paragraph6": "Gofynnir i chi:",
         "bullet3": "nodi manylion o’ch ID gyda llun ar GOV. UK",
         "bullet4": "mynd i Swyddfa’r Post lle byddant yn sganio’ch ID ac yn tynnu llun ohonoch chi",
+        "insetText": "Nid yw’r opsiwn hwn ar gael yn Gymraeg eto. Dewiswch un o’r opsiynau ar-lein os ydych am barhau yn Gymraeg.",
         "subHeading2": "Sut ydych chi am barhau?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU ac atebwch y cwestiynau diogelwch ar-lein",
@@ -388,6 +389,7 @@
       "content": {
         "paragraph1": "Yn seiliedig ar yr hyn a ddywedoch wrthym, ni allwch brofi eich hunaniaeth ar-lein.",
         "paragraph2": "Os oes gennych unrhyw un o’r mathau canlynol o ID gyda llun, gallwch brofi eich hunaniaeth mewn Swyddfa’r Post yn lle hynny.",
+        "insetText": "Nid yw’r opsiwn hwn ar gael yn Gymraeg eto",
         "subHeading": "Trwydded yrru cerdyn gyda llun yr Undeb Ewropeaidd (UE)",
         "paragraph3": "Gallwch ddefnyddio trwydded yrru’r UE os:",
         "list1": "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
@@ -464,6 +466,7 @@
       "content": {
         "paragraph1": "Yn seiliedig ar yr hyn a ddywedoch wrthym, ni allwch brofi eich hunaniaeth ar-lein.",
         "paragraph2": "Os oes gennych unrhyw un o’r mathau canlynol o ID gyda llun, gallwch brofi eich hunaniaeth mewn Swyddfa’r Post yn lle hynny.",
+        "insetText": "Nid yw’r opsiwn hwn ar gael yn Gymraeg eto",
         "subHeading": "Trwydded yrru cerdyn gyda llun yr Undeb Ewropeaidd (UE)",
         "paragraph3": "Gallwch ddefnyddio trwydded yrru’r UE os:",
         "list1": "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",

@@ -16,7 +16,6 @@ const {
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
-
 function checkLanguage(req, res, next) {
   const lang = req.cookies.lng;
 

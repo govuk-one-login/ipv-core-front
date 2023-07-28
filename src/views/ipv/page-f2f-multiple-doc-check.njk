@@ -25,9 +25,11 @@
     <li>{{'pages.pageF2FMultipleDockCheck.content.bullet4' | translate | safe }}</li>
   </ul>
 
-  {{ govukInsetText({
-    text: 'pages.pageF2FMultipleDockCheck.content.insetText' | translate
-  }) }}
+  {% if isWelsh %}
+    {{ govukInsetText({
+      text: 'pages.pageF2FMultipleDockCheck.content.insetText' | translate
+    }) }}
+  {% endif %}
 
   <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading2' | translate }}</h2>
 

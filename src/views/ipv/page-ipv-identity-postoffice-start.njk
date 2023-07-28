@@ -11,9 +11,11 @@
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
 
-  {{ govukInsetText({
-    text: 'pages.pageIpvIdentityPostofficeStart.content.insetText' | translate
-  }) }}
+  {% if isWelsh %}
+      {{ govukInsetText({
+        text: 'pages.pageIpvIdentityPostofficeStart.content.insetText' | translate
+      }) }}
+  {% endif %}
 
   <ul class="govuk-list" role="list">
     <li>

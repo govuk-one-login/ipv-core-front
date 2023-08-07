@@ -196,14 +196,14 @@
       }
     },
     "pyiF2fTechnical": {
-      "title": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
-      "header": "Mae'n ddrwg gennym, ni allwn brofi pwy ydych chi",
+      "title": "Mae’n ddrwg gennym, mae problem",
+      "header": "Mae’n ddrwg gennym, mae problem",
       "content": {
-        "paragraph1": "We could not confirm your identity.",
+        "paragraph1": "Nid oeddem yn gallu cadarnhau eich hunaniaeth.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "tryAgainButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto",
-          "continueButtonText": "Parhau i'r gwasanaeth roeddech chi'n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
+          "tryAgainButtonText": "Ceisiwch brofi eich hunaniaeth gyda One Login eto",
+          "continueButtonText": "Parhau i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
         }
       }
     },

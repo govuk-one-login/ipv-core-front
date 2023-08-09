@@ -614,7 +614,7 @@ Resources:
                   "" ]
             - Name: CDN_PATH
               Value: !If [ IsBuild,
-                  !Sub "https://assets.${Environment}.account.gov.uk/core-front",
+                  "", #"!Sub "https://assets.${Environment}.account.gov.uk/core-front",
                   "" ]
               #!If [ IsNotDevelopment,
               #    !If [ IsProduction,

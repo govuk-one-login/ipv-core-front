@@ -623,8 +623,8 @@ Resources:
               #    "" ]
             - Name: CDN_DOMAIN
               Value: !If [ IsBuild,
-                           !Sub "https://assets.${Environment}.account.gov.uk",
-                           "" ]
+                  "", #!Sub "https://assets.${Environment}.account.gov.uk",
+                  "" ]
               #!If [ IsNotDevelopment,
               #    !If [ IsProduction,
               #      "https://assets.identity.account.gov.uk",

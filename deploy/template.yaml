@@ -172,6 +172,47 @@ Resources:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
 
+  # ssl cert
+  RestSSLCert:
+    Type: AWS::CertificateManager::Certificate
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Sub "rest.${Environment}.dev.identity.account.gov.uk"
+      DomainValidationOptions:
+        - DomainName: !Sub "rest.${Environment}.dev.identity.account.gov.uk"
+          HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      ValidationMethod: DNS
+
+  # api domain entries / mapping
+  RestApiGatewayDomain:
+    Type: AWS::ApiGateway::DomainName
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Sub "rest.${Environment}.dev.identity.account.gov.uk"
+      RegionalCertificateArn: !Ref RestSSLCert
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+  RestApiBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Condition: IsNewDevelopment
+    Properties:
+      DomainName: !Ref RestApiGatewayDomain
+      RestApiId: !Ref RestApiGateway
+      Stage: !Ref ApiGatewayStage
+
+  RestDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Condition: IsNewDevelopment
+    Properties:
+      Type: A
+      Name: !Ref RestApiGatewayDomain
+      HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      AliasTarget:
+        DNSName: !GetAtt RestApiGatewayDomain.RegionalDomainName
+        HostedZoneId: !GetAtt RestApiGatewayDomain.RegionalHostedZoneId
+
  # Security Groups for the ECS service and load balancer
   PrivateLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"
@@ -734,6 +775,124 @@ Resources:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       SecurityGroupIds: []
+  #
+  # REST API Gateway
+  #
+  #
+  RestApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub ipv-core-front-${Environment}-rest
+      DisableExecuteApiEndpoint: true
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+  ApiGwDeployment:
+    DependsOn:
+      - RestApiGatewayMethod
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      StageName: !Sub
+        - "${AWS::StackName}-Stage-${StackId}"
+        - StackId: !Select [2, !Split ['/', !Ref AWS::StackId]]
+
+  RestApiGatewayMethod:
+    Type: AWS::ApiGateway::Method
+    Metadata:
+      checkov:
+        skip:
+          - id: "CKV_AWS_59"
+            comment: "API should have AuthorizationType if appropriate - this is intentionally public"
+    Properties:
+      HttpMethod: ANY
+      ResourceId: !Ref RestProxyResource
+      RestApiId: !Ref RestApiGateway
+      AuthorizationType: NONE
+      RequestParameters:
+        method.request.path.proxy: false
+      Integration:
+        Type: HTTP_PROXY
+        ConnectionType: VPC_LINK
+        ConnectionId:
+          Fn::ImportValue:
+            !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
+        RequestParameters:
+          integration.request.path.proxy: "method.request.path.proxy"
+        IntegrationHttpMethod: ANY
+        PassthroughBehavior: WHEN_NO_MATCH
+        Uri: !Sub
+          - "http://${LBDNS}/{proxy}"
+          - LBDNS:
+              Fn::ImportValue:
+                !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
+
+  RestProxyResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ParentId: !GetAtt RestApiGateway.RootResourceId
+      PathPart: '{proxy+}'
+
+  ApiGatewayAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 7
+      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+      Tags:
+        - Key: Name
+          Value: ApiGatewayAccessLogGroup
+        - Key: Service
+          Value: IPV Core
+        - Key: Source
+          Value: alphagov/di-ipv-core-front/deploy/template.yaml
+
+  ApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref ApiGwDeployment
+      RestApiId: !Ref RestApiGateway
+      AccessLogSetting:
+        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+        Format: $context.requestId $context.apiId
+      CacheClusterEnabled: false
+      TracingEnabled: true
+
+  NetworkLoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref NetworkLoadBalancerTargetGroup
+      LoadBalancerArn:
+        Fn::ImportValue:
+          !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
+      Port: 80
+      Protocol: TCP
+
+  NetworkLoadBalancerTargetGroup:
+    DependsOn: PrivateLoadBalancerListener
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub "${AWS::StackName}-NLBTarGrp"
+      Port: 80
+      Protocol: TCP
+      Targets:
+        - Id: !Ref PrivateLoadBalancer
+      TargetType: alb
+      HealthCheckEnabled: true
+      HealthCheckPath: '/healthcheck'
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${VpcStackName}-VpcId"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-NLBTarGrp"
+        - Key: Service
+          Value: ci/cd
+        - Key: Source
+          Value: alphagov/di-devplatform-demo-sam-app/node-with-waf/template.yaml
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
@@ -1074,3 +1233,13 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
     Value: !Ref ApiGwHttpEndpoint
+  IPVCoreFrontRestGatewayID:
+    Description: Core Front Rest API Gateway ID
+    Export:
+      Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayID"
+    Value: !Ref RestApiGateway
+  IPVCoreFrontRestGatewayStage:
+    Description: Core Front Rest API Gateway Stage
+    Export:
+      Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayStage"
+    Value: !Ref ApiGatewayStage

@@ -1,5 +1,3 @@
-const { HTTP_STATUS_CODES } = require("../app.constants");
-
 module.exports = {
   securityHeaders: (req, res, next) => {
     res.set({

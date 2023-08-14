@@ -850,6 +850,11 @@ Resources:
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
+    Metadata:
+      checkov:
+        skip:
+          - id: "CKV_AWS_18"
+            comment: "API should have caching - not for our use case"
     Properties:
       DeploymentId: !Ref ApiGwDeployment
       RestApiId: !Ref RestApiGateway

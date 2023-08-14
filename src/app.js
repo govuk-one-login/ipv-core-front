@@ -31,6 +31,7 @@ const {
   serverErrorHandler,
 } = require("./handlers/internal-server-error-handler");
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
+const { securityHeaders } = require("./handlers/security-headers");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),
@@ -166,6 +167,7 @@ router.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
+app.use(securityHeaders);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

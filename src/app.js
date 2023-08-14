@@ -31,7 +31,7 @@ const {
   serverErrorHandler,
 } = require("./handlers/internal-server-error-handler");
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
-const { securityHeaders } = require("./handlers/security-headers");
+const { securityHeaders } = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),

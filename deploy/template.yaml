@@ -853,7 +853,7 @@ Resources:
     Metadata:
       checkov:
         skip:
-          - id: "CKV_AWS_18"
+          - id: "CKV_AWS_120"
             comment: "API should have caching - not for our use case"
     Properties:
       DeploymentId: !Ref ApiGwDeployment

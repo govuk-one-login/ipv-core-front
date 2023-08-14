@@ -28,7 +28,7 @@ describe("Security headers handler", () => {
     sinon.restore();
   });
 
-  it('should add security headers to response',() => {
+  it("should add security headers to response", () => {
     securityHeadersHandler(req, res, next);
     expect(res.set).to.be.have.been.calledOnce;
     expect(res.set).to.be.have.been.calledWith({
@@ -41,10 +41,10 @@ describe("Security headers handler", () => {
     expect(next).to.be.have.been.calledOnce;
   });
 
-  it('should remove express powered by header from response',() => {
+  it("should remove express powered by header from response", () => {
     securityHeadersHandler(req, res, next);
     expect(res.removeHeader).to.be.have.been.calledOnce;
-    expect(res.removeHeader).to.be.have.been.calledWith('X-Powered-By');
+    expect(res.removeHeader).to.be.have.been.calledWith("X-Powered-By");
     expect(next).to.be.have.been.calledOnce;
   });
 });

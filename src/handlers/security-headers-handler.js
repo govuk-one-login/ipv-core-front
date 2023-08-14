@@ -1,5 +1,5 @@
 module.exports = {
-  securityHeaders: (req, res, next) => {
+  securityHeadersHandler : (req, res, next) => {
     res.set({
       "Strict-Transport-Security": "max-age=31536000",
       "Content-Security-Policy": "default-src 'self';",

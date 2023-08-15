@@ -39,6 +39,9 @@ Conditions:
   IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
+  TurnOffRest: !And
+    - !Condition IsNewDevelopment
+    - !Condition IsNotDevelopment
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
     Fn::Not:
@@ -175,7 +178,7 @@ Resources:
   # ssl cert
   RestSSLCert:
     Type: AWS::CertificateManager::Certificate
-    Condition: IsNewDevelopment
+    Condition: TurnOffRest
     Properties:
       DomainName: !Sub "rest.${Environment}.dev.identity.account.gov.uk"
       DomainValidationOptions:
@@ -186,7 +189,7 @@ Resources:
   # api domain entries / mapping
   RestApiGatewayDomain:
     Type: AWS::ApiGateway::DomainName
-    Condition: IsNewDevelopment
+    Condition: TurnOffRest
     Properties:
       DomainName: !Sub "rest.${Environment}.dev.identity.account.gov.uk"
       RegionalCertificateArn: !Ref RestSSLCert
@@ -196,7 +199,7 @@ Resources:
 
   RestApiBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
-    Condition: IsNewDevelopment
+    Condition: TurnOffRest
     Properties:
       DomainName: !Ref RestApiGatewayDomain
       RestApiId: !Ref RestApiGateway
@@ -204,7 +207,7 @@ Resources:
 
   RestDNSRecord:
     Type: AWS::Route53::RecordSet
-    Condition: IsNewDevelopment
+    Condition: TurnOffRest
     Properties:
       Type: A
       Name: !Ref RestApiGatewayDomain
@@ -781,6 +784,7 @@ Resources:
   #
   RestApiGateway:
     Type: AWS::ApiGateway::RestApi
+    Condition: IsNotDevelopment
     Properties:
       Name: !Sub ipv-core-front-${Environment}-rest
       DisableExecuteApiEndpoint: true
@@ -789,6 +793,7 @@ Resources:
           - REGIONAL
 
   ApiGwDeployment:
+    Condition: IsNotDevelopment
     DependsOn:
       - RestApiGatewayMethod
     Type: AWS::ApiGateway::Deployment
@@ -799,6 +804,7 @@ Resources:
         - StackId: !Select [2, !Split ['/', !Ref AWS::StackId]]
 
   RestApiGatewayMethod:
+    Condition: IsNotDevelopment
     Type: AWS::ApiGateway::Method
     Metadata:
       checkov:
@@ -829,6 +835,7 @@ Resources:
                 !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
 
   RestProxyResource:
+    Condition: IsNotDevelopment
     Type: AWS::ApiGateway::Resource
     Properties:
       RestApiId: !Ref RestApiGateway
@@ -849,6 +856,7 @@ Resources:
           Value: alphagov/di-ipv-core-front/deploy/template.yaml
 
   ApiGatewayStage:
+    Condition: IsNotDevelopment
     Type: AWS::ApiGateway::Stage
     Metadata:
       checkov:
@@ -865,6 +873,7 @@ Resources:
       TracingEnabled: true
 
   NetworkLoadBalancerListener:
+    Condition: IsNotDevelopment
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
@@ -877,6 +886,7 @@ Resources:
       Protocol: TCP
 
   NetworkLoadBalancerTargetGroup:
+    Condition: IsNotDevelopment
     DependsOn: PrivateLoadBalancerListener
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -1239,11 +1249,13 @@ Outputs:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
     Value: !Ref ApiGwHttpEndpoint
   IPVCoreFrontRestGatewayID:
+    Condition: IsNotDevelopment
     Description: Core Front Rest API Gateway ID
     Export:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayID"
     Value: !Ref RestApiGateway
   IPVCoreFrontRestGatewayStage:
+    Condition: IsNotDevelopment
     Description: Core Front Rest API Gateway Stage
     Export:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayStage"

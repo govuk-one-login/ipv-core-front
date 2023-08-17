@@ -731,7 +731,7 @@ Resources:
         Types:
           - REGIONAL
 
-  ApiGwDeployment:
+  RestApiGwDeployment:
     DependsOn:
       - RestApiGatewayMethod
     Type: AWS::ApiGateway::Deployment
@@ -801,7 +801,7 @@ Resources:
       StageName: !Sub
         - "${AWS::StackName}-Stage-${StackId}"
         - StackId: !Select [ 2, !Split [ '/', !Ref AWS::StackId ] ]
-      DeploymentId: !Ref ApiGwDeployment
+      DeploymentId: !Ref RestApiGwDeployment
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn

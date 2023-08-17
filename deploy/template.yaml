@@ -153,6 +153,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsNewDevelopment
+    DependsOn: RestApiGwDeployment
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -732,8 +733,7 @@ Resources:
           - REGIONAL
 
   RestApiGwDeployment:
-    DependsOn:
-      - RestApiGatewayMethod
+    DependsOn: RestApiGatewayMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
@@ -799,7 +799,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub
-        - "${AWS::StackName}-Stage-${StackId}"
+        - "${AWS::StackName}-RestApiStage-${StackId}"
         - StackId: !Select [ 2, !Split [ '/', !Ref AWS::StackId ] ]
       DeploymentId: !Ref RestApiGwDeployment
       RestApiId: !Ref RestApiGateway

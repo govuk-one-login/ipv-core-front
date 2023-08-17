@@ -799,7 +799,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub
-        - "${AWS::StackName}-Stage-${StackId}"
+        - "${AWS::StackName}-RestApiStage-${StackId}"
         - StackId: !Select [ 2, !Split [ '/', !Ref AWS::StackId ] ]
       DeploymentId: !Ref RestApiGwDeployment
       RestApiId: !Ref RestApiGateway

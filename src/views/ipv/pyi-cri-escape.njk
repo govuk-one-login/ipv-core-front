@@ -1,0 +1,64 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiCriEscape.title' | translate %}
+{% set googleTagManagerPageId = "pyiCriEscape" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCriEscape.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph1' | translate | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscape.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph3' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pyiCriEscape.content.bullet1' | translate | safe }}</li>
+    <li>{{'pages.pyiCriEscape.content.bullet2' | translate | safe }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph4' | translate | safe }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscape.content.subHeading2' | translate }}</h2>
+
+  <form id="pyiCriEscapeForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiCriEscapeFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {{ govukRadios({
+    idPrefix: "journey",
+    name: "journey",
+    items: [
+              {
+                value: "next",
+                text: 'pages.pyiCriEscape.content.formRadioButtons.continueAppButtonText' | translate,
+                hint: {text: 'pages.pyiCriEscape.content.formRadioButtons.continueAppButtonTextHint' | translate}
+
+              },
+              {
+                value: "end",
+                text: 'pages.pyiCriEscape.content.formRadioButtons.continuePostOfficeButtonText' | translate,
+                hint: { text: 'pages.pyiCriEscape.content.formRadioButtons.continuePostOfficeButtonTextHint' | translate }
+              }
+            ]
+      })
+    }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">
+      {{'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+
+  <script>
+      let disableSubmit = false;
+
+      function pyiCriEscapeFormSubmit() {
+          if (!disableSubmit) {
+              disableSubmit = true;
+              document.getElementById('submitButton').disabled = true;
+              return true
+          }
+          return false;
+      }
+  </script>
+{% endblock %}

@@ -798,9 +798,7 @@ Resources:
           - id: "CKV_AWS_120"
             comment: "API should have caching - not for our use case"
     Properties:
-      StageName: !Sub
-        - "${AWS::StackName}-RestApiStage-${StackId}"
-        - StackId: !Select [ 2, !Split [ '/', !Ref AWS::StackId ] ]
+      StageName: !Sub ${Environment}
       DeploymentId: !Ref RestApiGwDeployment
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:

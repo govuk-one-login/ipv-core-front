@@ -31,6 +31,9 @@ const {
   serverErrorHandler,
 } = require("./handlers/internal-server-error-handler");
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
+const {
+  securityHeadersHandler,
+} = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),
@@ -61,6 +64,7 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(securityHeadersHandler);
 
 if (CDN_PATH) {
   app.get(["/public"], function (req, res) {

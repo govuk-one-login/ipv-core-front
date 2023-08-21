@@ -9,6 +9,7 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
+  handleCriEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
 } = require("./middleware");
@@ -40,6 +41,12 @@ router.post(
   parseForm,
   csrfProtection,
   handleMultipleDocCheck
+);
+router.post(
+  "/page/pyi-cri-escape",
+  parseForm,
+  csrfProtection,
+  handleCriEscapeAction
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

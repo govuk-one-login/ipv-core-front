@@ -139,7 +139,7 @@ Resources:
           HostedZoneId: !ImportValue DevIdentityHostedZoneId
       ValidationMethod: DNS
 
-  # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
+  # api domain entries / mapping
   DevApiDomain:
     Type: AWS::ApiGatewayV2::DomainName
     Condition: IsNewDevelopment
@@ -153,12 +153,12 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsNewDevelopment
-    DependsOn: RestApiGwDeployment
     Properties:
       DomainName: !Ref DevApiDomain
-      ApiId: !Ref RestApiGateway
-      Stage: !Ref ApiGatewayStage
-
+      ApiId: !Ref ApiGwHttpEndpoint
+      Stage: "$default"
+    DependsOn:
+      - APIStageDefault
 
   # dns rcord
   DevDNSRecord:
@@ -719,176 +719,21 @@ Resources:
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
 
-  #
-  # REST API Gateway
-  #
-  #
-  RestApiGateway:
-    Type: AWS::ApiGateway::RestApi
+  # Create the VPC Link to join the API Gateway to the
+  # private Load Balancer in front of Core Front ECS
+  # Service.
+  # VPC Link moved to the ip dev platform vpc
+  # This is only used for the dev environment
+  VpcLink:
+    Type: "AWS::ApiGatewayV2::VpcLink"
+    Condition: IsOldDevelopment
     Properties:
-      Name: !Sub ipv-core-front-${Environment}-rest
-      DisableExecuteApiEndpoint: true
-      EndpointConfiguration:
-        Types:
-          - REGIONAL
-
-  RestApiGwDeployment:
-    DependsOn: RestApiGatewayMethod
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref RestApiGateway
-
-  RestApiGatewayMethod:
-    Type: AWS::ApiGateway::Method
-    Metadata:
-      checkov:
-        skip:
-          - id: "CKV_AWS_59"
-            comment: "API should have AuthorizationType if appropriate - this is intentionally public"
-    Properties:
-      HttpMethod: ANY
-      ResourceId: !Ref RestProxyResource
-      RestApiId: !Ref RestApiGateway
-      AuthorizationType: NONE
-      RequestParameters:
-        method.request.path.proxy: false
-      Integration:
-        Type: HTTP_PROXY
-        ConnectionType: VPC_LINK
-        ConnectionId: !If
-          - IsNewDevelopment
-          - !Ref ApiGatewayVpcLink
-          - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
-        RequestParameters:
-          integration.request.path.proxy: "method.request.path.proxy"
-        IntegrationHttpMethod: ANY
-        PassthroughBehavior: WHEN_NO_MATCH
-        Uri: !Sub
-          - "http://${LBDNS}/{proxy}"
-          - LBDNS: !If
-            - IsNewDevelopment
-            - !GetAtt NetworkLoadBalancer.DNSName
-            - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
-
-  RestProxyResource:
-    Type: AWS::ApiGateway::Resource
-    Properties:
-      RestApiId: !Ref RestApiGateway
-      ParentId: !GetAtt RestApiGateway.RootResourceId
-      PathPart: '{proxy+}'
-
-  ApiGatewayAccessLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
-      Tags:
-        - Key: Name
-          Value: ApiGatewayAccessLogGroup
-        - Key: Service
-          Value: IPV Core
-        - Key: Source
-          Value: alphagov/di-ipv-core-front/deploy/template.yaml
-
-  ApiGatewayStage:
-    Type: AWS::ApiGateway::Stage
-    Metadata:
-      checkov:
-        skip:
-          - id: "CKV_AWS_120"
-            comment: "API should have caching - not for our use case"
-    Properties:
-      StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment
-      RestApiId: !Ref RestApiGateway
-      AccessLogSetting:
-        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
-        Format: >-
-          {
-          "requestId":"$context.requestId",
-          "ip": "$context.identity.sourceIp",
-          "requestTime":"$context.requestTime",
-          "httpMethod":"$context.httpMethod",
-          "path": "$context.path",
-          "routeKey":"$context.routeKey",
-          "status":"$context.status",
-          "protocol":"$context.protocol",
-          "responseLength":"$context.responseLength",
-          "responseLatency":"$context.responseLatency"
-          }
-      CacheClusterEnabled: false
-      TracingEnabled: true
-
-  #
-  # Rest api gateway vpc link
-  #
-
-  ApiGatewayVpcLink:
-    Condition: IsNewDevelopment
-    Type: AWS::ApiGateway::VpcLink
-    Properties:
-      Description: Link from REST API Gateway to NetworkLoadBalancer
-      Name: !Sub "${AWS::StackName}-ApiVpcLink"
-      TargetArns:
-        - !Ref NetworkLoadBalancer
-
-  NetworkLoadBalancer:
-    Condition: IsNewDevelopment
-    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-    Properties:
-      Scheme: internal
-      Type: network
-      Subnets:
-        - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-        - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
-      Tags:
-        - Key: Name
-          Value: !Sub "${AWS::StackName}-NetworkLoadBalancer"
-        - Key: Service
-          Value: identity
-        - Key: Source
-          Value: alphagov/di-ipv-core-front/deploy/template.yaml
-    Metadata:
-      checkov:
-        skip:
-          - id: "CKV_AWS_91"
-            comment: "ALB access logging is disabled in developer environments to make them easier to manage."
-
-  NetworkLoadBalancerListener:
-    Type: AWS::ElasticLoadBalancingV2::Listener
-    Properties:
-      DefaultActions:
-        - Type: forward
-          TargetGroupArn: !Ref NetworkLoadBalancerTargetGroup
-      LoadBalancerArn: !If
-        - IsNewDevelopment
-        - !Ref NetworkLoadBalancer
-        - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
-      Port: 80
-      Protocol: TCP
-
-  NetworkLoadBalancerTargetGroup:
-    DependsOn: PrivateLoadBalancerListener
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
-    Properties:
-      Name: !Sub "${AWS::StackName}-NLBTarGrp"
-      Port: 80
-      Protocol: TCP
-      Targets:
-        - Id: !Ref PrivateLoadBalancer
-      TargetType: alb
-      HealthCheckEnabled: true
-      HealthCheckPath: '/healthcheck'
-      VpcId:
-        Fn::ImportValue:
-          !Sub "${VpcStackName}-VpcId"
-      Tags:
-        - Key: Name
-          Value: !Sub "${AWS::StackName}-NLBTarGrp"
-        - Key: Service
-          Value: ci/cd
-        - Key: Source
-          Value: alphagov/di-ipv-core-front/deploy/template.yaml
+      Name: ApiGwVpcLinkToLoadBalancer
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
+      SecurityGroupIds: []
 
   ApiGwHttpEndpoint:
     Type: "AWS::ApiGatewayV2::Api"
@@ -901,8 +746,10 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId:
-        Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+      ConnectionId: !If
+        - IsOldDevelopment
+        - !Ref VpcLink
+        - Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref PrivateLoadBalancerListener
@@ -1034,6 +881,9 @@ Resources:
                 "kms:ViaService":
                   - "dynamodb.amazonaws.com"
                   - "ecs-tasks.amazonaws.com"
+
+
+
 
   FrontLoadBalancer5xxErrors:
     Type: AWS::CloudWatch::Alarm
@@ -1224,15 +1074,3 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
     Value: !Ref ApiGwHttpEndpoint
-  IPVCoreFrontRestGatewayID:
-    Condition: IsNotDevelopment
-    Description: Core Front Rest API Gateway ID
-    Export:
-      Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayID"
-    Value: !Ref RestApiGateway
-  IPVCoreFrontRestGatewayStage:
-    Condition: IsNotDevelopment
-    Description: Core Front Rest API Gateway Stage
-    Export:
-      Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayStage"
-    Value: !Ref ApiGatewayStage

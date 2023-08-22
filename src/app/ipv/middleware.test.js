@@ -629,6 +629,68 @@ describe("journey middleware", () => {
     }
   );
 
+  context(
+    "handleCriEscapeAction: handling journey action with journey/f2f, journey/dcmaw, journey/end",
+    () => {
+      it("should post with journey/f2f", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/f2f" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/f2f`
+        );
+      });
+
+      it("should post with journey/dcmaw", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/dcmaw" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/dcmaw`
+        );
+      });
+
+      it("should post with journey/end by default", async function () {
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/end`
+        );
+      });
+    }
+  );
+
+  context(
+    "handleCriEscapeAction: handling missing ipvSessionId before calling the backend",
+    () => {
+      it("should redirect to the technical unrecoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "page-ipv-identity-document-start",
+            ipvSessionId: null,
+            ipAddress: "ip-address",
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(res.redirect).to.have.been.calledWith(
+          "/ipv/page/pyi-technical-unrecoverable"
+        );
+      });
+    }
+  );
+
   context("validateFeatureSet", () => {
     beforeEach(() => {
       req = {

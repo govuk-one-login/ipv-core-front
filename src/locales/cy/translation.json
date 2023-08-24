@@ -125,41 +125,41 @@
       }
     },
     "pyiCriEscape": {
-      "title": "Find another way to prove your identity",
-      "header": "Find another way to prove your identity",
+      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "We were not able to complete your identity check using security questions.",
-        "subHeading": "What you can do",
-        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
-        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
-        "bullet1": "an iPhone 7 or higher",
-        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
-        "paragraph4": "You can also prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
-        "subHeading2": "What would you like to do?",
+        "paragraph1": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
+        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
+        "bullet1": "iPhone 7 neu uwch",
+        "bullet2": "ffôn Android (er enghraifft, Samsung neu Google Pixel)",
+        "paragraph4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
-          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
-          "continuePostOfficeButtonText": "Prove your identity at a Post Office",
-          "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
+          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
+          "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
         }
       }
     },
     "pyiCriEscapeNoF2f": {
-      "title": "Find another way to prove your identity",
-      "header": "Find another way to prove your identity",
+      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "We were not able to complete your identity check using security questions.",
-        "subHeading": "What you can do",
-        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
-        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
-        "bullet1": "an iPhone 7 or higher",
-        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
-        "subHeading2": "What would you like to do?",
+        "paragraph1": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
+        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
+        "bullet1": "iPhone 7 neu uwch",
+        "bullet2": "ffôn Android (er enghraifft, Samsung neu Google Pixel)",
+        "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
-          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
-          "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
+          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
         }
       }
     },

@@ -1,9 +1,9 @@
 {% extends "shared/base.njk" %}
-{% set ErrorState = true %}
+{% set errorState = pageErrorState %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% if ErrorState == true %}
+{% if errorState == 'true' %}
   {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorPageTitle' | translate +' – '+'pages.pageIpvIdentityDocumentStart.title' | translate %}
   {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% else %}
@@ -14,7 +14,7 @@
 
 {% block content %}
 
-  {% if ErrorState == true %}
+  {% if errorState == 'true' %}
     {{ govukErrorSummary({
       titleText: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryTitleText' | translate,
       errorList: [
@@ -87,7 +87,7 @@
     } %}
 
     {# if there was an error, add another key to the Object with the error message #}
-    {% if ErrorState == true %}
+    {% if errorState == 'true' %}
       {% set errorMessageObject = {'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorMessage' | translate} %}
       {% set radioButtonForm = radioButtonForm | setAttribute('errorMessage',errorMessageObject) %}
     {% endif %}

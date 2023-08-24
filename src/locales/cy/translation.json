@@ -400,6 +400,12 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorPageTitle": "CY There has been an error",
+          "errorSummaryTitleText": "CY There is a problem",
+          "errorSummaryErrorText": "CY Please tell us if you have Photo ID",
+          "errorMessage": "CY Please choose an option"
         }
       }
     },

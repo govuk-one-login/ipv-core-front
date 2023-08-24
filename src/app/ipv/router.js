@@ -19,11 +19,18 @@ const parseForm = bodyParser.urlencoded({ extended: false });
 
 function checkLanguage(req, res, next) {
   const lang = req.cookies.lng;
-
   // Set the flag "isWelsh" to true if the language is Welsh, otherwise set to false
   res.locals.isWelsh = lang === "cy";
-
   next();
+}
+
+// redirect the user if they haven’t chosen a radio button option
+function formRadioButtonChecked(req, res, next) {
+  if (req.method === "POST" && req.body.journey === undefined) {
+    return res.redirect(req.originalUrl+'?errorState=true');
+  } else {
+    next();
+  }
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
@@ -48,7 +55,13 @@ router.post(
   csrfProtection,
   handleCriEscapeAction
 );
-router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
+router.post(
+  "/page/:pageId",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction
+);
 router.get("/*", updateJourneyState);
 
 module.exports = router;

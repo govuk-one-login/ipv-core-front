@@ -1,77 +1,115 @@
 {% extends "shared/base.njk" %}
+{% set ErrorState = true %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.title' | translate %}
+
+{% if ErrorState == true %}
+  {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorPageTitle' | translate +' – '+'pages.pageIpvIdentityDocumentStart.title' | translate %}
+  {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% else %}
+  {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.title' | translate %}
+{% endif %}
 {% set googleTagManagerPageId = "pageIpvIdentityDocumentStart" %}
 
+
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvIdentityDocumentStart.header' | translate }}</h1>
-  <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
+
+  {% if ErrorState == true %}
+    {{ govukErrorSummary({
+      titleText: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryTitleText' | translate,
+      errorList: [
+        {
+          text: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryErrorText' | translate,
+          href: "#identityDocumentStartPageOptionsForm"
+        }
+      ]
+    }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-l" id="header"
+      data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityDocumentStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
 
   <ul class="govuk-list" role="list">
     <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading' | translate }}</h2>
-      <p class="govuk-body govuk-!-margin-bottom-2">{{'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading' | translate }}</h2>
+      <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet ">
-        <li>{{'pages.pageIpvIdentityDocumentStart.content.list1' | translate }}</li>
-        <li>{{'pages.pageIpvIdentityDocumentStart.content.list2' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list1' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list2' | translate }}</li>
       </ul>
-      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph2' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph2' | translate }}</p>
     </li>
     <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading2' | translate }}</h2>
-      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate }}</p>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading2' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate }}</p>
     </li>
     <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading3' | translate }}</h2>
-      <p class="govuk-body govuk-!-margin-bottom-2">{{'pages.pageIpvIdentityDocumentStart.content.paragraph4' | translate }}</p>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading3' | translate }}</h2>
+      <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph4' | translate }}</p>
       <ul class="govuk-list  govuk-list--bullet">
-        <li>{{'pages.pageIpvIdentityDocumentStart.content.list3' | translate }}</li>
-        <li>{{'pages.pageIpvIdentityDocumentStart.content.list4' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list3' | translate }}</li>
+        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list4' | translate }}</li>
       </ul>
-      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
       <picture>
-        <source srcset="{{ assetsCdnPath }}/public/images/passport-icon.svg" />
-        <img width="174" height="121" loading="lazy" src="{{ assetsCdnPath }}/public/images/passport-icon-1x.png" srcset="{{ assetsCdnPath }}/public/images/passport-icon-2x.png 2x" alt="{{'pages.pageIpvIdentityDocumentStart.content.imgAltText' | translate }}" />
+        <source srcset="{{ assetsCdnPath }}/public/images/passport-icon.svg"/>
+        <img width="174" height="121" loading="lazy" src="{{ assetsCdnPath }}/public/images/passport-icon-1x.png"
+             srcset="{{ assetsCdnPath }}/public/images/passport-icon-2x.png 2x"
+             alt="{{ 'pages.pageIpvIdentityDocumentStart.content.imgAltText' | translate }}"/>
       </picture>
     </li>
     <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading4' | translate }}</h2>
-      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading4' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
     </li>
   </ul>
-  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
-  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next",
-                text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yes' | translate
-              },
-              {
-                value: "end",
-                text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.no' | translate
-              }
-            ]
-      })
-    }}
+  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
+  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST"
+        onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {# build the radio button object contents outside of the nunjucks macro #}
+
+    {% set radioButtonForm = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "next",
+          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.no' | translate
+        }
+      ]
+    } %}
+
+    {# if there was an error, add another key to the Object with the error message #}
+    {% if ErrorState == true %}
+      {% set errorMessageObject = {'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorMessage' | translate} %}
+      {% set radioButtonForm = radioButtonForm | setAttribute('errorMessage',errorMessageObject) %}
+    {% endif %}
+
+    {# Use the design system macro to output the radio button HTML #}
+    {{ govukRadios(radioButtonForm) }}
+
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{'general.buttons.next' | translate }}
+      {{ 'general.buttons.next' | translate }}
     </button>
   </form>
 
   <script>
-    let disableSubmit = false;
-    function identityDocumentStartPageOptionsFormSubmit() {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-        return true
+      let disableSubmit = false;
+
+      function identityDocumentStartPageOptionsFormSubmit() {
+          if (!disableSubmit) {
+              disableSubmit = true;
+              document.getElementById('submitButton').disabled = true;
+              return true
+          }
+          return false;
       }
-      return false;
-    }
   </script>
 {% endblock %}

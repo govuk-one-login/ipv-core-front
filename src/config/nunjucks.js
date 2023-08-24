@@ -14,6 +14,12 @@ module.exports = {
       return translate(key, options);
     });
 
+    // allow pushing or adding another attribute to an Object
+    nunjucksEnv.addFilter("setAttribute", function(dictionary, key, value) {
+      dictionary[key] = value;
+      return dictionary;
+    });
+
     nunjucksEnv.addFilter("GDSDate", function (formatDate) {
       const dateTransform = new Date(formatDate);
       let dateFormat = "en-GB"; // only using 'en' uses American month-first date formatting

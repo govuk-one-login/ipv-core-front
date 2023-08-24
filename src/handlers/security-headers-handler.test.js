@@ -33,8 +33,7 @@ describe("Security headers handler", () => {
     expect(res.set).to.be.have.been.calledOnce;
     expect(res.set).to.be.have.been.calledWith({
       "Strict-Transport-Security": "max-age=31536000",
-      "Content-Security-Policy":
-        "default-src 'self' identity.gov.uk *.identity.gov.uk",
+      "Content-Security-Policy": "default-src 'self'",
       "X-Frame-Options": "DENY",
       "X-XSS-Protection": "0",
       "X-Content-Type-Options": "nosniff",

@@ -15,7 +15,7 @@ module.exports = {
     });
 
     // allow pushing or adding another attribute to an Object
-    nunjucksEnv.addFilter("setAttribute", function(dictionary, key, value) {
+    nunjucksEnv.addFilter("setAttribute", function (dictionary, key, value) {
       dictionary[key] = value;
       return dictionary;
     });

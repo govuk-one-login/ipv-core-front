@@ -27,7 +27,7 @@ function checkLanguage(req, res, next) {
 // redirect the user if they haven’t chosen a radio button option
 function formRadioButtonChecked(req, res, next) {
   if (req.method === "POST" && req.body.journey === undefined) {
-    return res.redirect(req.originalUrl+'?errorState=true');
+    return res.redirect(req.originalUrl + "?errorState=true");
   } else {
     next();
   }

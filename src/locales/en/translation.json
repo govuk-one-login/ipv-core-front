@@ -124,7 +124,7 @@
         },
         "formErrorMessage": {
           "errorPageTitle": "Error: please choose an option",
-          "errorSummaryTitleText":"There is a problem",
+          "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Please choose another way to prove your identity",
           "errorRadioMessage": "Please choose an option"
         }

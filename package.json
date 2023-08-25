@@ -55,7 +55,7 @@
     "axios": "1.4.0",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",
-    "connect-dynamodb": "^2.0.6",
+    "connect-dynamodb": "^3.0.1",
     "cookie-parser": "1.4.6",
     "copyfiles": "2.4.1",
     "csurf": "1.11.0",

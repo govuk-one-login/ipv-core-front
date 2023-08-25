@@ -121,6 +121,12 @@
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
           "restartButtonText": "Try proving your identity with GOV.UK One Login again"
+        },
+        "formErrorMessage": {
+          "errorPageTitle": "Error: please choose an option",
+          "errorSummaryTitleText":"There is a problem",
+          "errorSummaryDescriptionText": "Please choose another way to prove your identity",
+          "errorRadioMessage": "Please choose an option"
         }
       }
     },
@@ -404,8 +410,8 @@
         "formErrorMessage": {
           "errorPageTitle": "There has been an error",
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryErrorText": "Please tell us if you have Photo ID",
-          "errorMessage": "Please choose an option"
+          "errorSummaryDescriptionText": "Please tell us if you have Photo ID",
+          "errorRadioMessage": "Please choose an option"
         }
       }
     },

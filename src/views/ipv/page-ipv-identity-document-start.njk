@@ -19,7 +19,7 @@
       titleText: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryTitleText' | translate,
       errorList: [
         {
-          text: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryErrorText' | translate,
+          text: 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryDescriptionText' | translate,
           href: "#identityDocumentStartPageOptionsForm"
         }
       ]
@@ -88,7 +88,7 @@
 
     {# if there was an error, add another key to the Object with the error message #}
     {% if errorState == 'true' %}
-      {% set errorMessageObject = {'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorMessage' | translate} %}
+      {% set errorMessageObject = {'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorRadioMessage' | translate} %}
       {% set radioButtonForm = radioButtonForm | setAttribute('errorMessage',errorMessageObject) %}
     {% endif %}
 

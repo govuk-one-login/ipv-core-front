@@ -121,6 +121,12 @@
         "formRadioButtons": {
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
           "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
+        },
+        "formErrorMessage": {
+          "errorPageTitle": "TEMP Gwall: dewiswch opsiwn",
+          "errorSummaryTitleText":"TEMP Mae yna broblem",
+          "errorSummaryDescriptionText": "TEMP Dewiswch ffordd arall i brofi pwy ydych chi",
+          "errorRadioMessage": "TEMP Dewiswch opsiwn"
         }
       }
     },

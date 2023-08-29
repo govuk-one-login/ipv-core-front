@@ -230,6 +230,7 @@ module.exports = {
         case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
+        case "pyi-app-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
         case "pyi-escape":

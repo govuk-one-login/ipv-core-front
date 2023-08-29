@@ -271,6 +271,15 @@
         "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
+    "pyiAppFail": {
+      "title": "Sorry, we cannot prove your identity right now",
+      "header": "Sorry, we cannot prove your identity right now",
+      "content": {
+        "paragraph1": "This is because we could not find a match when we checked your details with another organisation.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Ewch yn eich blaen i’r gwasanaeth roeddech chi'n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
+      }
+    },
     "pyiKbvThinFile": {
       "title": "Mae angen i chi brofi pwy ydych chi mewn ffordd arall",
       "header": "Mae angen i chi brofi pwy ydych chi mewn ffordd arall",

@@ -405,10 +405,12 @@
         "subHeading5": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",
-          "no": "No"
+          "yesAccessibleContextText": "I have one of these types of photo ID",
+          "no": "No",
+          "noAccessibleContextText": "I do not have one of these types of photo ID"
         },
         "formErrorMessage": {
-          "errorPageTitle": "There has been an error",
+          "errorPageTitle": "Error: ",
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Please tell us if you have Photo ID",
           "errorRadioMessage": "Please choose an option"

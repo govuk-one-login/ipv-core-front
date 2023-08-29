@@ -223,10 +223,12 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
 window.GOVSignIn = window.GOVSignIn || {};
 window.GOVSignIn.Cookies = cookies;
 
+
 (function(w) {
   "use strict";
   function appInit(trackingId, analyticsCookieDomain, journeyState) {
     window.GOVUKFrontend.initAll();
+
     var cookies = window.GOVSignIn.Cookies(trackingId, analyticsCookieDomain, journeyState);
     if (cookies.hasConsentForAnalytics()) {
       cookies.initAnalytics();

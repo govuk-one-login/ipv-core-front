@@ -4,7 +4,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% if errorState == 'true' %}
-  {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorPageTitle' | translate +' – '+'pages.pageIpvIdentityDocumentStart.title' | translate %}
+  {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorPageTitle' | translate + 'pages.pageIpvIdentityDocumentStart.title' | translate %}
   {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% else %}
   {% set pageTitleName = 'pages.pageIpvIdentityDocumentStart.title' | translate %}
@@ -77,11 +77,11 @@
       items: [
         {
           value: "next",
-          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yes' | translate
+          html: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yes' | translate + '<span class="govuk-visually-hidden"> '+ 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yesAccessibleContextText' | translate + '</span>'
         },
         {
           value: "end",
-          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.no' | translate
+          html: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.no' | translate + '<span class="govuk-visually-hidden"> '+ 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.noAccessibleContextText' | translate + '</span>'
         }
       ]
     } %}

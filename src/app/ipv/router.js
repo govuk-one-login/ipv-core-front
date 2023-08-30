@@ -55,11 +55,19 @@ router.post(
   csrfProtection,
   handleCriEscapeAction
 );
+
+router.post(
+  "/page/page-ipv-identity-document-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction
+);
+
 router.post(
   "/page/:pageId",
   parseForm,
   csrfProtection,
-  formRadioButtonChecked,
   handleJourneyAction
 );
 router.get("/*", updateJourneyState);

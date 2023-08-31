@@ -54,20 +54,30 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
     return cookieConsent ? cookieConsent.analytics : false;
   }
   function initAnalytics() {
-    loadGtmScript();
+    var gtmIds = trackingId.split(",");
+    gtmIds.forEach(function (id) {
+      loadGtmScript(id);
+    });
     initGtm();
     initLinkerHandlers();
   }
 
-  function pushLanguageToDataLayer() {
+  function pushDataLayerEvent(event) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(event);
+  };
 
-    const languageNames = {
+  function getLanguageCode() {
+    return document.querySelector('html') &&
+      document.querySelector('html').getAttribute('lang');
+  }
+
+  function pushLanguageToDataLayer(languageCode) {
+
+    var languageNames = {
       'en':'english',
       'cy':'welsh'
     }
-
-    var languageCode = document.querySelector('html') &&
-      document.querySelector('html').getAttribute('lang');
 
     if (languageCode) {
       window.dataLayer = window.dataLayer || [];
@@ -79,39 +89,57 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
     }
   }
 
-  function loadGtmScript() {
+  function loadGtmScript(id) {
     var gtmScriptTag = document.createElement("script");
     gtmScriptTag.type = "text/javascript";
     gtmScriptTag.setAttribute("async", "true");
-    gtmScriptTag.setAttribute("src", "https://www.googletagmanager.com/gtm.js?id=" + trackingId);
+    gtmScriptTag.setAttribute("src", "https://www.googletagmanager.com/gtm.js?id=" + id);
     document.documentElement.firstChild.appendChild(gtmScriptTag);
   }
+
   function initGtm() {
     window.dataLayer = [ {
       "gtm.allowlist": [ "google" ],
       "gtm.blocklist": [ "adm", "awct", "sp", "gclidw", "gcs", "opt" ]
-    },
-      {
-        'event': "progEvent",
-        'ProgrammeName': 'DI - PYI'
-      } ];
-    //var sessionJourney = getJourneyMapping(journeyState);
+    }];
 
-    function gtag(obj) {
-      dataLayer.push(obj);
-    }
+    var languageCode = getLanguageCode();
+
+    // UA events
+    pushDataLayerEvent({
+      'event': "progEvent",
+      'ProgrammeName': 'DI - PYI'
+    });
     if (journeyState) {
-      dataLayer.push({
+      pushDataLayerEvent({
         event: "journeyEvent",
         JourneyStatus: journeyState
       })
     }
-    pushLanguageToDataLayer();
-    gtag({
+    pushLanguageToDataLayer(languageCode);
+
+    // GA4 events
+    pushDataLayerEvent({
+      event: "page_view",
+      page_view: {
+        language: languageCode,
+        location: document.location.href,
+        organisations: "<OT1056>",
+        referrer: document.referrer,
+        primary_publishing_organisation: "government digital service - digital identity",
+        status_code: 200, // TODO: PYIC-3440 return the actual status code
+        title: document.title,
+        taxonomy_level1: "web_cri",
+        taxonomy_level2: journeyState, // TODO: PYIC-3440 return proper taxonomy
+      },
+    });
+
+    pushDataLayerEvent({
       "gtm.start": new Date().getTime(),
       event: "gtm.js"
     });
   }
+
   function initLinkerHandlers() {
     //
     // Currently this is not required

@@ -171,7 +171,7 @@ module.exports = {
         "/journey/cri/validate/stubKbv",
         "/journey/cri/validate/dcmaw",
         "/journey/cri/validate/stubDcmaw",
-        "/journey/build-proven-user-identity-details",
+        "/user/build-proven-user-identity-details",
       ];
 
       const action = allowedActions.find((x) => x === req.url);

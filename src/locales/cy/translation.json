@@ -451,13 +451,16 @@
         "subHeading5": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
-          "no": "Na"
+          "yesAccessibleContextText": "TEMP Mae gen i un o’r mathau hyn o ID llun",
+          "no": "Na",
+          "noAccessibleContextText": "TEMP Nid oes gennyf un o’r mathau hyn o ID llun"
         },
         "formErrorMessage": {
           "errorPageTitle": "TEMP Mae gwall wedi bod",
           "errorSummaryTitleText": "TEMP Mae yna broblem",
-          "errorSummaryErrorText": "TEMP Dywedwch wrthym os oes gennych ID Llun",
-          "errorMessage": "TEMP Dewiswch opsiwn"
+          "errorSummaryDescriptionText": "TEMP Dywedwch wrthym os oes gennych ID Llun",
+          "errorRadioMessageErrorLabel": "TEMP Gwall",
+          "errorRadioMessage": "TEMP Dewiswch opsiwn"
         }
       }
     }

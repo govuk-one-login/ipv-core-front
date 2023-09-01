@@ -87,7 +87,12 @@
 
     {# if there was an error, add another key to the Object with the error message #}
     {% if errorState == 'true' %}
-      {% set errorMessageObject = {'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorRadioMessage' | translate} %}
+      {% set errorMessageObject = {
+        'visuallyHiddenText': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorRadioMessageErrorLabel' | translate,
+        'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorRadioMessage' | translate
+
+
+      } %}
       {% set radioButtonForm = radioButtonForm | setAttribute('errorMessage',errorMessageObject) %}
     {% endif %}
 

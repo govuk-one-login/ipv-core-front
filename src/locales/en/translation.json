@@ -413,7 +413,9 @@
           "errorPageTitle": "Error: ",
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Please tell us if you have Photo ID",
+          "errorRadioMessageErrorText": "Error",
           "errorRadioMessage": "Please choose an option"
+
         }
       }
     },

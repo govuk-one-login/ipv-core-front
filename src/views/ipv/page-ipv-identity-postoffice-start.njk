@@ -42,8 +42,7 @@
     </li>
   </ul>
   <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate }}</h2>
-  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST"
-        onsubmit="return identityPostofficeStartPageOptionsFormSubmit()">
+  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
       idPrefix: "journey",
@@ -64,16 +63,17 @@
     </button>
   </form>
 
-  <script>
-      let disableSubmit = false;
-
-      function identityPostofficeStartPageOptionsFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
+  <script nonce='{{ cspNonce }}'>
+    let disableSubmit = false;
+    function identityPostofficeStartPageOptionsFormSubmit(event) {
+      if (!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('submitButton').disabled = true;
+      } else {
+        event.preventDefault();
       }
+    }
+    document.getElementById("identityPostofficeStartPageOptionsForm")
+      .addEventListener("submit", identityPostofficeStartPageOptionsFormSubmit)
   </script>
 {% endblock %}

@@ -18,7 +18,7 @@
   <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph4' | translate | safe }}</p>
   <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscape.content.subHeading2' | translate }}</h2>
 
-  <form id="pyiCriEscapeForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiCriEscapeFormSubmit()">
+  <form id="pyiCriEscapeForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -49,16 +49,17 @@
     </a>
   </p>
 
-  <script>
-      let disableSubmit = false;
-
-      function pyiCriEscapeFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
+  <script nonce='{{ cspNonce }}'>
+    let disableSubmit = false;
+    function pyiCriEscapeFormSubmit(event) {
+      if (!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('submitButton').disabled = true;
+      } else {
+        event.preventDefault();
       }
+    }
+    document.getElementById("pyiCriEscapeForm")
+      .addEventListener("submit", pyiCriEscapeFormSubmit);
   </script>
 {% endblock %}

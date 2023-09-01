@@ -33,7 +33,7 @@
 
   <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading2' | translate }}</h2>
 
-  <form id="faceToFacetMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return faceToFacetMultipleDocCheckingFormSubmit()">
+  <form id="faceToFacetMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -62,15 +62,17 @@
     </button>
   </form>
 
-  <script>
+  <script nonce='{{ cspNonce }}'>
     let disableSubmit = false;
-    function faceToFacetMultipleDocCheckingFormSubmit() {
+    function faceToFacetMultipleDocCheckingFormSubmit(event) {
       if(!disableSubmit) {
         disableSubmit = true;
         document.getElementById('submitButton').disabled = true;
-        return true
+      } else {
+        event.preventDefault();
       }
-      return false;
     }
+    document.getElementById("faceToFacetMultipleDocCheckingForm")
+      .addEventListener("submit", faceToFacetMultipleDocCheckingFormSubmit);
   </script>
 {% endblock %}

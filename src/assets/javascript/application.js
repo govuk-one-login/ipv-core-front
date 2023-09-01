@@ -247,3 +247,26 @@ window.GOVSignIn.Cookies = cookies;
   w.disableAfterClick = disableAfterClick;
 
 })(window);
+
+
+// globally disable second clicks on the continue button for radio button pages
+
+// first, check if we have radio buttons and no inline form onSubmit action
+
+const checkForOnSubmit = document.querySelector('form[onsubmit]');
+const checkForRadio =  document.querySelector('input[type="radio"]');
+let disableSubmit = false;
+
+// if that is true, set up the form listener with the same code used on other pages
+
+if(checkForOnSubmit===null && checkForRadio!==null){
+  const manageFormClicks = document.querySelector('form');
+  manageFormClicks.addEventListener('submit',()=>{
+    if (!disableSubmit) {
+      disableSubmit = true;
+      document.getElementById('submitButton').disabled = true;
+      return true
+    }
+    return false;
+  })
+}

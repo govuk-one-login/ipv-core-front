@@ -163,7 +163,7 @@
         }
       }
     },
-    "pyiCimitMitigation": {
+    "pyiSuggestOtherOptions": {
       "title": "Sorry, you’ll need to prove your identity another way",
       "header": "Sorry, you’ll need to prove your identity another way",
       "content": {
@@ -183,7 +183,7 @@
         }
       }
     },
-    "pyiCimitMitigationNoF2f": {
+    "pyiSuggestOtherOptionsNoF2f": {
       "title": "Sorry, you’ll need to prove your identity another way",
       "header": "Sorry, you’ll need to prove your identity another way",
       "content": {

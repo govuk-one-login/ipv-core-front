@@ -163,7 +163,7 @@
         }
       }
     },
-    "pyiCimitMitigation": {
+    "pyiSuggestOtherOptions": {
       "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "content": {
@@ -183,7 +183,7 @@
         }
       }
     },
-    "pyiCimitMitigationNoF2f": {
+    "pyiSuggestOtherOptionsNoF2f": {
       "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "content": {

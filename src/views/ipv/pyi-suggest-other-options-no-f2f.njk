@@ -1,23 +1,23 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pyiCimitMitigationNoF2f.title' | translate %}
-{% set googleTagManagerPageId = "pyiCimitMitigationNoF2f" %}
+{% set pageTitleName = 'pages.pyiSuggestOtherOptionsNoF2f.title' | translate %}
+{% set googleTagManagerPageId = "pyiSuggestOtherOptionsNoF2f" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCimitMitigationNoF2f.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pyiCimitMitigationNoF2f.content.paragraph1' | translate }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiSuggestOtherOptionsNoF2f.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph1' | translate }}</p>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pyiCimitMitigationNoF2f.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiCimitMitigationNoF2f.content.paragraph2' | translate }}</p>
-  <p class="govuk-body govuk-!-margin-bottom-1">{{ 'pages.pyiCimitMitigationNoF2f.content.paragraph3' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph2' | translate }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-1">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-5">
-    <li>{{'pages.pyiCimitMitigationNoF2f.content.bullet1' | translate }}</li>
-    <li>{{'pages.pyiCimitMitigationNoF2f.content.bullet2' | translate }}</li>
+    <li>{{'pages.pyiSuggestOtherOptionsNoF2f.content.bullet1' | translate }}</li>
+    <li>{{'pages.pyiSuggestOtherOptionsNoF2f.content.bullet2' | translate }}</li>
   </ul>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiCimitMitigationNoF2f.content.subHeading2' | translate }}</h2>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.subHeading2' | translate }}</h2>
 
-  <form id="pyiCimitMitigationNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiCimitMitigationNoF2fFormSubmit()">
+  <form id="pyiSuggestOtherOptionsNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiSuggestOtherOptionsNoF2fFormSubmit()">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -25,14 +25,14 @@
     items: [
               {
                 value: "next",
-                text: 'pages.pyiCimitMitigationNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
-                hint: {text: 'pages.pyiCimitMitigationNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
+                text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
+                hint: {text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
 
               },
               {
                 value: "end",
-                text: 'pages.pyiCimitMitigationNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
-                hint: { text: 'pages.pyiCimitMitigationNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
+                text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
+                hint: { text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
               }
             ]
       })
@@ -51,7 +51,7 @@
   <script nonce="{{ cspNonce }}">
       let disableSubmit = false;
 
-      function pyiCimitMitigationNoF2fFormSubmit() {
+      function pyiSuggestOtherOptionsNoF2fFormSubmit() {
           if (!disableSubmit) {
               disableSubmit = true;
               document.getElementById('submitButton').disabled = true;
@@ -59,5 +59,6 @@
           }
           return false;
       }
+
   </script>
 {% endblock %}

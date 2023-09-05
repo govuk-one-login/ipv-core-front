@@ -88,8 +88,6 @@ if (CDN_DOMAIN) {
   );
 }
 
-app.use(loggerMiddleware);
-
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
 i18next
@@ -152,6 +150,7 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
+router.use(loggerMiddleware);
 
 router.use((req, res, next) => {
   req.log = logger.child({
@@ -166,10 +165,12 @@ router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
-router.get("/healthcheck", (req, res) => {
+const healthcheckRouter = express.Router();
+healthcheckRouter.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
+app.use(healthcheckRouter);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

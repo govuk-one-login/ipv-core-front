@@ -41,7 +41,7 @@
     </li>
   </ul>
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
-  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
+  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -63,15 +63,17 @@
     </button>
   </form>
 
-  <script>
+  <script nonce='{{ cspNonce }}'>
     let disableSubmit = false;
-    function identityDocumentStartPageOptionsFormSubmit() {
+    function identityDocumentStartPageOptionsFormSubmit(event) {
       if(!disableSubmit) {
         disableSubmit = true;
         document.getElementById('submitButton').disabled = true;
-        return true
+      } else {
+        event.preventDefault();
       }
-      return false;
     }
+    document.getElementById("identityDocumentStartPageOptionsForm")
+      .addEventListener("submit", identityDocumentStartPageOptionsFormSubmit);
   </script>
 {% endblock %}

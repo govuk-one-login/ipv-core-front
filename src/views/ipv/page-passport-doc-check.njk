@@ -15,8 +15,7 @@
 
   <h2 class="govuk-heading-m">{{ 'pages.pagePassportDocCheck.content.subHeading' | translate }}</h2>
 
-  <form id="passportDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST"
-        onsubmit="return passportDocCheckingFormSubmit()">
+  <form id="passportDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
       idPrefix: "journey",
@@ -39,16 +38,17 @@
     </button>
   </form>
 
-  <script>
+  <script nonce='{{ cspNonce }}'>
       let disableSubmit = false;
-
-      function passportDocCheckingFormSubmit() {
+      function passportDocCheckingFormSubmit(event) {
           if (!disableSubmit) {
               disableSubmit = true;
               document.getElementById('submitButton').disabled = true;
-              return true
+          } else {
+            event.preventDefault();
           }
-          return false;
       }
+      document.getElementById("passportMultipleDocCheckingForm")
+        .addEventListener("submit", passportDocCheckingFormSubmit);
   </script>
 {% endblock %}

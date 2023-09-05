@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<form id="nextForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return nextFormSubmit()">
+<form id="nextForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
       {% if customButtonLabel %}
@@ -11,14 +11,17 @@
     </button>
 </form>
 
-<script>
+<script nonce='{{ cspNonce }}'>
     let disableSubmit = false;
-    function nextFormSubmit() {
+    function nextFormSubmit(event) {
       if(!disableSubmit) {
         disableSubmit = true;
         document.getElementById('submitButton').disabled = true;
-        return true
+      } else {
+        event.preventDefault();
       }
       return false;
     }
+    document.getElementById("nextForm")
+      .addEventListener("submit", nextFormSubmit);
 </script>

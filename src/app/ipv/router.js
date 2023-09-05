@@ -50,12 +50,6 @@ router.post(
   handleCriEscapeAction
 );
 router.post(
-  "/page/pyi-suggest-other-options",
-  parseForm,
-  csrfProtection,
-  handleCimitEscapeAction
-);
-router.post(
   "/page/pyi-suggest-other-options-no-f2f",
   parseForm,
   csrfProtection,

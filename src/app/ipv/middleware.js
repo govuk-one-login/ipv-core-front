@@ -188,34 +188,34 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      // if (req.session?.ipvSessionId === null) {
-      //   logError(
-      //     req,
-      //     {
-      //       pageId: pageId,
-      //       expectedPage: req.session.currentPage,
-      //     },
-      //     "req.ipvSessionId is null"
-      //   );
-      //
-      //   req.session.currentPage = "pyi-technical-unrecoverable";
-      //   return res.render(`ipv/${req.session.currentPage}.njk`);
-      // } else if (pageId === "pyi-timeout-unrecoverable") {
-      //   req.session.currentPage = "pyi-timeout-unrecoverable";
-      //   return res.render(`ipv/${req.session.currentPage}.njk`);
-      // } else if (req.session.currentPage !== pageId) {
-      //   logError(
-      //     req,
-      //     {
-      //       pageId: pageId,
-      //       expectedPage: req.session.currentPage,
-      //     },
-      //     "page :pageId doesn't match expected session page :expectedPage"
-      //   );
-      //
-      //   req.session.currentPage = "pyi-attempt-recovery";
-      //   return res.redirect(req.session.currentPage);
-      // }
+      if (req.session?.ipvSessionId === null) {
+        logError(
+          req,
+          {
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          },
+          "req.ipvSessionId is null"
+        );
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (pageId === "pyi-timeout-unrecoverable") {
+        req.session.currentPage = "pyi-timeout-unrecoverable";
+        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (req.session.currentPage !== pageId) {
+        logError(
+          req,
+          {
+            pageId: pageId,
+            expectedPage: req.session.currentPage,
+          },
+          "page :pageId doesn't match expected session page :expectedPage"
+        );
+
+        req.session.currentPage = "pyi-attempt-recovery";
+        return res.redirect(req.session.currentPage);
+      }
 
       switch (pageId) {
         case "page-ipv-identity-document-start":

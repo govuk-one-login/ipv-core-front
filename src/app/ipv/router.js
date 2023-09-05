@@ -50,12 +50,11 @@ router.post(
   handleCriEscapeAction
 );
 router.post(
-  "/page/pyi-suggest-other-options-no-f2f",
+  "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,
   handleCimitEscapeAction
 );
-
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

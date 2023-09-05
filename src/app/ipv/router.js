@@ -49,7 +49,6 @@ router.post(
   csrfProtection,
   handleCriEscapeAction
 );
-
 router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
@@ -62,7 +61,6 @@ router.post(
   csrfProtection,
   handleCimitEscapeAction
 );
-
 
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

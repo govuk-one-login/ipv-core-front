@@ -11,7 +11,7 @@ module.exports = {
     expect: true,
   },
   root: true,
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier","plugin:jsonc/recommended-with-jsonc"],
   rules: {
     "no-console": 2,
     "padding-line-between-statements": [
@@ -19,4 +19,10 @@ module.exports = {
       { blankLine: "any", prev: "*", next: "*" },
     ],
   },
+  overrides: [
+    {
+      files: ["*.json"],
+      parser: "jsonc-eslint-parser",
+    },
+  ],
 };

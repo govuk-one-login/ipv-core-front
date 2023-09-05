@@ -752,8 +752,7 @@ Resources:
       AuthorizationType: NONE
       RequestParameters:
         method.request.path.proxy: false
-        method.request.header.host: true
-        method.request.header.forwarded: true
+        method.request.header.x-forwarded-for: false
       Integration:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
@@ -763,8 +762,7 @@ Resources:
           - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
         RequestParameters:
           integration.request.path.proxy: "method.request.path.proxy"
-          integration.request.header.host: "method.request.header.host"
-          integration.request.header.forwarded: "method.request.header.forwarded"
+          integration.request.header.x-forwarded-for: "method.request.header.x-forwarded-for"
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
         Uri: !Sub

@@ -4,7 +4,12 @@
 // based on the code at
 // https://github.com/alphagov/di-authentication-frontend/blob/main/src/assets/javascript/cookies.js
 
-var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
+var cookies = function(options) {
+  var trackingId = options.gtmId;
+  var analyticsCookieDomain = options.analyticsCookieDomain;
+  var journeyState = options.googleTagManagerPageId;
+  var statusCode = options.statusCode;
+
   var COOKIES_PREFERENCES_SET = "cookies_preferences_set";
   var cookiesAccepted = document.querySelector("#cookies-accepted");
   var cookiesRejected = document.querySelector("#cookies-rejected");
@@ -127,7 +132,7 @@ var cookies = function(trackingId, analyticsCookieDomain, journeyState) {
         organisations: "<OT1056>",
         referrer: document.referrer,
         primary_publishing_organisation: "government digital service - digital identity",
-        status_code: 200, // TODO: PYIC-3440 return the actual status code
+        status_code: statusCode,
         title: document.title,
         taxonomy_level1: "web_cri",
         taxonomy_level2: journeyState, // TODO: PYIC-3440 return proper taxonomy
@@ -253,9 +258,9 @@ window.GOVSignIn.Cookies = cookies;
 
 (function(w) {
   "use strict";
-  function appInit(trackingId, analyticsCookieDomain, journeyState) {
+  function appInit(options) {
     window.GOVUKFrontend.initAll();
-    var cookies = window.GOVSignIn.Cookies(trackingId, analyticsCookieDomain, journeyState);
+    var cookies = window.GOVSignIn.Cookies(options);
     if (cookies.hasConsentForAnalytics()) {
       cookies.initAnalytics();
     }

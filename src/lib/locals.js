@@ -13,6 +13,14 @@ module.exports = {
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
     res.locals.assetPath = CDN_DOMAIN + "/assets";
+
+    // Patch the status code setter to make it available in locals as well
+    const setStatusCode = res.status;
+    res.status = function (code) {
+      res.locals.statusCode = code;
+      return setStatusCode.call(res, code);
+    };
+
     next();
   },
 };

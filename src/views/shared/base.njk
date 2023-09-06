@@ -104,5 +104,12 @@
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
-    <script nonce='{{ cspNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ googleTagManagerPageId }}")</script>
+    <script nonce='{{ cspNonce }}'>
+        window.GOVSignIn.appInit({
+            gtmId: "{{ gtmId }}",
+            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
+            googleTagManagerPageId: "{{ googleTagManagerPageId }}",
+            statusCode: {{ statusCode | d(200) }},
+        });
+    </script>
 {% endblock %}

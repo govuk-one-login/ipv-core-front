@@ -1,14 +1,10 @@
-/* global window document ga */
-
-window.DI = window.DI || {}
+window.DI = window.DI || {};
 window.DI.analyticsUa = window.DI.analyticsUa || {};
 
 (function (analytics) {
-
-  "use strict"
+  "use strict";
 
   function initGtm() {
-
     const sendData = window.DI.core.sendData;
 
     sendData({
@@ -17,36 +13,36 @@ window.DI.analyticsUa = window.DI.analyticsUa || {};
     });
 
     sendData({
-      "event": "progEvent",
-      "ProgrammeName": "DI - PYI"
+      event: "progEvent",
+      ProgrammeName: "DI - PYI",
     });
 
     if (window.DI.journeyState) {
       sendData({
         event: "journeyEvent",
-        JourneyStatus: window.DI.journeyState
+        JourneyStatus: window.DI.journeyState,
       });
     }
 
-    const languageCode = document.querySelector('html')?.getAttribute('lang');
+    const languageCode = document.querySelector("html")?.getAttribute("lang");
     const languageNames = {
-      "en": "english",
-      "cy": "welsh"
+      en: "english",
+      cy: "welsh",
     };
 
     sendData({
       event: "langEvent",
       language: languageNames[languageCode],
-      languagecode: languageCode
+      languagecode: languageCode,
     });
 
     sendData({
       "gtm.start": new Date().getTime(),
-      event: "gtm.js"
+      event: "gtm.js",
     });
   }
 
-  const init = function() {
+  const init = function () {
     const consentGiven = window.DI.cookies.hasConsentForAnalytics();
 
     if (consentGiven) {
@@ -55,8 +51,7 @@ window.DI.analyticsUa = window.DI.analyticsUa || {};
     } else {
       window.addEventListener("cookie-consent", window.DI.analyticsUa.init);
     }
-  }
+  };
 
   analytics.init = init;
-
-})(window.DI.analyticsUa)
+})(window.DI.analyticsUa);

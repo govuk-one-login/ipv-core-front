@@ -1,13 +1,9 @@
-/* global document window */
-
 window.DI = window.DI || {};
 
-(function(DI){
-
-  'use strict'
+(function (DI) {
+  "use strict";
 
   const cookies = {
-
     hasConsentForAnalytics: function () {
       const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
       const cookieConsent = JSON.parse(
@@ -17,12 +13,12 @@ window.DI = window.DI || {};
     },
 
     getCookie: function (name) {
-      const nameEQ = name + '=';
+      const nameEQ = name + "=";
       if (document.cookie) {
-        const cookies = document.cookie.split(';');
+        const cookies = document.cookie.split(";");
         for (let i = 0, len = cookies.length; i < len; i++) {
           let cookie = cookies[i];
-          while (cookie.startsWith(' ')) {
+          while (cookie.startsWith(" ")) {
             cookie = cookie.substring(1, cookie.length);
           }
           if (cookie.startsWith(nameEQ)) {
@@ -38,7 +34,9 @@ window.DI = window.DI || {};
         options = {};
       }
 
-      let cookieString = `${name}=${encodeURIComponent(JSON.stringify(values))}`;
+      let cookieString = `${name}=${encodeURIComponent(
+        JSON.stringify(values)
+      )}`;
       if (options.days) {
         const date = new Date();
         date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
@@ -50,9 +48,8 @@ window.DI = window.DI || {};
       }
 
       document.cookie = cookieString;
-    }
-  }
+    },
+  };
 
-  DI.cookies = cookies
-
-})(window.DI)
+  DI.cookies = cookies;
+})(window.DI);

@@ -10,6 +10,7 @@ const {
   handleJourneyAction,
   handleMultipleDocCheck,
   handleCriEscapeAction,
+  handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
 } = require("./middleware");
@@ -47,6 +48,12 @@ router.post(
   parseForm,
   csrfProtection,
   handleCriEscapeAction
+);
+router.post(
+  "/page/pyi-suggest-other-options",
+  parseForm,
+  csrfProtection,
+  handleCimitEscapeAction
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

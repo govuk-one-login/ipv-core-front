@@ -39,7 +39,6 @@ describe("Security headers handler", () => {
     expect(res.set).to.have.been.calledWith({
       "Strict-Transport-Security": "max-age=31536000",
       "Content-Security-Policy":
-        "default-src 'self'; " +
         "object-src 'none'; " +
         `script-src 'nonce-${testNonce}' 'unsafe-inline' 'strict-dynamic' https:; ` +
         "base-uri 'none'",

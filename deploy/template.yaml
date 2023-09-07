@@ -35,7 +35,6 @@ Conditions:
   IsDevelopment: !Or
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
-  IsBuild: !Equals [ !Ref Environment, build ]
   IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
@@ -62,6 +61,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      assetsDomain: ""
+      assetsPath: ""
     "175872367215": # New Development
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -73,6 +74,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      assetsDomain: ""
+      assetsPath: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -88,6 +91,8 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
+      assetsDomain: "https://build.assets.account.gov.uk"
+      assetsPath: "https://build.assets.account.gov.uk/core-front"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -99,6 +104,8 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
+      assetsDomain: "https://staging.assets.account.gov.uk"
+      assetsPath: "https://staging.assets.account.gov.uk/core-front"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -110,6 +117,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
+      assetsDomain: ""
+      assetsPath: ""
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -121,6 +130,8 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
+      assetsDomain: ""
+      assetsPath: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -613,23 +624,15 @@ Resources:
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
                   "" ]
             - Name: CDN_PATH
-              Value: !If [ IsBuild,
-                  "", #"!Sub "https://assets.${Environment}.account.gov.uk/core-front",
-                  "" ]
-              #!If [ IsNotDevelopment,
-              #    !If [ IsProduction,
-              #      "https://assets.identity.account.gov.uk/core-front",
-              #      !Sub "https://assets.identity.${Environment}.account.gov.uk/core-front" ],
-              #    "" ]
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - assetsPath
             - Name: CDN_DOMAIN
-              Value: !If [ IsBuild,
-                  "", #!Sub "https://assets.${Environment}.account.gov.uk",
-                  "" ]
-              #!If [ IsNotDevelopment,
-              #    !If [ IsProduction,
-              #      "https://assets.identity.account.gov.uk",
-              #      !Sub "https://assets.identity.${Environment}.account.gov.uk" ],
-              #    "" ]
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - assetsDomain
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

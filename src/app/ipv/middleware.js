@@ -235,6 +235,10 @@ module.exports = {
         case "pyi-no-match":
         case "pyi-escape":
         case "pyi-cri-escape":
+        case "pyi-cri-escape-no-f2f":
+        case "pyi-suggest-other-options":
+        case "pyi-suggest-other-options-no-f2f":
+        case "pyi-suggest-f2f":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
@@ -365,12 +369,33 @@ module.exports = {
       next(error);
     }
   },
+  handleCimitEscapeAction: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+      if (req.body?.journey === "next/f2f") {
+        await handleJourneyResponse(req, res, "journey/f2f");
+      } else if (req.body?.journey === "next/dcmaw") {
+        await handleJourneyResponse(req, res, "journey/dcmaw");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleCimitEscapeAction");
+      next(error);
+    }
+  },
   renderFeatureSetPage: async (req, res) => {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,
     });
   },
-
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;

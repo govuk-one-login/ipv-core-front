@@ -1,0 +1,64 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiCriEscapeNoF2f.title' | translate %}
+{% set googleTagManagerPageId = "pyiCriEscapeNoF2f" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCriEscapeNoF2f.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph1' | translate | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscapeNoF2f.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph3' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pyiCriEscapeNoF2f.content.bullet1' | translate | safe }}</li>
+    <li>{{'pages.pyiCriEscapeNoF2f.content.bullet2' | translate | safe }}</li>
+  </ul>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscapeNoF2f.content.subHeading2' | translate }}</h2>
+
+  <form id="pyiCriEscapeNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {{ govukRadios({
+    idPrefix: "journey",
+    name: "journey",
+    items: [
+              {
+                value: "next",
+                text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
+                hint: {text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
+
+              },
+              {
+                value: "end",
+                text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
+                hint: { text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
+              }
+            ]
+      })
+    }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">
+      {{'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+
+  <script nonce='{{ cspNonce }}'>
+    let disableSubmit = false;
+    function pyiCriEscapeNoF2fFormSubmit(event) {
+      if (!disableSubmit) {
+        disableSubmit = true;
+        document.getElementById('submitButton').disabled = true;
+      } else {
+        event.preventDefault();
+      }
+    }
+    document.getElementById("pyiCriEscapeNoF2fForm")
+      .addEventListener("submit", pyiCriEscapeNoF2fFormSubmit)
+  </script>
+{% endblock %}

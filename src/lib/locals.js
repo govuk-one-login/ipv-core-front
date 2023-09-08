@@ -7,9 +7,9 @@ const {
 const { generateNonce } = require("./strings");
 
 module.exports = {
-  getGTM: function (req, res, next) {
+  setLocals: function (req, res, next) {
     res.locals.gtmId = GTM_ID;
-    res.locals.scriptNonce = generateNonce();
+    res.locals.cspNonce = generateNonce();
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
     res.locals.assetPath = CDN_DOMAIN + "/assets";

@@ -10,6 +10,7 @@ const {
   handleJourneyAction,
   handleMultipleDocCheck,
   handleCriEscapeAction,
+  handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
 } = require("./middleware");
@@ -34,21 +35,23 @@ function formRadioButtonChecked(req, res, next) {
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
-
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
+
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
   handleMultipleDocCheck
 );
+
 router.post(
   "/page/page-f2f-multiple-doc-check",
   parseForm,
   csrfProtection,
   handleMultipleDocCheck
 );
+
 router.post(
   "/page/pyi-cri-escape",
   parseForm,
@@ -65,11 +68,13 @@ router.post(
 );
 
 router.post(
-  "/page/:pageId",
+  "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,
-  handleJourneyAction
+  handleCimitEscapeAction
 );
+
+router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 
 module.exports = router;

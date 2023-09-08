@@ -169,6 +169,52 @@
         }
       }
     },
+    "pyiSuggestOtherOptions": {
+      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
+        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
+        "bullet1": "iPhone 7 neu uwch",
+        "bullet2": "ffôn Android (er enghraifft, Samsung neu Google Pixel)",
+        "paragraph4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "subHeading2": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
+          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
+          "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
+        }
+      }
+    },
+    "pyiSuggestOtherOptionsNoF2f": {
+      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
+        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
+        "bullet1": "iPhone 7 neu uwch",
+        "bullet2": "ffôn Android (er enghraifft, Samsung neu Google Pixel)",
+        "subHeading2": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
+          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+        }
+      }
+    },
+    "pyiSuggestF2f": {
+      "title": "Profi eich hunaniaeth mewn ffordd arall",
+      "header": "Profi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Efallai y byddwch yn gallu profi eich hunaniaeth mewn Swyddfa Bost yn lle hynny. Parhewch i ddarganfod beth fydd angen i chi ei wneud."
+      }
+    },
     "pyiAnotherWay": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
@@ -393,14 +439,6 @@
         "list2": "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall"
       }
     },
-    "pageIpvSuccess": {
-      "title": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
-      "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
-      "content": {
-        "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
-        "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
-      }
-    },
     "pageIpvIdentityPostofficeStart": {
       "title": "Profi eich hunaniaeth mewn Swyddfa’r Post gydag un o’r mathau canlynol o ID gyda lun",
       "header": "Profi eich hunaniaeth mewn Swyddfa’r Post gydag un o’r mathau canlynol o ID gyda lun",
@@ -426,6 +464,14 @@
           "yes": "Oes",
           "no": "Na"
         }
+      }
+    },
+    "pageIpvSuccess": {
+      "title": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
+      "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
+      "content": {
+        "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
+        "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },
     "pageIpvIdentityDocumentStart": {

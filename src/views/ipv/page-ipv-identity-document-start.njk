@@ -64,6 +64,7 @@
       <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
     </li>
   </ul>
+
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -99,10 +100,27 @@
     {# Use the design system macro to output the radio button HTML #}
     {{ govukRadios(radioButtonForm) }}
 
+
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{ 'general.buttons.next' | translate }}
     </button>
   </form>
 
+
+  <script nonce='{{ cspNonce }}'>
+      let disableSubmit = false;
+
+      function identityDocumentStartPageOptionsFormSubmit(event) {
+          if (!disableSubmit) {
+              disableSubmit = true;
+              document.getElementById('submitButton').disabled = true;
+          } else {
+              event.preventDefault();
+          }
+      }
+
+      document.getElementById("identityDocumentStartPageOptionsForm")
+          .addEventListener("submit", identityDocumentStartPageOptionsFormSubmit);
+  </script>
 
 {% endblock %}

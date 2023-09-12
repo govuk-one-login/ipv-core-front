@@ -600,8 +600,16 @@ Resources:
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
+            - Name: GTM_ID_GA4
+              Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
             - Name: ANALYTICS_DOMAIN
-              Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+              Value: !If
+                - IsProduction
+                - "account.gov.uk"
+                - !If
+                  - IsNewDevelopment
+                  - !Sub "${Environment}.dev.identity.account.gov.uk"
+                  - !Sub "${Environment}.account.gov.uk"
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS

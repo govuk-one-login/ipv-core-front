@@ -104,5 +104,13 @@
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
-    <script nonce='{{ cspNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ googleTagManagerPageId }}")</script>
+    <script nonce='{{ cspNonce }}'>
+        window.DI.httpStatusCode = {{ statusCode | d(200) }};
+        window.DI.journeyState = "{{ googleTagManagerPageId }}";
+        window.DI.appInit({
+            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
+            uaContainerId: "{{ uaContainerId }}",
+            ga4ContainerId: "{{ ga4ContainerId }}",
+        });
+    </script>
 {% endblock %}

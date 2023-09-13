@@ -612,7 +612,7 @@ Resources:
                 - IsProduction
                 - "account.gov.uk"
                 - !If
-                  - IsNewDevelopment
+                  - IsDevelopment
                   - !Sub "${Environment}.dev.identity.account.gov.uk"
                   - !Sub "${Environment}.account.gov.uk"
             - Name: SESSION_SECRET

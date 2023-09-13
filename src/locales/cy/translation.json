@@ -377,7 +377,7 @@
       "header": "Parhau profi eich hunaniaeth ar-lein",
       "content": {
         "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein os:",
-        "bullet1": "oes gennych basbort y DU neu drwydded yrru y DU",
+        "bullet1": "have a UK passport or UK photocard driving licence",
         "bullet2": "rydych yn gallu ateb rhai cwestiynau diogelwch am bethau fel eich contract ffôn symudol, ac unrhyw gyfrifon banc, cardiau credyd, benthyciadau neu forgeisi sydd gennych o bosibl",
         "paragraph2": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
         "subHeading": "Os nad ydych yn siwr y byddwch yn gallu profi eich hunaniaeth ar-lein",
@@ -390,7 +390,7 @@
         "insetText": "Nid yw’r opsiwn hwn ar gael yn Gymraeg eto. Dewiswch un o’r opsiynau ar-lein os ydych am barhau yn Gymraeg.",
         "subHeading2": "Sut ydych chi am barhau?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU ac atebwch y cwestiynau diogelwch ar-lein",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Rhowch fanylion o’ch ID gyda llun ac ewch i Swyddfa’r Post"
@@ -474,10 +474,9 @@
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
-        "paragraph1": "Gallwch ddefnyddio trwydded yrru y DU os yw:",
-        "list1": "yn cynnwys eich llun",
+        "paragraph1": "You can use a full or provisional UK driving licence if it:",
+        "list1": "is a plastic photocard, not a paper licence",
         "list2": "heb ddod i ben",
-        "paragraph2": "Gall fod yn drwydded yrru y DU llawn neu dros dro.",
         "subHeading2": "Pasbort y DU",
         "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU. Os yw’ch pasbort y DU wedi dod i ben, gallwch barhau i’w ddefnyddio i brofi eich hunaniaeth hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
         "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodion biometrig",

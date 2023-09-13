@@ -377,7 +377,7 @@
       "header": "Continue proving your identity online",
       "content": {
         "paragraph1": "You can continue proving your identity online if you:",
-        "bullet1": "have a UK passport or UK driving licence",
+        "bullet1": "have a UK passport or UK photocard driving licence",
         "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
         "paragraph2": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "If you’re not sure you’ll be able to prove your identity online",
@@ -390,7 +390,7 @@
         "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
         "subHeading2": "How do you want to continue?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Enter details from your photo ID and go to a Post Office"
@@ -447,10 +447,9 @@
       "content": {
         "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
-        "paragraph1": "You can use a UK driving licence if it:",
-        "list1": "has your photo",
+        "paragraph1": "You can use a full or provisional UK driving licence if it:",
+        "list1": "is a plastic photocard, not a paper licence",
         "list2": "has not expired",
-        "paragraph2": "It can be a full or provisional UK driving licence.",
         "subHeading2": "UK passport",
         "paragraph3": "You can use any UK passport.",
         "subHeading3": "Non-UK passport with a biometric chip",

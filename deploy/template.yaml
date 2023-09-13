@@ -17,10 +17,6 @@ Parameters:
     Description: The name of the environment to deploy to.
     Type: String
     AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev.*))
-  ImageTag:
-    Description: The tag of core-front image to deploy in the task definition.
-    Type: String
-    Default: "none"
   VpcStackName:
     Description: >
       The name of the stack that defines the VPC in which this container will
@@ -35,8 +31,8 @@ Conditions:
   IsDevelopment: !Or
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
-  IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
-  IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
+  IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
@@ -142,20 +138,32 @@ Resources:
   # ssl cert
   DevSSLCert:
     Type: AWS::CertificateManager::Certificate
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainValidationOptions:
-        - DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
-          HostedZoneId: !ImportValue DevIdentityHostedZoneId
+        - DomainName: !If
+            - IsDev01
+            - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+            - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+          HostedZoneId: !If
+            - IsDev01
+            - !ImportValue Dev01IdentityHostedZoneId
+            - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       ValidationMethod: DNS
 
   # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
   DevApiDomain:
     Type: AWS::ApiGatewayV2::DomainName
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainNameConfigurations:
         - CertificateArn: !Ref DevSSLCert
           EndpointType: REGIONAL
@@ -163,7 +171,7 @@ Resources:
 
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     DependsOn: RestApiGwDeployment
     Properties:
       DomainName: !Ref DevApiDomain
@@ -174,11 +182,14 @@ Resources:
   # dns rcord
   DevDNSRecord:
     Type: AWS::Route53::RecordSet
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
       Type: A
       Name: !Ref DevApiDomain
-      HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      HostedZoneId: !If
+          - IsDev01
+          - !ImportValue Dev01IdentityHostedZoneId
+          - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
@@ -227,10 +238,8 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-        - DestinationSecurityGroupId: !If
-            - IsOldDevelopment
-            - !ImportValue InterfaceVpcEndpointSecurityGroupId
-            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+        - DestinationSecurityGroupId:
+            Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
           Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443
@@ -262,7 +271,7 @@ Resources:
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
     Properties:
       BucketName: !If
-        - IsNewDevelopment # existing bucket names exist in the current dev env
+        - IsDevelopment # existing bucket names exist in the current dev env
         - !Sub ipv-core-access-logs-${Environment}
         - !Sub ipv-core-${Environment}-access-logs
       AccessControl: LogDeliveryWrite
@@ -579,11 +588,7 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !If [
-              IsOldDevelopment,
-              !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
-              CONTAINER-IMAGE-PLACEHOLDER,
-            ] # Uses build account and ECR when not in development.
+          Image: CONTAINER-IMAGE-PLACEHOLDER,
           Name: app
           Environment:
             - Name: API_BASE_URL
@@ -768,7 +773,7 @@ Resources:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
         ConnectionId: !If
-          - IsNewDevelopment
+          - IsDevelopment
           - !Ref ApiGatewayVpcLink
           - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
         RequestParameters:
@@ -779,7 +784,7 @@ Resources:
         Uri: !Sub
           - "http://${LBDNS}/{proxy}"
           - LBDNS: !If
-            - IsNewDevelopment
+            - IsDevelopment
             - !GetAtt NetworkLoadBalancer.DNSName
             - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
 
@@ -837,7 +842,7 @@ Resources:
   #
 
   ApiGatewayVpcLink:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer
@@ -846,7 +851,7 @@ Resources:
         - !Ref NetworkLoadBalancer
 
   NetworkLoadBalancer:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
@@ -874,7 +879,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref NetworkLoadBalancerTargetGroup
       LoadBalancerArn: !If
-        - IsNewDevelopment
+        - IsDevelopment
         - !Ref NetworkLoadBalancer
         - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
       Port: 80
@@ -957,7 +962,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !If
-        - IsNewDevelopment
+        - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
       RetentionInDays: 30

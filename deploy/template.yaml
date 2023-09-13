@@ -563,7 +563,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
-      RetentionInDays: 14
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   ECSAccessLogsGroupSubscriptionFilter:
@@ -793,7 +793,7 @@ Resources:
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      RetentionInDays: 7
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
       Tags:
         - Key: Name
@@ -960,7 +960,7 @@ Resources:
         - IsNewDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 14
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   APIGWAccessLogsGroupSubscriptionFilter:

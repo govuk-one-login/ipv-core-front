@@ -8,7 +8,7 @@ window.DI.analyticsGa4.trackers = window.DI.analyticsGa4.trackers || {};
   let PageViewTracker = {
     init: function () {
       const data = {
-        event: "page_view",
+        event: "page_view_ga4",
         page_view: {
           language: this.getLanguage(),
           location: this.getLocation(),

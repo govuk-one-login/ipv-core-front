@@ -113,8 +113,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsDomain: ""
-      assetsPath: ""
+      assetsDomain: "https://assets.integration.account.gov.uk"
+      assetsPath: "https://assets.integration.account.gov.uk/core-front"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300

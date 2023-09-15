@@ -1,8 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Transform:
-  - 'AWS::CodeDeployBlueGreen'
-  
+# Transform:
+#   - 'AWS::CodeDeployBlueGreen'
+
 Description: >-
   This creates the necessary components to deploy IPV Core Front onto ECS
   Fargate within an existing VPC and private subnets (provided as parameters).
@@ -15,55 +15,43 @@ Description: >-
   Core Front egress to Core Back's API Gateway is via a NAT Gateway, not created
   here, which should have a route in the provided private subnets' route table.
 
-Metadata:
-  cfn-lint:
-    config:
-      regions:
-        - eu-west-2
-      ignore_checks:
-        - W2001
-
-Hooks:
-  CodeDeployBlueGreenHook:
-    Properties:
-      # LifecycleEventHooks:
-      #   # Dynamic values not supported in Hooks
-      #   BeforeAllowTraffic: !Sub "BeforeAllowTrafficLambda-${AWS::StackName}"
-      # ServiceRole: "HooksServiceRole-demo-app-sam3"
-      TrafficRoutingConfig:
-        Type: TimeBasedLinear
-        TimeBasedLinear:
-          StepPercentage: 50
-          BakeTimeMins: 1
-      Applications:
-        - Target:
-            Type: 'AWS::ECS::Service'
-            LogicalID: CoreFrontService
-          ECSAttributes:
-            TaskDefinitions:
-              - ECSServiceTaskDefinition
-              - GreenTaskDefinition
-            TaskSets:
-              - BlueTaskSet
-              - GreenTaskSet
-            TrafficRouting:
-              ProdTrafficRoute:
-                Type: 'AWS::ElasticLoadBalancingV2::Listener'
-                LogicalID: PrivateLoadBalancerListener
-              TargetGroups:
-                - PrivateLoadBalancerListenerTargetGroupECS
-                - PrivateLoadBalancerListenerTargetGroupECSGreen
-    Type: 'AWS::CodeDeploy::BlueGreen'
+# Hooks:
+#   CodeDeployBlueGreenHook:
+#     Properties:
+#       # LifecycleEventHooks:
+#       #   # Dynamic values not supported in Hooks
+#       #   BeforeAllowTraffic: !Sub "BeforeAllowTrafficLambda-${AWS::StackName}"
+#       # ServiceRole: "HooksServiceRole-demo-app-sam3"
+#       TrafficRoutingConfig:
+#         Type: TimeBasedLinear
+#         TimeBasedLinear:
+#           StepPercentage: 50
+#           BakeTimeMins: 1
+#       Applications:
+#         - Target:
+#             Type: 'AWS::ECS::Service'
+#             LogicalID: CoreFrontService
+#           ECSAttributes:
+#             TaskDefinitions:
+#               - ECSServiceTaskDefinition
+#               - GreenTaskDefinition
+#             TaskSets:
+#               - BlueTaskSet
+#               - GreenTaskSet
+#             TrafficRouting:
+#               ProdTrafficRoute:
+#                 Type: 'AWS::ElasticLoadBalancingV2::Listener'
+#                 LogicalID: PrivateLoadBalancerListener
+#               TargetGroups:
+#                 - PrivateLoadBalancerListenerTargetGroupECS
+#                 - PrivateLoadBalancerListenerTargetGroupECSGreen
+#     Type: 'AWS::CodeDeploy::BlueGreen'
 
 Parameters:
   Environment:
     Description: The name of the environment to deploy to.
     Type: String
     AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev.*))
-  ImageTag:
-    Description: The tag of core-front image to deploy in the task definition.
-    Type: String
-    Default: "none"
   VpcStackName:
     Description: >
       The name of the stack that defines the VPC in which this container will
@@ -73,6 +61,11 @@ Parameters:
     Description: "The ARN of the permissions boundary to apply when creating IAM roles"
     Type: String
     Default: "none"
+
+  VpcId: 
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc Id
+    Default: "/dev-canary/VpcId"
   PrivateSubnetA:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Private Subnet A Id
@@ -83,12 +76,54 @@ Parameters:
     Description: Private Subnet B Id
     Default: "/dev-canary/PrivateSubnetB" 
 
+  VpcCidr:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc Cidr
+    Default: "/dev-canary/VpcCidr"
+
+  VpcLinkId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc VpcLinkId
+    Default: "/dev-canary/VpcLinkId"
+
+
+  AWSServicesEndpointSecurityGroupId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc AWSServicesEndpointSecurityGroupId
+    Default: "/dev-canary/AWSServicesEndpointSecurityGroupId"
+
+  ApiGatewayVpcLinkId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc ApiGatewayVpcLinkId
+    Default: "/dev-canary/ApiGatewayVpcLinkId"
+
+  ApiGatewayVpcLinkTargetNLB:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc ApiGatewayVpcLinkTargetNLB
+    Default: "/dev-canary/ApiGatewayVpcLinkTargetNLB"
+
+  ApiGatewayVpcLinkTargetNLBDNS:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: Vpc ApiGatewayVpcLinkTargetNLBDNS
+    Default: "/dev-canary/ApiGatewayVpcLinkTargetNLBDNS"
+
+  Dev02IdentityHostedZoneId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: SSM parameter for Dev02IdentityHostedZoneId
+    Default: "/ipv-core/Dev02IdentityHostedZoneId" 
+
+  IPVCorePrivateAPIGatewayID:
+    Type: AWS::SSM::Parameter::Value<String>
+    Description: SSM parameter for IPVCorePrivateAPIGatewayID-dev-canary
+    Default: "/ipv-core/IPVCorePrivateAPIGatewayID-dev-canary" 
+
+
 Conditions:
   IsDevelopment: !Or
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
-  IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
-  IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
+  IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
@@ -222,25 +257,36 @@ Resources:
       TaskSetId: !GetAtt
         - BlueTaskSet
         - Id
-
   # ssl cert
   DevSSLCert:
     Type: AWS::CertificateManager::Certificate
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainValidationOptions:
-        - DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
-          #HostedZoneId: !ImportValue DevIdentityHostedZoneId
-          HostedZoneId: "Z02875671T1A8CF99MAXJ"
+        - DomainName: !If
+            - IsDev01
+            - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+            - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+          HostedZoneId: !If
+            - IsDev01
+            - !ImportValue Dev01IdentityHostedZoneId
+            #- !Ref Dev01IdentityHostedZoneId
+            - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       ValidationMethod: DNS
 
   # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
   DevApiDomain:
     Type: AWS::ApiGatewayV2::DomainName
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainNameConfigurations:
         - CertificateArn: !Ref DevSSLCert
           EndpointType: REGIONAL
@@ -248,7 +294,7 @@ Resources:
 
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     DependsOn: RestApiGwDeployment
     Properties:
       DomainName: !Ref DevApiDomain
@@ -259,12 +305,15 @@ Resources:
   # dns rcord
   DevDNSRecord:
     Type: AWS::Route53::RecordSet
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
       Type: A
       Name: !Ref DevApiDomain
-      #HostedZoneId: !ImportValue DevIdentityHostedZoneId
-      HostedZoneId: "Z02875671T1A8CF99MAXJ"
+      HostedZoneId: !If
+          - IsDev01
+          - !ImportValue Dev01IdentityHostedZoneId
+          #- !Ref Dev01IdentityHostedZoneId
+          - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
@@ -275,16 +324,13 @@ Resources:
     Properties:
       GroupDescription: >-
         Core Front LoadBalancer Security Group
-      GroupName: "PrivateLoadBalancerSG"
       SecurityGroupIngress:
-        - CidrIp: "10.9.0.0/16"
-            #Fn::ImportValue: !Sub ${VpcStackName}-VpcCidr
+        - CidrIp: !Ref VpcCidr
           Description: Allow vpc cidr ingress to port 80
           FromPort: 80
           IpProtocol: tcp
           ToPort: 80
-      VpcId: "vpc-0136567567243ebe7"
-        #Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      VpcId: !Ref VpcId
 
   PrivateLoadBalancerSGEgressToECSSecurityGroup:
     Type: "AWS::EC2::SecurityGroupEgress"
@@ -314,25 +360,18 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-        - DestinationSecurityGroupId: "sg-0b097b2076feb3cf2"
-        # !If
-            # - IsOldDevelopment
-            # - !ImportValue InterfaceVpcEndpointSecurityGroupId
-            #- Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
-          
+        - DestinationSecurityGroupId: !Ref AWSServicesEndpointSecurityGroupId
           Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
       SecurityGroupIngress:
-        - CidrIp: "10.9.0.0/16"
-            #Value: !Sub ${VpcStackName}-VpcCidr
+        - CidrIp: !Ref VpcCidr
           Description: Allow inbound traffic from vpc cidr to port 443
           FromPort: 443
           IpProtocol: tcp
           ToPort: 443
-      VpcId: "vpc-0136567567243ebe7"
-        # Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      VpcId: !Ref VpcId
 
   CoreFrontECSSecurityGroupIngressFromLoadBalancer:
     Type: "AWS::EC2::SecurityGroupIngress"
@@ -351,7 +390,7 @@ Resources:
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
     Properties:
       BucketName: !If
-        - IsNewDevelopment # existing bucket names exist in the current dev env
+        - IsDevelopment # existing bucket names exist in the current dev env
         - !Sub ipv-core-access-logs-${Environment}
         - !Sub ipv-core-${Environment}-access-logs
       AccessControl: LogDeliveryWrite
@@ -414,57 +453,38 @@ Resources:
       SecurityGroups:
         - !GetAtt PrivateLoadBalancerSG.GroupId
       Subnets:
-          - !Ref PrivateSubnetA
-          - !Ref PrivateSubnetB
-        #- Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        #- Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
+         - !Ref PrivateSubnetA
+         - !Ref PrivateSubnetB
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
-      # LoadBalancerAttributes:
-      #   - Key: routing.http.drop_invalid_header_fields.enabled
-      #     Value: true
-      #   - !If
-      #     - IsNotDevelopment
-      #     - Key: access_logs.s3.enabled
-      #       Value: true
-      #     - !Ref AWS::NoValue
-      #   - !If
-      #     - IsNotDevelopment
-      #     - Key: access_logs.s3.bucket
-      #       Value: !Ref AccessLogsBucket
-      #     - !Ref AWS::NoValue
-      #   - !If
-      #     - IsNotDevelopment
-      #     - Key: access_logs.s3.prefix
-      #       #Value: !Sub core-front-${Environment}
-      #       Value: "core-front-dev"
-      #     - !Ref AWS::NoValue
-      #   - !If
-      #     - IsNotDevelopment
-      #     - Key: deletion_protection.enabled
-      #       Value: true
-      #     - !Ref AWS::NoValue
-    # DependsOn: CoreFrontAccessLogsBucketPolicy
-
-  PrivateLoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
-    Properties:
-      HealthCheckEnabled: TRUE
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 2
-      HealthCheckIntervalSeconds: 5
-      HealthyThresholdCount: 2
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId: "vpc-0136567567243ebe7"
-        #Fn::ImportValue: !Sub ${VpcStackName}-VpcId
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 30
+      LoadBalancerAttributes:
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: true
+    #     - !If
+    #       - IsNotDevelopment
+    #         - Key: access_logs.s3.enabled
+    #           Value: true
+    #       - Key: access_logs.s3.enabled
+    #         Value: !Ref AWS::NoValue
+    #     - !If
+    #       - IsNotDevelopment
+    #         - Key: access_logs.s3.bucket
+    #           Value: !Ref AccessLogsBucket
+    #       - Key: access_logs.s3.bucket
+    #         Value: !Ref AWS::NoValue
+    #     - !If
+    #       - IsNotDevelopment
+    #         - Key: access_logs.s3.prefix
+    #           Value: !Sub core-front-${Environment}
+    #       - Key: access_logs.s3.prefix
+    #         Value: !Ref AWS::NoValue
+    #     - !If
+    #       - IsNotDevelopment
+    #         - Key: deletion_protection.enabled
+    #           Value: true
+    #       - Key:  deletion_protection.enabled
+    #         Value: !Ref AWS::NoValue
+    #  DependsOn: CoreFrontAccessLogsBucketPolicy
 
   PrivateLoadBalancerListenerTargetGroupECSGreen:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -480,11 +500,31 @@ Resources:
       Port: 80
       Protocol: HTTP
       TargetType: ip
-      VpcId: "vpc-0136567567243ebe7"
-        #Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      VpcId: !Ref VpcId
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
+
+  PrivateLoadBalancerListenerTargetGroupECS:
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 2
+      HealthCheckIntervalSeconds: 5
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId: !Ref VpcId
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 30
+
+
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -543,8 +583,6 @@ Resources:
             # - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       #CreateService error: TaskDefinition must be blank
       #TaskDefinition: !Ref ECSServiceTaskDefinition
-    DependsOn:
-      - PrivateLoadBalancerListener
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
@@ -678,7 +716,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
-      RetentionInDays: 14
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   ECSAccessLogsGroupSubscriptionFilter:
@@ -694,18 +732,14 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !If [
-              IsOldDevelopment,
-              !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
-              CONTAINER-IMAGE-PLACEHOLDER,
-            ] # Uses build account and ECR when not in development.
+          Image: CONTAINER-IMAGE-PLACEHOLDER
           Name: app
           Environment:
             - Name: API_BASE_URL
               Value: !Sub
                 - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
-                - APIGatewayId: "Test"
-                    # Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
+                - APIGatewayId: !Ref IPVCorePrivateAPIGatewayID
+                    #Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
                   Environment: !Ref Environment
             - Name: SESSION_TABLE_NAME
               Value: !Sub
@@ -715,8 +749,16 @@ Resources:
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
+            - Name: GTM_ID_GA4
+              Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
             - Name: ANALYTICS_DOMAIN
-              Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+              Value: !If
+                - IsProduction
+                - "account.gov.uk"
+                - !If
+                  - IsDev01
+                  - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+                  - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS
@@ -850,6 +892,14 @@ Resources:
         Types:
           - REGIONAL
 
+  ParameterIPVCoreFrontGatewayID:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
+      Type: String
+      Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
+      Description: SSM parameter IPVCoreFrontGatewayID
+
   RestApiGwDeployment:
     DependsOn: RestApiGatewayMethod
     Type: AWS::ApiGateway::Deployment
@@ -874,23 +924,22 @@ Resources:
       Integration:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
-        ConnectionId: !Ref ApiGatewayVpcLink
-        # !If
-        #   - IsNewDevelopment
-        #   - !Ref ApiGatewayVpcLink
-        #   - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
+        ConnectionId: !If
+          - IsDevelopment
+          - !Ref ApiGatewayVpcLink
+          - !Ref ApiGatewayVpcLinkId
+          #- Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
         RequestParameters:
           integration.request.path.proxy: "method.request.path.proxy"
           integration.request.header.x-forwarded-for: "method.request.header.x-forwarded-for"
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
-        # Uri: "http://LBDNS/{proxy}"
         Uri: !Sub
           - "http://${LBDNS}/{proxy}"
-          - LBDNS: !GetAtt NetworkLoadBalancer.DNSName
-          #!If
-            #- IsNewDevelopment
-            #- !GetAtt NetworkLoadBalancer.DNSName
+          - LBDNS: !If
+            - IsDevelopment
+            - !GetAtt NetworkLoadBalancer.DNSName
+            - !Ref ApiGatewayVpcLinkTargetNLBDNS
             #- Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
 
   RestProxyResource:
@@ -903,7 +952,7 @@ Resources:
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      RetentionInDays: 7
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
       Tags:
         - Key: Name
@@ -947,7 +996,7 @@ Resources:
   #
 
   ApiGatewayVpcLink:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer
@@ -956,7 +1005,7 @@ Resources:
         - !Ref NetworkLoadBalancer
 
   NetworkLoadBalancer:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
@@ -964,8 +1013,6 @@ Resources:
       Subnets:
          - !Ref PrivateSubnetA
          - !Ref PrivateSubnetB
-        # - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdA"
-        # - Fn::ImportValue: !Sub "${VpcStackName}-PrivateSubnetIdB"
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}-NetworkLoadBalancer"
@@ -985,11 +1032,11 @@ Resources:
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref NetworkLoadBalancerTargetGroup
-      LoadBalancerArn: !Ref NetworkLoadBalancer
-      # !If
-      #   - IsNewDevelopment
-      #   - !Ref NetworkLoadBalancer
-      #   - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
+      LoadBalancerArn: !If
+        - IsDevelopment
+        - !Ref NetworkLoadBalancer
+        - !Ref ApiGatewayVpcLinkTargetNLB
+        #- Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
       Port: 80
       Protocol: TCP
 
@@ -1005,9 +1052,7 @@ Resources:
       TargetType: alb
       HealthCheckEnabled: true
       HealthCheckPath: '/healthcheck'
-      VpcId: "vpc-0136567567243ebe7"
-        # Fn::ImportValue:
-        #   !Sub "${VpcStackName}-VpcId"
+      VpcId: !Ref VpcId
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}-NLBTarGrp"
@@ -1027,8 +1072,7 @@ Resources:
     Properties:
       ApiId: !Ref ApiGwHttpEndpoint
       IntegrationType: HTTP_PROXY
-      ConnectionId: "qyp8dh"
-        # Fn::ImportValue: !Sub "${VpcStackName}-VpcLinkId"
+      ConnectionId: !Ref VpcLinkId
       ConnectionType: VPC_LINK
       IntegrationMethod: ANY
       IntegrationUri: !Ref PrivateLoadBalancerListener
@@ -1070,10 +1114,10 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !If
-        - IsNewDevelopment
+        - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 14
+      RetentionInDays: 30
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   APIGWAccessLogsGroupSubscriptionFilter:

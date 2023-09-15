@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-# Transform:
-#   - 'AWS::CodeDeployBlueGreen'
+Transform:
+  - 'AWS::CodeDeployBlueGreen'
 
 Description: >-
   This creates the necessary components to deploy IPV Core Front onto ECS
@@ -15,37 +15,37 @@ Description: >-
   Core Front egress to Core Back's API Gateway is via a NAT Gateway, not created
   here, which should have a route in the provided private subnets' route table.
 
-# Hooks:
-#   CodeDeployBlueGreenHook:
-#     Properties:
-#       # LifecycleEventHooks:
-#       #   # Dynamic values not supported in Hooks
-#       #   BeforeAllowTraffic: !Sub "BeforeAllowTrafficLambda-${AWS::StackName}"
-#       # ServiceRole: "HooksServiceRole-demo-app-sam3"
-#       TrafficRoutingConfig:
-#         Type: TimeBasedLinear
-#         TimeBasedLinear:
-#           StepPercentage: 50
-#           BakeTimeMins: 1
-#       Applications:
-#         - Target:
-#             Type: 'AWS::ECS::Service'
-#             LogicalID: CoreFrontService
-#           ECSAttributes:
-#             TaskDefinitions:
-#               - ECSServiceTaskDefinition
-#               - GreenTaskDefinition
-#             TaskSets:
-#               - BlueTaskSet
-#               - GreenTaskSet
-#             TrafficRouting:
-#               ProdTrafficRoute:
-#                 Type: 'AWS::ElasticLoadBalancingV2::Listener'
-#                 LogicalID: PrivateLoadBalancerListener
-#               TargetGroups:
-#                 - PrivateLoadBalancerListenerTargetGroupECS
-#                 - PrivateLoadBalancerListenerTargetGroupECSGreen
-#     Type: 'AWS::CodeDeploy::BlueGreen'
+Hooks:
+  CodeDeployBlueGreenHook:
+    Properties:
+      # LifecycleEventHooks:
+      #   # Dynamic values not supported in Hooks
+      #   BeforeAllowTraffic: !Sub "BeforeAllowTrafficLambda-${AWS::StackName}"
+      # ServiceRole: "HooksServiceRole-demo-app-sam3"
+      TrafficRoutingConfig:
+        Type: TimeBasedLinear
+        TimeBasedLinear:
+          StepPercentage: 50
+          BakeTimeMins: 1
+      Applications:
+        - Target:
+            Type: 'AWS::ECS::Service'
+            LogicalID: CoreFrontService
+          ECSAttributes:
+            TaskDefinitions:
+              - ECSServiceTaskDefinition
+              - GreenTaskDefinition
+            TaskSets:
+              - BlueTaskSet
+              - GreenTaskSet
+            TrafficRouting:
+              ProdTrafficRoute:
+                Type: 'AWS::ElasticLoadBalancingV2::Listener'
+                LogicalID: PrivateLoadBalancerListener
+              TargetGroups:
+                - PrivateLoadBalancerListenerTargetGroupECS
+                - PrivateLoadBalancerListenerTargetGroupECSGreen
+    Type: 'AWS::CodeDeploy::BlueGreen'
 
 Parameters:
   Environment:
@@ -226,6 +226,37 @@ Mappings:
 
 Resources:
 
+  BlueTaskSet:
+    Type: 'AWS::ECS::TaskSet'
+    Properties:
+      Cluster: !Ref CoreFrontCluster
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsVpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !GetAtt CoreFrontECSSecurityGroup.GroupId
+          Subnets:
+            - !Ref PrivateSubnetA
+            - !Ref PrivateSubnetB
+      PlatformVersion: 1.4.0
+      Scale:
+        Unit: PERCENT
+        Value: 100
+      Service: !Ref CoreFrontService
+      TaskDefinition: !Ref ECSServiceTaskDefinition
+      LoadBalancers:
+        - ContainerName: app
+          ContainerPort: 8080
+          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+  PrimaryTaskSet:
+    Type: 'AWS::ECS::PrimaryTaskSet'
+    Properties:
+      Cluster: !Ref CoreFrontCluster
+      Service: !Ref CoreFrontService
+      TaskSetId: !GetAtt
+        - BlueTaskSet
+        - Id
   # ssl cert
   DevSSLCert:
     Type: AWS::CertificateManager::Certificate
@@ -735,18 +766,18 @@ Resources:
                   - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
             - Name: NODE_ENV
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
-            # - Name: RUM_APPLICATION_ID
-            #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
-            #       ""]
-            # - Name: RUM_ROLE_ARN
-            #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
-            #       "" ]
-            # - Name: RUM_COGNITO_POOL
-            #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
-            #       "" ]
+            - Name: RUM_APPLICATION_ID
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
+                  ""]
+            - Name: RUM_ROLE_ARN
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
+                  "" ]
+            - Name: RUM_COGNITO_POOL
+              Value: !If [ IsNotDevelopment,
+                  Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
+                  "" ]
             - Name: CDN_PATH
               Value: !FindInMap
                 - EnvironmentConfiguration
@@ -920,8 +951,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+      RetentionInDays: 30
       Tags:
         - Key: Name
           Value: ApiGatewayAccessLogGroup

@@ -62,19 +62,19 @@ Parameters:
     Type: String
     Default: "none"
 
-  VpcId: 
+  VpcId:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Vpc Id
     Default: "/dev-canary/VpcId"
   PrivateSubnetA:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Private Subnet A Id
-    Default: "/dev-canary/PrivateSubnetA"     
+    Default: "/dev-canary/PrivateSubnetA"
 
   PrivateSubnetB:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Private Subnet B Id
-    Default: "/dev-canary/PrivateSubnetB" 
+    Default: "/dev-canary/PrivateSubnetB"
 
   VpcCidr:
     Type: AWS::SSM::Parameter::Value<String>
@@ -110,12 +110,12 @@ Parameters:
   Dev02IdentityHostedZoneId:
     Type: AWS::SSM::Parameter::Value<String>
     Description: SSM parameter for Dev02IdentityHostedZoneId
-    Default: "/ipv-core/Dev02IdentityHostedZoneId" 
+    Default: "/ipv-core/Dev02IdentityHostedZoneId"
 
   IPVCorePrivateAPIGatewayID:
     Type: AWS::SSM::Parameter::Value<String>
     Description: SSM parameter for IPVCorePrivateAPIGatewayID-dev-canary
-    Default: "/ipv-core/IPVCorePrivateAPIGatewayID-dev-canary" 
+    Default: "/ipv-core/IPVCorePrivateAPIGatewayID-dev-canary"
 
 
 Conditions:
@@ -204,8 +204,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsDomain: ""
-      assetsPath: ""
+      assetsDomain: "https://assets.integration.account.gov.uk"
+      assetsPath: "https://assets.integration.account.gov.uk/core-front"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -226,37 +226,6 @@ Mappings:
 
 Resources:
 
-  BlueTaskSet:
-    Type: 'AWS::ECS::TaskSet'
-    Properties:
-      Cluster: !Ref CoreFrontCluster
-      LaunchType: FARGATE
-      NetworkConfiguration:
-        AwsVpcConfiguration:
-          AssignPublicIp: ENABLED
-          SecurityGroups:
-            - !GetAtt CoreFrontECSSecurityGroup.GroupId
-          Subnets:
-            - !Ref PrivateSubnetA
-            - !Ref PrivateSubnetB
-      PlatformVersion: 1.4.0
-      Scale:
-        Unit: PERCENT
-        Value: 100
-      Service: !Ref CoreFrontService
-      TaskDefinition: !Ref ECSServiceTaskDefinition
-      LoadBalancers:
-        - ContainerName: app
-          ContainerPort: 8080
-          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
-  PrimaryTaskSet:
-    Type: 'AWS::ECS::PrimaryTaskSet'
-    Properties:
-      Cluster: !Ref CoreFrontCluster
-      Service: !Ref CoreFrontService
-      TaskSetId: !GetAtt
-        - BlueTaskSet
-        - Id
   # ssl cert
   DevSSLCert:
     Type: AWS::CertificateManager::Certificate
@@ -274,7 +243,6 @@ Resources:
           HostedZoneId: !If
             - IsDev01
             - !ImportValue Dev01IdentityHostedZoneId
-            #- !Ref Dev01IdentityHostedZoneId
             - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       ValidationMethod: DNS
 
@@ -312,7 +280,6 @@ Resources:
       HostedZoneId: !If
           - IsDev01
           - !ImportValue Dev01IdentityHostedZoneId
-          #- !Ref Dev01IdentityHostedZoneId
           - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
@@ -714,10 +681,10 @@ Resources:
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
       RetentionInDays: 30
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
@@ -951,8 +918,9 @@ Resources:
 
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
-      RetentionInDays: 30
+      RetentionInDays: 7
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
       Tags:
         - Key: Name
@@ -1112,13 +1080,13 @@ Resources:
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !If
         - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
       RetentionInDays: 30
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter

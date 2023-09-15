@@ -570,10 +570,10 @@ Resources:
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
       RetentionInDays: 30
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
@@ -797,9 +797,9 @@ Resources:
 
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       RetentionInDays: 30
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
       Tags:
         - Key: Name
           Value: ApiGatewayAccessLogGroup
@@ -960,13 +960,13 @@ Resources:
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !If
         - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
       RetentionInDays: 30
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter

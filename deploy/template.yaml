@@ -1,7 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Transform:
-  - 'AWS::CodeDeployBlueGreen'
+  - AWS::Serverless-2016-10-31
+  - AWS::CodeDeployBlueGreen
 
 Description: >-
   This creates the necessary components to deploy IPV Core Front onto ECS
@@ -18,10 +19,10 @@ Description: >-
 Hooks:
   CodeDeployBlueGreenHook:
     Properties:
-      # LifecycleEventHooks:
-      #   # Dynamic values not supported in Hooks
-      #   BeforeAllowTraffic: !Sub "BeforeAllowTrafficLambda-${AWS::StackName}"
-      # ServiceRole: "HooksServiceRole-demo-app-sam3"
+      LifecycleEventHooks:
+        # Dynamic values not supported in Hooks
+        BeforeAllowTraffic: "BeforeAllowTrafficLambda-ipv-core-front"
+      ServiceRole: "HooksServiceRole-ipv-core-front"
       TrafficRoutingConfig:
         Type: TimeBasedLinear
         TimeBasedLinear:
@@ -226,6 +227,86 @@ Mappings:
 
 Resources:
 
+  HooksServiceRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: !Sub "HooksServiceRole-ipv-core-front"
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: codedeploy.amazonaws.com
+              Action:
+                - sts:AssumeRole
+        Policies:
+          - PolicyName: lambdaAccessPolicy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action: 'lambda:*'
+                  Resource: '*'
+        PermissionsBoundary: !If
+          - UsePermissionsBoundary
+          - !Ref PermissionsBoundary
+          - !Ref AWS::NoValue
+
+
+  BeforeAllowTrafficLambda:
+        Type: AWS::Serverless::Function
+        Properties:
+          FunctionName: "BeforeAllowTrafficLambda-ipv-core-front"
+          Runtime: nodejs14.x
+          Policies:
+            - AWSLambdaBasicExecutionRole
+            - Statement:
+                - Sid: CodeDeployPolicy
+                  Effect: Allow
+                  Action:
+                    - codedeploy:*
+                  Resource:
+                    "*"
+          Handler: index.handler
+          InlineCode: |
+            'use strict';
+             const aws = require('aws-sdk');
+             const codedeploy = new aws.CodeDeploy({apiVersion: '2014-10-06'});
+            
+            exports.handler = (event, context, callback) => {
+                  console.log("Entering BeforeAllowTraffic Hook!")
+                  //Read the DeploymentId from the event payload.
+                  var deploymentId = event.DeploymentId;
+            
+                  //Read the LifecycleEventHookExecutionId from the event payload
+                  var lifecycleEventHookExecutionId = event.LifecycleEventHookExecutionId;
+            
+                  /*
+                  Enter validation tests here.
+                  */
+            
+                  // Prepare the validation test results with the deploymentId and
+                  // the lifecycleEventHookExecutionId for CodeDeploy.
+                  var params = {
+                          deploymentId: deploymentId,
+                          lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
+                          status: 'Succeeded' // status can be 'Succeeded' or 'Failed'
+                    };
+            
+                  console.log("PARAMS "+ JSON.stringify(params))
+            
+                  // Pass CodeDeploy the prepared validation test results.
+                  codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
+                      if (err) {
+                          console.log(JSON.stringify(err))
+                          // Validation failed.
+                          callback('Validation test failed');
+                      } else {
+                        // Validation succeeded.
+                        callback(null, 'Validation test succeeded');
+                      }
+                  });
+            };
   BlueTaskSet:
     Type: 'AWS::ECS::TaskSet'
     Properties:
@@ -766,18 +847,18 @@ Resources:
                   - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
             - Name: NODE_ENV
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
-            - Name: RUM_APPLICATION_ID
-              Value: !If [ IsNotDevelopment,
-                  Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
-                  ""]
-            - Name: RUM_ROLE_ARN
-              Value: !If [ IsNotDevelopment,
-                  Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
-                  "" ]
-            - Name: RUM_COGNITO_POOL
-              Value: !If [ IsNotDevelopment,
-                  Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
-                  "" ]
+            # - Name: RUM_APPLICATION_ID
+            #   Value: !If [ IsNotDevelopment,
+            #       Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
+            #       ""]
+            # - Name: RUM_ROLE_ARN
+            #   Value: !If [ IsNotDevelopment,
+            #       Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
+            #       "" ]
+            # - Name: RUM_COGNITO_POOL
+            #   Value: !If [ IsNotDevelopment,
+            #       Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
+            #       "" ]
             - Name: CDN_PATH
               Value: !FindInMap
                 - EnvironmentConfiguration

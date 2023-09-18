@@ -87,7 +87,6 @@ Parameters:
     Description: Vpc VpcLinkId
     Default: "/dev-canary/VpcLinkId"
 
-
   AWSServicesEndpointSecurityGroupId:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Vpc AWSServicesEndpointSecurityGroupId
@@ -117,7 +116,6 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Description: SSM parameter for IPVCorePrivateAPIGatewayID-dev-canary
     Default: "/ipv-core/IPVCorePrivateAPIGatewayID-dev-canary"
-
 
 Conditions:
   IsDevelopment: !Or
@@ -179,8 +177,8 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
-      assetsDomain: "https://assets.build.account.gov.uk"
-      assetsPath: "https://assets.build.account.gov.uk/core-front"
+      assetsDomain: https://assets.build.account.gov.uk
+      assetsPath: https://assets.build.account.gov.uk/core-front
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -192,8 +190,8 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsDomain: "https://assets.staging.account.gov.uk"
-      assetsPath: "https://assets.staging.account.gov.uk/core-front"
+      assetsDomain: https://assets.staging.account.gov.uk
+      assetsPath: https://assets.staging.account.gov.uk/core-front
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -205,8 +203,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
-      assetsDomain: "https://assets.integration.account.gov.uk"
-      assetsPath: "https://assets.integration.account.gov.uk/core-front"
+      assetsDomain: https://assets.integration.account.gov.uk
+      assetsPath: https://assets.integration.account.gov.uk/core-front
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -228,85 +226,84 @@ Mappings:
 Resources:
 
   HooksServiceRole:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: !Sub "HooksServiceRole-ipv-core-front"
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: codedeploy.amazonaws.com
-              Action:
-                - sts:AssumeRole
-        Policies:
-          - PolicyName: lambdaAccessPolicy
-            PolicyDocument:
-              Version: "2012-10-17"
-              Statement:
-                - Effect: Allow
-                  Action: 'lambda:*'
-                  Resource: '*'
-        PermissionsBoundary: !If
-          - UsePermissionsBoundary
-          - !Ref PermissionsBoundary
-          - !Ref AWS::NoValue
-
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "HooksServiceRole-ipv-core-front"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codedeploy.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: lambdaAccessPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: 'lambda:*'
+                Resource: '*'
+      PermissionsBoundary: !If
+        - UsePermissionsBoundary
+        - !Ref PermissionsBoundary
+        - !Ref AWS::NoValue
 
   BeforeAllowTrafficLambda:
-        Type: AWS::Serverless::Function
-        Properties:
-          FunctionName: "BeforeAllowTrafficLambda-ipv-core-front"
-          Runtime: nodejs14.x
-          Policies:
-            - AWSLambdaBasicExecutionRole
-            - Statement:
-                - Sid: CodeDeployPolicy
-                  Effect: Allow
-                  Action:
-                    - codedeploy:*
-                  Resource:
-                    "*"
-          Handler: index.handler
-          InlineCode: |
-            'use strict';
-             const aws = require('aws-sdk');
-             const codedeploy = new aws.CodeDeploy({apiVersion: '2014-10-06'});
-            
-            exports.handler = (event, context, callback) => {
-                  console.log("Entering BeforeAllowTraffic Hook!")
-                  //Read the DeploymentId from the event payload.
-                  var deploymentId = event.DeploymentId;
-            
-                  //Read the LifecycleEventHookExecutionId from the event payload
-                  var lifecycleEventHookExecutionId = event.LifecycleEventHookExecutionId;
-            
-                  /*
-                  Enter validation tests here.
-                  */
-            
-                  // Prepare the validation test results with the deploymentId and
-                  // the lifecycleEventHookExecutionId for CodeDeploy.
-                  var params = {
-                          deploymentId: deploymentId,
-                          lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
-                          status: 'Succeeded' // status can be 'Succeeded' or 'Failed'
-                    };
-            
-                  console.log("PARAMS "+ JSON.stringify(params))
-            
-                  // Pass CodeDeploy the prepared validation test results.
-                  codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
-                      if (err) {
-                          console.log(JSON.stringify(err))
-                          // Validation failed.
-                          callback('Validation test failed');
-                      } else {
-                        // Validation succeeded.
-                        callback(null, 'Validation test succeeded');
-                      }
-                  });
-            };
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "BeforeAllowTrafficLambda-ipv-core-front"
+      Runtime: nodejs14.x
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            - Sid: CodeDeployPolicy
+              Effect: Allow
+              Action:
+                - codedeploy:*
+              Resource:
+                "*"
+      Handler: index.handler
+      InlineCode: |
+        'use strict';
+         const aws = require('aws-sdk');
+         const codedeploy = new aws.CodeDeploy({apiVersion: '2014-10-06'});
+
+        exports.handler = (event, context, callback) => {
+              console.log("Entering BeforeAllowTraffic Hook!")
+              //Read the DeploymentId from the event payload.
+              var deploymentId = event.DeploymentId;
+
+              //Read the LifecycleEventHookExecutionId from the event payload
+              var lifecycleEventHookExecutionId = event.LifecycleEventHookExecutionId;
+
+              /*
+              Enter validation tests here.
+              */
+
+              // Prepare the validation test results with the deploymentId and
+              // the lifecycleEventHookExecutionId for CodeDeploy.
+              var params = {
+                      deploymentId: deploymentId,
+                      lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
+                      status: 'Succeeded' // status can be 'Succeeded' or 'Failed'
+                };
+
+              console.log("PARAMS "+ JSON.stringify(params))
+
+              // Pass CodeDeploy the prepared validation test results.
+              codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
+                  if (err) {
+                      console.log(JSON.stringify(err))
+                      // Validation failed.
+                      callback('Validation test failed');
+                  } else {
+                    // Validation succeeded.
+                    callback(null, 'Validation test succeeded');
+                  }
+              });
+        };
   BlueTaskSet:
     Type: 'AWS::ECS::TaskSet'
     Properties:
@@ -381,7 +378,6 @@ Resources:
       ApiId: !Ref RestApiGateway
       Stage: !Ref ApiGatewayStage
 
-
   # dns rcord
   DevDNSRecord:
     Type: AWS::Route53::RecordSet
@@ -390,14 +386,14 @@ Resources:
       Type: A
       Name: !Ref DevApiDomain
       HostedZoneId: !If
-          - IsDev01
-          - !ImportValue Dev01IdentityHostedZoneId
-          - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
+        - IsDev01
+        - !ImportValue Dev01IdentityHostedZoneId
+        - !If [IsDev02, !Ref Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
 
- # Security Groups for the ECS service and load balancer
+  # Security Groups for the ECS service and load balancer
   PrivateLoadBalancerSG:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -488,41 +484,41 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
 
-  # CoreFrontAccessLogsBucketPolicy:
-  #   Type: AWS::S3::BucketPolicy
-  #   Properties:
-  #     Bucket: !Ref AccessLogsBucket
-  #     PolicyDocument:
-  #       Version: "2012-10-17"
-  #       Statement:
-  #         - Effect: Allow
-  #           Principal:
-  #             AWS:
-  #               - arn:aws:iam::652711504416:root
-  #           Action:
-  #             - s3:PutObject
-  #           Resource:
-  #             - !Sub arn:aws:s3:::${AccessLogsBucket}/core-front-${Environment}/AWSLogs/${AWS::AccountId}/*
-  #         - Effect: Allow
-  #           Principal:
-  #             Service: logging.s3.amazonaws.com
-  #           Action: s3:PutObject
-  #           Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
-  #           Condition:
-  #             StringEquals:
-  #               "aws:SourceAccount": !Sub "${AWS::AccountId}"
-  #         - Effect: Deny
-  #           Resource:
-  #             - !GetAtt AccessLogsBucket.Arn
-  #             - !Sub "${AccessLogsBucket.Arn}/*"
-  #           Principal: "*"
-  #           Action:
-  #             - "s3:*"
-  #           Condition:
-  #             Bool:
-  #               "aws:SecureTransport": false
-  #             NumericLessThan:
-  #               "s3:TlsVersion": "1.2"
+  CoreFrontAccessLogsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AccessLogsBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - arn:aws:iam::652711504416:root
+            Action:
+              - s3:PutObject
+            Resource:
+              - !Sub arn:aws:s3:::${AccessLogsBucket}/core-front-${Environment}/AWSLogs/${AWS::AccountId}/*
+          - Effect: Allow
+            Principal:
+              Service: logging.s3.amazonaws.com
+            Action: s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Sub "${AWS::AccountId}"
+          - Effect: Deny
+            Resource:
+              - !GetAtt AccessLogsBucket.Arn
+              - !Sub "${AccessLogsBucket.Arn}/*"
+            Principal: "*"
+            Action:
+              - "s3:*"
+            Condition:
+              Bool:
+                "aws:SecureTransport": false
+              NumericLessThan:
+                "s3:TlsVersion": "1.2"
 
   # Private Application Load Balancer
   PrivateLoadBalancer:
@@ -532,38 +528,52 @@ Resources:
       SecurityGroups:
         - !GetAtt PrivateLoadBalancerSG.GroupId
       Subnets:
-         - !Ref PrivateSubnetA
-         - !Ref PrivateSubnetB
+        - !Ref PrivateSubnetA
+        - !Ref PrivateSubnetB
       Type: application
       #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
       LoadBalancerAttributes:
         - Key: routing.http.drop_invalid_header_fields.enabled
           Value: true
-    #     - !If
-    #       - IsNotDevelopment
-    #         - Key: access_logs.s3.enabled
-    #           Value: true
-    #       - Key: access_logs.s3.enabled
-    #         Value: !Ref AWS::NoValue
-    #     - !If
-    #       - IsNotDevelopment
-    #         - Key: access_logs.s3.bucket
-    #           Value: !Ref AccessLogsBucket
-    #       - Key: access_logs.s3.bucket
-    #         Value: !Ref AWS::NoValue
-    #     - !If
-    #       - IsNotDevelopment
-    #         - Key: access_logs.s3.prefix
-    #           Value: !Sub core-front-${Environment}
-    #       - Key: access_logs.s3.prefix
-    #         Value: !Ref AWS::NoValue
-    #     - !If
-    #       - IsNotDevelopment
-    #         - Key: deletion_protection.enabled
-    #           Value: true
-    #       - Key:  deletion_protection.enabled
-    #         Value: !Ref AWS::NoValue
-    #  DependsOn: CoreFrontAccessLogsBucketPolicy
+          # - !If
+          #   - IsNotDevelopment
+          #   - Key: access_logs.s3.enabled
+          #     Value: true
+          #   - !Ref AWS::NoValue
+
+          #   - Key: access_logs.s3.bucket
+          #     Value: !Ref AccessLogsBucket
+          #   - Key: access_logs.s3.prefix
+          #     Value: !Sub core-front-${Environment}
+          #   - Key: deletion_protection.enabled
+          #     Value: true
+          # - !Ref AWS::NoValue
+          # - !If
+          #   - IsNotDevelopment
+          #   - Key: access_logs.s3.enabled
+          #     Value: true
+          # - false
+
+          # - !If
+          #   - IsNotDevelopment
+          #   - Key: access_logs.s3.bucket
+          #     Value: !Ref AccessLogsBucket
+          #   - !Ref AWS::NoValue
+          # - Key: access_logs.s3.bucket
+          #   Value: !Ref AWS::NoValue
+      #     - !If
+      #       - IsNotDevelopment
+      #         - Key: access_logs.s3.prefix
+      #           Value: !Sub core-front-${Environment}
+      #       - Key: access_logs.s3.prefix
+      #         Value: !Ref AWS::NoValue
+      #     - !If
+      #       - IsNotDevelopment
+      #         - Key: deletion_protection.enabled
+      #           Value: true
+      #       - Key:  deletion_protection.enabled
+      #         Value: !Ref AWS::NoValue
+      # DependsOn: CoreFrontAccessLogsBucketPolicy
 
   PrivateLoadBalancerListenerTargetGroupECSGreen:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -604,7 +614,6 @@ Resources:
           Value: 30
 
 
-
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
@@ -629,37 +638,41 @@ Resources:
     Type: "AWS::ECS::Service"
     Properties:
       Cluster: !Ref CoreFrontCluster
-      # DeploymentConfiguration:
-      #   MaximumPercent: 500
-      #   MinimumHealthyPercent: 50
+
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+      # Deployment circuit breaker feature is only supported with ECS (rolling update) deployment controller
       #   DeploymentCircuitBreaker:
       #     Enable: true
       #     Rollback: true
       DeploymentController:
         Type: EXTERNAL
 
-      # DesiredCount: !FindInMap
-      #   - EnvironmentConfiguration
-      #   - !Ref AWS::AccountId
-      #   - desiredTaskCount
-      # EnableECSManagedTags: false
-      # HealthCheckGracePeriodSeconds: 30
-      # LaunchType: FARGATE
-      # CreateService error: LoadBalancers must be empty or null
-      # LoadBalancers:
-      #   - ContainerName: app
-      #     ContainerPort: 8080
-      #     TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
-      # NetworkConfiguration:
-      #   AwsvpcConfiguration:
-      #     AssignPublicIp: DISABLED
-      #     SecurityGroups:
-      #       - !GetAtt CoreFrontECSSecurityGroup.GroupId
-      #     Subnets:
-      #       - "subnet-072de036da209be98"
-      #       - "subnet-03246ffc92a0e0616"
-            # - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
-            # - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
+      DesiredCount: !FindInMap
+        - EnvironmentConfiguration
+        - !Ref AWS::AccountId
+        - desiredTaskCount
+      EnableECSManagedTags: false
+      HealthCheckGracePeriodSeconds: 30
+        #CreateService error: LaunchType must be blank.
+        #LaunchType: FARGATE
+        # CreateService error: LoadBalancers must be empty or null
+        # LoadBalancers:
+        #   - ContainerName: app
+        #     ContainerPort: 8080
+        #     TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+        ## UpdateService error: Unable to update network parameters on services with a EXTERNAL deployment controller. Create a new task set to update the parameter.
+        # NetworkConfiguration:
+        #   AwsvpcConfiguration:
+        #     AssignPublicIp: DISABLED
+        #     SecurityGroups:
+        #       - !GetAtt CoreFrontECSSecurityGroup.GroupId
+        #     Subnets:
+        #       - "subnet-072de036da209be98"
+        #       - "subnet-03246ffc92a0e0616"
+        # - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+      # - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       #CreateService error: TaskDefinition must be blank
       #TaskDefinition: !Ref ECSServiceTaskDefinition
 
@@ -790,7 +803,6 @@ Resources:
       Period: "60"
       Threshold: "60"
 
-
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
@@ -816,9 +828,9 @@ Resources:
           Environment:
             - Name: API_BASE_URL
               Value: !Sub
-                - "https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
+                - https://${APIGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}
                 - APIGatewayId: !Ref IPVCorePrivateAPIGatewayID
-                    #Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
+                  #Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
                   Environment: !Ref Environment
             - Name: SESSION_TABLE_NAME
               Value: !Sub
@@ -849,16 +861,18 @@ Resources:
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
             # - Name: RUM_APPLICATION_ID
             #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
+            #       !ImportValue: !Sub "AppMonitorId-${Environment}",
             #       ""]
             # - Name: RUM_ROLE_ARN
             #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "CognitoRoleARN-${Environment}",
-            #       "" ]
+            #       !ImportValue: !Sub "CognitoRoleARN-${Environment}",
+            #       ""]
             # - Name: RUM_COGNITO_POOL
             #   Value: !If [ IsNotDevelopment,
-            #       Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
-            #       "" ]
+            #       !ImportValue: !Sub "CognitoPoolID-${Environment}",
+            #       ""]
+            - Name: TEST
+              Value: "Test"
             - Name: CDN_PATH
               Value: !FindInMap
                 - EnvironmentConfiguration
@@ -1014,11 +1028,11 @@ Resources:
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
         Uri: !Sub
-          - "http://${LBDNS}/{proxy}"
+          - http://${LBDNS}/{proxy}
           - LBDNS: !If
-            - IsDevelopment
-            - !GetAtt NetworkLoadBalancer.DNSName
-            - !Ref ApiGatewayVpcLinkTargetNLBDNS
+              - IsDevelopment
+              - !GetAtt NetworkLoadBalancer.DNSName
+              - !Ref ApiGatewayVpcLinkTargetNLBDNS
             #- Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
 
   RestProxyResource:
@@ -1090,8 +1104,8 @@ Resources:
       Scheme: internal
       Type: network
       Subnets:
-         - !Ref PrivateSubnetA
-         - !Ref PrivateSubnetB
+        - !Ref PrivateSubnetA
+        - !Ref PrivateSubnetB
       Tags:
         - Key: Name
           Value: !Sub "${AWS::StackName}-NetworkLoadBalancer"
@@ -1485,3 +1499,5 @@ Outputs:
     # Export:
     #   Name: !Sub "${AWS::StackName}-IPVCoreFrontRestGatewayStage"
     Value: !Ref ApiGatewayStage
+
+

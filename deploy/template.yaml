@@ -1304,10 +1304,10 @@ Resources:
     Properties:
       AlarmName: FrontLoadBalancer5xxAlarm
       ActionsEnabled: true
-      # AlarmActions:
-      #   - !ImportValue sns-topics-AlarmTopic
-      # OKActions:
-      #   - !ImportValue sns-topics-AlarmTopic
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: []
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1337,10 +1337,10 @@ Resources:
     Properties:
       AlarmName: FrontTargetGroup5xxAlarm
       ActionsEnabled: true
-      # AlarmActions:
-      #   - !ImportValue sns-topics-AlarmTopic
-      # OKActions:
-      #   - !ImportValue sns-topics-AlarmTopic
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: [ ]
       EvaluationPeriods: 2
       DatapointsToAlarm: 2

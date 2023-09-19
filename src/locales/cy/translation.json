@@ -42,7 +42,8 @@
         "buttonAcceptText": "Derbyn cwcis dadansoddi",
         "buttonRejectText": "Gwrthod cwcis dadansoddi",
         "linkViewCookies": "Gweld cwcis",
-        "cookieBannerHideLink": "Cuddio’r neges yma"
+        "cookieBannerHideLinkText": "Cuddio’r neges yma",
+        "cookieBannerHideLinkLabel": "TEMP Cuddio’r neges cwci"
       }
     },
     "header": {

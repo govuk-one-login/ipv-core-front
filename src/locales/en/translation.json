@@ -338,23 +338,6 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
       }
     },
-    "pagePassportDocCheck": {
-      "title": "Enter your passport details and answer security questions",
-      "header": "Enter your passport details and answer security questions",
-      "content": {
-        "paragraph1": "To prove your identity this way, you’ll need:",
-        "bullet1": "your UK passport details (including your name, passport number and the date your passport expires)",
-        "bullet2": "your current home address (you might also need your previous address if you’ve recently moved)",
-        "bullet3": "to answer some questions that only you should know the answers to",
-        "subHeading": "What would you like to do?",
-        "formRadioButtons": {
-          "continueButtonText": "Continue to prove your identity this way",
-          "continueButtonHint": "You’ll need a UK passport",
-          "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonHint": "Continue to the service you want to use and look for other ways to prove your identity"
-        }
-      }
-    },
     "pageMultipleDocCheck": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",

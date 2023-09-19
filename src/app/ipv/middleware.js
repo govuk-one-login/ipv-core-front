@@ -225,7 +225,6 @@ module.exports = {
         case "page-ipv-pending":
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
-        case "page-passport-doc-check":
         case "page-multiple-doc-check":
         case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":

@@ -338,23 +338,6 @@
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
       }
     },
-    "pagePassportDocCheck": {
-      "title": "Rhowch fanylion eich pasbort ac atebwch y cwestiynau diogelwch",
-      "header": "Rhowch fanylion eich pasbort ac atebwch y cwestiynau diogelwch",
-      "content": {
-        "paragraph1": "I brofi pwy ydych chi yn y ffordd hyn, byddwch angen:",
-        "bullet1": "manylion eich pasbort y DU (gan gynnwys eich enw, rhif pasbort a’r dyddiad mae eich pasbort yn dod i ben)",
-        "bullet2": "cyfeiriad eich cartref presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)",
-        "bullet3": "ateb rhai cwestiynau mai dim ond chi ddylai wybod yr atebion iddynt",
-        "subHeading": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "continueButtonText": "Parhau i brofi pwy ydych chi yn y ffordd hyn",
-          "continueButtonHint": "Byddwch angen pasbort y DU",
-          "otherWayButtonText": "Profi pwy ydych chi mewn ffordd arall",
-          "otherWayButtonHint": "Parhau i’r gwasanaeth rydych am ei ddefnyddio ac edrych am ffyrdd eraill o brofi pwy ydych"
-        }
-      }
-    },
     "pageMultipleDocCheck": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",

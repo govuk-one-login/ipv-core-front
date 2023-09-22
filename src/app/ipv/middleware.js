@@ -30,6 +30,7 @@ const { generateHTMLofAddress } = require("../shared/addressHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
+const loggerHelper = require("../shared/loggerHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {

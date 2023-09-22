@@ -62,18 +62,4 @@
       {{ 'general.buttons.next' | translate }}
     </button>
   </form>
-
-  <script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function identityPostofficeStartPageOptionsFormSubmit(event) {
-      if (!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-      } else {
-        event.preventDefault();
-      }
-    }
-    document.getElementById("identityPostofficeStartPageOptionsForm")
-      .addEventListener("submit", identityPostofficeStartPageOptionsFormSubmit)
-  </script>
 {% endblock %}

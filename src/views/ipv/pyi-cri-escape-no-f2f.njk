@@ -48,17 +48,4 @@
     </a>
   </p>
 
-  <script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function pyiCriEscapeNoF2fFormSubmit(event) {
-      if (!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-      } else {
-        event.preventDefault();
-      }
-    }
-    document.getElementById("pyiCriEscapeNoF2fForm")
-      .addEventListener("submit", pyiCriEscapeNoF2fFormSubmit)
-  </script>
 {% endblock %}

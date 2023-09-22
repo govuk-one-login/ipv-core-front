@@ -37,17 +37,4 @@
     </a>
   </p>
 
-  <script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function pyiEscapeFormSubmit(event) {
-        if (!disableSubmit) {
-          disableSubmit = true;
-          document.getElementById('submitButton').disabled = true;
-        } else {
-          event.preventDefault();
-        }
-    }
-    document.getElementById("pyiEscapeForm")
-      .addEventListener("submit", pyiEscapeFormSubmit);
-  </script>
 {% endblock %}

@@ -21,19 +21,5 @@
     </button>
   </form>
 
-  <script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function timeoutRecoverableFormSubmit(event) {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-      } else {
-        event.preventDefault();
-      }
-    }
-    document.getElementById("timeoutRecoverableForm")
-      .addEventListener("submit", timeoutRecoverableFormSubmit);
-  </script>
-
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

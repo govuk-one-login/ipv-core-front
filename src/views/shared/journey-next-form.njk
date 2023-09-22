@@ -10,18 +10,3 @@
       {% endif %}
     </button>
 </form>
-
-<script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function nextFormSubmit(event) {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-      } else {
-        event.preventDefault();
-      }
-      return false;
-    }
-    document.getElementById("nextForm")
-      .addEventListener("submit", nextFormSubmit);
-</script>

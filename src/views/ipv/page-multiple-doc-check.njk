@@ -43,18 +43,4 @@
       {{'general.buttons.next' | translate }}
     </button>
   </form>
-
-  <script nonce='{{ cspNonce }}'>
-    let disableSubmit = false;
-    function passportMultipleDocCheckingFormSubmit(event) {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-      } else {
-        event.preventDefault();
-      }
-    }
-    document.getElementById("passportMultipleDocCheckingForm")
-      .addEventListener("submit", passportMultipleDocCheckingFormSubmit);
-  </script>
 {% endblock %}

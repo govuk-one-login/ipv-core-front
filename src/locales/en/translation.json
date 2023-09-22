@@ -42,7 +42,8 @@
         "buttonAcceptText": "Accept analytics cookies",
         "buttonRejectText": "Reject analytics cookies",
         "linkViewCookies": "View cookies",
-        "cookieBannerHideLink": "Hide this message"
+        "cookieBannerHideLinkText": "Hide this message",
+        "cookieBannerHideLinkLabel": "Hide cookie message"
       }
     },
     "header": {

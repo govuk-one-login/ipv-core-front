@@ -244,66 +244,76 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: 'lambda:*'
-                Resource: '*'
+                Resource: !GetAtt  BeforeAllowTrafficLambda.Arn
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
 
   BeforeAllowTrafficLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: "BeforeAllowTrafficLambda-ipv-core-front"
-      Runtime: nodejs14.x
-      Policies:
-        - AWSLambdaBasicExecutionRole
-        - Statement:
-            - Sid: CodeDeployPolicy
-              Effect: Allow
-              Action:
-                - codedeploy:*
-              Resource:
-                "*"
-      Handler: index.handler
-      InlineCode: |
-        'use strict';
-         const aws = require('aws-sdk');
-         const codedeploy = new aws.CodeDeploy({apiVersion: '2014-10-06'});
+        Type: AWS::Serverless::Function
+        # checkov:skip=CKV_AWS_116: DLQ is not appropriate for a Lambda invoked by an API
+        # checkov:skip=CKV_AWS_117: Internet access not required
+        Metadata:
+          checkov:
+            skip:
+             - id: "CKV_AWS_116"
+               comment: "DLQ is not appropriate for a Lambda invoked by an API"
+             - id: "CKV_AWS_117"
+               comment: "Internet access not required"
+        Properties:
+          FunctionName: "BeforeAllowTrafficLambda-ipv-core-front"
+          Runtime: nodejs14.x
+          Policies:
+            - AWSLambdaBasicExecutionRole
+            - Statement:
+                - Sid: CodeDeployPolicy
+                  Effect: Allow
+                  Action:
+                    - codedeploy:*
+                  Resource:
+                    "*"
+          Handler: index.handler
+          ReservedConcurrentExecutions: 5
+          InlineCode: |
+            'use strict';
+             const aws = require('aws-sdk');
+             const codedeploy = new aws.CodeDeploy({apiVersion: '2014-10-06'});
 
-        exports.handler = (event, context, callback) => {
-              console.log("Entering BeforeAllowTraffic Hook!")
-              //Read the DeploymentId from the event payload.
-              var deploymentId = event.DeploymentId;
+            exports.handler = (event, context, callback) => {
+                  console.log("Entering BeforeAllowTraffic Hook!")
+                  //Read the DeploymentId from the event payload.
+                  var deploymentId = event.DeploymentId;
 
-              //Read the LifecycleEventHookExecutionId from the event payload
-              var lifecycleEventHookExecutionId = event.LifecycleEventHookExecutionId;
+                  //Read the LifecycleEventHookExecutionId from the event payload
+                  var lifecycleEventHookExecutionId = event.LifecycleEventHookExecutionId;
 
-              /*
-              Enter validation tests here.
-              */
+                  /*
+                  Enter validation tests here.
+                  */
 
-              // Prepare the validation test results with the deploymentId and
-              // the lifecycleEventHookExecutionId for CodeDeploy.
-              var params = {
-                      deploymentId: deploymentId,
-                      lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
-                      status: 'Succeeded' // status can be 'Succeeded' or 'Failed'
-                };
+                  // Prepare the validation test results with the deploymentId and
+                  // the lifecycleEventHookExecutionId for CodeDeploy.
+                  var params = {
+                          deploymentId: deploymentId,
+                          lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
+                          status: 'Succeeded' // status can be 'Succeeded' or 'Failed'
+                    };
 
-              console.log("PARAMS "+ JSON.stringify(params))
+                  console.log("PARAMS "+ JSON.stringify(params))
 
-              // Pass CodeDeploy the prepared validation test results.
-              codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
-                  if (err) {
-                      console.log(JSON.stringify(err))
-                      // Validation failed.
-                      callback('Validation test failed');
-                  } else {
-                    // Validation succeeded.
-                    callback(null, 'Validation test succeeded');
-                  }
-              });
-        };
+                  // Pass CodeDeploy the prepared validation test results.
+                  codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
+                      if (err) {
+                          console.log(JSON.stringify(err))
+                          // Validation failed.
+                          callback('Validation test failed');
+                      } else {
+                        // Validation succeeded.
+                        callback(null, 'Validation test succeeded');
+                      }
+                  });
+            };
   BlueTaskSet:
     Type: 'AWS::ECS::TaskSet'
     Properties:
@@ -1484,6 +1494,7 @@ Outputs:
     Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
   IPVCoreFrontGatewayID:
     Description: Core Front API Gateway ID
+    # Export not supported with ECS bluegreen
     # Export:
     #   Name: !Sub "${AWS::StackName}-IPVCoreFrontGatewayID"
     Value: !Ref ApiGwHttpEndpoint

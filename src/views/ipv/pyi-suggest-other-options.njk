@@ -49,19 +49,4 @@
     </a>
   </p>
 
-  <script nonce="{{ cspNonce }}">
-      let disableSubmit = false;
-
-      function pyiSuggestOtherOptionsFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
-      }
-      document.getElementById("nextForm")
-          .addEventListener("submit", nextFormSubmit);
-
-  </script>
 {% endblock %}

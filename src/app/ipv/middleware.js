@@ -30,6 +30,8 @@ const { generateHTMLofAddress } = require("../shared/addressHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
+const fs = require('fs'); 
+const path = require("path");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -187,7 +189,16 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
+      const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
+
+      if (currentEnvironment === "development") {
+        return res.render(`ipv/${sanitize(pageId)}.njk`, {
+          pageId,
+          csrfToken: req.csrfToken(),
+        });
+      }
+
       if (req.session?.ipvSessionId === null) {
         logError(
           req,
@@ -392,6 +403,26 @@ module.exports = {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,
     });
+  },
+  allTemplates: async (req, res, next) => {
+    try {
+      const directoryPath = "/app/src/views/ipv";
+  
+      fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+          throw new Error('Unable to scan directory: ' + err);
+        } 
+  
+        // Remove the .njk extension from file names
+        const templatesWithoutExtension = files.map(file => path.parse(file).name);
+  
+        res.render("ipv/all-templates.njk", {
+          allTemplates: templatesWithoutExtension
+        });
+      });
+    } catch (error) {
+      next(error);
+    }
   },
   validateFeatureSet: async (req, res, next) => {
     try {

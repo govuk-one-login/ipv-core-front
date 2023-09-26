@@ -13,6 +13,7 @@ const {
   handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
+  allTemplates,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -25,6 +26,11 @@ function checkLanguage(req, res, next) {
   res.locals.isWelsh = lang === "cy";
 
   next();
+}
+
+const currentEnvironment = process.env.NODE_ENV;
+if (currentEnvironment !== "development") {
+  router.get("/all-templates", allTemplates, handleJourneyPage);
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

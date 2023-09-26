@@ -1,3 +1,5 @@
+const { generateHTMLofAddress } = require("./addressHelper");
+
 module.exports = {
   samplePersistedUserDetails: {
     data: {
@@ -46,5 +48,24 @@ module.exports = {
         },
       ],
     },
+  },
+  generateUserDetails: (userDetailsResponse, i18n) => {
+    return {
+      name: userDetailsResponse.data?.name,
+      dateOfBirth: userDetailsResponse.data?.dateOfBirth,
+      addresses: userDetailsResponse.data?.addresses.map((address, idx) => {
+        const addressDetailHtml = generateHTMLofAddress(address);
+        const label =
+          idx === 0
+            ? i18n.t(
+                "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
+              )
+            : `${i18n.t(
+                "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
+              )} ${idx}`;
+
+        return { label, addressDetailHtml };
+      }),
+    };
   },
 };

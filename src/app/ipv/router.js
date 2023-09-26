@@ -29,8 +29,8 @@ function checkLanguage(req, res, next) {
 }
 
 const currentEnvironment = process.env.NODE_ENV;
-if (currentEnvironment !== "development") {
-  router.get("/all-templates", allTemplates, handleJourneyPage);
+if (currentEnvironment === "development") {
+  router.get("/all-templates", allTemplates);
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

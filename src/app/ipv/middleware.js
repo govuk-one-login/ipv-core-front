@@ -26,11 +26,14 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
-const { generateHTMLofAddress } = require("../shared/addressHelper");
+const {
+  samplePersistedUserDetails,
+  generateUserDetails,
+} = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
-const fs = require('fs'); 
+const fs = require("fs");
 const path = require("path");
 
 async function journeyApi(action, req) {
@@ -193,10 +196,22 @@ module.exports = {
       const { pageId } = req.params;
 
       if (currentEnvironment === "development") {
-        return res.render(`ipv/${sanitize(pageId)}.njk`, {
-          pageId,
-          csrfToken: req.csrfToken(),
-        });
+        if (pageId === "page-ipv-reuse") {
+          let userDetailsResponse = samplePersistedUserDetails;
+          const i18n = req.i18n;
+          const userDetails = generateUserDetails(userDetailsResponse, i18n);
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        } else {
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        }
       }
 
       if (req.session?.ipvSessionId === null) {
@@ -263,28 +278,8 @@ module.exports = {
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
             generateAxiosConfig(req)
           );
-
           const i18n = req.i18n;
-
-          const userDetails = {
-            name: userDetailsResponse.data?.name,
-            dateOfBirth: userDetailsResponse.data?.dateOfBirth,
-            addresses: userDetailsResponse.data?.addresses.map(
-              (address, idx) => {
-                const addressDetailHtml = generateHTMLofAddress(address);
-                const label =
-                  idx === 0
-                    ? i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
-                      )
-                    : `${i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
-                      )} ${idx}`;
-
-                return { label, addressDetailHtml };
-              }
-            ),
-          };
+          const userDetails = generateUserDetails(userDetailsResponse, i18n);
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             userDetails,
@@ -407,17 +402,19 @@ module.exports = {
   allTemplates: async (req, res, next) => {
     try {
       const directoryPath = "/app/src/views/ipv";
-  
+
       fs.readdir(directoryPath, function (err, files) {
         if (err) {
-          throw new Error('Unable to scan directory: ' + err);
-        } 
-  
+          return next(err);
+        }
+
         // Remove the .njk extension from file names
-        const templatesWithoutExtension = files.map(file => path.parse(file).name);
-  
+        const templatesWithoutExtension = files.map(
+          (file) => path.parse(file).name
+        );
+
         res.render("ipv/all-templates.njk", {
-          allTemplates: templatesWithoutExtension
+          allTemplates: templatesWithoutExtension,
         });
       });
     } catch (error) {

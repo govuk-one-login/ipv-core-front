@@ -119,7 +119,9 @@ async function handleBackendResponse(req, res, backendResponse) {
       requestId: req.requestId,
     });
     req.session.currentPage = backendResponse.page;
-    return res.redirect(`/ipv/page/${backendResponse.page}`);
+    await req.session.save(function(err) {
+      return res.redirect(`/ipv/page/${backendResponse.page}`);
+    });
   }
 }
 

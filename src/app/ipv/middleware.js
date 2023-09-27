@@ -195,7 +195,10 @@ module.exports = {
       const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
 
-      if (currentEnvironment === "development") {
+      if (
+        currentEnvironment === "development" &&
+        req.session.visitedAllTemplates
+      ) {
         if (pageId === "page-ipv-reuse") {
           let userDetailsResponse = samplePersistedUserDetails;
           const i18n = req.i18n;
@@ -412,6 +415,8 @@ module.exports = {
         const templatesWithoutExtension = files.map(
           (file) => path.parse(file).name
         );
+
+        req.session.visitedAllTemplates = true;
 
         res.render("ipv/all-templates.njk", {
           allTemplates: templatesWithoutExtension,

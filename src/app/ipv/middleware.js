@@ -3,6 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+  DEVELOPMENT_ENVIRONMENT,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -196,13 +197,14 @@ module.exports = {
       const { pageId } = req.params;
 
       if (
-        currentEnvironment === "development" &&
+        currentEnvironment === DEVELOPMENT_ENVIRONMENT &&
         req.session.visitedAllTemplates
       ) {
         if (pageId === "page-ipv-reuse") {
-          let userDetailsResponse = samplePersistedUserDetails;
-          const i18n = req.i18n;
-          const userDetails = generateUserDetails(userDetailsResponse, i18n);
+          const userDetails = generateUserDetails(
+            samplePersistedUserDetails,
+            req.i18n
+          );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             userDetails,
@@ -277,12 +279,14 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         case "page-ipv-reuse": {
-          let userDetailsResponse = await axios.get(
+          const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
             generateAxiosConfig(req)
           );
-          const i18n = req.i18n;
-          const userDetails = generateUserDetails(userDetailsResponse, i18n);
+          const userDetails = generateUserDetails(
+            userDetailsResponse,
+            req.i18n
+          );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             userDetails,

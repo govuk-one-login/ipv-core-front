@@ -14,6 +14,7 @@ module.exports = {
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS:
     "/journey/build-proven-user-identity-details",
+  DEVELOPMENT_ENVIRONMENT: "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

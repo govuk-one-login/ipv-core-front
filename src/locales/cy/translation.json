@@ -474,6 +474,31 @@
           "yes": "Oes",
           "no": "Na"
         }
+      },
+      "PyiPostofficeStart": {
+        "title": "Prove your identity at a Post Office - GOV.UK One Login",
+        "header": "Prove your identity at a Post Office",
+        "content": {
+          "paragraph1": "You can prove your identity at a Post Office instead.",
+          "paragraph2": "You’ll be asked to:",
+          "list1": "enter details from your photo ID on GOV.UK",
+          "list2": "go to a Post Office where they’ll scan your ID and take a photo of you",
+          "paragraph3": "You’ll usually get a result within a day of going to the Post Office.",
+          "subHeading": "Types of photo ID you can use at a Post Office",
+          "paragraph4": "You'll need one of the following:",
+          "list3": "a UK photocard driving licence (full or provisional)",
+          "list4": "a UK passport",
+          "list5": "a non-UK passport",
+          "list6": "a UK biometric residence permit (BRP)",
+          "list7": "a European Union (EU) photocard driving licence",
+          "list8": "a national identity card from a European Economic Area (EEA) country",
+          "insetText": "You cannot prove your identity at a Post Office with a Frontier Worker permit (FWP) or a UK biometric residence card (BRC), also called a UK residence card.",
+          "subHeading2": "Do you have photo ID you can use at a Post Office?",
+          "formRadioButtons": {
+            "yes": "Yes",
+            "no": "No"
+          }
+        }
       }
     }
   }

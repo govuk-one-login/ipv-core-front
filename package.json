@@ -14,6 +14,7 @@
     "build": "yarn build-js && yarn build-sass && yarn copy-locales && yarn copy-images",
     "build-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js src/assets/javascript/**/**/*.js src/assets/javascript/**/*.js -o dist/public/javascripts/application.js -c -m ",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
+    "watch-sass": "sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed --watch",
     "copy-locales": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ ",
     "copy-images": "copyfiles -u 3 src/assets/images/** dist/public/images",
     "lint": "prettier --check src test && eslint .",

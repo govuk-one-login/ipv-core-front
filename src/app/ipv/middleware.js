@@ -4,7 +4,6 @@ const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
   DEVELOPMENT_ENVIRONMENT,
-  getServiceDomain,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,

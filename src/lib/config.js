@@ -28,5 +28,5 @@ module.exports = {
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   CDN_PATH: process.env.CDN_PATH,
   CDN_DOMAIN: process.env.CDN_DOMAIN,
-  getServiceDomain
+  getServiceDomain,
 };

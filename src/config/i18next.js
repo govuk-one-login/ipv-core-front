@@ -1,4 +1,3 @@
-const { getAppEnv } = require("cfenv");
 const { getServiceDomain } = require("../lib/config");
 
 module.exports = {

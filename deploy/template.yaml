@@ -17,10 +17,6 @@ Parameters:
     Description: The name of the environment to deploy to.
     Type: String
     AllowedPattern: ((production)|(integration)|(staging)|(build)|(dev.*))
-  ImageTag:
-    Description: The tag of core-front image to deploy in the task definition.
-    Type: String
-    Default: "none"
   VpcStackName:
     Description: >
       The name of the stack that defines the VPC in which this container will
@@ -35,9 +31,8 @@ Conditions:
   IsDevelopment: !Or
     - !Equals [ !Ref AWS::AccountId, "130355686670"]
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
-  IsBuild: !Equals [ !Ref Environment, build ]
-  IsOldDevelopment: !Equals [ !Ref AWS::AccountId, "130355686670"]
-  IsNewDevelopment: !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
+  IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   UsePermissionsBoundary:
@@ -62,6 +57,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      assetsDomain: ""
+      assetsPath: ""
     "175872367215": # New Development
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -73,6 +70,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      assetsDomain: ""
+      assetsPath: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -86,8 +85,10 @@ Mappings:
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
-      nodeEnv: "production"
+      nodeEnv: "development"
       desiredTaskCount: 2
+      assetsDomain: "https://assets.build.account.gov.uk"
+      assetsPath: "https://assets.build.account.gov.uk/core-front"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -99,6 +100,8 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
+      assetsDomain: "https://assets.staging.account.gov.uk"
+      assetsPath: "https://assets.staging.account.gov.uk/core-front"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -110,6 +113,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
+      assetsDomain: "https://assets.integration.account.gov.uk"
+      assetsPath: "https://assets.integration.account.gov.uk/core-front"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -121,6 +126,8 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
+      assetsDomain: ""
+      assetsPath: ""
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -131,20 +138,32 @@ Resources:
   # ssl cert
   DevSSLCert:
     Type: AWS::CertificateManager::Certificate
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainValidationOptions:
-        - DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
-          HostedZoneId: !ImportValue DevIdentityHostedZoneId
+        - DomainName: !If
+            - IsDev01
+            - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+            - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+          HostedZoneId: !If
+            - IsDev01
+            - !ImportValue Dev01IdentityHostedZoneId
+            - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       ValidationMethod: DNS
 
   # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
   DevApiDomain:
     Type: AWS::ApiGatewayV2::DomainName
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
-      DomainName: !Sub "${Environment}.dev.identity.account.gov.uk"
+      DomainName: !If
+        - IsDev01
+        - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
       DomainNameConfigurations:
         - CertificateArn: !Ref DevSSLCert
           EndpointType: REGIONAL
@@ -152,7 +171,7 @@ Resources:
 
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     DependsOn: RestApiGwDeployment
     Properties:
       DomainName: !Ref DevApiDomain
@@ -163,11 +182,14 @@ Resources:
   # dns rcord
   DevDNSRecord:
     Type: AWS::Route53::RecordSet
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Properties:
       Type: A
       Name: !Ref DevApiDomain
-      HostedZoneId: !ImportValue DevIdentityHostedZoneId
+      HostedZoneId: !If
+          - IsDev01
+          - !ImportValue Dev01IdentityHostedZoneId
+          - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
@@ -216,10 +238,8 @@ Resources:
           IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-        - DestinationSecurityGroupId: !If
-            - IsOldDevelopment
-            - !ImportValue InterfaceVpcEndpointSecurityGroupId
-            - Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
+        - DestinationSecurityGroupId:
+            Fn::ImportValue:  !Sub ${VpcStackName}-AWSServicesEndpointSecurityGroupId
           Description: Allow outbound traffic to AWS Services vpc endpoint security group
           IpProtocol: tcp
           FromPort: 443
@@ -251,7 +271,7 @@ Resources:
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
     Properties:
       BucketName: !If
-        - IsNewDevelopment # existing bucket names exist in the current dev env
+        - IsDevelopment # existing bucket names exist in the current dev env
         - !Sub ipv-core-access-logs-${Environment}
         - !Sub ipv-core-${Environment}-access-logs
       AccessControl: LogDeliveryWrite
@@ -550,10 +570,10 @@ Resources:
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
-      RetentionInDays: 14
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+      RetentionInDays: 30
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
@@ -568,11 +588,7 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Essential: true
-          Image: !If [
-              IsOldDevelopment,
-              !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/core-front-development:${ImageTag}",
-              CONTAINER-IMAGE-PLACEHOLDER,
-            ] # Uses build account and ECR when not in development.
+          Image: CONTAINER-IMAGE-PLACEHOLDER
           Name: app
           Environment:
             - Name: API_BASE_URL
@@ -589,8 +605,24 @@ Resources:
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID
               Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
+            - Name: GTM_ID_GA4
+              Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
             - Name: ANALYTICS_DOMAIN
-              Value: !If [ IsProduction, "account.gov.uk", !Sub "${Environment}.account.gov.uk" ]
+              Value: !If
+                - IsProduction
+                - "account.gov.uk"
+                - !If
+                  - IsDev01
+                  - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+                  - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
+            - Name: SERVICE_DOMAIN
+              Value: !If
+                - IsProduction
+                - "account.gov.uk"
+                - !If
+                  - IsDev01
+                  - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+                  - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS
@@ -613,23 +645,15 @@ Resources:
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
                   "" ]
             - Name: CDN_PATH
-              Value: !If [ IsBuild,
-                  "", #"!Sub "https://assets.${Environment}.account.gov.uk/core-front",
-                  "" ]
-              #!If [ IsNotDevelopment,
-              #    !If [ IsProduction,
-              #      "https://assets.identity.account.gov.uk/core-front",
-              #      !Sub "https://assets.identity.${Environment}.account.gov.uk/core-front" ],
-              #    "" ]
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - assetsPath
             - Name: CDN_DOMAIN
-              Value: !If [ IsBuild,
-                  "", #!Sub "https://assets.${Environment}.account.gov.uk",
-                  "" ]
-              #!If [ IsNotDevelopment,
-              #    !If [ IsProduction,
-              #      "https://assets.identity.account.gov.uk",
-              #      !Sub "https://assets.identity.${Environment}.account.gov.uk" ],
-              #    "" ]
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - assetsDomain
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -752,21 +776,23 @@ Resources:
       AuthorizationType: NONE
       RequestParameters:
         method.request.path.proxy: false
+        method.request.header.x-forwarded-for: false
       Integration:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
         ConnectionId: !If
-          - IsNewDevelopment
+          - IsDevelopment
           - !Ref ApiGatewayVpcLink
           - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkId"
         RequestParameters:
           integration.request.path.proxy: "method.request.path.proxy"
+          integration.request.header.x-forwarded-for: "method.request.header.x-forwarded-for"
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
         Uri: !Sub
           - "http://${LBDNS}/{proxy}"
           - LBDNS: !If
-            - IsNewDevelopment
+            - IsDevelopment
             - !GetAtt NetworkLoadBalancer.DNSName
             - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLBDNS"
 
@@ -779,9 +805,9 @@ Resources:
 
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+      RetentionInDays: 30
       Tags:
         - Key: Name
           Value: ApiGatewayAccessLogGroup
@@ -824,7 +850,7 @@ Resources:
   #
 
   ApiGatewayVpcLink:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer
@@ -833,7 +859,7 @@ Resources:
         - !Ref NetworkLoadBalancer
 
   NetworkLoadBalancer:
-    Condition: IsNewDevelopment
+    Condition: IsDevelopment
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Scheme: internal
@@ -861,7 +887,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref NetworkLoadBalancerTargetGroup
       LoadBalancerArn: !If
-        - IsNewDevelopment
+        - IsDevelopment
         - !Ref NetworkLoadBalancer
         - Fn::ImportValue: !Sub "${VpcStackName}-ApiGatewayVpcLinkTargetNLB"
       Port: 80
@@ -942,13 +968,13 @@ Resources:
 
   APIGWAccessLogsGroup:
     Type: AWS::Logs::LogGroup
+    # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !If
-        - IsNewDevelopment
+        - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 14
-      KmsKeyId: !GetAtt LoggingKmsKey.Arn
+      RetentionInDays: 30
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter

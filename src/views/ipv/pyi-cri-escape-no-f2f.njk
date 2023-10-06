@@ -17,7 +17,7 @@
   </ul>
   <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscapeNoF2f.content.subHeading2' | translate }}</h2>
 
-  <form id="pyiCriEscapeNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiCriEscapeNoF2fFormSubmit()">
+  <form id="pyiCriEscapeNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -48,16 +48,4 @@
     </a>
   </p>
 
-  <script>
-      let disableSubmit = false;
-
-      function pyiCriEscapeNoF2fFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
-      }
-  </script>
 {% endblock %}

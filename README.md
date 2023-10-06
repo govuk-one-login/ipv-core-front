@@ -18,6 +18,18 @@ yarn install
 - `PORT` - Default port to run webserver on. (Default to `3000`)
 - `API_BASE_URL` - Base host of the backend API
 
+## Running Locally
+
+Create a .env file based on .env.sample
+Run `yarn build`
+In your IDE set up a run configuration that starts `src/app.js` and use that (or run `yarn start-dev`)
+To get live updating of styles run `yarn watch-sass`
+Changes to the govuk-frontend library, translations, or images require you to run `yarn build` again.
+
+### Configuring core-back to work with a local core-front
+In the core common infra repository dev-deploy documentation there are instructions on how to configure your dev
+stack to work with a locally running core-front.
+
 ### Code Owners
 
 This repo has a `CODEOWNERS` file in the root and is configured to require PRs to reviewed by Code Owners.

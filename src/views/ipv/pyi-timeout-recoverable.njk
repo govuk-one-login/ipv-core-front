@@ -13,25 +13,13 @@
   </ul>
   <h2 class="govuk-heading-m">{{'pages.pyiTimeoutRecoverable.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph2' | translate }}</p>
-  <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST" onsubmit="return timeoutRecoverableFormSubmit()">
+  <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="journey" value="build-client-oauth-response">
     <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
       {{'general.buttons.next' | translate }}
     </button>
   </form>
-
-  <script>
-    let disableSubmit = false;
-    function timeoutRecoverableFormSubmit() {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-        return true
-      }
-      return false;
-    }
-  </script>
 
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

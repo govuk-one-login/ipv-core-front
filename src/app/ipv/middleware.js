@@ -3,6 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+  DEVELOPMENT_ENVIRONMENT,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -26,10 +27,15 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
-const { generateHTMLofAddress } = require("../shared/addressHelper");
+const {
+  samplePersistedUserDetails,
+  generateUserDetails,
+} = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
+const fs = require("fs");
+const path = require("path");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -187,7 +193,32 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
+      const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
+
+      if (
+        currentEnvironment === DEVELOPMENT_ENVIRONMENT &&
+        req.session.visitedAllTemplates
+      ) {
+        if (pageId === "page-ipv-reuse") {
+          const userDetails = generateUserDetails(
+            samplePersistedUserDetails,
+            req.i18n
+          );
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        } else {
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        }
+      }
+
       if (req.session?.ipvSessionId === null) {
         logError(
           req,
@@ -225,7 +256,6 @@ module.exports = {
         case "page-ipv-pending":
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
-        case "page-passport-doc-check":
         case "page-multiple-doc-check":
         case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
@@ -235,6 +265,10 @@ module.exports = {
         case "pyi-escape":
         case "pyi-cri-escape":
         case "pyi-cri-escape-no-f2f":
+        case "pyi-suggest-other-options":
+        case "pyi-suggest-other-options-no-f2f":
+        case "pyi-suggest-f2f":
+        case "pyi-post-office":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
@@ -246,32 +280,14 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         case "page-ipv-reuse": {
-          let userDetailsResponse = await axios.get(
+          const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
             generateAxiosConfig(req)
           );
-
-          const i18n = req.i18n;
-
-          const userDetails = {
-            name: userDetailsResponse.data?.name,
-            dateOfBirth: userDetailsResponse.data?.dateOfBirth,
-            addresses: userDetailsResponse.data?.addresses.map(
-              (address, idx) => {
-                const addressDetailHtml = generateHTMLofAddress(address);
-                const label =
-                  idx === 0
-                    ? i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
-                      )
-                    : `${i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
-                      )} ${idx}`;
-
-                return { label, addressDetailHtml };
-              }
-            ),
-          };
+          const userDetails = generateUserDetails(
+            userDetailsResponse,
+            req.i18n
+          );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             userDetails,
@@ -364,12 +380,57 @@ module.exports = {
       next(error);
     }
   },
+  handleCimitEscapeAction: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+      }
+      if (req.body?.journey === "next/f2f") {
+        await handleJourneyResponse(req, res, "journey/f2f");
+      } else if (req.body?.journey === "next/dcmaw") {
+        await handleJourneyResponse(req, res, "journey/dcmaw");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleCimitEscapeAction");
+      next(error);
+    }
+  },
   renderFeatureSetPage: async (req, res) => {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,
     });
   },
+  allTemplates: async (req, res, next) => {
+    try {
+      const directoryPath = "/app/src/views/ipv";
 
+      fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+          return next(err);
+        }
+
+        // Remove the .njk extension from file names
+        const templatesWithoutExtension = files.map(
+          (file) => path.parse(file).name
+        );
+
+        req.session.visitedAllTemplates = true;
+
+        res.render("ipv/all-templates.njk", {
+          allTemplates: templatesWithoutExtension,
+        });
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;

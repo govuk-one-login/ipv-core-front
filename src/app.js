@@ -13,7 +13,7 @@ const {
   CDN_DOMAIN,
 } = require("./lib/config");
 
-const { getGTM } = require("./lib/locals");
+const { setLocals } = require("./lib/locals");
 
 const { loggerMiddleware, logger } = require("./lib/logger");
 const express = require("express");
@@ -64,6 +64,7 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(setLocals);
 app.use(securityHeadersHandler);
 
 if (CDN_PATH) {
@@ -86,8 +87,6 @@ if (CDN_DOMAIN) {
     )
   );
 }
-
-app.use(loggerMiddleware);
 
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
@@ -151,6 +150,7 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
+router.use(loggerMiddleware);
 
 router.use((req, res, next) => {
   req.log = logger.child({
@@ -161,15 +161,16 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use(getGTM);
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
-router.get("/healthcheck", (req, res) => {
+const healthcheckRouter = express.Router();
+healthcheckRouter.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
+app.use(healthcheckRouter);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

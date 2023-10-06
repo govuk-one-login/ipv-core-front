@@ -1,0 +1,18 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleName = "All templates" %}
+
+{% block content %}
+  <table class="govuk-table">
+    <caption class="govuk-table__caption govuk-table__caption--l">List of all pages in di-ipv-core-front</caption>
+    <tbody class="govuk-table__body">
+      {% for template in allTemplates %}
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">{{ template }}</th>
+          <td class="govuk-table__cell">
+            <a class="govuk-link" href="/ipv/page/{{ template }}?lng=en">English</a> / <a class="govuk-link" href="/ipv/page/{{ template }}?lng=cy">Welsh</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

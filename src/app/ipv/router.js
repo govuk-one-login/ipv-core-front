@@ -2,6 +2,7 @@ const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
+const { DEVELOPMENT_ENVIRONMENT } = require("../../lib/config");
 
 const {
   renderAttemptRecoveryPage,
@@ -10,8 +11,10 @@ const {
   handleJourneyAction,
   handleMultipleDocCheck,
   handleCriEscapeAction,
+  handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
+  allTemplates,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -24,6 +27,11 @@ function checkLanguage(req, res, next) {
   res.locals.isWelsh = lang === "cy";
 
   next();
+}
+
+const currentEnvironment = process.env.NODE_ENV;
+if (currentEnvironment === DEVELOPMENT_ENVIRONMENT) {
+  router.get("/all-templates", allTemplates);
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
@@ -47,6 +55,12 @@ router.post(
   parseForm,
   csrfProtection,
   handleCriEscapeAction
+);
+router.post(
+  "/page/pyi-suggest-other-options",
+  parseForm,
+  csrfProtection,
+  handleCimitEscapeAction
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

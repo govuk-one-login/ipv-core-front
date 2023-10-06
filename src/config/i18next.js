@@ -1,3 +1,5 @@
+const { getServiceDomain } = require("../lib/config");
+
 module.exports = {
   i18nextConfigurationOptions: function (path) {
     return {
@@ -16,7 +18,7 @@ module.exports = {
         caches: ["cookie"],
         ignoreCase: true,
         cookieSecure: true,
-        cookieDomain: "", //getServiceDomain(),
+        cookieDomain: getServiceDomain(),
         cookieSameSite: "",
       },
     };

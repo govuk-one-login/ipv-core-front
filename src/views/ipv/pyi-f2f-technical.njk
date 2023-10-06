@@ -10,7 +10,7 @@
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiF2fTechnical.content.subHeading' | translate }}</h2>
 
-  <form id="pyiF2fTechnicalForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiF2fTechnicalFormSubmit()">
+  <form id="pyiF2fTechnicalForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
       idPrefix: "journey",
@@ -30,19 +30,6 @@
       {{ 'general.buttons.next' | translate }}
     </button>
   </form>
-
-  <script>
-      let disableSubmit = false;
-
-      function pyiF2fTechnicalFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
-      }
-  </script>
 
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

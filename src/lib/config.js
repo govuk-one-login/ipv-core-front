@@ -8,6 +8,10 @@ if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
 }
 
+function getServiceDomain() {
+  return process.env.SERVICE_DOMAIN || "localhost";
+}
+
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/journey/cri/callback",
@@ -24,4 +28,5 @@ module.exports = {
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   CDN_PATH: process.env.CDN_PATH,
   CDN_DOMAIN: process.env.CDN_DOMAIN,
+  getServiceDomain,
 };

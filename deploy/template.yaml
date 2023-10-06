@@ -615,6 +615,14 @@ Resources:
                   - IsDev01
                   - !Sub "${Environment}.01.dev.identity.account.gov.uk"
                   - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
+            - Name: SERVICE_DOMAIN
+              Value: !If
+                - IsProduction
+                - "account.gov.uk"
+                - !If
+                  - IsDev01
+                  - !Sub "${Environment}.01.dev.identity.account.gov.uk"
+                  - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS

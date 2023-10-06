@@ -14,16 +14,6 @@
   </ul>
   <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph2' | translate | safe }}</p>
 
-  <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading' | translate }}</h2>
-
-  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph3' | translate | safe }}</p>
-  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph4' | translate | safe }}</p>
-  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph5' | translate | safe }}</p>
-  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph6' | translate | safe }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet3' | translate | safe }}</li>
-    <li>{{'pages.pageF2FMultipleDockCheck.content.bullet4' | translate | safe }}</li>
-  </ul>
 
   {% if isWelsh %}
     {{ govukInsetText({
@@ -31,7 +21,7 @@
     }) }}
   {% endif %}
 
-  <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading2' | translate }}</h2>
+  <h2 class="govuk-heading-m">{{'pages.pageF2FMultipleDockCheck.content.subHeading' | translate }}</h2>
 
   <form id="faceToFacetMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">

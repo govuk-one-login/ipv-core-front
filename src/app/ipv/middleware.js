@@ -245,7 +245,8 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-attempt-recovery";
-        return res.redirect(req.session.currentPage);
+        // res.status(400);
+        return res.status(400).render(req.session.currentPage);
       }
 
       switch (pageId) {
@@ -314,7 +315,7 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        return res.status(HTTP_STATUS_CODES.UNAUTHORIZED).render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
@@ -345,7 +346,7 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        return res.status(HTTP_STATUS_CODES.UNAUTHORIZED).render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
@@ -367,7 +368,7 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        return res.status(HTTP_STATUS_CODES.UNAUTHORIZED).render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "next/f2f") {
         await handleJourneyResponse(req, res, "journey/f2f");
@@ -389,7 +390,7 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        return res.status(HTTP_STATUS_CODES.UNAUTHORIZED).render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "next/f2f") {
         await handleJourneyResponse(req, res, "journey/f2f");

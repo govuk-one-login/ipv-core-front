@@ -16,8 +16,7 @@ module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
-  API_BUILD_PROVEN_USER_IDENTITY_DETAILS:
-    "/journey/build-proven-user-identity-details",
+  API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
   DEVELOPMENT_ENVIRONMENT: "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,

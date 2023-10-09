@@ -61,9 +61,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical-unrecoverable.njk");
     });
 
     it("should render pyi-unrecoverable view when unexpected error", () => {
@@ -72,9 +70,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical-unrecoverable.njk");
     });
 
     it("should render session-ended view when no session", () => {
@@ -97,9 +93,7 @@ describe("Error handlers", () => {
       expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
         "Bad response - status is not a function"
       );
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical-unrecoverable.njk");
     });
 
     it("should call next if headers sent", () => {

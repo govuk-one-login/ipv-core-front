@@ -36,6 +36,7 @@ const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
+const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -119,7 +120,11 @@ async function handleBackendResponse(req, res, backendResponse) {
       requestId: req.requestId,
     });
     req.session.currentPage = backendResponse.page;
-    return res.redirect(`/ipv/page/${backendResponse.page}`);
+    return await saveSessionAndRedirect(
+      req,
+      res,
+      `/ipv/page/${backendResponse.page}`
+    );
   }
 }
 
@@ -245,7 +250,11 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-attempt-recovery";
-        return res.redirect(req.session.currentPage);
+        return await saveSessionAndRedirect(
+          req,
+          res,
+          `/ipv/page/pyi-attempt-recovery`
+        );
       }
 
       switch (pageId) {

@@ -57,6 +57,7 @@ describe("journey middleware", () => {
           ipAddress: "ip-address",
           clientOauthSessionId: "fake-oauth-session-id",
           featureSet: "feature-set",
+          save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
@@ -170,12 +171,17 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         params: { pageId: "invalid-page-id" },
-        session: { currentPage: "../ipv/page-multiple-doc-check" },
+        session: {
+          currentPage: "../ipv/page-multiple-doc-check",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.redirect).to.have.been.calledWith("pyi-attempt-recovery");
+      expect(res.redirect).to.have.been.calledWith(
+        "/ipv/page/pyi-attempt-recovery"
+      );
     });
 
     it("should raise an error when missing pageId", async () => {
@@ -479,7 +485,7 @@ describe("journey middleware", () => {
   );
 
   context("handling missing ipvSessionId before calling the backend", () => {
-    it("should redirect to the technical unrecoverable page", async function () {
+    it("should render the technical unrecoverable page", async function () {
       req = {
         id: "1",
         session: {
@@ -611,7 +617,7 @@ describe("journey middleware", () => {
   context(
     "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
     () => {
-      it("should redirect to the technical unrecoverable page", async function () {
+      it("should render the technical unrecoverable page", async function () {
         req = {
           id: "1",
           session: {
@@ -674,7 +680,7 @@ describe("journey middleware", () => {
   context(
     "handleCriEscapeAction: handling missing ipvSessionId before calling the backend",
     () => {
-      it("should redirect to the technical unrecoverable page", async function () {
+      it("should render the technical unrecoverable page", async function () {
         req = {
           id: "1",
           session: {

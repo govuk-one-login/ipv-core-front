@@ -476,6 +476,28 @@
         }
       }
     },
+    "pageIpvBankAccountStart": {
+      "title": "Prove your identity with bank or building society details and security questions",
+      "header": "Prove your identity with bank or building society details and security questions",
+      "content": {
+        "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
+        "subHeading": "Provide some personal details",
+        "paragraph2": "We'll ask you for your:",
+        "list1": "name",
+        "list2": "date of birth",
+        "list3": "sort code and account number",
+        "list4": "recent address history",
+        "list5": "National Insurance number",
+        "subHeading2": "Answer some security questions",
+        "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
+        "paragraph4": "You can use a non-UK passport as long as it has not expired.",
+        "subHeading3": "How do you want to continue?",
+        "formRadioButtons": {
+          "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
+          "otherWayButtonText": "Prove my identity another way"
+        }
+      }
+    },
     "PyiPostofficeStart": {
       "title": "Prove your identity at a Post Office - GOV.UK One Login",
       "header": "Prove your identity at a Post Office",

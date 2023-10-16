@@ -1,4 +1,5 @@
 const sanitize = require("sanitize-filename");
+const { HTTP_STATUS_CODES } = require("../app.constants");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
@@ -23,7 +24,11 @@ module.exports = {
           res.err.response.data.clientOAuthSessionId;
       }
       req.session.currentPage = pageId;
-      return res.redirect(`/ipv/page/${pageId}`);
+      res.err?.status
+        ? res.status(res.err.status)
+        : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
+
+      return res.render(`ipv/${pageId}`);
     }
 
     next(err);

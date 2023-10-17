@@ -24,11 +24,7 @@ module.exports = {
           res.err.response.data.clientOAuthSessionId;
       }
       req.session.currentPage = pageId;
-      res.err?.status
-        ? res.status(res.err.status)
-        : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
-
-      return res.render(`ipv/${pageId}.njk`);
+      return res.redirect(`/ipv/page/${pageId}`);
     }
 
     next(err);

@@ -130,7 +130,9 @@ describe("Error handlers", () => {
 
       journeyEventErrorHandler(err, req, res, next);
 
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-technical"
+      );
     });
 
     it("should call next with error when there is no pageId", () => {
@@ -159,8 +161,8 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-recoverable.njk"
+      expect(res.redirect).to.have.been.calledOnceWith(
+        "/ipv/page/pyi-timeout-recoverable"
       );
     });
 

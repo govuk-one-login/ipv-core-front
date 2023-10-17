@@ -18,7 +18,7 @@ const logger = pino({
     },
     res: (res) => {
       return {
-        statusCode: res.statusCode,
+        statusCode: res.err?.response?.status || res?.statusCode,
         sessionId: res.locals.sessionId,
       };
     },
@@ -57,6 +57,7 @@ const loggerMiddleware = require("pino-http")({
     };
   },
   customErrorMessage: function (req, res) {
+    res.statusCode = res?.err?.response?.status;
     return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
   },
   customErrorObject: (req, res, error, val) => {

@@ -61,8 +61,8 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-technical-unrecoverable.njk"
       );
     });
 
@@ -72,8 +72,8 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-technical-unrecoverable.njk"
       );
     });
 
@@ -97,8 +97,8 @@ describe("Error handlers", () => {
       expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
         "Bad response - status is not a function"
       );
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-technical-unrecoverable.njk"
       );
     });
 
@@ -130,9 +130,7 @@ describe("Error handlers", () => {
 
       journeyEventErrorHandler(err, req, res, next);
 
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-technical"
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
     });
 
     it("should call next with error when there is no pageId", () => {
@@ -161,8 +159,8 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
-      expect(res.redirect).to.have.been.calledOnceWith(
-        "/ipv/page/pyi-timeout-recoverable"
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-timeout-recoverable.njk"
       );
     });
 

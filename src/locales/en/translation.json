@@ -15,13 +15,12 @@
       "signOut": "Sign out",
       "phaseBanner": {
         "tag": "beta",
-        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">feedback (opens in new tab)</a>  will help us to improve it."
+        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">feedback (opens in new tab)</a>  will help us to improve it."
       }
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
       "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-      "contactLinkHref": "https://signin.account.gov.uk/contact-us",
       "contactLinkText": "Contact the GOV.UK One Login team (opens in a new tab)"
     },
     "cookie": {
@@ -328,8 +327,7 @@
         "subHeading4": "If you need help",
         "paragraph8": "Contact us if you:",
         "bullet3": "need help to finish proving your identity with the Post Office",
-        "bullet4": "would prefer not to go to the Post Office and want to prove your identity another way",
-        "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us?supportType=PUBLIC"
+        "bullet4": "would prefer not to go to the Post Office and want to prove your identity another way"
       }
     },
     "pageDcmawSuccess": {
@@ -392,7 +390,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
+          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
         }
       }
     },

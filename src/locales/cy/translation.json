@@ -15,13 +15,12 @@
       "signOut": "Allgofnodi",
       "phaseBanner": {
         "tag": "beta",
-        "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
+        "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
       }
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
       "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-      "contactLinkHref": "https://signin.account.gov.uk/contact-us",
       "contactLinkText": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
     },
     "cookie": {
@@ -328,8 +327,7 @@
         "subHeading4": "Os ydych angen help",
         "paragraph8": "Cysylltwch â ni os:",
         "bullet3": "ydych angen help i orffen profi eich hunaniaeth gyda Swyddfa’r Post",
-        "bullet4": "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall",
-        "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us-questions?theme=proving_identity&referer="
+        "bullet4": "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall"
       }
     },
     "pageDcmawSuccess": {
@@ -392,7 +390,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">GOV.UK One Login (agor mewn tab newydd)</a>."
+          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>."
         }
       }
     },

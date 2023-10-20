@@ -4,6 +4,11 @@ const cfenv = require("cfenv");
 const appEnv = cfenv.getAppEnv();
 const serviceConfig = {};
 
+const DEVELOPMENT_ENVIRONMENT_NAME = "development";
+const LOCAL_ENVIRONMENT_NAME = "local";
+// We need to limit this dev/debug page to development environments
+const ENABLE_ALL_TEMPLATES_PAGE = process.env.NODE_ENV === DEVELOPMENT_ENVIRONMENT_NAME || process.env.NODE_ENV === LOCAL_ENVIRONMENT_NAME;
+
 if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
 }
@@ -17,7 +22,7 @@ module.exports = {
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
-  DEVELOPMENT_ENVIRONMENT: "development",
+  ENABLE_ALL_TEMPLATES_PAGE: ENABLE_ALL_TEMPLATES_PAGE,
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

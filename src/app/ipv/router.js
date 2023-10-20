@@ -2,7 +2,7 @@ const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const { DEVELOPMENT_ENVIRONMENT } = require("../../lib/config");
+const { ENABLE_ALL_TEMPLATES_PAGE } = require("../../lib/config");
 
 const {
   renderAttemptRecoveryPage,
@@ -29,8 +29,7 @@ function checkLanguage(req, res, next) {
   next();
 }
 
-const currentEnvironment = process.env.NODE_ENV;
-if (currentEnvironment === DEVELOPMENT_ENVIRONMENT) {
+if (ENABLE_ALL_TEMPLATES_PAGE) {
   router.get("/all-templates", allTemplates);
 }
 

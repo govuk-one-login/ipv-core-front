@@ -7,7 +7,9 @@ const serviceConfig = {};
 const DEVELOPMENT_ENVIRONMENT_NAME = "development";
 const LOCAL_ENVIRONMENT_NAME = "local";
 // We need to limit this dev/debug page to development environments
-const ENABLE_ALL_TEMPLATES_PAGE = process.env.NODE_ENV === DEVELOPMENT_ENVIRONMENT_NAME || process.env.NODE_ENV === LOCAL_ENVIRONMENT_NAME;
+const ENABLE_ALL_TEMPLATES_PAGE =
+  process.env.NODE_ENV === DEVELOPMENT_ENVIRONMENT_NAME ||
+  process.env.NODE_ENV === LOCAL_ENVIRONMENT_NAME;
 
 if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");

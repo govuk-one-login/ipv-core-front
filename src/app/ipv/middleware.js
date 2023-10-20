@@ -200,9 +200,7 @@ module.exports = {
     try {
       const { pageId } = req.params;
 
-      if (ENABLE_ALL_TEMPLATES_PAGE &&
-        req.session.visitedAllTemplates
-      ) {
+      if (ENABLE_ALL_TEMPLATES_PAGE && req.session.visitedAllTemplates) {
         if (pageId === "page-ipv-reuse") {
           const userDetails = generateUserDetails(
             samplePersistedUserDetails,

@@ -130,8 +130,10 @@ app.use((req, res, next) => {
 
 // Calculate and store the contact us URL so that every page template can access it.
 app.use((req, res, next) => {
-  const currentPageUrl = "https://signin.account.gov.uk" + req.originalUrl
-  res.locals.contactUsUrl = "https://home.account.gov.uk/contact-gov-uk-one-login?fromURL=" + currentPageUrl;
+  const currentPageUrl = "https://signin.account.gov.uk" + req.originalUrl;
+  res.locals.contactUsUrl =
+    "https://home.account.gov.uk/contact-gov-uk-one-login?fromURL=" +
+    currentPageUrl;
   next();
 });
 

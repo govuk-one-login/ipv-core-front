@@ -18,6 +18,7 @@
     "copy-locales": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ ",
     "copy-images": "copyfiles -u 3 src/assets/images/** dist/public/images",
     "lint": "prettier --check src test && eslint .",
+    "lint-fix": "prettier --write src test && eslint --fix .",
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",
     "test:watch": "mocha --watch"

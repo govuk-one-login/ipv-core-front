@@ -203,7 +203,7 @@ module.exports = {
       const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
       const { context } = req?.session;
-      req.log.info({'session': req?.session, context });
+
       if (
         currentEnvironment === DEVELOPMENT_ENVIRONMENT &&
         req.session.visitedAllTemplates
@@ -291,7 +291,7 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
             csrfToken: req.csrfToken(),
-            context
+            context,
           });
         case "page-ipv-reuse": {
           const userDetailsResponse = await axios.get(

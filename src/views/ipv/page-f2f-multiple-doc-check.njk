@@ -4,6 +4,11 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleName = 'pages.pageF2FMultipleDockCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageF2FMultipleDockCheck" %}
+{% if context == 'f2f' %}
+  {% set pageText = "pages.pageF2FMultipleDockCheck.content." %}
+{% else %}}
+  {% set pageText = "pages.pageMultipleDocCheck.content." %}
+{% endif %}}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageF2FMultipleDockCheck.header' | translate }}</h1>
@@ -12,7 +17,7 @@
     <li>{{'pages.pageF2FMultipleDockCheck.content.bullet1' | translate | safe }}</li>
     <li>{{'pages.pageF2FMultipleDockCheck.content.bullet2' | translate | safe }}</li>
   </ul>
-  <p class="govuk-body">{{'pages.pageF2FMultipleDockCheck.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{[ pageText , 'paragraph2' ] | join | translate | safe }}</p>
 
 
   {% if isWelsh %}

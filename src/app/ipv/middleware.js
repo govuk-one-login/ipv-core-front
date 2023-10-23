@@ -117,9 +117,11 @@ async function handleBackendResponse(req, res, backendResponse) {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
       type: LOG_TYPE_PAGE,
       path: backendResponse.page,
+      context: backendResponse?.context,
       requestId: req.requestId,
     });
     req.session.currentPage = backendResponse.page;
+    req.session.context = backendResponse?.context;
     return await saveSessionAndRedirect(
       req,
       res,
@@ -200,7 +202,8 @@ module.exports = {
     try {
       const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
-
+      const { context } = req?.session;
+      req.log.info({'session': req?.session, context });
       if (
         currentEnvironment === DEVELOPMENT_ENVIRONMENT &&
         req.session.visitedAllTemplates
@@ -288,6 +291,7 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
             csrfToken: req.csrfToken(),
+            context
           });
         case "page-ipv-reuse": {
           const userDetailsResponse = await axios.get(

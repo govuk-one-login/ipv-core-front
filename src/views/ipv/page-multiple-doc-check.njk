@@ -1,19 +1,32 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pageMultipleDocCheck.title' | translate %}
-{% set googleTagManagerPageId = "pageMultipleDocCheck" %}
+{% if context == 'f2f' %}
+  {% set pageText = "pages.pageF2FMultipleDockCheck" %}
+  {% set googleTagManagerPageId = "pageF2FMultipleDockCheck" %}
+{% else %}}
+  {% set pageText = "pages.pageMultipleDocCheck" %}
+  {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
+{% endif %}}
+
+{% set pageTitleName = [ pageText , '.title' ] | join | translate %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageMultipleDocCheck.header' | translate }}</h1>
-  <p class="govuk-body">{{'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{[ pageText , '.header' ] | join | translate }}</h1>
+  <p class="govuk-body">{{[ pageText , '.content.paragraph1' ] | join | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{'pages.pageMultipleDocCheck.content.bullet1' | translate | safe }}</li>
-    <li>{{'pages.pageMultipleDocCheck.content.bullet2' | translate | safe }}</li>
+    <li>{{[ pageText , '.content.bullet1' ] | join | translate | safe }}</li>
+    <li>{{[ pageText , '.content.bullet2' ] | join | translate | safe }}</li>
   </ul>
-  <p class="govuk-body">{{'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{[ pageText , '.content.paragraph2' ] | join | translate | safe }}</p>
 
-  <h2 class="govuk-heading-m">{{'pages.pageMultipleDocCheck.content.subHeading' | translate }}</h2>
+  {% if (isWelsh) and (context == 'f2f') %}
+    {{ govukInsetText({
+      text: [ pageText , '.content.insetText' ] | join | translate
+    }) }}
+  {% endif %}
+
+  <h2 class="govuk-heading-m">{{[ pageText , '.content.subHeading' ] | join | translate }}</h2>
 
   <form id="passportMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
@@ -23,18 +36,18 @@
     items: [
               {
                 value: "next/driving-licence",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+                text: [ pageText , '.content.formRadioButtons.continueDrivingLicenceButtonText' ] | join | translate
               },
               {
                 value: "next/passport",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate
+                text: [ pageText , '.content.formRadioButtons.continuePassportButtonText' ] | join | translate
               },
               {
-                divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
+                divider: [ pageText , '.content.formRadioButtons.separateOptionsInFormText' ] | join | translate
               },
               {
                 value: "end",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translate
+                text: [ pageText , '.content.formRadioButtons.otherWayButtonText' ] | join | translate
               }
             ]
       })

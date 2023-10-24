@@ -202,7 +202,7 @@ module.exports = {
     try {
       const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
-      const { context } = req?.session;
+      const { context } = req?.session || null;
 
       if (
         currentEnvironment === DEVELOPMENT_ENVIRONMENT &&

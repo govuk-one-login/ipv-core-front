@@ -63,6 +63,7 @@ Mappings:
       desiredTaskCount: 1
       assetsDomain: ""
       assetsPath: ""
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
     "175872367215": # New Development
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -76,6 +77,7 @@ Mappings:
       desiredTaskCount: 1
       assetsDomain: ""
       assetsPath: ""
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -93,6 +95,7 @@ Mappings:
       desiredTaskCount: 2
       assetsDomain: "https://assets.build.account.gov.uk"
       assetsPath: "https://assets.build.account.gov.uk/core-front"
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -106,6 +109,7 @@ Mappings:
       desiredTaskCount: 1
       assetsDomain: "https://assets.staging.account.gov.uk"
       assetsPath: "https://assets.staging.account.gov.uk/core-front"
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -119,6 +123,7 @@ Mappings:
       desiredTaskCount: 1
       assetsDomain: "https://assets.integration.account.gov.uk"
       assetsPath: "https://assets.integration.account.gov.uk/core-front"
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -132,6 +137,7 @@ Mappings:
       desiredTaskCount: 2
       assetsDomain: ""
       assetsPath: ""
+      contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -658,6 +664,11 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - assetsDomain
+            - Name: CONTACT_URL
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - contactUrl
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

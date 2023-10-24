@@ -4,12 +4,10 @@ const cfenv = require("cfenv");
 const appEnv = cfenv.getAppEnv();
 const serviceConfig = {};
 
-const DEVELOPMENT_ENVIRONMENT_NAME = "development";
-const LOCAL_ENVIRONMENT_NAME = "local";
 // We need to limit this dev/debug page to development environments
 const ENABLE_ALL_TEMPLATES_PAGE =
-  process.env.NODE_ENV === DEVELOPMENT_ENVIRONMENT_NAME ||
-  process.env.NODE_ENV === LOCAL_ENVIRONMENT_NAME;
+  process.env.NODE_ENV === "development" ||
+  process.env.NODE_ENV === "local";
 
 if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
@@ -34,5 +32,6 @@ module.exports = {
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   CDN_PATH: process.env.CDN_PATH,
   CDN_DOMAIN: process.env.CDN_DOMAIN,
+  CONTACT_URL: process.env.CONTACT_URL,
   getServiceDomain,
 };

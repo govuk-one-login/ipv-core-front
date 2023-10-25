@@ -64,6 +64,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.build.account.gov.uk"
     "175872367215": # New Development
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -78,6 +79,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.build.account.gov.uk"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -96,6 +98,7 @@ Mappings:
       assetsDomain: "https://assets.build.account.gov.uk"
       assetsPath: "https://assets.build.account.gov.uk/core-front"
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.build.account.gov.uk"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -110,6 +113,7 @@ Mappings:
       assetsDomain: "https://assets.staging.account.gov.uk"
       assetsPath: "https://assets.staging.account.gov.uk/core-front"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.staging.account.gov.uk"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -124,6 +128,7 @@ Mappings:
       assetsDomain: "https://assets.integration.account.gov.uk"
       assetsPath: "https://assets.integration.account.gov.uk/core-front"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.integration.account.gov.uk"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -138,6 +143,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
+      hostUrl: "https://identity.account.gov.uk"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -669,6 +675,11 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - contactUrl
+            - Name: HOST_URL
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - hostUrl
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

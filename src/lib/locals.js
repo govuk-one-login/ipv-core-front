@@ -16,7 +16,7 @@ module.exports = {
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
     res.locals.assetPath = CDN_DOMAIN + "/assets";
-    const fullUrl = `${req.protocol}://${req.hostname}${req.originalUrl}`
+    const fullUrl = `${req.protocol}://${req.hostname}${req.originalUrl}`;
     res.locals.contactUsUrl = `${CONTACT_URL}?fromURL=${fullUrl}`;
 
     // Patch the status code setter to make it available in locals as well

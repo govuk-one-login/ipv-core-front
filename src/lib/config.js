@@ -32,6 +32,6 @@ module.exports = {
   CDN_PATH: process.env.CDN_PATH,
   CDN_DOMAIN: process.env.CDN_DOMAIN,
   CONTACT_URL: process.env.CONTACT_URL,
-  HOST_URL: process.env.HOST_URL,
+  SERVICE_URL: process.env.SERVICE_URL,
   getServiceDomain,
 };

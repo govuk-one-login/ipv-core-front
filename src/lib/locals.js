@@ -5,7 +5,7 @@ const {
   CDN_DOMAIN,
   CDN_PATH,
   CONTACT_URL,
-  HOST_URL,
+  SERVICE_URL,
 } = require("./config");
 const { generateNonce } = require("./strings");
 
@@ -17,8 +17,7 @@ module.exports = {
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
     res.locals.assetPath = CDN_DOMAIN + "/assets";
-    res.locals.contactUsUrl = `${CONTACT_URL}?fromURL=${HOST_URL}${req.originalUrl}`;
-
+    res.locals.contactUsUrl = `${CONTACT_URL}?fromURL=${SERVICE_URL}${req.originalUrl}`;
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;
     res.status = function (code) {

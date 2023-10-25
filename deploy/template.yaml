@@ -633,6 +633,14 @@ Resources:
                   - IsDev01
                   - !Sub "${Environment}.01.dev.identity.account.gov.uk"
                   - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Sub "${Environment}.account.gov.uk"]
+            - Name: SERVICE_URL
+              Value: !If
+                - IsProduction
+                - "https://identity.account.gov.uk"
+                - !If
+                  - IsDev01
+                  - !Sub "https://${Environment}.01.dev.identity.account.gov.uk"
+                  - !If [IsDev02, !Sub "https://${Environment}.02.dev.identity.account.gov.uk", !Sub "https://identity.${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: NODE_OPTIONS
@@ -669,14 +677,6 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - contactUrl
-            - Name: SERVICE_URL
-              Value: !If
-                - IsProduction
-                - "https://identity.account.gov.uk"
-                - !If
-                  - IsDev01
-                  - !Sub "https://identity.${Environment}.01.dev.identity.account.gov.uk"
-                  - !If [IsDev02, !Sub "https://identity.${Environment}.02.dev.identity.account.gov.uk", !Sub "https://identity.${Environment}.account.gov.uk"]
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp

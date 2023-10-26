@@ -46,7 +46,7 @@
             tag: {
                 text: 'general.govuk.phaseBanner.tag' | translate
             },
-            html: 'general.govuk.phaseBanner.content' | translate
+            html: 'general.govuk.phaseBanner.content' | translate( { url: contactUsUrl } )
         }) }}
         {% block beforeContent %}{% endblock %}
         {% if showBack %}
@@ -86,7 +86,7 @@
                     text: 'general.footer.privacy.linkText' | translate
                 },
                 {
-                    href: "https://signin.account.gov.uk/contact-us",
+                    href: contactUsUrl,
                     attributes: {target: "_blank", rel:"noreferrer noopener"},
                     text: 'general.footer.support.linkText' | translate
                 }

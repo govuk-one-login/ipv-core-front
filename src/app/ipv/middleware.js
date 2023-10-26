@@ -3,7 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  DEVELOPMENT_ENVIRONMENT,
+  ENABLE_ALL_TEMPLATES_PAGE,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -198,13 +198,9 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-      const currentEnvironment = process.env.NODE_ENV;
       const { pageId } = req.params;
 
-      if (
-        currentEnvironment === DEVELOPMENT_ENVIRONMENT &&
-        req.session.visitedAllTemplates
-      ) {
+      if (ENABLE_ALL_TEMPLATES_PAGE && req.session.visitedAllTemplates) {
         if (pageId === "page-ipv-reuse") {
           const userDetails = generateUserDetails(
             samplePersistedUserDetails,
@@ -423,7 +419,7 @@ module.exports = {
   },
   allTemplates: async (req, res, next) => {
     try {
-      const directoryPath = "/app/src/views/ipv";
+      const directoryPath = __dirname + "/../../views/ipv";
 
       fs.readdir(directoryPath, function (err, files) {
         if (err) {

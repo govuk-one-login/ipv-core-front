@@ -89,7 +89,7 @@ Mappings:
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
-      nodeEnv: "development"
+      nodeEnv: "production"
       desiredTaskCount: 2
       assetsDomain: "https://assets.build.account.gov.uk"
       assetsPath: "https://assets.build.account.gov.uk/core-front"

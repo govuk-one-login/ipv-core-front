@@ -33,6 +33,7 @@ Conditions:
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
@@ -611,6 +612,11 @@ Resources:
               Value: !Sub
                 - "core-front-sessions-${Environment}"
                 - Environment: !Ref Environment
+            - Name: ENABLE_ALL_TEMPLATES_PAGE
+              Value: !If
+                - IsBuild
+                - "development"
+                - !If [IsDevelopment, !Sub "development", !Ref "AWS::NoValue"]
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID

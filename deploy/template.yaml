@@ -516,10 +516,10 @@ Resources:
       #   - EC2TagFilter
       # Ec2TagSet: 
       #   EC2TagSet
-      # ECSServices: 
-      #   - ECSService
-      # LoadBalancerInfo: 
-      #   LoadBalancerInfo
+      ECSServices: 
+        - !Ref CoreFrontService
+      LoadBalancerInfo: 
+        !GetAtt PrivateLoadBalancer.LoadBalancerName
       # OnPremisesInstanceTagFilters: 
       #   - TagFilter
       # OnPremisesTagSet: 

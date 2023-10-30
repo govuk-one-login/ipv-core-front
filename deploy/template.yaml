@@ -394,7 +394,41 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
 
+  ## adding 2nd Tagrget Group
+  PrivateLoadBalancerListenerGreenTargetGroupECS:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 2
+      HealthCheckIntervalSeconds: 5
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 30
 
+  ## Adding IAM role 
+  CodeDeployServiceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: "sts:AssumeRole"
+            Effect: Allow
+            Principal:
+              Service: codedeploy.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCodeDeployRoleForECS
+        - arn:aws:iam::aws:policy/AWSCodeDeployRoleForECSLimited
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -420,14 +454,15 @@ Resources:
     Type: "AWS::ECS::Service"
     Properties:
       Cluster: !Ref CoreFrontCluster
-      DeploymentConfiguration:
-        MaximumPercent: 500
-        MinimumHealthyPercent: 50
-        DeploymentCircuitBreaker:
-          Enable: true
-          Rollback: true
+      # DeploymentConfiguration:
+      #   MaximumPercent: 500
+      #   MinimumHealthyPercent: 50
+      #   DeploymentCircuitBreaker:
+      #     Enable: true
+      #     Rollback: true
       DeploymentController:
-        Type: ECS
+        #Type: ECS
+        Type: CODE_DEPLOY
       DesiredCount: !FindInMap
         - EnvironmentConfiguration
         - !Ref AWS::AccountId
@@ -447,9 +482,56 @@ Resources:
           Subnets:
             - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
             - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
-      TaskDefinition: !Ref ECSServiceTaskDefinition
+      #TaskDefinition: !Ref ECSServiceTaskDefinition
     DependsOn:
       - PrivateLoadBalancerListener
+  
+  ## adding Codedeploy
+  CodeDeployApplication:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ApplicationName: CodeDeployApplication
+      ComputePlatform: ECS
+  
+  ## create deploymentGroup
+  CodeDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      # AlarmConfiguration: 
+      #   AlarmConfiguration
+      ApplicationName: DeploymentGroupTest
+      # AutoRollbackConfiguration: 
+      #   AutoRollbackConfiguration
+      # AutoScalingGroups: 
+      #   - String
+      # BlueGreenDeploymentConfiguration: 
+      #   BlueGreenDeploymentConfiguration
+      # Deployment: 
+      #   Deployment
+      # DeploymentConfigName: String
+      # DeploymentGroupName: String
+      # DeploymentStyle: 
+      #   DeploymentStyle
+      # Ec2TagFilters: 
+      #   - EC2TagFilter
+      # Ec2TagSet: 
+      #   EC2TagSet
+      # ECSServices: 
+      #   - ECSService
+      # LoadBalancerInfo: 
+      #   LoadBalancerInfo
+      # OnPremisesInstanceTagFilters: 
+      #   - TagFilter
+      # OnPremisesTagSet: 
+      #   OnPremisesTagSet
+      # OutdatedInstancesStrategy: String
+      ServiceRoleArn: !Ref CodeDeployServiceRole
+      # Tags: 
+      #   - Tag
+      # TriggerConfigurations: 
+      #   - TriggerConfig
+
+
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget

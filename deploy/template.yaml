@@ -510,8 +510,11 @@ Resources:
       #   Deployment
       # DeploymentConfigName: String
       # DeploymentGroupName: String
-      # DeploymentStyle: 
-      #   DeploymentStyle
+      DeploymentStyle: 
+        DeploymentOption: WITH_TRAFFIC_CONTROL
+      LoadBalancerInfo:
+        TargetGroupInfoList:
+          - Name: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
       # Ec2TagFilters: 
       #   - EC2TagFilter
       # Ec2TagSet: 

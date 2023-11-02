@@ -99,17 +99,17 @@ describe("journey middleware", () => {
       expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
         {},
-        headers
+        headers,
       );
       expect(axiosStub.post.getCall(1)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
         {},
-        headers
+        headers,
       );
       expect(axiosStub.post.getCall(2)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/startCri`,
         {},
-        headers
+        headers,
       );
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
@@ -137,7 +137,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/page-ipv-identity-document-start.njk"
+        "ipv/page-ipv-identity-document-start.njk",
       );
     });
 
@@ -163,7 +163,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-unrecoverable.njk"
+        "ipv/pyi-timeout-unrecoverable.njk",
       );
     });
 
@@ -180,7 +180,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
       expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-attempt-recovery"
+        "/ipv/page/pyi-attempt-recovery",
       );
     });
 
@@ -199,7 +199,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+        "ipv/pyi-technical-unrecoverable.njk",
       );
     });
   });
@@ -209,7 +209,7 @@ describe("journey middleware", () => {
       req.url = "/invalidCri";
       await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(
-        sinon.match.has("message", "Action /invalidCri not valid")
+        sinon.match.has("message", "Action /invalidCri not valid"),
       );
     });
 
@@ -229,7 +229,7 @@ describe("journey middleware", () => {
 
       await middleware.updateJourneyState(req, res, next);
       expect(axiosStub.post.firstCall).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/journey/cri/build-oauth-request/ukPassport`
+        `${configStub.API_BASE_URL}/journey/cri/build-oauth-request/ukPassport`,
       );
     });
   });
@@ -275,7 +275,7 @@ describe("journey middleware", () => {
     it("should be redirected to a valid redirectURL", async function () {
       await middleware.handleJourneyResponse(req, res, "/journey/next");
       expect(req.redirectURL.toString()).to.equal(
-        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code"
+        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
       );
     });
 
@@ -300,10 +300,10 @@ describe("journey middleware", () => {
       await middleware.handleJourneyResponse(
         req,
         res,
-        "/journey/cri/start/ukPassport"
+        "/journey/cri/start/ukPassport",
       );
       expect(req.redirectURL.toString()).to.equal(
-        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code"
+        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
       );
     });
   });
@@ -341,10 +341,10 @@ describe("journey middleware", () => {
       it("should raise an error ", async () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(next).to.have.been.calledWith(
-          sinon.match.has("message", "CRI response RedirectUrl is missing")
+          sinon.match.has("message", "CRI response RedirectUrl is missing"),
         );
       });
-    }
+    },
   );
 
   context("handling Client event response", () => {
@@ -407,7 +407,7 @@ describe("journey middleware", () => {
     it("should call next with error message Redirect url is missing", async function () {
       await middleware.handleJourneyAction(req, res, next);
       expect(next).to.have.been.calledWith(
-        sinon.match.has("message", "Client Response redirect url is missing")
+        sinon.match.has("message", "Client Response redirect url is missing"),
       );
     });
   });
@@ -425,7 +425,7 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`
+          `${configStub.API_BASE_URL}/journey/end`,
         );
       });
 
@@ -439,7 +439,7 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/attempt-recovery`
+          `${configStub.API_BASE_URL}/journey/attempt-recovery`,
         );
       });
 
@@ -454,7 +454,7 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`
+          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
         );
         expect(req.session.ipAddress).to.equal("1.1.1.1");
       });
@@ -470,7 +470,7 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`
+          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
         );
         expect(req.session.ipAddress).to.equal("ip-address");
       });
@@ -478,10 +478,10 @@ describe("journey middleware", () => {
       it("should post with journey/next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/next`
+          `${configStub.API_BASE_URL}/journey/next`,
         );
       });
-    }
+    },
   );
 
   context("handling missing ipvSessionId before calling the backend", () => {
@@ -499,7 +499,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyAction(req, res, next);
       expect(res.status).to.have.been.calledWith(401);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+        "ipv/pyi-technical-unrecoverable.njk",
       );
     });
   });
@@ -555,12 +555,12 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res);
 
       expect(axiosStub.get.firstCall).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`
+        `${configStub.API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
       );
 
       expect(res.render).to.have.been.calledWith(
         `ipv/${pageId}.njk`,
-        sinon.match.has("userDetails", expectedUserDetail)
+        sinon.match.has("userDetails", expectedUserDetail),
       );
     });
   });
@@ -569,7 +569,7 @@ describe("journey middleware", () => {
     it("should render attempt recovery page", () => {
       middleware.renderAttemptRecoveryPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-attempt-recovery.njk"
+        "ipv/pyi-attempt-recovery.njk",
       );
     });
   });
@@ -587,7 +587,7 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/ukPassport`
+          `${configStub.API_BASE_URL}/journey/ukPassport`,
         );
       });
 
@@ -601,17 +601,17 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/drivingLicence`
+          `${configStub.API_BASE_URL}/journey/drivingLicence`,
         );
       });
 
       it("should post with journey/end by default", async function () {
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`
+          `${configStub.API_BASE_URL}/journey/end`,
         );
       });
-    }
+    },
   );
 
   context(
@@ -631,10 +631,10 @@ describe("journey middleware", () => {
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
-          "ipv/pyi-technical-unrecoverable.njk"
+          "ipv/pyi-technical-unrecoverable.njk",
         );
       });
-    }
+    },
   );
 
   context(
@@ -650,7 +650,7 @@ describe("journey middleware", () => {
 
         await middleware.handleCriEscapeAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/f2f`
+          `${configStub.API_BASE_URL}/journey/f2f`,
         );
       });
 
@@ -664,17 +664,17 @@ describe("journey middleware", () => {
 
         await middleware.handleCriEscapeAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/dcmaw`
+          `${configStub.API_BASE_URL}/journey/dcmaw`,
         );
       });
 
       it("should post with journey/end by default", async function () {
         await middleware.handleCriEscapeAction(req, res, next);
         expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`
+          `${configStub.API_BASE_URL}/journey/end`,
         );
       });
-    }
+    },
   );
 
   context(
@@ -694,10 +694,10 @@ describe("journey middleware", () => {
         await middleware.handleCriEscapeAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
-          "ipv/pyi-technical-unrecoverable.njk"
+          "ipv/pyi-technical-unrecoverable.njk",
         );
       });
-    }
+    },
   );
 
   context("validateFeatureSet", () => {
@@ -723,7 +723,7 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID"))
+          .and(sinon.match.has("message", "Invalid feature set ID")),
       );
       expect(req.session.featureSet).to.be.undefined;
     });

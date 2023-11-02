@@ -104,7 +104,7 @@ describe("oauth middleware", () => {
         expect(next).to.have.been.calledWith(
           sinon.match
             .instanceOf(Error)
-            .and(sinon.match.has("message", "Request JWT Missing"))
+            .and(sinon.match.has("message", "Request JWT Missing")),
         );
       });
     });
@@ -120,7 +120,7 @@ describe("oauth middleware", () => {
         expect(next).to.have.been.calledWith(
           sinon.match
             .instanceOf(Error)
-            .and(sinon.match.has("message", "Client ID Missing"))
+            .and(sinon.match.has("message", "Client ID Missing")),
         );
       });
     });

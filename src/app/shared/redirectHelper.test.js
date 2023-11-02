@@ -32,7 +32,7 @@ describe("saveSessionAndRedirect", () => {
     };
 
     expect(saveSessionAndRedirect(req, res, "/somewhere")).to.eventually.throw(
-      error
+      error,
     );
     expect(res.redirect).not.to.have.been.called;
   });

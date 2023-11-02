@@ -425,7 +425,8 @@ $govuk-header-link-underline-thickness: 3px;
     padding: govuk-spacing(3) 0 govuk-spacing(3);
 
     &:focus {
-      box-shadow: 0 (-(govuk-spacing(1))) $govuk-focus-colour,
+      box-shadow:
+        0 (-(govuk-spacing(1))) $govuk-focus-colour,
         0 govuk-spacing(1) $govuk-focus-text-colour;
     }
   }

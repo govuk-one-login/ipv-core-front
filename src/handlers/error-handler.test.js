@@ -42,7 +42,7 @@ describe("Error handlers", () => {
 
       expect(res.status).to.have.been.calledOnceWith(404);
       expect(res.render).to.have.been.calledOnceWith(
-        "errors/page-not-found.njk"
+        "errors/page-not-found.njk",
       );
     });
 
@@ -63,7 +63,7 @@ describe("Error handlers", () => {
 
       expect(res.status).to.have.been.calledOnceWith(500);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+        "ipv/pyi-technical-unrecoverable.njk",
       );
     });
 
@@ -74,7 +74,7 @@ describe("Error handlers", () => {
 
       expect(res.status).to.have.been.calledOnceWith(500);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+        "ipv/pyi-technical-unrecoverable.njk",
       );
     });
 
@@ -85,7 +85,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.render).to.have.been.calledOnceWith(
-        "errors/session-ended.njk"
+        "errors/session-ended.njk",
       );
     });
 
@@ -96,10 +96,10 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
-        "Bad response - status is not a function"
+        "Bad response - status is not a function",
       );
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk"
+        "ipv/pyi-technical-unrecoverable.njk",
       );
     });
 
@@ -161,7 +161,7 @@ describe("Error handlers", () => {
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-recoverable.njk"
+        "ipv/pyi-timeout-recoverable.njk",
       );
     });
 

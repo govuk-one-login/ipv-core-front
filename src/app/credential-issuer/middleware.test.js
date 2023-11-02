@@ -77,7 +77,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
 
@@ -111,7 +111,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
 
@@ -134,7 +134,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(ipvMiddlewareStub.handleBackendResponse.lastArg.journey).to.equal(
-        "journey/next"
+        "journey/next",
       );
     });
 
@@ -173,7 +173,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
   });
@@ -250,7 +250,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
 
@@ -284,7 +284,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
 
@@ -307,7 +307,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(ipvMiddlewareStub.handleBackendResponse.lastArg.journey).to.equal(
-        "journey/next"
+        "journey/next",
       );
     });
 
@@ -346,7 +346,7 @@ describe("credential issuer middleware", () => {
             "ip-address": "ip-address",
             "feature-set": "feature-set",
           },
-        })
+        }),
       );
     });
   });

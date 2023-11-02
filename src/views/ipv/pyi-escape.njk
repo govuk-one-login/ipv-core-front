@@ -9,7 +9,7 @@
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiEscape.content.subHeading' | translate }}</h2>
 
-  <form id="pyiEscapeForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiEscapeFormSubmit()">
+  <form id="pyiEscapeForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -32,21 +32,9 @@
   </form>
 
   <p class="govuk-body">
-    <a target="_blank" rel="noopener noreferrer" href="{{'general.shared.contactLinkHref' | translate }}" class="govuk-link">
+    <a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">
       {{'general.shared.contactLinkText' | translate }}
     </a>
   </p>
 
-  <script>
-      let disableSubmit = false;
-
-      function pyiEscapeFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
-      }
-  </script>
 {% endblock %}

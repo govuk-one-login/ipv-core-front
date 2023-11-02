@@ -19,7 +19,7 @@ describe("Address Helper", () => {
             addressLocality: "my town",
             postalCode: "myCode",
           },
-          text: "My department My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
+          text: "My department, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
         },
       ];
 
@@ -45,7 +45,7 @@ describe("Address Helper", () => {
             addressLocality: "my town",
             postalCode: "myCode",
           },
-          text: "My department My company Room 5 my building,<br>My double dependant town my dependant town my town,<br>myCode",
+          text: "My department, My company, Room 5, my building<br>My double dependant town my dependant town my town<br>myCode",
         },
       ];
 

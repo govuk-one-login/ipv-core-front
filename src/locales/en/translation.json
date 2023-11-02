@@ -15,13 +15,12 @@
       "signOut": "Sign out",
       "phaseBanner": {
         "tag": "beta",
-        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://signin.account.gov.uk/contact-us\">feedback (opens in new tab)</a>  will help us to improve it."
+        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">feedback (opens in new tab)</a>  will help us to improve it."
       }
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
       "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-      "contactLinkHref": "https://signin.account.gov.uk/contact-us",
       "contactLinkText": "Contact the GOV.UK One Login team (opens in a new tab)"
     },
     "cookie": {
@@ -42,7 +41,8 @@
         "buttonAcceptText": "Accept analytics cookies",
         "buttonRejectText": "Reject analytics cookies",
         "linkViewCookies": "View cookies",
-        "cookieBannerHideLink": "Hide this message"
+        "cookieBannerHideLinkText": "Hide this message",
+        "cookieBannerHideLinkLabel": "Hide cookie message"
       }
     },
     "header": {
@@ -120,15 +120,100 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
-          "restartButtonText": "Start again and try to prove your identity online with GOV.UK One Login"
+          "restartButtonText": "Try proving your identity with GOV.UK One Login again"
         }
+      }
+    },
+    "pyiCriEscape": {
+      "title": "Find another way to prove your identity",
+      "header": "Find another way to prove your identity",
+      "content": {
+        "paragraph1": "We were not able to complete your identity check using security questions.",
+        "subHeading": "What you can do",
+        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
+        "bullet1": "an iPhone 7 or higher",
+        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
+        "paragraph4": "You can also prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "subHeading2": "What would you like to do?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "continuePostOfficeButtonText": "Prove your identity at a Post Office",
+          "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        }
+      }
+    },
+    "pyiCriEscapeNoF2f": {
+      "title": "Find another way to prove your identity",
+      "header": "Find another way to prove your identity",
+      "content": {
+        "paragraph1": "We were not able to complete your identity check using security questions.",
+        "subHeading": "What you can do",
+        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
+        "bullet1": "an iPhone 7 or higher",
+        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
+        "subHeading2": "What would you like to do?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+        }
+      }
+    },
+    "pyiSuggestOtherOptions": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "content": {
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "subHeading": "What you can do",
+        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
+        "bullet1": "an iPhone 7 or higher",
+        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
+        "paragraph4": "You can also prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "subHeading2": "What would you like to do?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "continuePostOfficeButtonText": "Prove your identity at a Post Office",
+          "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        }
+      }
+    },
+    "pyiSuggestOtherOptionsNoF2f": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "content": {
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "subHeading": "What you can do",
+        "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
+        "bullet1": "an iPhone 7 or higher",
+        "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
+        "subHeading2": "What would you like to do?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+        }
+      }
+    },
+    "pyiSuggestF2f": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "You may be able to prove your identity at a Post Office instead. Continue to find out what you’ll need to do."
       }
     },
     "pyiAnotherWay": {
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
       "content": {
-        "paragraph1": "Based on what you told us, you cannot prove your identity online with GOV.UK One Login.",
+        "paragraph1": "Based on what you told us, you cannot prove your identity with GOV.UK One Login.",
         "subHeading": "What you can do",
         "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
@@ -195,11 +280,16 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
-    "pageIpvIdentityStart": {
-      "title": "Start proving your identity with GOV.UK One Login",
-      "header": "Start proving your identity with GOV.UK One Login",
+    "pyiF2fTechnical": {
+      "title": "Sorry, there is a problem",
+      "header": "Sorry, there is a problem",
       "content": {
-        "paragraph1": "First, you will be asked some questions to find the best way to prove your identity."
+        "paragraph1": "We could not confirm your identity.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
+          "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        }
       }
     },
     "pagePreKbvTransition": {
@@ -230,12 +320,14 @@
         "paragraph5": "A member of Post Office staff will scan your photo ID and take a photo of you.",
         "paragraph6": "You’ll find details of your chosen Post Office in your customer letter. But you can",
         "paragraph6LinkText": "go to any Post Office that offers in-branch verification (opens in new tab)",
-        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#:~:text=Find%20your%20nearest%20branch",
+        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#bf-full-width",
         "insetText": "If you do not go to the Post Office within the next 10 days, you’ll need to start proving your identity again.",
         "subHeading3": "After you’ve been to the Post Office",
         "paragraph7": "You’ll get an email about the result of your identity check – usually within a day of going to the Post Office.",
         "subHeading4": "If you need help",
-        "contactLinkHrefF2fCustom": "https://signin.account.gov.uk/contact-us-questions?theme=proving_identity&referer="
+        "paragraph8": "Contact us if you:",
+        "bullet3": "need help to finish proving your identity with the Post Office",
+        "bullet4": "would prefer not to go to the Post Office and want to prove your identity another way"
       }
     },
     "pageDcmawSuccess": {
@@ -245,35 +337,37 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
       }
     },
-    "pagePassportDocCheck": {
-      "title": "Enter your passport details and answer security questions",
-      "header": "Enter your passport details and answer security questions",
+    "pageMultipleDocCheck": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
       "content": {
-        "paragraph1": "To prove your identity this way, you’ll need:",
-        "bullet1": "your UK passport details (including your name, passport number and the date your passport expires)",
-        "bullet2": "your current home address (you might also need your previous address if you’ve recently moved)",
-        "bullet3": "to answer some questions that only you should know the answers to",
-        "subHeading": "What would you like to do?",
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK passport or UK driving licence",
+        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
+        "paragraph2": "If you’re not sure you’ll be able to prove your identity this way, you can go back to the service you were trying to use and look for other ways to prove your identity.",
+        "subHeading": "How do you want to continue?",
         "formRadioButtons": {
-          "continueButtonText": "Continue to prove your identity this way",
-          "continueButtonHint": "You’ll need a UK passport",
-          "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonHint": "Continue to the service you want to use and look for other ways to prove your identity"
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
+          "separateOptionsInFormText": "or",
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
         }
       }
     },
-    "pageMultipleDocCheck": {
-      "title": "Enter the details from your photo ID and answer security questions",
-      "header": "Enter the details from your photo ID and answer security questions",
+    "pageF2FMultipleDockCheck": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
       "content": {
-        "paragraph1": "To prove your identity, you’ll need to:",
-        "bullet1": "enter the details from your UK driving licence or UK passport (you might find it easier to do this if you have the photo ID you want to use with you)",
-        "bullet2": "enter your current home address (and your previous address if you’ve recently moved)",
-        "bullet3": "answer some questions that only you should know the answers to",
-        "subHeading": "Which photo ID would you like to use?",
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
+        "bullet2": "can answer some security questions",
+        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
+        "subHeading": "How do you want to continue?",
         "formRadioButtons": {
-          "continuePassportButtonText": "UK passport",
-          "continueDrivingLicenceButtonText": "UK driving licence",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Prove your identity another way"
         }
@@ -283,9 +377,11 @@
       "title": "You have already proved your identity",
       "header": "You have already proved your identity",
       "content": {
-        "paragraph1": "You proved your identity when you used GOV.UK One Login before. You will not need to do it again to use this service.",
+        "paragraph1": "You have already proved your identity with GOV.UK One Login. You would have done this online or in person at the Post Office.",
+        "paragraph2": "You can now continue to the service you need to use.",
         "subHeading": "Check your details",
-        "paragraph2": "If you have not signed in to GOV.UK One Login in a while, you might want to check your details are still correct.",
+        "paragraph3": "You submitted the following details when you proved your identity. You might want to check your details are still correct if you’ve not signed in to GOV.UK One Login in a while.",
+        "paragraph4": "Some of these details might be used to automatically fill in the forms within the service you need to use.",
         "userDetailsInformation": {
           "fullName": "Name",
           "dateOfBirth": "Date of birth",
@@ -294,7 +390,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "How to update your details",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/contact-us?supportType=PUBLIC\">contact the GOV.UK One Login team (opens in a new tab)</a> to update your details."
+          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
         }
       }
     },
@@ -306,7 +402,7 @@
         "paragraph2": "You should have received a confirmation email explaining what to take with you and what will happen at the Post Office. Check the letter in your confirmation email.",
         "subHeading": "If you’ve already been to the Post Office",
         "paragraph3": "Your identity check is still being processed.",
-        "paragraph4": "You’ll get an email when there's a result for your identity check - usually within a day of going to the Post Office.",
+        "paragraph4": "You’ll get an email when there’s a result for your identity check - usually within a day of going to the Post Office.",
         "subHeading2": "If you need help",
         "paragraph5": "Contact us if you:",
         "list1": "need help to finish proving your identity with the Post Office",
@@ -327,21 +423,24 @@
       "content": {
         "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
-        "paragraph1": "You can use a UK driving licence if it:",
-        "list1": "has your photo",
+        "paragraph1": "You can use a full or provisional UK driving licence if it:",
+        "list1": "is a plastic photocard, not a paper licence",
         "list2": "has not expired",
-        "paragraph2": "It can be a full or provisional UK driving licence.",
         "subHeading2": "UK passport",
-        "paragraph3": "You can use any UK passport. If your UK passport has expired, you can still use it to prove your identity up to 18 months after its expiry date.",
+        "paragraph3": "You can use any UK passport if it has not expired.",
         "subHeading3": "Non-UK passport with a biometric chip",
         "paragraph4": "You can use a non-UK passport if it:",
         "list3": "has a biometric chip",
         "list4": "has not expired",
         "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
         "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
-        "subHeading4": "UK biometric resident permit",
-        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired.",
-        "subHeading5": "Do you have any of these types of photo ID?",
+        "subHeading4": "UK biometric residence permit (BRP)",
+        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired. You might have a BRP if you have a visa for longer than 6 months or indefinite leave to remain.",
+        "subHeading5": "UK biometric residence card (BRC)",
+        "paragraph7": "This is also called a UK residence card. You can use a BRC that has not expired. You might have a BRC if you’re in the UK as a family member of a citizen from a European Economic Area (EEA) country.",
+        "subHeading6": "UK Frontier Worker permit (FWP)",
+        "paragraph8": "You can use an FWP that has not expired. You might have an FWP if you work in the UK but live in another country.",
+        "subHeading7": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
@@ -354,6 +453,7 @@
       "content": {
         "paragraph1": "Based on what you told us, you cannot prove your identity online.",
         "paragraph2": "If you have any of the following types of photo ID, you can prove your identity at a Post Office instead.",
+        "insetText": "This option is not available in Welsh yet",
         "subHeading": "European Union (EU) photocard driving licence",
         "paragraph3": "You can use an EU driving licence if:",
         "list1": "it is a plastic photocard, not a paper or handwritten licence",
@@ -367,7 +467,54 @@
         "list5": "it has not expired",
         "list6": "the address on it is the same as your current address (if it has an address)",
         "paragraph6": "The EEA includes EU countries, Norway, Iceland and Liechtenstein.",
-        "subHeading4": "Do you have any of these documents?",
+        "subHeading4": "Do you have any of these types of photo ID?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      }
+    },
+    "pageIpvBankAccountStart": {
+      "title": "Prove your identity with bank or building society details and security questions",
+      "header": "Prove your identity with bank or building society details and security questions",
+      "content": {
+        "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
+        "subHeading": "Provide some personal details",
+        "paragraph2": "We'll ask you for your:",
+        "list1": "name",
+        "list2": "date of birth",
+        "list3": "sort code and account number",
+        "list4": "recent address history",
+        "list5": "National Insurance number",
+        "subHeading2": "Answer some security questions",
+        "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
+        "paragraph4": "You can use a non-UK passport as long as it has not expired.",
+        "subHeading3": "How do you want to continue?",
+        "formRadioButtons": {
+          "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
+          "otherWayButtonText": "Prove my identity another way"
+        }
+      }
+    },
+    "PyiPostofficeStart": {
+      "title": "Prove your identity at a Post Office - GOV.UK One Login",
+      "header": "Prove your identity at a Post Office",
+      "content": {
+        "paragraph1": "You can prove your identity at a Post Office instead.",
+        "paragraph2": "You’ll be asked to:",
+        "list1": "enter details from your photo ID on GOV.UK",
+        "list2": "go to a Post Office where they’ll scan your ID and take a photo of you",
+        "paragraph3": "You’ll usually get a result within a day of going to the Post Office.",
+        "subHeading": "Types of photo ID you can use at a Post Office",
+        "paragraph4": "You’ll need one of the following:",
+        "list3": "a UK photocard driving licence (full or provisional)",
+        "list4": "a UK passport",
+        "list5": "a non-UK passport",
+        "list6": "a UK biometric residence permit (BRP)",
+        "list7": "a European Union (EU) photocard driving licence",
+        "list8": "a national identity card from a European Economic Area (EEA) country",
+        "insetText": "You cannot prove your identity at a Post Office with a Frontier Worker permit (FWP) or a UK biometric residence card (BRC), also called a UK residence card.",
+        "subHeading2": "Do you have photo ID you can use at a Post Office?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"

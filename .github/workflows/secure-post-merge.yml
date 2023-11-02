@@ -8,6 +8,7 @@ jobs:
   dockerBuildAndPush:
     name: Docker build and push
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       AWS_REGION: eu-west-2
     permissions:
@@ -25,24 +26,11 @@ jobs:
           aws-region: eu-west-2
 
       - name: yarn build assets, zip and sign
-        env:
-          ZIP_SIGNING_KEY: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
-          STACK_NAME: ${{ secrets.UPLOAD_ASSETS_STACK_NAME }}
-          ARTIFACT_BUCKET: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
-        run: |
-          cd ${GITHUB_WORKSPACE} || exit 1
-          rm -rf ./public
-          rm -rf ./assets
-          yarn install
-          yarn build
-          cp -r ./node_modules/govuk-frontend/govuk/assets ./assets
-          cat ./node_modules/govuk-frontend/package.json | jq '.version' | tr -d '"' > ./govuk_fe_version.txt
-          cp -r ./dist/public ./public
-          zip -r ./public.zip ./public/* ./assets/*
-          md5sum ./public.zip | cut -c -32 > zipsum.txt
-          aws kms sign --key-id $ZIP_SIGNING_KEY --message fileb://zipsum.txt --signing-algorithm RSASSA_PSS_SHA_256 --message-type RAW --output text --query Signature | base64 --decode > ZipSignature
-          zip -r ./$STACK_NAME.zip ./public.zip ./ZipSignature ./govuk_fe_version.txt
-          aws s3 cp $STACK_NAME.zip "s3://$ARTIFACT_BUCKET/$STACK_NAME.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
+        uses: alphagov/di-github-actions/upload-assets@main
+        with:
+          zip-signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
+          stack-name: 'core-front'
+          destination-bucket-name: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
         uses: aws-actions/configure-aws-credentials@v2
@@ -79,9 +67,8 @@ jobs:
 
       - name: Set up SAM cli
         uses: aws-actions/setup-sam@v2
-
-      - name: sam fix https://github.com/aws/aws-sam-cli/issues/4527
-        run: $(dirname $(readlink $(which sam)))/pip install --force-reinstall "cryptography==38.0.4"
+        with:
+          use-installer: true
 
       - name: SAM Validate
         working-directory: ./deploy

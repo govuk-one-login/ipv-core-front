@@ -3,6 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+  ENABLE_ALL_TEMPLATES_PAGE,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -26,10 +27,16 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
-const { generateHTMLofAddress } = require("../shared/addressHelper");
+const {
+  samplePersistedUserDetails,
+  generateUserDetails,
+} = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
+const fs = require("fs");
+const path = require("path");
+const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -113,7 +120,11 @@ async function handleBackendResponse(req, res, backendResponse) {
       requestId: req.requestId,
     });
     req.session.currentPage = backendResponse.page;
-    return res.redirect(`/ipv/page/${backendResponse.page}`);
+    return await saveSessionAndRedirect(
+      req,
+      res,
+      `/ipv/page/${backendResponse.page}`
+    );
   }
 }
 
@@ -171,7 +182,7 @@ module.exports = {
         "/journey/cri/validate/stubKbv",
         "/journey/cri/validate/dcmaw",
         "/journey/cri/validate/stubDcmaw",
-        "/journey/build-proven-user-identity-details",
+        "/user/proven-identity-details",
       ];
 
       const action = allowedActions.find((x) => x === req.url);
@@ -188,6 +199,27 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
+
+      if (ENABLE_ALL_TEMPLATES_PAGE && req.session.visitedAllTemplates) {
+        if (pageId === "page-ipv-reuse") {
+          const userDetails = generateUserDetails(
+            samplePersistedUserDetails,
+            req.i18n
+          );
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            userDetails,
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        } else {
+          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+            pageId,
+            csrfToken: req.csrfToken(),
+          });
+        }
+      }
+
       if (req.session?.ipvSessionId === null) {
         logError(
           req,
@@ -214,28 +246,39 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-attempt-recovery";
-        return res.redirect(req.session.currentPage);
+        return await saveSessionAndRedirect(
+          req,
+          res,
+          `/ipv/page/pyi-attempt-recovery`
+        );
       }
 
       switch (pageId) {
-        case "page-ipv-identity-start":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
+        case "page-ipv-bank-account-start":
         case "page-ipv-success":
         case "page-face-to-face-handoff":
         case "page-ipv-pending":
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
-        case "page-passport-doc-check":
         case "page-multiple-doc-check":
+        case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":
         case "pyi-no-match":
         case "pyi-escape":
+        case "pyi-cri-escape":
+        case "pyi-cri-escape-no-f2f":
+        case "pyi-suggest-other-options":
+        case "pyi-suggest-other-options-no-f2f":
+        case "pyi-suggest-f2f":
+        case "pyi-post-office":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
+        case "pyi-f2f-technical":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
@@ -243,32 +286,14 @@ module.exports = {
             csrfToken: req.csrfToken(),
           });
         case "page-ipv-reuse": {
-          let userDetailsResponse = await axios.get(
+          const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
             generateAxiosConfig(req)
           );
-
-          const i18n = req.i18n;
-
-          const userDetails = {
-            name: userDetailsResponse.data?.name,
-            dateOfBirth: userDetailsResponse.data?.dateOfBirth,
-            addresses: userDetailsResponse.data?.addresses.map(
-              (address, idx) => {
-                const addressDetailHtml = generateHTMLofAddress(address);
-                const label =
-                  idx === 0
-                    ? i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
-                      )
-                    : `${i18n.t(
-                        "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
-                      )} ${idx}`;
-
-                return { label, addressDetailHtml };
-              }
-            ),
-          };
+          const userDetails = generateUserDetails(
+            userDetailsResponse,
+            req.i18n
+          );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             userDetails,
@@ -294,7 +319,8 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+        return res.render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
@@ -325,7 +351,8 @@ module.exports = {
         logError(req, err);
 
         req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.redirect(`/ipv/page/pyi-technical-unrecoverable`);
+        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+        return res.render("ipv/pyi-technical-unrecoverable.njk");
       }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
@@ -339,13 +366,81 @@ module.exports = {
       next(error);
     }
   },
+  handleCriEscapeAction: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
 
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+        return res.render("ipv/pyi-technical-unrecoverable.njk");
+      }
+      if (req.body?.journey === "next/f2f") {
+        await handleJourneyResponse(req, res, "journey/f2f");
+      } else if (req.body?.journey === "next/dcmaw") {
+        await handleJourneyResponse(req, res, "journey/dcmaw");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleCriEscapeAction");
+      next(error);
+    }
+  },
+  handleCimitEscapeAction: async (req, res, next) => {
+    try {
+      if (!req.session?.ipvSessionId) {
+        const err = new Error("req.ipvSessionId is missing");
+        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+        logError(req, err);
+
+        req.session.currentPage = "pyi-technical-unrecoverable";
+        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+        return res.render("ipv/pyi-technical-unrecoverable.njk");
+      }
+      if (req.body?.journey === "next/f2f") {
+        await handleJourneyResponse(req, res, "journey/f2f");
+      } else if (req.body?.journey === "next/dcmaw") {
+        await handleJourneyResponse(req, res, "journey/dcmaw");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleCimitEscapeAction");
+      next(error);
+    }
+  },
   renderFeatureSetPage: async (req, res) => {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,
     });
   },
+  allTemplates: async (req, res, next) => {
+    try {
+      const directoryPath = __dirname + "/../../views/ipv";
 
+      fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+          return next(err);
+        }
+
+        // Remove the .njk extension from file names
+        const templatesWithoutExtension = files.map(
+          (file) => path.parse(file).name
+        );
+
+        req.session.visitedAllTemplates = true;
+
+        res.render("ipv/all-templates.njk", {
+          allTemplates: templatesWithoutExtension,
+        });
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;

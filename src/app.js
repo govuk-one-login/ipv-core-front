@@ -9,10 +9,11 @@ const {
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
-  ASSETS_CDN_DOMAIN,
+  CDN_PATH,
+  CDN_DOMAIN,
 } = require("./lib/config");
 
-const { getGTM } = require("./lib/locals");
+const { setLocals } = require("./lib/locals");
 
 const { loggerMiddleware, logger } = require("./lib/logger");
 const express = require("express");
@@ -30,6 +31,9 @@ const {
   serverErrorHandler,
 } = require("./handlers/internal-server-error-handler");
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
+const {
+  securityHeadersHandler,
+} = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
   path.join(__dirname, "views"),
@@ -60,10 +64,20 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(setLocals);
+app.use(securityHeadersHandler);
 
-if (ASSETS_CDN_DOMAIN) {
-  app.get(["/assets", "/public"], function (req, res) {
-    res.redirect(301, ASSETS_CDN_DOMAIN + req.originalUrl);
+if (CDN_PATH) {
+  app.get(["/public"], function (req, res) {
+    res.redirect(301, CDN_PATH + req.originalUrl);
+  });
+} else {
+  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+}
+
+if (CDN_DOMAIN) {
+  app.get(["/assets"], function (req, res) {
+    res.redirect(301, CDN_DOMAIN + req.originalUrl);
   });
 } else {
   app.use(
@@ -72,10 +86,7 @@ if (ASSETS_CDN_DOMAIN) {
       path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
     )
   );
-  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
 }
-
-app.use(loggerMiddleware);
 
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
@@ -139,6 +150,7 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
+router.use(loggerMiddleware);
 
 router.use((req, res, next) => {
   req.log = logger.child({
@@ -149,15 +161,16 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use(getGTM);
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/ipv", require("./app/ipv/router"));
 
-router.get("/healthcheck", (req, res) => {
+const healthcheckRouter = express.Router();
+healthcheckRouter.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
+app.use(healthcheckRouter);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

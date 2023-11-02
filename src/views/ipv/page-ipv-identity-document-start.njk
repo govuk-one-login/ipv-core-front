@@ -16,7 +16,6 @@
         <li>{{'pages.pageIpvIdentityDocumentStart.content.list1' | translate }}</li>
         <li>{{'pages.pageIpvIdentityDocumentStart.content.list2' | translate }}</li>
       </ul>
-      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph2' | translate }}</p>
     </li>
     <li>
       <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading2' | translate }}</h2>
@@ -31,17 +30,25 @@
       </ul>
       <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
       <picture>
-        <source srcset="/public/images/passport-icon.svg" />
-        <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{'pages.pageIpvIdentityDocumentStart.content.imgAltText' | translate }}" />
+        <source srcset="{{ assetsCdnPath }}/public/images/passport-icon.svg" />
+        <img width="174" height="121" loading="lazy" src="{{ assetsCdnPath }}/public/images/passport-icon-1x.png" srcset="{{ assetsCdnPath }}/public/images/passport-icon-2x.png 2x" alt="{{'pages.pageIpvIdentityDocumentStart.content.imgAltText' | translate }}" />
       </picture>
     </li>
     <li>
       <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading4' | translate }}</h2>
       <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
     </li>
+    <li>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
+      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph7' | translate }}</p>
+    </li>
+    <li>
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading6' | translate }}</h2>
+      <p class="govuk-body">{{'pages.pageIpvIdentityDocumentStart.content.paragraph8' | translate }}</p>
+    </li>
   </ul>
-  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate }}</h2>
-  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST" onsubmit="return identityDocumentStartPageOptionsFormSubmit()">
+  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{'pages.pageIpvIdentityDocumentStart.content.subHeading7' | translate }}</h2>
+  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {{ govukRadios({
     idPrefix: "journey",
@@ -62,16 +69,4 @@
       {{'general.buttons.next' | translate }}
     </button>
   </form>
-
-  <script>
-    let disableSubmit = false;
-    function identityDocumentStartPageOptionsFormSubmit() {
-      if(!disableSubmit) {
-        disableSubmit = true;
-        document.getElementById('submitButton').disabled = true;
-        return true
-      }
-      return false;
-    }
-  </script>
 {% endblock %}

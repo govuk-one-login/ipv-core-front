@@ -1,0 +1,20 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiSuggestF2f.title' | translate %}
+{% set googleTagManagerPageId = "pyiSuggestF2f" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiSuggestF2f.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiSuggestF2f.content.paragraph1' | translate }}</p>
+
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">
+      {{'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+
+
+{% endblock %}

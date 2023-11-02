@@ -6,7 +6,7 @@
 {% block head %}
 
     <!--[if !IE 8]><!-->
-    <link href="{{ assetsCdnDomain }}/public/stylesheets/application.css" rel="stylesheet">
+    <link href="{{ assetsCdnPath }}/public/stylesheets/application.css" rel="stylesheet">
     <!--<![endif]-->
 
     {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -17,7 +17,7 @@
 
     {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
     <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
+    <script nonce='{{ cspNonce }}' src="/html5-shiv/html5shiv.js"></script>
     <![endif]-->
 
     {% block headMetaData %}{% endblock %}
@@ -37,9 +37,7 @@
 {% endblock %}
 
 {% block header %}
-    {{ govukHeader({
-        homepageUrl: 'general.header.homepageHref' | translate
-    }) }}
+    {% include 'shared/sign-out-header.njk' %}
 {% endblock %}
 
 {% block main %}
@@ -48,7 +46,7 @@
             tag: {
                 text: 'general.govuk.phaseBanner.tag' | translate
             },
-            html: 'general.govuk.phaseBanner.content' | translate
+            html: 'general.govuk.phaseBanner.content' | translate( { url: contactUsUrl } )
         }) }}
         {% block beforeContent %}{% endblock %}
         {% if showBack %}
@@ -88,7 +86,7 @@
                     text: 'general.footer.privacy.linkText' | translate
                 },
                 {
-                    href: "https://signin.account.gov.uk/contact-us",
+                    href: contactUsUrl,
                     attributes: {target: "_blank", rel:"noreferrer noopener"},
                     text: 'general.footer.support.linkText' | translate
                 }
@@ -105,6 +103,14 @@
 
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
-    <script type="text/javascript"  src="{{ assetsCdnDomain }}/public/javascripts/application.js"></script>
-    <script type="text/javascript" nonce='{{ scriptNonce }}'>window.GOVSignIn.appInit("{{ gtmId }}", "{{ analyticsCookieDomain }}", "{{ googleTagManagerPageId }}")</script>
+    <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
+    <script nonce='{{ cspNonce }}'>
+        window.DI.httpStatusCode = {{ statusCode | d(200) }};
+        window.DI.journeyState = "{{ googleTagManagerPageId }}";
+        window.DI.appInit({
+            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
+            uaContainerId: "{{ uaContainerId }}",
+            ga4ContainerId: "{{ ga4ContainerId }}",
+        });
+    </script>
 {% endblock %}

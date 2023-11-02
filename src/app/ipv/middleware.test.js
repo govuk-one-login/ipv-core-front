@@ -57,6 +57,7 @@ describe("journey middleware", () => {
           ipAddress: "ip-address",
           clientOauthSessionId: "fake-oauth-session-id",
           featureSet: "feature-set",
+          save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
@@ -128,15 +129,15 @@ describe("journey middleware", () => {
     it("should render page case when given valid pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "page-ipv-identity-start" },
+        params: { pageId: "page-ipv-identity-document-start" },
         csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-identity-start" },
+        session: { currentPage: "page-ipv-identity-document-start" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/page-ipv-identity-start.njk"
+        "ipv/page-ipv-identity-document-start.njk"
       );
     });
 
@@ -170,12 +171,17 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         params: { pageId: "invalid-page-id" },
-        session: { currentPage: "../ipv/page-multiple-doc-check" },
+        session: {
+          currentPage: "../ipv/page-multiple-doc-check",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.redirect).to.have.been.calledWith("pyi-attempt-recovery");
+      expect(res.redirect).to.have.been.calledWith(
+        "/ipv/page/pyi-attempt-recovery"
+      );
     });
 
     it("should raise an error when missing pageId", async () => {
@@ -479,11 +485,11 @@ describe("journey middleware", () => {
   );
 
   context("handling missing ipvSessionId before calling the backend", () => {
-    it("should redirect to the technical unrecoverable page", async function () {
+    it("should render the technical unrecoverable page", async function () {
       req = {
         id: "1",
         session: {
-          currentPage: "page-ipv-identity-start",
+          currentPage: "page-ipv-identity-document-start",
           ipvSessionId: null,
           ipAddress: "ip-address",
         },
@@ -491,8 +497,9 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyAction(req, res, next);
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-technical-unrecoverable"
+      expect(res.status).to.have.been.calledWith(401);
+      expect(res.render).to.have.been.calledWith(
+        "ipv/pyi-technical-unrecoverable.njk"
       );
     });
   });
@@ -529,7 +536,7 @@ describe("journey middleware", () => {
           {
             label: "Some label",
             addressDetailHtml:
-              "My deparment My company Room 5 my building<br>1 My outter street my inner street,<br>My double dependant town my dependant town my town,<br>myCode",
+              "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
           },
         ],
       };
@@ -610,11 +617,11 @@ describe("journey middleware", () => {
   context(
     "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
     () => {
-      it("should redirect to the technical unrecoverable page", async function () {
+      it("should render the technical unrecoverable page", async function () {
         req = {
           id: "1",
           session: {
-            currentPage: "page-ipv-identity-start",
+            currentPage: "page-ipv-identity-document-start",
             ipvSessionId: null,
             ipAddress: "ip-address",
           },
@@ -622,8 +629,72 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(res.redirect).to.have.been.calledWith(
-          "/ipv/page/pyi-technical-unrecoverable"
+        expect(res.status).to.have.been.calledWith(401);
+        expect(res.render).to.have.been.calledWith(
+          "ipv/pyi-technical-unrecoverable.njk"
+        );
+      });
+    }
+  );
+
+  context(
+    "handleCriEscapeAction: handling journey action with journey/f2f, journey/dcmaw, journey/end",
+    () => {
+      it("should post with journey/f2f", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/f2f" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/f2f`
+        );
+      });
+
+      it("should post with journey/dcmaw", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/dcmaw" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/dcmaw`
+        );
+      });
+
+      it("should post with journey/end by default", async function () {
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+          `${configStub.API_BASE_URL}/journey/end`
+        );
+      });
+    }
+  );
+
+  context(
+    "handleCriEscapeAction: handling missing ipvSessionId before calling the backend",
+    () => {
+      it("should render the technical unrecoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "page-ipv-identity-document-start",
+            ipvSessionId: null,
+            ipAddress: "ip-address",
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleCriEscapeAction(req, res, next);
+        expect(res.status).to.have.been.calledWith(401);
+        expect(res.render).to.have.been.calledWith(
+          "ipv/pyi-technical-unrecoverable.njk"
         );
       });
     }

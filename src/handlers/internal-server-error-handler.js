@@ -1,5 +1,4 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
-const { logError } = require("../app/shared/loggerHelper");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
@@ -19,8 +18,8 @@ module.exports = {
     }
     res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
     res.err?.status
-        ? res.status(res.err.status)
-        : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
+      ? res.status(res.err.status)
+      : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
 
     req.session.currentPage = "pyi-technical-unrecoverable";
     res.render("ipv/pyi-technical-unrecoverable.njk");

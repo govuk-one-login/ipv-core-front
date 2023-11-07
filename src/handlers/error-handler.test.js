@@ -89,20 +89,6 @@ describe("Error handlers", () => {
       );
     });
 
-    it("should log error when status is not defined", () => {
-      const err = new Error("some error");
-      res.status = null;
-
-      serverErrorHandler(err, req, res, next);
-
-      expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
-        "Bad response - status is not a function",
-      );
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk",
-      );
-    });
-
     it("should call next if headers sent", () => {
       res.headersSent = true;
       const err = new Error("some error");

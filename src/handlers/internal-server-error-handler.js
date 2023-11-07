@@ -18,14 +18,9 @@ module.exports = {
       return res.render("errors/session-ended.njk");
     }
     res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
-
-    try {
-      res.err?.status
+    res.err?.status
         ? res.status(res.err.status)
         : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
-    } catch (e) {
-      logError(req, e, "Bad response - status is not a function");
-    }
 
     req.session.currentPage = "pyi-technical-unrecoverable";
     res.render("ipv/pyi-technical-unrecoverable.njk");

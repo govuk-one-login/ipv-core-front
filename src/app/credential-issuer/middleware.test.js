@@ -122,7 +122,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(res.status).to.be.eql(200);
+      expect(res.status).to.be.calledWith(200);
     });
 
     it("should call /journey/next", async () => {
@@ -295,7 +295,7 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(res.status).to.be.eql(200);
+      expect(res.status).to.be.calledWith(200);
     });
 
     it("should call /journey/next", async () => {

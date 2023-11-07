@@ -37,7 +37,9 @@ module.exports = {
         { ...body, ...errorDetails },
         generateJsonAxiosConfig(req),
       );
-      res.status = apiResponse?.status;
+      if (apiResponse?.status) {
+        res.status(apiResponse.status);
+      }
 
       return handleBackendResponse(req, res, apiResponse?.data);
     } catch (error) {
@@ -76,7 +78,9 @@ module.exports = {
         { ...body, ...errorDetails },
         generateJsonAxiosConfig(req),
       );
-      res.status = apiResponse?.status;
+      if (apiResponse?.status) {
+        res.status(apiResponse.status);
+      }
 
       return handleBackendResponse(req, res, apiResponse.data);
     } catch (error) {

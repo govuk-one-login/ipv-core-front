@@ -54,11 +54,11 @@
     "uglify-js": "latest"
   },
   "dependencies": {
-    "aws-sdk": "^2.1486.0",
+    "@aws-sdk/client-dynamodb": "^3.445.0",
     "axios": "1.4.0",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",
-    "connect-dynamodb": "^2.0.6",
+    "connect-dynamodb": "^3.0.2",
     "cookie-parser": "1.4.6",
     "copyfiles": "2.4.1",
     "csurf": "1.11.0",

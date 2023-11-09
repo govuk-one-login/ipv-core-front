@@ -283,6 +283,7 @@ module.exports = {
         case "pyi-technical-unrecoverable":
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
+            pageErrorState: req.query.errorState,
             csrfToken: req.csrfToken(),
           });
         case "page-ipv-reuse": {

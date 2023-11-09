@@ -1,0 +1,32 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiDeleteDetails.title' | translate %}
+{% set googleTagManagerPageId = "pyiDeleteDetails" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiDeleteDetails.header' | translate }}</h1>
+   <p class="govuk-body">{{ 'pages.pyiDeleteDetails.content.paragraph1' | translate }}</p>
+
+    <form id="pyiDeleteDetailsActionForm" action="/ipv/page/{{pageId}}" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        {{ govukRadios({
+        idPrefix: "journey",
+        name: "journey",
+        items: [
+                {
+                    value: "next",
+                    text: 'pages.pyiDeleteDetails.content.formRadioButtons.yes' | translate
+                },
+                {
+                    value: "end",
+                    text: 'pages.pyiDeleteDetails.content.formRadioButtons.no' | translate
+                }
+                ]
+        })
+        }}
+        <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+        {{'general.buttons.next' | translate }}
+        </button>
+    </form>
+{% endblock %}

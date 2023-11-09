@@ -360,6 +360,17 @@
         }
       }
     },
+    "pyiDeleteDetails": {
+      "title": "TEMP Are you sure you want to delete your details and prove your identity again?",
+      "header": "TEMP Are you sure you want to delete your details and prove your identity again?",
+      "content": {
+        "paragraph1": "TEMP Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "formRadioButtons": {
+          "yes": "TEMP Yes, delete my details",
+          "no": "TEMP No, cancel and go back to my current details"
+        }
+      }
+    },
     "pageMultipleDocCheck": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",

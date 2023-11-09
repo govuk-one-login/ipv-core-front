@@ -337,7 +337,7 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
       }
     },
-    "pyiNewDetails" :{
+    "pyiNewDetails": {
       "title": "Prove your identity again with new details",
       "header": "Prove your identity again with new details",
       "content": {
@@ -357,6 +357,17 @@
         "formRadioButtons": {
           "yes": "Continue to delete my details",
           "no": "Go back to my current details"
+        }
+      }
+    },
+    "pyiDeleteDetails": {
+      "title": "Are you sure you want to delete your details and prove your identity again?",
+      "header": "Are you sure you want to delete your details and prove your identity again?",
+      "content": {
+        "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "formRadioButtons": {
+          "yes": "Yes, delete my details",
+          "no": "No, cancel and go back to my current details"
         }
       }
     },

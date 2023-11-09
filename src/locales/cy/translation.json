@@ -360,7 +360,7 @@
         }
       }
     },
-    "pyiDeleteDetails": {
+    "pyiConfirmDeleteDetails": {
       "title": "TEMP Are you sure you want to delete your details and prove your identity again?",
       "header": "TEMP Are you sure you want to delete your details and prove your identity again?",
       "content": {
@@ -369,6 +369,19 @@
           "yes": "TEMP Yes, delete my details",
           "no": "TEMP No, cancel and go back to my current details"
         }
+      }
+    },
+    "pyiDetailsDeleted": {
+      "title": "TEMP You have delete the details in your GOV.UK One Login",
+      "header": "TEMP You have delete the details in your GOV.UK One Login",
+      "content": {
+        "paragraph1": "TEMP You've been sent a confirmation email.",
+        "paragraph2": "TEMP You can now prove your identity again using your new details.",
+        "paragraph3": "TEMP You'll need:",
+        "list1": "TEMP photo ID with the name you want GOV.UK One Login to use",
+        "list2": "TEMP to tell us where you've lived for the last 3 months",
+        "paragraph4": "TEMP Find out what photo ID you can use to prove your identity (opens in new tab).",
+        "submitButtonText": "TEMP Continue to prove your identity again"
       }
     },
     "pageMultipleDocCheck": {

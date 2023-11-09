@@ -1,4 +1,6 @@
 {% extends "shared/base.njk" %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% set pageTitleName = 'pages.pyiNewDetails.title' | translate %}
 {% set googleTagManagerPageId = "pyiNewDetails" %}
 
@@ -16,4 +18,41 @@
     <li>{{ 'pages.pyiNewDetails.content.list4' | translate }}</li>
   </ul>
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate }}</p>
+
+  {{ govukWarningText({
+    text: 'pages.pyiNewDetails.content.warningTextContent' | translate,
+    iconFallbackText: 'pages.pyiNewDetails.content.warningTextFallback' | translate
+  }) }}
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiNewDetails.content.subHeading1' | translate }}</h2>
+
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph4' }}</p>
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph5' }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiNewDetails.content.subHeading2' | translate }}</h2>
+
+  <form id="pyiNewDetailsActionForm" action="/ipv/page/{{pageId}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    {{ govukRadios({
+    idPrefix: "journey",
+    name: "journey",
+    items: [
+              {
+                value: "next",
+                text: 'pages.pyiNewDetails.content.formRadioButtons.yes' | translate
+              },
+              {
+                value: "end",
+                text: 'pages.pyiNewDetails.content.formRadioButtons.no' | translate
+              }
+            ]
+      })
+    }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+
+
 {% endblock %}

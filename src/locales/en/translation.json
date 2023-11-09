@@ -444,6 +444,11 @@
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID",
+          "errorRadioMessage": "Select yes if you have any of these types of photo ID"
         }
       }
     },

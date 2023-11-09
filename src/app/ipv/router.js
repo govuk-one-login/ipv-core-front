@@ -14,6 +14,7 @@ const {
   handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
+  formRadioButtonChecked,
   allTemplates,
 } = require("./middleware");
 
@@ -37,6 +38,15 @@ router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
+
+router.post(
+  "/page/page-ipv-identity-document-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction
+);
+
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,

@@ -493,6 +493,11 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun",
+          "errorRadioMessage": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun"
         }
       }
     },

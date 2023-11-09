@@ -735,4 +735,38 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith("ipv/page-featureset.njk");
     });
   });
+
+  context('formRadioButtonChecked', () => {
+    beforeEach(() => {
+      req = {
+        method: 'POST',
+        body: {},
+        originalUrl: '/some/url',
+      };
+      res = {
+        redirect: sinon.fake(),
+      };
+      next = sinon.stub();
+    });
+
+    it('should redirect with errorState=true if journey is undefined in POST request', () => {
+      middleware.formRadioButtonChecked(req, res, next);
+      expect(res.redirect).to.have.been.calledWith('/some/url?errorState=true');
+      expect(next).to.not.have.been.called;
+    });
+
+    it('should call next if journey is defined in POST request', () => {
+      req.body.journey = 'next';
+      middleware.formRadioButtonChecked(req, res, next);
+      expect(res.redirect).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it('should not redirect for non-POST requests', () => {
+      req.method = 'GET';
+      middleware.formRadioButtonChecked(req, res, next);
+      expect(res.redirect).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+  });
 });

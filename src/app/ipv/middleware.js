@@ -441,6 +441,13 @@ module.exports = {
       next(error);
     }
   },
+  formRadioButtonChecked: async (req, res, next) => {
+    if (req.method === "POST" && req.body.journey === undefined) {
+      return res.redirect(req.originalUrl + "?errorState=true");
+    } else {
+      next();
+    }
+  },
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;

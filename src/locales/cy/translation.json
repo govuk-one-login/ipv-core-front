@@ -337,6 +337,10 @@
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
       }
     },
+    "pyiNewDetails" :{
+      "title": "TEMP Prove your identity again with new details",
+      "header": "TEMP Prove your identity again with new details"
+    },
     "pageMultipleDocCheck": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",

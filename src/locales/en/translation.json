@@ -337,6 +337,19 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
       }
     },
+    "pyiNewDetails" :{
+      "title": "Prove your identity again with new details",
+      "header": "Prove your identity again with new details",
+      "content": {
+        "paragraph1": "To update your details, you'll need to:",
+        "list1": "delete your details",
+        "list2": "prove your identity again with new details",
+        "paragraph2": "You'll need:",
+        "list3": "photo ID with the name you want GOV.UK One Login to use",
+        "list4": "to tell us where you've lived for the last 3 months",
+        "paragraph3": "Find out what photo ID you can use to prove your identity (opens in new tab)."
+      }
+    },
     "pageMultipleDocCheck": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",

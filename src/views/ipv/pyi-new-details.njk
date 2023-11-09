@@ -1,0 +1,19 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleName = 'pages.pyiNewDetails.title' | translate %}
+{% set googleTagManagerPageId = "pyiNewDetails" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiNewDetails.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ 'pages.pyiNewDetails.content.list1' | translate }}</li>
+    <li>{{ 'pages.pyiNewDetails.content.list2' | translate }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ 'pages.pyiNewDetails.content.list3' | translate }}</li>
+    <li>{{ 'pages.pyiNewDetails.content.list4' | translate }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate }}</p>
+{% endblock %}

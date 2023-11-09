@@ -350,10 +350,10 @@
         "paragraph3": "Find out what photo ID you can use to prove your identity (opens in new tab).",
         "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
         "warningTextFallback": "Warning",
-        "subheading1": "If you need to use the service now",
+        "subHeading1": "If you need to use the service now",
         "paragraph4": "Your proof of identity is still valid even if your details are out of date.",
         "paragraph5": "You can use your current details to access the service you need to use.",
-        "subheading2": "What would you like to do?",
+        "subHeading2": "What would you like to do?",
         "formRadioButtons": {
           "yes": "Continue to delete my details",
           "no": "Go back to my current details"

@@ -337,9 +337,28 @@
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
       }
     },
-    "pyiNewDetails" :{
+    "pyiNewDetails": {
       "title": "TEMP Prove your identity again with new details",
-      "header": "TEMP Prove your identity again with new details"
+      "header": "TEMP Prove your identity again with new details",
+      "content": {
+        "paragraph1": "TEMP To update your details, you need to:",
+        "list1": "TEMP delete your details",
+        "list2": "TEMP prove your identity again with new details",
+        "paragraph2": "TEMP You'll need:",
+        "list3": "TEMP photo ID with the name you want GOV.UK One Login to use",
+        "list4": "TEMP to tell us where you've lived for the last 3 months",
+        "paragraph3": "TEMP Find out what photo ID you can use to prove your identity (opens in new tab).",
+        "warningTextContent": "TEMP You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
+        "warningTextFallback": "TEMP Warning",
+        "subHeading1": "TEMP If you need to use the service now",
+        "paragraph4": "TEMP Your proof of identity is still valid even if your details are out of date.",
+        "paragraph5": "TEMP You can use your current details to access the service you need to use.",
+        "subHeading2": "TEMP What would you like to do?",
+        "formRadioButtons": {
+          "yes": "TEMP Continue to delete my details",
+          "no": "TEMP Go back to my current details"
+        }
+      }
     },
     "pageMultipleDocCheck": {
       "title": "Parhau profi eich hunaniaeth ar-lein",

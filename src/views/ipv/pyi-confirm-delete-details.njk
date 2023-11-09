@@ -6,6 +6,7 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translate }}</h1>
+
    <p class="govuk-body">{{ 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate }}</p>
 
     <form id="pyiConfirmDeleteDetailsActionForm" action="/ipv/page/{{pageId}}" method="POST">
@@ -26,7 +27,7 @@
         })
         }}
         <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-        {{'general.buttons.next' | translate }}
+            {{ 'general.buttons.next' | translate }}
         </button>
     </form>
 {% endblock %}

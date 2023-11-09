@@ -347,7 +347,7 @@
         "paragraph2": "You'll need:",
         "list3": "photo ID with the name you want GOV.UK One Login to use",
         "list4": "to tell us where you've lived for the last 3 months",
-        "paragraph3": "Find out what photo ID you can use to prove your identity (opens in new tab).",
+        "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
         "warningTextFallback": "Warning",
         "subHeading1": "If you need to use the service now",
@@ -380,7 +380,7 @@
         "paragraph3": "You'll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
         "list2": "to tell us where you've lived for the last 3 months",
-        "paragraph4": "Find out what photo ID you can use to prove your identity (opens in new tab).",
+        "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "submitButtonText": "Continue to prove your identity again"
       }
     },

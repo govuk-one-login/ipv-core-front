@@ -1,0 +1,24 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% set pageTitleName = 'pages.pyiDetailsDeleted.title' | translate %}
+{% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translate %}
+{% set googleTagManagerPageId = "pyiDetailsDeleted" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiDetailsDeleted.header' | translate }}</h1>
+
+   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph1' | translate }}</p>
+   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph2' | translate }}</p>
+   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph3' | translate }}</p>
+
+   <ul class="govuk-list govuk-list--bullet">
+    <li>{{ 'pages.pyiDetailsDeleted.content.list1' | translate }}</li>
+    <li>{{ 'pages.pyiDetailsDeleted.content.list2' | translate }}</li>
+  </ul>
+
+  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translate | safe}}</p>
+
+{% include "shared/journey-next-form.njk" %}
+{% endblock %}

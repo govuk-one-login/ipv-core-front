@@ -337,6 +337,53 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue."
       }
     },
+    "pyiNewDetails": {
+      "title": "Prove your identity again with new details",
+      "header": "Prove your identity again with new details",
+      "content": {
+        "paragraph1": "To update your details, you need to:",
+        "list1": "delete your details",
+        "list2": "prove your identity again with new details",
+        "paragraph2": "You'll need:",
+        "list3": "photo ID with the name you want GOV.UK One Login to use",
+        "list4": "to tell us where you've lived for the last 3 months",
+        "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
+        "warningTextFallback": "Warning",
+        "subHeading1": "If you need to use the service now",
+        "paragraph4": "Your proof of identity is still valid even if your details are out of date.",
+        "paragraph5": "You can use your current details to access the service you need to use.",
+        "subHeading2": "What would you like to do?",
+        "formRadioButtons": {
+          "yes": "Continue to delete my details",
+          "no": "Go back to my current details"
+        }
+      }
+    },
+    "pyiConfirmDeleteDetails": {
+      "title": "Are you sure you want to delete your details and prove your identity again?",
+      "header": "Are you sure you want to delete your details and prove your identity again?",
+      "content": {
+        "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "formRadioButtons": {
+          "yes": "Yes, delete my details",
+          "no": "No, cancel and go back to my current details"
+        }
+      }
+    },
+    "pyiDetailsDeleted": {
+      "title": "You have deleted the details in your GOV.UK One Login",
+      "header": "You have deleted the details in your GOV.UK One Login",
+      "content": {
+        "paragraph1": "You've been sent a confirmation email.",
+        "paragraph2": "You can now prove your identity again using your new details.",
+        "paragraph3": "You'll need:",
+        "list1": "photo ID with the name you want GOV.UK One Login to use",
+        "list2": "to tell us where you've lived for the last 3 months",
+        "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "submitButtonText": "Continue to prove your identity again"
+      }
+    },
     "pageMultipleDocCheck": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",

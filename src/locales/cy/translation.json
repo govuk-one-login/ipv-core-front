@@ -370,6 +370,11 @@
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut rydych eisiau parhau",
+          "errorRadioMessage": "Dewiswch sut rydych eisiau parhau"
         }
       }
     },

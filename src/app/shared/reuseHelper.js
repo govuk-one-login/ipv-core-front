@@ -58,10 +58,10 @@ module.exports = {
         const label =
           idx === 0
             ? i18n.t(
-                "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
+                "pages.pageIpvReuse.content.userDetailsInformation.currentAddress"
               )
             : `${i18n.t(
-                "pages.pageIpvReuse.content.userDetailsInformation.previousAddress",
+                "pages.pageIpvReuse.content.userDetailsInformation.previousAddress"
               )} ${idx}`;
 
         return { label, addressDetailHtml };

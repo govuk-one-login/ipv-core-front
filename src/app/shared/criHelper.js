@@ -3,7 +3,7 @@ module.exports = {
     const cri = req.cri
       ? req.cri
       : req.session?.criConfig?.find(
-          (criConfig) => criConfig.id === req.query.id,
+          (criConfig) => criConfig.id === req.query.id
         );
 
     if (!cri) {

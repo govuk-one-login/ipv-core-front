@@ -59,13 +59,13 @@ describe("cri Helper", () => {
         "../shared/criHelper",
         {
           "../../lib/config": configStub,
-        },
+        }
       );
 
       await buildCredentialIssuerRedirectURL(req, res, next);
 
       expect(req.redirectURL.toString()).to.equal(
-        "http://passport-stub-1/authorize?client_id=test-ipv-client&request=test-request",
+        "http://passport-stub-1/authorize?client_id=test-ipv-client&request=test-request"
       );
     });
 
@@ -75,7 +75,7 @@ describe("cri Helper", () => {
           "../shared/criHelper",
           {
             "../../lib/config": configStub,
-          },
+          }
         );
         req.query = {};
 
@@ -83,7 +83,7 @@ describe("cri Helper", () => {
 
         expect(res.status).to.have.been.calledWith(500);
         expect(res.send).to.have.been.calledWith(
-          "Could not find configured CRI",
+          "Could not find configured CRI"
         );
       });
     });

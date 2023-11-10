@@ -54,7 +54,7 @@ async function journeyApi(action, req) {
     {},
     req.session?.clientOauthSessionId
       ? generateAxiosConfigWithClientSessionId(req)
-      : generateAxiosConfig(req),
+      : generateAxiosConfig(req)
   );
 }
 
@@ -123,7 +123,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${backendResponse.page}`,
+      `/ipv/page/${backendResponse.page}`
     );
   }
 }
@@ -204,7 +204,7 @@ module.exports = {
         if (pageId === "page-ipv-reuse") {
           const userDetails = generateUserDetails(
             samplePersistedUserDetails,
-            req.i18n,
+            req.i18n
           );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
@@ -227,7 +227,7 @@ module.exports = {
             pageId: pageId,
             expectedPage: req.session.currentPage,
           },
-          "req.ipvSessionId is null",
+          "req.ipvSessionId is null"
         );
 
         req.session.currentPage = "pyi-technical-unrecoverable";
@@ -242,14 +242,14 @@ module.exports = {
             pageId: pageId,
             expectedPage: req.session.currentPage,
           },
-          "page :pageId doesn't match expected session page :expectedPage",
+          "page :pageId doesn't match expected session page :expectedPage"
         );
 
         req.session.currentPage = "pyi-attempt-recovery";
         return await saveSessionAndRedirect(
           req,
           res,
-          `/ipv/page/pyi-attempt-recovery`,
+          `/ipv/page/pyi-attempt-recovery`
         );
       }
 
@@ -288,11 +288,11 @@ module.exports = {
         case "page-ipv-reuse": {
           const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-            generateAxiosConfig(req),
+            generateAxiosConfig(req)
           );
           const userDetails = generateUserDetails(
             userDetailsResponse,
-            req.i18n,
+            req.i18n
           );
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
@@ -313,7 +313,7 @@ module.exports = {
     try {
       if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
         const err = new Error(
-          "req.ipvSessionId and req.clientOauthSessionId is missing",
+          "req.ipvSessionId and req.clientOauthSessionId is missing"
         );
         err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
         logError(req, err);
@@ -333,7 +333,7 @@ module.exports = {
         await handleJourneyResponse(
           req,
           res,
-          "journey/build-client-oauth-response",
+          "journey/build-client-oauth-response"
         );
       } else {
         await handleJourneyResponse(req, res, "journey/next");
@@ -428,7 +428,7 @@ module.exports = {
 
         // Remove the .njk extension from file names
         const templatesWithoutExtension = files.map(
-          (file) => path.parse(file).name,
+          (file) => path.parse(file).name
         );
 
         req.session.visitedAllTemplates = true;

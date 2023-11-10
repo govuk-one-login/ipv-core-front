@@ -41,7 +41,7 @@ module.exports = {
             "ip-address": req.session.ipAddress,
             "feature-set": req.session.featureSet,
           },
-        },
+        }
       );
 
       req.session.ipvSessionId = response?.data?.ipvSessionId;

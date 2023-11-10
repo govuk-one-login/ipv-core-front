@@ -35,7 +35,7 @@ module.exports = {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req),
+        generateJsonAxiosConfig(req)
       );
       if (apiResponse?.status) {
         res.status(apiResponse.status);
@@ -76,7 +76,7 @@ module.exports = {
       const apiResponse = await axios.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req),
+        generateJsonAxiosConfig(req)
       );
       if (apiResponse?.status) {
         res.status(apiResponse.status);

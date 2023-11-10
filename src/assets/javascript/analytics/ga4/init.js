@@ -15,7 +15,7 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
       initGa4ElementTrackers(container ?? document);
     } else {
       window.addEventListener("cookie-consent", () =>
-        window.DI.analyticsGa4.init(),
+        window.DI.analyticsGa4.init()
       );
     }
   };
@@ -34,7 +34,7 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
             /* eslint-disable-next-line no-console */
             console.warn(
               "Error starting analytics tracker " + tracker + ": " + e.message,
-              window.location,
+              window.location
             );
           }
         }
@@ -92,7 +92,7 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
               /* eslint-disable-next-line no-console */
               console.warn(
                 "Error starting element tracker " + tracker + ": " + e.message,
-                window.location,
+                window.location
               );
             }
           }

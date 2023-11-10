@@ -7,7 +7,7 @@ window.DI = window.DI || {};
     hasConsentForAnalytics: function () {
       const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
       const cookieConsent = JSON.parse(
-        decodeURIComponent(this.getCookie(COOKIES_PREFERENCES_SET)),
+        decodeURIComponent(this.getCookie(COOKIES_PREFERENCES_SET))
       );
       return cookieConsent ? cookieConsent.analytics === true : false;
     },
@@ -35,7 +35,7 @@ window.DI = window.DI || {};
       }
 
       let cookieString = `${name}=${encodeURIComponent(
-        JSON.stringify(values),
+        JSON.stringify(values)
       )}`;
       if (options.days) {
         const date = new Date();

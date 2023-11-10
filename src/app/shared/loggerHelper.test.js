@@ -43,10 +43,10 @@ describe("logger helper", () => {
 
       expect(error.status).to.equal(400);
       expect(req.log.error.firstArg.message.errorMessageContext).to.equal(
-        extraMessage,
+        extraMessage
       );
       expect(req.log.error.firstArg.message.errorMessage).to.equal(
-        "Some error",
+        "Some error"
       );
     });
   });
@@ -68,10 +68,10 @@ describe("logger helper", () => {
       });
 
       expect(req.log.info.firstArg.message.logCommunicationType).to.equal(
-        LOG_COMMUNICATION_TYPE_REQUEST,
+        LOG_COMMUNICATION_TYPE_REQUEST
       );
       expect(req.log.info.firstArg.message.path).to.equal(
-        API_SESSION_INITIALISE,
+        API_SESSION_INITIALISE
       );
       expect(req.log.info.firstArg.message.info).to.equal("extra info");
     });

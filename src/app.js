@@ -83,8 +83,8 @@ if (CDN_DOMAIN) {
   app.use(
     "/assets",
     express.static(
-      path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets"),
-    ),
+      path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets")
+    )
   );
 }
 
@@ -95,8 +95,8 @@ i18next
   .use(i18nextMiddleware.LanguageDetector)
   .init(
     i18nextConfigurationOptions(
-      path.join(__dirname, "locales/{{lng}}/{{ns}}.json"),
-    ),
+      path.join(__dirname, "locales/{{lng}}/{{ns}}.json")
+    )
   );
 
 app.use(i18nextMiddleware.handle(i18next));
@@ -116,7 +116,7 @@ app.use(
       signed: true,
       secure: "auto",
     },
-  }),
+  })
 );
 
 app.use((req, res, next) => {
@@ -142,7 +142,7 @@ app.use(cookieParser());
 app.use((req, res, next) => {
   res.set(
     "Cache-Control",
-    "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0",
+    "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
   );
   next();
 });

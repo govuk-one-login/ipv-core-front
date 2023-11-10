@@ -10,7 +10,7 @@ window.DI = window.DI || {};
       gtmScriptTag.setAttribute("async", "true");
       gtmScriptTag.setAttribute(
         "src",
-        "https://www.googletagmanager.com/gtm.js?id=" + containerId
+        "https://www.googletagmanager.com/gtm.js?id=" + containerId,
       );
       gtmScriptTag.setAttribute("crossorigin", "anonymous");
       document.documentElement.firstChild.appendChild(gtmScriptTag);

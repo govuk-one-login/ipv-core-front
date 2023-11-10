@@ -1,4 +1,4 @@
-FROM node:18.16.0-alpine@sha256:44aaf1ccc80eaed6572a0f2ef7d6b5a2982d54481e4255480041ac92221e2f11 AS builder
+FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 AS builder
 WORKDIR /app
 RUN [ "yarn", "set", "version", "1.22.17" ]
 COPY /src ./src
@@ -13,7 +13,7 @@ RUN yarn build
 RUN [ "rm", "-rf", "node_modules" ]
 RUN yarn install --production
 
-FROM node:18.16.0-alpine@sha256:44aaf1ccc80eaed6572a0f2ef7d6b5a2982d54481e4255480041ac92221e2f11 as final
+FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 as final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]

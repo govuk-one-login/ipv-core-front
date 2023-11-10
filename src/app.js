@@ -2,7 +2,7 @@ require("express");
 require("express-async-errors");
 const path = require("path");
 const session = require("express-session");
-const AWS = require("aws-sdk");
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
 
 const {
@@ -43,10 +43,9 @@ const APP_VIEWS = [
 let sessionStore;
 
 if (process.env.NODE_ENV !== "local") {
-  AWS.config.update({
+  const dynamodb = new DynamoDBClient({
     region: "eu-west-2",
   });
-  const dynamodb = new AWS.DynamoDB();
 
   sessionStore = new DynamoDBStore({
     client: dynamodb,

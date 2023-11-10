@@ -2,10 +2,24 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageIpvIdentityPostofficeStart.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvIdentityPostofficeStart" %}
 
 {% block content %}
+  {% if errorState %}
+    {{ govukErrorSummary({
+      titleText: 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryTitleText' | translate,
+      errorList: [
+        {
+          text: 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryDescriptionText' | translate,
+          href: "#identityPostofficeStartPageOptionsForm"
+        }
+      ]
+    }) }}
+  {% endif %}
+
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
@@ -41,12 +55,18 @@
       <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph6' | translate }}</p>
     </li>
   </ul>
-  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate }}</h2>
+
   <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    {{ govukRadios({
+    {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: [
         {
           value: "next",
@@ -57,7 +77,14 @@
           text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.no' | translate
         }
       ]
-    }) }}
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{ 'general.buttons.next' | translate }}
     </button>

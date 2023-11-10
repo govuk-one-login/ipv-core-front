@@ -46,7 +46,13 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction
 );
-
+router.post(
+  "/page/page-ipv-identity-postoffice-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction
+);
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,

@@ -78,6 +78,7 @@ router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleCriEscapeAction,
 );
 router.post(

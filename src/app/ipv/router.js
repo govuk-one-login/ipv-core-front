@@ -109,6 +109,13 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
+router.post(
+  "/page/pyi-post-office",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

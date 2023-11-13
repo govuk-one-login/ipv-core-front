@@ -1,55 +1,82 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set errorState = pageErrorState %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-{% set pageTitleName = 'pages.PyiPostofficeStart.title' | translate %}
-{% set googleTagManagerPageId = "PyiPostofficeStart" %}
+{% set pageTitleName = 'pages.pyiPostOffice.title' | translate %}
+{% set googleTagManagerPageId = "pyiPostOffice" %}
 
 {% block content %}
+  {% if errorState %}
+    {{ govukErrorSummary({
+      titleText: 'pages.pyiPostOffice.content.formErrorMessage.errorSummaryTitleText' | translate,
+      errorList: [
+        {
+          text: 'pages.pyiPostOffice.content.formErrorMessage.errorSummaryDescriptionText' | translate,
+          href: "#pyiPostOfficeForm"
+        }
+      ]
+    }) }}
+  {% endif %}
+
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-      xmlns="http://www.w3.org/1999/html">{{ 'pages.PyiPostofficeStart.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.PyiPostofficeStart.content.paragraph1' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.PyiPostofficeStart.content.paragraph2' | translate }}</p>
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiPostOffice.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiPostOffice.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiPostOffice.content.paragraph2' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.PyiPostofficeStart.content.list1' | translate }}</li>
-    <li>{{ 'pages.PyiPostofficeStart.content.list2' | translate }}</li>
+    <li>{{ 'pages.pyiPostOffice.content.list1' | translate }}</li>
+    <li>{{ 'pages.pyiPostOffice.content.list2' | translate }}</li>
   </ul>
-  <p class="govuk-body">{{ 'pages.PyiPostofficeStart.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiPostOffice.content.paragraph3' | translate }}</p>
 
   <ul class="govuk-list" role="list">
     <li>
-      <h2 class="govuk-heading-m">{{ 'pages.PyiPostofficeStart.content.subHeading' | translate }}</h2>
-      <p class="govuk-body">{{ 'pages.PyiPostofficeStart.content.paragraph4' | translate }}</p>
+      <h2 class="govuk-heading-m">{{ 'pages.pyiPostOffice.content.subHeading' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pyiPostOffice.content.paragraph4' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>{{ 'pages.PyiPostofficeStart.content.list3' | translate }}</li>
-        <li>{{ 'pages.PyiPostofficeStart.content.list4' | translate }}</li>
-        <li>{{ 'pages.PyiPostofficeStart.content.list5' | translate }}</li>
-        <li>{{ 'pages.PyiPostofficeStart.content.list6' | translate }}</li>
-        <li>{{ 'pages.PyiPostofficeStart.content.list7' | translate }}</li>
-        <li>{{ 'pages.PyiPostofficeStart.content.list8' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list3' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list4' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list5' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list6' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list7' | translate }}</li>
+        <li>{{ 'pages.pyiPostOffice.content.list8' | translate }}</li>
       </ul>
     </li>
   </ul>
   {{ govukInsetText({
-    text: 'pages.PyiPostofficeStart.content.insetText' | translate
+    text: 'pages.pyiPostOffice.content.insetText' | translate
   }) }}
-  <h2 class="govuk-heading-m">{{ 'pages.PyiPostofficeStart.content.subHeading2' | translate }}</h2>
-  <form id="pyi-post-office" action="/ipv/page/{{ pageId }}" method="POST">
+
+  <form id="pyiPostOfficeForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    {{ govukRadios({
+    {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiPostOffice.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: [
         {
           value: "next",
-          text: 'pages.PyiPostofficeStart.content.formRadioButtons.yes' | translate
+          text: 'pages.pages.pyiPostOffice.content.formRadioButtons.yes' | translate,
         },
         {
           value: "end",
-          text: 'pages.PyiPostofficeStart.content.formRadioButtons.no' | translate
+          text: 'pages.pyiPostOffice.content.formRadioButtons.no' | translate,
         }
       ]
-    }) }}
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiPostOffice.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{ 'general.buttons.next' | translate }}
     </button>

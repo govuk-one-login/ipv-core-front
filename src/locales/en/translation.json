@@ -546,7 +546,7 @@
         }
       }
     },
-    "PyiPostofficeStart": {
+    "pyiPostOffice": {
       "title": "Prove your identity at a Post Office - GOV.UK One Login",
       "header": "Prove your identity at a Post Office",
       "content": {
@@ -568,6 +568,11 @@
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have photo ID you can use at a Post Office",
+          "errorRadioMessage": "Select yes if you have photo ID you can use at a Post Office"
         }
       }
     }

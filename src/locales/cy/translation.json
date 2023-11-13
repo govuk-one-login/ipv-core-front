@@ -546,7 +546,7 @@
         }
       }
     },
-    "PyiPostofficeStart": {
+    "pyiPostOffice": {
       "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post - GOV.UK One Login",
       "header": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "content": {
@@ -568,6 +568,11 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost",
+          "errorRadioMessage": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost"
         }
       }
     }

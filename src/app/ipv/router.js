@@ -2,7 +2,7 @@ const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const { ENABLE_ALL_TEMPLATES_PAGE } = require("../../lib/config");
+const { ENABLE_PREVIEW } = require("../../lib/config");
 
 const {
   renderAttemptRecoveryPage,
@@ -29,7 +29,7 @@ function checkLanguage(req, res, next) {
   next();
 }
 
-if (ENABLE_ALL_TEMPLATES_PAGE) {
+if (ENABLE_PREVIEW) {
   router.get("/all-templates", allTemplates);
 }
 

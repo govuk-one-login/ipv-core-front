@@ -254,6 +254,9 @@ module.exports = {
       }
 
       switch (pageId) {
+        case "pyi-new-details":
+        case "pyi-confirm-delete-details":
+        case "pyi-details-deleted":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
         case "page-ipv-bank-account-start":

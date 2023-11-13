@@ -82,6 +82,13 @@ router.post(
   handleCriEscapeAction,
 );
 router.post(
+  "/page/pyi-cri-escape-no-f2f",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction
+);
+router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,

@@ -170,6 +170,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

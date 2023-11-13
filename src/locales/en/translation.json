@@ -195,6 +195,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "continuePostOfficeButtonText": "Prove your identity at a Post Office",
           "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

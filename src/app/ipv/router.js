@@ -99,6 +99,7 @@ router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleCimitEscapeAction,
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);

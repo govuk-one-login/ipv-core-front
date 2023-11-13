@@ -392,6 +392,16 @@ module.exports = {
       next(error);
     }
   },
+  handleConfirmDeleteDetailsAction: async (req, res, next) => {
+    logCoreBackCall(req, {
+      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
+      type: LOG_TYPE_PAGE,
+      path: backendResponse.page,
+      body: req.body,
+    });
+    req.session.currentPage = "pyi-details-deleted"
+    return res.render("ipv/pyi-details-deleted");
+  },
   handleCimitEscapeAction: async (req, res, next) => {
     try {
       if (!req.session?.ipvSessionId) {

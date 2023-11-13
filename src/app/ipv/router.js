@@ -102,6 +102,13 @@ router.post(
   formRadioButtonChecked,
   handleCimitEscapeAction,
 );
+router.post(
+  "/page/pyi-suggest-other-options-no-f2f",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

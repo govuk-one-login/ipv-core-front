@@ -219,6 +219,11 @@
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

@@ -57,7 +57,8 @@ router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
-  handleMultipleDocCheck,
+  formRadioButtonChecked,
+  handleMultipleDocCheck
 );
 router.post(
   "/page/page-f2f-multiple-doc-check",

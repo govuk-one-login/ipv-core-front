@@ -351,6 +351,11 @@
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you want to continue",
+          "errorRadioMessage": "Select how you want to continue"
         }
       }
     },

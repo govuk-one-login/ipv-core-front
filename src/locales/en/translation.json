@@ -223,7 +223,7 @@
       "header": "You have been signed out of your GOV.UK One Login",
       "content": {
         "paragraph1": "This could be because:",
-        "bullet1": "you signed in over 2 hours ago",
+        "bullet1": "you signed in more than an hour ago",
         "bullet2": "you signed out while you were using another service",
         "bullet3": "more than one browser (for example Chrome, Safari) was used",
         "subHeading": "What you can do",
@@ -235,7 +235,7 @@
       "header": "You have been signed out of your GOV.UK One Login",
       "content": {
         "paragraph1": "This could be because:",
-        "bullet1": "you signed in over 2 hours ago",
+        "bullet1": "you signed in more than an hour ago",
         "bullet2": "you signed out while you were using another service",
         "bullet3": "more than one browser (for example Chrome, Safari) was used",
         "subHeading": "What you can do",

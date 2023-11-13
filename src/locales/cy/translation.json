@@ -304,6 +304,11 @@
         "formRadioButtons": {
           "tryAgainButtonText": "Ceisiwch brofi eich hunaniaeth gyda One Login eto",
           "continueButtonText": "Parhau i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

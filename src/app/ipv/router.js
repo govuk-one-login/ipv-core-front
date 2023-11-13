@@ -89,6 +89,13 @@ router.post(
   handleJourneyAction
 );
 router.post(
+  "/page/pyi-f2f-technical",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,

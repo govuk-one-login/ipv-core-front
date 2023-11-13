@@ -304,6 +304,11 @@
         "formRadioButtons": {
           "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
           "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

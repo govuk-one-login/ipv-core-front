@@ -543,6 +543,11 @@
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
           "otherWayButtonText": "Prove my identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

@@ -116,6 +116,13 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
+router.post(
+  "/page/page-ipv-bank-account-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

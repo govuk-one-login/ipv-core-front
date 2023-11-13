@@ -1,10 +1,24 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageIpvBankAccountStart.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvBankAccountStart" %}
 
 {% block content %}
+  {% if errorState %}
+    {{ govukErrorSummary({
+      titleText: 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryTitleText' | translate,
+      errorList: [
+        {
+          text: 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryDescriptionText' | translate,
+          href: "#pageIpvBankAccountStartForm"
+        }
+      ]
+    }) }}
+  {% endif %}
+
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvBankAccountStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph1' | translate }}</p>
 
@@ -26,23 +40,35 @@
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph3' | translate }}</p>
 
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading3' | translate }}</h2>
-  <form id="pageIpvBankAccountStartOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+  <form id="pageIpvBankAccountStartForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next",
-                text: 'pages.pageIpvBankAccountStart.content.formRadioButtons.continueBankDetailsButtonText' | translate
-              },
-              {
-                value: "end",
-                text: 'pages.pageIpvBankAccountStart.content.formRadioButtons.otherWayButtonText' | translate
-              }
-            ]
-      })
-    }}
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiPostOffice.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pageIpvBankAccountStart.content.formRadioButtons.continueBankDetailsButtonText' | translate,
+        },
+        {
+          value: "end",
+          text: 'pages.pageIpvBankAccountStart.content.formRadioButtons.otherWayButtonText' | translate,
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{ 'general.buttons.next' | translate }}
     </button>

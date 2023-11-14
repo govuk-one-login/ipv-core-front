@@ -38,7 +38,7 @@ if (ENABLE_ALL_TEMPLATES_PAGE) {
 }
 
 if (ENABLE_DELETE_DETAILS) {
-  router.get("/reset-journey", csrfProtection, resetUserJourney)
+  router.get("/page/reset-journey", csrfProtection, resetUserJourney)
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

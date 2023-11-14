@@ -59,8 +59,9 @@
     }) }}
 
     {% if enableDeleteDetails %}
-        <form id="nextForm" action="/ipv/page/{{pageId}}" method="POST">
-            <input type="hidden" name="_csrf" value="{{csrfToken}}" value="reset">
+        <form id="nextForm" action="/ipv/page/reset-journey" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input type="hidden" name="journey" value="reset">
             <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
                 Delete user details
             </button>

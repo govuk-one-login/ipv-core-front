@@ -3,7 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  ENABLE_ALL_TEMPLATES_PAGE,
+  ENABLE_PREVIEW,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -200,7 +200,7 @@ module.exports = {
     try {
       const { pageId } = req.params;
 
-      if (ENABLE_ALL_TEMPLATES_PAGE && req.session.visitedAllTemplates) {
+      if (ENABLE_PREVIEW && req.query.preview) {
         if (pageId === "page-ipv-reuse") {
           const userDetails = generateUserDetails(
             samplePersistedUserDetails,
@@ -430,8 +430,6 @@ module.exports = {
         const templatesWithoutExtension = files.map(
           (file) => path.parse(file).name,
         );
-
-        req.session.visitedAllTemplates = true;
 
         res.render("ipv/all-templates.njk", {
           allTemplates: templatesWithoutExtension,

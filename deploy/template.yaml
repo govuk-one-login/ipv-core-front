@@ -612,7 +612,7 @@ Resources:
               Value: !Sub
                 - "core-front-sessions-${Environment}"
                 - Environment: !Ref Environment
-            - Name: ENABLE_ALL_TEMPLATES_PAGE
+            - Name: ENABLE_PREVIEW
               Value: !If
                 - IsBuild
                 - "development"

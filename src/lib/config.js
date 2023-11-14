@@ -17,8 +17,7 @@ module.exports = {
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
-  ENABLE_ALL_TEMPLATES_PAGE:
-    process.env.ENABLE_ALL_TEMPLATES_PAGE === "development",
+  ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,
   SESSION_SECRET: process.env.SESSION_SECRET,

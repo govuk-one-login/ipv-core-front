@@ -223,7 +223,7 @@
       "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
-        "bullet1": "fe wnaethoch fewngofnodi dros 2 awr yn ôl",
+        "bullet1": "rydych wedi mewngofnodi fwy nag awr yn ôl",
         "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
         "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
         "subHeading": "Beth allwch chi ei wneud",
@@ -235,7 +235,7 @@
       "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
-        "bullet1": "fe wnaethoch fewngofnodi dros 2 awr yn ôl",
+        "bullet1": "rydych wedi mewngofnodi fwy nag awr yn ôl",
         "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
         "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
         "subHeading": "Beth allwch chi ei wneud",
@@ -335,6 +335,53 @@
       "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
       "content": {
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
+      }
+    },
+    "pyiNewDetails": {
+      "title": "TEMP Prove your identity again with new details",
+      "header": "TEMP Prove your identity again with new details",
+      "content": {
+        "paragraph1": "TEMP To update your details, you need to:",
+        "list1": "TEMP delete your details",
+        "list2": "TEMP prove your identity again with new details",
+        "paragraph2": "TEMP You'll need:",
+        "list3": "TEMP photo ID with the name you want GOV.UK One Login to use",
+        "list4": "TEMP to tell us where you've lived for the last 3 months",
+        "paragraph3": "TEMP Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "warningTextContent": "TEMP You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
+        "warningTextFallback": "TEMP Warning",
+        "subHeading1": "TEMP If you need to use the service now",
+        "paragraph4": "TEMP Your proof of identity is still valid even if your details are out of date.",
+        "paragraph5": "TEMP You can use your current details to access the service you need to use.",
+        "subHeading2": "TEMP What would you like to do?",
+        "formRadioButtons": {
+          "yes": "TEMP Continue to delete my details",
+          "no": "TEMP Go back to my current details"
+        }
+      }
+    },
+    "pyiConfirmDeleteDetails": {
+      "title": "TEMP Are you sure you want to delete your details and prove your identity again?",
+      "header": "TEMP Are you sure you want to delete your details and prove your identity again?",
+      "content": {
+        "paragraph1": "TEMP Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "formRadioButtons": {
+          "yes": "TEMP Yes, delete my details",
+          "no": "TEMP No, cancel and go back to my current details"
+        }
+      }
+    },
+    "pyiDetailsDeleted": {
+      "title": "TEMP You have deleted the details in your GOV.UK One Login",
+      "header": "TEMP You have deleted the details in your GOV.UK One Login",
+      "content": {
+        "paragraph1": "TEMP You've been sent a confirmation email.",
+        "paragraph2": "TEMP You can now prove your identity again using your new details.",
+        "paragraph3": "TEMP You'll need:",
+        "list1": "TEMP photo ID with the name you want GOV.UK One Login to use",
+        "list2": "TEMP to tell us where you've lived for the last 3 months",
+        "paragraph4": "TEMP Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "submitButtonText": "TEMP Continue to prove your identity again"
       }
     },
     "pageMultipleDocCheck": {

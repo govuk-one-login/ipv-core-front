@@ -370,7 +370,7 @@ module.exports = {
     }
   },
   handleReusePageAction: async (req, res, next) => {
-    req.currentPage = "page-ipv-reuse"
+    req.session.currentPage = "page-ipv-reuse"
     if (req.body?.journey === "reset") {
       await handleJourneyResponse(req, res, "journey/reset"); 
     } else {

@@ -370,7 +370,6 @@ module.exports = {
     }
   },
   handleReusePageAction: async (req, res, next) => {
-    req.session.currentPage = "page-ipv-reuse"
     if (req.body?.journey === "reset") {
       await handleJourneyResponse(req, res, "journey/reset"); 
     } else {
@@ -464,6 +463,8 @@ module.exports = {
       samplePersistedUserDetails,
       req.i18n,
     );
+
+    req.session.currentPage = "page-ipv-reuse"
 
     return res.render(`ipv/${sanitize("page-ipv-reuse")}.njk`, {
       userDetails,

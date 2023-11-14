@@ -339,7 +339,7 @@ module.exports = {
           "journey/build-client-oauth-response",
         );
       } else {
-        await handleJourneyResponse(req, res, "journey/next");
+        await handleJourneyResponse(req, res, "journey/confirm");
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");

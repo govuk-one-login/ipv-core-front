@@ -339,7 +339,7 @@ module.exports = {
           "journey/build-client-oauth-response",
         );
       } else {
-        await handleJourneyResponse(req, res, "journey/confirm");
+        await handleJourneyResponse(req, res, "journey/next");
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
@@ -403,7 +403,7 @@ module.exports = {
     // Need to make call to backend
     // Receive success/failure OR just redirect to the next action
 
-    await handleJourneyResponse(req, res, "journey/next");
+    await handleJourneyResponse(req, res, "journey/confirm");
     // req.session.currentPage = "pyi-details-deleted"
     // return res.render("ipv/pyi-details-deleted");
   },

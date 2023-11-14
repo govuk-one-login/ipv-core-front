@@ -369,6 +369,13 @@ module.exports = {
       next(error);
     }
   },
+  handleReusePageAction: async (req, res, next) => {
+    if (req.body?.journey === "reset") {
+      await handleJourneyResponse(req, res, "journey/reset"); 
+    } else {
+      await handleJourneyResponse(req, res, "journey/next"); 
+    }
+  },
   handleCriEscapeAction: async (req, res, next) => {
     try {
       if (!req.session?.ipvSessionId) {
@@ -459,6 +466,7 @@ module.exports = {
 
     return res.render(`ipv/${sanitize("page-ipv-reuse")}.njk`, {
       userDetails,
+      enableDeleteDetails: true,
       pageId: "page-ipv-reuse",
       csrfToken: req.csrfToken(),
     });

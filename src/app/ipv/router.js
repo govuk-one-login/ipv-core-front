@@ -18,6 +18,7 @@ const {
   validateFeatureSet,
   allTemplates,
   resetUserJourney,
+  handleReusePageAction,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -73,6 +74,12 @@ router.post(
   parseForm,
   csrfProtection,
   handleConfirmDeleteDetailsAction,
+);
+router.post(
+  "/page/page-ipv-reuse",
+  parseForm,
+  csrfProtection,
+  handleReusePageAction,
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

@@ -746,11 +746,11 @@ describe("journey middleware", () => {
         log: { info: sinon.fake(), error: sinon.fake() },
       };
       req = {
-        method: 'POST',
-        originalUrl: '/ipv/page/somePage',
-        baseUrl: '',
-        path: '/page/somePage',
-        headers: { host: 'localhost:3000' },
+        method: "POST",
+        originalUrl: "/ipv/page/somePage",
+        baseUrl: "",
+        path: "/page/somePage",
+        headers: { host: "localhost:3000" },
         session: {
           ipvSessionId: "ipv-session-id",
           ipAddress: "ip-address",
@@ -771,7 +771,7 @@ describe("journey middleware", () => {
     });
 
     it("should not redirect if method is not POST", async function () {
-      req.method = 'GET';
+      req.method = "GET";
       req.body.journey = undefined;
       await middleware.formRadioButtonChecked(req, res, next);
 
@@ -788,7 +788,7 @@ describe("journey middleware", () => {
     });
 
     it("should not redirect if path is not allowed", async function () {
-      req.originalUrl = '/invalid/path';
+      req.originalUrl = "/invalid/path";
       req.body.journey = undefined;
       await middleware.formRadioButtonChecked(req, res, next);
 

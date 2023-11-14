@@ -44,35 +44,35 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleJourneyAction
+  handleJourneyAction,
 );
 router.post(
   "/page/page-ipv-identity-postoffice-start",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleJourneyAction
+  handleJourneyAction,
 );
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleMultipleDocCheck
+  handleMultipleDocCheck,
 );
 router.post(
   "/page/page-f2f-multiple-doc-check",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleMultipleDocCheck
+  handleMultipleDocCheck,
 );
 router.post(
   "/page/pyi-escape",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleJourneyAction
+  handleJourneyAction,
 );
 router.post(
   "/page/pyi-cri-escape",
@@ -86,7 +86,7 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleJourneyAction
+  handleJourneyAction,
 );
 router.post(
   "/page/pyi-f2f-technical",

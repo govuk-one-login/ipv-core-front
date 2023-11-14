@@ -403,7 +403,7 @@ module.exports = {
     // Need to make call to backend
     // Receive success/failure OR just redirect to the next action
 
-    await handleJourneyResponse(req, res, "journey/confirm");
+    await handleJourneyResponse(req, res, "journey/next");
     // req.session.currentPage = "pyi-details-deleted"
     // return res.render("ipv/pyi-details-deleted");
   },

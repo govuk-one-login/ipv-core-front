@@ -736,35 +736,71 @@ describe("journey middleware", () => {
     });
   });
 
-  context('formRadioButtonChecked', () => {
+  context("formRadioButtonChecked middleware", () => {
     beforeEach(() => {
+      res = {
+        status: sinon.fake(),
+        redirect: sinon.fake(),
+        send: sinon.fake(),
+        render: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
       req = {
         method: 'POST',
+        originalUrl: '/ipv/page/somePage',
+        baseUrl: '',
+        path: '/page/somePage',
+        headers: { host: 'localhost:3000' },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          featureSet: "feature-set",
+        },
         body: {},
-        originalUrl: '/some/url',
+        csrfToken: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
       };
-      res = {
-        redirect: sinon.fake(),
-      };
-      next = sinon.stub();
     });
 
-    it('should redirect with errorState=true if journey is undefined in POST request', () => {
-      middleware.formRadioButtonChecked(req, res, next);
-      expect(res.redirect).to.have.been.calledWith('/some/url?errorState=true');
-      expect(next).to.not.have.been.called;
+    it("should redirect if method is POST, journey is not defined, and path is allowed", async function () {
+      req.body.journey = undefined;
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      const redirectUrl = `${req.baseUrl}${req.path}?errorState=true`;
+      expect(res.redirect).to.have.been.calledWith(redirectUrl);
     });
 
-    it('should call next if journey is defined in POST request', () => {
-      req.body.journey = 'next';
-      middleware.formRadioButtonChecked(req, res, next);
+    it("should not redirect if method is not POST", async function () {
+      req.method = 'GET';
+      req.body.journey = undefined;
+      await middleware.formRadioButtonChecked(req, res, next);
+
       expect(res.redirect).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
     });
 
-    it('should not redirect for non-POST requests', () => {
-      req.method = 'GET';
-      middleware.formRadioButtonChecked(req, res, next);
+    it("should not redirect if journey is defined", async function () {
+      req.body.journey = "someJourney";
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.redirect).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should not redirect if path is not allowed", async function () {
+      req.originalUrl = '/invalid/path';
+      req.body.journey = undefined;
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.redirect).to.not.have.been.called;
+      expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+    });
+
+    it("should call next in case of a successful execution", async function () {
+      req.body.journey = "journey/dcmaw";
+
+      await middleware.formRadioButtonChecked(req, res, next);
+
       expect(res.redirect).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
     });

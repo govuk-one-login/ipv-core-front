@@ -281,11 +281,15 @@ module.exports = {
         case "pyi-f2f-technical":
         case "pyi-technical":
         case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+          const renderOptions = {
             pageId,
-            pageErrorState: req.query.errorState,
             csrfToken: req.csrfToken(),
-          });
+          };
+          if (req.query?.errorState !== undefined) {
+            renderOptions.pageErrorState = req.query.errorState;
+          }
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         case "page-ipv-reuse": {
           const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
@@ -443,10 +447,27 @@ module.exports = {
     }
   },
   formRadioButtonChecked: async (req, res, next) => {
-    if (req.method === "POST" && req.body.journey === undefined) {
-      return res.redirect(req.originalUrl + "?errorState=true");
-    } else {
+    const allowedPathRule = { pattern: /^\/ipv\/page\/[^\/]+$/, methods: ['GET', 'POST'] };
+
+    const isPathAllowed = (url, method) => {
+      const path = new URL(url, `https://${req.headers.host}`).pathname.toLowerCase();
+      if (!method || allowedPathRule.methods.includes(method)) {
+        if (path.match(allowedPathRule.pattern)) {
+          return true;
+        }
+        throw new Error('Path is not allowed');
+      }
+      return false;
+    };
+    try {
+      if (req.method === 'POST' && req.body.journey === undefined && isPathAllowed(req.originalUrl, req.method)) {
+        const redirectUrl = `${req.baseUrl}${req.path}?errorState=true`;
+        return res.redirect(redirectUrl);
+      }
+
       next();
+    } catch (error) {
+      next(error);
     }
   },
   validateFeatureSet: async (req, res, next) => {

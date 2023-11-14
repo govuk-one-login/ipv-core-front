@@ -11,6 +11,7 @@ const {
   handleJourneyAction,
   handleMultipleDocCheck,
   handleCriEscapeAction,
+  handleConfirmDeleteDetailsAction,
   handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
@@ -61,6 +62,12 @@ router.post(
   csrfProtection,
   handleCimitEscapeAction,
 );
+router.post(
+  "/page/pyi-confirm-delete-details",
+  parseForm,
+  csrfProtection,
+  handleConfirmDeleteDetailsAction,
+)
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 

@@ -3,6 +3,7 @@ const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const { ENABLE_ALL_TEMPLATES_PAGE } = require("../../lib/config");
+const ENABLE_DELETE_DETAILS = true;
 
 const {
   renderAttemptRecoveryPage,
@@ -16,6 +17,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   allTemplates,
+  resetUserJourney,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -32,6 +34,10 @@ function checkLanguage(req, res, next) {
 
 if (ENABLE_ALL_TEMPLATES_PAGE) {
   router.get("/all-templates", allTemplates);
+}
+
+if (ENABLE_DELETE_DETAILS) {
+  router.get("/reset-journey", csrfProtection, resetUserJourney)
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

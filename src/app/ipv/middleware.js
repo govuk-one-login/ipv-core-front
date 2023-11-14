@@ -451,6 +451,18 @@ module.exports = {
       next(error);
     }
   },
+  resetUserJourney: async (req, res, next) => {
+    const userDetails = generateUserDetails(
+      samplePersistedUserDetails,
+      req.i18n,
+    );
+
+    return res.render(`ipv/${sanitize("page-ipv-reuse")}.njk`, {
+      userDetails,
+      pageId: "page-ipv-reuse",
+      csrfToken: req.csrfToken(),
+    });
+  },
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;

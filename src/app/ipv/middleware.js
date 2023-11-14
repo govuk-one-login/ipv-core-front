@@ -397,7 +397,7 @@ module.exports = {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
       type: LOG_TYPE_PAGE,
       path: backendResponse.page,
-      body: req.body,
+      body: req,
     });
 
     // Need to make call to backend

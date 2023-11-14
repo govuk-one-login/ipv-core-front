@@ -393,12 +393,6 @@ module.exports = {
     }
   },
   handleConfirmDeleteDetailsAction: async (req, res, next) => {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
-      type: LOG_TYPE_PAGE,
-      path: backendResponse.page,
-      body: req,
-    });
 
     // Need to make call to backend
     // Receive success/failure OR just redirect to the next action

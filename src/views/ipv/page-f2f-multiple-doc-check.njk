@@ -3,23 +3,15 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageF2FMultipleDockCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageF2FMultipleDockCheck" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pageF2FMultipleDockCheck.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pageF2FMultipleDockCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#faceToFacetMultipleDocCheckingForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageF2FMultipleDockCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageF2FMultipleDockCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#faceToFacetMultipleDocCheckingForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageF2FMultipleDockCheck.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageF2FMultipleDockCheck.content.paragraph1' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">

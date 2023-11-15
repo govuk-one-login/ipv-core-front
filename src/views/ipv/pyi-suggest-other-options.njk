@@ -2,23 +2,15 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pyiSuggestOtherOptions.title' | translate %}
 {% set googleTagManagerPageId = "pyiSuggestOtherOptions" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#pyiSuggestOtherOptionsForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiSuggestOtherOptionsForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiSuggestOtherOptions.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph1' | translate }}</p>
 

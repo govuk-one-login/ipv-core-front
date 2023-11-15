@@ -2,23 +2,15 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageIpvBankAccountStart.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvBankAccountStart" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#pageIpvBankAccountStartForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pageIpvBankAccountStartForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvBankAccountStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph1' | translate }}</p>
 

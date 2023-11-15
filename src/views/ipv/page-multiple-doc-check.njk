@@ -2,23 +2,15 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageMultipleDocCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#multipleDocCheckingForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#multipleDocCheckingForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">

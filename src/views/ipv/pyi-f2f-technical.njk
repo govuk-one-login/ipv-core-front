@@ -2,23 +2,15 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pyiF2fTechnical.title' | translate %}
 {% set googleTagManagerPageId = "pyiF2fTechnical" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pyiF2fTechnical.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pyiF2fTechnical.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#pyiF2fTechnicalForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiF2fTechnical.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiF2fTechnical.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiF2fTechnicalForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiF2fTechnical.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiF2fTechnical.content.paragraph1' | translate | safe }}</p>
 

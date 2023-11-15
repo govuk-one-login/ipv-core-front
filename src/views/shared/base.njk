@@ -58,6 +58,17 @@
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds {{ rowClasses }}">
+                   {% if errorState %}
+                        {{ govukErrorSummary({
+                            titleText: errorTitle | default('Error Summary'),
+                            errorList: [
+                                {
+                                    text: errorText | translate,
+                                    href: errorHref | default("#")
+                                }
+                            ]
+                        }) }}
+                    {% endif %}
                     {% block content %}{% endblock %}
                 </div>
             </div>

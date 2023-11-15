@@ -3,23 +3,15 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pageIpvIdentityPostofficeStart.title' | translate %}
 {% set googleTagManagerPageId = "pageIpvIdentityPostofficeStart" %}
 
-{% block content %}
-  {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#identityPostofficeStartPageOptionsForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#identityPostofficeStartPageOptionsForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>

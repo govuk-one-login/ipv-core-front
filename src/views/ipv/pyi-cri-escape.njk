@@ -2,23 +2,15 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% set errorState = pageErrorState %}
 {% set pageTitleName = 'pages.pyiCriEscape.title' | translate %}
 {% set googleTagManagerPageId = "pyiCriEscape" %}
 
-{% block content %}
- {% if errorState %}
-    {{ govukErrorSummary({
-      titleText: 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryTitleText' | translate,
-      errorList: [
-        {
-          text: 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryDescriptionText' | translate,
-          href: "#pyiCriEscapeForm"
-        }
-      ]
-    }) }}
-  {% endif %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiCriEscapeForm" %}
 
+{% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCriEscape.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph1' | translate | safe }}</p>
 

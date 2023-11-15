@@ -42,31 +42,31 @@ router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
-  handleMultipleDocCheck
+  handleMultipleDocCheck,
 );
 router.post(
   "/page/page-f2f-multiple-doc-check",
   parseForm,
   csrfProtection,
-  handleMultipleDocCheck
+  handleMultipleDocCheck,
 );
 router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,
-  handleCriEscapeAction
+  handleCriEscapeAction,
 );
 router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,
-  handleCimitEscapeAction
+  handleCimitEscapeAction,
 );
 router.post(
   "/page/pyi-confirm-delete-details",
   parseForm,
   csrfProtection,
-  handleConfirmDeleteDetailsAction
+  handleConfirmDeleteDetailsAction,
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

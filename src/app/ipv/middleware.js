@@ -449,35 +449,16 @@ module.exports = {
     }
   },
   formRadioButtonChecked: async (req, res, next) => {
-    const allowedPathRule = {
-      pattern: /^\/ipv\/page\/[^/]+$/,
-      methods: ["GET", "POST"],
-    };
-
-    const isPathAllowed = (url, method) => {
-      const path = new URL(
-        url,
-        `https://${req.headers.host}`,
-      ).pathname.toLowerCase();
-      if (!method || allowedPathRule.methods.includes(method)) {
-        if (path.match(allowedPathRule.pattern)) {
-          return true;
-        }
-        throw new Error("Path is not allowed");
-      }
-      return false;
-    };
     try {
-      if (
-        req.method === "POST" &&
-        req.body.journey === undefined &&
-        isPathAllowed(req.originalUrl, req.method)
-      ) {
-        const redirectUrl = `${req.baseUrl}${req.path}?errorState=true`;
-        return res.redirect(redirectUrl);
+      if (req.method === "POST" && req.body.journey === undefined) {
+        res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
+          pageId: req.session.currentPage,
+          csrfToken: req.csrfToken(),
+          pageErrorState: true,
+        });
+      } else {
+        next();
       }
-
-      next();
     } catch (error) {
       next(error);
     }

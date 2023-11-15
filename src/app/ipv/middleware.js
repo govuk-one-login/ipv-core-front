@@ -391,12 +391,17 @@ module.exports = {
       transformError(error, "error invoking handleCriEscapeAction");
       next(error);
     }
-  },  
+  },
   handleConfirmDeleteDetailsAction: async (req, res, next) => {
-    if (req.body?.journey === "reset") {
-      await handleJourneyResponse(req, res, "journey/reset"); 
-    } else {
-      await handleJourneyResponse(req, res, "journey/end"); 
+    try {
+      if (req.body?.journey === "reset") {
+        await handleJourneyResponse(req, res, "journey/reset");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleConfirmDeleteDetailsAction");
+      next(error);
     }
   },
   handleCimitEscapeAction: async (req, res, next) => {

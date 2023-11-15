@@ -15,7 +15,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   allTemplates,
-  handleConfirmDeleteDetailsAction,
+  handleConfirmDeleteDetailsAction
 } = require("./middleware");
 
 const csrfProtection = csrf({});

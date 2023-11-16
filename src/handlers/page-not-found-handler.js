@@ -1,4 +1,4 @@
-const { HTTP_STATUS_CODES } = require("../app.constants");
+const { HTTP_STATUS_CODES } = require("../appConstants");
 
 module.exports = {
   pageNotFoundHandler: (req, res, next) => {

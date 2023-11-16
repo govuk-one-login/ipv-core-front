@@ -12,7 +12,7 @@ function getServiceDomain() {
   return process.env.SERVICE_DOMAIN || "localhost";
 }
 
-module.exports = {
+export default {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/journey/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",

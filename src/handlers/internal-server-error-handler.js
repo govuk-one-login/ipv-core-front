@@ -1,4 +1,4 @@
-const { HTTP_STATUS_CODES } = require("../app.constants");
+const { HTTP_STATUS_CODES } = require("../appConstants");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {

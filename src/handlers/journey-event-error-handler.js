@@ -1,5 +1,5 @@
 const sanitize = require("sanitize-filename");
-const { HTTP_STATUS_CODES } = require("../app.constants");
+const { HTTP_STATUS_CODES } = require("../appConstants");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {

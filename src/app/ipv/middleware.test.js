@@ -740,6 +740,9 @@ describe("journey middleware", () => {
     beforeEach(() => {
       req = {
         body: {},
+        params: { pageId: "page-ipv-identity-document-start" },
+        csrfToken: sinon.fake(),
+        session: { currentPage: "page-ipv-identity-document-start" },
       };
     });
 
@@ -748,8 +751,8 @@ describe("journey middleware", () => {
       req.method = "POST";
       await middleware.formRadioButtonChecked(req, res, next);
 
-      expect(res.render).to.not.have.been.called;
-      expect(next).to.have.been.calledOnce;
+      expect(res.render).to.have.been.called;
+      expect(next).to.have.not.been.calledOnce;
     });
 
     it("should not render if method is not POST", async function () {

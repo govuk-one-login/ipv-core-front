@@ -7,7 +7,7 @@
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.pageIpvBankAccountStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
-{% set errorHref = "#pageIpvBankAccountStartForm" %}
+{% set errorHref = "#pageIpvBankAccountStartOptionsForm" %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvBankAccountStart.header' | translate }}</h1>
@@ -31,7 +31,7 @@
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph3' | translate }}</p>
 
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading3' | translate }}</h2>
-  <form id="pageIpvBankAccountStartForm" action="/ipv/page/{{ pageId }}" method="POST">
+  <form id="pageIpvBankAccountStartOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
       idPrefix: "journey",

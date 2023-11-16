@@ -121,6 +121,11 @@
         "formRadioButtons": {
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
           "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -141,6 +146,11 @@
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
           "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -160,6 +170,11 @@
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -180,6 +195,11 @@
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
           "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -199,6 +219,11 @@
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -289,6 +314,11 @@
         "formRadioButtons": {
           "tryAgainButtonText": "Ceisiwch brofi eich hunaniaeth gyda One Login eto",
           "continueButtonText": "Parhau i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -398,6 +428,11 @@
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut rydych eisiau parhau",
+          "errorRadioMessage": "Dewiswch sut rydych eisiau parhau"
         }
       }
     },
@@ -417,6 +452,11 @@
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut rydych eisiau parhau",
+          "errorRadioMessage": "Dewiswch sut rydych eisiau parhau"
         }
       }
     },
@@ -480,6 +520,11 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -502,6 +547,11 @@
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
           "otherWayButtonText": "Prove my identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -540,10 +590,15 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun",
+          "errorRadioMessage": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun"
         }
       }
     },
-    "PyiPostofficeStart": {
+    "pyiPostOffice": {
       "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post - GOV.UK One Login",
       "header": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "content": {
@@ -565,6 +620,11 @@
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost",
+          "errorRadioMessage": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost"
         }
       }
     }

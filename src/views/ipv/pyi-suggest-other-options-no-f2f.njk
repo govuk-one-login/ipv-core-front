@@ -4,6 +4,11 @@
 {% set pageTitleName = 'pages.pyiSuggestOtherOptionsNoF2f.title' | translate %}
 {% set googleTagManagerPageId = "pyiSuggestOtherOptionsNoF2f" %}
 
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiSuggestOtherOptionsNoF2f.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiSuggestOtherOptionsNoF2f.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiSuggestOtherOptionsNoF2fForm" %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiSuggestOtherOptionsNoF2f.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph1' | translate }}</p>
@@ -12,53 +17,50 @@
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph2' | translate }}</p>
   <p class="govuk-body govuk-!-margin-bottom-1">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-5">
-    <li>{{'pages.pyiSuggestOtherOptionsNoF2f.content.bullet1' | translate }}</li>
-    <li>{{'pages.pyiSuggestOtherOptionsNoF2f.content.bullet2' | translate }}</li>
+    <li>{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.bullet1' | translate }}</li>
+    <li>{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.bullet2' | translate }}</li>
   </ul>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiSuggestOtherOptionsNoF2f.content.subHeading2' | translate }}</h2>
 
   <form id="pyiSuggestOtherOptionsNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiSuggestOtherOptionsNoF2fFormSubmit()">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next",
-                text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
-                hint: {text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiSuggestOtherOptionsNoF2f.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
+          hint: {text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
 
-              },
-              {
-                value: "end",
-                text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
-                hint: { text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
-              }
-            ]
-      })
-    }}
+        },
+        {
+          value: "end",
+          text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiSuggestOtherOptionsNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiSuggestOtherOptionsNoF2f.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
       {{ 'general.buttons.next' | translate }}
     </button>
   </form>
 
   <p class="govuk-body">
-    <a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">
-      {{'general.shared.contactLinkText' | translate }}
+    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
+      {{ 'general.shared.contactLinkText' | translate }}
     </a>
   </p>
-
-  <script nonce="{{ cspNonce }}">
-      let disableSubmit = false;
-
-      function pyiSuggestOtherOptionsNoF2fFormSubmit() {
-          if (!disableSubmit) {
-              disableSubmit = true;
-              document.getElementById('submitButton').disabled = true;
-              return true
-          }
-          return false;
-      }
-
-  </script>
 {% endblock %}

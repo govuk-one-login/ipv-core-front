@@ -392,18 +392,6 @@ module.exports = {
       next(error);
     }
   },
-  handleConfirmDeleteDetailsAction: async (req, res, next) => {
-    try {
-      if (req.body?.journey === "reset") {
-        await handleJourneyResponse(req, res, "journey/reset");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleConfirmDeleteDetailsAction");
-      next(error);
-    }
-  },
   handleCimitEscapeAction: async (req, res, next) => {
     try {
       if (!req.session?.ipvSessionId) {

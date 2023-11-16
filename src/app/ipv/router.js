@@ -14,6 +14,7 @@ const {
   handleCimitEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
+  formRadioButtonChecked,
   allTemplates,
 } = require("./middleware");
 
@@ -37,29 +38,90 @@ router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
+
+router.post(
+  "/page/page-ipv-identity-document-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/page-ipv-identity-postoffice-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleMultipleDocCheck,
 );
 router.post(
   "/page/page-f2f-multiple-doc-check",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleMultipleDocCheck,
+);
+router.post(
+  "/page/pyi-escape",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
 );
 router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleCriEscapeAction,
+);
+router.post(
+  "/page/pyi-cri-escape-no-f2f",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/pyi-f2f-technical",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
 );
 router.post(
   "/page/pyi-suggest-other-options",
   parseForm,
   csrfProtection,
+  formRadioButtonChecked,
   handleCimitEscapeAction,
+);
+router.post(
+  "/page/pyi-suggest-other-options-no-f2f",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/pyi-post-office",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/page-ipv-bank-account-start",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);

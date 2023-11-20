@@ -16,7 +16,6 @@ const {
   validateFeatureSet,
   formRadioButtonChecked,
   allTemplates,
-  handleConfirmDeleteDetailsAction,
 } = require("./middleware");
 
 const csrfProtection = csrf({});

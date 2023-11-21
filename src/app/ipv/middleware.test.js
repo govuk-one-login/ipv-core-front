@@ -735,4 +735,50 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith("ipv/page-featureset.njk");
     });
   });
+
+  context("formRadioButtonChecked middleware", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "page-ipv-identity-document-start" },
+        csrfToken: sinon.fake(),
+        session: { currentPage: "page-ipv-identity-document-start" },
+      };
+    });
+
+    it("should render if method is POST, journey is not defined", async function () {
+      req.body.journey = undefined;
+      req.method = "POST";
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.have.been.called;
+      expect(next).to.have.not.been.calledOnce;
+    });
+
+    it("should not render if method is not POST", async function () {
+      req.method = "GET";
+      req.body.journey = undefined;
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should not render if journey is defined", async function () {
+      req.body.journey = "someJourney";
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should call next in case of a successful execution", async function () {
+      req.body.journey = "journey/dcmaw";
+
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+  });
 });

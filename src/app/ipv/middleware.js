@@ -283,11 +283,18 @@ module.exports = {
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
         case "pyi-technical":
-        case "pyi-technical-unrecoverable":
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
+        case "pyi-technical-unrecoverable": {
+          const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
-          });
+          };
+
+          if (req.query?.errorState !== undefined) {
+            renderOptions.pageErrorState = req.query.errorState;
+          }
+
+          return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
+        }
         case "page-ipv-reuse": {
           const userDetailsResponse = await axios.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
@@ -438,6 +445,21 @@ module.exports = {
           allTemplates: templatesWithoutExtension,
         });
       });
+    } catch (error) {
+      next(error);
+    }
+  },
+  formRadioButtonChecked: async (req, res, next) => {
+    try {
+      if (req.method === "POST" && req.body.journey === undefined) {
+        res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
+          pageId: req.session.currentPage,
+          csrfToken: req.csrfToken(),
+          pageErrorState: true,
+        });
+      } else {
+        next();
+      }
     } catch (error) {
       next(error);
     }

@@ -121,6 +121,11 @@
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
           "restartButtonText": "Try proving your identity with GOV.UK One Login again"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -141,6 +146,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "continuePostOfficeButtonText": "Prove your identity at a Post Office",
           "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -160,6 +170,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -180,6 +195,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "continuePostOfficeButtonText": "Prove your identity at a Post Office",
           "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -199,6 +219,11 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -289,6 +314,11 @@
         "formRadioButtons": {
           "tryAgainButtonText": "Try proving your identity with GOV.UK One Login again",
           "continueButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -398,6 +428,11 @@
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you want to continue",
+          "errorRadioMessage": "Select how you want to continue"
         }
       }
     },
@@ -417,6 +452,11 @@
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Prove your identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you want to continue",
+          "errorRadioMessage": "Select how you want to continue"
         }
       }
     },
@@ -491,6 +531,11 @@
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID",
+          "errorRadioMessage": "Select yes if you have any of these types of photo ID"
         }
       }
     },
@@ -518,6 +563,11 @@
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -540,10 +590,15 @@
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
           "otherWayButtonText": "Prove my identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
-    "PyiPostofficeStart": {
+    "pyiPostOffice": {
       "title": "Prove your identity at a Post Office - GOV.UK One Login",
       "header": "Prove your identity at a Post Office",
       "content": {
@@ -565,6 +620,11 @@
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have photo ID you can use at a Post Office",
+          "errorRadioMessage": "Select yes if you have photo ID you can use at a Post Office"
         }
       }
     }

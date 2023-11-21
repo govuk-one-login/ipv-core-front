@@ -4,43 +4,58 @@
 {% set pageTitleName = 'pages.pageMultipleDocCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
 
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#multipleDocCheckingForm" %}
+
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageMultipleDocCheck.header' | translate }}</h1>
-  <p class="govuk-body">{{'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{'pages.pageMultipleDocCheck.content.bullet1' | translate | safe }}</li>
-    <li>{{'pages.pageMultipleDocCheck.content.bullet2' | translate | safe }}</li>
+    <li>{{ 'pages.pageMultipleDocCheck.content.bullet1' | translate | safe }}</li>
+    <li>{{ 'pages.pageMultipleDocCheck.content.bullet2' | translate | safe }}</li>
   </ul>
-  <p class="govuk-body">{{'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
 
-  <h2 class="govuk-heading-m">{{'pages.pageMultipleDocCheck.content.subHeading' | translate }}</h2>
+  <form id="multipleDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pageMultipleDocCheck.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next/driving-licence",
+          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+        },
+        {
+          value: "next/passport",
+          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate
+        },
+        {
+          divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translate
+        }
+      ]
+    } %}
 
-  <form id="passportMultipleDocCheckingForm" action="/ipv/page/{{pageId}}" method="POST">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    {{ govukRadios({
-    idPrefix: "journey",
-    name: "journey",
-    items: [
-              {
-                value: "next/driving-licence",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
-              },
-              {
-                value: "next/passport",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate
-              },
-              {
-                divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
-              },
-              {
-                value: "end",
-                text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translate
-              }
-            ]
-      })
-    }}
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageMultipleDocCheck.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
     <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{'general.buttons.next' | translate }}
+      {{ 'general.buttons.next' | translate }}
     </button>
   </form>
 {% endblock %}

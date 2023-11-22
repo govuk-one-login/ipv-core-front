@@ -40,6 +40,20 @@ router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 
 router.post(
+  "/page/pyi-new-details",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/pyi-confirm-delete-details",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
   "/page/page-ipv-identity-document-start",
   parseForm,
   csrfProtection,

@@ -368,50 +368,60 @@
       }
     },
     "pyiNewDetails": {
-      "title": "TEMP Prove your identity again with new details",
-      "header": "TEMP Prove your identity again with new details",
+      "title": "Profi eich hunaniaeth eto gyda manylion newydd",
+      "header": "Profi eich hunaniaeth eto gyda manylion newydd",
       "content": {
-        "paragraph1": "TEMP To update your details, you need to:",
-        "list1": "TEMP delete your details",
-        "list2": "TEMP prove your identity again with new details",
-        "paragraph2": "TEMP You'll need:",
-        "list3": "TEMP photo ID with the name you want GOV.UK One Login to use",
-        "list4": "TEMP to tell us where you've lived for the last 3 months",
-        "paragraph3": "TEMP Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
-        "warningTextContent": "TEMP You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
-        "warningTextFallback": "TEMP Warning",
-        "subHeading1": "TEMP If you need to use the service now",
-        "paragraph4": "TEMP Your proof of identity is still valid even if your details are out of date.",
-        "paragraph5": "TEMP You can use your current details to access the service you need to use.",
-        "subHeading2": "TEMP What would you like to do?",
+        "paragraph1": "I ddiweddaru eich manylion, mae angen i chi: ",
+        "list1": "dileu eich manylion ",
+        "list2": "profi eich hunaniaeth eto gyda manylion newydd",
+        "paragraph2": "Byddwch angen:",
+        "list3": "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
+        "list4": "dweud wrthym ble rydych chi wedi byw am y 3 mis diwethaf",
+        "paragraph3": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
+        "warningTextContent": "Ni fyddwch yn gallu parhau â'r gwasanaeth rydych angen ei ddefnyddio os na allwn gadarnhau eich hunaniaeth eto gan ddefnyddio eich manylion newydd.",
+        "warningTextFallback": "Rhybudd",
+        "subHeading1": "Os ydych angen defnyddio'r gwasanaeth nawr",
+        "paragraph4": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
+        "paragraph5": "Gallwch ddefnyddio'ch manylion cyfredol i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio. ",
+        "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "yes": "TEMP Continue to delete my details",
-          "no": "TEMP Go back to my current details"
+          "yes": "Parhau i ddileu fy manylion",
+          "no": "Mynd yn ôl i'm manylion presennol"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
     "pyiConfirmDeleteDetails": {
-      "title": "TEMP Are you sure you want to delete your details and prove your identity again?",
-      "header": "TEMP Are you sure you want to delete your details and prove your identity again?",
+      "title": "Ydych chi'n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
+      "header": "Ydych chi'n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
       "content": {
-        "paragraph1": "TEMP Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "paragraph1": "Ni fydd dileu eich GOV.UK One Login yn effeithio ar unrhyw gyfrifon eraill y llywodraeth sydd gennych, fel Porth y Llywodraeth neu Gredyd Cynhwysol.",
         "formRadioButtons": {
-          "yes": "TEMP Yes, delete my details",
-          "no": "TEMP No, cancel and go back to my current details"
+          "yes": "Ydw, dileu fy manylion",
+          "no": "Na, canslo a mynd yn ôl at fy manylion cyfredol "
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ydw os ydych am ddileu eich manylion a phrofi eich hunaniaeth eto",
+          "errorRadioMessage": "Dewiswch ydw os ydych am ddileu eich manylion a phrofi eich hunaniaeth eto"
         }
       }
     },
     "pyiDetailsDeleted": {
-      "title": "TEMP You have deleted the details in your GOV.UK One Login",
-      "header": "TEMP You have deleted the details in your GOV.UK One Login",
+      "title": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
+      "header": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "content": {
-        "paragraph1": "TEMP You've been sent a confirmation email.",
-        "paragraph2": "TEMP You can now prove your identity again using your new details.",
-        "paragraph3": "TEMP You'll need:",
-        "list1": "TEMP photo ID with the name you want GOV.UK One Login to use",
-        "list2": "TEMP to tell us where you've lived for the last 3 months",
-        "paragraph4": "TEMP Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
-        "submitButtonText": "TEMP Continue to prove your identity again"
+        "paragraph1": "Rydych wedi derbyn e-bost cadarnhau.",
+        "paragraph2": "Nawr gallwch brofi eich hunaniaeth eto gan ddefnyddio'ch manylion newydd.",
+        "paragraph3": "Byddwch angen:",
+        "list1": "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio ",
+        "list2": "dweud wrthym ble rydych chi wedi byw am y 3 mis diwetha",
+        "paragraph4": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
+        "submitButtonText": "Parhau i brofi eich hunaniaeth eto"
       }
     },
     "pageMultipleDocCheck": {

@@ -387,6 +387,11 @@
         "formRadioButtons": {
           "yes": "Parhau i ddileu fy manylion",
           "no": "Mynd yn ôl i'm manylion presennol"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -398,6 +403,11 @@
         "formRadioButtons": {
           "yes": "Ydw, dileu fy manylion",
           "no": "Na, canslo a mynd yn ôl at fy manylion cyfredol "
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ydw os ydych am ddileu eich manylion a phrofi eich hunaniaeth eto",
+          "errorRadioMessage": "Dewiswch ydw os ydych am ddileu eich manylion a phrofi eich hunaniaeth eto"
         }
       }
     },

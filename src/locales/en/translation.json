@@ -387,6 +387,11 @@
         "formRadioButtons": {
           "yes": "Continue to delete my details",
           "no": "Go back to my current details"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -398,6 +403,11 @@
         "formRadioButtons": {
           "yes": "Yes, delete my details",
           "no": "No, cancel and go back to my current details"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you want to delete your details and prove your identity again",
+          "errorRadioMessage": "details and prove your identity again details and prove your identity again"
         }
       }
     },

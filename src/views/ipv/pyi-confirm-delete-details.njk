@@ -3,6 +3,11 @@
 {% set pageTitleName = 'pages.pyiConfirmDeleteDetails.title' | translate %}
 {% set googleTagManagerPageId = "pyiConfirmDeleteDetails" %}
 
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiConfirmDeleteDetailsActionForm" %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translate }}</h1>

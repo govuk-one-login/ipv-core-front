@@ -21,6 +21,12 @@ jobs:
         with:
           node-version: 18.16.0
           cache: 'yarn'
+      - name: Login to GDS Dev Dynatrace Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: khw46367.live.dynatrace.com
+          username: khw46367
+          password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
       - name: Install dependencies
         run: yarn install
       - name: Run lint

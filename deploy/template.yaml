@@ -51,7 +51,7 @@ Conditions:
 # mapping up to date with each developer environment.
 Mappings:
   EnvironmentConfiguration:
-    "130355686670": # Old Development
+    "130355686670": # core-dev01
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -65,7 +65,8 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
-    "175872367215": # New Development
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -79,6 +80,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -97,6 +99,7 @@ Mappings:
       assetsDomain: "https://assets.build.account.gov.uk"
       assetsPath: "https://assets.build.account.gov.uk/core-front"
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -111,6 +114,7 @@ Mappings:
       assetsDomain: "https://assets.staging.account.gov.uk"
       assetsPath: "https://assets.staging.account.gov.uk/core-front"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -125,6 +129,7 @@ Mappings:
       assetsDomain: "https://assets.integration.account.gov.uk"
       assetsPath: "https://assets.integration.account.gov.uk/core-front"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -139,6 +144,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -616,7 +622,7 @@ Resources:
               Value: !If
                 - IsBuild
                 - "development"
-                - !If [IsDevelopment, !Sub "development", !Ref "AWS::NoValue"]
+                - !If [IsDevelopment, "development", !Ref AWS::NoValue]
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID
@@ -683,6 +689,22 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - contactUrl
+          Secrets:
+            - Name: DT_TENANT
+              ValueFrom: !Join
+                - ''
+                - - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, dynatraceSecretArn ]
+                  - ':DT_TENANT::'
+            - Name: DT_TENANTTOKEN
+              ValueFrom: !Join
+                - ''
+                - - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, dynatraceSecretArn ]
+                  - ':DT_TENANTTOKEN::'
+            - Name: DT_CONNECTION_POINT
+              ValueFrom: !Join
+              - ''
+              - - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, dynatraceSecretArn ]
+                - ':DT_CONNECTION_POINT::'
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
@@ -729,6 +751,26 @@ Resources:
                 Resource:
                   - !GetAtt "ECSAccessLogsGroup.Arn"
                   - !Sub "${ECSAccessLogsGroup.Arn}:*"
+        - PolicyName: DynatraceGetSecrets
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:GetSecretValue" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables"
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:ListSecrets" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:*"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource:
+                  - "arn:aws:kms:eu-west-2:216552277552:key/*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -767,6 +809,26 @@ Resources:
                   - "kms:Decrypt"
                 Resource:
                   - !GetAtt DynamoDBKmsKey.Arn
+        - PolicyName: DynatraceGetSecrets
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:GetSecretValue" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables"
+              - Effect: Allow
+                Action:
+                  - "secretsmanager:ListSecrets" #pragma: allowlist secret
+                Resource:
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:*"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource:
+                  - "arn:aws:kms:eu-west-2:216552277552:key/*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary

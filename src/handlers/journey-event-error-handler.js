@@ -29,6 +29,7 @@ module.exports = {
         : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
 
       return res.render(`ipv/${pageId}.njk`, {
+        pageId: pageId,
         csrfToken: req.csrfToken(),
       });
     }

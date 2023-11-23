@@ -1,3 +1,5 @@
+src/app/shared/stringHelper.js
+
 window.DI = window.DI || {};
 window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
 
@@ -42,18 +44,6 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
     }
   };
 
-  const getTrackingElements = function (document) {
-    const trackerSelector = "[ga4-trackers]";
-    const trackingElementsNodes = document.querySelectorAll(trackerSelector);
-    const trackingElements = [];
-    // convert nodelist of trackers to array
-    for (const element of trackingElementsNodes) {
-      trackingElements.push(element);
-    }
-
-    return trackingElements;
-  };
-
   // eg form-tracker to FormTracker
   const kebabCaseToPascalCase = function (string) {
     const camelCase = function (string) {
@@ -67,6 +57,18 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
     };
 
     return capitaliseFirstLetter(camelCase(string));
+  };
+
+  const getTrackingElements = function (document) {
+    const trackerSelector = "[ga4-trackers]";
+    const trackingElementsNodes = document.querySelectorAll(trackerSelector);
+    const trackingElements = [];
+    // convert nodelist of trackers to array
+    for (const element of trackingElementsNodes) {
+      trackingElements.push(element);
+    }
+
+    return trackingElements;
   };
 
   // Initialise trackers for GA4 events which should be tracked on specific page elements, such as form_response events

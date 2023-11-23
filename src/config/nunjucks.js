@@ -14,6 +14,14 @@ module.exports = {
       return translate(key, options);
     });
 
+    nunjucksEnv.addFilter("translateWithContext", function (key, context, options) {
+      const translate = i18next.getFixedT(this.ctx.i18n.language);
+
+      const fullKey = key + context;
+
+      return translate(fullKey, options);
+    });
+
     // allow pushing or adding another attribute to an Object
     nunjucksEnv.addFilter("setAttribute", function (dictionary, key, value) {
       dictionary[key] = value;

@@ -3,6 +3,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% set pageTitleName = 'pages.pyiCriEscapeNoF2f.title' | translate %}
 {% set googleTagManagerPageId = "pyiCriEscapeNoF2f" %}
+{% set pageContext = context %}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.pyiCriEscapeNoF2f.content.formErrorMessage.errorSummaryTitleText' | translate %}
@@ -14,7 +15,7 @@
   <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph1' | translate | safe }}</p>
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscapeNoF2f.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph2' | translateWithContext(pageContext) | safe }}</p>
   <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph3' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ 'pages.pyiCriEscapeNoF2f.content.bullet1' | translate | safe }}</li>

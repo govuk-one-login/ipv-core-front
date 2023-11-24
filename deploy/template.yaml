@@ -759,8 +759,8 @@ Resources:
                 Action:
                   - "secretsmanager:GetSecretValue" #pragma: allowlist secret
                 Resource:
-                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables"
-                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables*"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables*"
               - Effect: Allow
                 Action:
                   - "secretsmanager:ListSecrets" #pragma: allowlist secret
@@ -817,8 +817,8 @@ Resources:
                 Action:
                   - "secretsmanager:GetSecretValue" #pragma: allowlist secret
                 Resource:
-                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables"
-                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables*"
+                  - "arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables*"
               - Effect: Allow
                 Action:
                   - "secretsmanager:ListSecrets" #pragma: allowlist secret

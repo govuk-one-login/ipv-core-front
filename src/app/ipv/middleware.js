@@ -294,7 +294,7 @@ module.exports = {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
-            context: "no-photo-id",
+            context,
           };
 
           if (req.query?.errorState !== undefined) {

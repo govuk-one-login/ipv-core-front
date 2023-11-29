@@ -15,4 +15,4 @@ const kebabCaseToPascalCase = function (string) {
 
 module.exports = {
   kebabCaseToPascalCase,
-}
+};

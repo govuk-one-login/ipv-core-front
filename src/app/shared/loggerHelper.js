@@ -23,12 +23,15 @@ module.exports = {
       requestId: req.id,
     });
   },
-  logCoreBackCall: (req, { logCommunicationType, type, path, info, context = "" }) => {
+  logCoreBackCall: (
+    req,
+    { logCommunicationType, type, path, info, context = "" },
+  ) => {
     const message = {
       logCommunicationType,
       path,
       info,
-      context
+      context,
     };
     if (type) {
       message.type = type;

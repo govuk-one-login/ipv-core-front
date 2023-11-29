@@ -66,5 +66,5 @@ function extractAddressFields(address) {
   if (address.addressLocality) {
     localityNames.push(address.addressLocality);
   }
-  return { buildingNames, streetNames, localityNames }; 
+  return { buildingNames, streetNames, localityNames };
 }

@@ -1,5 +1,6 @@
 const nunjucks = require("nunjucks");
 const i18next = require("i18next");
+const { kebabCaseToPascalCase } = require("../app/shared/stringHelper");
 
 module.exports = {
   configureNunjucks: (app, viewsPath) => {
@@ -19,7 +20,9 @@ module.exports = {
       function (key, context, options) {
         const translate = i18next.getFixedT(this.ctx.i18n.language);
 
-        const fullKey = key + context;
+        const pascalContext = kebabCaseToPascalCase(context)
+
+        const fullKey = key + pascalContext;
 
         return translate(fullKey, options);
       },

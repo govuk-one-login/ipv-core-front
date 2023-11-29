@@ -37,7 +37,6 @@ const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
-const { kebabCaseToPascalCase } = require("../shared/stringHelper");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -204,7 +203,7 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
-      const context = kebabCaseToPascalCase(req?.session.context || "");
+      const { context } = req?.session || "";
 
       if (ENABLE_PREVIEW && req.query.preview) {
         if (pageId === "page-ipv-reuse") {
@@ -295,7 +294,7 @@ module.exports = {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
-            context,
+            context: 'no-photo-id',
           };
 
           if (req.query?.errorState !== undefined) {

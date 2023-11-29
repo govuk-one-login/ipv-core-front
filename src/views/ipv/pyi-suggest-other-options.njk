@@ -8,14 +8,13 @@
 {% set errorTitle = 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#pyiSuggestOtherOptionsForm" %}
-{% set pageContext = context %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiSuggestOtherOptions.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph1' | translate }}</p>
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiSuggestOtherOptions.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph2' | translateWithContext(pageContext) }}</p>
+  <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph2' | translateWithContext(context) }}</p>
   <p class="govuk-body govuk-!-margin-bottom-1">{{ 'pages.pyiSuggestOtherOptions.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-5">
     <li>{{ 'pages.pyiSuggestOtherOptions.content.bullet1' | translate }}</li>

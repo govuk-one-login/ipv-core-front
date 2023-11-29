@@ -54,6 +54,7 @@ const loggerMiddleware = require("pino-http")({
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+      context: req.session?.context || "",
     };
   },
   customErrorMessage: function (req, res) {
@@ -66,6 +67,7 @@ const loggerMiddleware = require("pino-http")({
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+      context: req.session?.context || "",
     };
   },
   customSuccessMessage: function (req, res) {
@@ -80,6 +82,7 @@ const loggerMiddleware = require("pino-http")({
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+      context: req.session?.context || "",
     };
   },
   customAttributeKeys: {

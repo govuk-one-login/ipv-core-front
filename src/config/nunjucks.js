@@ -20,7 +20,7 @@ module.exports = {
       function (key, context, options) {
         const translate = i18next.getFixedT(this.ctx.i18n.language);
 
-        const pascalContext = kebabCaseToPascalCase(context)
+        const pascalContext = kebabCaseToPascalCase(context);
 
         const fullKey = key + pascalContext;
 

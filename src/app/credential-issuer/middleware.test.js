@@ -14,7 +14,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
+      configStub.API_CRI_CALLBACK = "/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -67,7 +67,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {
@@ -101,7 +101,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPI(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {
@@ -163,7 +163,7 @@ describe("credential issuer middleware", () => {
       };
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {
@@ -189,7 +189,7 @@ describe("credential issuer middleware", () => {
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
+      configStub.API_CRI_CALLBACK = "/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -240,7 +240,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {
@@ -274,7 +274,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {
@@ -336,7 +336,7 @@ describe("credential issuer middleware", () => {
       await middleware.sendParamsToAPIV2(req, res, next);
 
       expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+        "https://example.net/path/cri/callback",
         expectedBody,
         sinon.match({
           headers: {

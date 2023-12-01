@@ -1,5 +1,6 @@
 const nunjucks = require("nunjucks");
 const i18next = require("i18next");
+const { kebabCaseToPascalCase } = require("../app/shared/stringHelper");
 
 module.exports = {
   configureNunjucks: (app, viewsPath) => {
@@ -13,6 +14,19 @@ module.exports = {
       const translate = i18next.getFixedT(this.ctx.i18n.language);
       return translate(key, options);
     });
+
+    nunjucksEnv.addFilter(
+      "translateWithContext",
+      function (key, context, options) {
+        const translate = i18next.getFixedT(this.ctx.i18n.language);
+
+        const pascalContext = kebabCaseToPascalCase(context);
+
+        const fullKey = key + pascalContext;
+
+        return translate(fullKey, options);
+      },
+    );
 
     // allow pushing or adding another attribute to an Object
     nunjucksEnv.addFilter("setAttribute", function (dictionary, key, value) {

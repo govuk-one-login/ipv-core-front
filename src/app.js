@@ -132,6 +132,7 @@ app.use((req, res, next) => {
     requestId: req.id,
     ipvSessionId: req.session?.ipvSessionId,
     sessionId: req.session?.id,
+    context: req.session?.context || "",
   });
   next();
 });
@@ -156,6 +157,7 @@ router.use((req, res, next) => {
     requestId: req.id,
     ipvSessionId: req.session?.ipvSessionId,
     sessionId: req.session?.id,
+    context: req.session?.context || "",
   });
   next();
 });

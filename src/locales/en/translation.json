@@ -185,6 +185,7 @@
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "subHeading": "What you can do",
         "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph2NoPhotoId": "TEMP If you have a photo ID instead you may be able to use it to prove your identity",
         "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
         "bullet1": "an iPhone 7 or higher",
         "bullet2": "an Android phone (for example, Samsung or Google Pixel)",

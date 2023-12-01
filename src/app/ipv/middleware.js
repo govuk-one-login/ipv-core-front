@@ -118,8 +118,12 @@ async function handleBackendResponse(req, res, backendResponse) {
       type: LOG_TYPE_PAGE,
       path: backendResponse.page,
       requestId: req.requestId,
+      context: backendResponse?.context,
     });
+
     req.session.currentPage = backendResponse.page;
+    req.session.context = backendResponse?.context;
+
     return await saveSessionAndRedirect(
       req,
       res,
@@ -199,6 +203,7 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
+      const { context } = req?.session || "";
 
       if (ENABLE_PREVIEW && req.query.preview) {
         if (pageId === "page-ipv-reuse") {
@@ -211,11 +216,13 @@ module.exports = {
             userDetails,
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           });
         } else {
           return res.render(`ipv/${sanitize(pageId)}.njk`, {
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           });
         }
       }
@@ -287,6 +294,7 @@ module.exports = {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           };
 
           if (req.query?.errorState !== undefined) {
@@ -309,6 +317,7 @@ module.exports = {
             userDetails,
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           });
         }
         default:

@@ -46,4 +46,13 @@ describe("Kebab Case To Pascal Case", () => {
 
     expect(result).to.equal(expectedOutput);
   });
+
+  it("Should handle undefined", () => {
+    let input;
+    const expectedOutput = "";
+
+    const result = kebabCaseToPascalCase(input);
+
+    expect(result).to.equal(expectedOutput);
+  });
 });

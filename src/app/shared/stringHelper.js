@@ -2,9 +2,9 @@
 const kebabCaseToPascalCase = function (string) {
   const camelCase = function (string) {
     if (!string) {
-      return ""
-    };
-    
+      return "";
+    }
+
     return string.replace(/-([a-zA-Z])/g, function (g) {
       return g.charAt(1).toUpperCase();
     });

@@ -9,7 +9,7 @@ This is the home for the core front end user interface for the Identity Proofing
 Clone this repository and then run
 
 ```bash
-yarn install
+npm install
 ```
 
 ## Environment Variables
@@ -21,10 +21,10 @@ yarn install
 ## Running Locally
 
 Create a .env file based on .env.sample
-Run `yarn build`
-In your IDE set up a run configuration that starts `src/app.js` and use that (or run `yarn start-dev`)
-To get live updating of styles run `yarn watch-sass`
-Changes to the govuk-frontend library, translations, or images require you to run `yarn build` again.
+Run `npm run build`
+In your IDE set up a run configuration that starts `src/app.js` and use that (or run `npm run start-dev`)
+To get live updating of styles run `npm run watch-sass`
+Changes to the govuk-frontend library, translations, or images require you to run `npm run build` again.
 
 ### Configuring core-back to work with a local core-front
 In the core common infra repository dev-deploy documentation there are instructions on how to configure your dev

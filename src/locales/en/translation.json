@@ -487,8 +487,14 @@
           "previousAddress": "Previous address"
         },
         "updateUserDetailsInformation": {
-          "updateDetailsLabel": "How to update your details",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details."
+          "updateDetailsLabel": "If your details are out of date",
+          "updateDetailsHtml": "<p>Your proof of identity is still valid even if your details are out of date.</p><p>You do not need to update your details to continue to the service you need to use. When you continue, GOV.UK One Login will share your current details with the service.</p><p>If you want to update your details before they are shared with the service, you'll need to:</p><div><ul><li>delete your details</li><li>prove your identity again</li></ul></div><p>Prove your identity again with new details.</p>",
+          "updateDetailsParagraph1": "",
+          "updateDetailsParagraph2": "",
+          "updateDetailsParagraph3": "",
+          "updateDetailsListItem1": "delete your details",
+          "updateDetailsListItem2": "prove your identity again",
+          "updateDetailsParagraph4": ""
         }
       }
     },

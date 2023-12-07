@@ -487,8 +487,13 @@
           "previousAddress": "Cyfeiriad blaenorol"
         },
         "updateUserDetailsInformation": {
-          "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>."
+          "updateDetailsLabel": "Os yw'ch manylion ddim yn gyfredol",
+          "updateDetailsParagraph1": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
+          "updateDetailsParagraph2": "Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio. Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion cyfredol gyda'r gwasanaeth.",
+          "updateDetailsParagraph3": "Os ydych am ddiweddaru eich manylion cyn iddynt gael eu rhannu gyda'r gwasanaeth, bydd angen i chi:",
+          "updateDetailsListItem1": "dileu eich manylion",
+          "updateDetailsListItem2": "profi eich hunaniaeth eto",
+          "updateDetailsParagraph4": "Profi eich hunaniaeth eto gyda manylion newydd"
         }
       }
     },

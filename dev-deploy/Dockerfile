@@ -2,7 +2,7 @@ FROM node:18.16.0-alpine@sha256:44aaf1ccc80eaed6572a0f2ef7d6b5a2982d54481e425548
 WORKDIR /app
 COPY /src ./src
 COPY package.json ./
-COPY package-lock ./
+COPY package-lock.json ./
 
 RUN npm install
 RUN npm run build

@@ -403,7 +403,8 @@
         "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
         "formRadioButtons": {
           "yes": "Yes, delete my details",
-          "no": "No, cancel and go back to my current details"
+          "no": "No, cancel and go back to my current details",
+          "nof2f": "No, I want to prove my identity at a Post Office"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

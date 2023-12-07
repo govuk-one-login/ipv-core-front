@@ -425,6 +425,20 @@
         "submitButtonText": "Parhau i brofi eich hunaniaeth eto"
       }
     },
+    "pyiF2fDeleteDetails": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "You've been sent a confirmation email.",
+        "paragraph2": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity.",
+        "paragraph3": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
+        "insetText": "After you’ve deleted your details, your Post Office customer letter will no longer be valid and you should not try to use it to prove your identity.",
+        "paragraph4": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
+        "submitButtonText": "Continue to delete your details",
+        "paragraph5LinkText": "I want to prove my identity at a Post Office",
+        "paragraph5LinkHref": "..."
+      }
+    },
     "pageMultipleDocCheck": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",

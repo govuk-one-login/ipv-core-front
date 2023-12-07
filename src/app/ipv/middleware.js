@@ -157,11 +157,13 @@ module.exports = {
     });
   },
   updateJourneyState: async (req, res, next) => {
+    console.log("Updating journey state")
     try {
       const allowedActions = [
         "/journey/next",
         "/journey/error",
         "/journey/fail",
+        "/journey/reset-identity",
         "/journey/attempt-recovery",
         "/journey/cri/build-oauth-request/ukPassport",
         "/journey/cri/build-oauth-request/stubUkPassport",

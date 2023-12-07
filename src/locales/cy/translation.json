@@ -488,12 +488,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Os yw'ch manylion ddim yn gyfredol",
-          "updateDetailsParagraph1": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
-          "updateDetailsParagraph2": "Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio. Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion cyfredol gyda'r gwasanaeth.",
-          "updateDetailsParagraph3": "Os ydych am ddiweddaru eich manylion cyn iddynt gael eu rhannu gyda'r gwasanaeth, bydd angen i chi:",
-          "updateDetailsListItem1": "dileu eich manylion",
-          "updateDetailsListItem2": "profi eich hunaniaeth eto",
-          "updateDetailsParagraph4": "Profi eich hunaniaeth eto gyda manylion newydd"
+          "updateDetailsHtml": "<p>Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.</p><p>Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio. Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion cyfredol gyda'r gwasanaeth.</p><p>Os ydych am ddiweddaru eich manylion cyn iddynt gael eu rhannu gyda'r gwasanaeth, bydd angen i chi:</p><ul><li>dileu eich manylion</li><li>profi eich hunaniaeth eto</li></ul><a class=\"govuk-link\" href=\"/ipv/journey/reset-identity\" rel=\"noopener noreferrer\">Profi eich hunaniaeth eto gyda manylion newydd</a>"
         }
       }
     },

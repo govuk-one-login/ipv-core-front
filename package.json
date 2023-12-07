@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.454.0",
-    "@babel/traverse": "^7.23.4",
+    "@babel/traverse": "^7.23.2",
     "axios": "1.6.2",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",
@@ -76,7 +76,7 @@
     "pino-http": "8.5.1",
     "sanitize-filename": "^1.6.3"
   },
-  "resolutions": {
+  "overrides": {
     "@babel/traverse": "^7.23.2",
     "semver": "^7.5.4"
   }

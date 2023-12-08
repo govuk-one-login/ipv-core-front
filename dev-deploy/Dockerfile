@@ -7,10 +7,10 @@ COPY package-lock.json ./
 RUN npm install
 RUN npm run build
 
-# 'npm install --production' does not prune test packages which are necessary
+# 'npm install --omit=dev' does not prune test packages which are necessary
 # to build the app. So delete nod_modules and reinstall only production packages.
 RUN [ "rm", "-rf", "node_modules" ]
-RUN npm install --production
+RUN npm install --omit=dev
 
 FROM node:18.16.0-alpine@sha256:44aaf1ccc80eaed6572a0f2ef7d6b5a2982d54481e4255480041ac92221e2f11 as final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup

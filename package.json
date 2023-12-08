@@ -5,13 +5,13 @@
   "main": "src/server.js",
   "engines": {
     "node": "18.x",
-    "yarn": "1.22.x"
+    "npm": "9.x"
   },
   "scripts": {
     "start": "node src/app.js",
     "start-dev": "node src/app.js | pino-pretty",
     "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
-    "build": "yarn build-js && yarn build-sass && yarn copy-locales && yarn copy-images",
+    "build": "npm run build-js && npm run build-sass && npm run copy-locales && npm run copy-images",
     "build-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js src/assets/javascript/**/**/*.js src/assets/javascript/**/*.js -o dist/public/javascripts/application.js -c -m ",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "watch-sass": "sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed --watch",
@@ -20,7 +20,7 @@
     "lint": "prettier --check src test && eslint .",
     "lint-fix": "prettier --write src test && eslint --fix .",
     "test": "mocha",
-    "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",
+    "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
     "test:watch": "mocha --watch"
   },
   "repository": {
@@ -33,7 +33,6 @@
     "url": "https://github.com/alphagov/di-ipv-core-front/issues"
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
-  "packageManager": "yarn@2.4.3",
   "devDependencies": {
     "chai": "4.3.10",
     "chai-as-promised": "7.1.1",
@@ -55,7 +54,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.454.0",
-    "@babel/traverse": "^7.23.4",
+    "@babel/traverse": "^7.23.2",
     "axios": "1.6.2",
     "body-parser": "^1.20.2",
     "cfenv": "1.2.4",
@@ -77,7 +76,7 @@
     "pino-http": "8.5.1",
     "sanitize-filename": "^1.6.3"
   },
-  "resolutions": {
+  "overrides": {
     "@babel/traverse": "^7.23.2",
     "semver": "^7.5.4"
   }

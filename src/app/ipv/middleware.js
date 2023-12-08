@@ -157,7 +157,6 @@ module.exports = {
     });
   },
   updateJourneyState: async (req, res, next) => {
-    console.log("Updating journey state")
     try {
       const allowedActions = [
         "/journey/next",

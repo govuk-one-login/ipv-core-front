@@ -1,6 +1,6 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pyiConfirmDeleteDetails.title' | translate %}
+{% set pageTitleName = 'pages.pyiConfirmDeleteDetails.title' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "pyiConfirmDeleteDetails" %}
 
 {% set errorState = pageErrorState %}
@@ -10,8 +10,8 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translate }}</h1>
-  {% if context != "f2f" %}
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translateWithContext(context) }}</h1>
+  {% if context !== "f2f" %}
     <p class="govuk-body">{{ 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate }}</p>
   {% endif %}
 

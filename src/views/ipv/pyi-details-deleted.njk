@@ -2,7 +2,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% set pageTitleName = 'pages.pyiDetailsDeleted.title' | translate %}
-{% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translate %}
+{% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "pyiDetailsDeleted" %}
 
 {% block content %}
@@ -20,7 +20,7 @@
     </ul>
   {% endif %}
 
-  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translateWithContext(context) | safe }}</p>
 
 {% include "shared/journey-next-form.njk" %}
 {% endblock %}

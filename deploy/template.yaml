@@ -386,8 +386,8 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 2
-      HealthCheckIntervalSeconds: 5
+      HealthCheckTimeoutSeconds: 5
+      HealthCheckIntervalSeconds: 10
       HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
@@ -439,7 +439,7 @@ Resources:
         - !Ref AWS::AccountId
         - desiredTaskCount
       EnableECSManagedTags: false
-      HealthCheckGracePeriodSeconds: 30
+      HealthCheckGracePeriodSeconds: 45
       LaunchType: FARGATE
       LoadBalancers:
         - ContainerName: app

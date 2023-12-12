@@ -398,12 +398,15 @@
     },
     "pyiConfirmDeleteDetails": {
       "title": "Are you sure you want to delete your details and prove your identity again?",
+      "titleF2f": "Are you sure you want to delete your details and prove your identity another way?",
       "header": "Are you sure you want to delete your details and prove your identity again?",
+      "headerF2f": "Are you sure you want to delete your details and prove your identity another way?",
       "content": {
         "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
         "formRadioButtons": {
           "yes": "Yes, delete my details",
-          "no": "No, cancel and go back to my current details"
+          "no": "No, cancel and go back to my current details",
+          "noF2f": "No, I want to prove my identity at a Post Office"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -417,12 +420,28 @@
       "header": "You have deleted the details in your GOV.UK One Login",
       "content": {
         "paragraph1": "You've been sent a confirmation email.",
+        "paragraph2F2f": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity. ",
         "paragraph2": "You can now prove your identity again using your new details.",
+        "paragraph3F2f": "You can now try to prove your identity another way.",
         "paragraph3": "You'll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
         "list2": "to tell us where you've lived for the last 3 months",
+        "paragraph4F2f": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
         "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "submitButtonTextF2f": "Continue to prove your identity",
         "submitButtonText": "Continue to prove your identity again"
+      }
+    },
+    "pyiF2fDeleteDetails": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "If you no longer want to prove your identity at a Post Office, you can delete your details and try to prove your identity another way.",
+        "paragraph2": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
+        "insetText": "After you’ve deleted your details, your Post Office customer letter will no longer be valid and you should not try to use it to prove your identity.",
+        "paragraph3": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
+        "submitButtonText": "Continue to delete your details",
+        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/next\" rel=\"noopener noreferrer\">I want to prove my identity at a Post Office</a>"
       }
     },
     "pageMultipleDocCheck": {

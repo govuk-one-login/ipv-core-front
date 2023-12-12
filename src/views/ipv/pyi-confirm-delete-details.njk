@@ -1,6 +1,6 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pyiConfirmDeleteDetails.title' | translate %}
+{% set pageTitleName = 'pages.pyiConfirmDeleteDetails.title' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "pyiConfirmDeleteDetails" %}
 
 {% set errorState = pageErrorState %}
@@ -10,13 +10,14 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translate }}</h1>
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translateWithContext(context) }}</h1>
+  {% if context !== "f2f" %}
+    <p class="govuk-body">{{ 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate }}</p>
+  {% endif %}
 
-  <p class="govuk-body">{{ 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate }}</p>
-    
-  <form id="pyiConfirmDeleteDetailsActionForm" action="/ipv/page/{{pageId}}" method="POST">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-      {% set radiosConfig = {  
+  <form id="pyiConfirmDeleteDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radiosConfig = {
         idPrefix: "journey",
         name: "journey",
         items: [
@@ -26,10 +27,10 @@
                 },
                 {
                   value: "end",
-                  text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.no' | translate
+                  text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.no' | translateWithContext(context)
                 }
               ]
-      } 
+      }
     %}
 
     {% if errorState %}

@@ -26,9 +26,7 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
-const {
-  generateUserDetails,
-} = require("../shared/reuseHelper");
+const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");

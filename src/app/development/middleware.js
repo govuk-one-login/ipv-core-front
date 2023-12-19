@@ -40,7 +40,7 @@ async function allTemplatesPost(req, res) {
     pageId,
     csrfToken: req.csrfToken(),
     context,
-  }
+  };
 
   if (pageId === "page-ipv-reuse") {
     renderOptions["userDetails"] = generateUserDetails(

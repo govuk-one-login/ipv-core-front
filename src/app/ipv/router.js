@@ -2,7 +2,6 @@ const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const { ENABLE_PREVIEW } = require("../../lib/config");
 
 const {
   renderAttemptRecoveryPage,
@@ -15,7 +14,6 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
-  allTemplates,
 } = require("./middleware");
 
 const csrfProtection = csrf({});
@@ -28,10 +26,6 @@ function checkLanguage(req, res, next) {
   res.locals.isWelsh = lang === "cy";
 
   next();
-}
-
-if (ENABLE_PREVIEW) {
-  router.get("/all-templates", allTemplates);
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

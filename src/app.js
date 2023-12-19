@@ -11,6 +11,7 @@ const {
   SESSION_TABLE_NAME,
   CDN_PATH,
   CDN_DOMAIN,
+  ENABLE_PREVIEW,
 } = require("./lib/config");
 
 const { setLocals } = require("./lib/locals");
@@ -165,6 +166,9 @@ router.use((req, res, next) => {
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/ipv", require("./app/ipv/router"));
+if (ENABLE_PREVIEW) {
+  router.use("/dev", require("./app/development/router"));
+}
 
 const healthcheckRouter = express.Router();
 healthcheckRouter.get("/healthcheck", (req, res) => {

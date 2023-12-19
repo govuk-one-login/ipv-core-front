@@ -3,7 +3,6 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  ENABLE_PREVIEW,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -28,7 +27,6 @@ const {
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
 const {
-  samplePersistedUserDetails,
   generateUserDetails,
 } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
@@ -204,28 +202,6 @@ module.exports = {
     try {
       const { pageId } = req.params;
       const { context } = req?.session || "";
-
-      if (ENABLE_PREVIEW && req.query.preview) {
-        if (pageId === "page-ipv-reuse") {
-          const userDetails = generateUserDetails(
-            samplePersistedUserDetails,
-            req.i18n,
-          );
-
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            userDetails,
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          });
-        } else {
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          });
-        }
-      }
 
       if (req.session?.ipvSessionId === null) {
         logError(

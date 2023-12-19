@@ -1,0 +1,60 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleName = "All templates" %}
+
+{% block content %}
+  <form id="pageSelectForm" action="/dev/all-templates" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+          <h2 class="govuk-heading-m">Select a Page</h2>
+        </legend>
+        <div class="govuk-radios" data-module="govuk-radios">
+          {% for template in allTemplates %}
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="{{ template }}" name="template" type="radio" value="{{ template }}" required>
+              <label class="govuk-label govuk-radios__label" for="{{ template }}">
+                {{ template }}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+          <h2 class="govuk-heading-m">Select a Language</h2>
+        </legend>
+        <div class="govuk-radios" data-module="govuk-radios">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="english" name="language" type="radio" value="en" checked>
+            <label class="govuk-label govuk-radios__label" for="english">
+              English
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="welsh" name="language" type="radio" value="cy">
+            <label class="govuk-label govuk-radios__label" for="welsh">
+              Welsh
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="govuk-form-group">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="context">
+          Context (optional)
+        </label>
+      </h2>
+      <input class="govuk-input" id="context" name="context" type="text">
+    </div>
+
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      Go
+    </button>
+  </form>
+{% endblock %}

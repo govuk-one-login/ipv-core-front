@@ -55,7 +55,7 @@
 
     {{ govukDetails({
         summaryText: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translate,
-        text: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate( { pageId: pageId } ) | safe
+        text: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate | safe
     }) }}
 
     {% include 'shared/journey-next-form.njk' %}

@@ -441,7 +441,7 @@
         "insetText": "After you’ve deleted your details, your Post Office customer letter will no longer be valid and you should not try to use it to prove your identity.",
         "paragraph3": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
         "submitButtonText": "Continue to delete your details",
-        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/next\" rel=\"noopener noreferrer\">I want to prove my identity at a Post Office</a>"
+        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/end\" rel=\"noopener noreferrer\">I want to prove my identity at a Post Office</a>"
       }
     },
     "pageMultipleDocCheck": {

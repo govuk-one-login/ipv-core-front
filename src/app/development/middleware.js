@@ -15,13 +15,13 @@ async function allTemplatesGet(req, res, next) {
         return next(err);
       }
 
-      // Remove the .njk extension from file names
-      const templatesWithoutExtension = files.map(
-        (file) => path.parse(file).name,
-      );
+      // Convert filenames into radio option objects for the GOVUK Design System nunjucks template
+      const templateRadioOptions = files.map((file) => {
+        return { text: path.parse(file).name, value: path.parse(file).name };
+      });
 
       res.render("development/all-templates.njk", {
-        allTemplates: templatesWithoutExtension,
+        templateRadioOptions: templateRadioOptions,
         csrfToken: req.csrfToken(),
       });
     });

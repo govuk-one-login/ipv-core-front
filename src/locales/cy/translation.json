@@ -441,7 +441,7 @@
         "insetText": "Ar ôl i chi ddileu eich manylion, ni fydd llythyr cwsmer Swyddfa'r Post bellach yn ddilys ac ni ddylech geisio ei ddefnyddio i brofi eich hunaniaeth.",
         "paragraph3": "Byddwn yn dileu'ch manylion yn awtomatig os na fyddwch yn mynd i Swyddfa'r Post o fewn 10 diwrnod o gael eich e-bost cadarnhau.",
         "submitButtonText": "Parhau i ddileu eich manylion",
-        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/next\" rel=\"noopener noreferrer\">Rwyf am brofi fy hunaniaeth mewn Swyddfa'r Post</a>"
+        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/end\" rel=\"noopener noreferrer\">Rwyf am brofi fy hunaniaeth mewn Swyddfa'r Post</a>"
       }
     },
     "pageMultipleDocCheck": {

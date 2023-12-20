@@ -160,6 +160,7 @@ module.exports = {
     try {
       const allowedActions = [
         "/journey/next",
+        "/journey/end",
         "/journey/error",
         "/journey/fail",
         "/journey/attempt-recovery",

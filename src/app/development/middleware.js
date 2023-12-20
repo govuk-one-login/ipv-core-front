@@ -31,28 +31,43 @@ async function allTemplatesGet(req, res, next) {
 }
 
 async function allTemplatesPost(req, res) {
-  const pageId = req.body?.template;
-  const context = req.body?.context;
-  const language = req.body?.language;
+  const templateId = req.body.template;
+  const language = req.body.language;
+  const context = req.body.context;
+
+  var redirectUrl = `/dev/template/${templateId}/${language}`;
+
+  if (context) {
+    redirectUrl += `?context=${context}`;
+  }
+
+  return res.redirect(redirectUrl);
+}
+
+async function templatesDisplayGet(req, res) {
+  const templateId = req.params.templateId;
+  const language = req.params.language;
+  const context = req.query.context;
   await req.i18n.changeLanguage(language);
 
   const renderOptions = {
-    pageId,
+    templateId,
     csrfToken: req.csrfToken(),
     context,
   };
 
-  if (pageId === "page-ipv-reuse") {
+  if (templateId === "page-ipv-reuse") {
     renderOptions["userDetails"] = generateUserDetails(
       samplePersistedUserDetails,
       req.i18n,
     );
   }
 
-  return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
+  return res.render(`ipv/${sanitize(templateId)}.njk`, renderOptions);
 }
 
 module.exports = {
   allTemplatesGet,
   allTemplatesPost,
+  templatesDisplayGet,
 };

@@ -66,8 +66,14 @@ async function templatesDisplayGet(req, res) {
   return res.render(`ipv/${sanitize(templateId)}.njk`, renderOptions);
 }
 
+// Remove this as part of PYIC-4278
+async function allTemplatesMoved(req, res) {
+  return res.render(`development/all-templates-moved.njk`);
+}
+
 module.exports = {
   allTemplatesGet,
   allTemplatesPost,
   templatesDisplayGet,
+  allTemplatesMoved,
 };

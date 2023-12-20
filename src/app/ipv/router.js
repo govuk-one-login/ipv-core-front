@@ -16,6 +16,9 @@ const {
   formRadioButtonChecked,
 } = require("./middleware");
 
+// Remove this as part of PYIC-4278
+const { allTemplatesMoved } = require("../development/middleware");
+
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
@@ -32,6 +35,8 @@ router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
+// Remove this as part of PYIC-4278
+router.get("/all-templates", allTemplatesMoved);
 
 router.post(
   "/page/pyi-new-details",

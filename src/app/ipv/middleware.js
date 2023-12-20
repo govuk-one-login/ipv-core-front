@@ -3,6 +3,7 @@ const sanitize = require("sanitize-filename");
 const {
   API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
+  ENABLE_PREVIEW,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -200,6 +201,11 @@ module.exports = {
     try {
       const { pageId } = req.params;
       const { context } = req?.session || "";
+
+      // Remove this as part of PYIC-4278
+      if (ENABLE_PREVIEW && req.query.preview) {
+        return res.redirect("/ipv/all-templates");
+      }
 
       if (req.session?.ipvSessionId === null) {
         logError(

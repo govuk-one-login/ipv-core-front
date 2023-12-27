@@ -72,7 +72,7 @@
     "i18next-http-middleware": "^3.5.0",
     "jsonwebtoken": "9.0.2",
     "nunjucks": "3.2.4",
-    "pino": "8.16.2",
+    "pino": "8.17.2",
     "pino-http": "8.5.1",
     "sanitize-filename": "^1.6.3"
   },

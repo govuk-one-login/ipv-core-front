@@ -29,5 +29,6 @@ module.exports = {
   CDN_DOMAIN: process.env.CDN_DOMAIN,
   CONTACT_URL: process.env.CONTACT_URL,
   SERVICE_URL: process.env.SERVICE_URL,
+  TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
   getServiceDomain,
 };

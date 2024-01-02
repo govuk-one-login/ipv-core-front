@@ -7,7 +7,7 @@ module.exports = {
     const nunjucksEnv = nunjucks.configure(viewsPath, {
       autoescape: true,
       express: app,
-      noCache: true,
+      noCache: process.env.NODE_ENV !== "production",
     });
 
     nunjucksEnv.addFilter("translate", function (key, options) {

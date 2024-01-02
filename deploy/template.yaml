@@ -65,7 +65,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
-      templateCaching: false
+      templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
@@ -81,7 +81,7 @@ Mappings:
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
-      templateCaching: false
+      templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "457601271792": # Build
       lb500ErrorLimit: 2

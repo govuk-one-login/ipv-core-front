@@ -8,7 +8,8 @@ describe("journey middleware", () => {
   let res;
   let next;
 
-  const axiosStub = { post: sinon.stub(), get: sinon.stub() };
+  let axiosInstanceStub = { post: sinon.stub(), get: sinon.stub() };
+  let axiosStub = { create: () => axiosInstanceStub };
 
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
@@ -44,8 +45,8 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
-    axiosStub.post = sinon.stub();
-    axiosStub.get = sinon.stub();
+    axiosInstanceStub.post = sinon.stub();
+    axiosInstanceStub.get = sinon.stub();
   });
 
   context("from a sequence of events that ends with a page response", () => {
@@ -78,7 +79,7 @@ describe("journey middleware", () => {
       ];
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      axiosInstanceStub.post = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -96,17 +97,17 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyResponse(req, res, "/journey/next");
-      expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
+      expect(axiosInstanceStub.post.getCall(0)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
         {},
         headers,
       );
-      expect(axiosStub.post.getCall(1)).to.have.been.calledWith(
+      expect(axiosInstanceStub.post.getCall(1)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/next`,
         {},
         headers,
       );
-      expect(axiosStub.post.getCall(2)).to.have.been.calledWith(
+      expect(axiosInstanceStub.post.getCall(2)).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/startCri`,
         {},
         headers,
@@ -216,7 +217,7 @@ describe("journey middleware", () => {
     it("should call next with error when issue calling handleJourneyResponse", async () => {
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = undefined;
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      axiosInstanceStub.post = sinon.fake.returns(axiosResponse);
 
       await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
@@ -225,10 +226,10 @@ describe("journey middleware", () => {
     it("should call handleJourneyResponse when given a valid action", async () => {
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = {};
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      axiosInstanceStub.post = sinon.fake.returns(axiosResponse);
 
       await middleware.updateJourneyState(req, res, next);
-      expect(axiosStub.post.firstCall).to.have.been.calledWith(
+      expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
         `${configStub.API_BASE_URL}/journey/cri/build-oauth-request/ukPassport`,
       );
     });
@@ -261,7 +262,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      axiosInstanceStub.post = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -331,7 +332,7 @@ describe("journey middleware", () => {
         };
 
         const callBack = sinon.stub();
-        axiosStub.post = callBack;
+        axiosInstanceStub.post = callBack;
 
         eventResponses.forEach((er, index) => {
           callBack.onCall(index).returns(eventResponses[index]);
@@ -353,7 +354,7 @@ describe("journey middleware", () => {
     const callBack = sinon.stub();
 
     beforeEach(() => {
-      axiosStub.post = callBack;
+      axiosInstanceStub.post = callBack;
 
       callBack.onCall(0).returns({
         data: { client: { redirectUrl: redirectUrl } },
@@ -397,7 +398,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      axiosInstanceStub.post = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -424,7 +425,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/end`,
         );
       });
@@ -438,7 +439,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/attempt-recovery`,
         );
       });
@@ -453,7 +454,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
         );
         expect(req.session.ipAddress).to.equal("1.1.1.1");
@@ -469,7 +470,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
         );
         expect(req.session.ipAddress).to.equal("ip-address");
@@ -477,7 +478,7 @@ describe("journey middleware", () => {
 
       it("should post with journey/next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/next`,
         );
       });
@@ -541,7 +542,7 @@ describe("journey middleware", () => {
         ],
       };
 
-      axiosStub.get = sinon.fake.returns(axiosResponse);
+      axiosInstanceStub.get = sinon.fake.returns(axiosResponse);
 
       req = {
         id: "1",
@@ -554,7 +555,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
 
-      expect(axiosStub.get.firstCall).to.have.been.calledWith(
+      expect(axiosInstanceStub.get.firstCall).to.have.been.calledWith(
         `${configStub.API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
       );
 
@@ -586,7 +587,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/ukPassport`,
         );
       });
@@ -600,14 +601,14 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/drivingLicence`,
         );
       });
 
       it("should post with journey/end by default", async function () {
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/end`,
         );
       });
@@ -649,7 +650,7 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/f2f`,
         );
       });
@@ -663,14 +664,14 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/dcmaw`,
         );
       });
 
       it("should post with journey/end by default", async function () {
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
+        expect(axiosInstanceStub.post.firstCall).to.have.been.calledWith(
           `${configStub.API_BASE_URL}/journey/end`,
         );
       });

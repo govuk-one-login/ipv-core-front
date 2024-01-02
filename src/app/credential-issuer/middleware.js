@@ -7,7 +7,16 @@ const { generateJsonAxiosConfig } = require("../shared/axiosHelper");
 const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
+const http = require("http");
+const https = require("https");
 const axios = require("axios");
+
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+const axiosInstance = axios.create({
+  httpAgent,
+  httpsAgent,
+});
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
@@ -32,7 +41,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await axios.post(
+      const apiResponse = await axiosInstance.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
         generateJsonAxiosConfig(req),
@@ -73,7 +82,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await axios.post(
+      const apiResponse = await axiosInstance.post(
         `${API_BASE_URL}${API_CRI_CALLBACK}`,
         { ...body, ...errorDetails },
         generateJsonAxiosConfig(req),

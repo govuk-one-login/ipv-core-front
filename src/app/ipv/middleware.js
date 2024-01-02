@@ -32,11 +32,20 @@ const {
   generateUserDetails,
 } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
-const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
+const http = require("http");
+const https = require("https");
+const axios = require("axios");
+
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+const axiosInstance = axios.create({
+  httpAgent,
+  httpsAgent,
+});
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -49,7 +58,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axios.post(
+  return axiosInstance.post(
     `${API_BASE_URL}/${action}`,
     {},
     req.session?.clientOauthSessionId
@@ -306,7 +315,7 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {
-          const userDetailsResponse = await axios.get(
+          const userDetailsResponse = await axiosInstance.get(
             `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
             generateAxiosConfig(req),
           );

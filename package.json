@@ -53,7 +53,7 @@
     "uglify-js": "latest"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.454.0",
+    "@aws-sdk/client-dynamodb": "^3.485.0",
     "@babel/traverse": "^7.23.2",
     "axios": "1.6.2",
     "body-parser": "^1.20.2",

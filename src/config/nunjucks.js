@@ -1,13 +1,14 @@
 const nunjucks = require("nunjucks");
 const i18next = require("i18next");
 const { kebabCaseToPascalCase } = require("../app/shared/stringHelper");
+const config = require("../lib/config");
 
 module.exports = {
   configureNunjucks: (app, viewsPath) => {
     const nunjucksEnv = nunjucks.configure(viewsPath, {
       autoescape: true,
       express: app,
-      noCache: true,
+      noCache: !config.TEMPLATE_CACHING,
     });
 
     nunjucksEnv.addFilter("translate", function (key, options) {

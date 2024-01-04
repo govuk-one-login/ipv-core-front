@@ -2,8 +2,7 @@ const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } = require("../../lib/config");
 const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const { CoreBackService } = require("../../services/coreBackService");
-const coreBackService = new CoreBackService();
+const CoreBackService = require("../../services/coreBackService");
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
@@ -28,7 +27,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await coreBackService.postCriCallback(
+      const apiResponse = await CoreBackService.postCriCallback(
         req,
         body,
         errorDetails,
@@ -69,7 +68,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await coreBackService.postCriCallback(
+      const apiResponse = await CoreBackService.postCriCallback(
         req,
         body,
         errorDetails,

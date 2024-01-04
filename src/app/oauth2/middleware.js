@@ -2,8 +2,7 @@ const { API_SESSION_INITIALISE } = require("../../lib/config");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const { getIpAddress } = require("../shared/ipAddressHelper");
-const { CoreBackService } = require("../../services/coreBackService");
-const coreBackService = new CoreBackService();
+const CoreBackService = require("../../services/coreBackService");
 
 module.exports = {
   setIpAddress: (req, res, next) => {
@@ -34,7 +33,7 @@ module.exports = {
         path: API_SESSION_INITIALISE,
       });
 
-      const response = await coreBackService.postSessionInitialise(
+      const response = await CoreBackService.postSessionInitialise(
         req,
         authParams,
       );

@@ -27,7 +27,7 @@ const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
-const CoreBackService = require("../../services/coreBackService");
+const coreBackService = require("../../services/coreBackService");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -40,7 +40,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return CoreBackService.postAction(req, action);
+  return coreBackService.postAction(req, action);
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -292,7 +292,7 @@ module.exports = {
         }
         case "page-ipv-reuse": {
           const userDetailsResponse =
-            await CoreBackService.getProvenIdentityUserDetails(req);
+            await coreBackService.getProvenIdentityUserDetails(req);
           const userDetails = generateUserDetails(
             userDetailsResponse,
             req.i18n,

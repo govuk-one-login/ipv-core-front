@@ -1,19 +1,10 @@
 const sanitize = require("sanitize-filename");
 
-const {
-  API_BASE_URL,
-  API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  ENABLE_PREVIEW,
-} = require("../../lib/config");
+const { ENABLE_PREVIEW } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-
-const {
-  generateAxiosConfig,
-  generateAxiosConfigWithClientSessionId,
-} = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -36,16 +27,8 @@ const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
-const http = require("http");
-const https = require("https");
-const axios = require("axios");
-
-const httpAgent = new http.Agent({ keepAlive: true });
-const httpsAgent = new https.Agent({ keepAlive: true });
-const axiosInstance = axios.create({
-  httpAgent,
-  httpsAgent,
-});
+const { CoreBackService } = require("../../services/coreBackService");
+const coreBackService = new CoreBackService();
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -58,13 +41,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axiosInstance.post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    req.session?.clientOauthSessionId
-      ? generateAxiosConfigWithClientSessionId(req)
-      : generateAxiosConfig(req),
-  );
+  return coreBackService.postAction(req, action);
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -315,10 +292,8 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {
-          const userDetailsResponse = await axiosInstance.get(
-            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-            generateAxiosConfig(req),
-          );
+          const userDetailsResponse =
+            await coreBackService.getProvenIdentityUserDetails(req);
           const userDetails = generateUserDetails(
             userDetailsResponse,
             req.i18n,

@@ -1,8 +1,9 @@
-const { API_BASE_URL, API_SESSION_INITIALISE } = require("../../lib/config");
+const { API_SESSION_INITIALISE } = require("../../lib/config");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
+const { CoreBackService } = require("../../services/coreBackService");
+const coreBackService = new CoreBackService();
 
 module.exports = {
   setIpAddress: (req, res, next) => {
@@ -33,15 +34,9 @@ module.exports = {
         path: API_SESSION_INITIALISE,
       });
 
-      const response = await axios.post(
-        `${API_BASE_URL}${API_SESSION_INITIALISE}`,
+      const response = await coreBackService.postSessionInitialise(
+        req,
         authParams,
-        {
-          headers: {
-            "ip-address": req.session.ipAddress,
-            "feature-set": req.session.featureSet,
-          },
-        },
       );
 
       req.session.ipvSessionId = response?.data?.ipvSessionId;

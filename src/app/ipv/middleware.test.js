@@ -1,14 +1,12 @@
 const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
-const { API_BUILD_PROVEN_USER_IDENTITY_DETAILS } = require("../../lib/config");
 
 describe("journey middleware", () => {
   let req;
   let res;
   let next;
-
-  const axiosStub = { post: sinon.stub(), get: sinon.stub() };
+  let CoreBackServiceStub = {};
 
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
@@ -16,12 +14,12 @@ describe("journey middleware", () => {
   };
 
   const sharedCriHelper = proxyquire("../shared/criHelper", {
-    axios: axiosStub,
+    "../../services/coreBackService": CoreBackServiceStub,
     "../../lib/config": configStub,
   });
 
   const middleware = proxyquire("./middleware", {
-    axios: axiosStub,
+    "../../services/coreBackService": CoreBackServiceStub,
     "../../lib/config": configStub,
     "../shared/../shared/criHelper": sharedCriHelper,
   });
@@ -44,8 +42,8 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
-    axiosStub.post = sinon.stub();
-    axiosStub.get = sinon.stub();
+    CoreBackServiceStub.postAction = sinon.stub();
+    CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
   });
 
   context("from a sequence of events that ends with a page response", () => {
@@ -64,7 +62,7 @@ describe("journey middleware", () => {
     });
 
     it("should have called the network in the correct sequence", async function () {
-      const pageId = "pageTransition";
+      const pageId = "pagetProvenIdentityUserDetailsransition";
       const eventResponses = [
         {
           data: { journey: "journey/next" },
@@ -78,38 +76,24 @@ describe("journey middleware", () => {
       ];
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      CoreBackServiceStub.postAction = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
 
-      const headers = {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "ipv-session-id": "ipv-session-id",
-          "x-request-id": "1",
-          "ip-address": "ip-address",
-          "client-session-id": "fake-oauth-session-id",
-          "feature-set": "feature-set",
-        },
-      };
-
       await middleware.handleJourneyResponse(req, res, "/journey/next");
-      expect(axiosStub.post.getCall(0)).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/journey/next`,
-        {},
-        headers,
+      expect(CoreBackServiceStub.postAction.getCall(0)).to.have.been.calledWith(
+        req,
+        "journey/next",
       );
-      expect(axiosStub.post.getCall(1)).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/journey/next`,
-        {},
-        headers,
+      expect(CoreBackServiceStub.postAction.getCall(1)).to.have.been.calledWith(
+        req,
+        "journey/next",
       );
-      expect(axiosStub.post.getCall(2)).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/journey/startCri`,
-        {},
-        headers,
+      expect(CoreBackServiceStub.postAction.getCall(2)).to.have.been.calledWith(
+        req,
+        "journey/startCri",
       );
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
@@ -216,7 +200,7 @@ describe("journey middleware", () => {
     it("should call next with error when issue calling handleJourneyResponse", async () => {
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = undefined;
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postAction = sinon.fake.returns(axiosResponse);
 
       await middleware.updateJourneyState(req, res, next);
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
@@ -225,11 +209,12 @@ describe("journey middleware", () => {
     it("should call handleJourneyResponse when given a valid action", async () => {
       req.url = "/journey/cri/build-oauth-request/ukPassport";
       const axiosResponse = {};
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postAction = sinon.fake.returns(axiosResponse);
 
       await middleware.updateJourneyState(req, res, next);
-      expect(axiosStub.post.firstCall).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}/journey/cri/build-oauth-request/ukPassport`,
+      expect(CoreBackServiceStub.postAction.firstCall).to.have.been.calledWith(
+        req,
+        "journey/cri/build-oauth-request/ukPassport",
       );
     });
   });
@@ -261,7 +246,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      CoreBackServiceStub.postAction = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -331,7 +316,7 @@ describe("journey middleware", () => {
         };
 
         const callBack = sinon.stub();
-        axiosStub.post = callBack;
+        CoreBackServiceStub.postAction = callBack;
 
         eventResponses.forEach((er, index) => {
           callBack.onCall(index).returns(eventResponses[index]);
@@ -353,7 +338,7 @@ describe("journey middleware", () => {
     const callBack = sinon.stub();
 
     beforeEach(() => {
-      axiosStub.post = callBack;
+      CoreBackServiceStub.postAction = callBack;
 
       callBack.onCall(0).returns({
         data: { client: { redirectUrl: redirectUrl } },
@@ -397,7 +382,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      axiosStub.post = callBack;
+      CoreBackServiceStub.postAction = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -415,7 +400,7 @@ describe("journey middleware", () => {
   context(
     "handling different journey actions being passed into the request",
     () => {
-      it("should post with journey/end", async function () {
+      it("should postAction with journey/end", async function () {
         req = {
           id: "1",
           body: { journey: "end" },
@@ -424,12 +409,12 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
       });
 
-      it("should post with journey/attempt-recovery", async function () {
+      it("should postAction with journey/attempt-recovery", async function () {
         req = {
           id: "1",
           body: { journey: "attempt-recovery" },
@@ -438,12 +423,12 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/attempt-recovery`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/attempt-recovery");
       });
 
-      it("should post with journey/build-client-oauth-response and use ip address from header when not present in session", async function () {
+      it("should postAction with journey/build-client-oauth-response and use ip address from header when not present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
@@ -453,13 +438,13 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/build-client-oauth-response");
         expect(req.session.ipAddress).to.equal("1.1.1.1");
       });
 
-      it("should post with journey/build-client-oauth-response and use ip address from session when it is present in session", async function () {
+      it("should postAction with journey/build-client-oauth-response and use ip address from session when it is present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
@@ -469,17 +454,17 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/build-client-oauth-response`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/build-client-oauth-response");
         expect(req.session.ipAddress).to.equal("ip-address");
       });
 
-      it("should post with journey/next by default", async function () {
+      it("should postAction with journey/next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/next`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/next");
       });
     },
   );
@@ -541,7 +526,8 @@ describe("journey middleware", () => {
         ],
       };
 
-      axiosStub.get = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.getProvenIdentityUserDetails =
+        sinon.fake.returns(axiosResponse);
 
       req = {
         id: "1",
@@ -554,9 +540,9 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
 
-      expect(axiosStub.get.firstCall).to.have.been.calledWith(
-        `${configStub.API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-      );
+      expect(
+        CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
+      ).to.have.been.calledWith(req);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/${pageId}.njk`,
@@ -577,7 +563,7 @@ describe("journey middleware", () => {
   context(
     "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
     () => {
-      it("should post with journey/ukPassport", async function () {
+      it("should postAction with journey/ukPassport", async function () {
         req = {
           id: "1",
           body: { journey: "next/passport" },
@@ -586,12 +572,12 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/ukPassport`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/ukPassport");
       });
 
-      it("should post with journey/drivingLicence", async function () {
+      it("should postAction with journey/drivingLicence", async function () {
         req = {
           id: "1",
           body: { journey: "next/driving-licence" },
@@ -600,16 +586,16 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/drivingLicence`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/drivingLicence");
       });
 
-      it("should post with journey/end by default", async function () {
+      it("should postAction with journey/end by default", async function () {
         await middleware.handleMultipleDocCheck(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
       });
     },
   );
@@ -640,7 +626,7 @@ describe("journey middleware", () => {
   context(
     "handleCriEscapeAction: handling journey action with journey/f2f, journey/dcmaw, journey/end",
     () => {
-      it("should post with journey/f2f", async function () {
+      it("should postAction with journey/f2f", async function () {
         req = {
           id: "1",
           body: { journey: "next/f2f" },
@@ -649,12 +635,12 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/f2f`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/f2f");
       });
 
-      it("should post with journey/dcmaw", async function () {
+      it("should postAction with journey/dcmaw", async function () {
         req = {
           id: "1",
           body: { journey: "next/dcmaw" },
@@ -663,16 +649,16 @@ describe("journey middleware", () => {
         };
 
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/dcmaw`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/dcmaw");
       });
 
-      it("should post with journey/end by default", async function () {
+      it("should postAction with journey/end by default", async function () {
         await middleware.handleCriEscapeAction(req, res, next);
-        expect(axiosStub.post.firstCall).to.have.been.calledWith(
-          `${configStub.API_BASE_URL}/journey/end`,
-        );
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
       });
     },
   );
@@ -746,7 +732,7 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should render if method is POST, journey is not defined", async function () {
+    it("should render if method is postAction, journey is not defined", async function () {
       req.body.journey = undefined;
       req.method = "POST";
       await middleware.formRadioButtonChecked(req, res, next);
@@ -755,7 +741,7 @@ describe("journey middleware", () => {
       expect(next).to.have.not.been.calledOnce;
     });
 
-    it("should not render if method is not POST", async function () {
+    it("should not render if method is not postAction", async function () {
       req.method = "GET";
       req.body.journey = undefined;
       await middleware.formRadioButtonChecked(req, res, next);

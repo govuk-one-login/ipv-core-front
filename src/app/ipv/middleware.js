@@ -1,19 +1,10 @@
 const sanitize = require("sanitize-filename");
 
-const {
-  API_BASE_URL,
-  API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  ENABLE_PREVIEW,
-} = require("../../lib/config");
+const { ENABLE_PREVIEW } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-
-const {
-  generateAxiosConfig,
-  generateAxiosConfigWithClientSessionId,
-} = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -32,11 +23,11 @@ const {
   generateUserDetails,
 } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
-const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
+const coreBackService = require("../../services/coreBackService");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -49,13 +40,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axios.post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    req.session?.clientOauthSessionId
-      ? generateAxiosConfigWithClientSessionId(req)
-      : generateAxiosConfig(req),
-  );
+  return coreBackService.postAction(req, action);
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -306,10 +291,8 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {
-          const userDetailsResponse = await axios.get(
-            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-            generateAxiosConfig(req),
-          );
+          const userDetailsResponse =
+            await coreBackService.getProvenIdentityUserDetails(req);
           const userDetails = generateUserDetails(
             userDetailsResponse,
             req.i18n,

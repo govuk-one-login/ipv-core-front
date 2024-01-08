@@ -1,0 +1,57 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "shared/base.njk" %}
+{% set pageTitleName = "All templates" %}
+
+{% block content %}
+  <form id="pageSelectForm" action="/dev/all-templates" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {{ govukRadios({
+      name: "template",
+      fieldset: {
+        legend: {
+          text: "Select a Page",
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: templateRadioOptions
+    }) }}
+
+    {{ govukRadios({
+      name: "language",
+      fieldset: {
+        legend: {
+          text: "Select a Language",
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "en",
+          text: "English",
+          checked: true
+        },
+        {
+          value: "cy",
+          text: "Welsh"
+        }
+      ]
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Context (optional)",
+        classes: "govuk-label--m"
+      },
+      id: "context",
+      name: "context"
+    }) }}
+
+    {{ govukButton({
+      text: "Go"
+    }) }}
+  </form>
+{% endblock %}

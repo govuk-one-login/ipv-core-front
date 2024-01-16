@@ -55,6 +55,7 @@ jobs:
           artifact-bucket-name: ${{ secrets.ARTIFACT_BUCKET_NAME }}
           container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY }}
           working-directory: ./deploy
+          docker-build-path: .
           template-file: template.yaml
           role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}

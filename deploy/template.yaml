@@ -1371,6 +1371,34 @@ Resources:
                   Value: !Sub check-existing-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
+  
+  ECSBlueGreenDeploymentStack:
+    Type: AWS::CloudFormation::Stack
+    Condition: UseCanaryDeployment
+    Properties:
+      TemplateURL: "https://template-bucket-templatebucket-civakigopbg2.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
+      Parameters:
+        ECSClusterName: !Ref CoreFrontCluster
+        ECSServiceName: !GetAtt CoreFrontService.Name
+        TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
+        LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
+        LoadBalancerFullName: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+        ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
+        DeploymentStrategy: !Ref DeploymentStrategy
+        VpcId: !Sub ${VpcStackName}-VpcId
+        ContainerName: app
+        ContainerPort: 8080
+        # ELB4XXAlarmMetric: HTTPCode_ELB_4XX_Count
+        ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
+        ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
+        PermissionsBoundary: !If
+          - UsePermissionsBoundary
+          - !Ref PermissionsBoundary
+          - none
+        CodeSigningConfigArn: !If
+          - UseCodeSigning
+          - !Ref CodeSigningConfigArn
+          - !Ref AWS::NoValue
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

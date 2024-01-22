@@ -449,15 +449,16 @@
       "header": "Continue proving your identity online",
       "content": {
         "paragraph1": "You can continue proving your identity online if you:",
-        "bullet1": "have a UK passport or UK driving licence",
-        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
-        "paragraph2": "If you’re not sure you’ll be able to prove your identity this way, you can go back to the service you were trying to use and look for other ways to prove your identity.",
+        "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
+        "bullet2": "can answer some security questions",
+        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
         "subHeading": "How do you want to continue?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
+          "otherWayButtonTextF2f": "Prove your identity another way"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -474,7 +475,6 @@
         "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
         "bullet2": "can answer some security questions",
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
         "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
         "subHeading": "How do you want to continue?",
         "formRadioButtons": {

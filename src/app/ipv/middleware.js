@@ -240,7 +240,6 @@ module.exports = {
         case "page-pre-kbv-transition":
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
-        case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
         case "pyi-kbv-fail":
         case "pyi-kbv-thin-file":

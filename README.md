@@ -36,14 +36,15 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 
 ## Pre-Commit Checking / Verification
 
-Completely optional, there is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually commiting, it runs the following checks:
+There is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually committing, it runs the following checks:
 
 - Check Json files for formatting issues
 - Fixes end of file issues (it will auto correct if it spots an issue - you will need to run the git commit again after it has fixed the issue)
 - It automatically removes trailing whitespaces (again will need to run commit again after it detects and fixes the issue)
 - Detects aws credentials or private keys accidentally added to the repo
 - runs cloud formation linter and detects issues
-- runs checkov and checks for any issues.
+- runs checkov and checks for any issues
+- runs detect-secrets to check for secrets accidentally added - where these are false positives, the `.secrets.baseline` file should be updated by running `detect-secrets scan > .secrets.baseline`
 
 ### Dependency Installation
 

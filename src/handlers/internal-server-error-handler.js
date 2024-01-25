@@ -21,7 +21,7 @@ module.exports = {
       ? res.status(res.err.status)
       : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
 
-    req.session.currentPage = "pyi-technical-unrecoverable";
-    res.render("ipv/pyi-technical-unrecoverable.njk");
+    req.session.currentPage = "pyi-technical";
+    res.render("ipv/pyi-technical.njk", {context: "unrecoverable"});
   },
 };

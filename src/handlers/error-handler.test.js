@@ -63,7 +63,7 @@ describe("Error handlers", () => {
 
       expect(res.status).to.have.been.calledOnceWith(500);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk",
+        "ipv/pyi-technical.njk", {context: "unrecoverable"},
       );
     });
 
@@ -74,7 +74,7 @@ describe("Error handlers", () => {
 
       expect(res.status).to.have.been.calledOnceWith(500);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk",
+        "ipv/pyi-technical.njk", {context: "unrecoverable"},
       );
     });
 

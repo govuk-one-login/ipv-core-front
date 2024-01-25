@@ -173,7 +173,7 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should render pyi-technical-unrecoverable page if ipvSessionId is missing", async () => {
+    it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is missing", async () => {
       req = {
         id: "1",
         params: { pageId: "../ipv/page-multiple-doc-check" },
@@ -182,9 +182,9 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical.njk", {context: "unrecoverable"},
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
     });
   });
 
@@ -483,9 +483,9 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyAction(req, res, next);
       expect(res.status).to.have.been.calledWith(401);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical.njk", {context: "unrecoverable"},
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
     });
   });
 
@@ -616,9 +616,9 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
-        expect(res.render).to.have.been.calledWith(
-          "ipv/pyi-technical.njk", {context: "unrecoverable"},
-        );
+        expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       });
     },
   );
@@ -679,9 +679,9 @@ describe("journey middleware", () => {
 
         await middleware.handleCriEscapeAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
-        expect(res.render).to.have.been.calledWith(
-          "ipv/pyi-technical.njk", {context: "unrecoverable"},
-        );
+        expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       });
     },
   );

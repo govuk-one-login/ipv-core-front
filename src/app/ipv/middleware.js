@@ -256,18 +256,12 @@ module.exports = {
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
-        case "pyi-technical":
-        case "pyi-technical-unrecoverable": {
+        case "pyi-technical": {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
             context,
           };
-
-          if (pageId === "pyi-technical-unrecoverable") {
-            pageId = "pyi-technical"
-            renderOptions.context = "unrecoverable"
-          }
 
           if (req.query?.errorState !== undefined) {
             renderOptions.pageErrorState = req.query.errorState;

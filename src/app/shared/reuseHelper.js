@@ -53,7 +53,7 @@ module.exports = {
     return {
       name: userDetailsResponse.data?.name,
       dateOfBirth: userDetailsResponse.data?.dateOfBirth,
-      addresses: userDetailsResponse.data?.addresses.map((address, idx) => {
+      addresses: userDetailsResponse.data?.addresses?.map((address, idx) => {
         const addressDetailHtml = generateHTMLofAddress(address);
         const label =
           idx === 0

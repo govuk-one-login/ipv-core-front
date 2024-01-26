@@ -9,8 +9,7 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
-  handleCriEscapeAction,
-  handleCimitEscapeAction,
+  handleEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
@@ -92,7 +91,8 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleCriEscapeAction,
+  (req, res, next) =>
+    handleEscapeAction(req, res, next, "handleCriEscapeAction"),
 );
 router.post(
   "/page/pyi-cri-escape-no-f2f",
@@ -113,7 +113,8 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleCimitEscapeAction,
+  (req, res, next) =>
+    handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
 );
 router.post(
   "/page/pyi-suggest-other-options-no-f2f",

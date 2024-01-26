@@ -132,6 +132,37 @@ function tryValidateClientResponse(client) {
   return true;
 }
 
+function checkForSessionId(req, res) {
+  if (!req.session?.ipvSessionId) {
+    const err = new Error("req.ipvSessionId is missing");
+    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+    logError(req, err);
+
+    req.session.currentPage = "pyi-technical";
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    return res.render("ipv/pyi-technical.njk", {
+      context: "unrecoverable",
+    });
+  }
+}
+
+async function handleEscapeAction(req, res, next, actionType) {
+  try {
+    checkForSessionId(req, res);
+
+    if (req.body?.journey === "next/f2f") {
+      await handleJourneyResponse(req, res, "journey/f2f");
+    } else if (req.body?.journey === "next/dcmaw") {
+      await handleJourneyResponse(req, res, "journey/dcmaw");
+    } else {
+      await handleJourneyResponse(req, res, "journey/end");
+    }
+  } catch (error) {
+    transformError(error, `error invoking ${actionType}`);
+    next(error);
+  }
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
     res.render("ipv/pyi-attempt-recovery.njk", {
@@ -203,8 +234,10 @@ module.exports = {
           "req.ipvSessionId is null",
         );
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+        req.session.currentPage = "pyi-technical";
+        return res.render(`ipv/${req.session.currentPage}.njk`, {
+          context: "unrecoverable",
+        });
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
@@ -256,8 +289,7 @@ module.exports = {
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
-        case "pyi-technical":
-        case "pyi-technical-unrecoverable": {
+        case "pyi-technical": {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
@@ -302,9 +334,11 @@ module.exports = {
         err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
         logError(req, err);
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
+        req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
@@ -329,15 +363,8 @@ module.exports = {
   },
   handleMultipleDocCheck: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
+      checkForSessionId(req, res);
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
       } else if (req.body?.journey === "next/driving-licence") {
@@ -347,52 +374,6 @@ module.exports = {
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");
-      next(error);
-    }
-  },
-  handleCriEscapeAction: async (req, res, next) => {
-    try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
-      if (req.body?.journey === "next/f2f") {
-        await handleJourneyResponse(req, res, "journey/f2f");
-      } else if (req.body?.journey === "next/dcmaw") {
-        await handleJourneyResponse(req, res, "journey/dcmaw");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleCriEscapeAction");
-      next(error);
-    }
-  },
-  handleCimitEscapeAction: async (req, res, next) => {
-    try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
-      if (req.body?.journey === "next/f2f") {
-        await handleJourneyResponse(req, res, "journey/f2f");
-      } else if (req.body?.journey === "next/dcmaw") {
-        await handleJourneyResponse(req, res, "journey/dcmaw");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleCimitEscapeAction");
       next(error);
     }
   },
@@ -453,4 +434,5 @@ module.exports = {
   },
   handleJourneyResponse,
   handleBackendResponse,
+  handleEscapeAction,
 };

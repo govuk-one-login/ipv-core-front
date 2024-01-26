@@ -62,9 +62,9 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk",
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
     });
 
     it("should render pyi-unrecoverable view when unexpected error", () => {
@@ -73,9 +73,9 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-technical-unrecoverable.njk",
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
     });
 
     it("should render session-ended view when no session", () => {

@@ -204,7 +204,9 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-technical";
-        return res.render(`ipv/${req.session.currentPage}.njk`, {context: "unrecoverable"});
+        return res.render(`ipv/${req.session.currentPage}.njk`, {
+          context: "unrecoverable",
+        });
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
@@ -303,7 +305,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {context: "unrecoverable"});
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
@@ -335,7 +339,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {context: "unrecoverable"});
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
@@ -358,7 +364,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {context: "unrecoverable"});
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "next/f2f") {
         await handleJourneyResponse(req, res, "journey/f2f");
@@ -381,7 +389,9 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {context: "unrecoverable"});
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "next/f2f") {
         await handleJourneyResponse(req, res, "journey/f2f");

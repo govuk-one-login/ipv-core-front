@@ -274,7 +274,6 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
         case "pyi-attempt-recovery":
-        case "pyi-kbv-fail":
         case "pyi-no-match":
         case "pyi-escape":
         case "pyi-cri-escape":

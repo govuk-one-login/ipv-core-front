@@ -288,16 +288,6 @@
         "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
-    "pyiKbvThinFile": {
-      "title": "You need to prove your identity another way",
-      "header": "You need to prove your identity another way",
-      "content": {
-        "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
-        "paragraph2": "This means we cannot ask you enough questions to be sure that you are who you say you are.",
-        "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
-      }
-    },
     "pyiF2fTechnical": {
       "title": "Sorry, there is a problem",
       "header": "Sorry, there is a problem",

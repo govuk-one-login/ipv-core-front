@@ -280,7 +280,6 @@ module.exports = {
         case "pyi-cri-escape-no-f2f":
         case "pyi-suggest-other-options":
         case "pyi-suggest-other-options-no-f2f":
-        case "pyi-suggest-f2f":
         case "pyi-post-office":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":

@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleName = 'pages.pageMultipleDocCheck.title' | translate %}
 {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
 
@@ -17,6 +18,14 @@
     <li>{{ 'pages.pageMultipleDocCheck.content.bullet2' | translate | safe }}</li>
   </ul>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
+
+  {% if context == "f2f" %}
+    {% if isWelsh %}
+      {{ govukInsetText({
+        text: 'pages.pageMultipleDockCheck.content.insetText' | translate
+      }) }}
+    {% endif %}
+  {% endif %}
 
   <form id="multipleDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

@@ -444,6 +444,7 @@
         "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
         "bullet2": "can answer some security questions",
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
+        "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
         "subHeading": "How do you want to continue?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
@@ -451,29 +452,6 @@
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
           "otherWayButtonTextF2f": "Prove your identity another way"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
-        }
-      }
-    },
-    "pageF2FMultipleDockCheck": {
-      "title": "Continue proving your identity online",
-      "header": "Continue proving your identity online",
-      "content": {
-        "paragraph1": "You can continue proving your identity online if you:",
-        "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
-        "bullet2": "can answer some security questions",
-        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
-        "subHeading": "How do you want to continue?",
-        "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
-          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
-          "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Prove your identity another way"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

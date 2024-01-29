@@ -460,29 +460,6 @@
         }
       }
     },
-    "pageF2FMultipleDockCheck": {
-      "title": "Parhau profi eich hunaniaeth ar-lein",
-      "header": "Parhau profi eich hunaniaeth ar-lein",
-      "content": {
-        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein os:",
-        "bullet1": "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
-        "bullet2": "rydych yn gallu ateb rhai cwestiynau diogelwch",
-        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "insetText": "Nid yw’r opsiwn hwn ar gael yn Gymraeg eto. Dewiswch un o’r opsiynau ar-lein os ydych am barhau yn Gymraeg.",
-        "subHeading": "Sut ydych chi am barhau?",
-        "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch y cwestiynau diogelwch ar-lein",
-          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
-          "separateOptionsInFormText": "neu",
-          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch sut rydych eisiau parhau",
-          "errorRadioMessage": "Dewiswch sut rydych eisiau parhau"
-        }
-      }
-    },
     "pageIpvReuse": {
       "title": "Rydych wedi profi pwy ydych chi yn barod",
       "header": "Rydych wedi profi pwy ydych chi yn barod",

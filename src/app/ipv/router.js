@@ -73,13 +73,6 @@ router.post(
   handleMultipleDocCheck,
 );
 router.post(
-  "/page/page-f2f-multiple-doc-check",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleMultipleDocCheck,
-);
-router.post(
   "/page/pyi-escape",
   parseForm,
   csrfProtection,

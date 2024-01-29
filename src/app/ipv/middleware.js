@@ -274,15 +274,12 @@ module.exports = {
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
         case "pyi-attempt-recovery":
-        case "pyi-kbv-fail":
-        case "pyi-kbv-thin-file":
         case "pyi-no-match":
         case "pyi-escape":
         case "pyi-cri-escape":
         case "pyi-cri-escape-no-f2f":
         case "pyi-suggest-other-options":
         case "pyi-suggest-other-options-no-f2f":
-        case "pyi-suggest-f2f":
         case "pyi-post-office":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":

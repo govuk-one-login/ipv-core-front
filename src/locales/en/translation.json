@@ -228,13 +228,6 @@
         }
       }
     },
-    "pyiSuggestF2f": {
-      "title": "Prove your identity another way",
-      "header": "Prove your identity another way",
-      "content": {
-        "paragraph1": "You may be able to prove your identity at a Post Office instead. Continue to find out what you’ll need to do."
-      }
-    },
     "pyiAnotherWay": {
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
@@ -276,26 +269,6 @@
         "subHeading": "What you can do",
         "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity.",
         "paragraph2Unrecoverable": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
-      }
-    },
-    "pyiKbvFail": {
-      "title": "Sorry, we cannot prove your identity",
-      "header": "Sorry, we cannot prove your identity",
-      "content": {
-        "paragraph1": "This is because you did not answer some of the security questions correctly.",
-        "paragraph2": "To keep your information safe, we cannot tell you what these questions were or what the answers should have been.",
-        "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
-      }
-    },
-    "pyiKbvThinFile": {
-      "title": "You need to prove your identity another way",
-      "header": "You need to prove your identity another way",
-      "content": {
-        "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
-        "paragraph2": "This means we cannot ask you enough questions to be sure that you are who you say you are.",
-        "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
       }
     },
     "pyiF2fTechnical": {

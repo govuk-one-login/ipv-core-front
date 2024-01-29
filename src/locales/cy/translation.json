@@ -228,13 +228,6 @@
         }
       }
     },
-    "pyiSuggestF2f": {
-      "title": "Profi eich hunaniaeth mewn ffordd arall",
-      "header": "Profi eich hunaniaeth mewn ffordd arall",
-      "content": {
-        "paragraph1": "Efallai y byddwch yn gallu profi eich hunaniaeth mewn Swyddfa Bost yn lle hynny. Parhewch i ddarganfod beth fydd angen i chi ei wneud."
-      }
-    },
     "pyiAnotherWay": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
@@ -276,26 +269,6 @@
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi.",
         "paragraph2Unrecoverable": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
-      }
-    },
-    "pyiKbvFail": {
-      "title": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi",
-      "header": "Mae’n ddrwg gennym, ni allwn brofi pwy ydych chi",
-      "content": {
-        "paragraph1": "Mae hyn oherwydd na wnaethoch chi ateb rhai o’r cwestiynau diogelwch yn gywir.",
-        "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych beth oedd y cwestiynau hyn na beth ddylai’r atebion fod wedi bod.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
-      }
-    },
-    "pyiKbvThinFile": {
-      "title": "Mae angen i chi brofi pwy ydych chi mewn ffordd arall",
-      "header": "Mae angen i chi brofi pwy ydych chi mewn ffordd arall",
-      "content": {
-        "paragraph1": "Mae ein cwestiynau diogelwch yn seiliedig ar wybodaeth a gedwir gan sefydliad arall. Nid oes gan y sefydliad hwn ddim llawer o wybodaeth amdanoch chi.",
-        "paragraph2": "Mae hyn yn golygu na allwn ofyn digon o gwestiynau i chi fod yn sicr mai chi yw pwy rydych chi’n ei ddweud ydych chi.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph3": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
       }
     },
     "pyiF2fTechnical": {

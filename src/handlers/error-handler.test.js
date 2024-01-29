@@ -135,7 +135,7 @@ describe("Error handlers", () => {
 
     it("should render pyi-timeout-recoverable page", () => {
       axiosResponse.data = {
-        page: "pyi-timeout-recoverable",
+        page: "pyi-timeout",
         statusCode: 401,
         clientOAuthSessionId: "fake-session-id",
       };
@@ -147,7 +147,7 @@ describe("Error handlers", () => {
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-recoverable.njk",
+        "ipv/pyi-timeout.njk",
       );
     });
 

@@ -1,0 +1,34 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiTimeout.title' | translate %}
+{% set googleTagManagerPageId = "pyiTimeout" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTimeout.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiTimeout.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{'pages.pyiTimeout.content.bullet1' | translate }}</li>
+    <li>{{'pages.pyiTimeout.content.bullet2' | translate }}</li>
+    <li>{{'pages.pyiTimeout.content.bullet3' | translate }}</li>
+  </ul>
+  <h2 class="govuk-heading-m">{{'pages.pyiTimeout.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiTimeout.content.paragraph2' | translateWithContext(context) }}</p>
+
+  {% if context === "unrecoverable" %}
+    {{ govukButton({
+      "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true),
+      "type": "Submit",
+      "href": 'general.shared.govUKHomepageButtonHref' | translate
+    }) }}
+  {% else %}
+    <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+      <input type="hidden" name="journey" value="build-client-oauth-response">
+      <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+        {{'general.buttons.next' | translate }}
+      </button>
+    </form>
+  {% endif %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

@@ -140,14 +140,15 @@ describe("journey middleware", () => {
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "pyi-timeout-unrecoverable" },
-        session: { currentPage: "../ipv/page-multiple-doc-check" },
+        params: { pageId: "pyi-timeout"},
+        session: { currentPage: "../ipv/page-multiple-doc-check", context: "unrecoverable"  },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-unrecoverable.njk",
+        "ipv/pyi-timeout.njk",
+        { context: "unrecoverable" },
       );
     });
 

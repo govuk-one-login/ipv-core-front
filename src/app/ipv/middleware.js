@@ -238,9 +238,10 @@ module.exports = {
         return res.render(`ipv/${req.session.currentPage}.njk`, {
           context: "unrecoverable",
         });
-      } else if (pageId === "pyi-timeout-unrecoverable") {
-        req.session.currentPage = "pyi-timeout-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } 
+      else if (pageId === "pyi-timeout" && context === "unrecoverable") {
+        req.session.currentPage = "pyi-timeout";
+        return res.render(`ipv/${req.session.currentPage}.njk`, { context });
       } else if (req.session.currentPage !== pageId) {
         logError(
           req,
@@ -282,8 +283,7 @@ module.exports = {
         case "pyi-suggest-other-options-no-f2f":
         case "pyi-post-office":
         case "pyi-another-way":
-        case "pyi-timeout-recoverable":
-        case "pyi-timeout-unrecoverable":
+        case "pyi-timeout":
         case "pyi-f2f-technical":
         case "pyi-technical": {
           const renderOptions = {

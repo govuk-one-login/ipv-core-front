@@ -25,16 +25,18 @@ module.exports = {
   },
   logCoreBackCall: (
     req,
-    { logCommunicationType, type, path, info, context = "" },
+    { logCommunicationType, type, path, info, context },
   ) => {
     const message = {
       logCommunicationType,
       path,
       info,
-      context,
     };
     if (type) {
       message.type = type;
+    }
+    if (context !== "") {
+      message.context = context;
     }
     req.log.info({ message, level: "INFO", requestId: req.id });
   },

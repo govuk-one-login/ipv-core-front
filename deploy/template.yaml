@@ -26,6 +26,20 @@ Parameters:
     Description: "The ARN of the permissions boundary to apply when creating IAM roles"
     Type: String
     Default: "none"
+  CodeSigningConfigArn:
+    Type: String
+    Description: Asserts that lambdas are signed when deployed.
+    Default: "none"
+  DeploymentStrategy:
+    Description: "Predefined deployment configuration for ECS application"
+    Type: String
+    Default: "None"
+    # Allowed values: See https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html
+    AllowedValues:
+      - None
+      - CodeDeployDefault.ECSCanary10Percent5Minutes
+      - CodeDeployDefault.ECSCanary10Percent15Minutes
+      - CodeDeployDefault.ECSAllAtOnce
 
 Conditions:
   IsDevelopment: !Or
@@ -40,11 +54,13 @@ Conditions:
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
     - !Equals [ !Ref Environment, production ]
-  UsePermissionsBoundary:
-    Fn::Not:
-      - Fn::Equals:
-          - !Ref PermissionsBoundary
-          - "none"
+  UsePermissionsBoundary: !Not
+    - !Equals [ !Ref PermissionsBoundary, "none" ]
+  UseCodeSigning: !Not
+    - !Equals [ !Ref CodeSigningConfigArn, "none" ]
+  UseCanaryDeployment: !Or
+    - !Condition IsNotDevelopment
+    - !Equals [ !Ref Environment, dev-canary ]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -52,6 +68,7 @@ Conditions:
 Mappings:
   EnvironmentConfiguration:
     "130355686670": # core-dev01
+      lb400ErrorLimit: 2
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -68,6 +85,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "175872367215": # core-dev02
+      lb400ErrorLimit: 2
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -84,6 +102,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "457601271792": # Build
+      lb400ErrorLimit: 2
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -104,6 +123,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "335257547869": # Staging
+      lb400ErrorLimit: 2
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -120,6 +140,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "991138514218": # Integration
+      lb400ErrorLimit: 2
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -136,6 +157,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "075701497069": # Production
+      lb400ErrorLimit: 20
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 50
@@ -432,14 +454,19 @@ Resources:
     Type: "AWS::ECS::Service"
     Properties:
       Cluster: !Ref CoreFrontCluster
-      DeploymentConfiguration:
-        MaximumPercent: 500
-        MinimumHealthyPercent: 50
-        DeploymentCircuitBreaker:
-          Enable: true
-          Rollback: true
+      DeploymentConfiguration: !If
+        - UseCanaryDeployment
+        - !Ref AWS::NoValue
+        - MaximumPercent: 500
+          MinimumHealthyPercent: 50
+          DeploymentCircuitBreaker:
+            Enable: true
+            Rollback: true
       DeploymentController:
-        Type: ECS
+        Type: !If
+          - UseCanaryDeployment
+          - CODE_DEPLOY
+          - ECS
       DesiredCount: !FindInMap
         - EnvironmentConfiguration
         - !Ref AWS::AccountId
@@ -1341,6 +1368,33 @@ Resources:
                   Value: !Sub check-existing-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
+
+  ECSBlueGreenDeploymentStack:
+    Type: AWS::CloudFormation::Stack
+    Condition: UseCanaryDeployment
+    Properties:
+      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
+      Parameters:
+        ECSClusterName: !Ref CoreFrontCluster
+        ECSServiceName: !GetAtt CoreFrontService.Name
+        TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
+        LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
+        LoadBalancerFullName: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+        ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
+        DeploymentStrategy: !Ref DeploymentStrategy
+        VpcId: !Sub ${VpcStackName}-VpcId
+        ContainerName: app
+        ContainerPort: 8080
+        ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
+        ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
+        PermissionsBoundary: !If
+          - UsePermissionsBoundary
+          - !Ref PermissionsBoundary
+          - none
+        CodeSigningConfigArn: !If
+          - UseCodeSigning
+          - !Ref CodeSigningConfigArn
+          - !Ref AWS::NoValue
 
 Outputs:
   CoreFrontUrl:

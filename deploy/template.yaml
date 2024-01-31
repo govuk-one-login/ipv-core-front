@@ -68,7 +68,7 @@ Conditions:
 Mappings:
   EnvironmentConfiguration:
     "130355686670": # core-dev01
-      lb400ErrorLimit: 2
+      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -85,7 +85,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "175872367215": # core-dev02
-      lb400ErrorLimit: 2
+      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -102,7 +102,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "457601271792": # Build
-      lb400ErrorLimit: 2
+      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -123,7 +123,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "335257547869": # Staging
-      lb400ErrorLimit: 2
+      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -140,7 +140,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     "991138514218": # Integration
-      lb400ErrorLimit: 2
+      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10

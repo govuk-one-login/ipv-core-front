@@ -1,30 +1,24 @@
 const sanitize = require("sanitize-filename");
 const { HTTP_STATUS_CODES } = require("../app.constants");
+const {
+  getMiddlewareErrorHandlerMessage,
+} = require("../app/shared/loggerHelper");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
-
     if (res.headersSent) {
       return next(err);
     }
 
+    res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
+
     if (res.err?.response?.data?.page) {
+      const message = getMiddlewareErrorHandlerMessage(
+        err,
+        "Error received in journey event error handler",
+      );
 
-      const {config, request, response, ...errorProperties} = err;
-
-      const requestDataString = config?.['data']
-
-      const credentialIssuerId = requestDataString && JSON.parse(requestDataString)['credentialIssuerId']
-
-      const message = {
-        err: errorProperties,
-        response: err?.response?.data,
-        description: "Error received in journey event error handler",
-        credentialIssuerId
-      };
       req.log.error({ message, level: "ERROR", requestId: req.id });
-  
-      res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
 
       const pageId = sanitize(res.err.response.data.page);
 

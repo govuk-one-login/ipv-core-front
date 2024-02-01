@@ -1,18 +1,14 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
+const {
+  getMiddlewareErrorHandlerMessage,
+} = require("../app/shared/loggerHelper");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
-    const {config, request, response, ...errorProperties} = err;
-
-    const requestDataString = config?.['data']
-
-    const credentialIssuerId = requestDataString && JSON.parse(requestDataString)?.['credentialIssuerId']
-
-    const message = {
-      err: { ...errorProperties, credentialIssuerId },
-      response: err?.response?.data,
-      description: "Error received in internal server error handler"
-    };
+    const message = getMiddlewareErrorHandlerMessage(
+      err,
+      "Error received in internal server error handler",
+    );
 
     req.log.error({ message, level: "ERROR", requestId: req.id });
 

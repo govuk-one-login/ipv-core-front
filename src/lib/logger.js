@@ -72,7 +72,7 @@ const loggerMiddleware = pinoHttp({
     return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
   },
   customErrorObject: (req, res, error, val) => {
-    const customErrorObject =  {
+    const customErrorObject = {
       ...val,
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
@@ -82,10 +82,10 @@ const loggerMiddleware = pinoHttp({
 
     // Remove err.config for readability and to avoid exposing sensitive information
     if (customErrorObject?.err?.config) {
-      delete customErrorObject.err.config
+      delete customErrorObject.err.config;
     }
 
-    return customErrorObject
+    return customErrorObject;
   },
   customSuccessMessage: function (req, res) {
     if (res.statusCode === 404) {

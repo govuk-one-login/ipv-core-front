@@ -10,7 +10,7 @@ Description: >-
   Core Front ECS Service
 
   Core Front egress to Core Back's API Gateway is via a NAT Gateway, not created
-  here, which should have a route in the provided private subnets' route table.
+  here, which should have a route in the provided private subnets' route table
 
 Parameters:
   Environment:
@@ -1441,7 +1441,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
     Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
+      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml"
       Parameters:
         ECSClusterName: !Ref CoreFrontCluster
         ECSServiceName: !GetAtt CoreFrontService.Name

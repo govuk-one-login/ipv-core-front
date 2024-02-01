@@ -10,7 +10,7 @@ Description: >-
   Core Front ECS Service
 
   Core Front egress to Core Back's API Gateway is via a NAT Gateway, not created
-  here, which should have a route in the provided private subnets' route table.
+  here, which should have a route in the provided private subnets' route table
 
 Parameters:
   Environment:
@@ -58,6 +58,9 @@ Conditions:
     - !Equals [ !Ref PermissionsBoundary, "none" ]
   UseCodeSigning: !Not
     - !Equals [ !Ref CodeSigningConfigArn, "none" ]
+  # UseCanaryDeployment: !And
+  #   - !Not [ !Condition IsProduction ]
+  #   - !Condition IsNotDevelopment
   UseCanaryDeployment: !And
     - !Not [ !Condition IsProduction ]
     - !Or
@@ -564,41 +567,6 @@ Resources:
         - !Ref ECSServiceTaskDefinition
     DependsOn:
       - PrivateLoadBalancerListener
-
-  # CoreFrontService:
-  #   Type: "AWS::ECS::Service"
-  #   Properties:
-  #     Cluster: !Ref CoreFrontCluster
-  #     DeploymentConfiguration:
-  #       MaximumPercent: 500
-  #       MinimumHealthyPercent: 50
-  #       DeploymentCircuitBreaker:
-  #         Enable: true
-  #         Rollback: true
-  #     DeploymentController:
-  #       Type: ECS
-  #     DesiredCount: !FindInMap
-  #       - EnvironmentConfiguration
-  #       - !Ref AWS::AccountId
-  #       - desiredTaskCount
-  #     EnableECSManagedTags: false
-  #     HealthCheckGracePeriodSeconds: 45
-  #     LaunchType: FARGATE
-  #     LoadBalancers:
-  #       - ContainerName: app
-  #         ContainerPort: 8080
-  #         TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
-  #     NetworkConfiguration:
-  #       AwsvpcConfiguration:
-  #         AssignPublicIp: DISABLED
-  #         SecurityGroups:
-  #           - !GetAtt CoreFrontECSSecurityGroup.GroupId
-  #         Subnets:
-  #           - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
-  #           - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
-  #     TaskDefinition: !Ref ECSServiceTaskDefinition
-  #   DependsOn:
-  #     - PrivateLoadBalancerListener
 
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
@@ -1633,34 +1601,6 @@ Resources:
                   Value: !Sub check-existing-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
-  
-  ECSBlueGreenDeploymentStack:
-    Type: AWS::CloudFormation::Stack
-    Condition: UseCanaryDeployment
-    Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
-      Parameters:
-        ECSClusterName: !Ref CoreFrontCluster
-        ECSServiceName: !GetAtt CoreFrontService.Name
-        TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
-        LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
-        LoadBalancerFullName: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
-        ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
-        DeploymentStrategy: !Ref DeploymentStrategy
-        VpcId: !Sub ${VpcStackName}-VpcId
-        ContainerName: app
-        ContainerPort: 8080
-        # ELB4XXAlarmMetric: HTTPCode_ELB_4XX_Count
-        ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
-        ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
-        PermissionsBoundary: !If
-          - UsePermissionsBoundary
-          - !Ref PermissionsBoundary
-          - none
-        CodeSigningConfigArn: !If
-          - UseCodeSigning
-          - !Ref CodeSigningConfigArn
-          - !Ref AWS::NoValue
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

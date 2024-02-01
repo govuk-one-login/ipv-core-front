@@ -146,9 +146,7 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
-      expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout.njk",
-      );
+      expect(res.render).to.have.been.calledWith("ipv/pyi-timeout.njk");
     });
 
     it("should call next if headers sent", () => {

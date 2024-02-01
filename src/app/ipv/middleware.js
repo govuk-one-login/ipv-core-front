@@ -238,8 +238,7 @@ module.exports = {
         return res.render(`ipv/${req.session.currentPage}.njk`, {
           context: "unrecoverable",
         });
-      } 
-      else if (pageId === "pyi-timeout" && context === "unrecoverable") {
+      } else if (pageId === "pyi-timeout" && context === "unrecoverable") {
         req.session.currentPage = "pyi-timeout";
         return res.render(`ipv/${req.session.currentPage}.njk`, { context });
       } else if (req.session.currentPage !== pageId) {

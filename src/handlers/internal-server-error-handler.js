@@ -2,11 +2,18 @@ const { HTTP_STATUS_CODES } = require("../app.constants");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
+    const {config, request, response, ...errorProperties} = err;
+
+    const requestDataString = config?.['data']
+
+    const credentialIssuerId = requestDataString && JSON.parse(requestDataString)?.['credentialIssuerId']
+
     const message = {
-      err: err,
+      err: { ...errorProperties, credentialIssuerId },
       response: err?.response?.data,
-      description: "Error received in server error handler",
+      description: "Error received in internal server error handler"
     };
+
     req.log.error({ message, level: "ERROR", requestId: req.id });
 
     if (res.headersSent) {

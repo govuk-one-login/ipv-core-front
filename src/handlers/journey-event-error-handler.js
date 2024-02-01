@@ -3,20 +3,29 @@ const { HTTP_STATUS_CODES } = require("../app.constants");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
-    const message = {
-      err: err,
-      response: err?.response?.data,
-      description: "Error received in journey event error handler",
-    };
-    req.log.error({ message, level: "ERROR", requestId: req.id });
 
     if (res.headersSent) {
       return next(err);
     }
 
-    res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
-
     if (res.err?.response?.data?.page) {
+
+      const {config, request, response, ...errorProperties} = err;
+
+      const requestDataString = config?.['data']
+
+      const credentialIssuerId = requestDataString && JSON.parse(requestDataString)['credentialIssuerId']
+
+      const message = {
+        err: errorProperties,
+        response: err?.response?.data,
+        description: "Error received in journey event error handler",
+        credentialIssuerId
+      };
+      req.log.error({ message, level: "ERROR", requestId: req.id });
+  
+      res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
+
       const pageId = sanitize(res.err.response.data.page);
 
       if (res.err?.response?.data?.clientOAuthSessionId) {

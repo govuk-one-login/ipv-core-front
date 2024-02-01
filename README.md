@@ -7,7 +7,6 @@ This is the home for the core front end user interface for the Identity Proofing
 # Installation
 
 Clone this repository and then run
-
 ```bash
 npm install
 ```

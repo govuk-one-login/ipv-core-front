@@ -245,8 +245,12 @@
         "bullet1": "rydych wedi mewngofnodi fwy nag awr yn ôl",
         "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
         "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
+        "bullet4": "you started your application from a link in an app (such as Facebook or Instagram)",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
+        "paragraph2": "If you started your journey from a link in another app or browser:",
+        "list1": "Go back to the app or browser you started your journey from.",
+        "list2": "Select the 'Link GOV.UK ID Check' button to continue your application.",
+        "paragraph3": "If you signed in more than an hour ago, or you signed out while you were using another service, continue to the service you were trying to use and start again."
       }
     },
     "pyiTimeoutUnrecoverable": {

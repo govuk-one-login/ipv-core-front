@@ -245,8 +245,12 @@
         "bullet1": "you signed in more than an hour ago",
         "bullet2": "you signed out while you were using another service",
         "bullet3": "more than one browser (for example Chrome, Safari) was used",
+        "bullet4": "you started your application from a link in an app (such as Facebook or Instagram)",
         "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again."
+        "paragraph2": "If you started your journey from a link in another app or browser:",
+        "list1": "Go back to the app or browser you started your journey from.",
+        "list2": "Select the 'Link GOV.UK ID Check' button to continue your application.",
+        "paragraph3": "If you signed in more than an hour ago, or you signed out while you were using another service, continue to the service you were trying to use and start again."
       }
     },
     "pyiTimeoutUnrecoverable": {

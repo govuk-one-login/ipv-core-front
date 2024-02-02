@@ -238,15 +238,19 @@
       }
     },
     "pyiTimeoutRecoverable": {
-      "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
-      "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "title": "Rydych wedi cael eich allgofnodi o'ch GOV.UK One Login",
+      "header": "Rydych wedi cael eich allgofnodi o'ch GOV.UK One Login",
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
         "bullet1": "rydych wedi mewngofnodi fwy nag awr yn ôl",
         "bullet2": "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
         "bullet3": "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
+        "bullet4": "rydych wedi cychwyn eich cais o ddolen mewn ap (fel Facebook neu Instagram)",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
+        "paragraph2": "Os ydych wedi ddechrau eich taith o ddolen mewn ap neu borwr arall:",
+        "list1": "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
+        "list2": "Dewiswch y botwm 'Link GOV.UK ID Check' i barhau â'ch cais.",
+        "paragraph3": "Os ydych wedi mewngofnodi fwy nag awr yn ôl, neu os ydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall, parhewch â'r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto."
       }
     },
     "pyiTimeoutUnrecoverable": {

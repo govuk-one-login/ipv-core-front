@@ -205,8 +205,13 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-      const { pageId } = req.params;
+      let { pageId } = req.params;
       const { context } = req?.session || "";
+
+      // PYIC-3966 Code for transition, remove once core-back has been updated
+      if (pageId === "page-pre-kbv-transition") {
+        pageId = "page-pre-experian-kbv-transition";
+      }
 
       // Remove this as part of PYIC-4278
       if (ENABLE_PREVIEW && req.query.preview) {
@@ -259,7 +264,7 @@ module.exports = {
         case "page-ipv-success":
         case "page-face-to-face-handoff":
         case "page-ipv-pending":
-        case "page-pre-kbv-transition":
+        case "page-pre-experian-kbv-transition":
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
         case "pyi-attempt-recovery":

@@ -169,40 +169,6 @@ module.exports = {
       csrfToken: req.csrfToken(),
     });
   },
-  updateJourneyState: async (req, res, next) => {
-    try {
-      const allowedActions = [
-        "/journey/next",
-        "/journey/end",
-        "/journey/error",
-        "/journey/fail",
-        "/journey/attempt-recovery",
-        "/journey/cri/build-oauth-request/ukPassport",
-        "/journey/cri/build-oauth-request/fraud",
-        "/journey/cri/build-oauth-request/address",
-        "/journey/cri/build-oauth-request/kbv",
-        "/journey/cri/build-oauth-request/activityHistory",
-        "/journey/cri/build-oauth-request/dcmaw",
-        "/journey/build-client-oauth-response",
-        "/journey/cri/validate/ukPassport",
-        "/journey/cri/validate/fraud",
-        "/journey/cri/validate/address",
-        "/journey/cri/validate/kbv",
-        "/journey/cri/validate/dcmaw",
-        "/user/proven-identity-details",
-      ];
-
-      const action = allowedActions.find((x) => x === req.url);
-
-      if (action) {
-        await handleJourneyResponse(req, res, action);
-      } else {
-        next(new Error(`Action ${req.url} not valid`));
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
   handleJourneyPage: async (req, res, next) => {
     try {
       let { pageId } = req.params;

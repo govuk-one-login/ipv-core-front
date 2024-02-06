@@ -5,7 +5,6 @@ const router = express.Router();
 
 const {
   renderAttemptRecoveryPage,
-  updateJourneyState,
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
@@ -131,6 +130,5 @@ router.post(
   handleJourneyAction,
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
-router.get("/*", updateJourneyState);
 
 module.exports = router;

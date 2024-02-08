@@ -106,10 +106,15 @@ async function handleBackendResponse(req, res, backendResponse) {
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
 
+    // PYIC-3966 Code for transition, remove once core-back has been updated
+    if (req.session.currentPage === "page-pre-kbv-transition") {
+      req.session.currentPage = "page-pre-experian-kbv-transition";
+    }
+
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${backendResponse.page}`,
+      `/ipv/page/${req.session.currentPage}`,
     );
   }
 }
@@ -173,11 +178,6 @@ module.exports = {
     try {
       let { pageId } = req.params;
       const { context } = req?.session || "";
-
-      // PYIC-3966 Code for transition, remove once core-back has been updated
-      if (pageId === "page-pre-kbv-transition") {
-        pageId = "page-pre-experian-kbv-transition";
-      }
 
       // Remove this as part of PYIC-4278
       if (ENABLE_PREVIEW && req.query.preview) {

@@ -204,14 +204,14 @@
         }
       }
     },
-    "pyiCriKbvEscape": {
-      "title": "Find another way to prove your identity",
-      "titleFailure": "Sorry, we cannot confirm your identity this way",
-      "header": "Find another way to prove your identity",
-      "headerFailure": "Sorry, we cannot confirm your identity this way",
+    "pyiKbvFail": {
+      "title": "Sorry, we cannot confirm your identity this way",
+      "titleDropout": "Find another way to prove your identity",
+      "header": "Sorry, we cannot confirm your identity this way",
+      "headerDropout": "Find another way to prove your identity",
       "content": {
-        "paragraph1": "We were not able to complete your identity check using security questions.",
-        "paragraph1Failure": "This is because you did not answer some of the security questions correctly.",
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
         "subHeading": "If you do not have photo ID",
         "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         

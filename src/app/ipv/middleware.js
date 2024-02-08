@@ -106,10 +106,15 @@ async function handleBackendResponse(req, res, backendResponse) {
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
 
+    // PYIC-3966 Code for transition, remove once core-back has been updated
+    if (req.session.currentPage === "page-pre-kbv-transition") {
+      req.session.currentPage = "page-pre-experian-kbv-transition";
+    }
+
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${backendResponse.page}`,
+      `/ipv/page/${req.session.currentPage}`,
     );
   }
 }
@@ -169,51 +174,6 @@ module.exports = {
       csrfToken: req.csrfToken(),
     });
   },
-  updateJourneyState: async (req, res, next) => {
-    try {
-      const allowedActions = [
-        "/journey/next",
-        "/journey/end",
-        "/journey/error",
-        "/journey/fail",
-        "/journey/attempt-recovery",
-        "/journey/cri/build-oauth-request/ukPassport",
-        "/journey/cri/build-oauth-request/stubUkPassport",
-        "/journey/cri/build-oauth-request/fraud",
-        "/journey/cri/build-oauth-request/stubFraud",
-        "/journey/cri/build-oauth-request/address",
-        "/journey/cri/build-oauth-request/stubAddress",
-        "/journey/cri/build-oauth-request/kbv",
-        "/journey/cri/build-oauth-request/stubKbv",
-        "/journey/cri/build-oauth-request/activityHistory",
-        "/journey/cri/build-oauth-request/stubActivityHistory",
-        "/journey/cri/build-oauth-request/dcmaw",
-        "/journey/cri/build-oauth-request/stubDcmaw",
-        "/journey/build-client-oauth-response",
-        "/journey/cri/validate/ukPassport",
-        "/journey/cri/validate/stubUkPassport",
-        "/journey/cri/validate/fraud",
-        "/journey/cri/validate/stubFraud",
-        "/journey/cri/validate/address",
-        "/journey/cri/validate/stubAddress",
-        "/journey/cri/validate/kbv",
-        "/journey/cri/validate/stubKbv",
-        "/journey/cri/validate/dcmaw",
-        "/journey/cri/validate/stubDcmaw",
-        "/user/proven-identity-details",
-      ];
-
-      const action = allowedActions.find((x) => x === req.url);
-
-      if (action) {
-        await handleJourneyResponse(req, res, action);
-      } else {
-        next(new Error(`Action ${req.url} not valid`));
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
@@ -270,7 +230,7 @@ module.exports = {
         case "page-ipv-success":
         case "page-face-to-face-handoff":
         case "page-ipv-pending":
-        case "page-pre-kbv-transition":
+        case "page-pre-experian-kbv-transition":
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
         case "pyi-attempt-recovery":

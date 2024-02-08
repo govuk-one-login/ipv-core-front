@@ -188,37 +188,6 @@ describe("journey middleware", () => {
     });
   });
 
-  context("calling the updateJourneyState", () => {
-    it("should raise an error when given an invalid action", async () => {
-      req.url = "/invalidCri";
-      await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match.has("message", "Action /invalidCri not valid"),
-      );
-    });
-
-    it("should call next with error when issue calling handleJourneyResponse", async () => {
-      req.url = "/journey/cri/build-oauth-request/ukPassport";
-      const axiosResponse = undefined;
-      CoreBackServiceStub.postAction = sinon.fake.returns(axiosResponse);
-
-      await middleware.updateJourneyState(req, res, next);
-      expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
-    });
-
-    it("should call handleJourneyResponse when given a valid action", async () => {
-      req.url = "/journey/cri/build-oauth-request/ukPassport";
-      const axiosResponse = {};
-      CoreBackServiceStub.postAction = sinon.fake.returns(axiosResponse);
-
-      await middleware.updateJourneyState(req, res, next);
-      expect(CoreBackServiceStub.postAction.firstCall).to.have.been.calledWith(
-        req,
-        "journey/cri/build-oauth-request/ukPassport",
-      );
-    });
-  });
-
   context("handling CRI event response", async () => {
     const redirectUrl = "https://someurl.com";
     let eventResponses = [];

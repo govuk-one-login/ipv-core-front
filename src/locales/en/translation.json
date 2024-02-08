@@ -292,7 +292,7 @@
         }
       }
     },
-    "pagePreKbvTransition": {
+    "pagePreExperianKbvTransition": {
       "title": "Answer security questions",
       "header": "Answer security questions",
       "content": {

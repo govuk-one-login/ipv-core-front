@@ -176,7 +176,7 @@ module.exports = {
   },
   handleJourneyPage: async (req, res, next) => {
     try {
-      let { pageId } = req.params;
+      const { pageId } = req.params;
       const { context } = req?.session || "";
 
       // Remove this as part of PYIC-4278

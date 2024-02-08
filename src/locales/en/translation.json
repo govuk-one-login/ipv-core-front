@@ -204,6 +204,35 @@
         }
       }
     },
+    "pyiCriKbvEscape": {
+      "title": "Sorry, we cannot confirm your identity this way",
+      "header": "Sorry, we cannot confirm your identity this way",
+      "content": {
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "subHeading": "If you do not have photo ID",
+        "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
+        
+        "subHeading2": "If you have photo ID",
+        "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
+        "details": {
+          "label": "Types of photo ID you can use",
+          "text": "<p class=\"govuk-body\">You can use a: </p><ul class=\"govuk-list--bullet\"><li>UK photocard driving license</li><li>European Union (EU) photocard driving license</li><li>UK passport</li><li>non-UK passport</li><li>National identity card from a European Economic Area (EEA) country</li><li>UK biometric residence permit (BRP)</li><li>UK biometric residence card (BRC)</li><li>UK Frontier Worker permit</li></ul>"
+        },
+        "subHeading3": "What would you like to do?",
+        "formRadioButtons": {
+          "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
+          "radioButton2Text": "Prove your identity with the GOV.UK ID check app",
+          "radioButton2TextHint": "You’ll be shown how to download and use the app.",
+          "radioButton3Text": "Prove your identity at a Post Office",
+          "radioButton3TextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pyiSuggestOtherOptionsNoF2f": {
       "title": "Sorry, you’ll need to prove your identity another way",
       "header": "Sorry, you’ll need to prove your identity another way",

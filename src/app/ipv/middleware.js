@@ -174,6 +174,24 @@ module.exports = {
       csrfToken: req.csrfToken(),
     });
   },
+  // This method is currently only used by a link on the pyi-f2f-delete-details page.
+  // It shouldn't be used for anything else, see
+  // https://govukverify.atlassian.net/browse/PYIC-4859.
+  updateJourneyState: async (req, res, next) => {
+    try {
+      const allowedActions = ["/journey/end"];
+
+      const action = allowedActions.find((x) => x === req.url);
+
+      if (action) {
+        await handleJourneyResponse(req, res, action);
+      } else {
+        next(new Error(`Action ${req.url} not valid`));
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;

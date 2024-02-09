@@ -179,9 +179,7 @@ module.exports = {
   // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
-      const allowedActions = [
-        "/journey/end",
-      ];
+      const allowedActions = ["/journey/end"];
 
       const action = allowedActions.find((x) => x === req.url);
 

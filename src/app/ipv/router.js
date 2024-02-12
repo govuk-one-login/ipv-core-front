@@ -110,6 +110,14 @@ router.post(
     handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
 );
 router.post(
+  "/page/pyi-kbv-fail",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  (req, res, next) =>
+    handleEscapeAction(req, res, next, "handleCriEscapeAction"),
+);
+router.post(
   "/page/pyi-suggest-other-options-no-f2f",
   parseForm,
   csrfProtection,

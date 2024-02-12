@@ -4,13 +4,13 @@
 {% set googleTagManagerPageId = "pyiNoMatch" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiNoMatch.header' | translate }}</h1>
-  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph1' | translate }}</p>
-  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
-  <h2 class="govuk-heading-m">{{'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pyiNoMatch.content.paragraph3' | translate }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiNoMatch.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph1' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translate }}</p>
 
   {% include 'shared/journey-next-form.njk' %}
 
-  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

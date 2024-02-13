@@ -106,11 +106,6 @@ async function handleBackendResponse(req, res, backendResponse) {
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
 
-    // PYIC-3966 Code for transition, remove once core-back has been updated
-    if (req.session.currentPage === "page-pre-kbv-transition") {
-      req.session.currentPage = "page-pre-experian-kbv-transition";
-    }
-
     return await saveSessionAndRedirect(
       req,
       res,

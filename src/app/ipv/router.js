@@ -2,7 +2,6 @@ const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const { ENABLE_PREVIEW } = require("../../lib/config");
 
 const {
   renderAttemptRecoveryPage,
@@ -10,13 +9,14 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
-  handleCriEscapeAction,
-  handleCimitEscapeAction,
+  handleEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
-  allTemplates,
 } = require("./middleware");
+
+// Remove this as part of PYIC-4278
+const { allTemplatesMoved } = require("../development/middleware");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
@@ -30,15 +30,27 @@ function checkLanguage(req, res, next) {
   next();
 }
 
-if (ENABLE_PREVIEW) {
-  router.get("/all-templates", allTemplates);
-}
-
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
 router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
+// Remove this as part of PYIC-4278
+router.get("/all-templates", allTemplatesMoved);
 
+router.post(
+  "/page/pyi-new-details",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/pyi-confirm-delete-details",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post(
   "/page/page-ipv-identity-document-start",
   parseForm,
@@ -61,13 +73,6 @@ router.post(
   handleMultipleDocCheck,
 );
 router.post(
-  "/page/page-f2f-multiple-doc-check",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleMultipleDocCheck,
-);
-router.post(
   "/page/pyi-escape",
   parseForm,
   csrfProtection,
@@ -79,7 +84,8 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleCriEscapeAction,
+  (req, res, next) =>
+    handleEscapeAction(req, res, next, "handleCriEscapeAction"),
 );
 router.post(
   "/page/pyi-cri-escape-no-f2f",
@@ -100,7 +106,8 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleCimitEscapeAction,
+  (req, res, next) =>
+    handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
 );
 router.post(
   "/page/pyi-suggest-other-options-no-f2f",
@@ -125,5 +132,4 @@ router.post(
 );
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
-
 module.exports = router;

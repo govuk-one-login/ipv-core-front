@@ -7,9 +7,8 @@ This is the home for the core front end user interface for the Identity Proofing
 # Installation
 
 Clone this repository and then run
-
 ```bash
-yarn install
+npm install
 ```
 
 ## Environment Variables
@@ -21,10 +20,10 @@ yarn install
 ## Running Locally
 
 Create a .env file based on .env.sample
-Run `yarn build`
-In your IDE set up a run configuration that starts `src/app.js` and use that (or run `yarn start-dev`)
-To get live updating of styles run `yarn watch-sass`
-Changes to the govuk-frontend library, translations, or images require you to run `yarn build` again.
+Run `npm run build`
+In your IDE set up a run configuration that starts `src/app.js` and use that (or run `npm run start-dev`)
+To get live updating of styles run `npm run watch-sass`
+Changes to the govuk-frontend library, translations, or images require you to run `npm run build` again.
 
 ### Configuring core-back to work with a local core-front
 In the core common infra repository dev-deploy documentation there are instructions on how to configure your dev
@@ -36,14 +35,15 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 
 ## Pre-Commit Checking / Verification
 
-Completely optional, there is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually commiting, it runs the following checks:
+There is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually committing, it runs the following checks:
 
 - Check Json files for formatting issues
 - Fixes end of file issues (it will auto correct if it spots an issue - you will need to run the git commit again after it has fixed the issue)
 - It automatically removes trailing whitespaces (again will need to run commit again after it detects and fixes the issue)
 - Detects aws credentials or private keys accidentally added to the repo
 - runs cloud formation linter and detects issues
-- runs checkov and checks for any issues.
+- runs checkov and checks for any issues
+- runs detect-secrets to check for secrets accidentally added - where these are false positives, the `.secrets.baseline` file should be updated by running `detect-secrets scan > .secrets.baseline`
 
 ### Dependency Installation
 

@@ -185,6 +185,7 @@
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "subHeading": "What you can do",
         "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
+        "paragraph2NoPhotoId": "TEMP If you have a photo ID instead you may be able to use it to prove your identity",
         "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
         "bullet1": "an iPhone 7 or higher",
         "bullet2": "an Android phone (for example, Samsung or Google Pixel)",
@@ -227,13 +228,6 @@
         }
       }
     },
-    "pyiSuggestF2f": {
-      "title": "Prove your identity another way",
-      "header": "Prove your identity another way",
-      "content": {
-        "paragraph1": "You may be able to prove your identity at a Post Office instead. Continue to find out what you’ll need to do."
-      }
-    },
     "pyiAnotherWay": {
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
@@ -251,8 +245,12 @@
         "bullet1": "you signed in more than an hour ago",
         "bullet2": "you signed out while you were using another service",
         "bullet3": "more than one browser (for example Chrome, Safari) was used",
+        "bullet4": "you started your application from a link in an app (such as Facebook or Instagram)",
         "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again."
+        "paragraph2": "If you started your journey from a link in another app or browser:",
+        "list1": "Go back to the app or browser you started your journey from.",
+        "list2": "Select the 'Link GOV.UK ID Check' button to continue your application.",
+        "paragraph3": "If you signed in more than an hour ago, or you signed out while you were using another service, continue to the service you were trying to use and start again."
       }
     },
     "pyiTimeoutUnrecoverable": {
@@ -273,36 +271,8 @@
       "content": {
         "paragraph1": "We cannot prove your identity right now.",
         "subHeading": "What you can do",
-        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
-      }
-    },
-    "pyiTechnicalUnrecoverable": {
-      "title": "Sorry, there is a problem",
-      "header": "Sorry, there is a problem",
-      "content": {
-        "paragraph1": "We cannot prove your identity right now.",
-        "subHeading": "What you can do",
-        "paragraph2": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
-      }
-    },
-    "pyiKbvFail": {
-      "title": "Sorry, we cannot prove your identity",
-      "header": "Sorry, we cannot prove your identity",
-      "content": {
-        "paragraph1": "This is because you did not answer some of the security questions correctly.",
-        "paragraph2": "To keep your information safe, we cannot tell you what these questions were or what the answers should have been.",
-        "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
-      }
-    },
-    "pyiKbvThinFile": {
-      "title": "You need to prove your identity another way",
-      "header": "You need to prove your identity another way",
-      "content": {
-        "paragraph1": "Our security questions are based on information held by another organisation. This organisation does not have much information about you.",
-        "paragraph2": "This means we cannot ask you enough questions to be sure that you are who you say you are.",
-        "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use and look for other ways to prove your identity."
+        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity.",
+        "paragraph2Unrecoverable": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     },
     "pyiF2fTechnical": {
@@ -322,7 +292,7 @@
         }
       }
     },
-    "pagePreKbvTransition": {
+    "pagePreExperianKbvTransition": {
       "title": "Answer security questions",
       "header": "Answer security questions",
       "content": {
@@ -387,17 +357,30 @@
         "formRadioButtons": {
           "yes": "Continue to delete my details",
           "no": "Go back to my current details"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
     "pyiConfirmDeleteDetails": {
       "title": "Are you sure you want to delete your details and prove your identity again?",
+      "titleF2f": "Are you sure you want to delete your details and prove your identity another way?",
       "header": "Are you sure you want to delete your details and prove your identity again?",
+      "headerF2f": "Are you sure you want to delete your details and prove your identity another way?",
       "content": {
         "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
         "formRadioButtons": {
           "yes": "Yes, delete my details",
-          "no": "No, cancel and go back to my current details"
+          "no": "No, cancel and go back to my current details",
+          "noF2f": "No, I want to prove my identity at a Post Office"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you want to delete your details and prove your identity again",
+          "errorRadioMessage": "details and prove your identity again details and prove your identity again"
         }
       }
     },
@@ -406,12 +389,28 @@
       "header": "You have deleted the details in your GOV.UK One Login",
       "content": {
         "paragraph1": "You've been sent a confirmation email.",
+        "paragraph2F2f": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity. ",
         "paragraph2": "You can now prove your identity again using your new details.",
+        "paragraph3F2f": "You can now try to prove your identity another way.",
         "paragraph3": "You'll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
         "list2": "to tell us where you've lived for the last 3 months",
+        "paragraph4F2f": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
         "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "submitButtonTextF2f": "Continue to prove your identity",
         "submitButtonText": "Continue to prove your identity again"
+      }
+    },
+    "pyiF2fDeleteDetails": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "If you no longer want to prove your identity at a Post Office, you can delete your details and try to prove your identity another way.",
+        "paragraph2": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
+        "insetText": "After you’ve deleted your details, your Post Office customer letter will no longer be valid and you should not try to use it to prove your identity.",
+        "paragraph3": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
+        "submitButtonText": "Continue to delete your details",
+        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/end\" rel=\"noopener noreferrer\">I want to prove my identity at a Post Office</a>"
       }
     },
     "pageMultipleDocCheck": {
@@ -419,39 +418,16 @@
       "header": "Continue proving your identity online",
       "content": {
         "paragraph1": "You can continue proving your identity online if you:",
-        "bullet1": "have a UK passport or UK driving licence",
-        "bullet2": "can answer some security questions about things like your mobile phone contract, and any bank accounts, credit cards, loans or mortgages you may have",
-        "paragraph2": "If you’re not sure you’ll be able to prove your identity this way, you can go back to the service you were trying to use and look for other ways to prove your identity.",
-        "subHeading": "How do you want to continue?",
-        "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK driving licence details and answer security questions online",
-          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
-          "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
-        }
-      }
-    },
-    "pageF2FMultipleDockCheck": {
-      "title": "Continue proving your identity online",
-      "header": "Continue proving your identity online",
-      "content": {
-        "paragraph1": "You can continue proving your identity online if you:",
         "bullet1": "have a UK driving licence (full or provisional) or a UK passport",
         "bullet2": "can answer some security questions",
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
-        "insetText": "This option is not available in Welsh yet. Choose one of the online options if you want to continue in Welsh.",
         "subHeading": "How do you want to continue?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Prove your identity another way"
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
+          "otherWayButtonTextF2f": "Prove your identity another way"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

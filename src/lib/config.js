@@ -14,7 +14,7 @@ function getServiceDomain() {
 
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
-  API_CRI_CALLBACK: "/journey/cri/callback",
+  API_CRI_CALLBACK: "/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
@@ -29,5 +29,6 @@ module.exports = {
   CDN_DOMAIN: process.env.CDN_DOMAIN,
   CONTACT_URL: process.env.CONTACT_URL,
   SERVICE_URL: process.env.SERVICE_URL,
+  TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
   getServiceDomain,
 };

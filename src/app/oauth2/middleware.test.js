@@ -2,13 +2,13 @@ const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-let axiosStub = {};
+let CoreBackServiceStub = {};
 
 const configStub = {
   API_BASE_URL: "https://example.org/subpath",
 };
 const middleware = proxyquire("./middleware", {
-  axios: axiosStub,
+  "../../services/coreBackService": CoreBackServiceStub,
   "../../lib/config": configStub,
 });
 
@@ -64,7 +64,8 @@ describe("oauth middleware", () => {
       });
 
       it("should set ipvSessionId in session", async function () {
-        axiosStub.post = sinon.fake.returns(axiosResponse);
+        CoreBackServiceStub.postSessionInitialise =
+          sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
       });
@@ -81,7 +82,8 @@ describe("oauth middleware", () => {
       });
 
       it("should set ipvSessionId as null in session", async function () {
-        axiosStub.post = sinon.fake.returns(axiosResponse);
+        CoreBackServiceStub.postSessionInitialise =
+          sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(null);
       });
@@ -98,7 +100,8 @@ describe("oauth middleware", () => {
       });
 
       it("should throw error", async function () {
-        axiosStub.post = sinon.fake.throws(axiosResponse);
+        CoreBackServiceStub.postSessionInitialise =
+          sinon.fake.throws(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
 
         expect(next).to.have.been.calledWith(
@@ -115,7 +118,8 @@ describe("oauth middleware", () => {
       });
 
       it("should throw error", async function () {
-        axiosStub.post = sinon.fake.throws(axiosResponse);
+        CoreBackServiceStub.postSessionInitialise =
+          sinon.fake.throws(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(next).to.have.been.calledWith(
           sinon.match

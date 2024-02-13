@@ -1,5 +1,7 @@
 const pino = require("pino");
 const { randomUUID } = require("node:crypto");
+const pinoHttp = require("pino-http");
+
 const logger = pino({
   name: "di-ipv-core-front",
   level: process.env.LOGS_LEVEL || "debug",
@@ -25,10 +27,9 @@ const logger = pino({
   },
 });
 
-const loggerMiddleware = require("pino-http")({
+const loggerMiddleware = pinoHttp({
   // Reuse an existing logger instance
   logger,
-
   // Define a custom request id function, this will be assigned to req.id
   genReqId: function (req, res) {
     if (req.id) return req.id;
@@ -38,7 +39,6 @@ const loggerMiddleware = require("pino-http")({
     res.header("x-request-id", id);
     return id;
   },
-
   // Set to `false` to prevent standard serializers from being wrapped.
   wrapSerializers: false,
   autoLogging: {
@@ -49,11 +49,22 @@ const loggerMiddleware = require("pino-http")({
     return "REQUEST RECEIVED: " + req.method;
   },
   customReceivedObject: function (req, res, val) {
-    return {
-      ...val,
+    const commonParams = {
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+    };
+
+    if (req.method === "GET") {
+      return {
+        ...val,
+        ...commonParams,
+        context: req.session?.context,
+      };
+    }
+    return {
+      ...val,
+      ...commonParams,
     };
   },
   customErrorMessage: function (req, res) {
@@ -66,6 +77,7 @@ const loggerMiddleware = require("pino-http")({
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+      context: req.session?.context,
     };
   },
   customSuccessMessage: function (req, res) {
@@ -75,11 +87,27 @@ const loggerMiddleware = require("pino-http")({
     return `REQUEST COMPLETED WITH STATUS CODE OF: ${res.statusCode}`;
   },
   customSuccessObject: function (req, res, val) {
-    return {
-      ...val,
+    const commonParams = {
       requestId: req.id,
       ipvSessionId: req.session?.ipvSessionId,
       sessionId: req.session?.id,
+    };
+    if (req.method === "GET") {
+      const successObject = {
+        ...val,
+        ...commonParams,
+      };
+
+      if (res.statusCode !== 302) {
+        successObject.context = req.session?.context;
+      }
+
+      return successObject;
+    }
+
+    return {
+      ...val,
+      ...commonParams,
     };
   },
   customAttributeKeys: {

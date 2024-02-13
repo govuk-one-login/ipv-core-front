@@ -8,13 +8,13 @@ describe("credential issuer middleware", () => {
     let res;
     let next;
     let axiosResponse;
-    let axiosStub = {};
+    let CoreBackServiceStub = {};
     let configStub = {};
     let middleware;
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
+      configStub.API_CRI_CALLBACK = "/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -22,7 +22,7 @@ describe("credential issuer middleware", () => {
       ipvMiddlewareStub.handleBackendResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
-        axios: axiosStub,
+        "../../services/coreBackService": CoreBackServiceStub,
         "../../lib/config": configStub,
         "../ipv/middleware": ipvMiddlewareStub,
       });
@@ -55,7 +55,7 @@ describe("credential issuer middleware", () => {
     it("should call axios with correct parameters", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
 
       const expectedBody = {
         authorizationCode: req.query.code,
@@ -66,25 +66,17 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "ipv-session-id": "abadcafe",
-            "Content-Type": "application/json",
-            "x-request-id": "1",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        {},
       );
     });
 
     it("should add error parameters if they exist", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
 
       req.query.error = "access_denied";
       req.query.error_description = "Access was denied!";
@@ -94,31 +86,25 @@ describe("credential issuer middleware", () => {
         credentialIssuerId: req.query.id,
         redirectUri: `http://example.com/credential-issuer/callback?id=${req.query.id}`,
         state: req.query.state,
+      };
+      const expectedErrorDetails = {
         error: req.query.error,
         errorDescription: req.query.error_description,
       };
 
       await middleware.sendParamsToAPI(req, res, next);
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "x-request-id": "1",
-            "ipv-session-id": "abadcafe",
-            "Content-Type": "application/json",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        expectedErrorDetails,
       );
     });
 
     it("should send code to core backend and return with 200 response", async () => {
       axiosResponse.status = 200;
       axiosResponse.data = { journey: "journey/next" };
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postCriCallback = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);
 
@@ -129,7 +115,7 @@ describe("credential issuer middleware", () => {
       axiosResponse.data = {
         journey: "journey/next",
       };
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postCriCallback = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPI(req, res, next);
 
@@ -142,7 +128,7 @@ describe("credential issuer middleware", () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
-      axiosStub.post = sinon.fake.throws(axiosError);
+      CoreBackServiceStub.postCriCallback = sinon.fake.throws(axiosError);
 
       await middleware.sendParamsToAPI(req, res, next);
 
@@ -150,7 +136,7 @@ describe("credential issuer middleware", () => {
     });
 
     it("should call cri callback when ipvSessionId is missing", async () => {
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
       req.session.ipvSessionId = null;
 
       await middleware.sendParamsToAPI(req, res, next);
@@ -162,18 +148,10 @@ describe("credential issuer middleware", () => {
         state: req.query.state,
       };
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "ipv-session-id": null,
-            "Content-Type": "application/json",
-            "x-request-id": "1",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        {},
       );
     });
   });
@@ -183,13 +161,13 @@ describe("credential issuer middleware", () => {
     let res;
     let next;
     let axiosResponse;
-    let axiosStub = {};
+    let CoreBackServiceStub = {};
     let configStub = {};
     let middleware;
     let ipvMiddlewareStub = {};
 
     beforeEach(() => {
-      configStub.API_CRI_CALLBACK = "/journey/cri/callback";
+      configStub.API_CRI_CALLBACK = "/cri/callback";
       configStub.API_BASE_URL = "https://example.net/path";
       configStub.CREDENTIAL_ISSUER_ID = "testCredentialIssuerId";
       configStub.EXTERNAL_WEBSITE_HOST = "http://example.com";
@@ -197,7 +175,7 @@ describe("credential issuer middleware", () => {
       ipvMiddlewareStub.handleBackendResponse = sinon.fake();
 
       middleware = proxyquire("./middleware", {
-        axios: axiosStub,
+        "../../services/coreBackService": CoreBackServiceStub,
         "../../lib/config": configStub,
         "../ipv/middleware": ipvMiddlewareStub,
       });
@@ -228,7 +206,7 @@ describe("credential issuer middleware", () => {
     it("should call axios with correct parameters", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
 
       const expectedBody = {
         authorizationCode: req.query.code,
@@ -239,25 +217,17 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "ipv-session-id": "abadcafe",
-            "Content-Type": "application/json",
-            "x-request-id": "1",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        {},
       );
     });
 
     it("should add error parameters if they exist", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
 
       req.query.error = "access_denied";
       req.query.error_description = "Access was denied!";
@@ -267,31 +237,25 @@ describe("credential issuer middleware", () => {
         credentialIssuerId: req.params.criId,
         redirectUri: `http://example.com/credential-issuer/callback/${req.params.criId}`,
         state: req.query.state,
+      };
+      const expectedErrorDetails = {
         error: req.query.error,
         errorDescription: req.query.error_description,
       };
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "x-request-id": "1",
-            "ipv-session-id": "abadcafe",
-            "Content-Type": "application/json",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        expectedErrorDetails,
       );
     });
 
     it("should send code to core backend and return with 200 response", async () => {
       axiosResponse.status = 200;
       axiosResponse.data = { journey: "journey/next" };
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postCriCallback = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
@@ -302,7 +266,7 @@ describe("credential issuer middleware", () => {
       axiosResponse.data = {
         journey: "journey/next",
       };
-      axiosStub.post = sinon.fake.returns(axiosResponse);
+      CoreBackServiceStub.postCriCallback = sinon.fake.returns(axiosResponse);
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
@@ -315,7 +279,7 @@ describe("credential issuer middleware", () => {
       axiosResponse.status = 404;
       const axiosError = new Error("api error");
       axiosError.response = axiosResponse;
-      axiosStub.post = sinon.fake.throws(axiosError);
+      CoreBackServiceStub.postCriCallback = sinon.fake.throws(axiosError);
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
@@ -323,7 +287,7 @@ describe("credential issuer middleware", () => {
     });
 
     it("should call cri callback when ipvSessionId is missing", async () => {
-      axiosStub.post = sinon.fake();
+      CoreBackServiceStub.postCriCallback = sinon.fake();
       req.session.ipvSessionId = null;
 
       const expectedBody = {
@@ -335,18 +299,10 @@ describe("credential issuer middleware", () => {
 
       await middleware.sendParamsToAPIV2(req, res, next);
 
-      expect(axiosStub.post).to.have.been.calledWith(
-        "https://example.net/path/journey/cri/callback",
+      expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
+        req,
         expectedBody,
-        sinon.match({
-          headers: {
-            "x-request-id": "1",
-            "ipv-session-id": null,
-            "Content-Type": "application/json",
-            "ip-address": "ip-address",
-            "feature-set": "feature-set",
-          },
-        }),
+        {},
       );
     });
   });

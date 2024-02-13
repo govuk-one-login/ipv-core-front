@@ -11,6 +11,16 @@ on:
       - synchronize
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11.2'
+    - uses: pre-commit/action@v3.0.0
+      with:
+        extra_args: "detect-secrets --all-files"
   run-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -20,13 +30,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.16.0
-          cache: 'yarn'
+      - name: Login to GDS Dev Dynatrace Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: khw46367.live.dynatrace.com
+          username: khw46367
+          password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
       - name: Install dependencies
-        run: yarn install
+        run: npm install
       - name: Run lint
-        run: yarn lint
+        run: npm run lint
       - name: Run test and write coverage
-        run: yarn test:coverage
+        run: npm run test:coverage
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
         uses: sonarsource/sonarcloud-github-action@master

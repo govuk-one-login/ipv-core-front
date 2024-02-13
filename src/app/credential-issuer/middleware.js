@@ -1,13 +1,8 @@
-const {
-  API_BASE_URL,
-  API_CRI_CALLBACK,
-  EXTERNAL_WEBSITE_HOST,
-} = require("../../lib/config");
-const { generateJsonAxiosConfig } = require("../shared/axiosHelper");
+const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } = require("../../lib/config");
 const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const axios = require("axios");
+const coreBackService = require("../../services/coreBackService");
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
@@ -32,10 +27,10 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_CALLBACK}`,
-        { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req),
+      const apiResponse = await coreBackService.postCriCallback(
+        req,
+        body,
+        errorDetails,
       );
       if (apiResponse?.status) {
         res.status(apiResponse.status);
@@ -73,10 +68,10 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await axios.post(
-        `${API_BASE_URL}${API_CRI_CALLBACK}`,
-        { ...body, ...errorDetails },
-        generateJsonAxiosConfig(req),
+      const apiResponse = await coreBackService.postCriCallback(
+        req,
+        body,
+        errorDetails,
       );
       if (apiResponse?.status) {
         res.status(apiResponse.status);

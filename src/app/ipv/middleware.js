@@ -1,19 +1,10 @@
 const sanitize = require("sanitize-filename");
 
-const {
-  API_BASE_URL,
-  API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
-  ENABLE_PREVIEW,
-} = require("../../lib/config");
+const { ENABLE_PREVIEW } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-
-const {
-  generateAxiosConfig,
-  generateAxiosConfigWithClientSessionId,
-} = require("../shared/axiosHelper");
 const {
   logError,
   logCoreBackCall,
@@ -27,16 +18,13 @@ const {
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
 } = require("../shared/loggerConstants");
-const {
-  samplePersistedUserDetails,
-  generateUserDetails,
-} = require("../shared/reuseHelper");
+const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
-const axios = require("axios");
 const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
+const coreBackService = require("../../services/coreBackService");
 
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
@@ -49,13 +37,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return axios.post(
-    `${API_BASE_URL}/${action}`,
-    {},
-    req.session?.clientOauthSessionId
-      ? generateAxiosConfigWithClientSessionId(req)
-      : generateAxiosConfig(req),
-  );
+  return coreBackService.postAction(req, action);
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -118,12 +100,21 @@ async function handleBackendResponse(req, res, backendResponse) {
       type: LOG_TYPE_PAGE,
       path: backendResponse.page,
       requestId: req.requestId,
+      context: backendResponse?.context,
     });
+
     req.session.currentPage = backendResponse.page;
+    req.session.context = backendResponse?.context;
+
+    // PYIC-3966 Code for transition, remove once core-back has been updated
+    if (req.session.currentPage === "page-pre-kbv-transition") {
+      req.session.currentPage = "page-pre-experian-kbv-transition";
+    }
+
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${backendResponse.page}`,
+      `/ipv/page/${req.session.currentPage}`,
     );
   }
 }
@@ -146,44 +137,49 @@ function tryValidateClientResponse(client) {
   return true;
 }
 
+function checkForSessionId(req, res) {
+  if (!req.session?.ipvSessionId) {
+    const err = new Error("req.ipvSessionId is missing");
+    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+    logError(req, err);
+
+    req.session.currentPage = "pyi-technical";
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    return res.render("ipv/pyi-technical.njk", {
+      context: "unrecoverable",
+    });
+  }
+}
+
+async function handleEscapeAction(req, res, next, actionType) {
+  try {
+    checkForSessionId(req, res);
+
+    if (req.body?.journey === "next/f2f") {
+      await handleJourneyResponse(req, res, "journey/f2f");
+    } else if (req.body?.journey === "next/dcmaw") {
+      await handleJourneyResponse(req, res, "journey/dcmaw");
+    } else {
+      await handleJourneyResponse(req, res, "journey/end");
+    }
+  } catch (error) {
+    transformError(error, `error invoking ${actionType}`);
+    next(error);
+  }
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
     res.render("ipv/pyi-attempt-recovery.njk", {
       csrfToken: req.csrfToken(),
     });
   },
+  // This method is currently only used by a link on the pyi-f2f-delete-details page.
+  // It shouldn't be used for anything else, see
+  // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
-      const allowedActions = [
-        "/journey/next",
-        "/journey/error",
-        "/journey/fail",
-        "/journey/attempt-recovery",
-        "/journey/cri/build-oauth-request/ukPassport",
-        "/journey/cri/build-oauth-request/stubUkPassport",
-        "/journey/cri/build-oauth-request/fraud",
-        "/journey/cri/build-oauth-request/stubFraud",
-        "/journey/cri/build-oauth-request/address",
-        "/journey/cri/build-oauth-request/stubAddress",
-        "/journey/cri/build-oauth-request/kbv",
-        "/journey/cri/build-oauth-request/stubKbv",
-        "/journey/cri/build-oauth-request/activityHistory",
-        "/journey/cri/build-oauth-request/stubActivityHistory",
-        "/journey/cri/build-oauth-request/dcmaw",
-        "/journey/cri/build-oauth-request/stubDcmaw",
-        "/journey/build-client-oauth-response",
-        "/journey/cri/validate/ukPassport",
-        "/journey/cri/validate/stubUkPassport",
-        "/journey/cri/validate/fraud",
-        "/journey/cri/validate/stubFraud",
-        "/journey/cri/validate/address",
-        "/journey/cri/validate/stubAddress",
-        "/journey/cri/validate/kbv",
-        "/journey/cri/validate/stubKbv",
-        "/journey/cri/validate/dcmaw",
-        "/journey/cri/validate/stubDcmaw",
-        "/user/proven-identity-details",
-      ];
+      const allowedActions = ["/journey/end"];
 
       const action = allowedActions.find((x) => x === req.url);
 
@@ -199,25 +195,11 @@ module.exports = {
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
+      const { context } = req?.session || "";
 
+      // Remove this as part of PYIC-4278
       if (ENABLE_PREVIEW && req.query.preview) {
-        if (pageId === "page-ipv-reuse") {
-          const userDetails = generateUserDetails(
-            samplePersistedUserDetails,
-            req.i18n,
-          );
-
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            userDetails,
-            pageId,
-            csrfToken: req.csrfToken(),
-          });
-        } else {
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            pageId,
-            csrfToken: req.csrfToken(),
-          });
-        }
+        return res.redirect("/ipv/all-templates");
       }
 
       if (req.session?.ipvSessionId === null) {
@@ -230,8 +212,10 @@ module.exports = {
           "req.ipvSessionId is null",
         );
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+        req.session.currentPage = "pyi-technical";
+        return res.render(`ipv/${req.session.currentPage}.njk`, {
+          context: "unrecoverable",
+        });
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
         return res.render(`ipv/${req.session.currentPage}.njk`);
@@ -254,36 +238,36 @@ module.exports = {
       }
 
       switch (pageId) {
+        case "pyi-new-details":
+        case "pyi-confirm-delete-details":
+        case "pyi-details-deleted":
+        case "pyi-f2f-delete-details":
         case "page-ipv-identity-document-start":
         case "page-ipv-identity-postoffice-start":
         case "page-ipv-bank-account-start":
         case "page-ipv-success":
         case "page-face-to-face-handoff":
         case "page-ipv-pending":
-        case "page-pre-kbv-transition":
+        case "page-pre-experian-kbv-transition":
         case "page-dcmaw-success":
         case "page-multiple-doc-check":
-        case "page-f2f-multiple-doc-check":
         case "pyi-attempt-recovery":
-        case "pyi-kbv-fail":
-        case "pyi-kbv-thin-file":
         case "pyi-no-match":
         case "pyi-escape":
         case "pyi-cri-escape":
         case "pyi-cri-escape-no-f2f":
         case "pyi-suggest-other-options":
         case "pyi-suggest-other-options-no-f2f":
-        case "pyi-suggest-f2f":
         case "pyi-post-office":
         case "pyi-another-way":
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
-        case "pyi-technical":
-        case "pyi-technical-unrecoverable": {
+        case "pyi-technical": {
           const renderOptions = {
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           };
 
           if (req.query?.errorState !== undefined) {
@@ -293,10 +277,8 @@ module.exports = {
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {
-          const userDetailsResponse = await axios.get(
-            `${API_BASE_URL}${API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-            generateAxiosConfig(req),
-          );
+          const userDetailsResponse =
+            await coreBackService.getProvenIdentityUserDetails(req);
           const userDetails = generateUserDetails(
             userDetailsResponse,
             req.i18n,
@@ -306,6 +288,7 @@ module.exports = {
             userDetails,
             pageId,
             csrfToken: req.csrfToken(),
+            context,
           });
         }
         default:
@@ -325,9 +308,11 @@ module.exports = {
         err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
         logError(req, err);
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
+        req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
+        return res.render("ipv/pyi-technical.njk", {
+          context: "unrecoverable",
+        });
       }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
@@ -352,15 +337,8 @@ module.exports = {
   },
   handleMultipleDocCheck: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
+      checkForSessionId(req, res);
 
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
       if (req.body?.journey === "next/passport") {
         await handleJourneyResponse(req, res, "journey/ukPassport");
       } else if (req.body?.journey === "next/driving-licence") {
@@ -370,52 +348,6 @@ module.exports = {
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");
-      next(error);
-    }
-  },
-  handleCriEscapeAction: async (req, res, next) => {
-    try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
-      if (req.body?.journey === "next/f2f") {
-        await handleJourneyResponse(req, res, "journey/f2f");
-      } else if (req.body?.journey === "next/dcmaw") {
-        await handleJourneyResponse(req, res, "journey/dcmaw");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleCriEscapeAction");
-      next(error);
-    }
-  },
-  handleCimitEscapeAction: async (req, res, next) => {
-    try {
-      if (!req.session?.ipvSessionId) {
-        const err = new Error("req.ipvSessionId is missing");
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
-
-        req.session.currentPage = "pyi-technical-unrecoverable";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical-unrecoverable.njk");
-      }
-      if (req.body?.journey === "next/f2f") {
-        await handleJourneyResponse(req, res, "journey/f2f");
-      } else if (req.body?.journey === "next/dcmaw") {
-        await handleJourneyResponse(req, res, "journey/dcmaw");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleCimitEscapeAction");
       next(error);
     }
   },
@@ -476,4 +408,5 @@ module.exports = {
   },
   handleJourneyResponse,
   handleBackendResponse,
+  handleEscapeAction,
 };

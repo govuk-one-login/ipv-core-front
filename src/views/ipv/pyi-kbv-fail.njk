@@ -2,63 +2,63 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% set pageTitleName = 'pages.pyiKbvFail.title' | translateWithContext(context) %}
-{% set googleTagManagerPageId = "pyiKbvFail" %}
+{% set pageTitleName = 'pages.pyiKbvExit.title' | translateWithContext(context) %}
+{% set googleTagManagerPageId = "pyiKbvExit" %}
 
 {% set errorState = pageErrorState %}
-{% set errorTitle = 'pages.pyiKbvFail.content.formErrorMessage.errorSummaryTitleText' | translate %}
-{% set errorText = 'pages.pyiKbvFail.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
-{% set errorHref = "#pyiKbvFailForm" %}
+{% set errorTitle = 'pages.pyiKbvExit.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiKbvExit.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiKbvExitForm" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiKbvFail.header' | translateWithContext(context) }}</h1>
-  <p class="govuk-body">{{ 'pages.pyiKbvFail.content.paragraph1' | translateWithContext(context) }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiKbvExit.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiKbvExit.content.paragraph1' | translateWithContext(context) }}</p>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pyiKbvFail.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiKbvFail.content.paragraph2' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiKbvExit.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiKbvExit.content.paragraph2' | translate }}</p>
   
 
-  <h2 class="govuk-heading-m">{{ 'pages.pyiKbvFail.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiKbvFail.content.paragraph3' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiKbvExit.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiKbvExit.content.paragraph3' | translate }}</p>
   
   {{ govukDetails({
-    summaryText: 'pages.pyiKbvFail.content.details.label' | translate,
-    text: 'pages.pyiKbvFail.content.details.text' | translate( { url: contactUsUrl } ) | safe
+    summaryText: 'pages.pyiKbvExit.content.details.label' | translate,
+    text: 'pages.pyiKbvExit.content.details.text' | translate( { url: contactUsUrl } ) | safe
   }) }}
 
-  <form id="pyiKbvFailForm" action="/ipv/page/{{ pageId }}" method="POST">
+  <form id="pyiKbvExitForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pyiKbvFail.content.subHeading3' | translate,
+          text: 'pages.pyiKbvExit.content.subHeading3' | translate,
           classes: "govuk-fieldset__legend--m"
         }
       },
       items: [
         {
           value: "end",
-          text: 'pages.pyiKbvFail.content.formRadioButtons.radioButton1Text' | translate
+          text: 'pages.pyiKbvExit.content.formRadioButtons.radioButton1Text' | translate
 
         },
         {
           value: "next/dcmaw",
-          text: 'pages.pyiKbvFail.content.formRadioButtons.radioButton2Text' | translate,
-          hint: { text: 'pages.pyiKbvFail.content.formRadioButtons.radioButton2TextHint' | translate }
+          text: 'pages.pyiKbvExit.content.formRadioButtons.radioButton2Text' | translate,
+          hint: { text: 'pages.pyiKbvExit.content.formRadioButtons.radioButton2TextHint' | translate }
 
         },
         {
           value: "next/f2f",
-          text: 'pages.pyiKbvFail.content.formRadioButtons.radioButton3Text' | translate,
-          hint: { text: 'pages.pyiKbvFail.content.formRadioButtons.radioButton3TextHint' | translate }
+          text: 'pages.pyiKbvExit.content.formRadioButtons.radioButton3Text' | translate,
+          hint: { text: 'pages.pyiKbvExit.content.formRadioButtons.radioButton3TextHint' | translate }
         }
       ]
     } %}
 
     {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.pyiKbvFail.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set errorMessageObject = { 'text': 'pages.pyiKbvExit.content.formErrorMessage.errorRadioMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 

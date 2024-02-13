@@ -110,7 +110,7 @@ router.post(
     handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
 );
 router.post(
-  "/page/pyi-kbv-fail",
+  "/page/pyi-kbv-exit",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,

@@ -1,19 +1,17 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
-const {
-  getMiddlewareErrorHandlerMessage,
-} = require("../app/shared/loggerHelper");
+const axios = require("axios");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
-    const message = getMiddlewareErrorHandlerMessage(
-      err,
-      "Error received in internal server error handler",
-    );
-
-    req.log.error({ message, level: "ERROR", requestId: req.id });
-
     if (res.headersSent) {
       return next(err);
+    }
+
+    if (!axios.isAxiosError(err)) {
+      req.log.error({
+        message: { err, message: "An internal server error occured" },
+        level: "ERROR",
+      });
     }
 
     if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {

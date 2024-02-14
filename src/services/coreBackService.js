@@ -4,6 +4,9 @@ const {
   API_CRI_CALLBACK,
   API_SESSION_INITIALISE,
 } = require("../lib/config");
+const {
+  getMiddlewareErrorHandlerMessage,
+} = require("../app/shared/loggerHelper");
 const https = require("https");
 const axios = require("axios");
 
@@ -11,6 +14,41 @@ const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   httpsAgent: new https.Agent({ keepAlive: true }),
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const logger = error.config.logger;
+
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        const message = getMiddlewareErrorHandlerMessage(
+          error.response,
+          "Error response received in coreBackService",
+        );
+
+        logger.error({ message, level: "ERROR" });
+      } else if (error.request) {
+        const message = {
+          request: error.request,
+          message: "Error occured making request in coreBackService",
+        };
+
+        logger.error({ message, level: "ERROR" });
+      } else {
+        const message = {
+          error,
+          message:
+            "Something went wrong setting up the request in CoreBackService",
+        };
+
+        logger.error({ message, level: "ERROR" });
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 function postAction(req, action) {
   return axiosInstance.post(
@@ -23,11 +61,13 @@ function postAction(req, action) {
 }
 
 function postSessionInitialise(req, authParams) {
+  const logger = req.log;
   return axiosInstance.post(API_SESSION_INITIALISE, authParams, {
     headers: {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
+    logger,
   });
 }
 
@@ -47,6 +87,7 @@ function getProvenIdentityUserDetails(req) {
 }
 
 function generateAxiosConfig(req) {
+  const logger = req.log;
   return {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -55,9 +96,11 @@ function generateAxiosConfig(req) {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
+    logger,
   };
 }
 function generateAxiosConfigWithClientSessionId(req) {
+  const logger = req.log;
   return {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -67,9 +110,11 @@ function generateAxiosConfigWithClientSessionId(req) {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
+    logger,
   };
 }
 function generateJsonAxiosConfig(req) {
+  const logger = req.log;
   return {
     headers: {
       "Content-Type": "application/json",
@@ -78,6 +123,7 @@ function generateJsonAxiosConfig(req) {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
+    logger,
   };
 }
 

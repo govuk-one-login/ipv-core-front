@@ -13,13 +13,6 @@ module.exports = {
     res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
 
     if (res.err?.response?.data?.page) {
-      const message = getMiddlewareErrorHandlerMessage(
-        err,
-        "Error received in journey event error handler",
-      );
-
-      req.log.error({ message, level: "ERROR", requestId: req.id });
-
       const pageId = sanitize(res.err.response.data.page);
 
       if (res.err?.response?.data?.clientOAuthSessionId) {

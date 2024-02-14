@@ -506,24 +506,23 @@
       }
     },
     "pageIpvBankAccountStart": {
-      "title": "Prove your identity with bank or building society details and security questions",
-      "header": "Prove your identity with bank or building society details and security questions",
+      "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
+      "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
       "content": {
-        "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
-        "subHeading": "Provide some personal details",
-        "paragraph2": "We'll ask you for your:",
-        "list1": "name",
-        "list2": "date of birth",
-        "list3": "sort code and account number",
-        "list4": "recent address history",
-        "list5": "National Insurance number",
-        "subHeading2": "Answer some security questions",
-        "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
-        "paragraph4": "You can use a non-UK passport as long as it has not expired.",
-        "subHeading3": "How do you want to continue?",
+        "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
+        "subHeading": "Darparwch rhywfaint o fanylion personol",
+        "paragraph2": "Byddwn yn gofyn i chi am eich:",
+        "list1": "enw",
+        "list2": "dyddiad geni",
+        "list3": "cod didoli a rhif y cyfrif",
+        "list4": "rrhif Yswiriant Gwladol",
+        "list5": "cyfeiriad presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)",
+        "subHeading2": "Atebwch rhai cwestiynau diogelwch",
+        "paragraph3": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Mae hyn yn ein helpu i wirio a yw'r manylion rydych wedi'u rhoi yn cael eu defnyddio gennych chi.",
+        "subHeading3": "A oes gennych gyfrif banc neu gymdeithas adeiladu cyfredol yn eich enw chi?",
         "formRadioButtons": {
-          "continueBankDetailsButtonText": "Prove my identity with bank or building society details and security questions",
-          "otherWayButtonText": "Prove my identity another way"
+          "continueBankDetailsButtonText": "Oes",
+          "otherWayButtonText": "Na - profi fy hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

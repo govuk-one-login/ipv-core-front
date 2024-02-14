@@ -30,7 +30,6 @@
   <h2 class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph3' | translate }}</p>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading3' | translate }}</h2>
   <form id="pageIpvBankAccountStartOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {

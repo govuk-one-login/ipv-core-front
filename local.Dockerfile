@@ -1,4 +1,4 @@
-FROM node:18.16.0-alpine
+FROM node:20.11.1-alpine
 ENV PORT 3000
 WORKDIR /app
 COPY package.json package-lock.json ./

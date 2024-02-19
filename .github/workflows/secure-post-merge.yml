@@ -20,7 +20,7 @@ jobs:
           fetch-depth: '0'
 
       - name: Set up AWS creds #push assets to S3
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.UPLOAD_ASSETS_GH_ACTIONS_ROLE_ARN }}
           aws-region: eu-west-2
@@ -33,7 +33,7 @@ jobs:
           destination-bucket-name: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           aws-region: eu-west-2

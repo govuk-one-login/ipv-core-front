@@ -205,6 +205,37 @@
         }
       }
     },
+    "pyiKbvEscapeM2b": {
+      "title": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
+      "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
+      "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
+        "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
+        "subHeading": "Os nad oes gennych ID gyda llun",
+        "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda'r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
+        "subHeading2": "Os oes gennych ID gyda llun",
+        "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio'r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
+        "details": {
+          "label": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+          "text": "<p class=\"govuk-body\">Gallwch ddefnyddio: </p><ul class=\"govuk-list--bullet\"><li>Trwydded yrru cerdyn-llun yn y DU</li><li>Trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)</li><li>Pasbort y DU</li><li>pasbort o'r tu allan i'r DU</li><li>Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)</li><li>Trwydded breswylio biometrig y DU (BRP)</li><li>Cerdyn preswylio biometrig y DU (BRC)</li><li>Trwydded Gweithwyr Ffiniol y DU (FWP)</li></ul>"
+        },
+        "subHeading3": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "radioButton1Text": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
+          "radioButton2Text": "Profi eich hunaniaeth gyda'r ap GOV.UK ID Check",
+          "radioButton2TextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
+          "radioButton3Text": "Profwch eich hunaniaeth mewn Swyddfa'r Post",
+          "radioButton3TextHint": "Byddwch yn rhoi manylion o'ch ID llun ar GOV.UK yn gyntaf."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiSuggestOtherOptionsNoF2f": {
       "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",

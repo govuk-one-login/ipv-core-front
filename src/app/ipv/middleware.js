@@ -258,6 +258,7 @@ module.exports = {
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
+        case "pyi-kbv-escape-m2b":
         case "pyi-technical": {
           const renderOptions = {
             pageId,

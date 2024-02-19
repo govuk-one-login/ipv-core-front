@@ -570,6 +570,46 @@ describe("journey middleware", () => {
   );
 
   context(
+    "handleEscapeM2b: handling journey action with journey/next, journey/bankAccount, journey/end",
+    () => {
+      it("should postAction with journey/next", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleEscapeM2b(req, res, next);
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/next");
+      });
+
+      it("should postAction with journey/bankAccount", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/bank-account" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleEscapeM2b(req, res, next);
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/bankAccount");
+      });
+
+      it("should postAction with journey/end by default", async function () {
+        await middleware.handleEscapeM2b(req, res, next);
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
+      });
+    },
+  );
+
+  context(
     "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {

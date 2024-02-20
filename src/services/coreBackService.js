@@ -7,6 +7,12 @@ const {
 const {
   getMiddlewareErrorHandlerMessage,
 } = require("../app/shared/loggerHelper");
+const {
+  generateAxiosConfig,
+  generateAxiosConfigWithClientSessionId,
+  generateJsonAxiosConfig
+} = require("../app/shared/axiosHelper")
+
 const https = require("https");
 const axios = require("axios");
 
@@ -84,47 +90,6 @@ function getProvenIdentityUserDetails(req) {
     API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(req),
   );
-}
-
-function generateAxiosConfig(req) {
-  const logger = req.log;
-  return {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-    logger,
-  };
-}
-function generateAxiosConfigWithClientSessionId(req) {
-  const logger = req.log;
-  return {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "client-session-id": req?.session?.clientOauthSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-    logger,
-  };
-}
-function generateJsonAxiosConfig(req) {
-  const logger = req.log;
-  return {
-    headers: {
-      "Content-Type": "application/json",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-    logger,
-  };
 }
 
 module.exports = {

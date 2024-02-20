@@ -9,6 +9,7 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
+  handleEscapeM2b,
   handleEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
@@ -108,6 +109,13 @@ router.post(
   formRadioButtonChecked,
   (req, res, next) =>
     handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
+);
+router.post(
+  "/page/pyi-escape-m2b",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleEscapeM2b,
 );
 router.post(
   "/page/pyi-kbv-escape-m2b",

@@ -258,6 +258,7 @@ module.exports = {
         case "pyi-timeout-recoverable":
         case "pyi-timeout-unrecoverable":
         case "pyi-f2f-technical":
+        case "pyi-escape-m2b":
         case "pyi-kbv-escape-m2b":
         case "pyi-technical": {
           const renderOptions = {
@@ -344,6 +345,22 @@ module.exports = {
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");
+      next(error);
+    }
+  },
+  handleEscapeM2b: async (req, res, next) => {
+    try {
+      checkForSessionId(req, res);
+
+      if (req.body?.journey === "next") {
+        await handleJourneyResponse(req, res, "journey/next");
+      } else if (req.body?.journey === "next/bank-account") {
+        await handleJourneyResponse(req, res, "journey/bankAccount");
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleEscapeM2b");
       next(error);
     }
   },

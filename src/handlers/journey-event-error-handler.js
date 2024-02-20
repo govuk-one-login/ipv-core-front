@@ -1,8 +1,5 @@
 const sanitize = require("sanitize-filename");
 const { HTTP_STATUS_CODES } = require("../app.constants");
-const {
-  getMiddlewareErrorHandlerMessage,
-} = require("../app/shared/loggerHelper");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {

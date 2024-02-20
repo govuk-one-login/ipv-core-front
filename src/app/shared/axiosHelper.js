@@ -9,7 +9,7 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger
+      logger,
     };
   },
   generateAxiosConfigWithClientSessionId: (req) => {
@@ -23,7 +23,7 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger
+      logger,
     };
   },
   generateJsonAxiosConfig: (req) => {
@@ -36,7 +36,7 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger
+      logger,
     };
   },
 };

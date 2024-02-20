@@ -10,8 +10,8 @@ const {
 const {
   generateAxiosConfig,
   generateAxiosConfigWithClientSessionId,
-  generateJsonAxiosConfig
-} = require("../app/shared/axiosHelper")
+  generateJsonAxiosConfig,
+} = require("../app/shared/axiosHelper");
 
 const https = require("https");
 const axios = require("axios");

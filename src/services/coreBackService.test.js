@@ -17,7 +17,7 @@ describe("CoreBackService", () => {
   };
   let CoreBackService;
 
-  let axiosStub = { create: () => axiosInstanceStub };
+  let axiosStub = { createAxiosInstance: () => axiosInstanceStub };
 
   const req = {
     session: {
@@ -34,8 +34,8 @@ describe("CoreBackService", () => {
     axiosInstanceStub.get = sinon.fake();
 
     CoreBackService = proxyquire("./coreBackService", {
-      axios: axiosStub,
       "../lib/config": configStub,
+      "../app/shared/axiosHelper": axiosStub,
     });
   });
 

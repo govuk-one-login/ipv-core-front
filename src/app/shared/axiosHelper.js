@@ -1,4 +1,54 @@
+const axios = require("axios");
+const https = require("https");
+const { API_BASE_URL } = require("../../lib/config");
+const { getMiddlewareErrorHandlerMessage } = require("./loggerHelper");
+
+const createAxiosInstance = (onRejected) => {
+  const instance = axios.create({
+    baseURL: API_BASE_URL,
+    httpsAgent: new https.Agent({ keepAlive: true }),
+  });
+
+  instance.interceptors.response.use(null, onRejected);
+
+  return instance;
+};
+
+const axiosErrorHandler = (error) => {
+  const logger = error.config.logger;
+
+  if (axios.isAxiosError(error)) {
+    if (error.response) {
+      const message = getMiddlewareErrorHandlerMessage(
+        error.response,
+        "Error response received in coreBackService",
+      );
+
+      logger.error({ message, level: "ERROR" });
+    } else if (error.request) {
+      const message = {
+        request: error.request,
+        description: "Error occured making request in coreBackService",
+      };
+
+      logger.error({ message, level: "ERROR" });
+    } else {
+      const message = {
+        error,
+        description:
+          "Something went wrong setting up the request in CoreBackService",
+      };
+
+      logger.error({ message, level: "ERROR" });
+    }
+  }
+
+  return Promise.reject(error);
+};
+
 module.exports = {
+  createAxiosInstance,
+  axiosErrorHandler,
   generateAxiosConfig: (req) => {
     const logger = req.log;
     return {

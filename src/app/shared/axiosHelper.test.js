@@ -37,6 +37,33 @@ describe("axios Helper", () => {
     });
   });
 
+  it("Should log credentialIssuerId if axios error response received", () => {
+    const axiosCoreBackError = {
+      response: {
+        data: "Test data",
+        config: {
+          data: '{"authorizationCode":"dummyAuthCode","credentialIssuerId":"fraud","redirectUri":"dummyRedirectUri","state":"dummyState"}',
+        },
+      },
+      config: {
+        logger: {
+          error: sinon.stub(),
+        },
+      },
+    };
+
+    axiosErrorHandler(axiosCoreBackError);
+
+    expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
+      message: {
+        response: "Test data",
+        description: "Error response received in coreBackService",
+        credentialIssuerId: "fraud",
+      },
+      level: "ERROR",
+    });
+  });
+
   it("Should log error making request if axios request error received", () => {
     const axiosCoreBackError = {
       request: {},

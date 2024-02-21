@@ -5,7 +5,7 @@ const { getCriFromErrorResponse } = require("./loggerHelper");
 
 const createAxiosInstance = () => {
   const instance = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: API_BASE_URL + "invalid",
     httpsAgent: new https.Agent({ keepAlive: true }),
   });
 
@@ -36,7 +36,7 @@ const axiosErrorHandler = (error) => {
       const message = {
         request: error.request,
         error: error,
-        description: "Error occured making request in coreBackService",
+        description: "Error occurred making request in coreBackService",
       };
 
       logger.error({ message, level: "ERROR" });

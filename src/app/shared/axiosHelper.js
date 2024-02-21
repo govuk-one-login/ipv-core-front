@@ -60,8 +60,8 @@ module.exports = {
     const logger = req.log;
     return {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": req.session?.ipvSessionId,
+        "Content-Type": "application/x-www-form-urlencodedinvalid",
+        "ipv-session-id": req.session?.ipvSessionId + "invalid",
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
@@ -75,7 +75,7 @@ module.exports = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "ipv-session-id": req.session?.ipvSessionId,
-        "client-session-id": req?.session?.clientOauthSessionId + "invalid",
+        "client-session-id": req?.session?.clientOauthSessionId,
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,

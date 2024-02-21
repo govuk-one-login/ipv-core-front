@@ -3,13 +3,13 @@ const https = require("https");
 const { API_BASE_URL } = require("../../lib/config");
 const { getCriFromErrorResponse } = require("./loggerHelper");
 
-const createAxiosInstance = (onRejected) => {
+const createAxiosInstance = () => {
   const instance = axios.create({
     baseURL: API_BASE_URL,
     httpsAgent: new https.Agent({ keepAlive: true }),
   });
 
-  instance.interceptors.response.use(null, onRejected);
+  instance.interceptors.response.use(null, axiosErrorHandler);
 
   return instance;
 };
@@ -19,18 +19,16 @@ const axiosErrorHandler = (error) => {
 
   if (axios.isAxiosError(error)) {
     if (error.response) {
-      const cri = getCriFromErrorResponse(
-        error.response
-      );
+      const cri = getCriFromErrorResponse(error.response);
 
       const message = {
         description: "Error response received in coreBackService",
         errorMessage: error.response.data,
         endpoint: `${error.request?.method} ${error.request?.path}`,
-      }
+      };
 
       if (cri) {
-        message.cri = cri
+        message.cri = cri;
       }
 
       logger.error({ message, level: "ERROR" });
@@ -63,8 +61,8 @@ module.exports = {
     const logger = req.log;
     return {
       headers: {
-        "Content-Type": "application/x-www-form-urlencodedinvalid",
-        "ipv-session-id": req.session?.ipvSessionId + "invalid",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "ipv-session-id": req.session?.ipvSessionId,
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,

@@ -8,11 +8,10 @@ const {
   generateAxiosConfig,
   generateAxiosConfigWithClientSessionId,
   generateJsonAxiosConfig,
-  createAxiosInstance,
-  axiosErrorHandler,
+  createAxiosInstance
 } = require("../app/shared/axiosHelper");
 
-const axiosInstance = createAxiosInstance(axiosErrorHandler);
+const axiosInstance = createAxiosInstance();
 
 function postAction(req, action) {
   return axiosInstance.post(

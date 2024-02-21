@@ -43,15 +43,15 @@ module.exports = {
   getCriFromErrorResponse: (err) => {
     try {
       const { config } = err;
-      
+
       const requestDataString = config?.data;
-      
+
       const credentialIssuerId =
-      requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
-      
-      return credentialIssuerId
+        requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
+
+      return credentialIssuerId;
     } catch (error) {
-      return "An error occured when parsing the CRI from an error response"
+      return "An error occured when parsing the CRI from an error response";
     }
   },
 };

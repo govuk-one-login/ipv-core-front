@@ -18,7 +18,13 @@ describe("axios Helper", () => {
 
   it("Should log Core Back error if axios error response received", () => {
     const axiosCoreBackError = {
-      response: {},
+      response: {
+        data: "dummyData"
+      },
+      request: {
+        method: "POST",
+        path: "/dummyApi"
+      },
       config: {
         logger: {
           error: sinon.stub(),
@@ -30,8 +36,9 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        response: undefined,
         description: "Error response received in coreBackService",
+        errorMessage: "dummyData",
+        endpoint: "POST /dummyApi"
       },
       level: "ERROR",
     });
@@ -39,6 +46,10 @@ describe("axios Helper", () => {
 
   it("Should log credentialIssuerId if axios error response received", () => {
     const axiosCoreBackError = {
+      request: {
+        method: "POST",
+        path: "/dummyApi"
+      },
       response: {
         data: "Test data",
         config: {
@@ -56,9 +67,10 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        response: "Test data",
+        errorMessage: "Test data",
         description: "Error response received in coreBackService",
-        credentialIssuerId: "fraud",
+        endpoint: "POST /dummyApi",
+        cri: "fraud",
       },
       level: "ERROR",
     });
@@ -66,7 +78,10 @@ describe("axios Helper", () => {
 
   it("Should log error making request if axios request error received", () => {
     const axiosCoreBackError = {
-      request: {},
+      request: {
+        method: "POST",
+        path: "/dummyApi"
+      },
       config: {
         logger: {
           error: sinon.stub(),
@@ -78,8 +93,12 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        request: {},
-        description: "Error occured making request in coreBackService",
+        request: {
+          method: "POST",
+          path: "/dummyApi"
+        },
+        error: axiosCoreBackError,
+        description: "Error occured making request in coreBackService"
       },
       level: "ERROR",
     });

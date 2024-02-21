@@ -25,7 +25,6 @@ const axiosErrorHandler = (error) => {
         description: "Error response received in coreBackService",
         errorMessage: error.message,
         endpoint: `${error.request?.method} ${error.request?.path}`,
-        status: error.status,
         data: error.response.data
       };
 

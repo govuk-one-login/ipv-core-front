@@ -40,18 +40,13 @@ module.exports = {
     }
     req.log.info({ message, level: "INFO", requestId: req.id });
   },
-  getMiddlewareErrorHandlerMessage: (err) => {
+  getCriFromErrorResponse: (err) => {
     const { config } = err;
 
     const requestDataString = config?.data;
 
     const credentialIssuerId =
       requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
-
-    // const message = {
-    //   response: err?.data,
-    //   description: description,
-    // };
 
     if (credentialIssuerId) {
       return credentialIssuerId

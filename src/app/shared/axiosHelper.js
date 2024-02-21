@@ -1,7 +1,7 @@
 const axios = require("axios");
 const https = require("https");
 const { API_BASE_URL } = require("../../lib/config");
-const { getMiddlewareErrorHandlerMessage } = require("./loggerHelper");
+const { getCriFromErrorResponse } = require("./loggerHelper");
 
 const createAxiosInstance = (onRejected) => {
   const instance = axios.create({
@@ -19,7 +19,7 @@ const axiosErrorHandler = (error) => {
 
   if (axios.isAxiosError(error)) {
     if (error.response) {
-      const cri = getMiddlewareErrorHandlerMessage(
+      const cri = getCriFromErrorResponse(
         error.response
       );
 
@@ -34,6 +34,7 @@ const axiosErrorHandler = (error) => {
     } else if (error.request) {
       const message = {
         request: error.request,
+        error: error,
         description: "Error occured making request in coreBackService",
       };
 
@@ -74,7 +75,7 @@ module.exports = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "ipv-session-id": req.session?.ipvSessionId,
-        "client-session-id": req?.session?.clientOauthSessionId,
+        "client-session-id": req?.session?.clientOauthSessionId + "invalid",
         "x-request-id": req.id,
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,

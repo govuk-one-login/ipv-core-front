@@ -5,7 +5,7 @@ const { getCriFromErrorResponse } = require("./loggerHelper");
 
 const createAxiosInstance = () => {
   const instance = axios.create({
-    baseURL: API_BASE_URL + "invalid",
+    baseURL: API_BASE_URL,
     httpsAgent: new https.Agent({ keepAlive: true }),
   });
 

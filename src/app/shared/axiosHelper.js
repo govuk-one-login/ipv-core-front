@@ -26,6 +26,7 @@ const axiosErrorHandler = (error) => {
         errorMessage: error.response.data,
         endpoint: `${error.request?.method} ${error.request?.path}`,
         status: error.err?.config?.status,
+        error
       };
 
       if (cri) {

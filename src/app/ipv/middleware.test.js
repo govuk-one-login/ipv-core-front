@@ -732,6 +732,24 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledOnce;
     });
 
+    it("should call next if comma separated multiple featureSet is valid", async () => {
+      req.query.featureSet = "F01,D01";
+      await middleware.validateFeatureSet(req, res, next);
+      expect(req.session.featureSet).to.equal("F01,D01");
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should throw an error if comma separated featureSet is invalid", async () => {
+      req.query.featureSet = "F01, D01";
+      await middleware.validateFeatureSet(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(sinon.match.has("message", "Invalid feature set ID")),
+      );
+      expect(req.session.featureSet).to.be.undefined;
+    });
+
     it("should throw an error if featureSet is invalid", async () => {
       req.query.featureSet = "invalid-featureset";
       await middleware.validateFeatureSet(req, res, next);

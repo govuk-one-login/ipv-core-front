@@ -48,10 +48,6 @@ module.exports = {
     const credentialIssuerId =
       requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
 
-    if (credentialIssuerId) {
-      return credentialIssuerId
-    }
-
-    return "";
+    return credentialIssuerId
   },
 };

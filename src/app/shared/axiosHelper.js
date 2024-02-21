@@ -28,7 +28,6 @@ const axiosErrorHandler = (error) => {
         errorMessage: error.response.data,
         endpoint: `${error.request?.method} ${error.request?.path}`,
         cri,
-        error: error.response
       }
 
       logger.error({ message, level: "ERROR" });

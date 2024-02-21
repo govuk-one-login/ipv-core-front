@@ -40,7 +40,7 @@ module.exports = {
     }
     req.log.info({ message, level: "INFO", requestId: req.id });
   },
-  getMiddlewareErrorHandlerMessage: (err, description) => {
+  getMiddlewareErrorHandlerMessage: (err) => {
     const { config } = err;
 
     const requestDataString = config?.data;
@@ -48,15 +48,15 @@ module.exports = {
     const credentialIssuerId =
       requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
 
-    const message = {
-      response: err?.data,
-      description: description,
-    };
+    // const message = {
+    //   response: err?.data,
+    //   description: description,
+    // };
 
     if (credentialIssuerId) {
-      message.credentialIssuerId = credentialIssuerId;
+      return credentialIssuerId
     }
 
-    return message;
+    return "";
   },
 };

@@ -19,10 +19,17 @@ const axiosErrorHandler = (error) => {
 
   if (axios.isAxiosError(error)) {
     if (error.response) {
-      const message = getMiddlewareErrorHandlerMessage(
-        error.response,
-        "Error response received in coreBackService",
+      const cri = getMiddlewareErrorHandlerMessage(
+        error.response
       );
+
+      const message = {
+        description: "Error response received in coreBackService",
+        errorMessage: error.response,
+        endpoint: `${error.err?.config?.method} ${error.err?.config?.url}`,
+        status: error.err?.config?.status,
+        cri
+      }
 
       logger.error({ message, level: "ERROR" });
     } else if (error.request) {

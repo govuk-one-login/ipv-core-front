@@ -10,11 +10,7 @@ const configStub = {
 };
 
 describe("CoreBackService", () => {
-  let axiosInstanceStub = {
-    interceptors: {
-      response: { use: ((response) => response, (error) => error) },
-    },
-  };
+  let axiosInstanceStub = {};
   let CoreBackService;
 
   let axiosStub = { createAxiosInstance: () => axiosInstanceStub };

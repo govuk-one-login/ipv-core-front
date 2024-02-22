@@ -35,7 +35,6 @@ const axiosErrorHandler = (error) => {
       logger.error({ message, level: "ERROR" });
     } else if (error.request) {
       const message = {
-        request: error.request,
         error: error,
         description: "Error occurred making request in coreBackService",
       };

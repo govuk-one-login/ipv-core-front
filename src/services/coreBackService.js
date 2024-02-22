@@ -30,7 +30,7 @@ function postSessionInitialise(req, authParams) {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
-    logger:req.log,
+    logger: req.log,
   });
 }
 

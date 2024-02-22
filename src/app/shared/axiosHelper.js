@@ -13,7 +13,7 @@ const createAxiosInstance = (baseUrl) => {
   return instance;
 };
 
-const axiosErrorHandler = async (error) => {
+const axiosErrorHandler = (error) => {
   const logger = error.config.logger;
 
   if (axios.isAxiosError(error)) {
@@ -49,7 +49,7 @@ const axiosErrorHandler = async (error) => {
     }
   }
 
-  return error;
+  return Promise.reject(error);
 };
 
 module.exports = {

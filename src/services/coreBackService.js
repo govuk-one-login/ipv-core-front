@@ -25,13 +25,12 @@ function postAction(req, action) {
 }
 
 function postSessionInitialise(req, authParams) {
-  const logger = req.log;
   return axiosInstance.post(API_SESSION_INITIALISE, authParams, {
     headers: {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
-    logger,
+    logger:req.log,
   });
 }
 

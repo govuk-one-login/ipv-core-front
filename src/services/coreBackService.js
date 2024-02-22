@@ -2,6 +2,7 @@ const {
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
   API_CRI_CALLBACK,
   API_SESSION_INITIALISE,
+  API_BASE_URL,
 } = require("../lib/config");
 
 const {
@@ -11,7 +12,7 @@ const {
   createAxiosInstance
 } = require("../app/shared/axiosHelper");
 
-const axiosInstance = createAxiosInstance();
+const axiosInstance = createAxiosInstance(API_BASE_URL);
 
 function postAction(req, action) {
   return axiosInstance.post(

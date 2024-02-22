@@ -1,11 +1,10 @@
 const axios = require("axios");
 const https = require("https");
-const { API_BASE_URL } = require("../../lib/config");
 const { getCriFromErrorResponse } = require("./loggerHelper");
 
-const createAxiosInstance = () => {
+const createAxiosInstance = (baseUrl) => {
   const instance = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: baseUrl,
     httpsAgent: new https.Agent({ keepAlive: true }),
   });
 

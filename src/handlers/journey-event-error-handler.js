@@ -3,13 +3,6 @@ const { HTTP_STATUS_CODES } = require("../app.constants");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
-    const message = {
-      err: err,
-      response: err?.response?.data,
-      description: "Error received in journey event error handler",
-    };
-    req.log.error({ message, level: "ERROR", requestId: req.id });
-
     if (res.headersSent) {
       return next(err);
     }

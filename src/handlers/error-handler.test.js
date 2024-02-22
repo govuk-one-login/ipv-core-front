@@ -9,6 +9,7 @@ const {
 const {
   journeyEventErrorHandler,
 } = require("../../src/handlers/journey-event-error-handler");
+const proxyquire = require("proxyquire");
 
 describe("Error handlers", () => {
   let req;
@@ -16,6 +17,12 @@ describe("Error handlers", () => {
   let next;
 
   beforeEach(() => {
+    proxyquire("./internal-server-error-handler", {
+      axios: {
+        isAxiosError: sinon.stub().returns(false),
+      },
+    });
+
     req = {
       session: {},
       log: { info: sinon.fake(), error: sinon.fake() },
@@ -95,6 +102,13 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(next).to.be.have.been.calledOnce;
+    });
+
+    it("should log the error if not an axios error", () => {
+      const err = new Error("some error");
+      serverErrorHandler(err, req, res, next);
+
+      expect(req.log.error).to.be.have.been.calledOnce;
     });
   });
 

@@ -1,16 +1,18 @@
 const {
-  API_BASE_URL,
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
   API_CRI_CALLBACK,
   API_SESSION_INITIALISE,
+  API_BASE_URL,
 } = require("../lib/config");
-const https = require("https");
-const axios = require("axios");
 
-const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  httpsAgent: new https.Agent({ keepAlive: true }),
-});
+const {
+  generateAxiosConfig,
+  generateAxiosConfigWithClientSessionId,
+  generateJsonAxiosConfig,
+  createAxiosInstance,
+} = require("../app/shared/axiosHelper");
+
+const axiosInstance = createAxiosInstance(API_BASE_URL);
 
 function postAction(req, action) {
   return axiosInstance.post(
@@ -28,6 +30,7 @@ function postSessionInitialise(req, authParams) {
       "ip-address": req.session.ipAddress,
       "feature-set": req.session.featureSet,
     },
+    logger: req.log,
   });
 }
 
@@ -44,41 +47,6 @@ function getProvenIdentityUserDetails(req) {
     API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(req),
   );
-}
-
-function generateAxiosConfig(req) {
-  return {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-  };
-}
-function generateAxiosConfigWithClientSessionId(req) {
-  return {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "client-session-id": req?.session?.clientOauthSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-  };
-}
-function generateJsonAxiosConfig(req) {
-  return {
-    headers: {
-      "Content-Type": "application/json",
-      "ipv-session-id": req.session?.ipvSessionId,
-      "x-request-id": req.id,
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-  };
 }
 
 module.exports = {

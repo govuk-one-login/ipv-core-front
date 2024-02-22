@@ -1,16 +1,17 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
+const axios = require("axios");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
-    const message = {
-      err: err,
-      response: err?.response?.data,
-      description: "Error received in server error handler",
-    };
-    req.log.error({ message, level: "ERROR", requestId: req.id });
-
     if (res.headersSent) {
       return next(err);
+    }
+
+    if (!axios.isAxiosError(err)) {
+      req.log.error({
+        message: { err, message: "An internal server error occured" },
+        level: "ERROR",
+      });
     }
 
     if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {

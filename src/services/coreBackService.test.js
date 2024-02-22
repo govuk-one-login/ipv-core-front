@@ -11,8 +11,9 @@ const configStub = {
 
 describe("CoreBackService", () => {
   let axiosInstanceStub = {};
-  let axiosStub = { create: () => axiosInstanceStub };
   let CoreBackService;
+
+  let axiosStub = { createAxiosInstance: () => axiosInstanceStub };
 
   const req = {
     session: {
@@ -29,8 +30,8 @@ describe("CoreBackService", () => {
     axiosInstanceStub.get = sinon.fake();
 
     CoreBackService = proxyquire("./coreBackService", {
-      axios: axiosStub,
       "../lib/config": configStub,
+      "../app/shared/axiosHelper": axiosStub,
     });
   });
 
@@ -54,6 +55,7 @@ describe("CoreBackService", () => {
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
         },
+        logger: undefined,
       },
     );
   });
@@ -74,6 +76,7 @@ describe("CoreBackService", () => {
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
         },
+        logger: undefined,
       },
     );
   });
@@ -98,6 +101,7 @@ describe("CoreBackService", () => {
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
         },
+        logger: undefined,
       },
     );
   });
@@ -119,6 +123,7 @@ describe("CoreBackService", () => {
         "ip-address": "127.0.0.1",
         "feature-set": "test_feature_set",
       },
+      logger: undefined,
     });
   });
 });

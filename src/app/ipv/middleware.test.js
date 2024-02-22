@@ -750,6 +750,39 @@ describe("journey middleware", () => {
       expect(req.session.featureSet).to.be.undefined;
     });
 
+    it("should throw an error if comma not followed by text for featureSet is invalid", async () => {
+      req.query.featureSet = "F01,";
+      await middleware.validateFeatureSet(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(sinon.match.has("message", "Invalid feature set ID")),
+      );
+      expect(req.session.featureSet).to.be.undefined;
+    });
+
+    it("should throw an error if empty featureSet is invalid", async () => {
+      req.query.featureSet = "";
+      await middleware.validateFeatureSet(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(sinon.match.has("message", "Invalid feature set ID")),
+      );
+      expect(req.session.featureSet).to.be.undefined;
+    });
+
+    it("should throw an error if blank space featureSet is invalid", async () => {
+      req.query.featureSet = " ";
+      await middleware.validateFeatureSet(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(sinon.match.has("message", "Invalid feature set ID")),
+      );
+      expect(req.session.featureSet).to.be.undefined;
+    });
+
     it("should throw an error if featureSet is invalid", async () => {
       req.query.featureSet = "invalid-featureset";
       await middleware.validateFeatureSet(req, res, next);

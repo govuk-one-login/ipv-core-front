@@ -21,7 +21,7 @@ const axiosErrorHandler = (error) => {
       const cri = getCriFromErrorResponse(error.response);
 
       const message = {
-        description: "Error response received in coreBackService",
+        description: "Error response received from API",
         errorMessage: error.message,
         endpoint: `${error.request?.method} ${error.request?.path}`,
         data: error.response.data
@@ -35,7 +35,7 @@ const axiosErrorHandler = (error) => {
     } else if (error.request) {
       const message = {
         error: error,
-        description: "Error occurred making request in coreBackService",
+        description: "Error occurred making request to API",
       };
 
       logger.error({ message, level: "ERROR" });
@@ -43,7 +43,7 @@ const axiosErrorHandler = (error) => {
       const message = {
         error,
         description:
-          "Something went wrong setting up the request in CoreBackService",
+          "Something went wrong setting an API request",
       };
 
       logger.error({ message, level: "ERROR" });
@@ -57,7 +57,6 @@ module.exports = {
   createAxiosInstance,
   axiosErrorHandler,
   generateAxiosConfig: (req) => {
-    const logger = req.log;
     return {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -66,11 +65,10 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger,
+      logger: req.log,
     };
   },
   generateAxiosConfigWithClientSessionId: (req) => {
-    const logger = req.log;
     return {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -80,11 +78,10 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger,
+      logger: req.log,
     };
   },
   generateJsonAxiosConfig: (req) => {
-    const logger = req.log;
     return {
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +90,7 @@ module.exports = {
         "ip-address": req.session.ipAddress,
         "feature-set": req.session.featureSet,
       },
-      logger,
+      logger: req.log,
     };
   },
 };

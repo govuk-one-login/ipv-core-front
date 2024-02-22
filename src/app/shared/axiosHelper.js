@@ -24,7 +24,7 @@ const axiosErrorHandler = (error) => {
         description: "Error response received from API",
         errorMessage: error.message,
         endpoint: `${error.request?.method} ${error.request?.path}`,
-        data: error.response.data
+        data: error.response.data,
       };
 
       if (cri) {
@@ -42,8 +42,7 @@ const axiosErrorHandler = (error) => {
     } else {
       const message = {
         error,
-        description:
-          "Something went wrong setting an API request",
+        description: "Something went wrong setting an API request",
       };
 
       logger.error({ message, level: "ERROR" });

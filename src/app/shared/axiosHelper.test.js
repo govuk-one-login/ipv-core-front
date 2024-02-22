@@ -19,11 +19,11 @@ describe("axios Helper", () => {
   it("Should log Core Back error if axios error response received", () => {
     const axiosCoreBackError = {
       response: {
-        data: "dummyData"
+        data: "dummyData",
       },
       request: {
         method: "POST",
-        path: "/dummyApi"
+        path: "/dummyApi",
       },
       config: {
         logger: {
@@ -38,7 +38,7 @@ describe("axios Helper", () => {
       message: {
         description: "Error response received in coreBackService",
         errorMessage: "dummyData",
-        endpoint: "POST /dummyApi"
+        endpoint: "POST /dummyApi",
       },
       level: "ERROR",
     });
@@ -48,7 +48,7 @@ describe("axios Helper", () => {
     const axiosCoreBackError = {
       request: {
         method: "POST",
-        path: "/dummyApi"
+        path: "/dummyApi",
       },
       response: {
         data: "Test data",
@@ -80,7 +80,7 @@ describe("axios Helper", () => {
     const axiosCoreBackError = {
       request: {
         method: "POST",
-        path: "/dummyApi"
+        path: "/dummyApi",
       },
       config: {
         logger: {
@@ -95,10 +95,10 @@ describe("axios Helper", () => {
       message: {
         request: {
           method: "POST",
-          path: "/dummyApi"
+          path: "/dummyApi",
         },
         error: axiosCoreBackError,
-        description: "Error occured making request in coreBackService"
+        description: "Error occured making request in coreBackService",
       },
       level: "ERROR",
     });

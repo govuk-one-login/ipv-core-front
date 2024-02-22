@@ -9,7 +9,7 @@ const {
   generateAxiosConfig,
   generateAxiosConfigWithClientSessionId,
   generateJsonAxiosConfig,
-  createAxiosInstance
+  createAxiosInstance,
 } = require("../app/shared/axiosHelper");
 
 const axiosInstance = createAxiosInstance(API_BASE_URL);

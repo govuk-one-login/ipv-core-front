@@ -18,6 +18,7 @@ describe("axios Helper", () => {
 
   it("Should log Core Back error if axios error response received", () => {
     const axiosCoreBackError = {
+      message: "500 error from endpoint",
       response: {
         data: "dummyData",
       },
@@ -36,8 +37,9 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        description: "Error response received in coreBackService",
-        errorMessage: "dummyData",
+        description: "Error response received from API",
+        errorMessage: "500 error from endpoint",
+        data: "dummyData",
         endpoint: "POST /dummyApi",
       },
       level: "ERROR",
@@ -46,6 +48,7 @@ describe("axios Helper", () => {
 
   it("Should log credentialIssuerId if axios error response received", () => {
     const axiosCoreBackError = {
+      message: "500 error from endpoint",
       request: {
         method: "POST",
         path: "/dummyApi",
@@ -67,8 +70,9 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        errorMessage: "Test data",
-        description: "Error response received in coreBackService",
+        data: "Test data",
+        errorMessage: "500 error from endpoint",
+        description: "Error response received from API",
         endpoint: "POST /dummyApi",
         cri: "fraud",
       },
@@ -93,12 +97,8 @@ describe("axios Helper", () => {
 
     expect(axiosCoreBackError.config.logger.error).to.be.calledOnceWith({
       message: {
-        request: {
-          method: "POST",
-          path: "/dummyApi",
-        },
         error: axiosCoreBackError,
-        description: "Error occured making request in coreBackService",
+        description: "Error occurred making request to API",
       },
       level: "ERROR",
     });
@@ -118,8 +118,7 @@ describe("axios Helper", () => {
     expect(error.config.logger.error).to.be.calledOnceWith({
       message: {
         error,
-        description:
-          "Something went wrong setting up the request in CoreBackService",
+        description: "Something went wrong setting up an API request",
       },
       level: "ERROR",
     });

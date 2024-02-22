@@ -42,7 +42,7 @@ const axiosErrorHandler = (error) => {
     } else {
       const message = {
         error,
-        description: "Something went wrong setting an API request",
+        description: "Something went wrong setting up an API request",
       };
 
       logger.error({ message, level: "ERROR" });

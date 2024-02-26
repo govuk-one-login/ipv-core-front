@@ -26,7 +26,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: npm build assets, zip and sign
-        uses: govuk-one-login/github-actions/govuk/upload-assets@main
+        uses: govuk-one-login/github-actions/govuk/upload-assets@f31d8d78a76b89c62c80e2587c687af9fee4e478
         with:
           zip-signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
           stack-name: 'core-front'

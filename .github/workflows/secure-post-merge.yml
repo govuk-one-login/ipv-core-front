@@ -26,7 +26,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: npm build assets, zip and sign
-        uses: alphagov/di-github-actions/upload-assets@main
+        uses: govuk-one-login/github-actions/govuk/upload-assets@main
         with:
           zip-signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
           stack-name: 'core-front'
@@ -40,7 +40,7 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3

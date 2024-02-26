@@ -26,10 +26,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
         with:
-          node-version: 20.11.1
+          node-version: 18.16.0
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:

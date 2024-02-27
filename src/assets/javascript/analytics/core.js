@@ -1,4 +1,4 @@
-window.DI = window.DI || {};
+window.DI2 = window.DI2 || {};
 
 (function (DI) {
   "use strict";
@@ -33,4 +33,4 @@ window.DI = window.DI || {};
   };
 
   DI.core = core;
-})(window.DI);
+})(window.DI2);

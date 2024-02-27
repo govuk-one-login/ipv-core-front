@@ -1,28 +1,28 @@
-window.DI = window.DI || {};
-window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
+window.DI2 = window.DI2 || {};
+window.DI2.analyticsGa4 = window.DI2.analyticsGa4 || {};
 
 (function (analytics) {
   "use strict";
 
   // container is an optional parameter used for unit tests
   const init = function (container) {
-    const consentGiven = window.DI.cookies.hasConsentForAnalytics();
+    const consentGiven = window.DI2.cookies.hasConsentForAnalytics();
 
     if (consentGiven) {
-      window.DI.core.load(window.DI.analytics.vars.ga4ContainerId);
+      window.DI2.core.load(window.DI2.analytics.vars.ga4ContainerId);
 
       initGa4GlobalTrackers();
       initGa4ElementTrackers(container ?? document);
     } else {
       window.addEventListener("cookie-consent", () =>
-        window.DI.analyticsGa4.init(),
+        window.DI2.analyticsGa4.init(),
       );
     }
   };
 
   // Initialise trackers for GA4 events which can be tracked at the global page level, such as page_view events
   const initGa4GlobalTrackers = function () {
-    const trackers = window.DI.analyticsGa4.trackers;
+    const trackers = window.DI2.analyticsGa4.trackers;
     for (const trackerName in trackers) {
       if (Object.hasOwn(trackers, trackerName)) {
         const tracker = trackers[trackerName];
@@ -78,7 +78,7 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
 
       for (const elementTracker of elementTrackers) {
         const trackerName = kebabCaseToPascalCase(elementTracker);
-        const trackers = window.DI.analyticsGa4.trackers;
+        const trackers = window.DI2.analyticsGa4.trackers;
         if (Object.hasOwn(trackers, trackerName)) {
           const tracker = trackers[trackerName];
           if (
@@ -102,4 +102,4 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
   };
 
   analytics.init = init;
-})(window.DI.analyticsGa4);
+})(window.DI2.analyticsGa4);

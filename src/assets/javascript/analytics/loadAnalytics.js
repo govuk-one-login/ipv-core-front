@@ -1,6 +1,6 @@
-window.DI = window.DI || {};
-window.DI.analytics = window.DI.analytics || {};
-window.DI.analytics.vars = window.DI.analytics.vars || {};
+window.DI2 = window.DI2 || {};
+window.DI2.analytics = window.DI2.analytics || {};
+window.DI2.analytics.vars = window.DI2.analytics.vars || {};
 
 (function (DI) {
   "use strict";
@@ -17,8 +17,8 @@ window.DI.analytics.vars = window.DI.analytics.vars || {};
       );
       return;
     }
-    window.DI.analytics.vars.uaContainerId = uaContainerId;
-    window.DI.analyticsUa.init();
+    window.DI2.analytics.vars.uaContainerId = uaContainerId;
+    window.DI2.analyticsUa.init();
   }
 
   function loadGa4(ga4ContainerId) {
@@ -29,8 +29,8 @@ window.DI.analytics.vars = window.DI.analytics.vars || {};
       );
       return;
     }
-    window.DI.analytics.vars.ga4ContainerId = ga4ContainerId;
-    window.DI.analyticsGa4.init();
+    window.DI2.analytics.vars.ga4ContainerId = ga4ContainerId;
+    window.DI2.analyticsGa4.init();
   }
 
   function loadAnalytics(uaContainerId, ga4ContainerId) {
@@ -39,4 +39,4 @@ window.DI.analytics.vars = window.DI.analytics.vars || {};
   }
 
   DI.loadAnalytics = loadAnalytics;
-})(window.DI);
+})(window.DI2);

@@ -116,9 +116,10 @@
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
+    <script nonce='{{ cspNonce }}' src="/ga4-assets/analytics.js"></script>
     <script nonce='{{ cspNonce }}'>
-        window.DI.httpStatusCode = {{ statusCode | d(200) }};
-        window.DI.journeyState = "{{ googleTagManagerPageId }}";
+        window.DI2.httpStatusCode = {{ statusCode | d(200) }};
+        window.DI2.journeyState = "{{ googleTagManagerPageId }}";
         window.DI.appInit({
             analyticsCookieDomain: "{{ analyticsCookieDomain }}",
             uaContainerId: "{{ uaContainerId }}",

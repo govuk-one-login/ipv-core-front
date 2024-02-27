@@ -91,7 +91,10 @@ if (CDN_DOMAIN) {
 app.use(
   "/ga4-assets",
   express.static(
-    path.join(__dirname, "../node_modules/@govuk-one-login/one-login-analytics/lib"),
+    path.join(
+      __dirname,
+      "../node_modules/@govuk-one-login/one-login-analytics/lib",
+    ),
   ),
 );
 

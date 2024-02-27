@@ -1,11 +1,11 @@
-window.DI = window.DI || {};
-window.DI.analyticsUa = window.DI.analyticsUa || {};
+window.DI2 = window.DI2 || {};
+window.DI2.analyticsUa = window.DI2.analyticsUa || {};
 
 (function (analytics) {
   "use strict";
 
   function initGtm() {
-    const sendData = window.DI.core.sendData;
+    const sendData = window.DI2.core.sendData;
 
     sendData({
       "gtm.allowlist": ["google"],
@@ -17,10 +17,10 @@ window.DI.analyticsUa = window.DI.analyticsUa || {};
       ProgrammeName: "DI - PYI",
     });
 
-    if (window.DI.journeyState) {
+    if (window.DI2.journeyState) {
       sendData({
         event: "journeyEvent",
-        JourneyStatus: window.DI.journeyState,
+        JourneyStatus: window.DI2.journeyState,
       });
     }
 
@@ -43,15 +43,15 @@ window.DI.analyticsUa = window.DI.analyticsUa || {};
   }
 
   const init = function () {
-    const consentGiven = window.DI.cookies.hasConsentForAnalytics();
+    const consentGiven = window.DI2.cookies.hasConsentForAnalytics();
 
     if (consentGiven) {
-      window.DI.core.load(window.DI.analytics.vars.uaContainerId);
+      window.DI2.core.load(window.DI2.analytics.vars.uaContainerId);
       initGtm();
     } else {
-      window.addEventListener("cookie-consent", window.DI.analyticsUa.init);
+      window.addEventListener("cookie-consent", window.DI2.analyticsUa.init);
     }
   };
 
   analytics.init = init;
-})(window.DI.analyticsUa);
+})(window.DI2.analyticsUa);

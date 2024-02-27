@@ -22,7 +22,8 @@ window.DI2.analyticsGa4.trackers = window.DI2.analyticsGa4.trackers || {};
           taxonomy_level2: "pre cri",
         },
       };
-      window.DI2.core.sendData(data);
+      // window.DI2.core.sendData(data);
+      window.DI.analyticsGa4.pageViewTracker.trackPageOnLoad(data)
     },
 
     getLanguage: function () {

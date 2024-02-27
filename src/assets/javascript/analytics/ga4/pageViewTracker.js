@@ -22,7 +22,8 @@ window.DI.analyticsGa4.trackers = window.DI.analyticsGa4.trackers || {};
           taxonomy_level2: "pre cri",
         },
       };
-      window.DI.core.sendData(data);
+      console.warn("Tracking page load" + data)
+      window.DI.analyticsGa4.pageViewTracker.trackPageOnLoad(data);
     },
 
     getLanguage: function () {

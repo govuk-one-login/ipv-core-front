@@ -88,6 +88,13 @@ if (CDN_DOMAIN) {
   );
 }
 
+app.use(
+  "/ga4-assets",
+  express.static(
+    path.join(__dirname, "../node_modules/@govuk-one-login/one-login-analytics/lib"),
+  ),
+);
+
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
 i18next

@@ -1,17 +1,9 @@
-window.DI2 = window.DI2 || {};
+window.DI = window.DI || {};
 
 (function (DI) {
   "use strict";
 
   const cookies = {
-    hasConsentForAnalytics: function () {
-      const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
-      const cookieConsent = JSON.parse(
-        decodeURIComponent(this.getCookie(COOKIES_PREFERENCES_SET)),
-      );
-      return cookieConsent ? cookieConsent.analytics === true : false;
-    },
-
     getCookie: function (name) {
       const nameEQ = name + "=";
       if (document.cookie) {
@@ -52,4 +44,4 @@ window.DI2 = window.DI2 || {};
   };
 
   DI.cookies = cookies;
-})(window.DI2);
+})(window.DI);

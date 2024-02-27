@@ -1,4 +1,4 @@
-window.DI2 = window.DI2 || {};
+window.DI = window.DI || {};
 
 (function (DI) {
   "use strict";
@@ -46,7 +46,7 @@ window.DI2 = window.DI2 || {};
       );
     });
 
-    const hasCookiesPolicy = window.DI2.cookies.getCookie(
+    const hasCookiesPolicy = window.DI.cookies.getCookie(
       COOKIES_PREFERENCES_SET,
     );
     if (!hasCookiesPolicy) {
@@ -55,7 +55,7 @@ window.DI2 = window.DI2 || {};
   }
 
   function setBannerCookieConsent(analyticsConsent, domain) {
-    window.DI2.cookies.setCookie(
+    window.DI.cookies.setCookie(
       COOKIES_PREFERENCES_SET,
       { analytics: analyticsConsent },
       { days: 365 },
@@ -89,4 +89,4 @@ window.DI2 = window.DI2 || {};
   }
 
   DI.cookieBannerInit = cookieBannerInit;
-})(window.DI2);
+})(window.DI);

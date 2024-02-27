@@ -1,6 +1,6 @@
-window.DI2 = window.DI2 || {};
-window.DI2.analyticsGa4 = window.DI2.analyticsGa4 || {};
-window.DI2.analyticsGa4.trackers = window.DI2.analyticsGa4.trackers || {};
+window.DI = window.DI || {};
+window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
+window.DI.analyticsGa4.trackers = window.DI.analyticsGa4.trackers || {};
 
 (function (trackers) {
   "use strict";
@@ -22,8 +22,7 @@ window.DI2.analyticsGa4.trackers = window.DI2.analyticsGa4.trackers || {};
           taxonomy_level2: "pre cri",
         },
       };
-      // window.DI2.core.sendData(data);
-      window.DI.analyticsGa4.pageViewTracker.trackPageOnLoad(data)
+      window.DI.analyticsGa4.pageViewTracker.pushToDataLayer(data);
     },
 
     getLanguage: function () {
@@ -31,7 +30,7 @@ window.DI2.analyticsGa4.trackers = window.DI2.analyticsGa4.trackers || {};
     },
 
     getStatusCode: function () {
-      return window.DI2.httpStatusCode ?? 200;
+      return window.DI.httpStatusCode ?? 200;
     },
 
     getLocation: function () {
@@ -48,4 +47,4 @@ window.DI2.analyticsGa4.trackers = window.DI2.analyticsGa4.trackers || {};
   };
 
   trackers.PageViewTracker = PageViewTracker;
-})(window.DI2.analyticsGa4.trackers);
+})(window.DI.analyticsGa4.trackers);

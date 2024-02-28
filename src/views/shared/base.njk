@@ -116,14 +116,18 @@
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
-    <script nonce='{{ cspNonce }}' src="/ga4-assets/analytics.js"></script>
     <script nonce='{{ cspNonce }}'>
+        window.DI = window.DI || {};
         window.DI.httpStatusCode = {{ statusCode | d(200) }};
         window.DI.journeyState = "{{ googleTagManagerPageId }}";
+        
         window.DI.appInit({
-            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
-            uaContainerId: "{{ uaContainerId }}",
             ga4ContainerId: "{{ ga4ContainerId }}",
-        });
+            uaContainerId: "{{ uaContainerId }}",
+        }, {
+        disableGa4Tracking: {{isGa4Disabled}},
+        disableUaTracking: {{isUaDisabled}},
+        cookieDomain: "{{analyticsCookieDomain}}"
+      });
     </script>
 {% endblock %}

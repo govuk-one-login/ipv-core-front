@@ -6,6 +6,8 @@ const {
   CDN_PATH,
   CONTACT_URL,
   SERVICE_URL,
+  UA_DISABLED,
+  GA4_DISABLED,
 } = require("./config");
 const { generateNonce } = require("./strings");
 
@@ -14,6 +16,8 @@ module.exports = {
     res.locals.uaContainerId = GTM_ID;
     res.locals.ga4ContainerId = GTM_ID_GA4;
     res.locals.cspNonce = generateNonce();
+    res.locals.isGa4Disabled = UA_DISABLED;
+    res.locals.isUaDisabled = GA4_DISABLED;
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
     res.locals.assetPath = CDN_DOMAIN + "/assets";

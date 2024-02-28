@@ -25,6 +25,8 @@ module.exports = {
   GTM_ID: process.env.GTM_ID,
   GTM_ID_GA4: process.env.GTM_ID_GA4,
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
+  GA4_DISABLED: process.env.GA4_DISABLED,
+  UA_DISABLED: process.env.UA_DISABLED,
   CDN_PATH: process.env.CDN_PATH,
   CDN_DOMAIN: process.env.CDN_DOMAIN,
   CONTACT_URL: process.env.CONTACT_URL,

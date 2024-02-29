@@ -2,6 +2,7 @@ require("express");
 require("express-async-errors");
 const path = require("path");
 const session = require("express-session");
+const UAParser = require("ua-parser-js");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
 
@@ -127,6 +128,14 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+app.use((req, res, next) => {
+  const parser = new UAParser(req.headers['user-agent'])
+  let parserResults = parser.getDevice()
+
+  req.userDevice = parserResults['type']
+  next();
+})
 
 app.use((req, res, next) => {
   req.log = logger.child({

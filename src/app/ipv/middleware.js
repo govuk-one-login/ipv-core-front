@@ -271,6 +271,8 @@ module.exports = {
             renderOptions.pageErrorState = req.query.errorState;
           }
 
+          console.log(req.userDevice)
+
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {

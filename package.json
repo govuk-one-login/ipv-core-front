@@ -71,10 +71,12 @@
     "i18next-fs-backend": "^2.3.1",
     "i18next-http-middleware": "^3.5.0",
     "jsonwebtoken": "9.0.2",
+    "npm": "^10.5.0",
     "nunjucks": "3.2.4",
     "pino": "8.19.0",
     "pino-http": "9.0.0",
-    "sanitize-filename": "^1.6.3"
+    "sanitize-filename": "^1.6.3",
+    "ua-parser-js": "^1.0.37"
   },
   "overrides": {
     "@babel/traverse": "^7.23.9",

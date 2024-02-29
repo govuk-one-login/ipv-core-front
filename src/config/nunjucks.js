@@ -16,6 +16,11 @@ module.exports = {
       return translate(key, options);
     });
 
+    nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
+      const translate = i18next.getFixedT("en");
+      return translate(key, options);
+    });
+
     nunjucksEnv.addFilter(
       "translateWithContext",
       function (key, context, options) {

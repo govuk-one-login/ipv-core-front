@@ -1,7 +1,5 @@
 // Globally disable second clicks on the continue button for radio button pages,
 // But allow onSubmit scripts to overwrite this global behaviour
-window.DI = window.DI || {};
-
 let disableSubmit = false;
 
 const manageFormClicks = document.querySelectorAll("form");

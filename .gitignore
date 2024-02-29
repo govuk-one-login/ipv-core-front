@@ -101,6 +101,7 @@ dist
 # IDE files
 .idea
 .DS_Store
+.vscode
 
 # Ignore template written by dev-deploy tool
 deploy/core-front-*.yaml

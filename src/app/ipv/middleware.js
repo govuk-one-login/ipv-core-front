@@ -271,7 +271,13 @@ module.exports = {
             renderOptions.pageErrorState = req.query.errorState;
           }
 
-          console.log(req.userDevice)
+          // If we can have a dynamic page for mobile/desktop
+          // otherwise we will need to think about where we want to handle the different journeys (handleJourneyResponse etc.)
+          console.log(req.isMobileUser)
+
+          if (req.isMobileUser) {
+            context = "mobile"
+          }
 
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }

@@ -129,11 +129,14 @@ app.use((req, res, next) => {
   }
 });
 
+// We will probably want to refactor and extract this, maybe some of the other middleware helpers as well in this file
+// as it's getting a bit messy
 app.use((req, res, next) => {
   const parser = new UAParser(req.headers['user-agent'])
   let parserResults = parser.getDevice()
-
-  req.userDevice = parserResults['type']
+  
+  // A desktop/tablet user will show parserResults["type"] as undefined, we can only pick out mobile users.
+  req.isMobileUser = parserResults['type'] === "mobile"
   next();
 })
 

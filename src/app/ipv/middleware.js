@@ -400,7 +400,7 @@ module.exports = {
           pageId: req.session.currentPage,
           csrfToken: req.csrfToken(),
           pageErrorState: true,
-          context
+          context,
         });
       } else {
         next();

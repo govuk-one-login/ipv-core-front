@@ -140,8 +140,8 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
-      ga4Disabled: true
-      uaDisabled: true
+      ga4Disabled: false
+      uaDisabled: false
       assetsDomain: "https://assets.staging.account.gov.uk"
       assetsPath: "https://assets.staging.account.gov.uk/core-front"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
@@ -160,7 +160,7 @@ Mappings:
       nodeEnv: "production"
       desiredTaskCount: 1
       ga4Disabled: true
-      uaDisabled: true
+      uaDisabled: false
       assetsDomain: "https://assets.integration.account.gov.uk"
       assetsPath: "https://assets.integration.account.gov.uk/core-front"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
@@ -179,7 +179,7 @@ Mappings:
       nodeEnv: "production"
       desiredTaskCount: 2
       ga4Disabled: true
-      uaDisabled: true
+      uaDisabled: false
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"

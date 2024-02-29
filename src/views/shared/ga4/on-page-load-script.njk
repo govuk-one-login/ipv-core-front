@@ -1,0 +1,21 @@
+<script {% if params.cspNonce%} nonce='{{ params.cspNonce }}'{% endif %}>
+    window.addEventListener('load', function () {
+        console.log("trackOnPageLoad")
+        window
+            .DI
+            .analyticsGa4
+            .pageViewTracker
+            .trackOnPageLoad({
+                language: document.querySelector("html")?.getAttribute("lang"),
+                location: document.location.href?.toLowerCase(),
+                organisations: "<OT1056>",
+                primary_publishing_organisation:
+                    "government digital service - digital identity",
+                status_code: window.DI.httpStatusCode ?? 200,
+                title: document.title?.toLowerCase(),
+                referrer: document.referrer?.toLowerCase();,
+                taxonomy_level1: "web cri",
+                taxonomy_level2: "pre cri",
+            });
+    });
+</script>

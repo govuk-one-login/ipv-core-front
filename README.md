@@ -25,6 +25,9 @@ In your IDE set up a run configuration that starts `src/app.js` and use that (or
 To get live updating of styles run `npm run watch-sass`
 Changes to the govuk-frontend library, translations, or images require you to run `npm run build` again.
 
+### Analytics
+https://www.npmjs.com/package/@govuk-one-login/one-login-analytics
+
 ### Configuring core-back to work with a local core-front
 In the core common infra repository dev-deploy documentation there are instructions on how to configure your dev
 stack to work with a locally running core-front.

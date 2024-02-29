@@ -120,7 +120,7 @@
         window.DI = window.DI || {};
         window.DI.httpStatusCode = {{ statusCode | d(200) }};
         window.DI.journeyState = "{{ googleTagManagerPageId }}";
-        
+
         window.DI.appInit({
             ga4ContainerId: "{{ ga4ContainerId }}",
             uaContainerId: "{{ uaContainerId }}",
@@ -130,4 +130,5 @@
         cookieDomain: "{{analyticsCookieDomain}}"
       });
     </script>
+    {{ ga4OnPageLoad({cspNonce}) }}
 {% endblock %}

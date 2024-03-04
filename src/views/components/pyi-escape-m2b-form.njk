@@ -3,26 +3,26 @@
 <form id="pyiEscapeM2bForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radioOptions = [
-              {
-                value: "end",
-                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
-              },
-              {
-                value: "next",
-                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
-              }
+        {
+          value: "end",
+          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
+        },
+        {
+          value: "next",
+          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
+        },
+        {
+          divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "next/bank-account",
+          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
+        }
+      ] %}
 
-            ] %}
-
-        {% if context !== "abandon" %}
-          {% set radioOptions = radioOptions.concat([{
-                  divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
-                },
-                {
-                  value: "next/bank-account",
-                  text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
-                }]) %}
-        {% endif %}          
+    {% if context === "abandon" %}
+      {% set radioOptions = radioOptions.slice(0, -2) %}
+    {% endif %}          
 
     {% set radiosConfig = {
           idPrefix: "journey",

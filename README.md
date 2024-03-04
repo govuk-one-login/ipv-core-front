@@ -37,14 +37,15 @@ npm install
 
 The following environment variables are used in the project:
 
-| Variable Name             | Description                                              | Default Value  |
-|---------------------------|----------------------------------------------------------|----------------|
-| `BASE_URL`                | Externally accessible base URL of the webserver. Used to generate callback URLs for the credential issuer OAuth (Open Authorization) flows. | -         |
-| `API_BASE_URL`            | Specifies the base host of the backend API. It is used by the application to make requests to the backend services.                         | -         |
-| `PORT`                    | Default port to run the webserver on.                    | `3000`         |
-| `EXTERNAL_WEBSITE_HOST`   | Sets the default host used by the application.                                                         |   `http://localhost:8080`                   |
-| `NODE_ENV`                | Specifies the environment where the application will run, for example `local`.                                                   |             -        |
-| `SESSION_SECRET`          | The secret key required for encrypting and decrypting session data.                                                       |             -         |
+| Variable name           | Description                                                    | Default value    |
+|-------------------------|----------------------------------------------------------------|------------------|
+| `API_BASE_URL`          | Specifies the base host of the backend API. It is used by the application to make requests to the backend services.             | -                |
+| `CONTACT_URL`           | URL of the GOV.UK One Login contact form.                               | [`https://home.account.gov.uk/contact-gov-uk-one-login`](https://home.account.gov.uk/contact-gov-uk-one-login)       |
+| `ENABLE_PREVIEW`        | Enables the `dev/all-templates` route to preview individual pages. | `development`  |
+| `EXTERNAL_WEBSITE_HOST` | Sets the default host used by the application.                  | `http://localhost:8080` |
+| `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
+| `PORT`                  | Default port to run the webserver on.                            | `3000`           |
+| `SESSION_SECRET`        | The secret key required for encrypting and decrypting session data.                                                        | -                |
 
 
 ## Running ipv-core-front locally

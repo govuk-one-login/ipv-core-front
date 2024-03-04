@@ -2,8 +2,29 @@
 
 <form id="pyiEscapeM2bForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-        {% if context === "abandon" %}
-          {% set radiosConfig = {
+      {% set radioOptions = [
+              {
+                value: "end",
+                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
+              },
+              {
+                value: "next",
+                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
+              }
+
+            ] %}
+
+        {% if context !== "abandon" %}
+          {% set radioOptions = radioOptions.concat([{
+                  divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
+                },
+                {
+                  value: "next/bank-account",
+                  text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
+                }]) %}
+        {% endif %}          
+
+    {% set radiosConfig = {
           idPrefix: "journey",
           name: "journey",
           fieldset: {
@@ -12,46 +33,8 @@
               classes: "govuk-fieldset__legend--m"
             }
           },
-          items: [
-            {
-              value: "end",
-              text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
-            },
-            {
-              value: "next",
-              text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
-            }
-          ]
+          items: radioOptions
         } %}
-        {% else %}
-          {% set radiosConfig = {
-            idPrefix: "journey",
-            name: "journey",
-            fieldset: {
-              legend: {
-                text: 'pages.pyiEscapeM2b.content.subHeading3' | translate,
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            items: [
-              {
-                value: "end",
-                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
-              },
-              {
-                value: "next",
-                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
-              },
-              {
-                divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
-              },
-              {
-                value: "next/bank-account",
-                text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
-              }
-            ]
-          } %}
-        {% endif %}
 
     {% if errorState %}
       {% set errorMessageObject = { 'text': 'pages.pyiEscapeM2b.content.formErrorMessage.errorRadioMessage' | translate } %}

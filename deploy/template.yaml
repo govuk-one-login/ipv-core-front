@@ -983,6 +983,7 @@ Resources:
 
   ApiGatewayVpcLink:
     Condition: IsDevelopment
+    DependsOn: NetworkLoadBalancerTargetGroup
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer

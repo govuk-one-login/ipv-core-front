@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiInvalidDlSuggestOtherOptions.title' | translate %}
+{% set googleTagManagerPageId = "pyiInvalidDlSuggestOtherOptions" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiInvalidDlSuggestOtherOptions.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiInvalidDlSuggestOtherOptions.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiInvalidDlSuggestOtherOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiInvalidDlSuggestOtherOptions.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiInvalidDlSuggestOtherOptions.content.paragraph1' | translate }}</p>
+
+  <form id="pyiInvalidDlSuggestOtherOptionsForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiInvalidDlSuggestOtherOptionsFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiInvalidDlSuggestOtherOptions.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.continuePassportButtonText' | translate,
+          hint: {text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.continuePassportButtonTextHint' | translate}
+        },
+        {
+          value: "end",
+          text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiInvalidDlSuggestOtherOptions.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
+      {{ 'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+{% endblock %}

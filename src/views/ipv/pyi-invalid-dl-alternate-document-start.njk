@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiInvalidDlAlternateDocumentStart.title' | translate %}
+{% set googleTagManagerPageId = "pyiInvalidDlAlternateDocumentStart" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiInvalidDlAlternateDocumentStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiInvalidDlAlternateDocumentStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiInvalidDlAlternateDocumentStartForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiInvalidDlAlternateDocumentStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiInvalidDlAlternateDocumentStart.content.paragraph1' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ 'pages.pyiInvalidDlAlternateDocumentStart.content.bullet1' | translate | safe }}</li>
+    <li>{{ 'pages.pyiInvalidDlAlternateDocumentStart.content.bullet2' | translate | safe }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiInvalidDlAlternateDocumentStart.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiInvalidDlAlternateDocumentStart.content.paragraph3' | translate | safe }}</p>
+
+  <form id="pyiInvalidDlAlternateDocumentStartForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiInvalidDlAlternateDocumentStart.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.continuePassportButtonText' | translate,
+          hint: {text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.continuePassportButtonTextHint' | translate}
+        },
+        {
+          value: "end",
+          text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiInvalidDlSuggestOtherOptions.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiInvalidDlAlternateDocumentStart.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+{% endblock %}

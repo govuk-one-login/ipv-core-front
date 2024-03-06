@@ -286,7 +286,7 @@
         }
       }
     },
-    "pyiInvalidDlNoMatch": {
+    "pyiDrivingLicenceNoMatch": {
       "title": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
       "header": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
       "content": {
@@ -294,7 +294,7 @@
         "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
       }
     },
-    "pyiInvalidDlSuggestOtherOptions": {
+    "pyiDrivingLicenceNoMatchAnotherWay": {
       "title": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "content": {
@@ -302,7 +302,7 @@
         "subHeading": "Sut hoffech chi barhau?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
         },
@@ -313,7 +313,7 @@
         }
       }
     },
-    "pyiInvalidDlAlternateDocumentStart": {
+    "pyiContinueWithPassport": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",
       "content": {
@@ -325,7 +325,7 @@
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch.",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
         },

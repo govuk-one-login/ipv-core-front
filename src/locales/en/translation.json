@@ -286,7 +286,7 @@
         }
       }
     },
-    "pyiInvalidDlNoMatch": {
+    "pyiDrivingLicenceNoMatch": {
       "title": "Sorry, we could not prove your identity",
       "header": "Sorry, we could not prove your identity",
       "content": {
@@ -294,7 +294,7 @@
         "paragraph2": "You’ll need to prove your identity another way."
       }
     },
-    "pyiInvalidDlSuggestOtherOptions": {
+    "pyiDrivingLicenceNoMatchAnotherWay": {
       "title": "Sorry, you’ll need to prove your identity another way",
       "header": "Sorry, you’ll need to prove your identity another way",
       "content": {
@@ -302,9 +302,9 @@
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID."
+          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -313,7 +313,7 @@
         }
       }
     },
-    "pyiInvalidDlAlternateDocumentStart": {
+    "pyiContinueWithPassport": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",
       "content": {
@@ -325,9 +325,9 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID."
+          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

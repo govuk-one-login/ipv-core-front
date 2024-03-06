@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiDrivingLicenceNoMatchAnotherWay.title' | translate %}
+{% set googleTagManagerPageId = "pyiDrivingLicenceNoMatchAnotherWay" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiDrivingLicenceNoMatchAnotherWayForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiDrivingLicenceNoMatchAnotherWay.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.paragraph1' | translate }}</p>
+
+  <form id="pyiDrivingLicenceNoMatchAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiDrivingLicenceNoMatchAnotherWayFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formRadioButtons.continuePassportButtonText' | translate,
+          hint: {text: 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formRadioButtons.continuePassportButtonTextHint' | translate}
+        },
+        {
+          value: "end",
+          text: 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiDrivingLicenceNoMatchAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
+      {{ 'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+{% endblock %}

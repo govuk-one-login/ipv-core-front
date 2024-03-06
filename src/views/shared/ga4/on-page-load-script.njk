@@ -10,7 +10,7 @@
                 englishPageTitle: '{{ params.englishPageTitle }}',
                 referrer: document.referrer?.toLowerCase(),
                 content_id: "",
-                dynamic: {{ params.isPageDynamic }} ?? false,
+                dynamic: '{{ params.isPageDynamic }}' === 'true',
                 organisations: "<OT1056>",
                 primary_publishing_organisation:
                     "government digital service - digital identity",

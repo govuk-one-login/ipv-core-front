@@ -26,7 +26,7 @@ This guide explains how to:
 ```
 https://github.com/govuk-one-login/ipv-core-front.git
 ```
-1. Change to the `ipv-core-front` folder.
+1. Change into the `ipv-core-front` folder.
 1. Run the following command to install the project dependencies:
 
 ```bash
@@ -153,7 +153,7 @@ This command will install and configure the pre-commit Git hooks.
 
 ### GitHub CODEOWNERS
 
-You can use a [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file to define individuals or teams that are responsible for code in a repository. Github automatically requests reviews from these code owners when someone opens a pull request that modifies the code they own.
+You can use a [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file to define individuals or teams that are responsible for code in a repository. GitHub automatically requests reviews from these code owners when someone opens a pull request that modifies the code they own.
 
 You can find the [`CODEOWNERS` file for ipv-core-front](https://github.com/govuk-one-login/ipv-core-front/blob/main/CODEOWNERS) in the root.
 

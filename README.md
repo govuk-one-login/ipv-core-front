@@ -1,6 +1,6 @@
 # ipv-core-front
 
-This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system. The IPV Core frontend serves as the first user-facing screen within the identity proving journey.
+This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system. The IPV Core frontend is the first user-facing screen in the identity proving journey.
 
 ## Related repositories
 
@@ -15,9 +15,9 @@ ipv-core-front works with the following IPV Core repositories:
 
 This guide explains how to:
 
-* clone the repo and install the dependencies
-* run ipv-core-front locally
-* use pre-commit to verify your commits
+* [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
+* [run ipv-core-front locally](#running-ipv-core-front-locally)
+* [use pre-commit to verify your commits](#using-pre-commit-to-verify-your commits)
 
 ## Cloning and installing ipv-core-front
 
@@ -26,8 +26,8 @@ This guide explains how to:
 ```
 https://github.com/govuk-one-login/ipv-core-front.git
 ```
-
-2. Run the following command to install the project dependencies:
+1. Change to the `ipv-core-front` folder.
+1. Run the following command to install the project dependencies:
 
 ```bash
 npm install

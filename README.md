@@ -17,7 +17,7 @@ This guide explains how to:
 
 * [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
 * [run ipv-core-front locally](#running-ipv-core-front-locally)
-* [use pre-commit to verify your commits](#using-pre-commit-to-verify-your commits)
+* [use pre-commit to verify your commits](#using-pre-commit-to-verify-your-commits)
 
 ## Cloning and installing ipv-core-front
 

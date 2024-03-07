@@ -31,7 +31,7 @@
       {{ 'general.govuk.errorTitlePrefix' | translate }}
       – GOV.UK
     {%- endif %}
-    {%- if pageTitleKey %}{{ pageTitleKey | translateWithContext(context) }} – GOV.UK{% endif %}
+    {%- if pageTitleKey %}{{ pageTitleKey | translateWithContextOrFallback(context) }} – GOV.UK{% endif %}
 {%- endblock %}
 
 {% block bodyStart %}

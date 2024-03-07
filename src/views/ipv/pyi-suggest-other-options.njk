@@ -1,8 +1,9 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pyiSuggestOtherOptions.title' | translate %}
+{% set pageTitleKey = 'pages.pyiSuggestOtherOptions.title'%}
 {% set googleTagManagerPageId = "pyiSuggestOtherOptions" %}
+{% set isPageDynamic = true %}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.pyiSuggestOtherOptions.content.formErrorMessage.errorSummaryTitleText' | translate %}

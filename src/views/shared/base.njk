@@ -3,6 +3,7 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./ga4/on-page-load-macro.njk" import ga4OnPageLoad %}
 
 {% block head %}
 
@@ -30,7 +31,7 @@
       {{ 'general.govuk.errorTitlePrefix' | translate }}
       – GOV.UK
     {%- endif %}
-    {%- if pageTitleName %}{{ pageTitleName }} – GOV.UK{% endif %}
+    {%- if pageTitleKey %}{{ pageTitleKey | translateWithContext(context) }} – GOV.UK{% endif %}
 {%- endblock %}
 
 {% block bodyStart %}
@@ -117,12 +118,21 @@
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
     <script nonce='{{ cspNonce }}'>
+        window.DI = window.DI || {};
         window.DI.httpStatusCode = {{ statusCode | d(200) }};
         window.DI.journeyState = "{{ googleTagManagerPageId }}";
+
         window.DI.appInit({
-            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
-            uaContainerId: "{{ uaContainerId }}",
             ga4ContainerId: "{{ ga4ContainerId }}",
-        });
+            uaContainerId: "{{ uaContainerId }}",
+        }, {
+        disableGa4Tracking: {{isGa4Disabled}},
+        disableUaTracking: {{isUaDisabled}},
+        cookieDomain: "{{analyticsCookieDomain}}"
+      });
     </script>
+    {{ ga4OnPageLoad({
+        cspNonce: cspNonce, 
+        isPageDynamic: isPageDynamic, 
+        englishPageTitle: pageTitleKey | translateToEnglish }) }}
 {% endblock %}

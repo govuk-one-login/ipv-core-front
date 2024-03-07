@@ -34,6 +34,19 @@ module.exports = {
       },
     );
 
+    nunjucksEnv.addFilter(
+      "translateWithContextOrFallback",
+      function (key, context, options) {
+        const translate = i18next.getFixedT(this.ctx.i18n.language);
+
+        const pascalContext = kebabCaseToPascalCase(context);
+
+        const fullKey = key + pascalContext;
+
+        return translate([fullKey, key], options);
+      },
+    );
+
     // allow pushing or adding another attribute to an Object
     nunjucksEnv.addFilter("setAttribute", function (dictionary, key, value) {
       dictionary[key] = value;

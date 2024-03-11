@@ -287,6 +287,56 @@
         }
       }
     },
+    "pyiDrivingLicenceNoMatch": {
+      "title": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "header": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion trwydded yrru cerdyn-llun y DU ddiwethaf.",
+        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
+      }
+    },
+    "pyiDrivingLicenceNoMatchAnotherWay": {
+      "title": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion trwydded yrru cerdyn-llun y DU.",
+        "subHeading": "Sut hoffech chi barhau?",
+        "formRadioButtons": {
+          "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "pyiContinueWithPassport": {
+      "title": "Parhau profi eich hunaniaeth ar-lein",
+      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "content": {
+        "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
+        "bullet1": "oes gennych basbort yn y DU (Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf)",
+        "bullet2": "gallwch ateb rhai cwestiynau diogelwch",
+        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â'ch manylion rhag esgus bod yn chi.",
+        "paragraph3": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiAnotherWay": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",

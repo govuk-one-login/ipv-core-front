@@ -260,6 +260,9 @@ module.exports = {
         case "pyi-f2f-technical":
         case "pyi-escape-m2b":
         case "pyi-kbv-escape-m2b":
+        case "pyi-continue-with-passport":
+        case "pyi-driving-license-no-match":
+        case "pyi-driving-license-no-match-another-way":
         case "pyi-technical": {
           const renderOptions = {
             pageId,

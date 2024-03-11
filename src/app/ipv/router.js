@@ -146,6 +146,20 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
+router.post(
+  "/page/pyi-continue-with-passport",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+router.post(
+  "/page/pyi-driving-license-no-match-another-way",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 module.exports = router;

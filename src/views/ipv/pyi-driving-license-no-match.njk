@@ -1,0 +1,14 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleName = 'pages.pyiDrivingLicenceNoMatch.title' | translate %}
+{% set googleTagManagerPageId = "pyiDrivingLicenceNoMatch" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiDrivingLicenceNoMatch.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiDrivingLicenceNoMatch.content.paragraph1' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.pyiDrivingLicenceNoMatch.content.paragraph2' | translate }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

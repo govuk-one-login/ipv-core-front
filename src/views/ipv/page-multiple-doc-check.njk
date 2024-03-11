@@ -1,13 +1,14 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleName = 'pages.pageMultipleDocCheck.title' | translate %}
+{% set pageTitleKey = 'pages.pageMultipleDocCheck.title' %}
 {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#multipleDocCheckingForm" %}
+{% set isPageDynamic = true %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>

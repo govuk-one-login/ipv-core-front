@@ -1,12 +1,15 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% set pageTitleName = 'pages.pyiNoMatch.title' | translate %}
+{% set pageTitleKey = 'pages.pyiNoMatch.title' %}
 {% set googleTagManagerPageId = "pyiNoMatch" %}
+{% set isPageDynamic = true %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiNoMatch.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph1' | translateWithContext(context) }}</p>
-  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  {% if context !== "nino" %}
+    <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  {% endif %}
   <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translate }}</p>
 

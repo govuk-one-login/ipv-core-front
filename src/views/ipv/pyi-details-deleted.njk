@@ -1,7 +1,8 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% set pageTitleName = 'pages.pyiDetailsDeleted.title' | translate %}
+{% set isPageDynamic = true %}
+{% set pageTitleKey = 'pages.pyiDetailsDeleted.title' %}
 {% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "pyiDetailsDeleted" %}
 

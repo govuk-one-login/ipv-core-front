@@ -32,7 +32,7 @@ jobs:
       - name: npm build assets, zip and sign
         uses: govuk-one-login/github-actions/govuk/upload-assets@main
         with:
-          zip-signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
+          signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
           stack-name: 'core-front'
           destination-bucket-name: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
 
@@ -54,7 +54,7 @@ jobs:
           password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
 
       - name: Deploy SAM app to ECR
-        uses: govuk-one-login/devplatform-upload-action-ecr@1.2.0
+        uses: govuk-one-login/devplatform-upload-action-ecr@1.2.1
         with:
           artifact-bucket-name: ${{ secrets.ARTIFACT_BUCKET_NAME }}
           container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY }}

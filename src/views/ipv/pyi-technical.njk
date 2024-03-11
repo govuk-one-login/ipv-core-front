@@ -1,7 +1,8 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% set pageTitleName = 'pages.pyiTechnical.title' | translate %}
+{% set pageTitleKey = 'pages.pyiTechnical.title' %}
 {% set googleTagManagerPageId = "pyiTechnical" %}
+{% set isPageDynamic = true %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTechnical.header' | translate }}</h1>

@@ -79,6 +79,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      ga4Disabled: false
+      uaDisabled: false
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -96,6 +98,8 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       desiredTaskCount: 1
+      ga4Disabled: false
+      uaDisabled: false
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -117,6 +121,8 @@ Mappings:
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       desiredTaskCount: 2
+      ga4Disabled: false
+      uaDisabled: false
       assetsDomain: "https://assets.build.account.gov.uk"
       assetsPath: "https://assets.build.account.gov.uk/core-front"
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -134,6 +140,8 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       desiredTaskCount: 1
+      ga4Disabled: false
+      uaDisabled: false
       assetsDomain: "https://assets.staging.account.gov.uk"
       assetsPath: "https://assets.staging.account.gov.uk/core-front"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
@@ -151,6 +159,8 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       desiredTaskCount: 1
+      ga4Disabled: true
+      uaDisabled: false
       assetsDomain: "https://assets.integration.account.gov.uk"
       assetsPath: "https://assets.integration.account.gov.uk/core-front"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
@@ -168,6 +178,8 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       desiredTaskCount: 2
+      ga4Disabled: true
+      uaDisabled: false
       assetsDomain: ""
       assetsPath: ""
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
@@ -710,6 +722,16 @@ Resources:
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
                   "" ]
+            - Name: GA4_DISABLED
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - ga4Disabled
+            - Name: UA_DISABLED
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - uaDisabled
             - Name: CDN_PATH
               Value: !FindInMap
                 - EnvironmentConfiguration
@@ -983,6 +1005,7 @@ Resources:
 
   ApiGatewayVpcLink:
     Condition: IsDevelopment
+    DependsOn: NetworkLoadBalancerTargetGroup
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer

@@ -154,7 +154,7 @@ router.post(
   handleJourneyAction,
 );
 router.post(
-  "/page/pyi-driving-license-no-match-another-way",
+  "/page/pyi-driving-licence-no-match-another-way",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,

@@ -2,7 +2,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% set pageTitleKey = 'pages.pyiEscapeM2b.title' %}
+
 {% set googleTagManagerPageId = "pyiEscapeM2b" %}
 
 {% set errorState = pageErrorState %}
@@ -24,46 +26,7 @@
     text: 'pages.pyiEscapeM2b.content.details.text' | translate | safe
   }) }}
 
-  <form id="pyiEscapeM2bForm" action="/ipv/page/{{ pageId }}" method="POST">
-    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    {% set radiosConfig = {
-      idPrefix: "journey",
-      name: "journey",
-      fieldset: {
-        legend: {
-          text: 'pages.pyiEscapeM2b.content.subHeading3' | translate,
-          classes: "govuk-fieldset__legend--m"
-        }
-      },
-      items: [
-        {
-          value: "end",
-          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton1Text' | translate
-        },
-        {
-          value: "next",
-          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton2Text' | translate
-        },
-        {
-          divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
-        },
-        {
-          value: "next/bank-account",
-          text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
-        }
-      ]
-    } %}
-
-    {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.pyiEscapeM2b.content.formErrorMessage.errorRadioMessage' | translate } %}
-      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
-    {% endif %}
-
-    {{ govukRadios(radiosConfig) }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
-  </form>
+  {% include "components/pyi-escape-m2b-form.njk" %}
 
   <p class="govuk-body">
     <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">

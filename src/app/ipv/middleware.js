@@ -393,11 +393,14 @@ module.exports = {
   },
   formRadioButtonChecked: async (req, res, next) => {
     try {
+      const { context } = req?.session || "";
+
       if (req.method === "POST" && req.body.journey === undefined) {
         res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
           pageId: req.session.currentPage,
           csrfToken: req.csrfToken(),
           pageErrorState: true,
+          context,
         });
       } else {
         next();

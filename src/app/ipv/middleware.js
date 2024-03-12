@@ -105,6 +105,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
+    req.session.currentPageStatusCode = backendResponse?.statusCode;
 
     return await saveSessionAndRedirect(
       req,
@@ -274,6 +275,10 @@ module.exports = {
             renderOptions.pageErrorState = req.query.errorState;
           }
 
+          if (req.session.currentPageStatusCode !== undefined) {
+            res.status(req.session.currentPageStatusCode);
+          }
+
           return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
         }
         case "page-ipv-reuse": {
@@ -297,6 +302,8 @@ module.exports = {
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
+    } finally {
+      delete req.session.currentPageStatusCode;
     }
   },
   handleJourneyAction: async (req, res, next) => {

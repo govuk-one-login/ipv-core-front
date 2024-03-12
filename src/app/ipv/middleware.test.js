@@ -98,6 +98,24 @@ describe("journey middleware", () => {
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
+
+    it("should set the status code of the page to render if provided", async function () {
+      const callBack = sinon.stub();
+      callBack
+        .onFirstCall()
+        .returns({ data: { page: "a-page-id", statusCode: 418 } });
+      CoreBackServiceStub.postAction = callBack;
+
+      await middleware.handleJourneyResponse(req, res, "/journey/next");
+
+      expect(CoreBackServiceStub.postAction).to.have.been.calledWith(
+        req,
+        "journey/next",
+      );
+
+      expect(req.session.currentPageStatusCode).to.equal(418);
+      expect(res.redirect).to.have.been.calledWith(`/ipv/page/a-page-id`);
+    });
   });
 
   context("calling the journeyPage endpoint", () => {
@@ -123,6 +141,27 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith(
         "ipv/page-ipv-identity-document-start.njk",
       );
+    });
+
+    it("should set the response status code from a value in the session if present", async () => {
+      req = {
+        id: "1",
+        params: { pageId: "page-ipv-identity-document-start" },
+        csrfToken: sinon.fake(),
+        session: {
+          currentPage: "page-ipv-identity-document-start",
+          currentPageStatusCode: 418,
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page-ipv-identity-document-start.njk",
+      );
+      expect(res.status).to.have.been.calledWith(418);
+      expect(req.session.currentPageStatusCode).to.equal(undefined);
     });
 
     it("should render technical error page when given invalid pageId", async () => {

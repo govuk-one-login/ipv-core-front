@@ -303,9 +303,9 @@
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -326,9 +326,9 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

@@ -303,9 +303,9 @@
         "subHeading": "Sut hoffech chi barhau?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -326,9 +326,9 @@
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

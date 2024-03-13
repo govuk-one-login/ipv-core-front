@@ -305,7 +305,7 @@
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
           "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -328,7 +328,7 @@
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
           "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

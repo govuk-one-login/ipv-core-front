@@ -160,6 +160,13 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
+router.post(
+  "/page/pyi-triage-select-device",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
 router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 module.exports = router;

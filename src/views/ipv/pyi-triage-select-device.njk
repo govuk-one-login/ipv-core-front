@@ -1,0 +1,43 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiTriageSelectDevice.title' | translate %}
+{% set googleTagManagerPageId = "pyiTriageSelectDevice" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiTriageSelectDeviceForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectDevice.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectDevice.content.paragraph1' | translate }}</p>
+
+  <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST" onsubmit="return pyiTriageSelectDeviceFormSubmit()">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "computer-or-tablet",
+          text: 'pages.pyiTriageSelectDevice.content.formRadioButtons.onComputerOrTabletButtonText' | translate
+        },
+        {
+          value: "smartphone",
+          text: 'pages.pyiTriageSelectDevice.content.formRadioButtons.onSmartphoneButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+{% endblock %}

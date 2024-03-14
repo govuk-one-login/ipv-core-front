@@ -314,6 +314,22 @@
         }
       }
     },
+    "pyiTriageSelectDevice": {
+      "title": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
+      "header": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
+      "content": {
+        "paragraph1": "Mae rhai ffyrdd o gadarnhau eich hunaniaeth angen ffôn clyfar. Rhowch wybod i ni beth rydych yn ei ddefnyddio ar hyn o bryd.",
+        "formRadioButtons": {
+          "onComputerOrTabletButtonText": "Ydw, rwyf ar gyfrifiadur neu dabled",
+          "onSmartphoneButtonText": "Na, rwyf ar ddyfais arall"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",

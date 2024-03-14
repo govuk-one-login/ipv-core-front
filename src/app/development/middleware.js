@@ -5,6 +5,7 @@ const {
   samplePersistedUserDetails,
   generateUserDetails,
 } = require("../shared/reuseHelper");
+const { pageRequiresUserDetails } = require("../ipv/middleware");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -56,7 +57,7 @@ async function templatesDisplayGet(req, res) {
     context,
   };
 
-  if (templateId === "page-ipv-reuse") {
+  if (pageRequiresUserDetails(templateId)) {
     renderOptions["userDetails"] = generateUserDetails(
       samplePersistedUserDetails,
       req.i18n,

@@ -493,6 +493,25 @@
         }
       }
     },
+    "pyiConfirmNameDob": {
+      "title": "TEMP You need to confirm your name and date of birth",
+      "header": "TEMP You need to confirm your name and date of birth",
+      "content": {
+        "paragraph1": "TEMP To keep your account secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
+        "summaryListHeading1": "TEMP Name",
+        "summaryListHeading2": "TEMP Date of birth",
+        "radioButtonHeading": "TEMP Are these details correct?",
+        "formRadioButtons": {
+          "yes": "TEMP Yes",
+          "no": "TEMP No - I need to update my name or date of birth"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiDetailsDeleted": {
       "title": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "header": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",

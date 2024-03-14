@@ -247,7 +247,6 @@ module.exports = {
         );
       }
 
-
       if (!isValidPage(pageId)) {
         return res.render("ipv/pyi-technical.njk");
       } else if (pageRequiresUserDetails(pageId)) {

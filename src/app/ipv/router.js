@@ -46,13 +46,6 @@ router.post(
   handleMultipleDocCheck,
 );
 router.post(
-  "/page/pyi-escape",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,

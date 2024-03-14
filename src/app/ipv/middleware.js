@@ -26,7 +26,7 @@ const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 
-const directoryPath = __dirname + "/../../views/ipv";
+const directoryPath = path.join(__dirname + "/../../views/ipv/page");
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -147,7 +147,7 @@ function checkForSessionId(req, res) {
 
     req.session.currentPage = "pyi-technical";
     res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render("ipv/pyi-technical.njk", {
+    return res.render("ipv/page/pyi-technical.njk", {
       context: "unrecoverable",
     });
   }
@@ -180,7 +180,7 @@ function isValidPage(pageId) {
 
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
-    res.render("ipv/pyi-attempt-recovery.njk", {
+    res.render("ipv/page/pyi-attempt-recovery.njk", {
       csrfToken: req.csrfToken(),
     });
   },
@@ -223,12 +223,12 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-technical";
-        return res.render(`ipv/${req.session.currentPage}.njk`, {
+        return res.render(`ipv/page/${req.session.currentPage}.njk`, {
           context: "unrecoverable",
         });
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+        return res.render(`ipv/page/${req.session.currentPage}.njk`);
       } else if (req.session.currentPage !== pageId) {
         logError(
           req,
@@ -248,25 +248,25 @@ module.exports = {
       }
 
       if (!isValidPage(pageId)) {
-        return res.render("ipv/pyi-technical.njk");
-      } else if (pageRequiresUserDetails(pageId)) {
+        return res.render("ipv/page/pyi-technical.njk");
+      }
+
+      const renderOptions = {
+        pageId,
+        csrfToken: req.csrfToken(),
+        context,
+      };
+
+      if (pageRequiresUserDetails(pageId)) {
         const userDetailsResponse =
           await coreBackService.getProvenIdentityUserDetails(req);
         const userDetails = generateUserDetails(userDetailsResponse, req.i18n);
 
-        return res.render(`ipv/${sanitize(pageId)}.njk`, {
+        return res.render(`ipv/page/${sanitize(pageId)}.njk`, {
+          ...renderOptions,
           userDetails,
-          pageId,
-          csrfToken: req.csrfToken(),
-          context,
         });
       } else {
-        const renderOptions = {
-          pageId,
-          csrfToken: req.csrfToken(),
-          context,
-        };
-
         if (req.query?.errorState !== undefined) {
           renderOptions.pageErrorState = req.query.errorState;
         }
@@ -275,7 +275,7 @@ module.exports = {
           res.status(req.session.currentPageStatusCode);
         }
 
-        return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
+        return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
       }
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
@@ -295,7 +295,7 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {
+        return res.render("ipv/page/pyi-technical.njk", {
           context: "unrecoverable",
         });
       }
@@ -362,7 +362,7 @@ module.exports = {
       const { context } = req?.session || "";
 
       if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
+        res.render(`ipv/page/${sanitize(req.session.currentPage)}.njk`, {
           pageId: req.session.currentPage,
           csrfToken: req.csrfToken(),
           pageErrorState: true,

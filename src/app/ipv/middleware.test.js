@@ -139,7 +139,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/page-ipv-identity-document-start.njk",
+        "ipv/page/page-ipv-identity-document-start.njk",
       );
     });
 
@@ -158,7 +158,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res);
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/page-ipv-identity-document-start.njk",
+        "ipv/page/page-ipv-identity-document-start.njk",
       );
       expect(res.status).to.have.been.calledWith(418);
       expect(req.session.currentPageStatusCode).to.equal(undefined);
@@ -167,26 +167,26 @@ describe("journey middleware", () => {
     it("should render technical error page when given invalid pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "../ipv/page-this-is-invalid" },
-        session: { currentPage: "../ipv/page-this-is-invalid" },
+        params: { pageId: "../ipv/page/page-this-is-invalid" },
+        session: { currentPage: "../ipv/page/page-this-is-invalid" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
 
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
       req = {
         id: "1",
         params: { pageId: "pyi-timeout-unrecoverable" },
-        session: { currentPage: "../ipv/page-multiple-doc-check" },
+        session: { currentPage: "../ipv/page/page-multiple-doc-check" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-unrecoverable.njk",
+        "ipv/page/pyi-timeout-unrecoverable.njk",
       );
     });
 
@@ -195,7 +195,7 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: "invalid-page-id" },
         session: {
-          currentPage: "../ipv/page-multiple-doc-check",
+          currentPage: "../ipv/page/page-multiple-doc-check",
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -215,13 +215,13 @@ describe("journey middleware", () => {
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is missing", async () => {
       req = {
         id: "1",
-        params: { pageId: "../ipv/page-multiple-doc-check" },
+        params: { pageId: "../ipv/page/page-multiple-doc-check" },
         session: { currentPage: "page-ipv-success", ipvSessionId: null },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -491,7 +491,7 @@ describe("journey middleware", () => {
 
       await middleware.handleJourneyAction(req, res, next);
       expect(res.status).to.have.been.calledWith(401);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -553,7 +553,7 @@ describe("journey middleware", () => {
       ).to.have.been.calledWith(req);
 
       expect(res.render).to.have.been.calledWith(
-        `ipv/${pageId}.njk`,
+        `ipv/page/${pageId}.njk`,
         sinon.match.has("userDetails", expectedUserDetail),
       );
     });
@@ -563,7 +563,7 @@ describe("journey middleware", () => {
     it("should render attempt recovery page", () => {
       middleware.renderAttemptRecoveryPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-attempt-recovery.njk",
+        "ipv/page/pyi-attempt-recovery.njk",
       );
     });
   });
@@ -664,9 +664,12 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
-        expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
-          context: "unrecoverable",
-        });
+        expect(res.render).to.have.been.calledWith(
+          "ipv/page/pyi-technical.njk",
+          {
+            context: "unrecoverable",
+          },
+        );
       });
     },
   );
@@ -747,9 +750,12 @@ describe("journey middleware", () => {
           "handleCriEscapeAction",
         );
         expect(res.status).to.have.been.calledWith(401);
-        expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
-          context: "unrecoverable",
-        });
+        expect(res.render).to.have.been.calledWith(
+          "ipv/page/pyi-technical.njk",
+          {
+            context: "unrecoverable",
+          },
+        );
       });
     },
   );

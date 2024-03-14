@@ -69,7 +69,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -80,7 +80,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -131,7 +131,7 @@ describe("Error handlers", () => {
 
       journeyEventErrorHandler(err, req, res, next);
 
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
 
     it("should call next with error when there is no pageId", () => {
@@ -161,7 +161,7 @@ describe("Error handlers", () => {
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-recoverable.njk",
+        "ipv/page/pyi-timeout-recoverable.njk",
       );
     });
 

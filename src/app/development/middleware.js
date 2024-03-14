@@ -9,7 +9,7 @@ const { pageRequiresUserDetails } = require("../ipv/middleware");
 
 async function allTemplatesGet(req, res, next) {
   try {
-    const directoryPath = __dirname + "/../../views/ipv";
+    const directoryPath = path.join(__dirname + "/../../views/ipv/page");
 
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
@@ -64,7 +64,7 @@ async function templatesDisplayGet(req, res) {
     );
   }
 
-  return res.render(`ipv/${sanitize(templateId)}.njk`, renderOptions);
+  return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);
 }
 
 // Remove this as part of PYIC-4278

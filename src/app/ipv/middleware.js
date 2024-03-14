@@ -207,10 +207,6 @@ module.exports = {
       const { pageId } = req.params;
       const { context } = req?.session || "";
 
-      if (!isValidPage(pageId)) {
-        return res.render("ipv/pyi-technical.njk");
-      }
-
       // Remove this as part of PYIC-4278
       if (ENABLE_PREVIEW && req.query.preview) {
         return res.redirect("/ipv/all-templates");
@@ -251,7 +247,10 @@ module.exports = {
         );
       }
 
-      if (pageRequiresUserDetails(pageId)) {
+
+      if (!isValidPage(pageId)) {
+        return res.render("ipv/pyi-technical.njk");
+      } else if (pageRequiresUserDetails(pageId)) {
         const userDetailsResponse =
           await coreBackService.getProvenIdentityUserDetails(req);
         const userDetails = generateUserDetails(userDetailsResponse, req.i18n);

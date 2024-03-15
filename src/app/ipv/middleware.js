@@ -26,7 +26,7 @@ const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 
-const directoryPath = path.join(__dirname + "/../../views/ipv/page");
+const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
 const allTemplates = fs
   .readdirSync(directoryPath)

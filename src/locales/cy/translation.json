@@ -493,6 +493,25 @@
         }
       }
     },
+    "pyiUpdateNameDob": {
+      "title": "TEMP Update your name or date of birth",
+      "header": "TEMP Update your name or date of birth",
+      "content": {
+        "paragraph1": "TEMP To update your name or date of birth, you need to contact the GOV.UK One Login team.",
+        "warningText": "TEMP You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "TEMP Warning",
+        "radioButtonHeading": "TEMP What would you like to do?",
+        "formRadioButtons": {
+          "yes": "TEMP Contact the GOV.UK One Login team to update your name or date of birth",
+          "no": "TEMP Go back and check your details again"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiConfirmNameDob": {
       "title": "TEMP You need to confirm your name and date of birth",
       "header": "TEMP You need to confirm your name and date of birth",

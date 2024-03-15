@@ -1,0 +1,60 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set pageTitleKey = 'pages.pyiUpdateNameDob.title' %}
+{% set googleTagManagerPageId = "pyiUpdateNameDob" %}
+{% set isPageDynamic = false %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiUpdateNameDob.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiConfirmNameDob.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiUpdateNameDobActionForm" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiUpdateNameDob.header' | translate }}</h1>
+
+    <p class="govuk-body">{{'pages.pyiUpdateNameDob.content.paragraph1' | translate }}</p>
+
+    {{ govukWarningText({
+        text: 'pages.pyiUpdateNameDob.content.warningText' | translate,
+        iconFallbackText: 'pages.pyiUpdateNameDob.content.warningTextFallback' | translate
+        }) }}   
+
+
+    <form id="pyiUpdateNameDobActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set radiosConfig = {
+            idPrefix: "journey",
+            name: "journey",
+            fieldset: {
+                legend: {
+                    text: 'pages.pyiUpdateNameDob.content.radioButtonHeading' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                    {
+                    value: "next",
+                    text: 'pages.pyiUpdateNameDob.content.formRadioButtons.yes' | translate
+                    },
+                    {
+                    value: "end",
+                    text: 'pages.pyiUpdateNameDob.content.formRadioButtons.no' | translateWithContext(context)
+                    }
+                ]
+        }
+        %}
+
+        {% if errorState %}
+        {% set errorMessageObject = { 'text': 'pages.pyiUpdateNameDob.content.formErrorMessage.errorRadioMessage' | translate } %}
+        {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+        {% endif %}
+        
+        {{ govukRadios(radiosConfig) }}
+        <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+        {{ 'general.buttons.next' | translate }}
+        </button>
+    </form>
+{% endblock %}

@@ -512,6 +512,25 @@
         }
       }
     },
+    "pyiUpdateNameDob": {
+      "title": "Update your name or date of birth",
+      "header": "Update your name or date of birth",
+      "content": {
+        "paragraph1": "To update your name or date of birth, you need to contact the GOV.UK One Login team.",
+        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "Warning",
+        "radioButtonHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "yes": "Contact the GOV.UK One Login team to update your name or date of birth",
+          "no": "Go back and check your details again"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pyiDetailsDeleted": {
       "title": "You have deleted the details in your GOV.UK One Login",
       "header": "You have deleted the details in your GOV.UK One Login",

@@ -26,6 +26,12 @@ const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 
+const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+
+const allTemplates = fs
+  .readdirSync(directoryPath)
+  .map((file) => path.parse(file).name);
+
 async function journeyApi(action, req) {
   if (action.startsWith("/")) {
     action = action.substr(1);
@@ -141,7 +147,7 @@ function checkForSessionId(req, res) {
 
     req.session.currentPage = "pyi-technical";
     res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render("ipv/pyi-technical.njk", {
+    return res.render("ipv/page/pyi-technical.njk", {
       context: "unrecoverable",
     });
   }
@@ -164,9 +170,17 @@ async function handleEscapeAction(req, res, next, actionType) {
   }
 }
 
+function pageRequiresUserDetails(pageId) {
+  return ["page-ipv-reuse", "pyi-confirm-name-dob"].includes(pageId);
+}
+
+function isValidPage(pageId) {
+  return allTemplates.includes(pageId);
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
-    res.render("ipv/pyi-attempt-recovery.njk", {
+    res.render("ipv/page/pyi-attempt-recovery.njk", {
       csrfToken: req.csrfToken(),
     });
   },
@@ -209,12 +223,12 @@ module.exports = {
         );
 
         req.session.currentPage = "pyi-technical";
-        return res.render(`ipv/${req.session.currentPage}.njk`, {
+        return res.render(`ipv/page/${req.session.currentPage}.njk`, {
           context: "unrecoverable",
         });
       } else if (pageId === "pyi-timeout-unrecoverable") {
         req.session.currentPage = "pyi-timeout-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+        return res.render(`ipv/page/${req.session.currentPage}.njk`);
       } else if (req.session.currentPage !== pageId) {
         logError(
           req,
@@ -233,71 +247,35 @@ module.exports = {
         );
       }
 
-      switch (pageId) {
-        case "pyi-new-details":
-        case "pyi-confirm-delete-details":
-        case "pyi-details-deleted":
-        case "pyi-f2f-delete-details":
-        case "page-ipv-identity-document-start":
-        case "page-ipv-identity-postoffice-start":
-        case "page-ipv-bank-account-start":
-        case "page-ipv-success":
-        case "page-face-to-face-handoff":
-        case "page-ipv-pending":
-        case "page-pre-experian-kbv-transition":
-        case "page-dcmaw-success":
-        case "page-multiple-doc-check":
-        case "pyi-attempt-recovery":
-        case "pyi-no-match":
-        case "pyi-escape":
-        case "pyi-cri-escape":
-        case "pyi-cri-escape-no-f2f":
-        case "pyi-suggest-other-options":
-        case "pyi-suggest-other-options-no-f2f":
-        case "pyi-post-office":
-        case "pyi-another-way":
-        case "pyi-timeout-recoverable":
-        case "pyi-timeout-unrecoverable":
-        case "pyi-f2f-technical":
-        case "pyi-escape-m2b":
-        case "pyi-kbv-escape-m2b":
-        case "pyi-continue-with-passport":
-        case "pyi-driving-licence-no-match":
-        case "pyi-driving-licence-no-match-another-way":
-        case "pyi-technical": {
-          const renderOptions = {
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          };
+      if (!isValidPage(pageId)) {
+        return res.render("ipv/page/pyi-technical.njk");
+      }
 
-          if (req.query?.errorState !== undefined) {
-            renderOptions.pageErrorState = req.query.errorState;
-          }
+      const renderOptions = {
+        pageId,
+        csrfToken: req.csrfToken(),
+        context,
+      };
 
-          if (req.session.currentPageStatusCode !== undefined) {
-            res.status(req.session.currentPageStatusCode);
-          }
+      if (pageRequiresUserDetails(pageId)) {
+        const userDetailsResponse =
+          await coreBackService.getProvenIdentityUserDetails(req);
+        const userDetails = generateUserDetails(userDetailsResponse, req.i18n);
 
-          return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
+        return res.render(`ipv/page/${sanitize(pageId)}.njk`, {
+          ...renderOptions,
+          userDetails,
+        });
+      } else {
+        if (req.query?.errorState !== undefined) {
+          renderOptions.pageErrorState = req.query.errorState;
         }
-        case "page-ipv-reuse": {
-          const userDetailsResponse =
-            await coreBackService.getProvenIdentityUserDetails(req);
-          const userDetails = generateUserDetails(
-            userDetailsResponse,
-            req.i18n,
-          );
 
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            userDetails,
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          });
+        if (req.session.currentPageStatusCode !== undefined) {
+          res.status(req.session.currentPageStatusCode);
         }
-        default:
-          return res.render(`ipv/pyi-technical.njk`);
+
+        return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
       }
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
@@ -317,7 +295,7 @@ module.exports = {
 
         req.session.currentPage = "pyi-technical";
         res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {
+        return res.render("ipv/page/pyi-technical.njk", {
           context: "unrecoverable",
         });
       }
@@ -379,34 +357,12 @@ module.exports = {
       featureSet: req.session.featureSet,
     });
   },
-  allTemplates: async (req, res, next) => {
-    try {
-      const directoryPath = __dirname + "/../../views/ipv";
-
-      fs.readdir(directoryPath, function (err, files) {
-        if (err) {
-          return next(err);
-        }
-
-        // Remove the .njk extension from file names
-        const templatesWithoutExtension = files.map(
-          (file) => path.parse(file).name,
-        );
-
-        res.render("ipv/all-templates.njk", {
-          allTemplates: templatesWithoutExtension,
-        });
-      });
-    } catch (error) {
-      next(error);
-    }
-  },
   formRadioButtonChecked: async (req, res, next) => {
     try {
       const { context } = req?.session || "";
 
       if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
+        res.render(`ipv/page/${sanitize(req.session.currentPage)}.njk`, {
           pageId: req.session.currentPage,
           csrfToken: req.csrfToken(),
           pageErrorState: true,
@@ -435,4 +391,5 @@ module.exports = {
   handleJourneyResponse,
   handleBackendResponse,
   handleEscapeAction,
+  pageRequiresUserDetails,
 };

@@ -1,0 +1,71 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set pageTitleKey = 'pages.pyiConfirmAddress.title' %}
+{% set googleTagManagerPageId = "pyiConfirmAddress" %}
+{% set isPageDynamic = false %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiConfirmAddress.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiConfirmNameDob.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiConfirmAddressActionForm" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmAddress.header' | translate }}</h1>
+
+    <p class="govuk-body">{{'pages.pyiConfirmAddress.content.paragraph1' | translate }}</p>
+
+    {% set rows = [
+        {
+            key: {
+                text: 'pages.pyiConfirmAddress.content.summaryListHeading1' | translate
+            },
+            value: {
+                text: userDetails.addresses[0].addressDetailHtml | safe
+            }
+        }
+    ] %}
+
+    {{ govukSummaryList({
+        rows: rows
+    }) }}
+
+
+    <form id="pyiConfirmAddressActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set radiosConfig = {
+            idPrefix: "journey",
+            name: "journey",
+            fieldset: {
+                legend: {
+                    text: 'pages.pyiConfirmAddress.content.radioButtonHeading' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                    {
+                    value: "next",
+                    text: 'pages.pyiConfirmAddress.content.formRadioButtons.yes' | translate
+                    },
+                    {
+                    value: "end",
+                    text: 'pages.pyiConfirmAddress.content.formRadioButtons.no' | translateWithContext(context)
+                    }
+                ]
+        }
+        %}
+
+        {% if errorState %}
+        {% set errorMessageObject = { 'text': 'pages.pyiConfirmAddress.content.formErrorMessage.errorRadioMessage' | translate } %}
+        {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+        {% endif %}
+
+        {{ govukRadios(radiosConfig) }}
+        <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+        {{ 'general.buttons.next' | translate }}
+        </button>
+    </form>
+{% endblock %}

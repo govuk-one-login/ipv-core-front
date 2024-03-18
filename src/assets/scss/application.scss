@@ -99,3 +99,25 @@
 .govuk-btn-link:hover {
   background: none;
 }
+
+// Mostly copied from F2F CRI styling https://github.com/govuk-one-login/ipv-cri-f2f-front/blob/8c05ac2b93cbe92113de5877f29b4101cc4e2b15/src/assets/scss/application.scss#L129
+.circle {
+  display: inline-block;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  line-height: 10px;
+  padding: 10px;
+  background: govuk-colour("black");
+  border: 3px solid govuk-colour("black");
+  color: govuk-colour("white");
+  text-align: center;
+  text-indent: -16%;
+  margin-right: 6px;
+
+  @include govuk-font($size: false)
+}
+
+.circle + h2 {
+  display: inline-block;
+}

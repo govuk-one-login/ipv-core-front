@@ -818,6 +818,33 @@
           "errorRadioMessage": "Select yes if you have photo ID you can use at a Post Office"
         }
       }
+    },
+    "pyiTriageDesktopDownload": {
+      "title": "How to prove your identity with the GOV.UK One Login app",
+      "header": "How to prove your identity with the GOV.UK One Login app",
+      "section1": {
+        "circle": "1",
+        "heading": "Download and open the GOV.UK One Login app",
+        "paragraph1": "To download the app, scan the QR code below with your camera. If you already have the app installed, open it now.",
+        "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
+        "qrCodeAlt": "QR code to download the app",
+        "details1": {
+          "summaryText": "How do I scan a QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details2": {
+          "summaryText": "What if I cannot scan the QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        }
+      },
+      "section2": {
+        "circle": "2",
+        "heading": "Come back here when you're done using the app",
+        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
+      }
     }
   }
 }

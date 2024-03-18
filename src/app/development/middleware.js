@@ -6,6 +6,7 @@ const {
   generateUserDetails,
 } = require("../shared/reuseHelper");
 const { pageRequiresUserDetails } = require("../ipv/middleware");
+const qrCodeHelper = require("../shared/qrCodeHelper");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -62,6 +63,10 @@ async function templatesDisplayGet(req, res) {
       samplePersistedUserDetails,
       req.i18n,
     );
+  }
+
+  if (templateId === "pyi-triage-desktop-download-app") {
+    renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData("https://bbc.co.uk");
   }
 
   return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);

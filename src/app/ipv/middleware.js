@@ -303,11 +303,8 @@ module.exports = {
           context: "unrecoverable",
         });
       }
-      if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "journey/end");
-      } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "journey/attempt-recovery");
-      } else if (req.body?.journey === "build-client-oauth-response") {
+
+    if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
@@ -316,9 +313,12 @@ module.exports = {
           res,
           "journey/build-client-oauth-response",
         );
+      } else if (req.body?.journey) {
+        await handleJourneyResponse(req, res, "journey/" + req.body?.journey);
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }
+
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
       next(error);

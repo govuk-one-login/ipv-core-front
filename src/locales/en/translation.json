@@ -493,6 +493,24 @@
         }
       }
     },
+    "pyiConfirmAddress": {
+      "title": "You need to confirm your address",
+      "header": "You need to confirm your address",
+      "content": {
+        "paragraph1": "To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "summaryListHeading1": "Current home address",
+        "radioButtonHeading": "Is this your current address?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No - I need to update it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiConfirmNameDob": {
       "title": "You need to confirm your name and date of birth",
       "header": "You need to confirm your name and date of birth",

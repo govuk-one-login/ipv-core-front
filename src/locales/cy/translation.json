@@ -315,18 +315,18 @@
       }
     },
     "pyiTriageSelectDevice": {
-      "title": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
-      "header": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
+      "title": "Are you on a computer or tablet right now?",
+      "header": "Are you on a computer or tablet right now?",
       "content": {
-        "paragraph1": "Mae rhai ffyrdd o gadarnhau eich hunaniaeth angen ffôn clyfar. Rhowch wybod i ni beth rydych yn ei ddefnyddio ar hyn o bryd.",
+        "paragraph1": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
         "formRadioButtons": {
-          "onComputerOrTabletButtonText": "Ydw, rwyf ar gyfrifiadur neu dabled",
-          "onSmartphoneButtonText": "Na, rwyf ar ddyfais arall"
+          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
+          "onSmartphoneButtonText": "No, I am on a smartphone"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
         }
       }
     },

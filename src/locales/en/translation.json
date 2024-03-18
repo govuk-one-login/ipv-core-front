@@ -325,8 +325,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
         }
       }
     },

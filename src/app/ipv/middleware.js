@@ -302,7 +302,7 @@ module.exports = {
           req.i18n,
         );
       } else if (pageId === "pyi-triage-desktop-download-app") {
-        // TODO PYIC-4816: Use the actual device type selected on a previous page.
+        // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl =
           SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
         renderOptions.qrCode =

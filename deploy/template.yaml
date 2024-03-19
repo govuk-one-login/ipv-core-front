@@ -663,9 +663,9 @@ Resources:
                     Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
                   Environment: !Ref Environment
             - Name: APP_STORE_URL_ANDROID
-              Value: "TODO get real value"
+              Value: "get real value"
             - Name: APP_STORE_URL_APPLE
-              Value: "TODO get real value"
+              Value: "get real value"
             - Name: SESSION_TABLE_NAME
               Value: !Sub
                 - "core-front-sessions-${Environment}"

@@ -913,7 +913,7 @@ describe("journey middleware", () => {
       };
     });
 
-    // TODO PYIC-4816 Update tests to get iphone/android from session.
+    // PYIC-4816 Update tests to get iphone/android from session.
     it("sets a qrCode value for the page", async function () {
       req.method = "GET";
       const qrCodeUrl =

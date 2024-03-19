@@ -11,13 +11,15 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectDevice.header' | translate }}</h1>
-  <p class="govuk-hint">{{ 'pages.pyiTriageSelectDevice.content.hint' | translate }}</p>
 
   <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      hint: {
+        text: 'pages.pyiTriageSelectDevice.content.hint' | translate
+      },
       items: [
         {
           value: "computer-or-tablet",
@@ -37,7 +39,8 @@
 
     {{ govukRadios(radiosConfig) }}
     {{ govukButton({
-      "text": button_text|default('general.buttons.next' | translate, true)
+      text: button_text|default('general.buttons.next' | translate, true),
+      preventDoubleClick: true
     }) }}
   </form>
 {% endblock %}

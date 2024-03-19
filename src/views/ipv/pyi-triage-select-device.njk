@@ -11,7 +11,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectDevice.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pyiTriageSelectDevice.content.paragraph1' | translate }}</p>
+  <p class="govuk-hint">{{ 'pages.pyiTriageSelectDevice.content.hint' | translate }}</p>
 
   <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -37,7 +37,7 @@
 
     {{ govukRadios(radiosConfig) }}
     {{ govukButton({
-      "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true)
+      "text": button_text|default('general.buttons.next' | translate, true)
     }) }}
   </form>
 {% endblock %}

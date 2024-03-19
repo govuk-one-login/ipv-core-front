@@ -303,9 +303,9 @@
         "subHeading": "Sut hoffech chi barhau?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -342,9 +342,9 @@
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf",
+          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID"
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -509,6 +509,62 @@
         }
       }
     },
+    "pyiUpdateNameDob": {
+      "title": "TEMP Update your name or date of birth",
+      "header": "TEMP Update your name or date of birth",
+      "content": {
+        "paragraph1": "TEMP To update your name or date of birth, you need to contact the GOV.UK One Login team.",
+        "warningText": "TEMP You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "TEMP Warning",
+        "radioButtonHeading": "TEMP What would you like to do?",
+        "formRadioButtons": {
+          "yes": "TEMP Contact the GOV.UK One Login team to update your name or date of birth",
+          "no": "TEMP Go back and check your details again"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
+    "pyiConfirmAddress": {
+      "title": "TEMP You need to confirm your address",
+      "header": "TEMP You need to confirm your address",
+      "content": {
+        "paragraph1": "TEMP To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "summaryListHeading1": "TEMP Current home address",
+        "radioButtonHeading": "TEMP Is this your current address?",
+        "formRadioButtons": {
+          "yes": "TEMP Yes",
+          "no": "TEMP No - I need to update it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
+    "pyiConfirmNameDob": {
+      "title": "TEMP You need to confirm your name and date of birth",
+      "header": "TEMP You need to confirm your name and date of birth",
+      "content": {
+        "paragraph1": "TEMP To keep your account secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
+        "summaryListHeading1": "TEMP Name",
+        "summaryListHeading2": "TEMP Date of birth",
+        "radioButtonHeading": "TEMP Are these details correct?",
+        "formRadioButtons": {
+          "yes": "TEMP Yes",
+          "no": "TEMP No - I need to update my name or date of birth"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiDetailsDeleted": {
       "title": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "header": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
@@ -660,6 +716,7 @@
       "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
       "content": {
         "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
+        "paragraph1SixMonthFraudCheck": "TEMP We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },

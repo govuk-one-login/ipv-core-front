@@ -39,46 +39,11 @@ router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 router.get("/all-templates", allTemplatesMoved);
 
 router.post(
-  "/page/pyi-new-details",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/pyi-confirm-delete-details",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/page-ipv-identity-document-start",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/page-ipv-identity-postoffice-start",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
   handleMultipleDocCheck,
-);
-router.post(
-  "/page/pyi-escape",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
 );
 router.post(
   "/page/pyi-cri-escape",
@@ -87,20 +52,6 @@ router.post(
   formRadioButtonChecked,
   (req, res, next) =>
     handleEscapeAction(req, res, next, "handleCriEscapeAction"),
-);
-router.post(
-  "/page/pyi-cri-escape-no-f2f",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/pyi-f2f-technical",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
 );
 router.post(
   "/page/pyi-suggest-other-options",
@@ -126,47 +77,11 @@ router.post(
     handleEscapeAction(req, res, next, "handleCriEscapeAction"),
 );
 router.post(
-  "/page/pyi-suggest-other-options-no-f2f",
+  "/page/:pageId",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
   handleJourneyAction,
 );
-router.post(
-  "/page/pyi-post-office",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/page-ipv-bank-account-start",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/pyi-continue-with-passport",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/pyi-driving-licence-no-match-another-way",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post(
-  "/page/pyi-triage-select-device",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  handleJourneyAction,
-);
-router.post("/page/:pageId", parseForm, csrfProtection, handleJourneyAction);
 router.get("/*", updateJourneyState);
 module.exports = router;

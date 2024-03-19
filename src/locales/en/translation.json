@@ -303,9 +303,9 @@
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -342,9 +342,9 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months",
+          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you need to use and find out if they take other types of ID"
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -509,6 +509,62 @@
         }
       }
     },
+    "pyiConfirmAddress": {
+      "title": "You need to confirm your address",
+      "header": "You need to confirm your address",
+      "content": {
+        "paragraph1": "To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "summaryListHeading1": "Current home address",
+        "radioButtonHeading": "Is this your current address?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No - I need to update it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
+    "pyiConfirmNameDob": {
+      "title": "You need to confirm your name and date of birth",
+      "header": "You need to confirm your name and date of birth",
+      "content": {
+        "paragraph1": "To keep your account secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
+        "summaryListHeading1": "Name",
+        "summaryListHeading2": "Date of birth",
+        "radioButtonHeading": "Are these details correct?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No - I need to update my name or date of birth"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
+    "pyiUpdateNameDob": {
+      "title": "Update your name or date of birth",
+      "header": "Update your name or date of birth",
+      "content": {
+        "paragraph1": "To update your name or date of birth, you need to contact the GOV.UK One Login team.",
+        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "Warning",
+        "radioButtonHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "yes": "Contact the GOV.UK One Login team to update your name or date of birth",
+          "no": "Go back and check your details again"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pyiDetailsDeleted": {
       "title": "You have deleted the details in your GOV.UK One Login",
       "header": "You have deleted the details in your GOV.UK One Login",
@@ -602,6 +658,7 @@
       "header": "Continue to the service you want to use",
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
+        "paragraph1SixMonthFraudCheck": "We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },

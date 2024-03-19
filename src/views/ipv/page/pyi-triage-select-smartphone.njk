@@ -75,6 +75,8 @@
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
     {{ govukRadios(radiosConfig) }}
     {{ govukButton({
       "text": button_text|default('general.buttons.next' | translate, true)

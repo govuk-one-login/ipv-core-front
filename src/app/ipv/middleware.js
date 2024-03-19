@@ -17,7 +17,6 @@ const {
   LOG_TYPE_CRI,
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
-  CONTACT_URL,
 } = require("../shared/loggerConstants");
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
@@ -312,7 +311,7 @@ module.exports = {
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "fraud") {
-        await handleJourneyResponse(req, res, "journey/fraud")
+        await handleJourneyResponse(req, res, "journey/fraud");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {

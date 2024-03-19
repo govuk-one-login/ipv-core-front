@@ -17,6 +17,7 @@ const {
   LOG_TYPE_CRI,
   LOG_TYPE_CLIENT,
   LOG_TYPE_PAGE,
+  CONTACT_URL,
 } = require("../shared/loggerConstants");
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
@@ -142,6 +143,22 @@ function tryValidateClientResponse(client) {
 function checkForSessionId(req, res) {
   if (!req.session?.ipvSessionId) {
     const err = new Error("req.ipvSessionId is missing");
+    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+    logError(req, err);
+
+    req.session.currentPage = "pyi-technical";
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    return res.render("ipv/page/pyi-technical.njk", {
+      context: "unrecoverable",
+    });
+  }
+}
+
+function checkForIpvAndOauthSessionId(req, res) {
+  if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
+    const err = new Error(
+      "req.ipvSessionId and req.clientOauthSessionId is missing",
+    );
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
@@ -290,21 +307,9 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
-        const err = new Error(
-          "req.ipvSessionId and req.clientOauthSessionId is missing",
-        );
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
+      checkForIpvAndOauthSessionId(req, res);
 
-        req.session.currentPage = "pyi-technical";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/page/pyi-technical.njk", {
-          context: "unrecoverable",
-        });
-      }
-
-    if (req.body?.journey === "build-client-oauth-response") {
+      if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
@@ -314,11 +319,10 @@ module.exports = {
           "journey/build-client-oauth-response",
         );
       } else if (req.body?.journey) {
-        await handleJourneyResponse(req, res, "journey/" + req.body?.journey);
+        await handleJourneyResponse(req, res, `journey/${req.body?.journey}`);
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }
-
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
       next(error);
@@ -353,6 +357,20 @@ module.exports = {
       }
     } catch (error) {
       transformError(error, "error invoking handleEscapeM2b");
+      next(error);
+    }
+  },
+  handleUpdateNameDobAction: async (req, res, next) => {
+    try {
+      checkForIpvAndOauthSessionId(req, res);
+
+      if (req.body?.journey === "contact") {
+        await saveSessionAndRedirect(req, res, CONTACT_URL);
+      } else {
+        handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleUpdateNameDobAction");
       next(error);
     }
   },

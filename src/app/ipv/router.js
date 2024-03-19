@@ -14,6 +14,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
+  handleUpdateNameDobAction,
 } = require("./middleware");
 
 // Remove this as part of PYIC-4278
@@ -38,6 +39,13 @@ router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 // Remove this as part of PYIC-4278
 router.get("/all-templates", allTemplatesMoved);
 
+router.post(
+  "/page/pyi-update-name-dob",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleUpdateNameDobAction,
+);
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,

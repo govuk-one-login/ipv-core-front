@@ -309,7 +309,13 @@ module.exports = {
     try {
       checkForIpvAndOauthSessionId(req, res);
 
-      if (req.body?.journey === "build-client-oauth-response") {
+      if (req.body?.journey === "end") {
+        await handleJourneyResponse(req, res, "journey/end");
+      } else if (req.body?.journey === "fraud") {
+        await handleJourneyResponse(req, res, "journey/fraud")
+      } else if (req.body?.journey === "attempt-recovery") {
+        await handleJourneyResponse(req, res, "journey/attempt-recovery");
+      } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
@@ -318,8 +324,6 @@ module.exports = {
           res,
           "journey/build-client-oauth-response",
         );
-      } else if (req.body?.journey) {
-        await handleJourneyResponse(req, res, `journey/${req.body?.journey}`);
       } else {
         await handleJourneyResponse(req, res, "journey/next");
       }
@@ -365,9 +369,9 @@ module.exports = {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "contact") {
-        await saveSessionAndRedirect(req, res, CONTACT_URL);
+        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       } else {
-        handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "journey/end");
       }
     } catch (error) {
       transformError(error, "error invoking handleUpdateNameDobAction");

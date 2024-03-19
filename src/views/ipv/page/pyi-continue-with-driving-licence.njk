@@ -11,13 +11,13 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithDrivingLicence.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph1' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph1' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiContinueWithDrivingLicence.content.bullet1' | translate | safe }}</li>
-    <li>{{ 'pages.pyiContinueWithDrivingLicence.content.bullet2' | translate | safe }}</li>
+    <li>{{ 'pages.pyiContinueWithDrivingLicence.content.bullet1' | translate }}</li>
+    <li>{{ 'pages.pyiContinueWithDrivingLicence.content.bullet2' | translate }}</li>
   </ul>
-  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph2' | translate | safe }}</p>
-  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph3' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph3' | translate }}</p>
 
   <form id="pyiContinueWithDrivingLicenceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

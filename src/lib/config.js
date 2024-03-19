@@ -17,8 +17,10 @@ module.exports = {
   API_CRI_CALLBACK: "/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
-  APP_STORE_URL_ANDROID: process.env.APP_STORE_URL_ANDROID || "https://play.google.com/store/apps",
-  APP_STORE_URL_APPLE: process.env.APP_STORE_URL_APPLE || "https://www.apple.com/uk/app-store/",
+  APP_STORE_URL_ANDROID:
+    process.env.APP_STORE_URL_ANDROID || "https://play.google.com/store/apps",
+  APP_STORE_URL_APPLE:
+    process.env.APP_STORE_URL_APPLE || "https://www.apple.com/uk/app-store/",
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 3000,

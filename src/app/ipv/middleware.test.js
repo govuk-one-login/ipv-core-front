@@ -1,7 +1,11 @@
 const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
-const {APP_STORE_URL_APPLE, APP_STORE_URL_ANDROID, SERVICE_URL} = require("../../lib/config");
+const {
+  APP_STORE_URL_APPLE,
+  APP_STORE_URL_ANDROID,
+  SERVICE_URL,
+} = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 
 describe("journey middleware", () => {
@@ -900,7 +904,10 @@ describe("journey middleware", () => {
       req = {
         body: {},
         params: { pageId: "pyi-triage-desktop-download-app" },
-        session: { ipvSessionId: "ipv-session-id", currentPage: "pyi-triage-desktop-download-app" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "pyi-triage-desktop-download-app",
+        },
         csrfToken: sinon.fake(),
         log: { info: sinon.fake(), error: sinon.fake() },
       };
@@ -909,8 +916,12 @@ describe("journey middleware", () => {
     // TODO PYIC-4816 Update tests to get iphone/android from session.
     it("sets a qrCode value for the page", async function () {
       req.method = "GET";
-      const qrCodeUrl = SERVICE_URL + "/app-redirect/" + middleware.CONSTANTS.PHONE_TYPES.IPHONE;
-      const expectedQrCodeData = await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+      const qrCodeUrl =
+        SERVICE_URL +
+        "/app-redirect/" +
+        middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      const expectedQrCodeData =
+        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
       await middleware.handleJourneyPage(req, res, next);
 

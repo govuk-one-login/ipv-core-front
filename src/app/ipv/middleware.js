@@ -37,8 +37,8 @@ const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 const CONSTANTS = {
   PHONE_TYPES: {
     IPHONE: "iphone",
-    ANDROID: "android"
-  }
+    ANDROID: "android",
+  },
 };
 
 const allTemplates = fs
@@ -195,19 +195,22 @@ function isValidPage(pageId) {
   return allTemplates.includes(pageId);
 }
 
-function appStoreRedirect (req, res, next) {
-  const {specifiedPhoneType} = req.params;
+function appStoreRedirect(req, res, next) {
+  const { specifiedPhoneType } = req.params;
 
   try {
     if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.IPHONE) {
-      res.redirect(APP_STORE_URL_APPLE)
+      res.redirect(APP_STORE_URL_APPLE);
     } else if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.ANDROID) {
-      res.redirect(APP_STORE_URL_ANDROID)
+      res.redirect(APP_STORE_URL_ANDROID);
     } else {
       throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
   } catch (error) {
-    transformError(error, `error redirecting to app store for specified phone type ${specifiedPhoneType}`);
+    transformError(
+      error,
+      `error redirecting to app store for specified phone type ${specifiedPhoneType}`,
+    );
     next(error);
   }
 }
@@ -294,12 +297,16 @@ module.exports = {
       if (pageRequiresUserDetails(pageId)) {
         const userDetailsResponse =
           await coreBackService.getProvenIdentityUserDetails(req);
-        renderOptions.userDetails = generateUserDetails(userDetailsResponse, req.i18n);
-
+        renderOptions.userDetails = generateUserDetails(
+          userDetailsResponse,
+          req.i18n,
+        );
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // TODO PYIC-4816: Use the actual device type selected on a previous page.
-        const qrCodeUrl = SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
-        renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+        const qrCodeUrl =
+          SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
+        renderOptions.qrCode =
+          await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else {
         if (req.query?.errorState !== undefined) {
           renderOptions.pageErrorState = req.query.errorState;

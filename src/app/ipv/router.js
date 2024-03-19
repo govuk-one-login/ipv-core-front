@@ -14,7 +14,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
-  appStoreRedirect
+  appStoreRedirect,
 } = require("./middleware");
 
 // Remove this as part of PYIC-4278
@@ -39,7 +39,7 @@ router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 // Remove this as part of PYIC-4278
 router.get("/all-templates", allTemplatesMoved);
 
-router.get("/app-redirect/:specifiedPhoneType", appStoreRedirect)
+router.get("/app-redirect/:specifiedPhoneType", appStoreRedirect);
 
 router.post(
   "/page/page-multiple-doc-check",

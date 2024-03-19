@@ -115,7 +115,7 @@
   text-indent: -16%;
   margin-right: 6px;
 
-  @include govuk-font($size: false)
+  @include govuk-font($size: false);
 }
 
 .circle + h2 {

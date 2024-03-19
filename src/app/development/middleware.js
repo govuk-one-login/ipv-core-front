@@ -66,7 +66,8 @@ async function templatesDisplayGet(req, res) {
   }
 
   if (templateId === "pyi-triage-desktop-download-app") {
-    renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData("https://bbc.co.uk");
+    renderOptions.qrCode =
+      await qrCodeHelper.generateQrCodeImageData("https://bbc.co.uk");
   }
 
   return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);

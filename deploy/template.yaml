@@ -40,6 +40,7 @@ Parameters:
       - CodeDeployDefault.ECSCanary10Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent15Minutes
       - CodeDeployDefault.ECSAllAtOnce
+      - ECSCanary50Percent5Minutes
 
 Conditions:
   IsDevelopment: !Or
@@ -59,8 +60,9 @@ Conditions:
   UseCodeSigning: !Not
     - !Equals [ !Ref CodeSigningConfigArn, "none" ]
   UseCanaryDeployment: !Or
-    - !Condition IsNotDevelopment
-    - !Equals [ !Ref Environment, dev-canary ]
+    # - !Condition IsNotDevelopment
+      - !Equals [ !Ref Environment, dev-canary ]
+      - !Equals [ !Ref Environment, build ]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this

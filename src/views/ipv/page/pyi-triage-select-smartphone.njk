@@ -76,8 +76,8 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
+    {{ govukButton({
+      "text": button_text|default('general.shared.govUKHomepageButtonText' | translate, true)
+    }) }}
   </form>
 {% endblock %}

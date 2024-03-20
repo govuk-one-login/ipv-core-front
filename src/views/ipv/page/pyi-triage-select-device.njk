@@ -1,0 +1,46 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleName = 'pages.pyiTriageSelectDevice.title' %}
+{% set googleTagManagerPageId = "pyiTriageSelectDevice" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiTriageSelectDeviceForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectDevice.header' | translate }}</h1>
+
+  <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      hint: {
+        text: 'pages.pyiTriageSelectDevice.content.hint' | translate
+      },
+      items: [
+        {
+          value: "computer-or-tablet",
+          text: 'pages.pyiTriageSelectDevice.content.formRadioButtons.onComputerOrTabletButtonText' | translate
+        },
+        {
+          value: "smartphone",
+          text: 'pages.pyiTriageSelectDevice.content.formRadioButtons.onSmartphoneButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: submitButton,
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

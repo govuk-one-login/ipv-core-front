@@ -31,6 +31,7 @@ describe("journey middleware", () => {
       send: sinon.fake(),
       render: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
+      locals: { contactUsUrl: "contactUrl" },
     };
     req = {
       session: {
@@ -62,7 +63,7 @@ describe("journey middleware", () => {
     });
 
     it("should have called the network in the correct sequence", async function () {
-      const pageId = "pagetProvenIdentityUserDetailsransition";
+      const pageId = "pageProvenIdentityUserDetailsTransition";
       const eventResponses = [
         {
           data: { journey: "journey/next" },
@@ -604,6 +605,41 @@ describe("journey middleware", () => {
         expect(
           CoreBackServiceStub.postAction.firstCall,
         ).to.have.been.calledWith(req, "journey/end");
+      });
+    },
+  );
+
+  context(
+    "handleUpdateNameDobAction: handling journey action events - 'contact', 'end'",
+    () => {
+      it("should postAction with journey/end", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/end" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleUpdateNameDobAction(req, res, next);
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
+      });
+
+      it("should call saveAndRedirect given 'contact' event", async function () {
+        req = {
+          id: "1",
+          body: { journey: "contact" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleUpdateNameDobAction(req, res, next);
+        expect(res.redirect).to.have.been.calledWith("contactUrl");
       });
     },
   );

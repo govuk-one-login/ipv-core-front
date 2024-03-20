@@ -43,6 +43,8 @@
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphAppendix1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphAppendix2' | translate }}</p>
 
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
   <form id="pyiTriageSelectSmartphoneOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
@@ -74,8 +76,6 @@
       {% set errorMessageObject = { 'text': 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorRadioMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
-
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
     {{ govukRadios(radiosConfig) }}
     {{ govukButton({

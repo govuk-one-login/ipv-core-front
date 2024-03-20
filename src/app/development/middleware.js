@@ -5,8 +5,9 @@ const {
   samplePersistedUserDetails,
   generateUserDetails,
 } = require("../shared/reuseHelper");
-const { pageRequiresUserDetails } = require("../ipv/middleware");
+const { pageRequiresUserDetails, CONSTANTS } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const { SERVICE_URL } = require("../../lib/config");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -66,8 +67,9 @@ async function templatesDisplayGet(req, res) {
   }
 
   if (templateId === "pyi-triage-desktop-download-app") {
-    renderOptions.qrCode =
-      await qrCodeHelper.generateQrCodeImageData("https://bbc.co.uk");
+    renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
+      SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE,
+    );
   }
 
   return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);

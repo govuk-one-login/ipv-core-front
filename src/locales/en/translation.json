@@ -104,12 +104,14 @@
       }
     },
     "pyiNoMatch": {
-      "title": "Sorry, we cannot confirm your identity",
+      "title": "Sorry, we could not confirm your details",
+      "titleSixMonthFraudCheck": "Sorry, we cannot confirm your identity",
       "header": "Sorry, we cannot confirm your identity",
+      "headerSixMonthFraudCheck": "Sorry, we could not confirm your details",
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
-        "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph1Nino": "We could not find a match for your National Insurance number when we checked your details with HMRC.",
+        "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
         "subHeading": "What you can do",
         "paragraph3": "Continue to the service you were trying to use to find out if there are other ways to prove your identity"
@@ -314,6 +316,22 @@
         }
       }
     },
+    "pyiTriageSelectDevice": {
+      "title": "Are you on a computer or tablet right now?",
+      "header": "Are you on a computer or tablet right now?",
+      "content": {
+        "hint": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "formRadioButtons": {
+          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
+          "onSmartphoneButtonText": "No, I am on a smartphone"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",
@@ -327,6 +345,54 @@
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
           "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you want to continue",
+          "errorRadioMessage": "Select how you want to continue"
+        }
+      }
+    },
+    "pyiPassportNoMatch": {
+      "title": "Sorry, we could not prove your identity",
+      "header": "Sorry, we could not prove your identity",
+      "content": {
+        "paragraph1": "We could not find a match when we last checked your UK passport details.",
+        "paragraph2": "You’ll need to prove your identity another way."
+      }
+    },
+    "pyiPassportNoMatchAnotherWay": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your UK passport details.",
+        "subHeading": "How would you like to continue?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead and answer security questions",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "pyiContinueWithDrivingLicence": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
+      "content": {
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK photocard driving licence",
+        "bullet2": "can answer some security questions",
+        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead and answer security questions",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
@@ -531,6 +597,24 @@
         }
       }
     },
+    "pyiConfirmAddress": {
+      "title": "You need to confirm your address",
+      "header": "You need to confirm your address",
+      "content": {
+        "paragraph1": "To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "summaryListHeading1": "Current home address",
+        "radioButtonHeading": "Is this your current address?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No - I need to update it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiConfirmNameDob": {
       "title": "You need to confirm your name and date of birth",
       "header": "You need to confirm your name and date of birth",
@@ -662,6 +746,7 @@
       "header": "Continue to the service you want to use",
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
+        "paragraph1SixMonthFraudCheck": "We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },

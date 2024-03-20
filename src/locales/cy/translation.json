@@ -105,11 +105,13 @@
     },
     "pyiNoMatch": {
       "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
+      "titleSixMonthFraudCheck": "TEMP Sorry, we cannot confirm your identity",
       "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
+      "headerSixMonthFraudCheck": "TEMP Sorry, we could not confirm your details",
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
-        "paragraph1BankAccount": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda’ch banc neu gymdeithas adeiladu",
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
+        "paragraph1BankAccount": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda’ch banc neu gymdeithas adeiladu",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph3": "Parhewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o brofi eich hunaniaeth."
@@ -352,6 +354,22 @@
         "errorRadioMessage": "Select whether you have an iPhone or Android phone"
       }
     },
+    "pyiTriageSelectDevice": {
+      "title": "Are you on a computer or tablet right now?",
+      "header": "Are you on a computer or tablet right now?",
+      "content": {
+        "paragraph1": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "formRadioButtons": {
+          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
+          "onSmartphoneButtonText": "No, I am on a smartphone"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",
@@ -365,6 +383,54 @@
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "pyiPassportNoMatch": {
+      "title": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "header": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion pasbort y DU ddiwethaf.",
+        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
+      }
+    },
+    "pyiPassportNoMatchAnotherWay": {
+      "title": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion pasbort y DU.",
+        "subHeading": "Sut hoffech chi barhau?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "pyiContinueWithDrivingLicence": {
+      "title": "Parhau profi eich hunaniaeth ar-lein",
+      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "content": {
+        "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
+        "bullet1": "oes gennych drydded yrru cerdyn-llun y DU",
+        "bullet2": "gallwch ateb rhai cwestiynau diogelwch",
+        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â'ch manylion rhag esgus bod yn chi.",
+        "paragraph3": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
@@ -550,6 +616,24 @@
         }
       }
     },
+    "pyiConfirmAddress": {
+      "title": "TEMP You need to confirm your address",
+      "header": "TEMP You need to confirm your address",
+      "content": {
+        "paragraph1": "TEMP To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "summaryListHeading1": "TEMP Current home address",
+        "radioButtonHeading": "TEMP Is this your current address?",
+        "formRadioButtons": {
+          "yes": "TEMP Yes",
+          "no": "TEMP No - I need to update it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
     "pyiConfirmNameDob": {
       "title": "TEMP You need to confirm your name and date of birth",
       "header": "TEMP You need to confirm your name and date of birth",
@@ -720,6 +804,7 @@
       "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
       "content": {
         "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
+        "paragraph1SixMonthFraudCheck": "TEMP We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },

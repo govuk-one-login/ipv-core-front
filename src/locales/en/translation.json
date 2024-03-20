@@ -105,9 +105,9 @@
     },
     "pyiNoMatch": {
       "title": "Sorry, we could not confirm your details",
-      "titleSixMonthFraudCheck": "Sorry, we cannot confirm your identity",
+      "titleRepeatFraudCheck": "Sorry, we cannot confirm your identity",
       "header": "Sorry, we cannot confirm your identity",
-      "headerSixMonthFraudCheck": "Sorry, we could not confirm your details",
+      "headerRepeatFraudCheck": "Sorry, we could not confirm your details",
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
         "paragraph1Nino": "We could not find a match for your National Insurance number when we checked your details with HMRC.",
@@ -644,7 +644,7 @@
       "header": "Continue to the service you want to use",
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
-        "paragraph1SixMonthFraudCheck": "We've checked your details, you can now continue to the service you need to use.",
+        "paragraph1RepeatFraudCheck": "We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },

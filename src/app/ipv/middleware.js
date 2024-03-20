@@ -190,22 +190,27 @@ function isValidPage(pageId) {
 }
 
 function appStoreRedirect(req, res, next) {
-  const { specifiedPhoneType } = req.params;
+  // PYIC-4816 - consider whether we should override this with the current request's sniffed device type.
+  // PYIC-4816 - remove the testing iphone default from the line below once we have real values coming through
+  const specifiedPhoneType =
+    req.params.specifiedPhoneType || PHONE_TYPES.IPHONE;
 
   try {
-    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
-      res.redirect(APP_STORE_URL_APPLE);
-    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
-      res.redirect(APP_STORE_URL_ANDROID);
-    } else {
-      throw new Error("Unrecognised phone type: " + specifiedPhoneType);
-    }
+    const url = getAppStoreUrl(specifiedPhoneType);
+    res.redirect(url);
   } catch (error) {
-    transformError(
-      error,
-      `error redirecting to app store for specified phone type ${specifiedPhoneType}`,
-    );
+    transformError(error, `Error redirecting to app store`);
     next(error);
+  }
+}
+
+function getAppStoreUrl(phoneType) {
+  if (phoneType === PHONE_TYPES.IPHONE) {
+    return APP_STORE_URL_APPLE;
+  } else if (phoneType === PHONE_TYPES.ANDROID) {
+    return APP_STORE_URL_ANDROID;
+  } else {
+    throw new Error("Unrecognised phone type: " + phoneType);
   }
 }
 
@@ -300,6 +305,9 @@ module.exports = {
         const qrCodeUrl = SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE;
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+      } else if (pageId === "pyi-triage-mobile-download-app") {
+        // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
+        renderOptions.appDownloadUrl = getAppStoreUrl(PHONE_TYPES.IPHONE);
       } else {
         if (req.query?.errorState !== undefined) {
           renderOptions.pageErrorState = req.query.errorState;

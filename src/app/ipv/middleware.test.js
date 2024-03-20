@@ -930,6 +930,33 @@ describe("journey middleware", () => {
     });
   });
 
+  context("handling pyi-triage-mobile-download-app journey route", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "pyi-triage-mobile-download-app" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "pyi-triage-mobile-download-app",
+        },
+        csrfToken: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+    });
+
+    // PYIC-4816 Update tests to get iphone/android from session.
+    it("sets an appDownloadUrl value for the page", async function () {
+      req.method = "GET";
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-mobile-download-app.njk`,
+        sinon.match.has("appDownloadUrl", APP_STORE_URL_APPLE),
+      );
+    });
+  });
+
   context("redirect to app store", () => {
     beforeEach(() => {
       req = {

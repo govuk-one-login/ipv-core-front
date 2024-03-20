@@ -316,6 +316,44 @@
         }
       }
     },
+    "pyiTriageSelectSmartphone": {
+      "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "content": {
+        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You'll be shown how to download and use the app.",
+        "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
+        "iphone": {
+          "subHeading": "iPhone",
+          "paragraph": "You can use an iPhone if it:",
+          "condition1": "is an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
+          "condition2": "is running iOS13 or higher",
+          "infoLabel": "How do I know which iPhone I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "android": {
+          "subHeading": "Android phone (for example, Samsung or Google Pixel)",
+          "paragraph": "You can use an Android phone if it:",
+          "condition1": "is running Android version 10 or higher",
+          "condition2": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contactless payments",
+          "infoLabel": "How do I know which Android I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "subHeadingSelectSmartphone": "Do you have one of these smartphones?",
+        "formRadioButtons": {
+          "iphoneButtonText": "Yes, I have an iPhone",
+          "androidButtonText": "Yes, I have an Android phone",
+          "neitherButtonText": "No"
+        },
+        "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
+        "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
+        "paragraphAppendix2": "You can also prove your identity in person at a Post Office."
+      },
+      "formErrorMessage": {
+        "errorSummaryTitleText": "There is a problem",
+        "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
+        "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+      }
+    },
     "pyiTriageSelectDevice": {
       "title": "Are you on a computer or tablet right now?",
       "header": "Are you on a computer or tablet right now?",

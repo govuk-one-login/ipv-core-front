@@ -1,0 +1,86 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set pageTitleKey = 'pages.pyiTriageSelectSmartphone.title' %}
+
+{% set googleTagManagerPageId = "pyiTriageSelectSmartphone" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiTriageSelectSmartphoneOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphIntro1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphIntro2' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.iphone.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.iphone.paragraph' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    <li>{{ 'pages.pyiTriageSelectSmartphone.content.iphone.condition1' | translate }}</li>
+    <li>{{ 'pages.pyiTriageSelectSmartphone.content.iphone.condition2' | translate }}</li>
+  </ul>
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageSelectSmartphone.content.iphone.infoLabel' | translate,
+      text: 'pages.pyiTriageSelectSmartphone.content.iphone.infoHtml' | translate( { url: contactUsUrl } ) | safe
+  }) }}
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.android.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.android.paragraph' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    <li>{{ 'pages.pyiTriageSelectSmartphone.content.android.condition1' | translate }}</li>
+    <li>{{ 'pages.pyiTriageSelectSmartphone.content.android.condition2' | translate }}</li>
+  </ul>
+  {{ govukDetails({
+    summaryText: 'pages.pyiTriageSelectSmartphone.content.android.infoLabel' | translate,
+    text: 'pages.pyiTriageSelectSmartphone.content.android.infoHtml' | translate( { url: contactUsUrl } ) | safe
+  }) }}
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.subHeadingAppendix' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphAppendix1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraphAppendix2' | translate }}</p>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <form id="pyiTriageSelectSmartphoneOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiTriageSelectSmartphone.content.subHeadingSelectSmartphone' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "iphone",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.iphoneButtonText' | translate
+        },
+        {
+          value: "android",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.androidButtonText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.neitherButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: submitButton,
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

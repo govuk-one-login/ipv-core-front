@@ -79,7 +79,8 @@
 
     {{ govukRadios(radiosConfig) }}
     {{ govukButton({
-      "text": button_text|default('general.buttons.next' | translate, true)
+      id: submitButton,
+      text: 'general.buttons.next' | translate
     }) }}
   </form>
 {% endblock %}

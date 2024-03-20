@@ -8,10 +8,6 @@ if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
 }
 
-function getServiceDomain() {
-  return process.env.SERVICE_DOMAIN || "localhost";
-}
-
 module.exports = {
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/cri/callback",
@@ -32,5 +28,5 @@ module.exports = {
   CONTACT_URL: process.env.CONTACT_URL,
   SERVICE_URL: process.env.SERVICE_URL,
   TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
-  getServiceDomain,
+  SERVICE_DOMAIN: process.env.SERVICE_DOMAIN || "localhost",
 };

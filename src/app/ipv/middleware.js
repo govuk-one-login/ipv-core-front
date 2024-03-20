@@ -31,15 +31,9 @@ const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
-
-const CONSTANTS = {
-  PHONE_TYPES: {
-    IPHONE: "iphone",
-    ANDROID: "android",
-  },
-};
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -199,9 +193,9 @@ function appStoreRedirect(req, res, next) {
   const { specifiedPhoneType } = req.params;
 
   try {
-    if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.IPHONE) {
+    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
       res.redirect(APP_STORE_URL_APPLE);
-    } else if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.ANDROID) {
+    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
       res.redirect(APP_STORE_URL_ANDROID);
     } else {
       throw new Error("Unrecognised phone type: " + specifiedPhoneType);
@@ -303,8 +297,7 @@ module.exports = {
         );
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
-        const qrCodeUrl =
-          SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
+        const qrCodeUrl = SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE;
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else {
@@ -434,5 +427,4 @@ module.exports = {
   handleEscapeAction,
   pageRequiresUserDetails,
   appStoreRedirect,
-  CONSTANTS,
 };

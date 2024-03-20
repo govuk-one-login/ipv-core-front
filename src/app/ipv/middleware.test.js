@@ -7,6 +7,7 @@ const {
   SERVICE_URL,
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
 
 describe("journey middleware", () => {
   let req;
@@ -916,10 +917,7 @@ describe("journey middleware", () => {
     // PYIC-4816 Update tests to get iphone/android from session.
     it("sets a qrCode value for the page", async function () {
       req.method = "GET";
-      const qrCodeUrl =
-        SERVICE_URL +
-        "/app-redirect/" +
-        middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      const qrCodeUrl = SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 

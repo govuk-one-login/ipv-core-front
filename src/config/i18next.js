@@ -1,4 +1,4 @@
-const { getServiceDomain } = require("../lib/config");
+const { SERVICE_DOMAIN } = require("../lib/config");
 
 module.exports = {
   i18nextConfigurationOptions: function (path) {
@@ -18,7 +18,7 @@ module.exports = {
         caches: ["cookie"],
         ignoreCase: true,
         cookieSecure: true,
-        cookieDomain: getServiceDomain(),
+        cookieDomain: SERVICE_DOMAIN,
         cookieSameSite: "",
       },
     };

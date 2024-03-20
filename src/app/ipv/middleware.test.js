@@ -1,6 +1,12 @@
 const proxyquire = require("proxyquire");
 const { expect } = require("chai");
 const sinon = require("sinon");
+const {
+  APP_STORE_URL_APPLE,
+  APP_STORE_URL_ANDROID,
+  SERVICE_URL,
+} = require("../../lib/config");
+const qrCodeHelper = require("../shared/qrCodeHelper");
 
 describe("journey middleware", () => {
   let req;
@@ -926,6 +932,64 @@ describe("journey middleware", () => {
 
       expect(res.render).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
+    });
+  });
+
+  context("handling pyi-triage-desktop-download-app journey route", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "pyi-triage-desktop-download-app" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "pyi-triage-desktop-download-app",
+        },
+        csrfToken: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+    });
+
+    // PYIC-4816 Update tests to get iphone/android from session.
+    it("sets a qrCode value for the page", async function () {
+      req.method = "GET";
+      const qrCodeUrl =
+        SERVICE_URL +
+        "/app-redirect/" +
+        middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      const expectedQrCodeData =
+        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-desktop-download-app.njk`,
+        sinon.match.has("qrCode", expectedQrCodeData),
+      );
+    });
+  });
+
+  context("redirect to app store", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: {},
+      };
+    });
+
+    it("redirects to the apple store if the user said they have an iphone", async function () {
+      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      req.method = "GET";
+      await middleware.appStoreRedirect(req, res, next);
+
+      expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_APPLE);
+    });
+
+    it("redirects to the android store if the user said they have an android", async function () {
+      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.ANDROID;
+      req.method = "GET";
+      await middleware.appStoreRedirect(req, res, next);
+
+      expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
     });
   });
 });

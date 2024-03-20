@@ -316,6 +316,60 @@
         }
       }
     },
+    "pyiTriageSelectSmartphone": {
+      "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "content": {
+        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You'll be shown how to download and use the app.",
+        "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
+        "iphone": {
+          "subHeading": "iPhone",
+          "paragraph": "You can use an iPhone if it:",
+          "condition1": "is an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
+          "condition2": "is running iOS13 or higher",
+          "infoLabel": "How do I know which iPhone I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "android": {
+          "subHeading": "Android phone (for example, Samsung or Google Pixel)",
+          "paragraph": "You can use an Android phone if it:",
+          "condition1": "is running Android version 10 or higher",
+          "condition2": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contactless payments",
+          "infoLabel": "How do I know which Android I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "subHeadingSelectSmartphone": "Do you have one of these smartphones?",
+        "formRadioButtons": {
+          "iphoneButtonText": "Yes, I have an iPhone",
+          "androidButtonText": "Yes, I have an Android phone",
+          "neitherButtonText": "No"
+        },
+        "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
+        "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
+        "paragraphAppendix2": "You can also prove your identity in person at a Post Office."
+      },
+      "formErrorMessage": {
+        "errorSummaryTitleText": "There is a problem",
+        "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
+        "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+      }
+    },
+    "pyiTriageSelectDevice": {
+      "title": "Are you on a computer or tablet right now?",
+      "header": "Are you on a computer or tablet right now?",
+      "content": {
+        "paragraph1": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "formRadioButtons": {
+          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
+          "onSmartphoneButtonText": "No, I am on a smartphone"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",
@@ -329,6 +383,54 @@
         "formRadioButtons": {
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "pyiPassportNoMatch": {
+      "title": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "header": "Mae'n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion pasbort y DU ddiwethaf.",
+        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
+      }
+    },
+    "pyiPassportNoMatchAnotherWay": {
+      "title": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae'n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy'n cyfateb pan wnaethom wirio'ch manylion pasbort y DU.",
+        "subHeading": "Sut hoffech chi barhau?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
+          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "pyiContinueWithDrivingLicence": {
+      "title": "Parhau profi eich hunaniaeth ar-lein",
+      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "content": {
+        "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
+        "bullet1": "oes gennych drydded yrru cerdyn-llun y DU",
+        "bullet2": "gallwch ateb rhai cwestiynau diogelwch",
+        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â'ch manylion rhag esgus bod yn chi.",
+        "paragraph3": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
           "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
@@ -742,7 +844,7 @@
       }
     },
     "pyiPostOffice": {
-      "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post - GOV.UK One Login",
+      "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "header": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "content": {
         "paragraph1": "Gallwch brofi pwy ydych chi mewn Swyddfa’r Post yn lle hynny.",
@@ -769,6 +871,33 @@
           "errorSummaryDescriptionText": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost",
           "errorRadioMessage": "Dewiswch oes os oes gennych ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa Bost"
         }
+      }
+    },
+    "pyiTriageDesktopDownload": {
+      "title": "How to prove your identity with the GOV.UK One Login app",
+      "header": "How to prove your identity with the GOV.UK One Login app",
+      "section1": {
+        "circle": "1",
+        "heading": "Download and open the GOV.UK One Login app",
+        "paragraph1": "To download the app, scan the QR code below with your camera. If you already have the app installed, open it now.",
+        "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
+        "qrCodeAlt": "QR code to download the app",
+        "details1": {
+          "summaryText": "How do I scan a QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details2": {
+          "summaryText": "What if I cannot scan the QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        }
+      },
+      "section2": {
+        "circle": "2",
+        "heading": "Come back here when you're done using the app",
+        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
     }
   }

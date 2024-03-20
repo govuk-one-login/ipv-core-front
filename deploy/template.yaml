@@ -662,6 +662,10 @@ Resources:
                 - APIGatewayId:
                     Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
                   Environment: !Ref Environment
+            - Name: APP_STORE_URL_ANDROID
+              Value: "https://play.google.com/store/apps/details?id=uk.gov.documentchecking"
+            - Name: APP_STORE_URL_APPLE
+              Value: "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566"
             - Name: SESSION_TABLE_NAME
               Value: !Sub
                 - "core-front-sessions-${Environment}"

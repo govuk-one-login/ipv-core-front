@@ -1,6 +1,11 @@
 const sanitize = require("sanitize-filename");
 
-const { ENABLE_PREVIEW } = require("../../lib/config");
+const {
+  ENABLE_PREVIEW,
+  APP_STORE_URL_ANDROID,
+  APP_STORE_URL_APPLE,
+  SERVICE_URL,
+} = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
@@ -25,8 +30,16 @@ const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
+const qrCodeHelper = require("../shared/qrCodeHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+
+const CONSTANTS = {
+  PHONE_TYPES: {
+    IPHONE: "iphone",
+    ANDROID: "android",
+  },
+};
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -198,6 +211,26 @@ function isValidPage(pageId) {
   return allTemplates.includes(pageId);
 }
 
+function appStoreRedirect(req, res, next) {
+  const { specifiedPhoneType } = req.params;
+
+  try {
+    if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.IPHONE) {
+      res.redirect(APP_STORE_URL_APPLE);
+    } else if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.ANDROID) {
+      res.redirect(APP_STORE_URL_ANDROID);
+    } else {
+      throw new Error("Unrecognised phone type: " + specifiedPhoneType);
+    }
+  } catch (error) {
+    transformError(
+      error,
+      `error redirecting to app store for specified phone type ${specifiedPhoneType}`,
+    );
+    next(error);
+  }
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
     res.render("ipv/page/pyi-attempt-recovery.njk", {
@@ -280,12 +313,16 @@ module.exports = {
       if (pageRequiresUserDetails(pageId)) {
         const userDetailsResponse =
           await coreBackService.getProvenIdentityUserDetails(req);
-        const userDetails = generateUserDetails(userDetailsResponse, req.i18n);
-
-        return res.render(`ipv/page/${sanitize(pageId)}.njk`, {
-          ...renderOptions,
-          userDetails,
-        });
+        renderOptions.userDetails = generateUserDetails(
+          userDetailsResponse,
+          req.i18n,
+        );
+      } else if (pageId === "pyi-triage-desktop-download-app") {
+        // PYIC-4816: Use the actual device type selected on a previous page.
+        const qrCodeUrl =
+          SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
+        renderOptions.qrCode =
+          await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else {
         if (req.query?.errorState !== undefined) {
           renderOptions.pageErrorState = req.query.errorState;
@@ -294,9 +331,9 @@ module.exports = {
         if (req.session.currentPageStatusCode !== undefined) {
           res.status(req.session.currentPageStatusCode);
         }
-
-        return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
       }
+
+      return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
@@ -417,4 +454,6 @@ module.exports = {
   handleBackendResponse,
   handleEscapeAction,
   pageRequiresUserDetails,
+  appStoreRedirect,
+  CONSTANTS,
 };

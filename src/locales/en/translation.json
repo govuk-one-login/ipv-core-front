@@ -316,6 +316,22 @@
         }
       }
     },
+    "pyiTriageSelectDevice": {
+      "title": "Are you on a computer or tablet right now?",
+      "header": "Are you on a computer or tablet right now?",
+      "content": {
+        "hint": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "formRadioButtons": {
+          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
+          "onSmartphoneButtonText": "No, I am on a smartphone"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you are on a smartphone or computer",
+          "errorRadioMessage": "Select whether you are on a smartphone or computer"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",
@@ -339,6 +355,54 @@
         }
       }
     },
+    "pyiPassportNoMatch": {
+      "title": "Sorry, we could not prove your identity",
+      "header": "Sorry, we could not prove your identity",
+      "content": {
+        "paragraph1": "We could not find a match when we last checked your UK passport details.",
+        "paragraph2": "You’ll need to prove your identity another way."
+      }
+    },
+    "pyiPassportNoMatchAnotherWay": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your UK passport details.",
+        "subHeading": "How would you like to continue?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead and answer security questions",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "pyiContinueWithDrivingLicence": {
+      "title": "Continue proving your identity online",
+      "header": "Continue proving your identity online",
+      "content": {
+        "paragraph1": "You can continue proving your identity online if you:",
+        "bullet1": "have a UK photocard driving licence",
+        "bullet2": "can answer some security questions",
+        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead and answer security questions",
+          "otherWayButtonText": "Prove your identity another way",
+          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you want to continue",
+          "errorRadioMessage": "Select how you want to continue"
+        }
+      }
+    },
     "pyiAnotherWay": {
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
@@ -346,6 +410,44 @@
         "paragraph1": "Based on what you told us, you cannot prove your identity with GOV.UK One Login.",
         "subHeading": "What you can do",
         "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
+      }
+    },
+    "pyiTriageSelectSmartphone": {
+      "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "content": {
+        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You'll be shown how to download and use the app.",
+        "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
+        "iphone": {
+          "subHeading": "iPhone",
+          "paragraph": "You can use an iPhone if it:",
+          "condition1": "is an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
+          "condition2": "is running iOS13 or higher",
+          "infoLabel": "How do I know which iPhone I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "android": {
+          "subHeading": "Android phone (for example, Samsung or Google Pixel)",
+          "paragraph": "You can use an Android phone if it:",
+          "condition1": "is running Android version 10 or higher",
+          "condition2": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contactless payments",
+          "infoLabel": "How do I know which Android I have?",
+          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "subHeadingSelectSmartphone": "Do you have one of these smartphones?",
+        "formRadioButtons": {
+          "iphoneButtonText": "Yes, I have an iPhone",
+          "androidButtonText": "Yes, I have an Android phone",
+          "neitherButtonText": "No"
+        },
+        "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
+        "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
+        "paragraphAppendix2": "You can also prove your identity in person at a Post Office."
+      },
+      "formErrorMessage": {
+        "errorSummaryTitleText": "There is a problem",
+        "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
+        "errorRadioMessage": "Select whether you have an iPhone or Android phone"
       }
     },
     "pyiTimeoutRecoverable": {
@@ -742,7 +844,7 @@
       }
     },
     "pyiPostOffice": {
-      "title": "Prove your identity at a Post Office - GOV.UK One Login",
+      "title": "Prove your identity at a Post Office",
       "header": "Prove your identity at a Post Office",
       "content": {
         "paragraph1": "You can prove your identity at a Post Office instead.",
@@ -769,6 +871,33 @@
           "errorSummaryDescriptionText": "Select yes if you have photo ID you can use at a Post Office",
           "errorRadioMessage": "Select yes if you have photo ID you can use at a Post Office"
         }
+      }
+    },
+    "pyiTriageDesktopDownload": {
+      "title": "How to prove your identity with the GOV.UK One Login app",
+      "header": "How to prove your identity with the GOV.UK One Login app",
+      "section1": {
+        "circle": "1",
+        "heading": "Download and open the GOV.UK One Login app",
+        "paragraph1": "To download the app, scan the QR code below with your camera. If you already have the app installed, open it now.",
+        "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
+        "qrCodeAlt": "QR code to download the app",
+        "details1": {
+          "summaryText": "How do I scan a QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details2": {
+          "summaryText": "What if I cannot scan the QR code?",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        }
+      },
+      "section2": {
+        "circle": "2",
+        "heading": "Come back here when you're done using the app",
+        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
     }
   }

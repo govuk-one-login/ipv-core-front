@@ -966,7 +966,7 @@ describe("journey middleware", () => {
     });
 
     it("redirects to the apple store if the user said they have an iphone", async function () {
-      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      req.params.specifiedPhoneType = PHONE_TYPES.IPHONE;
       req.method = "GET";
       await middleware.appStoreRedirect(req, res, next);
 
@@ -974,7 +974,7 @@ describe("journey middleware", () => {
     });
 
     it("redirects to the android store if the user said they have an android", async function () {
-      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.ANDROID;
+      req.params.specifiedPhoneType = PHONE_TYPES.ANDROID;
       req.method = "GET";
       await middleware.appStoreRedirect(req, res, next);
 

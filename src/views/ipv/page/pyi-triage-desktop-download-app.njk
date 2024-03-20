@@ -1,0 +1,55 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% set pageTitleKey = 'pages.pyiTriageDesktopDownload.title' %}
+{% set googleTagManagerPageId = "pyiTriageDesktopDownload" %}
+{% set isPageDynamic = false %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
+        {{ 'pages.pyiTriageDesktopDownload.header' | translate }}
+    </h1>
+
+    <div>
+        <p class="circle">{{ "pages.pyiTriageDesktopDownload.section1.circle" | translate }}</p>
+        <h2 class="govuk-heading-m">
+            {{ 'pages.pyiTriageDesktopDownload.section1.heading' | translate }}
+        </h2>
+    </div>
+    <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.section1.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.section1.paragraph2' | translate }}</p>
+
+    <p class="govuk-body">
+      <img
+        src='{{ qrCode }}'
+        alt="{{ 'pages.pyiTriageDesktopDownload.section1.qrCodeAlt' | translate }}"
+      />
+    </p>
+
+    {{ govukDetails({
+        summaryText: 'pages.pyiTriageDesktopDownload.section1.details1.summaryText' | translate,
+        text: 'pages.pyiTriageDesktopDownload.section1.details1.text' | translate
+    }) }}
+
+    {{ govukDetails({
+        summaryText: 'pages.pyiTriageDesktopDownload.section1.details2.summaryText' | translate,
+        text: 'pages.pyiTriageDesktopDownload.section1.details2.text' | translate
+    }) }}
+
+    <div>
+        <p class="circle">{{ "pages.pyiTriageDesktopDownload.section2.circle" | translate }}</p>
+        <h2 class="govuk-heading-m">
+            {{ 'pages.pyiTriageDesktopDownload.section2.heading' | translate }}
+        </h2>
+    </div>
+
+    <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.section2.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.section2.paragraph2' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.section2.paragraph3' | translate( { currentUrl: req.originalUrl } ) | safe }}</p>
+
+    {{ govukInsetText({
+        html: 'pages.pyiTriageDesktopDownload.section2.inset' | translate( { contactUsUrl: contactUsUrl } ) | safe
+    }) }}
+
+{% endblock %}

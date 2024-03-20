@@ -5,7 +5,7 @@ const {
   samplePersistedUserDetails,
   generateUserDetails,
 } = require("../shared/reuseHelper");
-const { pageRequiresUserDetails, CONSTANTS } = require("../ipv/middleware");
+const { pageRequiresUserDetails } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const { SERVICE_URL, APP_STORE_URL_APPLE } = require("../../lib/config");
 const PHONE_TYPES = require("../../constants/phone-types");

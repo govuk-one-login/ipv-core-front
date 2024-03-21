@@ -918,7 +918,7 @@ describe("journey middleware", () => {
       req.method = "GET";
       const qrCodeUrl =
         SERVICE_URL +
-        "/app-redirect/" +
+        "/ipv/app-redirect/" +
         middleware.CONSTANTS.PHONE_TYPES.IPHONE;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);

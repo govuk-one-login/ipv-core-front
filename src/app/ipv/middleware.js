@@ -348,7 +348,7 @@ module.exports = {
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "journey/addressCurrent");
+        await handleJourneyResponse(req, res, "journey/address-current");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {

@@ -14,6 +14,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
+  handleUpdateNameDobAction,
   appStoreRedirect,
 } = require("./middleware");
 
@@ -41,6 +42,13 @@ router.get("/all-templates", allTemplatesMoved);
 
 router.get("/app-redirect/:specifiedPhoneType", appStoreRedirect);
 
+router.post(
+  "/page/pyi-update-name-dob",
+  parseForm,
+  csrfProtection,
+  formRadioButtonChecked,
+  handleUpdateNameDobAction,
+);
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,

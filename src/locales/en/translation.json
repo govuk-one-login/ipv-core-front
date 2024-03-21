@@ -105,7 +105,7 @@
     },
     "pyiNoMatch": {
       "title": "Sorry, we could not confirm your details",
-      "titleRepeatFraudCheck": "Sorry, we cannot confirm your identity",
+      "titleRepeatFraudCheck": "Sorry, we could not confirm your details",
       "header": "Sorry, we cannot confirm your identity",
       "headerRepeatFraudCheck": "Sorry, we could not confirm your details",
       "content": {
@@ -597,44 +597,44 @@
         }
       }
     },
-    "pyiConfirmAddress": {
+    "confirmAddress": {
       "title": "You need to confirm your address",
       "header": "You need to confirm your address",
       "content": {
-        "paragraph1": "To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
+        "paragraph1": "To keep your GOV.UK One Login secure, you need to confirm the address you gave us when you proved your identity.",
         "summaryListHeading1": "Current home address",
-        "radioButtonHeading": "Is this your current address?",
+        "radioButtonHeading": "Is this your current home address?",
         "formRadioButtons": {
           "yes": "Yes",
-          "no": "No - I need to update it"
+          "no": "No - I need to update my address"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TEMP There is a problem",
-          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
-          "errorRadioMessage": "TEMP Select what you would like to do"
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if this is your current home address",
+          "errorRadioMessage": "Select yes if this is your current home address"
         }
       }
     },
-    "pyiConfirmNameDob": {
+    "confirmNameDateBirth": {
       "title": "You need to confirm your name and date of birth",
       "header": "You need to confirm your name and date of birth",
       "content": {
-        "paragraph1": "To keep your account secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
+        "paragraph1": "To keep your GOV.UK One Login secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
         "summaryListHeading1": "Name",
         "summaryListHeading2": "Date of birth",
-        "radioButtonHeading": "Are these details correct?",
+        "radioButtonHeading": "Are your details correct?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No - I need to update my name or date of birth"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TEMP There is a problem",
-          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
-          "errorRadioMessage": "TEMP Select what you would like to do"
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if your details are correct",
+          "errorRadioMessage": "Select yes if your details are correct"
         }
       }
     },
-    "pyiUpdateNameDob": {
+    "updateNameDateBirth": {
       "title": "Update your name or date of birth",
       "header": "Update your name or date of birth",
       "content": {

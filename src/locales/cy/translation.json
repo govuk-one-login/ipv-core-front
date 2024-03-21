@@ -105,9 +105,9 @@
     },
     "pyiNoMatch": {
       "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
-      "titleRepeatFraudCheck": "TEMP Sorry, we cannot confirm your identity",
+      "titleRepeatFraudCheck": "Mae'n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
       "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
-      "headerRepeatFraudCheck": "TEMP Sorry, we could not confirm your details",
+      "headerRepeatFraudCheck": "Mae'n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
@@ -597,59 +597,59 @@
         }
       }
     },
-    "pyiUpdateNameDob": {
-      "title": "TEMP Update your name or date of birth",
-      "header": "TEMP Update your name or date of birth",
+    "updateNameDateBirth": {
+      "title": "Diweddaru eich enw neu ddyddiad geni",
+      "header": "Diweddaru eich enw neu ddyddiad geni",
       "content": {
-        "paragraph1": "TEMP To update your name or date of birth, you need to contact the GOV.UK One Login team.",
-        "warningText": "TEMP You may not be able to use your GOV.UK One Login if your details are not up to date.",
-        "warningTextFallback": "TEMP Warning",
-        "radioButtonHeading": "TEMP What would you like to do?",
+        "paragraph1": "I ddiweddaru eich enw neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
+        "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
+        "warningTextFallback": "Rhybudd",
+        "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "yes": "TEMP Contact the GOV.UK One Login team to update your name or date of birth",
-          "no": "TEMP Go back and check your details again"
+          "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",
+          "no": "Ewch yn ôl i wirio eich manylion eto"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TEMP There is a problem",
-          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
-          "errorRadioMessage": "TEMP Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
-    "pyiConfirmAddress": {
-      "title": "TEMP You need to confirm your address",
-      "header": "TEMP You need to confirm your address",
+    "confirmAddress": {
+      "title": "Mae angen i chi gadarnhau eich cyfeiriad",
+      "header": "Mae angen i chi gadarnhau eich cyfeiriad",
       "content": {
-        "paragraph1": "TEMP To keep your account secure, you need to confirm the address you gave us when you proved your identity.",
-        "summaryListHeading1": "TEMP Current home address",
-        "radioButtonHeading": "TEMP Is this your current address?",
+        "paragraph1": "Er mwyn cadw'ch GOV.UK One Login yn ddiogel, mae angen i chi gadarnhau'r cyfeiriad a roesoch i ni pan wnaethoch brofi eich hunaniaeth.",
+        "summaryListHeading1": "Cyfeiriad cartref presennol",
+        "radioButtonHeading": "Ai hwn yw eich cyfeiriad cartref presennol?",
         "formRadioButtons": {
-          "yes": "TEMP Yes",
-          "no": "TEMP No - I need to update it"
+          "yes": "Oes",
+          "no": "Na - mae angen i mi ddiweddaru fy nghyfeiriad"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TEMP There is a problem",
-          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
-          "errorRadioMessage": "TEMP Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ie os mai hwn yw eich cyfeiriad cartref presennol",
+          "errorRadioMessage": "Dewiswch ie os mai hwn yw eich cyfeiriad cartref presennol"
         }
       }
     },
-    "pyiConfirmNameDob": {
-      "title": "TEMP You need to confirm your name and date of birth",
-      "header": "TEMP You need to confirm your name and date of birth",
+    "confirmNameDateBirth": {
+      "title": "Mae angen i chi gadarnhau eich enw a'ch dyddiad geni",
+      "header": "Mae angen i chi gadarnhau eich enw a'ch dyddiad geni",
       "content": {
-        "paragraph1": "TEMP To keep your account secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
-        "summaryListHeading1": "TEMP Name",
-        "summaryListHeading2": "TEMP Date of birth",
-        "radioButtonHeading": "TEMP Are these details correct?",
+        "paragraph1": "Er mwyn cadw eich GOV.UK One Login yn ddiogel, mae angen i chi gadarnhau'r enw a dyddiad geni a roesoch i ni pan wnaethoch brofi eich hunaniaeth.",
+        "summaryListHeading1": "Enw",
+        "summaryListHeading2": "Dyddiad geni",
+        "radioButtonHeading": "A yw eich manylion yn gywir?",
         "formRadioButtons": {
-          "yes": "TEMP Yes",
-          "no": "TEMP No - I need to update my name or date of birth"
+          "yes": "Oes",
+          "no": "Na - mae angen i mi ddiweddaru fy enw neu ddyddiad geni"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TEMP There is a problem",
-          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
-          "errorRadioMessage": "TEMP Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ydy os yw'ch manylion yn gywir",
+          "errorRadioMessage": "Dewiswch ydy os yw'ch manylion yn gywir"
         }
       }
     },
@@ -804,7 +804,7 @@
       "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
       "content": {
         "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
-        "paragraph1RepeatFraudCheck": "TEMP We've checked your details, you can now continue to the service you need to use.",
+        "paragraph1RepeatFraudCheck": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â'r gwasanaeth rydych angen ei ddefnyddio.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },

@@ -2,53 +2,53 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% set pageTitleKey = 'pages.pyiUpdateNameDob.title' %}
-{% set googleTagManagerPageId = "pyiUpdateNameDob" %}
+{% set pageTitleKey = 'pages.updateNameDateBirth.title' %}
+{% set googleTagManagerPageId = "updateNameDateBirth" %}
 {% set isPageDynamic = false %}
 
 {% set errorState = pageErrorState %}
-{% set errorTitle = 'pages.pyiUpdateNameDob.content.formErrorMessage.errorSummaryTitleText' | translate %}
-{% set errorText = 'pages.pyiConfirmNameDob.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
-{% set errorHref = "#pyiUpdateNameDobActionForm" %}
+{% set errorTitle = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#updateNameDateBirthActionForm" %}
 
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-        xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiUpdateNameDob.header' | translate }}</h1>
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translate }}</h1>
 
-    <p class="govuk-body">{{'pages.pyiUpdateNameDob.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translate }}</p>
 
     {{ govukWarningText({
-        text: 'pages.pyiUpdateNameDob.content.warningText' | translate,
-        iconFallbackText: 'pages.pyiUpdateNameDob.content.warningTextFallback' | translate
+        text: 'pages.updateNameDateBirth.content.warningText' | translate,
+        iconFallbackText: 'pages.updateNameDateBirth.content.warningTextFallback' | translate
         }) }}   
 
 
-    <form id="pyiUpdateNameDobActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <form id="updateNameDateBirthActionForm" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         {% set radiosConfig = {
             idPrefix: "journey",
             name: "journey",
             fieldset: {
                 legend: {
-                    text: 'pages.pyiUpdateNameDob.content.radioButtonHeading' | translate,
+                    text: 'pages.updateNameDateBirth.content.radioButtonHeading' | translate,
                     classes: "govuk-fieldset__legend--m"
                 }
             },
             items: [
                     {
                     value: "contact",
-                    text: 'pages.pyiUpdateNameDob.content.formRadioButtons.yes' | translate
+                    text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
                     },
                     {
                     value: "end",
-                    text: 'pages.pyiUpdateNameDob.content.formRadioButtons.no' | translateWithContext(context)
+                    text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContext(context)
                     }
                 ]
         }
         %}
 
         {% if errorState %}
-        {% set errorMessageObject = { 'text': 'pages.pyiUpdateNameDob.content.formErrorMessage.errorRadioMessage' | translate } %}
+        {% set errorMessageObject = { 'text': 'pages.updateNameDateBirth.content.formErrorMessage.errorRadioMessage' | translate } %}
         {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
         {% endif %}
         

@@ -69,7 +69,7 @@ async function templatesDisplayGet(req, res) {
 
   if (templateId === "pyi-triage-desktop-download-app") {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE,
+      SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE,
     );
   } else if (templateId === "pyi-triage-mobile-download-app") {
     renderOptions.appDownloadUrl = APP_STORE_URL_APPLE;

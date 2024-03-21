@@ -38,6 +38,7 @@ describe("journey middleware", () => {
       send: sinon.fake(),
       render: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
+      locals: { contactUsUrl: "contactUrl" },
     };
     req = {
       session: {
@@ -69,7 +70,7 @@ describe("journey middleware", () => {
     });
 
     it("should have called the network in the correct sequence", async function () {
-      const pageId = "pagetProvenIdentityUserDetailsransition";
+      const pageId = "pageProvenIdentityUserDetailsTransition";
       const eventResponses = [
         {
           data: { journey: "journey/next" },
@@ -616,6 +617,41 @@ describe("journey middleware", () => {
   );
 
   context(
+    "handleUpdateNameDobAction: handling journey action events - 'contact', 'end'",
+    () => {
+      it("should postAction with journey/end", async function () {
+        req = {
+          id: "1",
+          body: { journey: "next/end" },
+          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleUpdateNameDobAction(req, res, next);
+        expect(
+          CoreBackServiceStub.postAction.firstCall,
+        ).to.have.been.calledWith(req, "journey/end");
+      });
+
+      it("should call saveAndRedirect given 'contact' event", async function () {
+        req = {
+          id: "1",
+          body: { journey: "contact" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleUpdateNameDobAction(req, res, next);
+        expect(res.redirect).to.have.been.calledWith("contactUrl");
+      });
+    },
+  );
+
+  context(
     "handleEscapeM2b: handling journey action with journey/next, journey/bankAccount, journey/end",
     () => {
       it("should postAction with journey/next", async function () {
@@ -917,7 +953,7 @@ describe("journey middleware", () => {
     // PYIC-4816 Update tests to get iphone/android from session.
     it("sets a qrCode value for the page", async function () {
       req.method = "GET";
-      const qrCodeUrl = SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE;
+      const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 

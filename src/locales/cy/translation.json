@@ -105,9 +105,9 @@
     },
     "pyiNoMatch": {
       "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
-      "titleSixMonthFraudCheck": "TEMP Sorry, we cannot confirm your identity",
+      "titleRepeatFraudCheck": "TEMP Sorry, we cannot confirm your identity",
       "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth",
-      "headerSixMonthFraudCheck": "TEMP Sorry, we could not confirm your details",
+      "headerRepeatFraudCheck": "TEMP Sorry, we could not confirm your details",
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
@@ -804,7 +804,7 @@
       "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
       "content": {
         "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
-        "paragraph1SixMonthFraudCheck": "TEMP We've checked your details, you can now continue to the service you need to use.",
+        "paragraph1RepeatFraudCheck": "TEMP We've checked your details, you can now continue to the service you need to use.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },

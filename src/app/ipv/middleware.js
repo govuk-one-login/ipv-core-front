@@ -160,6 +160,22 @@ function checkForSessionId(req, res) {
   }
 }
 
+function checkForIpvAndOauthSessionId(req, res) {
+  if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
+    const err = new Error(
+      "req.ipvSessionId and req.clientOauthSessionId is missing",
+    );
+    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+    logError(req, err);
+
+    req.session.currentPage = "pyi-technical";
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    return res.render("ipv/page/pyi-technical.njk", {
+      context: "unrecoverable",
+    });
+  }
+}
+
 async function handleEscapeAction(req, res, next, actionType) {
   try {
     checkForSessionId(req, res);
@@ -302,7 +318,8 @@ module.exports = {
         );
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
-        const qrCodeUrl = SERVICE_URL + "/app-redirect/" + PHONE_TYPES.IPHONE;
+        const qrCodeUrl =
+          SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else if (pageId === "pyi-triage-mobile-download-app") {
@@ -328,21 +345,12 @@ module.exports = {
   },
   handleJourneyAction: async (req, res, next) => {
     try {
-      if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
-        const err = new Error(
-          "req.ipvSessionId and req.clientOauthSessionId is missing",
-        );
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
+      checkForIpvAndOauthSessionId(req, res);
 
-        req.session.currentPage = "pyi-technical";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/page/pyi-technical.njk", {
-          context: "unrecoverable",
-        });
-      }
       if (req.body?.journey === "end") {
         await handleJourneyResponse(req, res, "journey/end");
+      } else if (req.body?.journey === "addressCurrent") {
+        await handleJourneyResponse(req, res, "journey/address-current");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
@@ -391,6 +399,20 @@ module.exports = {
       }
     } catch (error) {
       transformError(error, "error invoking handleEscapeM2b");
+      next(error);
+    }
+  },
+  handleUpdateNameDobAction: async (req, res, next) => {
+    try {
+      checkForIpvAndOauthSessionId(req, res);
+
+      if (req.body?.journey === "contact") {
+        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      } else {
+        await handleJourneyResponse(req, res, "journey/end");
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleUpdateNameDobAction");
       next(error);
     }
   },

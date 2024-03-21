@@ -202,8 +202,8 @@ async function handleEscapeAction(req, res, next, actionType) {
 function pageRequiresUserDetails(pageId) {
   return [
     "page-ipv-reuse",
-    "pyi-confirm-name-dob",
-    "pyi-confirm-address",
+    "confirm-name-date-birth",
+    "confirm-address",
   ].includes(pageId);
 }
 

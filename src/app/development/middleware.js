@@ -68,7 +68,7 @@ async function templatesDisplayGet(req, res) {
 
   if (templateId === "pyi-triage-desktop-download-app") {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE,
+      SERVICE_URL + "/ipv/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE,
     );
   }
 

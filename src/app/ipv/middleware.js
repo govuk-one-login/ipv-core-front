@@ -304,7 +304,7 @@ module.exports = {
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl =
-          SERVICE_URL + "/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
+          SERVICE_URL + "/ipv/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else {

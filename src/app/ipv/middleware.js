@@ -216,7 +216,6 @@ function handleAppStoreRedirect(req, res, next) {
       res.redirect(APP_STORE_URL_ANDROID);
     }
     throw new Error("Unrecognised phone type: " + specifiedPhoneType);
-
   } catch (error) {
     transformError(error, `Error redirecting to app store`);
     next(error);

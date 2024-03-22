@@ -318,7 +318,7 @@ module.exports = {
       } else if (pageId === "pyi-triage-mobile-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
         renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          PHONE_TYPES.IPHONE,
+          PHONE_TYPES.ANDROID,
         );
       } else {
         if (req.query?.errorState !== undefined) {

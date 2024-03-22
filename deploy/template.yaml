@@ -894,10 +894,10 @@ Resources:
       AlarmName: !Sub "${AWS::StackName}-ECSFatalErrorAlarm"
       AlarmDescription: "Trigger an alarm when Fatal Error occurs"
       ActionsEnabled: true
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: [ ]
       MetricName: ECSFatalerror-message
       Namespace: !Sub "${AWS::StackName}/LogMessages"
@@ -1172,10 +1172,10 @@ Resources:
       AlarmName: !Sub "${AWS::StackName}-APIGWFatalErrorAlarm"
       AlarmDescription: "Trigger an alarm when Fatal Error occurs"
       ActionsEnabled: true
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: [ ]
       MetricName: APIGWFatalerror-message
       Namespace: !Sub "${AWS::StackName}/LogMessages"
@@ -1335,7 +1335,11 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub LambdaInvocationsOutOfSync-${Environment}
-      ActionsEnabled: False
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
       EvaluationPeriods: 6
       DatapointsToAlarm: 6
       Threshold: 0
@@ -1450,10 +1454,10 @@ Resources:
       AlarmName: !Sub "${AWS::StackName}-FE5XXErrorAlarm"
       AlarmDescription: Trigger the alarm if errorThreshold exceeds 10% with a minimum of 150 invocations and a minimum of 5 errors in 5 out of the last 5 minutes
       ActionsEnabled: true
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
       Dimensions: []
       EvaluationPeriods: 5
@@ -1499,10 +1503,10 @@ Resources:
       AlarmName: !Sub "${AWS::StackName}-FE4XXErrorAlarm"
       AlarmDescription: Trigger the alarm if errorThreshold exceeds 5% with a minimum of 150 invocations and a minimum of 2 errors in 2 out of the last 5 minutes
       ActionsEnabled: true
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: [ ]
       Dimensions: [ ]
       EvaluationPeriods: 5
@@ -1547,11 +1551,11 @@ Resources:
     Properties:
       AlarmName: !Sub "${AWS::StackName}-FELatencyAlarmP95"
       AlarmDescription: Trigger the alarm if less than 95% of requests has a latency of less than 1 second with a minimum of 25 invocations in 2 out of the last 5 minutes
-      ActionsEnabled: false
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: [ ]
       Dimensions: [ ]
       EvaluationPeriods: 5
@@ -1592,11 +1596,11 @@ Resources:
     Properties:
       AlarmName: !Sub "${AWS::StackName}-FELatencyAlarmP99"
       AlarmDescription: Trigger the alarm if less than 99% of requests has a latency of less than 2.5 second with a minimum of 150 invocations in 2 out of the last 5 minutes
-      ActionsEnabled: false
-      # OKActions:
-      #   - !ImportValue alarm-alerts-topic
-      # AlarmActions:
-      #   - !ImportValue alarm-alerts-topic
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: [ ]
       Dimensions: [ ]
       EvaluationPeriods: 5
@@ -1636,10 +1640,12 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub "${AWS::StackName}-FELowContainerTaskCountAlarm"
-      AlarmDescription: Trigger a warning if the running container task count drops below 2
+      AlarmDescription: Trigger a warning if the running container task count drops below 1
       ActionsEnabled: true
-      # AlarmActions:
-      #   - !ImportValue platform-alarm-topic-critical-alert
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      OKActions:
+        - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
       Dimensions: []
       EvaluationPeriods: 1
@@ -1661,36 +1667,6 @@ Resources:
                   Value: !GetAtt CoreFrontService.Name
             Period: 60
             Stat: Minimum
-
-  FELowContainerTaskCountCriticalAlarm:
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "${AWS::StackName}-FELowContainerTaskCountCriticalAlarm"
-      AlarmDescription: Trigger a critical alert if the running container task count drops below 1
-      ActionsEnabled: false  # to be enabled once proved stable in production
-      # AlarmActions:
-      #   - !ImportValue platform-alarm-topic-critical-alert
-      InsufficientDataActions: []
-      Dimensions: []
-      EvaluationPeriods: 1
-      DatapointsToAlarm: 1
-      Threshold: 0
-      ComparisonOperator: LessThanOrEqualToThreshold
-      TreatMissingData: breaching
-      Metrics:
-        - Id: containerTaskCount
-          ReturnData: true
-          MetricStat:
-            Metric:
-              Namespace: ECS/ContainerInsights
-              MetricName: RunningTaskCount
-              Dimensions:
-                - Name: ClusterName
-                  Value: !Ref CoreFrontCluster
-                - Name: ServiceName
-                  Value: !GetAtt CoreFrontService.Name
-            Period: 60
-            Stat: Maximum
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

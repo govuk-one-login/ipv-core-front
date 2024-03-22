@@ -9,6 +9,7 @@ if (!appEnv.isLocal) {
 }
 
 module.exports = {
+  ANDROID_APP_ID: process.env.ANDROID_APP_ID || "uk.gov.documentchecking",
   API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/cri/callback",
   API_SESSION_INITIALISE: "/session/initialise",

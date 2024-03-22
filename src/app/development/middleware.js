@@ -7,8 +7,8 @@ const {
 } = require("../shared/reuseHelper");
 const { pageRequiresUserDetails } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
-const { SERVICE_URL, APP_STORE_URL_APPLE } = require("../../lib/config");
 const PHONE_TYPES = require("../../constants/phone-types");
+const appDownloadHelper = require("../shared/appDownloadHelper");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -69,10 +69,12 @@ async function templatesDisplayGet(req, res) {
 
   if (templateId === "pyi-triage-desktop-download-app") {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE,
+      appDownloadHelper.getAppStoreRedirectUrl(PHONE_TYPES.IPHONE),
     );
   } else if (templateId === "pyi-triage-mobile-download-app") {
-    renderOptions.appDownloadUrl = APP_STORE_URL_APPLE;
+    renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+      PHONE_TYPES.IPHONE,
+    );
   }
 
   return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);

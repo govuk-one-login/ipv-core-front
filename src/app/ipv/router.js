@@ -15,7 +15,7 @@ const {
   validateFeatureSet,
   formRadioButtonChecked,
   handleUpdateNameDobAction,
-  appStoreRedirect,
+  handleAppStoreRedirect,
 } = require("./middleware");
 
 // Remove this as part of PYIC-4278
@@ -40,7 +40,7 @@ router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 // Remove this as part of PYIC-4278
 router.get("/all-templates", allTemplatesMoved);
 
-router.get("/app-redirect/:specifiedPhoneType", appStoreRedirect);
+router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 
 router.post(
   "/page/pyi-update-name-dob",

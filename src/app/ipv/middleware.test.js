@@ -983,12 +983,14 @@ describe("journey middleware", () => {
     // PYIC-4816 Update tests to get iphone/android from session.
     it("sets an appDownloadUrl value for the page", async function () {
       req.method = "GET";
+      const expectedDownloadUrl =
+        SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
 
       await middleware.handleJourneyPage(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-mobile-download-app.njk`,
-        sinon.match.has("appDownloadUrl", APP_STORE_URL_APPLE),
+        sinon.match.has("appDownloadUrl", expectedDownloadUrl),
       );
     });
   });
@@ -1004,7 +1006,7 @@ describe("journey middleware", () => {
     it("redirects to the apple store if the user said they have an iphone", async function () {
       req.params.specifiedPhoneType = PHONE_TYPES.IPHONE;
       req.method = "GET";
-      await middleware.appStoreRedirect(req, res, next);
+      await middleware.handleAppStoreRedirect(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_APPLE);
     });
@@ -1012,7 +1014,7 @@ describe("journey middleware", () => {
     it("redirects to the android store if the user said they have an android", async function () {
       req.params.specifiedPhoneType = PHONE_TYPES.ANDROID;
       req.method = "GET";
-      await middleware.appStoreRedirect(req, res, next);
+      await middleware.handleAppStoreRedirect(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
     });

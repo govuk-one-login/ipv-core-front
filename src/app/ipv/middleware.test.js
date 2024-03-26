@@ -7,6 +7,7 @@ const {
   SERVICE_URL,
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
 
 describe("journey middleware", () => {
   let req;
@@ -950,12 +951,9 @@ describe("journey middleware", () => {
     });
 
     // PYIC-4816 Update tests to get iphone/android from session.
-    it("sets a qrCode value for the page", async function () {
+    it("sets an iPhone qrCode value for the page", async function () {
       req.method = "GET";
-      const qrCodeUrl =
-        SERVICE_URL +
-        "/ipv/app-redirect/" +
-        middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -964,6 +962,33 @@ describe("journey middleware", () => {
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-desktop-download-app.njk`,
         sinon.match.has("qrCode", expectedQrCodeData),
+      );
+    });
+  });
+
+  context("handling pyi-triage-mobile-download-app journey route", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "pyi-triage-mobile-download-app" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "pyi-triage-mobile-download-app",
+        },
+        csrfToken: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+    });
+
+    // PYIC-4816 Update tests to get iphone/android from session.
+    it("sets an Android appDownloadUrl value for the page", async function () {
+      req.method = "GET";
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-mobile-download-app.njk`,
+        sinon.match.has("appDownloadUrl", sinon.match("intent")),
       );
     });
   });
@@ -977,17 +1002,17 @@ describe("journey middleware", () => {
     });
 
     it("redirects to the apple store if the user said they have an iphone", async function () {
-      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.IPHONE;
+      req.params.specifiedPhoneType = PHONE_TYPES.IPHONE;
       req.method = "GET";
-      await middleware.appStoreRedirect(req, res, next);
+      await middleware.handleAppStoreRedirect(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_APPLE);
     });
 
     it("redirects to the android store if the user said they have an android", async function () {
-      req.params.specifiedPhoneType = middleware.CONSTANTS.PHONE_TYPES.ANDROID;
+      req.params.specifiedPhoneType = PHONE_TYPES.ANDROID;
       req.method = "GET";
-      await middleware.appStoreRedirect(req, res, next);
+      await middleware.handleAppStoreRedirect(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
     });

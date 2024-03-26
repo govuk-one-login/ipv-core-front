@@ -4,7 +4,6 @@ const {
   ENABLE_PREVIEW,
   APP_STORE_URL_ANDROID,
   APP_STORE_URL_APPLE,
-  SERVICE_URL,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -31,15 +30,10 @@ const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
+const appDownloadHelper = require("../shared/appDownloadHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
-
-const CONSTANTS = {
-  PHONE_TYPES: {
-    IPHONE: "iphone",
-    ANDROID: "android",
-  },
-};
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -211,22 +205,19 @@ function isValidPage(pageId) {
   return allTemplates.includes(pageId);
 }
 
-function appStoreRedirect(req, res, next) {
-  const { specifiedPhoneType } = req.params;
+function handleAppStoreRedirect(req, res, next) {
+  // PYIC-4816 - consider whether we should override this with the current request's sniffed device type.
+  const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
-    if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.IPHONE) {
+    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
       res.redirect(APP_STORE_URL_APPLE);
-    } else if (specifiedPhoneType === CONSTANTS.PHONE_TYPES.ANDROID) {
+    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
       res.redirect(APP_STORE_URL_ANDROID);
-    } else {
-      throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
+    throw new Error("Unrecognised phone type: " + specifiedPhoneType);
   } catch (error) {
-    transformError(
-      error,
-      `error redirecting to app store for specified phone type ${specifiedPhoneType}`,
-    );
+    transformError(error, `Error redirecting to app store`);
     next(error);
   }
 }
@@ -319,10 +310,16 @@ module.exports = {
         );
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
-        const qrCodeUrl =
-          SERVICE_URL + "/ipv/app-redirect/" + CONSTANTS.PHONE_TYPES.IPHONE;
+        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          PHONE_TYPES.IPHONE,
+        );
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+      } else if (pageId === "pyi-triage-mobile-download-app") {
+        // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
+        renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          PHONE_TYPES.ANDROID,
+        );
       } else {
         if (req.query?.errorState !== undefined) {
           renderOptions.pageErrorState = req.query.errorState;
@@ -454,6 +451,5 @@ module.exports = {
   handleBackendResponse,
   handleEscapeAction,
   pageRequiresUserDetails,
-  appStoreRedirect,
-  CONSTANTS,
+  handleAppStoreRedirect,
 };

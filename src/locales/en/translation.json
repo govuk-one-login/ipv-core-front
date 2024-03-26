@@ -899,6 +899,25 @@
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
         "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
+    },
+    "pyiTriageMobileDownload": {
+      "title": "Prove your identity with the GOV.UK One Login app",
+      "header": "Prove your identity with the GOV.UK One Login app",
+      "section1": {
+        "heading": "Step 1 - Download and open the GOV.UK One Login app",
+        "paragraph1": "If you already have the app installed, open it now.",
+        "button": "Download GOV.UK One Login",
+        "details": {
+          "summaryText": "Help downloading the app",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        }
+      },
+      "section2": {
+        "heading": "Step 2 - Come back here when you're done using the app",
+        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ const {
   SERVICE_URL,
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
+const { getPathFromRequest } = require("./middleware");
 
 describe("journey middleware", () => {
   let req;
@@ -992,4 +993,37 @@ describe("journey middleware", () => {
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
     });
   });
+
+  context("getPathFromRequest middleware", () => {
+
+    it("extracts page name from request path", () => {
+      req = {
+        path: "/page/page-ipv-document-start"
+      }
+
+      const result = getPathFromRequest(req)
+
+      expect(result).to.equal("page-ipv-document-start")
+    })
+
+    it("extracts page name when subdomain specified", () => {
+      req = {
+        path: "/page/subdomain/page-ipv-document-start"
+      }
+
+      const result = getPathFromRequest(req)
+
+      expect(result).to.equal("subdomain/page-ipv-document-start")
+    })
+
+    it("extracts page name when page already formatted correctly", () => {
+      req = {
+        path: "/page-ipv-document-start"
+      }
+
+      const result = getPathFromRequest(req)
+
+      expect(result).to.equal("page-ipv-document-start")
+    })
+  })
 });

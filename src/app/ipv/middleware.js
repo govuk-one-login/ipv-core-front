@@ -59,7 +59,18 @@ async function journeyApi(action, req) {
   return coreBackService.postAction(req, action);
 }
 
+function getIpvPageFromRequest(req) {
+  const pathParts = req.path.split('/')
+
+  return pathParts.slice(2).join("/")
+}
+
 async function handleJourneyResponse(req, res, action) {
+  const backendResponse = (await journeyApi(action, req)).data;
+  return await handleBackendResponse(req, res, backendResponse);
+}
+
+async function handleJourneyResponseTest(req, res, action) {
   const backendResponse = (await journeyApi(action, req)).data;
   return await handleBackendResponse(req, res, backendResponse);
 }
@@ -132,6 +143,8 @@ async function handleBackendResponse(req, res, backendResponse) {
       `/ipv/page/${req.session.currentPage}`,
     );
   }
+
+  return res.render("ipv/page/pyi-technical.njk");
 }
 
 function tryValidateCriResponse(criResponse) {
@@ -344,13 +357,42 @@ module.exports = {
   handleJourneyAction: async (req, res, next) => {
     try {
       checkForIpvAndOauthSessionId(req, res);
+      const currentPage = getIpvPageFromRequest(req);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, `journey/${currentPage}/end`);
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "journey/address-current");
+        await handleJourneyResponse(req, res, `journey/${currentPage}/address-current`);
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "journey/attempt-recovery");
+      } else if (req.body?.journey === "build-client-oauth-response") {
+        req.session.ipAddress = req?.session?.ipAddress
+          ? req.session.ipAddress
+          : getIpAddress(req);
+        await handleJourneyResponse(
+          req,
+          res,
+          `journey/${currentPage}/build-client-oauth-response`,
+        );
+      } else {
+        await handleJourneyResponse(req, res, `testJourney/${currentPage}/next`);
+      }
+    } catch (error) {
+      transformError(error, "error invoking handleJourneyAction");
+      next(error);
+    }
+  },
+
+  handleJourneyActionTest: async (req, res, next) => {
+    try {
+      checkForIpvAndOauthSessionId(req, res);
+
+      if (req.body?.journey === "end") {
+        await handleJourneyResponseTest(req, res, "journey/end");
+      } else if (req.body?.journey === "addressCurrent") {
+        await handleJourneyResponseTest(req, res, "journey/address-current");
+      } else if (req.body?.journey === "attempt-recovery") {
+        await handleJourneyResponseTest(req, res, "journey/attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
@@ -361,7 +403,7 @@ module.exports = {
           "journey/build-client-oauth-response",
         );
       } else {
-        await handleJourneyResponse(req, res, "journey/next");
+        await handleJourneyResponseTest(req, res, "journey/next");
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
@@ -455,5 +497,6 @@ module.exports = {
   handleEscapeAction,
   pageRequiresUserDetails,
   appStoreRedirect,
+  getPathFromRequest: getIpvPageFromRequest,
   CONSTANTS,
 };

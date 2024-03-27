@@ -210,12 +210,16 @@ function handleAppStoreRedirect(req, res, next) {
   const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
-    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
-      res.redirect(APP_STORE_URL_APPLE);
-    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
-      res.redirect(APP_STORE_URL_ANDROID);
+    switch (specifiedPhoneType) {
+      case PHONE_TYPES.IPHONE:
+        res.redirect(APP_STORE_URL_APPLE);
+        break;
+      case PHONE_TYPES.ANDROID:
+        res.redirect(APP_STORE_URL_ANDROID);
+        break;
+      default:
+        throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
-    throw new Error("Unrecognised phone type: " + specifiedPhoneType);
   } catch (error) {
     transformError(error, `Error redirecting to app store`);
     next(error);

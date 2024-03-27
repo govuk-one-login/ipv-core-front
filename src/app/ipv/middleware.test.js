@@ -1016,5 +1016,13 @@ describe("journey middleware", () => {
 
       expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
     });
+
+    it("throws an error for a bad phone type", async function () {
+      req.params.specifiedPhoneType = "notaphone";
+      req.method = "GET";
+      await middleware.handleAppStoreRedirect(req, res, next);
+
+      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+    });
   });
 });

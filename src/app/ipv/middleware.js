@@ -260,6 +260,11 @@ module.exports = {
         return res.redirect("/ipv/all-templates");
       }
 
+      // handles page id validation first
+      if (!isValidPage(pageId)) {
+        return res.render("errors/page-not-found.njk");
+      }
+
       if (req.session?.ipvSessionId === null) {
         logError(
           req,
@@ -293,10 +298,6 @@ module.exports = {
           res,
           `/ipv/page/pyi-attempt-recovery`,
         );
-      }
-
-      if (!isValidPage(pageId)) {
-        return res.render("ipv/page/pyi-technical.njk");
       }
 
       const renderOptions = {

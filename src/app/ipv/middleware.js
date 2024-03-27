@@ -64,8 +64,18 @@ async function fetchUserDetails(req) {
   return generateUserDetails(userDetailsResponse, req.i18n);
 }
 
-async function handleJourneyResponse(req, res, action) {
-  const backendResponse = (await journeyApi(action, req)).data;
+// This will not get the correct CRI id, we will need to let this route support an optional currentPage param if we want to combine OAuth / CRI and journey events
+function getIpvPageFromRequest(req) {
+  const pathParts = req.path.split("/");
+
+  return pathParts.slice(2).join("/");
+}
+
+async function handleJourneyResponse(req, res, action, currentPage = "") {
+  const backendResponse = (
+    await journeyApi(`journey/${action}?currentPage=${currentPage}`, req)
+  ).data;
+
   return await handleBackendResponse(req, res, backendResponse);
 }
 
@@ -138,17 +148,12 @@ async function handleBackendResponse(req, res, backendResponse) {
     );
   }
 
-  const message = {
-    description: "Unexpected backend response",
-    data: backendResponse,
-  };
-  req.log.error({ message, level: "ERROR" });
-  throw new Error(message.description);
+  return res.render("ipv/page/pyi-technical.njk");
 }
 
 function tryValidateCriResponse(criResponse) {
   if (!criResponse?.redirectUrl) {
-    throw new Error(`CRI response RedirectUrl is missing`);
+    throw new Error("CRI response RedirectUrl is missing");
   }
 
   return true;
@@ -158,7 +163,7 @@ function tryValidateClientResponse(client) {
   const { redirectUrl } = client;
 
   if (!redirectUrl) {
-    throw new Error(`Client Response redirect url is missing`);
+    throw new Error("Client Response redirect url is missing");
   }
 
   return true;
@@ -194,19 +199,19 @@ function checkForIpvAndOauthSessionId(req, res) {
   }
 }
 
-async function handleEscapeAction(req, res, next, actionType) {
+async function handleEscapeAction(req, res, next, currentPage) {
   try {
     checkForSessionId(req, res);
 
     if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "f2f");
+      await handleJourneyResponse(req, res, "f2f", currentPage);
     } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "dcmaw");
+      await handleJourneyResponse(req, res, "dcmaw", currentPage);
     } else {
-      await handleJourneyResponse(req, res, "end");
+      await handleJourneyResponse(req, res, "end", currentPage);
     }
   } catch (error) {
-    transformError(error, `error invoking ${actionType}`);
+    transformError(error, `error handling POST request on ${currentPage}`);
     next(error);
   }
 }
@@ -228,16 +233,13 @@ function handleAppStoreRedirect(req, res, next) {
   const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
-    switch (specifiedPhoneType) {
-      case PHONE_TYPES.IPHONE:
-        res.redirect(APP_STORE_URL_APPLE);
-        break;
-      case PHONE_TYPES.ANDROID:
-        res.redirect(APP_STORE_URL_ANDROID);
-        break;
-      default:
-        throw new Error("Unrecognised phone type: " + specifiedPhoneType);
+    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
+      res.redirect(APP_STORE_URL_APPLE);
+    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
+      res.redirect(APP_STORE_URL_ANDROID);
     }
+    throw new Error("Unrecognised phone type: " + specifiedPhoneType);
+
   } catch (error) {
     transformError(error, `Error redirecting to app store`);
     next(error);
@@ -260,7 +262,7 @@ module.exports = {
       const action = allowedActions.find((x) => x === req.url);
 
       if (action) {
-        await handleJourneyResponse(req, res, action);
+        await handleJourneyResponse(req, res, action, "pyi-f2f-delete-details");
       } else {
         res.status(HTTP_STATUS_CODES.NOT_FOUND);
         return res.render("errors/page-not-found.njk");
@@ -359,71 +361,78 @@ module.exports = {
     }
   },
   handleJourneyAction: async (req, res, next) => {
+    const currentPage = req.params.pageId;
     try {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "end");
+        await handleJourneyResponse(req, res, "end", currentPage);
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "address-current");
+        await handleJourneyResponse(req, res, "address-current", currentPage);
       } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "attempt-recovery");
+        await handleJourneyResponse(req, res, "attempt-recovery", currentPage);
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
-        await handleJourneyResponse(req, res, "build-client-oauth-response");
+        await handleJourneyResponse(
+          req,
+          res,
+          "build-client-oauth-response",
+          currentPage,
+        );
       } else {
-        await handleJourneyResponse(req, res, "next");
+        await handleJourneyResponse(req, res, "next", currentPage);
       }
     } catch (error) {
-      transformError(error, "error invoking handleJourneyAction");
+      transformError(error, `error handling POST request on ${currentPage}`);
       next(error);
     }
   },
-  handleMultipleDocCheck: async (req, res, next) => {
+
+  handleMultipleDocCheck: async (req, res, next, currentPage) => {
     try {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "ukPassport");
+        await handleJourneyResponse(req, res, "ukPassport", currentPage);
       } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "drivingLicence");
+        await handleJourneyResponse(req, res, "drivingLicence", currentPage);
       } else {
-        await handleJourneyResponse(req, res, "end");
+        await handleJourneyResponse(req, res, "end", currentPage);
       }
     } catch (error) {
-      transformError(error, "error invoking handleMultipleDocCheck");
+      transformError(error, `error handling POST request on ${currentPage}`);
       next(error);
     }
   },
-  handleEscapeM2b: async (req, res, next) => {
+  handleEscapeM2b: async (req, res, next, currentPage) => {
     try {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next") {
-        await handleJourneyResponse(req, res, "next");
+        await handleJourneyResponse(req, res, "next", currentPage);
       } else if (req.body?.journey === "next/bank-account") {
-        await handleJourneyResponse(req, res, "bankAccount");
+        await handleJourneyResponse(req, res, "bankAccount", currentPage);
       } else {
-        await handleJourneyResponse(req, res, "end");
+        await handleJourneyResponse(req, res, "end", currentPage);
       }
     } catch (error) {
-      transformError(error, "error invoking handleEscapeM2b");
+      transformError(error, `error handling POST request on ${currentPage}`);
       next(error);
     }
   },
-  handleUpdateNameDobAction: async (req, res, next) => {
+  handleUpdateNameDobAction: async (req, res, next, currentPage) => {
     try {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       } else {
-        await handleJourneyResponse(req, res, "end");
+        await handleJourneyResponse(req, res, "end", currentPage);
       }
     } catch (error) {
-      transformError(error, "error invoking handleUpdateNameDobAction");
+      transformError(error, `error handling POST request on ${currentPage}`);
       next(error);
     }
   },
@@ -475,4 +484,7 @@ module.exports = {
   handleEscapeAction,
   pageRequiresUserDetails,
   handleAppStoreRedirect,
+  checkForIpvAndOauthSessionId,
+  journeyApi,
+  getIpvPageFromRequest,
 };

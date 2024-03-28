@@ -46,7 +46,7 @@ This project uses the following environment variables:
 | `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
 | `PORT`                  | Default port to run the web server on.                            | `3000`           |
 | `SESSION_SECRET`        | The secret key used for encrypting and decrypting session data.                                                        | -                |
-
+| `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | 0                |
 
 ## Running ipv-core-front locally
 

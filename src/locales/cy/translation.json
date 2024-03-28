@@ -48,6 +48,9 @@
     "header": {
       "homepageHref": "https://www.gov.uk/"
     },
+    "languageToggle": {
+      "ariaLabel": "Dewis iaith"
+    },
     "footer": {
       "accessibilityStatement": {
         "linkText": "Datganiad hygyrchedd"

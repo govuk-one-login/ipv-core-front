@@ -4,6 +4,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./ga4/on-page-load-macro.njk" import ga4OnPageLoad %}
+{% from "one-login-language-toggle/macro.njk" import oneloginLanguageSelect %}
 
 {% block head %}
 
@@ -51,6 +52,25 @@
             html: 'general.govuk.phaseBanner.content' | translate( { url: contactUsUrl } )
         }) }}
         {% block beforeContent %}{% endblock %}
+        {% if showLanguageToggle %}
+          {{ oneloginLanguageSelect({
+            ariaLabel: 'general.languageToggle.ariaLabel' | translate,
+            activeLanguage: htmlLang,
+            class: "",
+            languages: [
+            { 
+              code: 'en',
+              text: 'English',
+              visuallyHidden: 'Change to English'
+            },
+            {
+              code:'cy',
+              text: 'Cymraeg',
+              visuallyHidden: 'Newid yr iaith ir Gymraeg'
+            }]
+          })
+          }}
+        {% endif %}
         {% if showBack %}
             {{ govukBackLink({
                 text: "general.backLink" | translate,

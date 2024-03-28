@@ -43,7 +43,7 @@ router.get("/all-templates", allTemplatesMoved);
 router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 
 router.post(
-  "/page/pyi-update-name-dob",
+  "/page/update-name-date-birth",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,

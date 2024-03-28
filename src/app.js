@@ -12,7 +12,7 @@ const {
   CDN_PATH,
   CDN_DOMAIN,
   ENABLE_PREVIEW,
-  LANGUAGE_TOGGLE_ENABLED
+  LANGUAGE_TOGGLE_ENABLED,
 } = require("./lib/config");
 
 const { setLocals } = require("./lib/locals");

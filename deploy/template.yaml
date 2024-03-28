@@ -759,6 +759,8 @@ Resources:
                   - !If [IsDev02, !Sub "https://${Environment}.02.dev.identity.account.gov.uk", !Sub "https://identity.${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
+            - Name: LANGUAGE_TOGGLE
+              Value: "0"
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''

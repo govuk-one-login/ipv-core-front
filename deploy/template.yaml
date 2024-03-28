@@ -426,7 +426,7 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 15
+      HealthCheckTimeoutSeconds: 14
       HealthCheckIntervalSeconds: 15
       HealthyThresholdCount: 2
       Matcher:

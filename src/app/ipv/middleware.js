@@ -60,18 +60,17 @@ async function journeyApi(action, req) {
 }
 
 function getIpvPageFromRequest(req) {
-  const pathParts = req.path.split('/')
+  const pathParts = req.path.split("/");
 
-  return pathParts.slice(2).join("/")
+  return pathParts.slice(2).join("/");
 }
 
 async function handleJourneyResponse(req, res, action) {
-  const backendResponse = (await journeyApi(action, req)).data;
-  return await handleBackendResponse(req, res, backendResponse);
-}
+  const currentPage = getIpvPageFromRequest(req);
 
-async function handleJourneyResponseTest(req, res, action) {
-  const backendResponse = (await journeyApi(action, req)).data;
+  const backendResponse = (
+    await journeyApi(`journey/${currentPage}/${action}`, req)
+  ).data;
   return await handleBackendResponse(req, res, backendResponse);
 }
 
@@ -200,11 +199,11 @@ async function handleEscapeAction(req, res, next, actionType) {
     checkForSessionId(req, res);
 
     if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "journey/f2f");
+      await handleJourneyResponse(req, res, "f2f");
     } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "journey/dcmaw");
+      await handleJourneyResponse(req, res, "dcmaw");
     } else {
-      await handleJourneyResponse(req, res, "journey/end");
+      await handleJourneyResponse(req, res, "end");
     }
   } catch (error) {
     transformError(error, `error invoking ${actionType}`);
@@ -357,25 +356,20 @@ module.exports = {
   handleJourneyAction: async (req, res, next) => {
     try {
       checkForIpvAndOauthSessionId(req, res);
-      const currentPage = getIpvPageFromRequest(req);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, `journey/${currentPage}/end`);
+        await handleJourneyResponse(req, res, `end`);
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, `journey/${currentPage}/address-current`);
+        await handleJourneyResponse(req, res, `address-current`);
       } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "journey/attempt-recovery");
+        await handleJourneyResponse(req, res, "attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
-        await handleJourneyResponse(
-          req,
-          res,
-          `journey/${currentPage}/build-client-oauth-response`,
-        );
+        await handleJourneyResponse(req, res, `build-client-oauth-response`);
       } else {
-        await handleJourneyResponse(req, res, `testJourney/${currentPage}/next`);
+        await handleJourneyResponse(req, res, `next`);
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
@@ -383,43 +377,16 @@ module.exports = {
     }
   },
 
-  handleJourneyActionTest: async (req, res, next) => {
-    try {
-      checkForIpvAndOauthSessionId(req, res);
-
-      if (req.body?.journey === "end") {
-        await handleJourneyResponseTest(req, res, "journey/end");
-      } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponseTest(req, res, "journey/address-current");
-      } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponseTest(req, res, "journey/attempt-recovery");
-      } else if (req.body?.journey === "build-client-oauth-response") {
-        req.session.ipAddress = req?.session?.ipAddress
-          ? req.session.ipAddress
-          : getIpAddress(req);
-        await handleJourneyResponse(
-          req,
-          res,
-          "journey/build-client-oauth-response",
-        );
-      } else {
-        await handleJourneyResponseTest(req, res, "journey/next");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleJourneyAction");
-      next(error);
-    }
-  },
   handleMultipleDocCheck: async (req, res, next) => {
     try {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "journey/ukPassport");
+        await handleJourneyResponse(req, res, "ukPassport");
       } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "journey/drivingLicence");
+        await handleJourneyResponse(req, res, "drivingLicence");
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");
@@ -431,11 +398,11 @@ module.exports = {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next") {
-        await handleJourneyResponse(req, res, "journey/next");
+        await handleJourneyResponse(req, res, "next");
       } else if (req.body?.journey === "next/bank-account") {
-        await handleJourneyResponse(req, res, "journey/bankAccount");
+        await handleJourneyResponse(req, res, "bankAccount");
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleEscapeM2b");
@@ -449,7 +416,7 @@ module.exports = {
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleUpdateNameDobAction");
@@ -497,6 +464,8 @@ module.exports = {
   handleEscapeAction,
   pageRequiresUserDetails,
   appStoreRedirect,
-  getPathFromRequest: getIpvPageFromRequest,
+  checkForIpvAndOauthSessionId,
+  journeyApi,
+  getIpvPageFromRequest,
   CONSTANTS,
 };

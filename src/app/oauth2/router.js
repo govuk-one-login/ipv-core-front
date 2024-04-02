@@ -4,13 +4,13 @@ const router = express.Router();
 
 const { setIpvSessionId, setIpAddress } = require("./middleware");
 
-const { handleJourneyActionTest } = require("../ipv/middleware");
+const { handleOAuthJourneyAction } = require("../oauth2/middleware");
 
 router.get(
   "/authorize",
   setIpAddress,
   setIpvSessionId,
-  handleJourneyActionTest,
+  handleOAuthJourneyAction,
 );
 
 module.exports = router;

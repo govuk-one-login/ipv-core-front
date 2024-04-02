@@ -262,6 +262,7 @@ module.exports = {
 
       // handles page id validation first
       if (!isValidPage(pageId)) {
+        res.status(HTTP_STATUS_CODES.NOT_FOUND);
         return res.render("errors/page-not-found.njk");
       }
 

@@ -172,7 +172,7 @@ describe("journey middleware", () => {
       expect(req.session.currentPageStatusCode).to.equal(undefined);
     });
 
-    it("should render technical error page when given invalid pageId", async () => {
+    it("should render page not found error page when given invalid pageId", async () => {
       req = {
         id: "1",
         params: { pageId: "../ipv/page/page-this-is-invalid" },
@@ -181,7 +181,7 @@ describe("journey middleware", () => {
       };
 
       await middleware.handleJourneyPage(req, res);
-      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
     });
 
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
@@ -201,7 +201,7 @@ describe("journey middleware", () => {
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "invalid-page-id" },
+        params: { pageId: "page-ipv-reuse" },
         session: {
           currentPage: "../ipv/page/page-multiple-doc-check",
           save: sinon.fake.yields(null),
@@ -223,7 +223,7 @@ describe("journey middleware", () => {
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is missing", async () => {
       req = {
         id: "1",
-        params: { pageId: "../ipv/page/page-multiple-doc-check" },
+        params: { pageId: "page-multiple-doc-check" },
         session: { currentPage: "page-ipv-success", ipvSessionId: null },
         log: { info: sinon.fake(), error: sinon.fake() },
       };

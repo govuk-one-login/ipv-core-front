@@ -148,7 +148,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
 function tryValidateCriResponse(criResponse) {
   if (!criResponse?.redirectUrl) {
-    throw new Error(`CRI response RedirectUrl is missing`);
+    throw new Error("CRI response RedirectUrl is missing");
   }
 
   return true;
@@ -158,7 +158,7 @@ function tryValidateClientResponse(client) {
   const { redirectUrl } = client;
 
   if (!redirectUrl) {
-    throw new Error(`Client Response redirect url is missing`);
+    throw new Error("Client Response redirect url is missing");
   }
 
   return true;
@@ -358,18 +358,18 @@ module.exports = {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, `end`);
+        await handleJourneyResponse(req, res, "end");
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, `address-current`);
+        await handleJourneyResponse(req, res, "address-current");
       } else if (req.body?.journey === "attempt-recovery") {
         await handleJourneyResponse(req, res, "attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
-        await handleJourneyResponse(req, res, `build-client-oauth-response`);
+        await handleJourneyResponse(req, res, "build-client-oauth-response");
       } else {
-        await handleJourneyResponse(req, res, `next`);
+        await handleJourneyResponse(req, res, "next");
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");

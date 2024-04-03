@@ -918,6 +918,36 @@
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
+    },
+    "pyiTriageMobileConfirm": {
+      "title": "Prove your identity with the GOV.UK One Login app",
+      "header": "Prove your identity with the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
+        "paragraph2": "You can prove your identity this way if you have an iPhone or Android phone.",
+        "subHeading": "iPhone",
+        "paragraph3": "You can use an iPhone if it:",
+        "bullet1": "an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
+        "bullet2": "has a working camera",
+        "subHeading2": "Android phone (for example, Samsung or Google Pixel)",
+        "paragraph4": "You can use an Android phone if it:",
+        "bullet3": "has a working camera",
+        "bullet4": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contacless payments",
+        "subHeading3": "If you’re not sure you’ll be able to prove your identity with the app",
+        "paragraph5": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
+        "paragraph6": "You can also prove your identity in person at a Post Office.",
+        "subHeading4": "What would you like to do?",
+        "formRadioButtons": {
+          "proveWithAppButtonText": "Prove your identity with the GOV.UK One Login app",
+          "proveWithAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "otherWayButtonText": "Prove your identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
     }
   }
 }

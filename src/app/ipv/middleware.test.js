@@ -926,6 +926,18 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledOnce;
     });
 
+    it("should fetch user details if required", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
+
+      req.params.currentPage = "page-ipv-reuse";
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+        .called;
+      expect(res.render).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    });
+
     it("should call next in case of a successful execution", async function () {
       req.body.journey = "journey/dcmaw";
 

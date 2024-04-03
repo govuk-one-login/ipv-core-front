@@ -53,6 +53,18 @@ async function journeyApi(action, req) {
   return coreBackService.postAction(req, action);
 }
 
+async function loadUserDetailsIfRequired(pageId, req, renderOptions) {
+  if (pageRequiresUserDetails(pageId)) {
+    const userDetailsResponse =
+      await coreBackService.getProvenIdentityUserDetails(req);
+
+    renderOptions.userDetails = generateUserDetails(
+      userDetailsResponse,
+      req.i18n,
+    );
+  }
+}
+
 async function handleJourneyResponse(req, res, action) {
   const backendResponse = (await journeyApi(action, req)).data;
   return await handleBackendResponse(req, res, backendResponse);
@@ -307,15 +319,9 @@ module.exports = {
         context,
       };
 
-      if (pageRequiresUserDetails(pageId)) {
-        const userDetailsResponse =
-          await coreBackService.getProvenIdentityUserDetails(req);
+      await loadUserDetailsIfRequired(pageId, req, renderOptions);
 
-        renderOptions.userDetails = generateUserDetails(
-          userDetailsResponse,
-          req.i18n,
-        );
-      } else if (pageId === "pyi-triage-desktop-download-app") {
+      if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
           PHONE_TYPES.IPHONE,
@@ -426,7 +432,7 @@ module.exports = {
   formRadioButtonChecked: async (req, res, next) => {
     try {
       const { context } = req?.session || "";
-      const { pageId } = req.params;
+      const pageId = req.params.currentPage;
 
       const renderOptions = {
         pageId,
@@ -435,15 +441,7 @@ module.exports = {
         context,
       };
 
-      if (pageRequiresUserDetails(pageId)) {
-        const userDetailsResponse =
-          await coreBackService.getProvenIdentityUserDetails(req);
-
-        renderOptions.userDetails = generateUserDetails(
-          userDetailsResponse,
-          req.i18n,
-        );
-      }
+      await loadUserDetailsIfRequired(pageId, req, renderOptions);
 
       if (req.method === "POST" && req.body.journey === undefined) {
         res.render(

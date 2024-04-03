@@ -53,16 +53,11 @@ async function journeyApi(action, req) {
   return coreBackService.postAction(req, action);
 }
 
-async function loadUserDetailsIfRequired(pageId, req, renderOptions) {
-  if (pageRequiresUserDetails(pageId)) {
-    const userDetailsResponse =
-      await coreBackService.getProvenIdentityUserDetails(req);
+async function fetchUserDetails(req) {
+  const userDetailsResponse =
+    await coreBackService.getProvenIdentityUserDetails(req);
 
-    renderOptions.userDetails = generateUserDetails(
-      userDetailsResponse,
-      req.i18n,
-    );
-  }
+  return generateUserDetails(userDetailsResponse, req.i18n);
 }
 
 async function handleJourneyResponse(req, res, action) {
@@ -319,9 +314,9 @@ module.exports = {
         context,
       };
 
-      await loadUserDetailsIfRequired(pageId, req, renderOptions);
-
-      if (pageId === "pyi-triage-desktop-download-app") {
+      if (pageRequiresUserDetails(pageId)) {
+        renderOptions.userDetails = await fetchUserDetails(req);
+      } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
           PHONE_TYPES.IPHONE,
@@ -343,7 +338,10 @@ module.exports = {
         }
       }
 
-      return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
+      const sanitzedPageId = sanitize(pageId);
+
+      req.session.currentPage = sanitzedPageId;
+      return res.render(`ipv/page/${sanitzedPageId}.njk`, renderOptions);
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
@@ -432,7 +430,7 @@ module.exports = {
   formRadioButtonChecked: async (req, res, next) => {
     try {
       const { context } = req?.session || "";
-      const { pageId } = req.session;
+      const pageId = req.session.currentPage;
 
       const renderOptions = {
         pageId,
@@ -441,7 +439,9 @@ module.exports = {
         context,
       };
 
-      await loadUserDetailsIfRequired(pageId, req, renderOptions);
+      if (pageRequiresUserDetails(pageId)) {
+        renderOptions.userDetails = await fetchUserDetails(req);
+      }
 
       if (req.method === "POST" && req.body.journey === undefined) {
         res.render(

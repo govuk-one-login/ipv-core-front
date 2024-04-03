@@ -311,14 +311,10 @@ module.exports = {
         const userDetailsResponse =
           await coreBackService.getProvenIdentityUserDetails(req);
 
-        const userDetails = generateUserDetails(
-          userDetailsResponse,
-          req.i18n,
-        );
+        const userDetails = generateUserDetails(userDetailsResponse, req.i18n);
 
-        renderOptions.userDetails = userDetails
-        req.session.userDetails = userDetails
-
+        renderOptions.userDetails = userDetails;
+        req.session.userDetails = userDetails;
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
@@ -437,7 +433,7 @@ module.exports = {
           csrfToken: req.csrfToken(),
           pageErrorState: true,
           context,
-          userDetails: req.session.userDetails
+          userDetails: req.session.userDetails,
         });
       } else {
         next();

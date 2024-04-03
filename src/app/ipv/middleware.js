@@ -432,7 +432,7 @@ module.exports = {
   formRadioButtonChecked: async (req, res, next) => {
     try {
       const { context } = req?.session || "";
-      const pageId = req.params.currentPage;
+      const pageId = req.session.currentPage;
 
       const renderOptions = {
         pageId,

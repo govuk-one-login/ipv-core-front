@@ -929,7 +929,7 @@ describe("journey middleware", () => {
     it("should fetch user details if required", async function () {
       CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
 
-      req.params.currentPage = "page-ipv-reuse";
+      req.session.currentPage = "page-ipv-reuse";
       await middleware.formRadioButtonChecked(req, res, next);
 
       expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been

@@ -913,6 +913,29 @@ Resources:
       EndpointConfiguration:
         Types:
           - REGIONAL
+      Policy: !If
+        - IsDevelopment
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal: "*"
+              Action: "execute-api:Invoke"
+              Resource: "execute-api:/*/*/*"
+            - Effect: "Deny"
+              Principal: "*"
+              Action: "execute-api:/*/*/*"
+              Resource: "execute-api:/*/*/*"
+              Condition:
+                NotIpAddress:
+                  "aws:SourceIp":
+                    - "217.196.229.77"
+                    - "217.196.229.79"
+                    - "217.196.229.80"
+                    - "217.196.229.81"
+                    - "51.149.8.0/25"
+                    - "51.149.8.128/29"
+        - AWS::NoValue
+
 
   RestApiGwDeployment:
     DependsOn: RestApiGatewayMethod

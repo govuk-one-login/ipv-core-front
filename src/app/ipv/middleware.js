@@ -244,7 +244,9 @@ module.exports = {
       if (action) {
         await handleJourneyResponse(req, res, action);
       } else {
-        next(new Error(`Action ${req.url} not valid`));
+        res.status(HTTP_STATUS_CODES.NOT_FOUND);
+        return res.render("errors/page-not-found.njk");
+        // next(new Error(`Action ${req.url} not valid`));
       }
     } catch (error) {
       next(error);

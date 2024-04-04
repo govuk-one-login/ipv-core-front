@@ -441,10 +441,7 @@ module.exports = {
       }
 
       if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(
-          `ipv/page/${sanitize(pageId)}.njk`,
-          renderOptions,
-        );
+        res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
       } else {
         next();
       }

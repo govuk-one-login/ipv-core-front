@@ -18,15 +18,13 @@
       <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading' | translate }}</h2>
       <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvBankAccountStart.content.paragraph2' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet ">
-        <li>{{ 'pages.pageIpvBankAccountStart.content.list1' | translate }}</li>
-        <li>{{ 'pages.pageIpvBankAccountStart.content.list2' | translate }}</li>
-        <li>{{ 'pages.pageIpvBankAccountStart.content.list3' | translate }}</li>
-        <li>{{ 'pages.pageIpvBankAccountStart.content.list4' | translate }}</li>
-        <li>{{ 'pages.pageIpvBankAccountStart.content.list5' | translate }}</li>
+        {% for listItem in 'pages.pageIpvBankAccountStart.content.personalDetails' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
       </ul>
     </li>
   </ul>
-  
+
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph3' | translate }}</p>
 

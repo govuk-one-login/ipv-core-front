@@ -15,8 +15,9 @@
   <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph5' | translate }}</p>
   <ul class="govuk-list  govuk-list--bullet">
-    <li>{{'pages.pageIpvPending.content.list1' | translate }}</li>
-    <li>{{'pages.pageIpvPending.content.list2' | translate }}</li>
+    {% for listItem in 'pages.pageIpvPending.content.reasonsToContact' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>

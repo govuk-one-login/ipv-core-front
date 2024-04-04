@@ -7,16 +7,16 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTimeoutRecoverable.header' | translate }}</h1>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph1' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{'pages.pyiTimeoutRecoverable.content.bullet1' | translate }}</li>
-    <li>{{'pages.pyiTimeoutRecoverable.content.bullet2' | translate }}</li>
-    <li>{{'pages.pyiTimeoutRecoverable.content.bullet3' | translate }}</li>
-    <li>{{'pages.pyiTimeoutRecoverable.content.bullet4' | translate }}</li>
+    {% for listItem in 'pages.pyiTimeoutRecoverable.content.signedOutReasons' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   <h2 class="govuk-heading-m">{{'pages.pyiTimeoutRecoverable.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph2' | translate }}</p>
   <ol class="govuk-list govuk-list--number">
-    <li>{{'pages.pyiTimeoutRecoverable.content.list1' | translate }}</li>
-    <li>{{'pages.pyiTimeoutRecoverable.content.list2' | translate }}</li>
+    {% for listItem in 'pages.pyiTimeoutRecoverable.content.possibleActions' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ol>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph3' | translate }}</p>
   <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST">

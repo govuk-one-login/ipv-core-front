@@ -14,8 +14,9 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pageMultipleDocCheck.content.bullet1' | translate | safe }}</li>
-    <li>{{ 'pages.pageMultipleDocCheck.content.bullet2' | translate | safe }}</li>
+    {% for listItem in 'pages.pageMultipleDocCheck.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
 

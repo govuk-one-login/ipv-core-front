@@ -13,11 +13,12 @@
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph2' | translateWithContext(context) }}</p>
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph3' | translateWithContext(context) }}</p>
-  
+
   {% if context !== "f2f" %}
     <ul class="govuk-list govuk-list--bullet">
-      <li>{{ 'pages.pyiDetailsDeleted.content.list1' | translate }}</li>
-      <li>{{ 'pages.pyiDetailsDeleted.content.list2' | translate }}</li>
+      {% for listItem in 'pages.pyiDetailsDeleted.content.requirements' | translate({ returnObjects: true }) %}
+        <li>{{ listItem }}</li>
+      {% endfor %}
     </ul>
   {% endif %}
 

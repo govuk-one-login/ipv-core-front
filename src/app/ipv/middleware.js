@@ -133,6 +133,8 @@ async function handleBackendResponse(req, res, backendResponse) {
       `/ipv/page/${req.session.currentPage}`,
     );
   }
+
+  throw new Error(`Unknown backend response received ${backendResponse}`);
 }
 
 function tryValidateCriResponse(criResponse) {

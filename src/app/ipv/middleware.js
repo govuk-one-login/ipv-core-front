@@ -338,10 +338,7 @@ module.exports = {
         }
       }
 
-      const sanitzedPageId = sanitize(pageId);
-
-      req.session.currentPage = sanitzedPageId;
-      return res.render(`ipv/page/${sanitzedPageId}.njk`, renderOptions);
+      return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);

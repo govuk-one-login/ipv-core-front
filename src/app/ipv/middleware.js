@@ -53,6 +53,13 @@ async function journeyApi(action, req) {
   return coreBackService.postAction(req, action);
 }
 
+async function fetchUserDetails(req) {
+  const userDetailsResponse =
+    await coreBackService.getProvenIdentityUserDetails(req);
+
+  return generateUserDetails(userDetailsResponse, req.i18n);
+}
+
 async function handleJourneyResponse(req, res, action) {
   const backendResponse = (await journeyApi(action, req)).data;
   return await handleBackendResponse(req, res, backendResponse);
@@ -308,12 +315,7 @@ module.exports = {
       };
 
       if (pageRequiresUserDetails(pageId)) {
-        const userDetailsResponse =
-          await coreBackService.getProvenIdentityUserDetails(req);
-        renderOptions.userDetails = generateUserDetails(
-          userDetailsResponse,
-          req.i18n,
-        );
+        renderOptions.userDetails = await fetchUserDetails(req);
       } else if (pageId === "pyi-triage-desktop-download-app") {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
@@ -425,14 +427,21 @@ module.exports = {
   formRadioButtonChecked: async (req, res, next) => {
     try {
       const { context } = req?.session || "";
+      const pageId = req.session.currentPage;
+
+      const renderOptions = {
+        pageId,
+        csrfToken: req.csrfToken(),
+        pageErrorState: true,
+        context,
+      };
+
+      if (pageRequiresUserDetails(pageId)) {
+        renderOptions.userDetails = await fetchUserDetails(req);
+      }
 
       if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(`ipv/page/${sanitize(req.session.currentPage)}.njk`, {
-          pageId: req.session.currentPage,
-          csrfToken: req.csrfToken(),
-          pageErrorState: true,
-          context,
-        });
+        res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
       } else {
         next();
       }

@@ -35,25 +35,25 @@ describe("CoreBackService", () => {
     });
   });
 
-  it("should postAction with correct parameters and headers", async () => {
+  it("should postJourneyEvent with correct parameters and headers", async () => {
     // Arrange
-    const action = "test_action";
+    const event = "test_event";
 
     // Act
-    await CoreBackService.postAction(req, action);
+    await CoreBackService.postJourneyEvent(req, event);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
-      "/test_action",
+      "/journey/test_event",
       {},
       {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "ipv-session-id": "test_ipv_session_id",
-          "client-session-id": "test_client_session_id",
+          "content-type": "application/json",
           "x-request-id": "test_request_id",
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
         },
         logger: undefined,
       },
@@ -73,8 +73,12 @@ describe("CoreBackService", () => {
       { someAuthParam: "someValue" },
       {
         headers: {
+          "content-type": "application/json",
+          "x-request-id": "test_request_id",
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
         },
         logger: undefined,
       },
@@ -95,11 +99,12 @@ describe("CoreBackService", () => {
       { test_param: "someValue", error_param: "anotherValue" },
       {
         headers: {
-          "Content-Type": "application/json",
-          "ipv-session-id": "test_ipv_session_id",
+          "content-type": "application/json",
           "x-request-id": "test_request_id",
           "ip-address": "127.0.0.1",
           "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
         },
         logger: undefined,
       },
@@ -117,11 +122,12 @@ describe("CoreBackService", () => {
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWith("/proven-identity", {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": "test_ipv_session_id",
+        "content-type": "application/json",
         "x-request-id": "test_request_id",
         "ip-address": "127.0.0.1",
         "feature-set": "test_feature_set",
+        "ipv-session-id": "test_ipv_session_id",
+        "client-session-id": "test_client_session_id",
       },
       logger: undefined,
     });

@@ -44,13 +44,17 @@ async function journeyApi(action, req) {
     action = action.substr(1);
   }
 
+  if (action.startsWith("journey/")) {
+    action = action.substr(8);
+  }
+
   logCoreBackCall(req, {
     logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
     type: LOG_TYPE_JOURNEY,
     path: action,
   });
 
-  return coreBackService.postAction(req, action);
+  return coreBackService.postJourneyEvent(req, action);
 }
 
 async function fetchUserDetails(req) {
@@ -195,11 +199,11 @@ async function handleEscapeAction(req, res, next, actionType) {
     checkForSessionId(req, res);
 
     if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "journey/f2f");
+      await handleJourneyResponse(req, res, "f2f");
     } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "journey/dcmaw");
+      await handleJourneyResponse(req, res, "dcmaw");
     } else {
-      await handleJourneyResponse(req, res, "journey/end");
+      await handleJourneyResponse(req, res, "end");
     }
   } catch (error) {
     transformError(error, `error invoking ${actionType}`);
@@ -359,22 +363,18 @@ module.exports = {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "journey/address-current");
+        await handleJourneyResponse(req, res, "address-current");
       } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "journey/attempt-recovery");
+        await handleJourneyResponse(req, res, "attempt-recovery");
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
-        await handleJourneyResponse(
-          req,
-          res,
-          "journey/build-client-oauth-response",
-        );
+        await handleJourneyResponse(req, res, "build-client-oauth-response");
       } else {
-        await handleJourneyResponse(req, res, "journey/next");
+        await handleJourneyResponse(req, res, "next");
       }
     } catch (error) {
       transformError(error, "error invoking handleJourneyAction");
@@ -386,11 +386,11 @@ module.exports = {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "journey/ukPassport");
+        await handleJourneyResponse(req, res, "ukPassport");
       } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "journey/drivingLicence");
+        await handleJourneyResponse(req, res, "drivingLicence");
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleMultipleDocCheck");
@@ -402,11 +402,11 @@ module.exports = {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next") {
-        await handleJourneyResponse(req, res, "journey/next");
+        await handleJourneyResponse(req, res, "next");
       } else if (req.body?.journey === "next/bank-account") {
-        await handleJourneyResponse(req, res, "journey/bankAccount");
+        await handleJourneyResponse(req, res, "bankAccount");
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleEscapeM2b");
@@ -420,7 +420,7 @@ module.exports = {
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       } else {
-        await handleJourneyResponse(req, res, "journey/end");
+        await handleJourneyResponse(req, res, "end");
       }
     } catch (error) {
       transformError(error, "error invoking handleUpdateNameDobAction");

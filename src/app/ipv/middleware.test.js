@@ -1037,4 +1037,38 @@ describe("journey middleware", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
   });
+
+  context("handle unknown backend response", () => {
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: {
+            test: "unknown-response"
+          },
+        },
+      ];
+      req = {
+        id: "1",
+        url: "/journey/next",
+        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      const callBack = sinon.stub();
+      CoreBackServiceStub.postAction = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it("should render unrecoverable error page", async function () {
+      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+    });
+  })
 });

@@ -3,13 +3,23 @@ const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const coreBackService = require("../../services/coreBackService");
+const path = require("path");
+
+const callbackPath = path.join(
+  EXTERNAL_WEBSITE_HOST,
+  "credential-issuer",
+  "callback",
+);
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
+    const callbackUrl = new URL(callbackPath);
+    callbackUrl.searchParams.set("id", req.query?.id);
+
     const body = {
       authorizationCode: req.query?.code,
       credentialIssuerId: req.query?.id,
-      redirectUri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback?id=${req.query?.id}`,
+      redirectUri: callbackUrl.href,
       state: req.query?.state,
     };
 
@@ -50,7 +60,7 @@ module.exports = {
     const body = {
       authorizationCode: req.query?.code,
       credentialIssuerId: criId,
-      redirectUri: `${EXTERNAL_WEBSITE_HOST}/credential-issuer/callback/${criId}`,
+      redirectUri: callbackPath,
       state: req.query?.state,
     };
 

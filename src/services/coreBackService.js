@@ -7,6 +7,7 @@ const {
 } = require("../lib/config");
 
 const { createAxiosInstance } = require("../app/shared/axiosHelper");
+const path = require("path");
 
 const axiosInstance = createAxiosInstance(API_BASE_URL);
 
@@ -35,7 +36,7 @@ function postJourneyEvent(req, event, currentPage) {
     requestConfig.params = { currentPage };
   }
 
-  return axiosInstance.post(`${API_JOURNEY_EVENT}/${event}`, {}, requestConfig);
+  return axiosInstance.post(path.join(API_JOURNEY_EVENT, event), {}, requestConfig);
 }
 
 function postSessionInitialise(req, authParams) {

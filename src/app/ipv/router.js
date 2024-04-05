@@ -16,26 +16,32 @@ const {
 
 // Remove this as part of PYIC-4278
 const { allTemplatesMoved } = require("../development/middleware");
+const { getRoutePath } = require("../../lib/paths");
+const PAGES = require("../../constants/ipvPages");
+const path = require("path");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
-router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
+router.get(path.join("/", "usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
-router.get("/page/attempt-recovery", csrfProtection, renderAttemptRecoveryPage);
-router.get("/page/:pageId", csrfProtection, handleJourneyPage);
+router.get(path.join("/", "page", "attempt-recovery"), csrfProtection, renderAttemptRecoveryPage);
+router.get(path.join("/", "page", ":pageId"), csrfProtection, handleJourneyPage);
 // Remove this as part of PYIC-4278
-router.get("/all-templates", allTemplatesMoved);
+router.get(path.join("/", "all-templates"), allTemplatesMoved);
 
-router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
+router.get(
+  path.join("/", "app-redirect", ":specifiedPhoneType"),
+  handleAppStoreRedirect,
+);
 
 router.post(
-  "/page/:pageId",
+  getRoutePath(":pageId"),
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
   handleJourneyAction,
 );
 
-router.get("/journey/:pageId/:action", updateJourneyState);
+router.get(path.join("/", "journey", ":pageId", ":action"), updateJourneyState);
 module.exports = router;

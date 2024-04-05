@@ -10,6 +10,7 @@ const {
   GA4_DISABLED,
 } = require("./config");
 const { generateNonce } = require("./strings");
+const path = require("path");
 
 module.exports = {
   setLocals: function (req, res, next) {
@@ -20,8 +21,15 @@ module.exports = {
     res.locals.isUaDisabled = UA_DISABLED;
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
-    res.locals.assetPath = CDN_DOMAIN + "/assets";
-    res.locals.contactUsUrl = `${CONTACT_URL}?fromURL=${SERVICE_URL}${req.originalUrl}`;
+    res.locals.assetPath = path.join(CDN_DOMAIN, "assets");
+
+    const contactUsUrl = new URL(CONTACT_URL);
+    contactUsUrl.searchParams.set(
+      "fromUrl",
+      `${SERVICE_URL}${req.originalUrl}`,
+    );
+    res.locals.contactUsUrl = contactUsUrl;
+
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;
     res.status = function (code) {

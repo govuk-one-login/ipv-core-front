@@ -670,6 +670,14 @@
         "submitButtonTextF2f": "Parhau i brofi eich hunaniaeth eto"
       }
     },
+    "reproveIdentityStart": {
+      "title": "Mae angen i chi brofi eich hunaniaeth",
+      "header": "Mae angen i chi brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Mae angen i ni wirio pwy ydych chi cyn y gallwch barhau i ddefnyddio'r gwasanaeth.",
+        "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o'r blaen."
+      }
+    },
     "pyiF2fDeleteDetails": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",

@@ -403,6 +403,14 @@
         }
       }
     },
+    "reproveIdentityStart": {
+      "title": "You need to prove your identity",
+      "header": "You need to prove your identity",
+      "content": {
+        "paragraph1": "We will need to check who you are before you can continue with this service.",
+        "paragraph2": "You need to do this even if you have proved your identity with GOV.UK One Login before."
+      }
+    },
     "pyiAnotherWay": {
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",

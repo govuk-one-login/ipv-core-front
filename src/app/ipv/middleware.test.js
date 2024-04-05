@@ -1039,6 +1039,7 @@ describe("journey middleware", () => {
   });
 
   context("handle unknown backend response", () => {
+    let eventResponses = [];
     beforeEach(() => {
       eventResponses = [
         {

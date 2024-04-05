@@ -1043,7 +1043,7 @@ describe("journey middleware", () => {
       eventResponses = [
         {
           data: {
-            test: "unknown-response"
+            test: "unknown-response",
           },
         },
       ];
@@ -1070,5 +1070,5 @@ describe("journey middleware", () => {
       await middleware.handleJourneyResponse(req, res, "/journey/next");
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
-  })
+  });
 });

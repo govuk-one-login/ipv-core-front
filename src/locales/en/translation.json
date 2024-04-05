@@ -114,7 +114,8 @@
         "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
         "subHeading": "What you can do",
-        "paragraph3": "Continue to the service you were trying to use to find out if there are other ways to prove your identity"
+        "paragraph3": "Continue to the service you were trying to use to find out if there are other ways to prove your identity.",
+        "paragraph3RepeatFraudCheck": "Continue to the service you were trying to use to find out if there are other ways to access it."
       }
     },
     "pyiEscape": {

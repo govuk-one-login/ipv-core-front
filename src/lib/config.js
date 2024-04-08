@@ -36,5 +36,5 @@ module.exports = {
   SERVICE_URL: process.env.SERVICE_URL,
   TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
   SERVICE_DOMAIN: process.env.SERVICE_DOMAIN || "localhost",
-  LANGUAGE_TOGGLE_ENABLED: process.env.LANGUAGE_TOGGLE === "1" || 0,
+  LANGUAGE_TOGGLE_ENABLED: process.env.LANGUAGE_TOGGLE === true || false,
 };

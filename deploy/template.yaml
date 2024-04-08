@@ -760,7 +760,7 @@ Resources:
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: LANGUAGE_TOGGLE
-              Value: "0"
+              Value: false
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''

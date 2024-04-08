@@ -46,7 +46,7 @@ This project uses the following environment variables:
 | `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
 | `PORT`                  | Default port to run the web server on.                            | `3000`           |
 | `SESSION_SECRET`        | The secret key used for encrypting and decrypting session data.                                                        | -                |
-| `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | 0                |
+| `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | `false`                |
 
 ## Running ipv-core-front locally
 
@@ -80,8 +80,8 @@ On running `git commit`, pre-commit Git hooks check for:
 - trailing whitespaces
 - AWS credentials or private keys you might have added by accident
 - AWS CloudFormation issues
-- infrastructure issues - by running [checkov](https://github.com/bridgecrewio/checkov) 
-- secrets you might have added by accident - by running [detect-secrets](https://github.com/Yelp/detect-secrets). 
+- infrastructure issues - by running [checkov](https://github.com/bridgecrewio/checkov)
+- secrets you might have added by accident - by running [detect-secrets](https://github.com/Yelp/detect-secrets).
 
 If any secrets detected are false positives, update the `.secrets.baseline` file by running `detect-secrets scan > .secrets.baseline`.
 
@@ -150,7 +150,7 @@ Update the pre-commit plugins by running:
 pre-commit autoupdate && pre-commit install
 ```
 
-This command will install and configure the pre-commit Git hooks. 
+This command will install and configure the pre-commit Git hooks.
 
 ## GitHub tools and workflows
 

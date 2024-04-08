@@ -78,6 +78,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
+      languageToggle: true
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
@@ -98,6 +99,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
+      languageToggle: true
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
@@ -122,6 +124,7 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
@@ -142,6 +145,7 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
@@ -162,6 +166,7 @@ Mappings:
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
+      languageToggle: false
       desiredTaskCount: 1
       ga4Disabled: true
       uaDisabled: false
@@ -182,6 +187,7 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
+      languageToggle: false
       desiredTaskCount: 2
       ga4Disabled: true
       uaDisabled: false
@@ -760,7 +766,7 @@ Resources:
             - Name: SESSION_SECRET
               Value: "no-secret"
             - Name: LANGUAGE_TOGGLE
-              Value: false
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, languageToggle ]
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''

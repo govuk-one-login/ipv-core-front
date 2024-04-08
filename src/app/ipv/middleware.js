@@ -136,8 +136,8 @@ async function handleBackendResponse(req, res, backendResponse) {
 
   const message = {
     description: "Unexpected backend response",
-    data: backendResponse
-  }
+    data: backendResponse,
+  };
   req.log.error({ message, level: "ERROR" });
   throw new Error(message.description);
 }

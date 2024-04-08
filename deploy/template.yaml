@@ -86,6 +86,7 @@ Mappings:
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::738810260032:root
     "175872367215": # core-dev02
       lb400ErrorLimit: 10
       lb500ErrorLimit: 2
@@ -105,6 +106,7 @@ Mappings:
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::738810260032:root
     "457601271792": # Build
       lb400ErrorLimit: 10
       lb500ErrorLimit: 2
@@ -128,6 +130,7 @@ Mappings:
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::429671060046:root
     "335257547869": # Staging
       lb400ErrorLimit: 10
       lb500ErrorLimit: 2
@@ -147,6 +150,7 @@ Mappings:
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::444977453444:root
     "991138514218": # Integration
       lb400ErrorLimit: 10
       lb500ErrorLimit: 2
@@ -166,6 +170,7 @@ Mappings:
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::298945768017:root
     "075701497069": # Production
       lb400ErrorLimit: 20
       lb500ErrorLimit: 2
@@ -185,6 +190,7 @@ Mappings:
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
+      spotAccountArn: arn:aws:iam::101836073728:root
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -346,6 +352,52 @@ Resources:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
+
+  SpotKeysS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub published-did-documents-${Environment}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt S3KmsKey.Arn
+              SSEAlgorithm: "aws:kms"
+      VersioningConfiguration:
+        Status: "Enabled"
+      LoggingConfiguration:
+        DestinationBucketName: !Ref AccessLogsBucket
+        LogFilePrefix: spot-signing-keys
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  SpotKeysBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SpotKeysS3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "s3:*"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
+          - Sid: AllowSpotAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - spotAccountArn
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
 
   CoreFrontAccessLogsBucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -1203,22 +1255,33 @@ Resources:
             Action:
               - kms:*
             Resource: "*"
+
+  S3KmsKey:
+    Type: AWS::KMS::Key
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Statement:
           - Effect: Allow
             Principal:
-              Service: "dynamodb.amazonaws.com"
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
             Action:
-              - "kms:Encrypt*"
+              - "kms:*"
+            Resource: "*"
+          - Effect: Allow
+            Principal:
+              AWS: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - spotAccountArn
+            Action:
+              - "kms:GenerateDataKey"
               - "kms:Decrypt*"
-              - "kms:ReEncrypt*"
-              - "kms:GenerateDataKey*"
-              - "kms:Describe*"
             Resource: "*"
             Condition:
               StringEquals:
-                "kms:CallerAccount": !Sub "${AWS::AccountId}"
-                "kms:ViaService":
-                  - "dynamodb.amazonaws.com"
-                  - "ecs-tasks.amazonaws.com"
+                kms:ViaService: "s3.amazonaws.com"
 
   FrontLoadBalancer5xxErrors:
     Type: AWS::CloudWatch::Alarm

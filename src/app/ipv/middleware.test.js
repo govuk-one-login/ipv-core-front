@@ -1067,9 +1067,10 @@ describe("journey middleware", () => {
       sinon.restore();
     });
 
-    it("should render unrecoverable error page", async function () {
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
-      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+    it("should throw an error when receiving an unexpected backend response", async function () {
+      expect(
+        middleware.handleJourneyResponse(req, res, "/journey/next"),
+      ).to.be.rejectedWith("Unexpected backend response");
     });
   });
 });

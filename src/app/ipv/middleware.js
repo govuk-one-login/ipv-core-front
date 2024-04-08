@@ -134,15 +134,12 @@ async function handleBackendResponse(req, res, backendResponse) {
     );
   }
 
-  const err = new Error(`Unknown backend response received ${backendResponse}`);
-  err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-  logError(req, err);
-
-  req.session.currentPage = "pyi-technical";
-  res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-  return res.render("ipv/page/pyi-technical.njk", {
-    context: "unrecoverable",
-  });
+  const message = {
+    description: "Unexpected backend response",
+    data: backendResponse
+  }
+  req.log.error({ message, level: "ERROR" });
+  throw new Error(message.description);
 }
 
 function tryValidateCriResponse(criResponse) {

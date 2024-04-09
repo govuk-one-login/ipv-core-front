@@ -133,6 +133,13 @@ async function handleBackendResponse(req, res, backendResponse) {
       `/ipv/page/${req.session.currentPage}`,
     );
   }
+
+  const message = {
+    description: "Unexpected backend response",
+    data: backendResponse,
+  };
+  req.log.error({ message, level: "ERROR" });
+  throw new Error(message.description);
 }
 
 function tryValidateCriResponse(criResponse) {

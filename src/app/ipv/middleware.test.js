@@ -1037,4 +1037,40 @@ describe("journey middleware", () => {
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
   });
+
+  context("handle unknown backend response", () => {
+    let eventResponses = [];
+    beforeEach(() => {
+      eventResponses = [
+        {
+          data: {
+            test: "unknown-response",
+          },
+        },
+      ];
+      req = {
+        id: "1",
+        url: "/journey/next",
+        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      const callBack = sinon.stub();
+      CoreBackServiceStub.postAction = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it("should throw an error when receiving an unexpected backend response", async function () {
+      expect(
+        middleware.handleJourneyResponse(req, res, "/journey/next"),
+      ).to.be.rejectedWith("Unexpected backend response");
+    });
+  });
 });

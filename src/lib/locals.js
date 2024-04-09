@@ -28,7 +28,7 @@ module.exports = {
       "fromUrl",
       `${SERVICE_URL}${req.originalUrl}`,
     );
-    res.locals.contactUsUrl = contactUsUrl;
+    res.locals.contactUsUrl = contactUsUrl.href;
 
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;

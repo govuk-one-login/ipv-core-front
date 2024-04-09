@@ -5,15 +5,12 @@ const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const coreBackService = require("../../services/coreBackService");
 const path = require("path");
 
-const callbackPath = path.join(
-  EXTERNAL_WEBSITE_HOST,
-  "credential-issuer",
-  "callback",
-);
-
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
-    const callbackUrl = new URL(callbackPath);
+    const callbackUrl = new URL(
+      path.join("credential-issuer", "callback"),
+      EXTERNAL_WEBSITE_HOST,
+    );
     callbackUrl.searchParams.set("id", req.query?.id);
 
     const body = {
@@ -56,11 +53,15 @@ module.exports = {
   // Temporary - this will replace the above method once all CRI's have been migrated across to use the new endpoint
   sendParamsToAPIV2: async (req, res, next) => {
     const criId = req.params.criId;
+    const callbackUrl = new URL(
+      path.join("credential-issuer", "callback", criId),
+      EXTERNAL_WEBSITE_HOST,
+    );
 
     const body = {
       authorizationCode: req.query?.code,
       credentialIssuerId: criId,
-      redirectUri: callbackPath,
+      redirectUri: callbackUrl.href,
       state: req.query?.state,
     };
 

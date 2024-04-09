@@ -1,6 +1,6 @@
 const path = require("path");
 
-function getPostEndpoint(page) {
+function getRoutePath(page) {
   return path.join("/", "page", page);
 }
 
@@ -17,7 +17,7 @@ function addNunjucksExt(path) {
 }
 
 module.exports = {
-  getRoutePath: getPostEndpoint,
+  getRoutePath,
   getIpvPagePath,
   getIpvPageTemplatePath,
   addNunjucksExt,

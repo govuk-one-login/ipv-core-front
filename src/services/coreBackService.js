@@ -3,42 +3,52 @@ const {
   API_CRI_CALLBACK,
   API_SESSION_INITIALISE,
   API_BASE_URL,
+  API_JOURNEY_EVENT,
 } = require("../lib/config");
 
-const {
-  generateAxiosConfig,
-  generateAxiosConfigWithClientSessionId,
-  generateJsonAxiosConfig,
-  createAxiosInstance,
-} = require("../app/shared/axiosHelper");
+const { createAxiosInstance } = require("../app/shared/axiosHelper");
 
 const axiosInstance = createAxiosInstance(API_BASE_URL);
 
-function postAction(req, action) {
+function generateAxiosConfig(req) {
+  return {
+    headers: {
+      "content-type": "application/json",
+      "x-request-id": req.id,
+      "ip-address": req.session.ipAddress,
+      "feature-set": req.session.featureSet,
+      ...(req.session.ipvSessionId && {
+        "ipv-session-id": req.session.ipvSessionId,
+      }),
+      ...(req.session.clientOauthSessionId && {
+        "client-session-id": req.session.clientOauthSessionId,
+      }),
+    },
+    logger: req.log,
+  };
+}
+
+function postJourneyEvent(req, event) {
   return axiosInstance.post(
-    `/${action}`,
+    `${API_JOURNEY_EVENT}/${event}`,
     {},
-    req.session?.clientOauthSessionId
-      ? generateAxiosConfigWithClientSessionId(req)
-      : generateAxiosConfig(req),
+    generateAxiosConfig(req),
   );
 }
 
 function postSessionInitialise(req, authParams) {
-  return axiosInstance.post(API_SESSION_INITIALISE, authParams, {
-    headers: {
-      "ip-address": req.session.ipAddress,
-      "feature-set": req.session.featureSet,
-    },
-    logger: req.log,
-  });
+  return axiosInstance.post(
+    API_SESSION_INITIALISE,
+    authParams,
+    generateAxiosConfig(req),
+  );
 }
 
 function postCriCallback(req, body, errorDetails) {
   return axiosInstance.post(
     API_CRI_CALLBACK,
     { ...body, ...errorDetails },
-    generateJsonAxiosConfig(req),
+    generateAxiosConfig(req),
   );
 }
 
@@ -50,7 +60,7 @@ function getProvenIdentityUserDetails(req) {
 }
 
 module.exports = {
-  postAction,
+  postJourneyEvent,
   postSessionInitialise,
   postCriCallback,
   getProvenIdentityUserDetails,

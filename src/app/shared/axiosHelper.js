@@ -55,41 +55,4 @@ const axiosErrorHandler = (error) => {
 module.exports = {
   createAxiosInstance,
   axiosErrorHandler,
-  generateAxiosConfig: (req) => {
-    return {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": req.session?.ipvSessionId,
-        "x-request-id": req.id,
-        "ip-address": req.session.ipAddress,
-        "feature-set": req.session.featureSet,
-      },
-      logger: req.log,
-    };
-  },
-  generateAxiosConfigWithClientSessionId: (req) => {
-    return {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "ipv-session-id": req.session?.ipvSessionId,
-        "client-session-id": req?.session?.clientOauthSessionId,
-        "x-request-id": req.id,
-        "ip-address": req.session.ipAddress,
-        "feature-set": req.session.featureSet,
-      },
-      logger: req.log,
-    };
-  },
-  generateJsonAxiosConfig: (req) => {
-    return {
-      headers: {
-        "Content-Type": "application/json",
-        "ipv-session-id": req.session?.ipvSessionId,
-        "x-request-id": req.id,
-        "ip-address": req.session.ipAddress,
-        "feature-set": req.session.featureSet,
-      },
-      logger: req.log,
-    };
-  },
 };

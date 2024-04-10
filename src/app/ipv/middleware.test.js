@@ -50,7 +50,7 @@ describe("journey middleware", () => {
       log: { info: sinon.fake(), error: sinon.fake() },
     };
     next = sinon.fake();
-    CoreBackServiceStub.postAction = sinon.stub();
+    CoreBackServiceStub.postJourneyEvent = sinon.stub();
     CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
   });
 
@@ -84,25 +84,22 @@ describe("journey middleware", () => {
       ];
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postAction = callBack;
+      CoreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
 
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
-      expect(CoreBackServiceStub.postAction.getCall(0)).to.have.been.calledWith(
-        req,
-        "journey/next",
-      );
-      expect(CoreBackServiceStub.postAction.getCall(1)).to.have.been.calledWith(
-        req,
-        "journey/next",
-      );
-      expect(CoreBackServiceStub.postAction.getCall(2)).to.have.been.calledWith(
-        req,
-        "journey/startCri",
-      );
+      await middleware.handleJourneyResponse(req, res, "next");
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(0),
+      ).to.have.been.calledWith(req, "next");
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(1),
+      ).to.have.been.calledWith(req, "next");
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(2),
+      ).to.have.been.calledWith(req, "startCri");
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
@@ -112,13 +109,13 @@ describe("journey middleware", () => {
       callBack
         .onFirstCall()
         .returns({ data: { page: "a-page-id", statusCode: 418 } });
-      CoreBackServiceStub.postAction = callBack;
+      CoreBackServiceStub.postJourneyEvent = callBack;
 
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      await middleware.handleJourneyResponse(req, res, "next");
 
-      expect(CoreBackServiceStub.postAction).to.have.been.calledWith(
+      expect(CoreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
         req,
-        "journey/next",
+        "next",
       );
 
       expect(req.session.currentPageStatusCode).to.equal(418);
@@ -262,7 +259,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postAction = callBack;
+      CoreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -274,35 +271,7 @@ describe("journey middleware", () => {
     });
 
     it("should be redirected to a valid redirectURL", async function () {
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
-      expect(req.redirectURL.toString()).to.equal(
-        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
-      );
-    });
-
-    it("should be redirected to a valid redirectURL when given specific cri id", async function () {
-      eventResponses = [
-        {
-          data: {
-            redirect: {
-              cri: {
-                id: "PassportIssuer",
-                redirectUrl: `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
-              },
-            },
-          },
-        },
-      ];
-      req = {
-        id: "1",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
-      await middleware.handleJourneyResponse(
-        req,
-        res,
-        "/journey/cri/start/ukPassport",
-      );
+      await middleware.handleJourneyResponse(req, res, "next");
       expect(req.redirectURL.toString()).to.equal(
         "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
       );
@@ -332,7 +301,7 @@ describe("journey middleware", () => {
         };
 
         const callBack = sinon.stub();
-        CoreBackServiceStub.postAction = callBack;
+        CoreBackServiceStub.postJourneyEvent = callBack;
 
         eventResponses.forEach((er, index) => {
           callBack.onCall(index).returns(eventResponses[index]);
@@ -354,7 +323,7 @@ describe("journey middleware", () => {
     const callBack = sinon.stub();
 
     beforeEach(() => {
-      CoreBackServiceStub.postAction = callBack;
+      CoreBackServiceStub.postJourneyEvent = callBack;
 
       callBack.onCall(0).returns({
         data: { client: { redirectUrl: redirectUrl } },
@@ -369,7 +338,7 @@ describe("journey middleware", () => {
 
     it("should be redirected to a valid Client URL", async function () {
       req.session.clientOauthSessionId = "fake-client-session";
-      await middleware.handleJourneyResponse(req, res, "/journey/next");
+      await middleware.handleJourneyResponse(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
       expect(req.session.clientOauthSessionId).to.be.null;
     });
@@ -398,7 +367,7 @@ describe("journey middleware", () => {
       };
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postAction = callBack;
+      CoreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -416,7 +385,7 @@ describe("journey middleware", () => {
   context(
     "handling different journey actions being passed into the request",
     () => {
-      it("should postAction with journey/end", async function () {
+      it("should postJourneyEvent with end", async function () {
         req = {
           id: "1",
           body: { journey: "end" },
@@ -426,11 +395,11 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/end");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "end");
       });
 
-      it("should postAction with journey/attempt-recovery", async function () {
+      it("should postJourneyEvent with attempt-recovery", async function () {
         req = {
           id: "1",
           body: { journey: "attempt-recovery" },
@@ -440,11 +409,11 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/attempt-recovery");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "attempt-recovery");
       });
 
-      it("should postAction with journey/build-client-oauth-response and use ip address from header when not present in session", async function () {
+      it("should postJourneyEvent with build-client-oauth-response and use ip address from header when not present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
@@ -455,12 +424,12 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/build-client-oauth-response");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "build-client-oauth-response");
         expect(req.session.ipAddress).to.equal("1.1.1.1");
       });
 
-      it("should postAction with journey/build-client-oauth-response and use ip address from session when it is present in session", async function () {
+      it("should postJourneyEvent with build-client-oauth-response and use ip address from session when it is present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
@@ -471,16 +440,16 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/build-client-oauth-response");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "build-client-oauth-response");
         expect(req.session.ipAddress).to.equal("ip-address");
       });
 
-      it("should postAction with journey/next by default", async function () {
+      it("should postJourneyEvent with next by default", async function () {
         await middleware.handleJourneyAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/next");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "next");
       });
     },
   );
@@ -577,9 +546,9 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handleMultipleDocCheck: handling journey action with journey/ukPassport, journey/drivingLicence, journey/end",
+    "handleMultipleDocCheck: handling journey action with ukPassport, drivingLicence, end",
     () => {
-      it("should postAction with journey/ukPassport", async function () {
+      it("should postJourneyEvent with ukPassport", async function () {
         req = {
           id: "1",
           body: { journey: "next/passport" },
@@ -589,11 +558,11 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/ukPassport");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "ukPassport");
       });
 
-      it("should postAction with journey/drivingLicence", async function () {
+      it("should postJourneyEvent with drivingLicence", async function () {
         req = {
           id: "1",
           body: { journey: "next/driving-licence" },
@@ -603,15 +572,15 @@ describe("journey middleware", () => {
 
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/drivingLicence");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "drivingLicence");
       });
 
-      it("should postAction with journey/end by default", async function () {
+      it("should postJourneyEvent with end by default", async function () {
         await middleware.handleMultipleDocCheck(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/end");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "end");
       });
     },
   );
@@ -619,7 +588,7 @@ describe("journey middleware", () => {
   context(
     "handleUpdateNameDobAction: handling journey action events - 'contact', 'end'",
     () => {
-      it("should postAction with journey/end", async function () {
+      it("should postJourneyEvent with end", async function () {
         req = {
           id: "1",
           body: { journey: "next/end" },
@@ -629,8 +598,8 @@ describe("journey middleware", () => {
 
         await middleware.handleUpdateNameDobAction(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/end");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "end");
       });
 
       it("should call saveAndRedirect given 'contact' event", async function () {
@@ -652,9 +621,9 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeM2b: handling journey action with journey/next, journey/bankAccount, journey/end",
+    "handleEscapeM2b: handling journey action with next, bankAccount, end",
     () => {
-      it("should postAction with journey/next", async function () {
+      it("should postJourneyEvent with next", async function () {
         req = {
           id: "1",
           body: { journey: "next" },
@@ -664,11 +633,11 @@ describe("journey middleware", () => {
 
         await middleware.handleEscapeM2b(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/next");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "next");
       });
 
-      it("should postAction with journey/bankAccount", async function () {
+      it("should postJourneyEvent with bankAccount", async function () {
         req = {
           id: "1",
           body: { journey: "next/bank-account" },
@@ -678,15 +647,15 @@ describe("journey middleware", () => {
 
         await middleware.handleEscapeM2b(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/bankAccount");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "bankAccount");
       });
 
-      it("should postAction with journey/end by default", async function () {
+      it("should postJourneyEvent with end by default", async function () {
         await middleware.handleEscapeM2b(req, res, next);
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/end");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "end");
       });
     },
   );
@@ -718,9 +687,9 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeAction: handling journey action with journey/f2f, journey/dcmaw, journey/end",
+    "handleEscapeAction: handling journey action with f2f, dcmaw, end",
     () => {
-      it("should postAction with journey/f2f", async function () {
+      it("should postJourneyEvent with f2f", async function () {
         req = {
           id: "1",
           body: { journey: "next/f2f" },
@@ -735,11 +704,11 @@ describe("journey middleware", () => {
           "handleCriEscapeAction",
         );
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/f2f");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "f2f");
       });
 
-      it("should postAction with journey/dcmaw", async function () {
+      it("should postJourneyEvent with dcmaw", async function () {
         req = {
           id: "1",
           body: { journey: "next/dcmaw" },
@@ -754,11 +723,11 @@ describe("journey middleware", () => {
           "handleCriEscapeAction",
         );
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/dcmaw");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "dcmaw");
       });
 
-      it("should postAction with journey/end by default", async function () {
+      it("should postJourneyEvent with end by default", async function () {
         await middleware.handleEscapeAction(
           req,
           res,
@@ -766,8 +735,8 @@ describe("journey middleware", () => {
           "handleCriEscapeAction",
         );
         expect(
-          CoreBackServiceStub.postAction.firstCall,
-        ).to.have.been.calledWith(req, "journey/end");
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(req, "end");
       });
     },
   );
@@ -900,7 +869,7 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should render if method is postAction, journey is not defined", async function () {
+    it("should render if method is postJourneyEvent, journey is not defined", async function () {
       req.body.journey = undefined;
       req.method = "POST";
       await middleware.formRadioButtonChecked(req, res, next);
@@ -909,7 +878,7 @@ describe("journey middleware", () => {
       expect(next).to.have.not.been.calledOnce;
     });
 
-    it("should not render if method is not postAction", async function () {
+    it("should not render if method is not postJourneyEvent", async function () {
       req.method = "GET";
       req.body.journey = undefined;
       await middleware.formRadioButtonChecked(req, res, next);
@@ -939,7 +908,7 @@ describe("journey middleware", () => {
     });
 
     it("should call next in case of a successful execution", async function () {
-      req.body.journey = "journey/dcmaw";
+      req.body.journey = "dcmaw";
 
       await middleware.formRadioButtonChecked(req, res, next);
 

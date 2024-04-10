@@ -47,22 +47,23 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) => handleUpdateNameDobAction(req, res, next, "update-name-date-birth"),
+  (req, res, next) =>
+    handleUpdateNameDobAction(req, res, next, "update-name-date-birth"),
 );
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) => handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
+  (req, res, next) =>
+    handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
 );
 router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) =>
-    handleEscapeAction(req, res, next, "pyi-cri-escape"),
+  (req, res, next) => handleEscapeAction(req, res, next, "pyi-cri-escape"),
 );
 router.post(
   "/page/pyi-suggest-other-options",
@@ -84,8 +85,7 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) =>
-    handleEscapeAction(req, res, next, "pyi-kbv-escape-m2b"),
+  (req, res, next) => handleEscapeAction(req, res, next, "pyi-kbv-escape-m2b"),
 );
 router.post(
   "/page/:pageId",

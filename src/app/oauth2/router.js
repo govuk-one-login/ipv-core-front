@@ -2,8 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const { setIpvSessionId, setIpAddress, handleOAuthJourneyAction } = require("./middleware");
-
+const {
+  setIpvSessionId,
+  setIpAddress,
+  handleOAuthJourneyAction,
+} = require("./middleware");
 
 router.get(
   "/authorize",

@@ -65,14 +65,11 @@ async function fetchUserDetails(req) {
 }
 
 async function handleJourneyResponse(req, res, action, currentPage = "") {
-
   if (currentPage) {
-    action += `?currentPage=${currentPage}`
+    action += `?currentPage=${currentPage}`;
   }
 
-  const backendResponse = (
-    await journeyApi(action, req)
-  ).data;
+  const backendResponse = (await journeyApi(action, req)).data;
 
   return await handleBackendResponse(req, res, backendResponse);
 }

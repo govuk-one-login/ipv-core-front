@@ -64,13 +64,6 @@ async function fetchUserDetails(req) {
   return generateUserDetails(userDetailsResponse, req.i18n);
 }
 
-// This will not get the correct CRI id, we will need to let this route support an optional currentPage param if we want to combine OAuth / CRI and journey events
-function getIpvPageFromRequest(req) {
-  const pathParts = req.path.split("/");
-
-  return pathParts.slice(2).join("/");
-}
-
 async function handleJourneyResponse(req, res, action, currentPage = "") {
   const backendResponse = (
     await journeyApi(`journey/${action}?currentPage=${currentPage}`, req)
@@ -147,8 +140,12 @@ async function handleBackendResponse(req, res, backendResponse) {
       `/ipv/page/${req.session.currentPage}`,
     );
   }
-
-  return res.render("ipv/page/pyi-technical.njk");
+  const message = {
+    description: "Unexpected backend response",
+    data: backendResponse,
+  };
+  req.log.error({ message, level: "ERROR" });
+  throw new Error(message.description);
 }
 
 function tryValidateCriResponse(criResponse) {
@@ -239,7 +236,6 @@ function handleAppStoreRedirect(req, res, next) {
       res.redirect(APP_STORE_URL_ANDROID);
     }
     throw new Error("Unrecognised phone type: " + specifiedPhoneType);
-
   } catch (error) {
     transformError(error, `Error redirecting to app store`);
     next(error);
@@ -486,5 +482,4 @@ module.exports = {
   handleAppStoreRedirect,
   checkForIpvAndOauthSessionId,
   journeyApi,
-  getIpvPageFromRequest,
 };

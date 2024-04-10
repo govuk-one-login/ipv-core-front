@@ -41,14 +41,12 @@ async function allTemplatesPost(req, res) {
   const language = req.body.language;
   const context = req.body.context;
 
-  const redirectUrl = new URL(
-    path.join("/", "dev", "template", templateId, language),
-  );
+  let redirectUrl = path.join("/", "dev", "template", templateId, language);
   if (context) {
-    redirectUrl.searchParams.set("context", context);
+    redirectUrl += `?context=${context}`;
   }
 
-  return res.redirect(redirectUrl.href);
+  return res.redirect(redirectUrl);
 }
 
 async function templatesDisplayGet(req, res) {

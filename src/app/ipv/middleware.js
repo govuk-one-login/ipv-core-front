@@ -65,8 +65,13 @@ async function fetchUserDetails(req) {
 }
 
 async function handleJourneyResponse(req, res, action, currentPage = "") {
+
+  if (currentPage) {
+    action += `?currentPage=${currentPage}`
+  }
+
   const backendResponse = (
-    await journeyApi(`journey/${action}?currentPage=${currentPage}`, req)
+    await journeyApi(action, req)
   ).data;
 
   return await handleBackendResponse(req, res, backendResponse);

@@ -94,13 +94,13 @@ describe("journey middleware", () => {
       await middleware.handleJourneyResponse(req, res, "next");
       expect(
         CoreBackServiceStub.postJourneyEvent.getCall(0),
-      ).to.have.been.calledWith(req, "next?currentPage=");
+      ).to.have.been.calledWith(req, "next");
       expect(
         CoreBackServiceStub.postJourneyEvent.getCall(1),
-      ).to.have.been.calledWith(req, "next?currentPage=");
+      ).to.have.been.calledWith(req, "next");
       expect(
         CoreBackServiceStub.postJourneyEvent.getCall(2),
-      ).to.have.been.calledWith(req, "startCri?currentPage=");
+      ).to.have.been.calledWith(req, "startCri");
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
@@ -116,7 +116,7 @@ describe("journey middleware", () => {
 
       expect(CoreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
         req,
-        "next?currentPage=",
+        "next",
       );
 
       expect(req.session.currentPageStatusCode).to.equal(418);

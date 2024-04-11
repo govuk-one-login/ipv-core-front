@@ -605,7 +605,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleUpdateNameDobAction: handling journey action events - 'contact', 'end'",
+    "handleJourneyAction: handling journey action events - 'contact', 'end'",
     () => {
       it("should postJourneyEvent with end", async function () {
         req = {
@@ -613,13 +613,13 @@ describe("journey middleware", () => {
           body: { journey: "next/end" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleUpdateNameDobAction(
+        await middleware.handleJourneyAction(
           req,
           res,
-          next,
-          "ipv-current-page",
+          next
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
@@ -636,9 +636,10 @@ describe("journey middleware", () => {
             save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleUpdateNameDobAction(req, res, next);
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.redirect).to.have.been.calledWith("contactUrl");
       });
     },

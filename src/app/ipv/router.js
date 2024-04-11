@@ -8,7 +8,6 @@ const {
   updateJourneyState,
   handleJourneyPage,
   handleJourneyAction,
-  handleMultipleDocCheck,
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
@@ -47,14 +46,6 @@ router.post(
   formRadioButtonChecked,
   (req, res, next) =>
     handleUpdateNameDobAction(req, res, next, "update-name-date-birth"),
-);
-router.post(
-  "/page/page-multiple-doc-check",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) =>
-    handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
 );
 
 router.post(

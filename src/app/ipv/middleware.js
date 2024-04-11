@@ -345,7 +345,7 @@ module.exports = {
   // make considerations for handleEscapeAction pages with no req.body?.journey that defaults to `end`
   handleJourneyAction: async (req, res, next) => {
     const currentPage = req.params.pageId;
-    const pagesUsingSessionId = ["pyi-suggest-other-options", "pyi-cri-escape", "pyi-kbv-escape-m2b", "pyi-escape-m2b"];
+    const pagesUsingSessionId = ["pyi-suggest-other-options", "pyi-cri-escape", "pyi-kbv-escape-m2b", "pyi-escape-m2b", "page-multiple-doc-check"];
     const journeyActions = {
       "end": "end",
       "address-current": "address-current",
@@ -354,6 +354,8 @@ module.exports = {
       "next/f2f": "f2f",
       "next/dcmaw": "dcmaw",
       "next/bank-account": "bankAccount",
+      "next/passport": "ukPassport",
+      "next/driving-licence": "drivingLicence",
     };
     try {
       const action = journeyActions[req.body?.journey] || "next";
@@ -370,23 +372,6 @@ module.exports = {
       }
 
       await handleJourneyResponse(req, res, action, currentPage);
-    } catch (error) {
-      transformError(error, `error handling POST request on ${currentPageId}`);
-      next(error);
-    }
-  },
-
-  handleMultipleDocCheck: async (req, res, next, currentPageId) => {
-    try {
-      checkForSessionId(req, res);
-
-      if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "ukPassport", currentPageId);
-      } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "drivingLicence", currentPageId);
-      } else {
-        await handleJourneyResponse(req, res, "end", currentPageId);
-      }
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);

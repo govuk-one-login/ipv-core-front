@@ -255,7 +255,7 @@ module.exports = {
   // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
-      const allowedActions = ["/journey/end", "/journey/back"];
+      const allowedActions = ["/journey/end"];
 
       const action = allowedActions.find((x) => x === req.url);
 
@@ -267,6 +267,15 @@ module.exports = {
       }
     } catch (error) {
       next(error);
+    }
+  },
+  handlePageBackButton: async (req, res, next) => {
+    const currentPageId = req.params.pageId;
+
+    try {
+      await handleJourneyResponse(req, res, "back", currentPageId)
+    } catch (error) {
+      next(error)
     }
   },
   handleJourneyPage: async (req, res, next) => {

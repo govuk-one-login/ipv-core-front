@@ -9,7 +9,6 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   handleMultipleDocCheck,
-  handleEscapeM2b,
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
@@ -58,13 +57,6 @@ router.post(
     handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
 );
 
-router.post(
-  "/page/pyi-escape-m2b",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) => handleEscapeM2b(req, res, next, "pyi-escape-m2b"),
-);
 router.post(
   "/page/:pageId",
   parseForm,

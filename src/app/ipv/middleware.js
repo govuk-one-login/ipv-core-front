@@ -341,17 +341,19 @@ module.exports = {
       delete req.session.currentPageStatusCode;
     }
   },
+
   // make considerations for handleEscapeAction pages with no req.body?.journey that defaults to `end`
   handleJourneyAction: async (req, res, next) => {
     const currentPage = req.params.pageId;
-    const pagesUsingSessionId = ["pyi-suggest-other-options", "pyi-cri-escape", "pyi-escape-m2b"];
+    const pagesUsingSessionId = ["pyi-suggest-other-options", "pyi-cri-escape", "pyi-kbv-escape-m2b", "pyi-escape-m2b"];
     const journeyActions = {
       "end": "end",
       "address-current": "address-current",
       "attempt-recovery": "attempt-recovery",
       "build-client-oauth-response": "build-client-oauth-response",
       "next/f2f": "f2f",
-      "next/dcmaw": "dcmaw"
+      "next/dcmaw": "dcmaw",
+      "next/bank-account": "bankAccount",
     };
     try {
       const action = journeyActions[req.body?.journey] || "next";
@@ -390,23 +392,8 @@ module.exports = {
       next(error);
     }
   },
-  handleEscapeM2b: async (req, res, next, currentPageId) => {
-    try {
-      checkForSessionId(req, res);
 
-      if (req.body?.journey === "next") {
-        await handleJourneyResponse(req, res, "next", currentPageId);
-      } else if (req.body?.journey === "next/bank-account") {
-        await handleJourneyResponse(req, res, "bankAccount", currentPageId);
-      } else {
-        await handleJourneyResponse(req, res, "end", currentPageId);
-      }
-    } catch (error) {
-      transformError(error, `error handling POST request on ${currentPageId}`);
-      next(error);
-    }
-  },
-  handleUpdateNameDobAction: async (req, res, next, currentPageId) => {
+  handleUpdateNameDobAction: async (req, res, next, currentPage) => {
     try {
       checkForIpvAndOauthSessionId(req, res);
 

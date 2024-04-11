@@ -344,7 +344,7 @@ module.exports = {
 
   // make considerations for handleEscapeAction pages with no req.body?.journey that defaults to `end`
   handleJourneyAction: async (req, res, next) => {
-    const currentPage = req.params.pageId;
+    const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
       "pyi-suggest-other-options",
       "pyi-cri-escape",
@@ -367,7 +367,7 @@ module.exports = {
     };
     try {
       const action = journeyActions[req.body?.journey] || "next";
-      if (pagesUsingSessionId.includes(currentPage)) {
+      if (pagesUsingSessionId.includes(currentPageId)) {
         checkForSessionId(req, res);
       } else {
         checkForIpvAndOauthSessionId(req, res);
@@ -382,7 +382,7 @@ module.exports = {
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       }
-      await handleJourneyResponse(req, res, action, currentPage);
+      await handleJourneyResponse(req, res, action, currentPageId);
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);

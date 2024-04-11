@@ -95,9 +95,6 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
-router.get(
-  "/page/:pageId/back",
-  handlePageBackButton
-)
+router.get("/page/:pageId/back", handlePageBackButton);
 router.get("/*", updateJourneyState);
 module.exports = router;

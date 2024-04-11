@@ -273,9 +273,9 @@ module.exports = {
     const currentPageId = req.params.pageId;
 
     try {
-      await handleJourneyResponse(req, res, "back", currentPageId)
+      await handleJourneyResponse(req, res, "back", currentPageId);
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   handleJourneyPage: async (req, res, next) => {

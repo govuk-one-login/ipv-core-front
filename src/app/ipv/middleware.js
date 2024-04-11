@@ -39,7 +39,7 @@ const allTemplates = fs
   .readdirSync(directoryPath)
   .map((file) => path.parse(file).name);
 
-async function journeyApi(action, req) {
+async function journeyApi(action, req, queryParams) {
   if (action.startsWith("/")) {
     action = action.substr(1);
   }
@@ -54,7 +54,7 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return coreBackService.postJourneyEvent(req, action);
+  return coreBackService.postJourneyEvent(req, action, queryParams);
 }
 
 async function fetchUserDetails(req) {
@@ -64,12 +64,14 @@ async function fetchUserDetails(req) {
   return generateUserDetails(userDetailsResponse, req.i18n);
 }
 
-async function handleJourneyResponse(req, res, action, currentPage = "") {
-  if (currentPage) {
-    action += `?currentPage=${currentPage}`;
+async function handleJourneyResponse(req, res, action, currentPageId = "") {
+  let queryParams = {};
+
+  if (currentPageId) {
+    queryParams.currentPage = currentPageId;
   }
 
-  const backendResponse = (await journeyApi(action, req)).data;
+  const backendResponse = (await journeyApi(action, req, queryParams)).data;
 
   return await handleBackendResponse(req, res, backendResponse);
 }
@@ -198,19 +200,19 @@ function checkForIpvAndOauthSessionId(req, res) {
   }
 }
 
-async function handleEscapeAction(req, res, next, currentPage) {
+async function handleEscapeAction(req, res, next, currentPageId) {
   try {
     checkForSessionId(req, res);
 
     if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "f2f", currentPage);
+      await handleJourneyResponse(req, res, "f2f", currentPageId);
     } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "dcmaw", currentPage);
+      await handleJourneyResponse(req, res, "dcmaw", currentPageId);
     } else {
-      await handleJourneyResponse(req, res, "end", currentPage);
+      await handleJourneyResponse(req, res, "end", currentPageId);
     }
   } catch (error) {
-    transformError(error, `error handling POST request on ${currentPage}`);
+    transformError(error, `error handling POST request on ${currentPageId}`);
     next(error);
   }
 }
@@ -232,12 +234,16 @@ function handleAppStoreRedirect(req, res, next) {
   const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
-    if (specifiedPhoneType === PHONE_TYPES.IPHONE) {
-      res.redirect(APP_STORE_URL_APPLE);
-    } else if (specifiedPhoneType === PHONE_TYPES.ANDROID) {
-      res.redirect(APP_STORE_URL_ANDROID);
+    switch (specifiedPhoneType) {
+      case PHONE_TYPES.IPHONE:
+        res.redirect(APP_STORE_URL_APPLE);
+        break;
+      case PHONE_TYPES.ANDROID:
+        res.redirect(APP_STORE_URL_ANDROID);
+        break;
+      default:
+        throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
-    throw new Error("Unrecognised phone type: " + specifiedPhoneType);
   } catch (error) {
     transformError(error, `Error redirecting to app store`);
     next(error);
@@ -359,16 +365,21 @@ module.exports = {
     }
   },
   handleJourneyAction: async (req, res, next) => {
-    const currentPage = req.params.pageId;
+    const currentPageId = req.params.pageId;
     try {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "end", currentPage);
+        await handleJourneyResponse(req, res, "end", currentPageId);
       } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "address-current", currentPage);
+        await handleJourneyResponse(req, res, "address-current", currentPageId);
       } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "attempt-recovery", currentPage);
+        await handleJourneyResponse(
+          req,
+          res,
+          "attempt-recovery",
+          currentPageId,
+        );
       } else if (req.body?.journey === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
@@ -377,60 +388,60 @@ module.exports = {
           req,
           res,
           "build-client-oauth-response",
-          currentPage,
+          currentPageId,
         );
       } else {
-        await handleJourneyResponse(req, res, "next", currentPage);
+        await handleJourneyResponse(req, res, "next", currentPageId);
       }
     } catch (error) {
-      transformError(error, `error handling POST request on ${currentPage}`);
+      transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }
   },
 
-  handleMultipleDocCheck: async (req, res, next, currentPage) => {
+  handleMultipleDocCheck: async (req, res, next, currentPageId) => {
     try {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "ukPassport", currentPage);
+        await handleJourneyResponse(req, res, "ukPassport", currentPageId);
       } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "drivingLicence", currentPage);
+        await handleJourneyResponse(req, res, "drivingLicence", currentPageId);
       } else {
-        await handleJourneyResponse(req, res, "end", currentPage);
+        await handleJourneyResponse(req, res, "end", currentPageId);
       }
     } catch (error) {
-      transformError(error, `error handling POST request on ${currentPage}`);
+      transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }
   },
-  handleEscapeM2b: async (req, res, next, currentPage) => {
+  handleEscapeM2b: async (req, res, next, currentPageId) => {
     try {
       checkForSessionId(req, res);
 
       if (req.body?.journey === "next") {
-        await handleJourneyResponse(req, res, "next", currentPage);
+        await handleJourneyResponse(req, res, "next", currentPageId);
       } else if (req.body?.journey === "next/bank-account") {
-        await handleJourneyResponse(req, res, "bankAccount", currentPage);
+        await handleJourneyResponse(req, res, "bankAccount", currentPageId);
       } else {
-        await handleJourneyResponse(req, res, "end", currentPage);
+        await handleJourneyResponse(req, res, "end", currentPageId);
       }
     } catch (error) {
-      transformError(error, `error handling POST request on ${currentPage}`);
+      transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }
   },
-  handleUpdateNameDobAction: async (req, res, next, currentPage) => {
+  handleUpdateNameDobAction: async (req, res, next, currentPageId) => {
     try {
       checkForIpvAndOauthSessionId(req, res);
 
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       } else {
-        await handleJourneyResponse(req, res, "end", currentPage);
+        await handleJourneyResponse(req, res, "end", currentPageId);
       }
     } catch (error) {
-      transformError(error, `error handling POST request on ${currentPage}`);
+      transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }
   },

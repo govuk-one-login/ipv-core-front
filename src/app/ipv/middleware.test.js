@@ -400,7 +400,9 @@ describe("journey middleware", () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "end", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with attempt-recovery", async function () {
@@ -415,10 +417,9 @@ describe("journey middleware", () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "attempt-recovery?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "attempt-recovery", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with build-client-oauth-response and use ip address from header when not present in session", async function () {
@@ -434,10 +435,9 @@ describe("journey middleware", () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "build-client-oauth-response?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "build-client-oauth-response", {
+          currentPage: "ipv-current-page",
+        });
         expect(req.session.ipAddress).to.equal("1.1.1.1");
       });
 
@@ -454,10 +454,9 @@ describe("journey middleware", () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "build-client-oauth-response?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "build-client-oauth-response", {
+          currentPage: "ipv-current-page",
+        });
         expect(req.session.ipAddress).to.equal("ip-address");
       });
 
@@ -465,7 +464,9 @@ describe("journey middleware", () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "next?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "next", {
+          currentPage: "ipv-current-page",
+        });
       });
     },
   );
@@ -581,10 +582,9 @@ describe("journey middleware", () => {
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "ukPassport?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "ukPassport", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with drivingLicence", async function () {
@@ -603,10 +603,9 @@ describe("journey middleware", () => {
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "drivingLicence?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "drivingLicence", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with end by default", async function () {
@@ -618,7 +617,9 @@ describe("journey middleware", () => {
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "end", {
+          currentPage: "ipv-current-page",
+        });
       });
     },
   );
@@ -642,7 +643,9 @@ describe("journey middleware", () => {
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "end", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should call saveAndRedirect given 'contact' event", async function () {
@@ -677,7 +680,9 @@ describe("journey middleware", () => {
         await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "next?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "next", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with bankAccount", async function () {
@@ -692,17 +697,18 @@ describe("journey middleware", () => {
         await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(
-          req,
-          "bankAccount?currentPage=ipv-current-page",
-        );
+        ).to.have.been.calledWith(req, "bankAccount", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with end by default", async function () {
         await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "end", {
+          currentPage: "ipv-current-page",
+        });
       });
     },
   );
@@ -747,7 +753,9 @@ describe("journey middleware", () => {
         await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "f2f?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "f2f", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with dcmaw", async function () {
@@ -761,14 +769,18 @@ describe("journey middleware", () => {
         await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "dcmaw?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "dcmaw", {
+          currentPage: "ipv-current-page",
+        });
       });
 
       it("should postJourneyEvent with end by default", async function () {
         await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end?currentPage=ipv-current-page");
+        ).to.have.been.calledWith(req, "end", {
+          currentPage: "ipv-current-page",
+        });
       });
     },
   );

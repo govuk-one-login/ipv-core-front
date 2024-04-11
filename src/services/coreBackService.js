@@ -28,10 +28,10 @@ function generateAxiosConfig(req) {
   };
 }
 
-function postJourneyEvent(req, event) {
+function postJourneyEvent(req, event, queryParams = {}) {
   return axiosInstance.post(
     `${API_JOURNEY_EVENT}/${event}`,
-    {},
+    queryParams,
     generateAxiosConfig(req),
   );
 }

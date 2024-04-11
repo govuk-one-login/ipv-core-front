@@ -724,7 +724,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeAction: handling journey action with f2f, dcmaw, end",
+    "handleJourneyAction: handling journey action with f2f, dcmaw, end",
     () => {
       it("should postJourneyEvent with f2f", async function () {
         req = {
@@ -732,9 +732,10 @@ describe("journey middleware", () => {
           body: { journey: "next/f2f" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next, "ipv-current-page");
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "f2f", "ipv-current-page");
@@ -746,16 +747,17 @@ describe("journey middleware", () => {
           body: { journey: "next/dcmaw" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "dcmaw", "ipv-current-page");
       });
 
       it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "end", "ipv-current-page");
@@ -764,7 +766,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeAction: handling missing ipvSessionId before calling the backend",
+    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -774,14 +776,14 @@ describe("journey middleware", () => {
             ipvSessionId: null,
             ipAddress: "ip-address",
           },
+          params: { pageId: "page-ipv-identity-document-start" },
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
-        await middleware.handleEscapeAction(
+        await middleware.handleJourneyAction(
           req,
           res,
-          next,
-          "handleCriEscapeAction",
+          next
         );
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(

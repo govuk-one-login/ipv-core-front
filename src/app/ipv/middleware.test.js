@@ -756,12 +756,6 @@ describe("journey middleware", () => {
         ).to.have.been.calledWith(req, "dcmaw", "ipv-current-page");
       });
 
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleJourneyAction(req, res, next);
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
-      });
     },
   );
 

@@ -47,22 +47,23 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleUpdateNameDobAction,
+  (req, res, next) =>
+    handleUpdateNameDobAction(req, res, next, "update-name-date-birth"),
 );
 router.post(
   "/page/page-multiple-doc-check",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleMultipleDocCheck,
+  (req, res, next) =>
+    handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
 );
 router.post(
   "/page/pyi-cri-escape",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) =>
-    handleEscapeAction(req, res, next, "handleCriEscapeAction"),
+  (req, res, next) => handleEscapeAction(req, res, next, "pyi-cri-escape"),
 );
 router.post(
   "/page/pyi-suggest-other-options",
@@ -70,22 +71,21 @@ router.post(
   csrfProtection,
   formRadioButtonChecked,
   (req, res, next) =>
-    handleEscapeAction(req, res, next, "handleCimitEscapeAction"),
+    handleEscapeAction(req, res, next, "pyi-suggest-other-options"),
 );
 router.post(
   "/page/pyi-escape-m2b",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  handleEscapeM2b,
+  (req, res, next) => handleEscapeM2b(req, res, next, "pyi-escape-m2b"),
 );
 router.post(
   "/page/pyi-kbv-escape-m2b",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
-  (req, res, next) =>
-    handleEscapeAction(req, res, next, "handleCriEscapeAction"),
+  (req, res, next) => handleEscapeAction(req, res, next, "pyi-kbv-escape-m2b"),
 );
 router.post(
   "/page/:pageId",

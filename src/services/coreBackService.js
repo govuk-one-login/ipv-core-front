@@ -28,12 +28,14 @@ function generateAxiosConfig(req) {
   };
 }
 
-function postJourneyEvent(req, event) {
-  return axiosInstance.post(
-    `${API_JOURNEY_EVENT}/${event}`,
-    {},
-    generateAxiosConfig(req),
-  );
+function postJourneyEvent(req, event, currentPage) {
+  const requestConfig = generateAxiosConfig(req);
+
+  if (currentPage) {
+    requestConfig.params = { currentPage };
+  }
+
+  return axiosInstance.post(`${API_JOURNEY_EVENT}/${event}`, {}, requestConfig);
 }
 
 function postSessionInitialise(req, authParams) {

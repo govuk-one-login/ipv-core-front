@@ -39,7 +39,7 @@ const allTemplates = fs
   .readdirSync(directoryPath)
   .map((file) => path.parse(file).name);
 
-async function journeyApi(action, req, queryParams) {
+async function journeyApi(action, req, currentPageId) {
   if (action.startsWith("/")) {
     action = action.substr(1);
   }
@@ -54,7 +54,7 @@ async function journeyApi(action, req, queryParams) {
     path: action,
   });
 
-  return coreBackService.postJourneyEvent(req, action, queryParams);
+  return coreBackService.postJourneyEvent(req, action, currentPageId);
 }
 
 async function fetchUserDetails(req) {
@@ -65,13 +65,7 @@ async function fetchUserDetails(req) {
 }
 
 async function handleJourneyResponse(req, res, action, currentPageId = "") {
-  let queryParams = {};
-
-  if (currentPageId) {
-    queryParams.currentPage = currentPageId;
-  }
-
-  const backendResponse = (await journeyApi(action, req, queryParams)).data;
+  const backendResponse = (await journeyApi(action, req, currentPageId)).data;
 
   return await handleBackendResponse(req, res, backendResponse);
 }

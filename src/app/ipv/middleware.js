@@ -363,30 +363,22 @@ module.exports = {
     try {
       checkForIpvAndOauthSessionId(req, res);
 
-      if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "end", currentPageId);
-      } else if (req.body?.journey === "addressCurrent") {
-        await handleJourneyResponse(req, res, "address-current", currentPageId);
-      } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(
-          req,
-          res,
-          "attempt-recovery",
-          currentPageId,
-        );
-      } else if (req.body?.journey === "build-client-oauth-response") {
+      const journeyActions = {
+        "end": "end",
+        "addressCurrent": "address-current",
+        "attempt-recovery": "attempt-recovery",
+        "build-client-oauth-response": "build-client-oauth-response"
+      };
+
+      const action = journeyActions[req.body?.journey] || "next";
+
+      if (action === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
           ? req.session.ipAddress
           : getIpAddress(req);
-        await handleJourneyResponse(
-          req,
-          res,
-          "build-client-oauth-response",
-          currentPageId,
-        );
-      } else {
-        await handleJourneyResponse(req, res, "next", currentPageId);
       }
+
+      await handleJourneyResponse(req, res, action, currentPage);
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);

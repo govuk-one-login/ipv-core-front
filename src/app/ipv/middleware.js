@@ -194,23 +194,6 @@ function checkForIpvAndOauthSessionId(req, res) {
   }
 }
 
-async function handleEscapeAction(req, res, next, currentPageId) {
-  try {
-    checkForSessionId(req, res);
-
-    if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "f2f", currentPageId);
-    } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "dcmaw", currentPageId);
-    } else {
-      await handleJourneyResponse(req, res, "end", currentPageId);
-    }
-  } catch (error) {
-    transformError(error, `error handling POST request on ${currentPageId}`);
-    next(error);
-  }
-}
-
 function pageRequiresUserDetails(pageId) {
   return [
     "page-ipv-reuse",
@@ -358,19 +341,25 @@ module.exports = {
       delete req.session.currentPageStatusCode;
     }
   },
+  // make considerations for handleEscapeAction pages with no req.body?.journey that defaults to `end`
   handleJourneyAction: async (req, res, next) => {
-    const currentPageId = req.params.pageId;
+    const currentPage = req.params.pageId;
+    const pagesUsingSessionId = ["pyi-suggest-other-options", "pyi-cri-escape", "pyi-escape-m2b"];
+    const journeyActions = {
+      "end": "end",
+      "address-current": "address-current",
+      "attempt-recovery": "attempt-recovery",
+      "build-client-oauth-response": "build-client-oauth-response",
+      "next/f2f": "f2f",
+      "next/dcmaw": "dcmaw"
+    };
     try {
-      checkForIpvAndOauthSessionId(req, res);
-
-      const journeyActions = {
-        "end": "end",
-        "addressCurrent": "address-current",
-        "attempt-recovery": "attempt-recovery",
-        "build-client-oauth-response": "build-client-oauth-response"
-      };
-
       const action = journeyActions[req.body?.journey] || "next";
+      if (pagesUsingSessionId.includes(currentPage)) {
+        checkForSessionId(req, res);
+      } else {
+        checkForIpvAndOauthSessionId(req, res);
+      }
 
       if (action === "build-client-oauth-response") {
         req.session.ipAddress = req?.session?.ipAddress
@@ -476,7 +465,6 @@ module.exports = {
   },
   handleJourneyResponse,
   handleBackendResponse,
-  handleEscapeAction,
   pageRequiresUserDetails,
   handleAppStoreRedirect,
   checkForIpvAndOauthSessionId,

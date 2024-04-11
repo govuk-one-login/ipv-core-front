@@ -10,7 +10,6 @@ const {
   handleJourneyAction,
   handleMultipleDocCheck,
   handleEscapeM2b,
-  handleEscapeAction,
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
@@ -58,34 +57,13 @@ router.post(
   (req, res, next) =>
     handleMultipleDocCheck(req, res, next, "page-multiple-doc-check"),
 );
-router.post(
-  "/page/pyi-cri-escape",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) => handleEscapeAction(req, res, next, "pyi-cri-escape"),
-);
-router.post(
-  "/page/pyi-suggest-other-options",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) =>
-    handleEscapeAction(req, res, next, "pyi-suggest-other-options"),
-);
+
 router.post(
   "/page/pyi-escape-m2b",
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
   (req, res, next) => handleEscapeM2b(req, res, next, "pyi-escape-m2b"),
-);
-router.post(
-  "/page/pyi-kbv-escape-m2b",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) => handleEscapeAction(req, res, next, "pyi-kbv-escape-m2b"),
 );
 router.post(
   "/page/:pageId",

@@ -11,7 +11,6 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formRadioButtonChecked,
-  handleUpdateNameDobAction,
   handleAppStoreRedirect,
 } = require("./middleware");
 
@@ -38,15 +37,6 @@ router.get("/page/:pageId", csrfProtection, checkLanguage, handleJourneyPage);
 router.get("/all-templates", allTemplatesMoved);
 
 router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
-
-router.post(
-  "/page/update-name-date-birth",
-  parseForm,
-  csrfProtection,
-  formRadioButtonChecked,
-  (req, res, next) =>
-    handleUpdateNameDobAction(req, res, next, "update-name-date-birth"),
-);
 
 router.post(
   "/page/:pageId",

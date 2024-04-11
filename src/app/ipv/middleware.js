@@ -351,6 +351,8 @@ module.exports = {
       "address-current": "address-current",
       "attempt-recovery": "attempt-recovery",
       "build-client-oauth-response": "build-client-oauth-response",
+      "next": "next",
+      "next/end": "end",
       "next/f2f": "f2f",
       "next/dcmaw": "dcmaw",
       "next/bank-account": "bankAccount",
@@ -371,6 +373,9 @@ module.exports = {
           : getIpAddress(req);
       }
 
+      if (req.body?.journey === "contact") {
+        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      }
       await handleJourneyResponse(req, res, action, currentPage);
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
@@ -378,20 +383,6 @@ module.exports = {
     }
   },
 
-  handleUpdateNameDobAction: async (req, res, next, currentPage) => {
-    try {
-      checkForIpvAndOauthSessionId(req, res);
-
-      if (req.body?.journey === "contact") {
-        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
-      } else {
-        await handleJourneyResponse(req, res, "end", currentPageId);
-      }
-    } catch (error) {
-      transformError(error, `error handling POST request on ${currentPageId}`);
-      next(error);
-    }
-  },
   renderFeatureSetPage: async (req, res) => {
     res.render("ipv/page-featureset.njk", {
       featureSet: req.session.featureSet,

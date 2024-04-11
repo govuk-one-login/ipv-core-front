@@ -573,11 +573,7 @@ describe("journey middleware", () => {
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleJourneyAction(
-          req,
-          res,
-          next
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "ukPassport", "ipv-current-page");
@@ -592,11 +588,7 @@ describe("journey middleware", () => {
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleJourneyAction(
-          req,
-          res,
-          next
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "drivingLicence", "ipv-current-page");
@@ -616,11 +608,7 @@ describe("journey middleware", () => {
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleJourneyAction(
-          req,
-          res,
-          next
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "end", "ipv-current-page");
@@ -719,7 +707,12 @@ describe("journey middleware", () => {
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleJourneyAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(
+          req,
+          res,
+          next,
+          "ipv-current-page",
+        );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "f2f", "ipv-current-page");
@@ -739,7 +732,6 @@ describe("journey middleware", () => {
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "dcmaw", "ipv-current-page");
       });
-
     },
   );
 
@@ -758,11 +750,7 @@ describe("journey middleware", () => {
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
-        await middleware.handleJourneyAction(
-          req,
-          res,
-          next
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",

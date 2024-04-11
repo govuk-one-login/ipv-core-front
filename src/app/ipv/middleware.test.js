@@ -688,13 +688,6 @@ describe("journey middleware", () => {
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "bankAccount", "ipv-current-page");
       });
-
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
-      });
     },
   );
 

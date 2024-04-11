@@ -657,7 +657,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeM2b: handling journey action with next, bankAccount, end",
+    "handleJourneyAction: handling journey action with next, bankAccount, end",
     () => {
       it("should postJourneyEvent with next", async function () {
         req = {
@@ -665,9 +665,10 @@ describe("journey middleware", () => {
           body: { journey: "next" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "next", "ipv-current-page");
@@ -682,7 +683,7 @@ describe("journey middleware", () => {
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "bankAccount", "ipv-current-page");

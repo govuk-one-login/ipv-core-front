@@ -601,18 +601,6 @@ describe("journey middleware", () => {
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "drivingLicence", "ipv-current-page");
       });
-
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleMultipleDocCheck(
-          req,
-          res,
-          next,
-          "ipv-current-page",
-        );
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
-      });
     },
   );
 

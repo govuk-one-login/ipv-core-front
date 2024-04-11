@@ -1474,7 +1474,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
     Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
+      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=RLuCcu0SXw5m6qJPl6LeqMrzYZEUR7Xp"
       Parameters:
         ECSClusterName: !Ref CoreFrontCluster
         ECSServiceName: !GetAtt CoreFrontService.Name

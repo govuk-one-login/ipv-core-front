@@ -73,8 +73,8 @@
         {% endif %}
         {% if showBack %}
             {{ govukBackLink({
-                text: "general.backLink" | translate,
-                href: hrefBack
+                text: "general.govuk.backLink" | translate,
+                href: hrefBack | default("/ipv/journey/back")
             }) }}
         {% endif %}
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>

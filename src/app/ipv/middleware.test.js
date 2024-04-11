@@ -562,7 +562,7 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handleMultipleDocCheck: handling journey action with ukPassport, drivingLicence, end",
+    "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
     () => {
       it("should postJourneyEvent with ukPassport", async function () {
         req = {
@@ -570,13 +570,13 @@ describe("journey middleware", () => {
           body: { journey: "next/passport" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleMultipleDocCheck(
+        await middleware.handleJourneyAction(
           req,
           res,
-          next,
-          "ipv-current-page",
+          next
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
@@ -589,13 +589,13 @@ describe("journey middleware", () => {
           body: { journey: "next/driving-licence" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleMultipleDocCheck(
+        await middleware.handleJourneyAction(
           req,
           res,
-          next,
-          "ipv-current-page",
+          next
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
@@ -692,7 +692,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
+    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -703,9 +703,10 @@ describe("journey middleware", () => {
             ipAddress: "ip-address",
           },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleMultipleDocCheck(req, res, next);
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",

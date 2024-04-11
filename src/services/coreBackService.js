@@ -29,13 +29,13 @@ function generateAxiosConfig(req) {
 }
 
 function postJourneyEvent(req, event, currentPage) {
-  const queryParams = generateAxiosConfig(req);
+  const requestConfig = generateAxiosConfig(req);
 
   if (currentPage) {
-    queryParams.params = { currentPage };
+    requestConfig.params = { currentPage };
   }
 
-  return axiosInstance.post(`${API_JOURNEY_EVENT}/${event}`, {}, queryParams);
+  return axiosInstance.post(`${API_JOURNEY_EVENT}/${event}`, {}, requestConfig);
 }
 
 function postSessionInitialise(req, authParams) {

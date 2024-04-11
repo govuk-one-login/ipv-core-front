@@ -88,7 +88,6 @@ describe("oauth middleware", () => {
     it("should throw error when handling OAuth Call if missing ipvSessionId", async function () {
       CoreBackServiceStub.postJourneyEvent = sinon.fake();
       req.session.ipvSessionId = undefined;
-      // res.render = sinon.spy()
 
       await middleware.handleOAuthJourneyAction(req, res, next);
 

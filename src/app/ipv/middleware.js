@@ -269,6 +269,15 @@ module.exports = {
       next(error);
     }
   },
+  handlePageBackButton: async (req, res, next) => {
+    const currentPageId = req.params.pageId;
+
+    try {
+      await handleJourneyResponse(req, res, "back", currentPageId);
+    } catch (error) {
+      next(error);
+    }
+  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;

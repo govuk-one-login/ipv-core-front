@@ -16,7 +16,6 @@ const {
   formRadioButtonChecked,
   handleUpdateNameDobAction,
   handleAppStoreRedirect,
-  handlePageBackButton,
 } = require("./middleware");
 
 // Remove this as part of PYIC-4278
@@ -95,6 +94,6 @@ router.post(
   formRadioButtonChecked,
   handleJourneyAction,
 );
-router.get("/page/:pageId/back", handlePageBackButton);
-router.get("/*", updateJourneyState);
+
+router.get("/journey/:pageId/:action", updateJourneyState);
 module.exports = router;

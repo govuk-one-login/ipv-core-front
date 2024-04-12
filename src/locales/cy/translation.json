@@ -691,7 +691,7 @@
         "insetText": "Ar ôl i chi ddileu eich manylion, ni fydd llythyr cwsmer Swyddfa'r Post bellach yn ddilys ac ni ddylech geisio ei ddefnyddio i brofi eich hunaniaeth.",
         "paragraph3": "Byddwn yn dileu'ch manylion yn awtomatig os na fyddwch yn mynd i Swyddfa'r Post o fewn 10 diwrnod o gael eich e-bost cadarnhau.",
         "submitButtonText": "Parhau i ddileu eich manylion",
-        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/end\" rel=\"noopener noreferrer\">Rwyf am brofi fy hunaniaeth mewn Swyddfa'r Post</a>"
+        "paragraph4LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/pyi-f2f-delete-details/end\" rel=\"noopener noreferrer\">Rwyf am brofi fy hunaniaeth mewn Swyddfa'r Post</a>"
       }
     },
     "pageMultipleDocCheck": {
@@ -734,7 +734,9 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>."
+          "updateDetailsLabelCoi": "TEMP My details are wrong",
+          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>.",
+          "updateDetailsHtmlCoi": "TEMP <h3 class=\"govuk-heading-s\">If your details have changed</h3> <p class=\"govuk-body\">Your proof of identity is still valid even if your details have changed.</p><p class=\"govuk-body\"> You do not need to update your details to continue to the service you need to use.</p><p class=\"govuk-body\"> If you continue, GOV.UK One Login will share your saved details with the service.</p><p class=\"govuk-body\"> If you need to, you can <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">update your details</a>.</p> <h3 class=\"govuk-heading-s\"> If there is a mistake in your name</h3> <p class=\"govuk-body\">Contact the GOV.UK One Login team if there is a mistake in your name. For example if your name is missing letters or a hyphen.</p><p class=\"govuk-body\"> Do not try to update your details or prove your identity again unless the GOV.UK One Login support team has told you to.</p> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a>"
         }
       }
     },

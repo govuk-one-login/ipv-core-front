@@ -36,7 +36,11 @@ function postJourneyEvent(req, event, currentPage) {
     requestConfig.params = { currentPage };
   }
 
-  return axiosInstance.post(path.join(API_JOURNEY_EVENT, event), {}, requestConfig);
+  return axiosInstance.post(
+    path.join(API_JOURNEY_EVENT, event),
+    {},
+    requestConfig,
+  );
 }
 
 function postSessionInitialise(req, authParams) {

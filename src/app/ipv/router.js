@@ -23,10 +23,22 @@ const path = require("path");
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
-router.get(path.join("/", "usefeatureset", validateFeatureSet, renderFeatureSetPage);
+router.get(
+  path.join("/", "usefeatureset"),
+  validateFeatureSet,
+  renderFeatureSetPage,
+);
 
-router.get(path.join("/", "page", "attempt-recovery"), csrfProtection, renderAttemptRecoveryPage);
-router.get(path.join("/", "page", ":pageId"), csrfProtection, handleJourneyPage);
+router.get(
+  path.join("/", "page", "attempt-recovery"),
+  csrfProtection,
+  renderAttemptRecoveryPage,
+);
+router.get(
+  path.join("/", "page", ":pageId"),
+  csrfProtection,
+  handleJourneyPage,
+);
 // Remove this as part of PYIC-4278
 router.get(path.join("/", "all-templates"), allTemplatesMoved);
 

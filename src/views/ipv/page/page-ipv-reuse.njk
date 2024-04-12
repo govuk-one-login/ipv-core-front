@@ -54,8 +54,8 @@
     }) }}
 
     {{ govukDetails({
-        summaryText: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translate,
-        text: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate( { url: contactUsUrl } ) | safe
+        summaryText: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translateWithContext(context),
+        text: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translateWithContext(context, { url: contactUsUrl } ) | safe
     }) }}
 
     {% include 'shared/journey-next-form.njk' %}

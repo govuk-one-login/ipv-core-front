@@ -255,12 +255,11 @@ module.exports = {
   // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
-      const allowedActions = ["/journey/end"];
+      const currentPageId = req.params.pageId;
+      const { action } = req.params;
 
-      const action = allowedActions.find((x) => x === req.url);
-
-      if (action) {
-        await handleJourneyResponse(req, res, action, "pyi-f2f-delete-details");
+      if (action && isValidPage(currentPageId)) {
+        await handleJourneyResponse(req, res, action, currentPageId);
       } else {
         res.status(HTTP_STATUS_CODES.NOT_FOUND);
         return res.render("errors/page-not-found.njk");

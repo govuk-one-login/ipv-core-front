@@ -58,7 +58,7 @@
             activeLanguage: htmlLang,
             class: "",
             languages: [
-            { 
+            {
               code: 'en',
               text: 'English',
               visuallyHidden: 'Change to English'
@@ -83,6 +83,7 @@
                    {% if errorState %}
                         {{ govukErrorSummary({
                             titleText: errorTitle | default('Error Summary'),
+                            attributes: { autoFocus: true, tabindex: 0 },
                             errorList: [
                                 {
                                     text: errorText | translate,
@@ -152,7 +153,7 @@
       });
     </script>
     {{ ga4OnPageLoad({
-        cspNonce: cspNonce, 
-        isPageDynamic: isPageDynamic, 
+        cspNonce: cspNonce,
+        isPageDynamic: isPageDynamic,
         englishPageTitle: pageTitleKey | translateToEnglish }) }}
 {% endblock %}

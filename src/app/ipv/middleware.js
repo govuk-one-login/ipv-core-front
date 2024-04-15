@@ -232,15 +232,31 @@ function handleAppStoreRedirect(req, res, next) {
   }
 }
 
+async function handleUnexpectedPage(req, res, pageId) {
+  logError(
+    req,
+    {
+      pageId: pageId,
+      expectedPage: req.session.currentPage,
+    },
+    "page :pageId doesn't match expected session page :expectedPage",
+  );
+
+  req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
+
+  return await saveSessionAndRedirect(
+    req,
+    res,
+    getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
+  );
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
     res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
       csrfToken: req.csrfToken(),
     });
   },
-  // This method is currently only used by a link on the pyi-f2f-delete-details page.
-  // It shouldn't be used for anything else, see
-  // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
       const currentPageId = req.params.pageId;
@@ -299,21 +315,7 @@ module.exports = {
         req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
         return res.render(getIpvPageTemplatePath(req.session.currentPage));
       } else if (req.session.currentPage !== pageId) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "page :pageId doesn't match expected session page :expectedPage",
-        );
-
-        req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
-        return await saveSessionAndRedirect(
-          req,
-          res,
-          getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
-        );
+        return await handleUnexpectedPage(req, res, pageId);
       }
 
       const renderOptions = {
@@ -396,15 +398,10 @@ module.exports = {
       const { context } = req?.session || "";
       const pageId = req.session.currentPage;
 
-      const renderOptions = {
-        pageId,
-        csrfToken: req.csrfToken(),
-        pageErrorState: true,
-        context,
-      };
+      const expectedPageId = req.params?.pageId;
 
-      if (pageRequiresUserDetails(pageId)) {
-        renderOptions.userDetails = await fetchUserDetails(req);
+      if (expectedPageId && expectedPageId !== pageId) {
+        return await handleUnexpectedPage(req, res, expectedPageId);
       }
 
       if (req.method === "POST" && req.body.journey === undefined) {

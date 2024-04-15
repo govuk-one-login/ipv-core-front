@@ -853,7 +853,11 @@ describe("journey middleware", () => {
         body: {},
         params: { pageId: "page-ipv-identity-document-start" },
         csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-identity-document-start" },
+        session: {
+          currentPage: "page-ipv-identity-document-start",
+          save: sinon.fake.yields(null),
+        },
+        log: { error: sinon.fake() },
       };
     });
 
@@ -887,12 +891,31 @@ describe("journey middleware", () => {
       CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
 
       req.session.currentPage = "page-ipv-reuse";
+      req.params.pageId = "page-ipv-reuse";
+      req.method = "POST";
+
       await middleware.formRadioButtonChecked(req, res, next);
 
       expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
         .called;
       expect(res.render).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
+    });
+
+    it("should handle unexpected pages", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
+
+      req.session.currentPage = "page-ipv-reuse";
+      req.method = "POST";
+
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
+        .called;
+      expect(res.render).to.not.have.been.called;
+      expect(res.redirect).to.have.been.calledWith(
+        "/ipv/page/pyi-attempt-recovery",
+      );
     });
 
     it("should call next in case of a successful execution", async function () {

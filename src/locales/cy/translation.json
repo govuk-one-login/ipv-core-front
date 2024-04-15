@@ -11,6 +11,7 @@
       "backLink": "Yn ôl",
       "errorSummaryTitle": "Mae problem",
       "error": "Gwall",
+      "errorTitlePrefix": "Gwall: ",
       "warning": "Rhybudd",
       "signOut": "Allgofnodi",
       "phaseBanner": {

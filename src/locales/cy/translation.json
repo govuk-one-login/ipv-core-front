@@ -720,7 +720,7 @@
           "hint": "Select all that apply.",
           "errorMessage": "Select at least one option",
           "checkbox1": "Given names",
-          "checkbox1Hint": "This is your first name and any middle names",
+          "checkbox1Hint": "This is your first name and middle names",
           "checkbox2": "Last name",
           "checkbox3": "Address",
           "checkbox4": "Date of birth",

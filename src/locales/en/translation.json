@@ -420,6 +420,25 @@
         }
       }
     },
+    "pyiUpdateDetails": {
+      "title": "Update your details",
+      "header": "Update your details",
+      "content": {
+        "summaryListHeading1": "Given names",
+        "summaryListHeading2": "Last name",
+        "summaryListHeading3": "Current home address",
+        "summaryListHeading4": "Date of birth",
+        "checkboxes": {
+          "heading": "Which details do you need to update?",
+          "hint": "Select all that apply.",
+          "checkbox1": "Given names",
+          "checkbox1Hint": "This is your first name and any middle names",
+          "checkbox2": "Last name",
+          "checkbox3": "Address",
+          "checkbox4": "Date of birth"
+        }
+      }
+    },
     "reproveIdentityStart": {
       "title": "You need to prove your identity",
       "header": "You need to prove your identity",

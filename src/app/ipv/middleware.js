@@ -204,6 +204,7 @@ function pageRequiresUserDetails(pageId) {
     PAGES.PAGE_IPV_REUSE,
     PAGES.CONFIRM_NAME_DATE_BIRTH,
     PAGES.CONFIRM_ADDRESS,
+    "pyi-update-details",
   ].includes(pageId);
 }
 

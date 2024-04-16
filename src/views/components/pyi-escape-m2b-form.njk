@@ -15,14 +15,14 @@
           divider: 'pages.pyiEscapeM2b.content.formRadioButtons.separateOptionsInFormText' | translate
         },
         {
-          value: "next/bank-account",
+          value: "bankAccount",
           text: 'pages.pyiEscapeM2b.content.formRadioButtons.radioButton3Text' | translate
         }
       ] %}
 
     {% if context === "abandon" %}
       {% set radioOptions = radioOptions.slice(0, -2) %}
-    {% endif %}          
+    {% endif %}
 
     {% set radiosConfig = {
           idPrefix: "journey",

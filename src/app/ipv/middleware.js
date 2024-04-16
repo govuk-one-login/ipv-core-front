@@ -342,7 +342,6 @@ module.exports = {
     }
   },
 
-  // make considerations for handleEscapeAction pages with no req.body?.journey that defaults to `end`
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
@@ -352,21 +351,9 @@ module.exports = {
       "pyi-escape-m2b",
       "page-multiple-doc-check",
     ];
-    const journeyActions = {
-      end: "end",
-      "address-current": "address-current",
-      "attempt-recovery": "attempt-recovery",
-      "build-client-oauth-response": "build-client-oauth-response",
-      next: "next",
-      "next/end": "end",
-      "next/f2f": "f2f",
-      "next/dcmaw": "dcmaw",
-      "next/bank-account": "bankAccount",
-      "next/passport": "ukPassport",
-      "next/driving-licence": "drivingLicence",
-    };
+
     try {
-      const action = journeyActions[req.body?.journey] || "next";
+      const action = req.body?.journey || "next";
       if (pagesUsingSessionId.includes(currentPageId)) {
         checkForSessionId(req, res);
       } else {

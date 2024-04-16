@@ -567,7 +567,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with ukPassport", async function () {
         req = {
           id: "1",
-          body: { journey: "next/passport" },
+          body: { journey: "ukPassport" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -582,7 +582,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with drivingLicence", async function () {
         req = {
           id: "1",
-          body: { journey: "next/driving-licence" },
+          body: { journey: "drivingLicence" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -602,7 +602,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with end", async function () {
         req = {
           id: "1",
-          body: { journey: "next/end" },
+          body: { journey: "end" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -654,7 +654,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with bankAccount", async function () {
         req = {
           id: "1",
-          body: { journey: "next/bank-account" },
+          body: { journey: "bankAccount" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -701,7 +701,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with f2f", async function () {
         req = {
           id: "1",
-          body: { journey: "next/f2f" },
+          body: { journey: "f2f" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -721,7 +721,7 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with dcmaw", async function () {
         req = {
           id: "1",
-          body: { journey: "next/dcmaw" },
+          body: { journey: "dcmaw" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },

@@ -28,10 +28,9 @@
 {% endblock %}
 
 {% block pageTitle-%}
-    {%- if error or errors %}
-      {{ 'general.govuk.errorTitlePrefix' | translate }}
-      – GOV.UK
-    {%- endif %}
+    {%- if pageErrorState %}
+        {{ 'general.govuk.errorTitlePrefix' | translate }}
+    {% endif %}
     {%- if pageTitleKey %}{{ pageTitleKey | translateWithContextOrFallback(context) }} – GOV.UK{% endif %}
 {%- endblock %}
 
@@ -58,7 +57,7 @@
             activeLanguage: htmlLang,
             class: "",
             languages: [
-            { 
+            {
               code: 'en',
               text: 'English',
               visuallyHidden: 'Change to English'
@@ -152,7 +151,7 @@
       });
     </script>
     {{ ga4OnPageLoad({
-        cspNonce: cspNonce, 
-        isPageDynamic: isPageDynamic, 
+        cspNonce: cspNonce,
+        isPageDynamic: isPageDynamic,
         englishPageTitle: pageTitleKey | translateToEnglish }) }}
 {% endblock %}

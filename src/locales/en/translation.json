@@ -11,6 +11,7 @@
       "backLink": "Back",
       "errorSummaryTitle": "There’s a problem",
       "error": "Error",
+      "errorTitlePrefix": "Error: ",
       "warning": "Warning",
       "signOut": "Sign out",
       "phaseBanner": {

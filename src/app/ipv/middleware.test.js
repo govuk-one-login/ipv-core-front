@@ -562,22 +562,18 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handleMultipleDocCheck: handling journey action with ukPassport, drivingLicence, end",
+    "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
     () => {
       it("should postJourneyEvent with ukPassport", async function () {
         req = {
           id: "1",
-          body: { journey: "next/passport" },
+          body: { journey: "ukPassport" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleMultipleDocCheck(
-          req,
-          res,
-          next,
-          "ipv-current-page",
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "ukPassport", "ipv-current-page");
@@ -586,53 +582,33 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with drivingLicence", async function () {
         req = {
           id: "1",
-          body: { journey: "next/driving-licence" },
+          body: { journey: "drivingLicence" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleMultipleDocCheck(
-          req,
-          res,
-          next,
-          "ipv-current-page",
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "drivingLicence", "ipv-current-page");
-      });
-
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleMultipleDocCheck(
-          req,
-          res,
-          next,
-          "ipv-current-page",
-        );
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
       });
     },
   );
 
   context(
-    "handleUpdateNameDobAction: handling journey action events - 'contact', 'end'",
+    "handleJourneyAction: handling journey action events - 'contact', 'end'",
     () => {
       it("should postJourneyEvent with end", async function () {
         req = {
           id: "1",
-          body: { journey: "next/end" },
+          body: { journey: "end" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleUpdateNameDobAction(
-          req,
-          res,
-          next,
-          "ipv-current-page",
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "end", "ipv-current-page");
@@ -648,16 +624,17 @@ describe("journey middleware", () => {
             save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleUpdateNameDobAction(req, res, next);
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.redirect).to.have.been.calledWith("contactUrl");
       });
     },
   );
 
   context(
-    "handleEscapeM2b: handling journey action with next, bankAccount, end",
+    "handleJourneyAction: handling journey action with next, bankAccount, end",
     () => {
       it("should postJourneyEvent with next", async function () {
         req = {
@@ -665,9 +642,10 @@ describe("journey middleware", () => {
           body: { journey: "next" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "next", "ipv-current-page");
@@ -676,29 +654,22 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with bankAccount", async function () {
         req = {
           id: "1",
-          body: { journey: "next/bank-account" },
+          body: { journey: "bankAccount" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "bankAccount", "ipv-current-page");
-      });
-
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleEscapeM2b(req, res, next, "ipv-current-page");
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
       });
     },
   );
 
   context(
-    "handleMultipleDocCheck: handling missing ipvSessionId before calling the backend",
+    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -709,9 +680,10 @@ describe("journey middleware", () => {
             ipAddress: "ip-address",
           },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleMultipleDocCheck(req, res, next);
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",
@@ -724,17 +696,23 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleEscapeAction: handling journey action with f2f, dcmaw, end",
+    "handleJourneyAction: handling journey action with f2f, dcmaw, end",
     () => {
       it("should postJourneyEvent with f2f", async function () {
         req = {
           id: "1",
-          body: { journey: "next/f2f" },
+          body: { journey: "f2f" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(
+          req,
+          res,
+          next,
+          "ipv-current-page",
+        );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "f2f", "ipv-current-page");
@@ -743,28 +721,22 @@ describe("journey middleware", () => {
       it("should postJourneyEvent with dcmaw", async function () {
         req = {
           id: "1",
-          body: { journey: "next/dcmaw" },
+          body: { journey: "dcmaw" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
         };
 
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
+        await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(req, "dcmaw", "ipv-current-page");
-      });
-
-      it("should postJourneyEvent with end by default", async function () {
-        await middleware.handleEscapeAction(req, res, next, "ipv-current-page");
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
       });
     },
   );
 
   context(
-    "handleEscapeAction: handling missing ipvSessionId before calling the backend",
+    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -774,15 +746,11 @@ describe("journey middleware", () => {
             ipvSessionId: null,
             ipAddress: "ip-address",
           },
+          params: { pageId: "page-ipv-identity-document-start" },
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
-        await middleware.handleEscapeAction(
-          req,
-          res,
-          next,
-          "handleCriEscapeAction",
-        );
+        await middleware.handleJourneyAction(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",

@@ -58,7 +58,7 @@
             activeLanguage: htmlLang,
             class: "",
             languages: [
-            { 
+            {
               code: 'en',
               text: 'English',
               visuallyHidden: 'Change to English'
@@ -138,6 +138,7 @@
     {% block scripts %}{% endblock %}
     <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
     <script nonce='{{ cspNonce }}'>
+        window.GOVUKFrontend.initAll()
         window.DI = window.DI || {};
         window.DI.httpStatusCode = {{ statusCode | d(200) }};
         window.DI.journeyState = "{{ googleTagManagerPageId }}";
@@ -152,7 +153,8 @@
       });
     </script>
     {{ ga4OnPageLoad({
-        cspNonce: cspNonce, 
-        isPageDynamic: isPageDynamic, 
+        cspNonce: cspNonce,
+        isPageDynamic: isPageDynamic,
         englishPageTitle: pageTitleKey | translateToEnglish }) }}
+
 {% endblock %}

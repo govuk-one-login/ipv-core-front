@@ -4,6 +4,10 @@ module.exports = {
   samplePersistedUserDetails: {
     data: {
       name: "Alessandro Cholmondeley-Featherstonehaugh",
+      formattedName: {
+        GivenName: "Alessandro",
+        FamilyName: "Cholmondeley-Featherstonehaugh",
+      },
       dateOfBirth: "1984-02-29",
       addresses: [
         // all possible address parts
@@ -52,6 +56,7 @@ module.exports = {
   generateUserDetails: (userDetailsResponse, i18n) => {
     return {
       name: userDetailsResponse.data?.name,
+      formattedName: userDetailsResponse.data?.formattedName,
       dateOfBirth: userDetailsResponse.data?.dateOfBirth,
       addresses: userDetailsResponse.data?.addresses?.map((address, idx) => {
         const addressDetailHtml = generateHTMLofAddress(address);

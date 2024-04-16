@@ -17,7 +17,6 @@ const {
 // Remove this as part of PYIC-4278
 const { allTemplatesMoved } = require("../development/middleware");
 const { getRoutePath } = require("../../lib/paths");
-const PAGES = require("../../constants/ipvPages");
 const path = require("path");
 
 const csrfProtection = csrf({});

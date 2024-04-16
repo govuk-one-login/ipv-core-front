@@ -55,7 +55,7 @@
 
     <form id="confirmAddressActionForm" action="/ipv/page/{{ pageId }}" method="POST">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-            {{ govukCheckboxes({
+            {% set checkboxConfig = {
               name: "nationality",
               fieldset: {
                 legend: {
@@ -86,9 +86,22 @@
                 {
                   value: "dateOfBirth",
                   text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox4' | translate
+                },
+                {
+                  divider: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5Divisor' | translate
+                },
+                {
+                  value: "none",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5' | translate,
+                  behaviour: "exclusive"
                 }
               ]
-            }) }}
+            } %}
+            {% if errorState %}
+            {% set errorMessageObject = { 'text': 'pages.pyiUpdateDetails.content.checkboxes.errorMessage' | translate } %}
+            {% set checkboxConfig = checkboxConfig | setAttribute('errorMessage', errorMessageObject) %}
+            {% endif %}
+            {{ govukCheckboxes(checkboxConfig) }}
             <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
                 {{ 'general.buttons.next' | translate }}
             </button>

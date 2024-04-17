@@ -405,6 +405,19 @@ module.exports = {
       }
 
       if (req.method === "POST" && req.body.journey === undefined) {
+        const renderOptions = {
+          pageId,
+          csrfToken: req.csrfToken(),
+          pageErrorState: true,
+          context,
+        };
+
+        if (pageRequiresUserDetails(pageId)) {
+          renderOptions.userDetails = await fetchUserDetails(req);
+        }
+
+        req.renderOptions = renderOptions;
+
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
         next();

@@ -7,9 +7,10 @@ const {
   setIpAddress,
   handleOAuthJourneyAction,
 } = require("./middleware");
+const path = require("path");
 
 router.get(
-  "/authorize",
+  path.join("/", "authorize"),
   setIpAddress,
   setIpvSessionId,
   handleOAuthJourneyAction,

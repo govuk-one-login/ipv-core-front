@@ -20,8 +20,9 @@
   <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.iphone.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.iphone.paragraph' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet ">
-    <li>{{ 'pages.pyiTriageSelectSmartphone.content.iphone.condition1' | translate }}</li>
-    <li>{{ 'pages.pyiTriageSelectSmartphone.content.iphone.condition2' | translate }}</li>
+    {% for listItem in 'pages.pyiTriageSelectSmartphone.content.iphone.conditions' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   {{ govukDetails({
       summaryText: 'pages.pyiTriageSelectSmartphone.content.iphone.infoLabel' | translate,
@@ -31,8 +32,9 @@
   <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.android.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.android.paragraph' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet ">
-    <li>{{ 'pages.pyiTriageSelectSmartphone.content.android.condition1' | translate }}</li>
-    <li>{{ 'pages.pyiTriageSelectSmartphone.content.android.condition2' | translate }}</li>
+    {% for listItem in 'pages.pyiTriageSelectSmartphone.content.android.conditions' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   {{ govukDetails({
     summaryText: 'pages.pyiTriageSelectSmartphone.content.android.infoLabel' | translate,

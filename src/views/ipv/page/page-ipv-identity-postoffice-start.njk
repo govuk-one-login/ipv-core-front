@@ -21,9 +21,9 @@
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>
       <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list1' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list2' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list3' | translate }}</li>
+        {% for listItem in 'pages.pageIpvIdentityPostofficeStart.content.euDrivingLicenceRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
       </ul>
     </li>
     <li>
@@ -33,9 +33,9 @@
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading3' | translate }}</h2>
       <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph5' | translate }}</p>
       <ul class="govuk-list  govuk-list--bullet">
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list4' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list5' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityPostofficeStart.content.list6' | translate }}</li>
+        {% for listItem in 'pages.pageIpvIdentityPostofficeStart.content.eeaNationalIdentityCardRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
       </ul>
       <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph6' | translate }}</p>
     </li>

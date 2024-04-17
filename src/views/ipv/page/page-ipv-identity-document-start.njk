@@ -18,8 +18,9 @@
       <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading' | translate }}</h2>
       <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet ">
-        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list1' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list2' | translate }}</li>
+        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
       </ul>
     </li>
     <li>
@@ -30,8 +31,9 @@
       <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading3' | translate }}</h2>
       <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph4' | translate }}</p>
       <ul class="govuk-list  govuk-list--bullet">
-        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list3' | translate }}</li>
-        <li>{{ 'pages.pageIpvIdentityDocumentStart.content.list4' | translate }}</li>
+        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.nonUkPassportRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
       </ul>
       <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
       <picture>

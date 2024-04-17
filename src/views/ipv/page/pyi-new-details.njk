@@ -16,15 +16,17 @@
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph1' | translate }}</p>
 
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiNewDetails.content.list1' | translate }}</li>
-    <li>{{ 'pages.pyiNewDetails.content.list2' | translate }}</li>
+    {% for listItem in 'pages.pyiNewDetails.content.updateDetailsTodo' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph2' | translate }}</p>
 
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiNewDetails.content.list3' | translate }}</li>
-    <li>{{ 'pages.pyiNewDetails.content.list4' | translate }}</li>
+    {% for listItem in 'pages.pyiNewDetails.content.updateDetailsRequirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate | safe}}</p>

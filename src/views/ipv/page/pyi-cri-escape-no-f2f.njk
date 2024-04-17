@@ -17,8 +17,9 @@
   <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph2' | translate | safe }}</p>
   <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph3' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiCriEscapeNoF2f.content.bullet1' | translate | safe }}</li>
-    <li>{{ 'pages.pyiCriEscapeNoF2f.content.bullet2' | translate | safe }}</li>
+    {% for listItem in 'pages.pyiCriEscapeNoF2f.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <form id="pyiCriEscapeNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST">

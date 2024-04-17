@@ -32,6 +32,12 @@ const coreBackService = require("../../services/coreBackService");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
 const appDownloadHelper = require("../shared/appDownloadHelper");
+const {
+  getIpvPageTemplatePath,
+  getIpvPagePath,
+  addNunjucksExt,
+} = require("../../lib/paths");
+const PAGES = require("../../constants/ipvPages");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -135,7 +141,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${req.session.currentPage}`,
+      getIpvPagePath(req.session.currentPage),
     );
   }
   const message = {
@@ -170,9 +176,9 @@ function checkForSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    req.session.currentPage = "pyi-technical";
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
     res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render("ipv/page/pyi-technical.njk", {
+    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
       context: "unrecoverable",
     });
   }
@@ -186,9 +192,9 @@ function checkForIpvAndOauthSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    req.session.currentPage = "pyi-technical";
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
     res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render("ipv/page/pyi-technical.njk", {
+    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
       context: "unrecoverable",
     });
   }
@@ -196,9 +202,9 @@ function checkForIpvAndOauthSessionId(req, res) {
 
 function pageRequiresUserDetails(pageId) {
   return [
-    "page-ipv-reuse",
-    "confirm-name-date-birth",
-    "confirm-address",
+    PAGES.PAGE_IPV_REUSE,
+    PAGES.CONFIRM_NAME_DATE_BIRTH,
+    PAGES.CONFIRM_ADDRESS,
   ].includes(pageId);
 }
 
@@ -222,14 +228,14 @@ function handleAppStoreRedirect(req, res, next) {
         throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
   } catch (error) {
-    transformError(error, `Error redirecting to app store`);
+    transformError(error, "Error redirecting to app store");
     next(error);
   }
 }
 
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
-    res.render("ipv/page/pyi-attempt-recovery.njk", {
+    res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
       csrfToken: req.csrfToken(),
     });
   },
@@ -267,7 +273,7 @@ module.exports = {
 
       // Remove this as part of PYIC-4278
       if (ENABLE_PREVIEW && req.query.preview) {
-        return res.redirect("/ipv/all-templates");
+        return res.redirect(path.join("/", "ipv", "all-templates"));
       }
 
       // handles page id validation first
@@ -286,13 +292,13 @@ module.exports = {
           "req.ipvSessionId is null",
         );
 
-        req.session.currentPage = "pyi-technical";
-        return res.render(`ipv/page/${req.session.currentPage}.njk`, {
+        req.session.currentPage = PAGES.PYI_TECHNICAL;
+        return res.render(getIpvPageTemplatePath(req.session.currentPage), {
           context: "unrecoverable",
         });
-      } else if (pageId === "pyi-timeout-unrecoverable") {
-        req.session.currentPage = "pyi-timeout-unrecoverable";
-        return res.render(`ipv/page/${req.session.currentPage}.njk`);
+      } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+        req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
+        return res.render(getIpvPageTemplatePath(req.session.currentPage));
       } else if (req.session.currentPage !== pageId) {
         logError(
           req,
@@ -303,11 +309,11 @@ module.exports = {
           "page :pageId doesn't match expected session page :expectedPage",
         );
 
-        req.session.currentPage = "pyi-attempt-recovery";
+        req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
         return await saveSessionAndRedirect(
           req,
           res,
-          `/ipv/page/pyi-attempt-recovery`,
+          getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
         );
       }
 
@@ -319,14 +325,14 @@ module.exports = {
 
       if (pageRequiresUserDetails(pageId)) {
         renderOptions.userDetails = await fetchUserDetails(req);
-      } else if (pageId === "pyi-triage-desktop-download-app") {
+      } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
         // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
           PHONE_TYPES.IPHONE,
         );
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
-      } else if (pageId === "pyi-triage-mobile-download-app") {
+      } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
         // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
         renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
           PHONE_TYPES.ANDROID,
@@ -341,7 +347,10 @@ module.exports = {
         }
       }
 
-      return res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
+      return res.render(
+        getIpvPageTemplatePath(sanitize(pageId)),
+        renderOptions,
+      );
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
@@ -385,7 +394,7 @@ module.exports = {
   },
 
   renderFeatureSetPage: async (req, res) => {
-    res.render("ipv/page-featureset.njk", {
+    res.render(path.join("ipv", addNunjucksExt("page-featureset")), {
       featureSet: req.session.featureSet,
     });
   },
@@ -406,7 +415,7 @@ module.exports = {
       }
 
       if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(`ipv/page/${sanitize(pageId)}.njk`, renderOptions);
+        res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
         next();
       }

@@ -17,8 +17,9 @@
   <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph2' | translate | safe }}</p>
   <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph3' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiCriEscape.content.bullet1' | translate | safe }}</li>
-    <li>{{ 'pages.pyiCriEscape.content.bullet2' | translate | safe }}</li>
+    {% for listItem in 'pages.pyiCriEscape.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph4' | translate | safe }}</p>
 

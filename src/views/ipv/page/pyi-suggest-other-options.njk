@@ -18,8 +18,9 @@
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph2' | translateWithContext(context) }}</p>
   <p class="govuk-body govuk-!-margin-bottom-1">{{ 'pages.pyiSuggestOtherOptions.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-5">
-    <li>{{ 'pages.pyiSuggestOtherOptions.content.bullet1' | translate }}</li>
-    <li>{{ 'pages.pyiSuggestOtherOptions.content.bullet2' | translate }}</li>
+    {% for listItem in 'pages.pyiSuggestOtherOptions.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   <p class="govuk-body">{{ 'pages.pyiSuggestOtherOptions.content.paragraph4' | translate }}</p>
 

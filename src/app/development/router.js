@@ -7,13 +7,14 @@ const {
   allTemplatesPost,
   templatesDisplayGet,
 } = require("./middleware");
+const path = require("path");
 
 const csrfProtection = csrf({});
 
-router.post("/all-templates", csrfProtection, allTemplatesPost);
-router.get("/all-templates", csrfProtection, allTemplatesGet);
+router.post(path.join("/", "all-templates"), csrfProtection, allTemplatesPost);
+router.get(path.join("/", "all-templates"), csrfProtection, allTemplatesGet);
 router.get(
-  "/template/:templateId/:language",
+  path.join("/", "template", ":templateId", ":language"),
   csrfProtection,
   templatesDisplayGet,
 );

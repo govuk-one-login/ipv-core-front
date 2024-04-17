@@ -18,8 +18,9 @@
   <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading1' | translate }}</h2>
   <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pageF2fHandoff.content.bullet1' | translate }}</li>
-    <li>{{ 'pages.pageF2fHandoff.content.bullet2' | translate }}</li>
+    {% for listItem in 'pages.pageF2fHandoff.content.whatToBringToPostOffice' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }}</h2>
@@ -37,8 +38,9 @@
 
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph8' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pageF2fHandoff.content.bullet3' | translate }}</li>
-    <li>{{ 'pages.pageF2fHandoff.content.bullet4' | translate }}</li>
+    {% for listItem in 'pages.pageF2fHandoff.content.reasonsToContactUs' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
   <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
 

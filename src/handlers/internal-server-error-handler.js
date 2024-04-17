@@ -1,5 +1,7 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
 const axios = require("axios");
+const PAGES = require("../constants/ipvPages");
+const { getIpvPageTemplatePath } = require("../lib/paths");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
@@ -22,7 +24,9 @@ module.exports = {
       ? res.status(res.err.status)
       : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
 
-    req.session.currentPage = "pyi-technical";
-    res.render("ipv/page/pyi-technical.njk", { context: "unrecoverable" });
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
+    res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+      context: "unrecoverable",
+    });
   },
 };

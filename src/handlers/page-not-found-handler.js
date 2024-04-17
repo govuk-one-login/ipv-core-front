@@ -1,4 +1,6 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
+const path = require("path");
+const { addNunjucksExt } = require("../lib/paths");
 
 module.exports = {
   pageNotFoundHandler: (req, res, next) => {
@@ -7,6 +9,6 @@ module.exports = {
     }
 
     res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    res.render("errors/page-not-found.njk");
+    res.render(path.join("errors", addNunjucksExt("page-not-found")));
   },
 };

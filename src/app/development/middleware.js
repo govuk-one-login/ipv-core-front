@@ -9,6 +9,8 @@ const { pageRequiresUserDetails } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
 const appDownloadHelper = require("../shared/appDownloadHelper");
+const PAGES = require("../../constants/ipvPages");
+const { getIpvPageTemplatePath, addNunjucksExt } = require("../../lib/paths");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -24,7 +26,7 @@ async function allTemplatesGet(req, res, next) {
         return { text: path.parse(file).name, value: path.parse(file).name };
       });
 
-      res.render("development/all-templates.njk", {
+      res.render(path.join("development", addNunjucksExt("all-templates")), {
         templateRadioOptions: templateRadioOptions,
         csrfToken: req.csrfToken(),
       });
@@ -39,8 +41,7 @@ async function allTemplatesPost(req, res) {
   const language = req.body.language;
   const context = req.body.context;
 
-  var redirectUrl = `/dev/template/${templateId}/${language}`;
-
+  let redirectUrl = path.join("/", "dev", "template", templateId, language);
   if (context) {
     redirectUrl += `?context=${context}`;
   }
@@ -66,23 +67,27 @@ async function templatesDisplayGet(req, res) {
       req.i18n,
     );
   }
-
-  if (templateId === "pyi-triage-desktop-download-app") {
+  if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
       appDownloadHelper.getAppStoreRedirectUrl(PHONE_TYPES.IPHONE),
     );
-  } else if (templateId === "pyi-triage-mobile-download-app") {
+  } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
       PHONE_TYPES.IPHONE,
     );
   }
 
-  return res.render(`ipv/page/${sanitize(templateId)}.njk`, renderOptions);
+  return res.render(
+    getIpvPageTemplatePath(sanitize(templateId)),
+    renderOptions,
+  );
 }
 
 // Remove this as part of PYIC-4278
 async function allTemplatesMoved(req, res) {
-  return res.render(`development/all-templates-moved.njk`);
+  return res.render(
+    path.join("development", addNunjucksExt("all-templates-moved")),
+  );
 }
 
 module.exports = {

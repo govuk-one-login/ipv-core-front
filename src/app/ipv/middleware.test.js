@@ -436,7 +436,6 @@ describe("journey middleware", () => {
           "build-client-oauth-response",
           "ipv-current-page",
         );
-        expect(req.session.ipAddress).to.equal("1.1.1.1");
       });
 
       it("should postJourneyEvent with build-client-oauth-response and use ip address from session when it is present in session", async function () {
@@ -457,7 +456,6 @@ describe("journey middleware", () => {
           "build-client-oauth-response",
           "ipv-current-page",
         );
-        expect(req.session.ipAddress).to.equal("ip-address");
       });
 
       it("should postJourneyEvent with next by default", async function () {

@@ -19,10 +19,10 @@ describe("CoreBackService", () => {
     session: {
       clientOauthSessionId: "test_client_session_id",
       ipvSessionId: "test_ipv_session_id",
-      ipAddress: "127.0.0.1",
       featureSet: "test_feature_set",
     },
     id: "test_request_id",
+    ip: "127.0.0.1",
   };
 
   beforeEach(() => {

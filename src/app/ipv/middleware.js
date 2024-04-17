@@ -24,7 +24,6 @@ const {
 } = require("../shared/loggerConstants");
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
-const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
@@ -375,12 +374,6 @@ module.exports = {
         checkForSessionId(req, res);
       } else {
         checkForIpvAndOauthSessionId(req, res);
-      }
-
-      if (action === "build-client-oauth-response") {
-        req.session.ipAddress = req?.session?.ipAddress
-          ? req.session.ipAddress
-          : getIpAddress(req);
       }
 
       if (req.body?.journey === "contact") {

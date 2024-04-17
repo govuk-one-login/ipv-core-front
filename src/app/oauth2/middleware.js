@@ -1,17 +1,11 @@
 const { API_SESSION_INITIALISE } = require("../../lib/config");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const { getIpAddress } = require("../shared/ipAddressHelper");
 const coreBackService = require("../../services/coreBackService");
 const {
   checkForIpvAndOauthSessionId,
   handleJourneyResponse,
 } = require("../ipv/middleware");
-
-function setIpAddress(req, res, next) {
-  req.session.ipAddress = getIpAddress(req);
-  next();
-}
 
 async function setIpvSessionId(req, res, next) {
   try {
@@ -63,5 +57,4 @@ async function handleOAuthJourneyAction(req, res, next) {
 module.exports = {
   handleOAuthJourneyAction,
   setIpvSessionId,
-  setIpAddress,
 };

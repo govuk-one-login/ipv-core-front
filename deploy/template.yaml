@@ -241,7 +241,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment
+    DependsOn: RestApiGwDeployment202404121033
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -961,6 +961,34 @@ Resources:
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
 
+  RestDidDocumentResourceS3Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+      Policies:
+        - PolicyName: AccessDidS3Document
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "s3:GetObject"
+                Resource: !Sub "arn:aws:s3:::published-did-documents-${Environment}/did.json"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource: !GetAtt S3KmsKey.Arn
+      PermissionsBoundary: !If
+        - UsePermissionsBoundary
+        - !Ref PermissionsBoundary
+        - !Ref AWS::NoValue
+
   #
   # REST API Gateway
   #
@@ -974,8 +1002,10 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment:
-    DependsOn: RestApiGatewayMethod
+  RestApiGwDeployment202404121033:
+    DependsOn:
+      - RestApiGatewayMethod
+      - RestDidDocumentMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
@@ -1021,6 +1051,56 @@ Resources:
       ParentId: !GetAtt RestApiGateway.RootResourceId
       PathPart: '{proxy+}'
 
+  RestWellKnownResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ParentId: !GetAtt RestApiGateway.RootResourceId
+      PathPart: ".well-known"
+
+  RestWellKnownDidResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ParentId: !Ref RestWellKnownResource
+      PathPart: "did.json"
+
+  RestDidDocumentMethod:
+    Type: AWS::ApiGateway::Method
+    Metadata:
+      checkov:
+        skip:
+          - id: "CKV_AWS_59"
+            comment: "API should have AuthorizationType if appropriate - this is intentionally public"
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ResourceId: !Ref RestWellKnownDidResource
+      HttpMethod: GET
+      AuthorizationType: NONE
+      MethodResponses:
+        - StatusCode: "200"
+          ResponseModels:
+            application/json: Empty
+        - StatusCode: "404"
+          ResponseModels: {}
+      Integration:
+        Type: AWS
+        IntegrationHttpMethod: GET
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
+        PassthroughBehavior: WHEN_NO_MATCH
+        IntegrationResponses:
+          - StatusCode: "200"
+            SelectionPattern: "200"
+          - StatusCode: "404"
+            SelectionPattern: ""
+            ResponseTemplates:
+              application/json: |-
+                #set($inputRoot = $input.path('$'))
+                {
+                    "message": "Not Found"
+                }
+
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
@@ -1043,7 +1123,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment
+      DeploymentId: !Ref RestApiGwDeployment202404121033
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn

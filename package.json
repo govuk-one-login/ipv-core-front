@@ -12,7 +12,7 @@
     "start-dev": "node src/app.js | pino-pretty",
     "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
     "build": "npm run build-js && npm run build-sass && npm run copy-locales && npm run copy-images",
-    "build-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js node_modules/@govuk-one-login/one-login-analytics/lib/analytics.js src/assets/javascript/**/**/*.js src/assets/javascript/**/*.js -o dist/public/javascripts/application.js -c -m ",
+    "build-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js node_modules/@govuk-one-login/frontend-analytics/lib/analytics.js src/assets/javascript/**/**/*.js src/assets/javascript/**/*.js -o dist/public/javascripts/application.js -c -m ",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "watch-sass": "sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed --watch",
     "copy-locales": "mkdir -p dist && copyfiles -u 1 src/**/*.njk dist/ src/locales/**/** dist/ ",
@@ -55,7 +55,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.521.0",
     "@babel/traverse": "^7.23.9",
-    "@govuk-one-login/one-login-analytics": "^0.0.9",
+    "@govuk-one-login/frontend-analytics": "^1.0.3",
     "@govuk-one-login/one-login-language-toggle": "^2.0.0",
     "axios": "1.6.7",
     "body-parser": "^1.20.2",

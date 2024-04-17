@@ -63,7 +63,7 @@ Run `npm run build` again if changes are made to:
 * images
 
 ### Analytics
-https://www.npmjs.com/package/@govuk-one-login/one-login-analytics
+https://www.npmjs.com/package/@govuk-one-login/frontend-analytics
 
 ### Configuring core-back to work with a local core-front
 

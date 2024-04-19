@@ -1437,6 +1437,53 @@ Resources:
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 
+  FrontTargetGroup5xxPercentErrors:
+    Type: AWS::CloudWatch::Alarm
+    Condition: IsNotDevelopment
+    Properties:
+      AlarmName: FrontTargetGroup5xxPercentAlarm
+      AlarmDescription: >
+        The number of HTTP 5XX server error codes that originate from the
+        target group is greater than 5% of all traffic.
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: [ ]
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+      - Id: e1
+        Label: ErrorPercent
+        ReturnData: true
+        Expression: (m1/m2)*100
+      - Id: m1
+        ReturnData: false
+        MetricStat:
+          Metric:
+            Namespace: AWS/ApplicationELB
+            MetricName: HTTPCode_Target_5XX_Count
+            Dimensions:
+              - Name: LoadBalancer
+                Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+          Period: 60
+          Stat: Sum
+      - Id: m2
+        ReturnData: false
+        MetricStat:
+          Metric:
+            Namespace: AWS/ApplicationELB
+            MetricName: RequestCount
+            Dimensions:
+            - Name: LoadBalancer
+              Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+          Period: 60
+          Stat: Sum
+
   LambdaInvocationsOutOfSync:
     Type: AWS::CloudWatch::Alarm
     Properties:

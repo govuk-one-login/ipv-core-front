@@ -6,7 +6,7 @@ module.exports = {
       name: "Alessandro Cholmondeley-Featherstonehaugh",
       nameParts: [
         { type: "GivenName", value: "Alessandro" },
-        { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh"}
+        { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
       ],
       dateOfBirth: "1984-02-29",
       addresses: [
@@ -57,7 +57,7 @@ module.exports = {
     let givenName = "";
     let familyName = "";
     if (userDetailsResponse.data?.nameParts) {
-      userDetailsResponse.data.nameParts.forEach(namePart => {
+      userDetailsResponse.data.nameParts.forEach((namePart) => {
         if (namePart.type === "GivenName") {
           givenName = namePart.value;
         } else if (namePart.type === "FamilyName") {

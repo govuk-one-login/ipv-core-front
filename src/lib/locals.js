@@ -21,7 +21,7 @@ module.exports = {
     res.locals.isUaDisabled = UA_DISABLED;
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.assetsCdnPath = CDN_PATH;
-    res.locals.assetPath = path.join(CDN_DOMAIN, "assets");
+    res.locals.assetPath = path.join(CDN_DOMAIN || "/", "assets");
 
     const contactUsUrl = new URL(CONTACT_URL);
     contactUsUrl.searchParams.set(

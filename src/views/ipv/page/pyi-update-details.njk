@@ -14,13 +14,27 @@
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
         xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiUpdateDetails.header' | translate }}</h1>
 
+    {% set givenNames = [] %}
+    {% for namePart in userDetails.nameParts %}
+      {% if namePart.type == "GivenName" %}
+        {% set givenNames = (givenNames.push(namePart.value), givenNames) %}
+      {% endif %}
+    {% endfor %}
+
+    {% set familyNames = [] %}
+    {% for namePart in userDetails.nameParts %}
+      {% if namePart.type == "FamilyName" %}
+        {% set familyNames = (familyNames.push(namePart.value), familyNames) %}
+      {% endif %}
+    {% endfor %}
+
     {% set rows = [
       {
         key: {
           text: 'pages.pyiUpdateDetails.content.summaryListHeading1' | translate
         },
         value: {
-          text: userDetails.formattedName.GivenName
+          text: givenNames.join(' ')
         }
       },
       {
@@ -28,7 +42,7 @@
           text: 'pages.pyiUpdateDetails.content.summaryListHeading2' | translate
         },
         value: {
-          text: userDetails.formattedName.FamilyName
+          text: familyNames.join(' ')
         }
       },
       {

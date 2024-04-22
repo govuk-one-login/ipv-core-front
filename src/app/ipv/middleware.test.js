@@ -495,7 +495,10 @@ describe("journey middleware", () => {
       axiosResponse.status = 200;
       axiosResponse.data = {
         name: "firstName LastName",
-        formattedName: { firstName: "firstName", lastName: "LastName" },
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
         dateOfBirth: "01 11 1973",
         addresses: [
           {
@@ -516,10 +519,10 @@ describe("journey middleware", () => {
 
       const expectedUserDetail = {
         name: "firstName LastName",
-        formattedName: {
-          firstName: "firstName",
-          lastName: "LastName",
-        },
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
         dateOfBirth: "01 11 1973",
         addresses: [
           {

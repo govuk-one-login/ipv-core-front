@@ -563,7 +563,7 @@ describe("journey middleware", () => {
         name: "firstName MiddleName LastName",
         nameParts: [
           { type: "GivenName", value: "firstName" },
-          { type: "GivenName", value: "MiddleName"},
+          { type: "GivenName", value: "MiddleName" },
           { type: "FamilyName", value: "LastName" },
         ],
         dateOfBirth: "01 11 1973",

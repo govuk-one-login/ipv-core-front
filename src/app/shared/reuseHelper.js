@@ -54,19 +54,14 @@ module.exports = {
     },
   },
   generateUserDetails: (userDetailsResponse, i18n) => {
-    let givenName = "";
-    let familyName = "";
-    if (userDetailsResponse.data?.nameParts) {
-      userDetailsResponse.data.nameParts.forEach((namePart) => {
-        if (namePart.type === "GivenName") {
-          givenName += namePart.value + " ";
-        } else if (namePart.type === "FamilyName") {
-          familyName += namePart.value + " ";
-        }
-      });
-    }
-    givenName = givenName.trim();
-    familyName = familyName.trim();
+    const givenName = userDetailsResponse.data?.nameParts
+      .filter((namePart) => namePart.type === "GivenName")
+      .map((namePart) => namePart.value)
+      .join(" ");
+    const familyName = userDetailsResponse.data?.nameParts
+      .filter((namePart) => namePart.type === "FamilyName")
+      .map((namePart) => namePart.value)
+      .join(" ");
     return {
       name: userDetailsResponse.data?.name,
       nameParts: {

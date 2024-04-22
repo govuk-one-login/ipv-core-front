@@ -519,10 +519,10 @@ describe("journey middleware", () => {
 
       const expectedUserDetail = {
         name: "firstName LastName",
-        nameParts: [
-          { type: "GivenName", value: "firstName" },
-          { type: "FamilyName", value: "LastName" },
-        ],
+        nameParts: {
+          givenName: "firstName",
+          familyName: "LastName",
+        },
         dateOfBirth: "01 11 1973",
         addresses: [
           {

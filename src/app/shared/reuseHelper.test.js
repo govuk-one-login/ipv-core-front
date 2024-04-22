@@ -68,10 +68,10 @@ describe("Generate User Details", () => {
 
     expect(userDetails).to.deep.equal({
       name: "Alessandro Cholmondeley-Featherstonehaugh",
-      nameParts: [
-        { type: "GivenName", value: "Alessandro" },
-        { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
-      ],
+      nameParts: {
+        givenName: "Alessandro",
+        familyName: "Cholmondeley-Featherstonehaugh",
+      },
       dateOfBirth: "1984-02-29",
       addresses: [
         {

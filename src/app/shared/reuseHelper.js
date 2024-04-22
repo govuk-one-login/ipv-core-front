@@ -54,9 +54,23 @@ module.exports = {
     },
   },
   generateUserDetails: (userDetailsResponse, i18n) => {
+    let givenName = "";
+    let familyName = "";
+    if (userDetailsResponse.data?.nameParts) {
+      userDetailsResponse.data.nameParts.forEach(namePart => {
+        if (namePart.type === "GivenName") {
+          givenName = namePart.value;
+        } else if (namePart.type === "FamilyName") {
+          familyName = namePart.value;
+        }
+      });
+    }
     return {
       name: userDetailsResponse.data?.name,
-      nameParts: userDetailsResponse.data?.nameParts,
+      nameParts: {
+        givenName,
+        familyName,
+      },
       dateOfBirth: userDetailsResponse.data?.dateOfBirth,
       addresses: userDetailsResponse.data?.addresses?.map((address, idx) => {
         const addressDetailHtml = generateHTMLofAddress(address);

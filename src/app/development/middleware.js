@@ -69,11 +69,13 @@ async function templatesDisplayGet(req, res) {
   }
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      appDownloadHelper.getAppStoreRedirectUrl(PHONE_TYPES.IPHONE),
+      appDownloadHelper.getAppStoreRedirectUrl(
+        context !== "android" ? PHONE_TYPES.IPHONE : PHONE_TYPES.ANDROID,
+      ),
     );
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-      PHONE_TYPES.IPHONE,
+      context !== "android" ? PHONE_TYPES.IPHONE : PHONE_TYPES.ANDROID,
     );
   }
 

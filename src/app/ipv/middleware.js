@@ -198,6 +198,21 @@ function checkForIpvAndOauthSessionId(req, res) {
     });
   }
 }
+async function checkJourneyAction(req, res) {
+  if (!req.body?.journey) {
+    const err = new Error("req.body?.journey is missing");
+    err.status = HTTP_STATUS_CODES.BAD_REQUEST;
+    logError(req, err);
+
+    req.session.currentPage = "pyi-technical";
+    res.status(HTTP_STATUS_CODES.BAD_REQUEST);
+    return res.render("ipv/page/pyi-technical.njk", {
+      context: "unrecoverable",
+    });
+  } else if (req.body?.journey === "contact") {
+    return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+  }
+}
 
 function pageRequiresUserDetails(pageId) {
   return [
@@ -213,7 +228,6 @@ function isValidPage(pageId) {
 }
 
 function handleAppStoreRedirect(req, res, next) {
-  // PYIC-4816 - consider whether we should override this with the current request's sniffed device type.
   const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
@@ -273,15 +287,6 @@ module.exports = {
       next(error);
     }
   },
-  handlePageBackButton: async (req, res, next) => {
-    const currentPageId = req.params.pageId;
-
-    try {
-      await handleJourneyResponse(req, res, "back", currentPageId);
-    } catch (error) {
-      next(error);
-    }
-  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
@@ -322,31 +327,27 @@ module.exports = {
       const renderOptions = {
         pageId,
         csrfToken: req.csrfToken(),
+        dcmawEvent: req.isSmartphoneUser ? "smartphone" : "dcmaw",
         context,
       };
+      const phoneType = {
+        iphone: PHONE_TYPES.IPHONE,
+        android: PHONE_TYPES.ANDROID,
+      }[context];
 
       if (pageRequiresUserDetails(pageId)) {
         renderOptions.userDetails = await fetchUserDetails(req);
       } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-        // PYIC-4816: Use the actual device type selected on a previous page.
-        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          PHONE_TYPES.IPHONE,
-        );
+        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(phoneType);
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-        // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
-        renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          PHONE_TYPES.ANDROID,
-        );
-      } else {
-        if (req.query?.errorState !== undefined) {
-          renderOptions.pageErrorState = req.query.errorState;
-        }
-
-        if (req.session.currentPageStatusCode !== undefined) {
-          res.status(req.session.currentPageStatusCode);
-        }
+        renderOptions.appDownloadUrl =
+          appDownloadHelper.getAppStoreRedirectUrl(phoneType);
+      } else if (req.query?.errorState !== undefined) {
+        renderOptions.pageErrorState = req.query.errorState;
+      } else if (req.session.currentPageStatusCode !== undefined) {
+        res.status(req.session.currentPageStatusCode);
       }
 
       return res.render(
@@ -364,25 +365,22 @@ module.exports = {
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
-      "pyi-suggest-other-options",
-      "pyi-cri-escape",
-      "pyi-kbv-escape-m2b",
-      "pyi-escape-m2b",
-      "page-multiple-doc-check",
+      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
+      PAGES.PYI_CRI_ESCAPE,
+      PAGES.PYI_KBV_ESCAPE_M2B,
+      PAGES.PYI_ESCAPE_M2B,
+      PAGES.PAGE_MULTIPLE_DOC_CHECK,
     ];
 
     try {
-      const action = req.body?.journey || "next";
       if (pagesUsingSessionId.includes(currentPageId)) {
         checkForSessionId(req, res);
       } else {
         checkForIpvAndOauthSessionId(req, res);
       }
+      await checkJourneyAction(req, res);
 
-      if (req.body?.journey === "contact") {
-        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
-      }
-      await handleJourneyResponse(req, res, action, currentPageId);
+      await handleJourneyResponse(req, res, req.body.journey, currentPageId);
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
@@ -410,6 +408,7 @@ module.exports = {
           pageId,
           csrfToken: req.csrfToken(),
           pageErrorState: true,
+          dcmawEvent: req.isSmartphoneUser ? "smartphone" : "dcmaw",
           context,
         };
 
@@ -445,5 +444,4 @@ module.exports = {
   pageRequiresUserDetails,
   handleAppStoreRedirect,
   checkForIpvAndOauthSessionId,
-  journeyApi,
 };

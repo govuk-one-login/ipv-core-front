@@ -77,7 +77,8 @@
     "pino": "8.19.0",
     "pino-http": "9.0.0",
     "qrcode": "^1.5.3",
-    "sanitize-filename": "^1.6.3"
+    "sanitize-filename": "^1.6.3",
+    "ua-parser-js": "^1.0.37"
   },
   "overrides": {
     "@babel/traverse": "^7.23.9",

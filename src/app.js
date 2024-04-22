@@ -2,6 +2,7 @@ require("express");
 require("express-async-errors");
 const path = require("path");
 const session = require("express-session");
+const UAParser = require("ua-parser-js");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
 
@@ -128,6 +129,12 @@ app.use((req, res, next) => {
     res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
     next();
   }
+});
+
+app.use((req, res, next) => {
+  const parser = new UAParser(req.headers["user-agent"]);
+  req.isSmartphoneUser = parser.getDevice()["type"] === "mobile";
+  next();
 });
 
 app.use((req, res, next) => {

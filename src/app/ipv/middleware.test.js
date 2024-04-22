@@ -1017,10 +1017,26 @@ describe("journey middleware", () => {
       };
     });
 
-    // PYIC-4816 Update tests to get iphone/android from session.
     it("sets an iPhone qrCode value for the page", async function () {
       req.method = "GET";
+      req.session.context = "iphone";
       const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
+      const expectedQrCodeData =
+        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-desktop-download-app.njk`,
+        sinon.match.has("qrCode", expectedQrCodeData),
+      );
+    });
+
+    it("sets an Android qrCode value for the page", async function () {
+      req.method = "GET";
+      req.session.context = "android";
+      const qrCodeUrl =
+        SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1047,9 +1063,9 @@ describe("journey middleware", () => {
       };
     });
 
-    // PYIC-4816 Update tests to get iphone/android from session.
     it("sets an Android appDownloadUrl value for the page", async function () {
       req.method = "GET";
+      req.session.context = "android";
 
       await middleware.handleJourneyPage(req, res, next);
 
@@ -1058,6 +1074,18 @@ describe("journey middleware", () => {
         sinon.match.has("appDownloadUrl", sinon.match("intent")),
       );
     });
+  });
+
+  it("sets an iPhone appDownloadUrl value for the page", async function () {
+    req.method = "GET";
+    req.session.context = "iphone";
+
+    await middleware.handleJourneyPage(req, res, next);
+
+    expect(res.render).to.have.been.calledWith(
+      `ipv/page/pyi-triage-mobile-download-app.njk`,
+      sinon.match.has("appDownloadUrl", sinon.match("intent")),
+    );
   });
 
   context("redirect to app store", () => {

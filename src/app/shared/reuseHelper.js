@@ -4,6 +4,10 @@ module.exports = {
   samplePersistedUserDetails: {
     data: {
       name: "Alessandro Cholmondeley-Featherstonehaugh",
+      nameParts: [
+        { type: "GivenName", value: "Alessandro" },
+        { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
+      ],
       dateOfBirth: "1984-02-29",
       addresses: [
         // all possible address parts
@@ -50,8 +54,20 @@ module.exports = {
     },
   },
   generateUserDetails: (userDetailsResponse, i18n) => {
+    const givenName = userDetailsResponse.data?.nameParts
+      .filter((namePart) => namePart.type === "GivenName")
+      .map((namePart) => namePart.value)
+      .join(" ");
+    const familyName = userDetailsResponse.data?.nameParts
+      .filter((namePart) => namePart.type === "FamilyName")
+      .map((namePart) => namePart.value)
+      .join(" ");
     return {
       name: userDetailsResponse.data?.name,
+      nameParts: {
+        givenName,
+        familyName,
+      },
       dateOfBirth: userDetailsResponse.data?.dateOfBirth,
       addresses: userDetailsResponse.data?.addresses?.map((address, idx) => {
         const addressDetailHtml = generateHTMLofAddress(address);

@@ -495,6 +495,10 @@ describe("journey middleware", () => {
       axiosResponse.status = 200;
       axiosResponse.data = {
         name: "firstName LastName",
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
         dateOfBirth: "01 11 1973",
         addresses: [
           {
@@ -515,6 +519,77 @@ describe("journey middleware", () => {
 
       const expectedUserDetail = {
         name: "firstName LastName",
+        nameParts: {
+          givenName: "firstName",
+          familyName: "LastName",
+        },
+        dateOfBirth: "01 11 1973",
+        addresses: [
+          {
+            label: "Some label",
+            addressDetailHtml:
+              "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
+          },
+        ],
+      };
+
+      CoreBackServiceStub.getProvenIdentityUserDetails =
+        sinon.fake.returns(axiosResponse);
+
+      req = {
+        id: "1",
+        params: { pageId: pageId },
+        csrfToken: sinon.fake(),
+        session: { currentPage: pageId },
+        log: { info: sinon.fake(), error: sinon.fake() },
+        i18n: { t: () => "Some label" },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+
+      expect(
+        CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
+      ).to.have.been.calledWith(req);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/${pageId}.njk`,
+        sinon.match.has("userDetails", expectedUserDetail),
+      );
+    });
+    it("should call build-proven-user-identity-details endpoint and user details passed into renderer with multiple given names", async function () {
+      const axiosResponse = {};
+      axiosResponse.status = 200;
+      axiosResponse.data = {
+        name: "firstName MiddleName LastName",
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "GivenName", value: "MiddleName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
+        dateOfBirth: "01 11 1973",
+        addresses: [
+          {
+            organisationName: "My company",
+            departmentName: "My deparment",
+            buildingName: "my building",
+            subBuildingName: "Room 5",
+            buildingNumber: "1",
+            dependentStreetName: "My outter street",
+            streetName: "my inner street",
+            doubleDependentAddressLocality: "My double dependant town",
+            dependentAddressLocality: "my dependant town",
+            addressLocality: "my town",
+            postalCode: "myCode",
+          },
+        ],
+      };
+
+      const expectedUserDetail = {
+        name: "firstName MiddleName LastName",
+        nameParts: {
+          givenName: "firstName MiddleName",
+          familyName: "LastName",
+        },
         dateOfBirth: "01 11 1973",
         addresses: [
           {

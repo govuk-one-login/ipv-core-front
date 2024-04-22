@@ -41,5 +41,6 @@ module.exports = Object.freeze({
   PYI_TRIAGE_MOBILE_DOWNLOAD_APP: "pyi-triage-mobile-download-app",
   PYI_TRIAGE_SELECT_DEVICE: "pyi-triage-select-device",
   PYI_TRIAGE_SELECT_SMARTPHONE: "pyi-triage-select-smartphone",
+  UPDATE_DETAILS: "update-details",
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
 });

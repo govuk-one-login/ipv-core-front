@@ -707,6 +707,33 @@
         "submitButtonTextF2f": "Parhau i brofi eich hunaniaeth eto"
       }
     },
+    "pyiUpdateDetails": {
+      "title": "Update your details",
+      "header": "Update your details",
+      "content": {
+        "summaryListHeading1": "Given names",
+        "summaryListHeading2": "Last name",
+        "summaryListHeading3": "Current home address",
+        "summaryListHeading4": "Date of birth",
+        "checkboxes": {
+          "heading": "Which details do you need to update?",
+          "hint": "Select all that apply.",
+          "errorMessage": "Select at least one option",
+          "checkbox1": "Given names",
+          "checkbox1Hint": "This is your first name and middle names",
+          "checkbox2": "Last name",
+          "checkbox3": "Address",
+          "checkbox4": "Date of birth",
+          "checkbox5Divisor": "or",
+          "checkbox5": "I do not need to update my details"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select which details you need to update",
+          "errorCheckboxMessage": "Select which details you need to update"
+        }
+      }
+    },
     "reproveIdentityStart": {
       "title": "Mae angen i chi brofi eich hunaniaeth",
       "header": "Mae angen i chi brofi eich hunaniaeth",

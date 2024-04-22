@@ -37,6 +37,7 @@ Parameters:
     # Allowed values: See https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html
     AllowedValues:
       - None
+      - ECSCanary50Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent15Minutes
       - CodeDeployDefault.ECSAllAtOnce
@@ -73,7 +74,7 @@ Conditions:
 Mappings:
   EnvironmentConfiguration:
     "130355686670": # core-dev01
-      lb400ErrorLimit: 10
+      # lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -94,7 +95,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
     "175872367215": # core-dev02
-      lb400ErrorLimit: 10
+      # lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -115,7 +116,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
     "457601271792": # Build
-      lb400ErrorLimit: 10
+      # lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -140,7 +141,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
     "335257547869": # Staging
-      lb400ErrorLimit: 10
+      # lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -161,7 +162,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
     "991138514218": # Integration
-      lb400ErrorLimit: 10
+      # lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -182,7 +183,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
     "075701497069": # Production
-      lb400ErrorLimit: 20
+      # lb400ErrorLimit: 20
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 50
@@ -1382,10 +1383,10 @@ Resources:
     Properties:
       AlarmName: FrontLoadBalancer5xxAlarm
       ActionsEnabled: true
-      AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
-      OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+      # AlarmActions:
+      #   - !ImportValue sns-topics-AlarmTopic
+      # OKActions:
+      #   - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: []
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1415,10 +1416,10 @@ Resources:
     Properties:
       AlarmName: FrontTargetGroup5xxAlarm
       ActionsEnabled: true
-      AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
-      OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+      # AlarmActions:
+      #   - !ImportValue sns-topics-AlarmTopic
+      # OKActions:
+      #   - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: [ ]
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1444,17 +1445,17 @@ Resources:
 
   FrontTargetGroup5xxPercentErrors:
     Type: AWS::CloudWatch::Alarm
-    Condition: IsNotDevelopment
+    # Condition: IsNotDevelopment
     Properties:
       AlarmName: FrontTargetGroup5xxPercentAlarm
       AlarmDescription: >
         The number of HTTP 5XX server error codes that originate from the
         target group is greater than 5% of all traffic.
       ActionsEnabled: true
-      AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
-      OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+      # AlarmActions:
+      #   - !ImportValue sns-topics-AlarmTopic
+      # OKActions:
+      #   - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: [ ]
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1606,7 +1607,8 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
     Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=RLuCcu0SXw5m6qJPl6LeqMrzYZEUR7Xp"
+      # TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=RLuCcu0SXw5m6qJPl6LeqMrzYZEUR7Xp"
+      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=9vFjXAXebnhiAago1o4zhHXwEGHub7ps" # v2.0.2
       Parameters:
         ECSClusterName: !Ref CoreFrontCluster
         ECSServiceName: !GetAtt CoreFrontService.Name
@@ -1618,8 +1620,9 @@ Resources:
         VpcId: !Sub ${VpcStackName}-VpcId
         ContainerName: app
         ContainerPort: 8080
-        ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
-        ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
+        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
+        # ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
+        # ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
         PermissionsBoundary: !If
           - UsePermissionsBoundary
           - !Ref PermissionsBoundary

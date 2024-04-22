@@ -2,7 +2,7 @@ name: SecurePipeline Docker build, ECR push, template copy to S3
 on:
   push:
     branches:
-      - canary-env
+      - canary-env-b
 
 jobs:
   dockerBuildAndPush:

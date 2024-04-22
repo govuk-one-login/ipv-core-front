@@ -1602,29 +1602,6 @@ Resources:
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
 
-  PrivateLoadBalancerListenerGreenTargetGroupECS:
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
-    Properties:
-      HealthCheckEnabled: true
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
-      HealthyThresholdCount: 2
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId:
-        Fn::ImportValue:
-          Fn::Sub: ${VpcStackName}-VpcId
-      TargetGroupAttributes:
-      - Key: deregistration_delay.timeout_seconds
-        Value: 30
-    Metadata:
-      SamResourceId: PrivateLoadBalancerListenerGreenTargetGroupECS
-
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment

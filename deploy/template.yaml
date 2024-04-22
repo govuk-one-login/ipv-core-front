@@ -1614,7 +1614,6 @@ Resources:
         ECSServiceName: !GetAtt CoreFrontService.Name
         TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
         LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
-        LoadBalancerFullName: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
         ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
         DeploymentStrategy: !Ref DeploymentStrategy
         VpcId: !Sub ${VpcStackName}-VpcId

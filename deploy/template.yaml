@@ -59,9 +59,14 @@ Conditions:
     - !Equals [ !Ref PermissionsBoundary, "none" ]
   UseCodeSigning: !Not
     - !Equals [ !Ref CodeSigningConfigArn, "none" ]
-  UseCanaryDeployment: !Or
-    - !Condition IsNotDevelopment
-    - !Equals [ !Ref Environment, dev-canary ]
+  # UseCanaryDeployment: !And
+  #   - !Not [ !Condition IsProduction ]
+  #   - !Condition IsNotDevelopment
+  UseCanaryDeployment: !And
+    - !Not [ !Condition IsProduction ]
+    - !Or
+      - !Condition IsNotDevelopment
+      - !Equals [ !Ref Environment, dev-canary ]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -1861,6 +1866,29 @@ Resources:
                   Value: !GetAtt CoreFrontService.Name
             Period: 60
             Stat: Maximum
+
+  PrivateLoadBalancerListenerGreenTargetGroupECS:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 14
+      HealthCheckIntervalSeconds: 15
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue:
+          Fn::Sub: ${VpcStackName}-VpcId
+      TargetGroupAttributes:
+      - Key: deregistration_delay.timeout_seconds
+        Value: 30
+    Metadata:
+      SamResourceId: PrivateLoadBalancerListenerGreenTargetGroupECS
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

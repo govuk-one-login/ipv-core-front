@@ -61,11 +61,12 @@ module.exports = {
         if (namePart.type === "GivenName") {
           givenName += namePart.value + " ";
         } else if (namePart.type === "FamilyName") {
-          familyName = namePart.value;
+          familyName += namePart.value + " ";
         }
       });
     }
     givenName = givenName.trim();
+    familyName = familyName.trim();
     return {
       name: userDetailsResponse.data?.name,
       nameParts: {

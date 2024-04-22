@@ -59,12 +59,13 @@ module.exports = {
     if (userDetailsResponse.data?.nameParts) {
       userDetailsResponse.data.nameParts.forEach((namePart) => {
         if (namePart.type === "GivenName") {
-          givenName = namePart.value;
+          givenName += namePart.value + " ";
         } else if (namePart.type === "FamilyName") {
           familyName = namePart.value;
         }
       });
     }
+    givenName = givenName.trim();
     return {
       name: userDetailsResponse.data?.name,
       nameParts: {

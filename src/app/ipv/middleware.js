@@ -419,7 +419,7 @@ module.exports = {
         if (req.body?.journey === "appTriage") {
           const parser = new UAParser(req.headers["user-agent"]);
           if (parser.getDevice()["type"] === "mobile") {
-            req.body.journey += "/smartphone";
+            req.body.journey += "Smartphone";
           }
         }
         next();

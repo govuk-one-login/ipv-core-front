@@ -845,6 +845,33 @@ describe("journey middleware", () => {
     },
   );
 
+  context(
+    "handleJourneyAction: handling missing ipv session and oauth id before calling the backend",
+    () => {
+      it("should render the technical unrecoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "pyi-suggest-other-options",
+            ipvSessionId: null,
+            ipAddress: "ip-address",
+          },
+          params: { pageId: "pyi-suggest-other-options" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(res.status).to.have.been.calledWith(401);
+        expect(res.render).to.have.been.calledWith(
+          "ipv/page/pyi-technical.njk",
+          {
+            context: "unrecoverable",
+          },
+        );
+      });
+    },
+  );
+
   context("validateFeatureSet", () => {
     beforeEach(() => {
       req = {

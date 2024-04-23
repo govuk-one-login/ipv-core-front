@@ -254,7 +254,10 @@ describe("journey middleware", () => {
         csrfToken: sinon.fake(),
         query: { errorState: "some error state" },
         params: { pageId: "page-multiple-doc-check" },
-        session: { currentPage: "page-multiple-doc-check", ipvSessionId: "ipv-session-id", },
+        session: {
+          currentPage: "page-multiple-doc-check",
+          ipvSessionId: "ipv-session-id",
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 

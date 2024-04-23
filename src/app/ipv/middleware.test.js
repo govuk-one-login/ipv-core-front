@@ -246,6 +246,24 @@ describe("journey middleware", () => {
         context: "unrecoverable",
       });
     });
+
+    it("should render with errorState if in query", async function () {
+      req = {
+        id: "1",
+        body: {},
+        query: { errorState: "some error state" },
+        params: { pageId: "page-multiple-doc-check" },
+        session: { currentPage: "page-ipv-success", ipvSessionId: null },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/page-multiple-doc-check.njk`,
+        sinon.match.has("pageErrorState", "some error state"),
+      );
+    });
   });
 
   context("handling CRI event response", async () => {
@@ -1037,21 +1055,6 @@ describe("journey middleware", () => {
 
       expect(res.render).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
-    });
-  });
-
-  context("handling pre-dcmaw triage sniffing journey route", () => {
-    beforeEach(() => {
-      req = {
-        body: {},
-        params: { pageId: "pyi-suggest-other-options" },
-        session: {
-          ipvSessionId: "ipv-session-id",
-          currentPage: "pyi-suggest-other-options",
-        },
-        csrfToken: sinon.fake(),
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
     });
   });
 

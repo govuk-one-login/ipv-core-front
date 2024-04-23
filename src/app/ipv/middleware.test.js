@@ -1011,6 +1011,32 @@ describe("journey middleware", () => {
       expect(res.render).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;
     });
+
+    it("should include dcmaw event when not smartphone for re-render", async function () {
+      req.method = "POST";
+      req.body.journey = undefined;
+      req.isSmartphoneUser = false;
+
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/page-ipv-identity-document-start.njk`,
+        sinon.match.has("dcmawEvent", "dcmaw"),
+      );
+    });
+
+    it("should include smartphone event when smartphone for re-render", async function () {
+      req.method = "POST";
+      req.body.journey = undefined;
+      req.isSmartphoneUser = true;
+
+      await middleware.formRadioButtonChecked(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/page-ipv-identity-document-start.njk`,
+        sinon.match.has("dcmawEvent", "smartphone"),
+      );
+    });
   });
 
   context("handling pre-dcmaw triage sniffing journey route", () => {

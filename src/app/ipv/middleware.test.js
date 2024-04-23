@@ -231,6 +231,21 @@ describe("journey middleware", () => {
         context: "unrecoverable",
       });
     });
+
+    it("should render pyi-technical page with 'unrecoverable' context if journey action is missing", async () => {
+      req = {
+        id: "1",
+        body: {},
+        params: { pageId: "page-multiple-doc-check" },
+        session: { currentPage: "page-ipv-success", ipvSessionId: null },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
+    });
   });
 
   context("handling CRI event response", async () => {

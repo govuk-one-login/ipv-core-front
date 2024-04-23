@@ -1013,6 +1013,45 @@ describe("journey middleware", () => {
     });
   });
 
+  context("handling pre-dcmaw triage sniffing journey route", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "pyi-suggest-other-options" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "pyi-suggest-other-options",
+        },
+        csrfToken: sinon.fake(),
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+    });
+
+    it("sets non-smartphone dcmawEvent", async function () {
+      req.method = "GET";
+      req.isSmartphoneUser = false;
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-suggest-other-options.njk`,
+        sinon.match.has("dcmawEvent", "dcmaw"),
+      );
+    });
+
+    it("sets smartphone dcmawEvent", async function () {
+      req.method = "GET";
+      req.isSmartphoneUser = true;
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-suggest-other-options.njk`,
+        sinon.match.has("dcmawEvent", "smartphone"),
+      );
+    });
+  });
+
   context("handling pyi-triage-desktop-download-app journey route", () => {
     beforeEach(() => {
       req = {

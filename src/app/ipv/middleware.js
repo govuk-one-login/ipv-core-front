@@ -198,19 +198,13 @@ function checkForIpvAndOauthSessionId(req, res) {
     });
   }
 }
-async function checkJourneyAction(req, res) {
+function checkJourneyAction(req) {
   if (!req.body?.journey) {
     const err = new Error("req.body?.journey is missing");
     err.status = HTTP_STATUS_CODES.BAD_REQUEST;
     logError(req, err);
 
-    req.session.currentPage = "pyi-technical";
-    res.status(HTTP_STATUS_CODES.BAD_REQUEST);
-    return res.render("ipv/page/pyi-technical.njk", {
-      context: "unrecoverable",
-    });
-  } else if (req.body?.journey === "contact") {
-    return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+    throw new Error("req.body?.journey is missing");
   }
 }
 
@@ -378,7 +372,10 @@ module.exports = {
       } else {
         checkForIpvAndOauthSessionId(req, res);
       }
-      await checkJourneyAction(req, res);
+      checkJourneyAction(req);
+      if (req.body?.journey === "contact") {
+        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      }
 
       await handleJourneyResponse(req, res, req.body.journey, currentPageId);
     } catch (error) {

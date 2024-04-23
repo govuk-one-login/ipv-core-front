@@ -8,6 +8,7 @@ const {
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
+const path = require("path");
 
 describe("journey middleware", () => {
   let req;
@@ -297,6 +298,7 @@ describe("journey middleware", () => {
         ];
         req = {
           id: "1",
+          body: { journey: "next" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -364,6 +366,7 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/journey/next",
+        body: { journey: "next" },
         session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
         log: { info: sinon.fake(), error: sinon.fake() },
         params: { pageId: "ipv-current-page" },
@@ -456,13 +459,6 @@ describe("journey middleware", () => {
           "build-client-oauth-response",
           "ipv-current-page",
         );
-      });
-
-      it("should postJourneyEvent with next by default", async function () {
-        await middleware.handleJourneyAction(req, res, next);
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "next", "ipv-current-page");
       });
     },
   );
@@ -1020,7 +1016,12 @@ describe("journey middleware", () => {
     it("sets an iPhone qrCode value for the page", async function () {
       req.method = "GET";
       req.session.context = "iphone";
-      const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
+      const qrCodeUrl = path.join(
+        SERVICE_URL || "/",
+        "ipv",
+        "app-redirect",
+        PHONE_TYPES.IPHONE,
+      );
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1035,8 +1036,12 @@ describe("journey middleware", () => {
     it("sets an Android qrCode value for the page", async function () {
       req.method = "GET";
       req.session.context = "android";
-      const qrCodeUrl =
-        SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID;
+      const qrCodeUrl = path.join(
+        SERVICE_URL || "/",
+        "ipv",
+        "app-redirect",
+        PHONE_TYPES.ANDROID,
+      );
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1071,21 +1076,21 @@ describe("journey middleware", () => {
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-mobile-download-app.njk`,
-        sinon.match.has("appDownloadUrl", sinon.match("intent")),
+        sinon.match.has("appDownloadUrl", "/ipv/app-redirect/android"),
       );
     });
-  });
 
-  it("sets an iPhone appDownloadUrl value for the page", async function () {
-    req.method = "GET";
-    req.session.context = "iphone";
+    it("sets an iPhone appDownloadUrl value for the page", async function () {
+      req.method = "GET";
+      req.session.context = "iphone";
 
-    await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPage(req, res, next);
 
-    expect(res.render).to.have.been.calledWith(
-      `ipv/page/pyi-triage-mobile-download-app.njk`,
-      sinon.match.has("appDownloadUrl", sinon.match("intent")),
-    );
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-mobile-download-app.njk`,
+        sinon.match.has("appDownloadUrl", "/ipv/app-redirect/iphone"),
+      );
+    });
   });
 
   context("redirect to app store", () => {

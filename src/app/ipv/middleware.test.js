@@ -250,10 +250,11 @@ describe("journey middleware", () => {
     it("should render with errorState if in query", async function () {
       req = {
         id: "1",
-        body: {},
+        body: { journey: "next" },
+        csrfToken: sinon.fake(),
         query: { errorState: "some error state" },
         params: { pageId: "page-multiple-doc-check" },
-        session: { currentPage: "page-ipv-success", ipvSessionId: null },
+        session: { currentPage: "page-multiple-doc-check", ipvSessionId: "ipv-session-id", },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 

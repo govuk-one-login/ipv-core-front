@@ -25,6 +25,7 @@ const {
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const fs = require("fs");
+const UAParser = require("ua-parser-js");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
@@ -36,7 +37,8 @@ const {
   getIpvPagePath,
   addNunjucksExt,
 } = require("../../lib/paths");
-const PAGES = require("../../constants/ipvPages");
+const PAGES = require("../../constants/ipv-pages");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -321,23 +323,21 @@ module.exports = {
       const renderOptions = {
         pageId,
         csrfToken: req.csrfToken(),
-        dcmawEvent: req.isSmartphoneUser ? "smartphone" : "dcmaw",
         context,
       };
-      const phoneType = {
-        iphone: PHONE_TYPES.IPHONE,
-        android: PHONE_TYPES.ANDROID,
-      }[context];
 
       if (pageRequiresUserDetails(pageId)) {
         renderOptions.userDetails = await fetchUserDetails(req);
       } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(phoneType);
+        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          parseContextAsPhoneType(context),
+        );
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-        renderOptions.appDownloadUrl =
-          appDownloadHelper.getAppStoreRedirectUrl(phoneType);
+        renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          parseContextAsPhoneType(context),
+        );
       } else if (req.query?.errorState !== undefined) {
         renderOptions.pageErrorState = req.query.errorState;
       } else if (req.session.currentPageStatusCode !== undefined) {
@@ -405,7 +405,6 @@ module.exports = {
           pageId,
           csrfToken: req.csrfToken(),
           pageErrorState: true,
-          dcmawEvent: req.isSmartphoneUser ? "smartphone" : "dcmaw",
           context,
         };
 
@@ -417,6 +416,12 @@ module.exports = {
 
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
+        if (req.body?.journey === "appTriage") {
+          const parser = new UAParser(req.headers["user-agent"]);
+          if (parser.getDevice()["type"] === "mobile") {
+            req.body.journey += "/smartphone";
+          }
+        }
         next();
       }
     } catch (error) {

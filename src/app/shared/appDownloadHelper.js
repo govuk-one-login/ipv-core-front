@@ -1,8 +1,6 @@
 const { SERVICE_URL } = require("../../lib/config");
 const PHONE_TYPES = require("../../constants/phone-types");
 
-// Returns the url of the app redirect route for the requested phone type. For Android phones the url is wrapped in an
-// intent so the app is launched if it is already installed on the device.
 function getAppStoreRedirectUrl(phoneType) {
   if (phoneType !== PHONE_TYPES.IPHONE && phoneType !== PHONE_TYPES.ANDROID) {
     throw new Error(`Unrecognised phone type: ${phoneType}`);

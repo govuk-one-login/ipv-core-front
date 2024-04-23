@@ -1,6 +1,6 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
 const axios = require("axios");
-const PAGES = require("../constants/ipvPages");
+const PAGES = require("../constants/ipv-pages");
 const { getIpvPageTemplatePath } = require("../lib/paths");
 
 module.exports = {

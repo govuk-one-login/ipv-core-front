@@ -108,7 +108,7 @@
       }
     },
     "pyiNoMatch": {
-      "title": "Sorry, we could not confirm your details",
+      "title": "Sorry, we cannot confirm your identity",
       "titleRepeatFraudCheck": "Sorry, we could not confirm your details",
       "header": "Sorry, we cannot confirm your identity",
       "headerRepeatFraudCheck": "Sorry, we could not confirm your details",

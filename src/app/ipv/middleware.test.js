@@ -231,6 +231,43 @@ describe("journey middleware", () => {
         context: "unrecoverable",
       });
     });
+
+    it("should render pyi-technical page with 'unrecoverable' context if journey action is missing", async () => {
+      req = {
+        id: "1",
+        body: {},
+        params: { pageId: "page-multiple-doc-check" },
+        session: { currentPage: "page-ipv-success", ipvSessionId: null },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res);
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
+    });
+
+    it("should render with errorState if in query", async function () {
+      req = {
+        id: "1",
+        body: { journey: "next" },
+        csrfToken: sinon.fake(),
+        query: { errorState: "some error state" },
+        params: { pageId: "page-multiple-doc-check" },
+        session: {
+          currentPage: "page-multiple-doc-check",
+          ipvSessionId: "ipv-session-id",
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/page-multiple-doc-check.njk`,
+        sinon.match.has("pageErrorState", "some error state"),
+      );
+    });
   });
 
   context("handling CRI event response", async () => {
@@ -297,6 +334,7 @@ describe("journey middleware", () => {
         ];
         req = {
           id: "1",
+          body: { journey: "next" },
           session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "ipv-current-page" },
@@ -364,6 +402,7 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/journey/next",
+        body: { journey: "next" },
         session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
         log: { info: sinon.fake(), error: sinon.fake() },
         params: { pageId: "ipv-current-page" },
@@ -456,13 +495,6 @@ describe("journey middleware", () => {
           "build-client-oauth-response",
           "ipv-current-page",
         );
-      });
-
-      it("should postJourneyEvent with next by default", async function () {
-        await middleware.handleJourneyAction(req, res, next);
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "next", "ipv-current-page");
       });
     },
   );
@@ -835,6 +867,33 @@ describe("journey middleware", () => {
     },
   );
 
+  context(
+    "handleJourneyAction: handling missing ipv session and oauth id before calling the backend",
+    () => {
+      it("should render the technical unrecoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "pyi-suggest-other-options",
+            ipvSessionId: null,
+            ipAddress: "ip-address",
+          },
+          params: { pageId: "pyi-suggest-other-options" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(res.status).to.have.been.calledWith(401);
+        expect(res.render).to.have.been.calledWith(
+          "ipv/page/pyi-technical.njk",
+          {
+            context: "unrecoverable",
+          },
+        );
+      });
+    },
+  );
+
   context("validateFeatureSet", () => {
     beforeEach(() => {
       req = {
@@ -1017,10 +1076,26 @@ describe("journey middleware", () => {
       };
     });
 
-    // PYIC-4816 Update tests to get iphone/android from session.
     it("sets an iPhone qrCode value for the page", async function () {
       req.method = "GET";
+      req.session.context = "iphone";
       const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
+      const expectedQrCodeData =
+        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-desktop-download-app.njk`,
+        sinon.match.has("qrCode", expectedQrCodeData),
+      );
+    });
+
+    it("sets an Android qrCode value for the page", async function () {
+      req.method = "GET";
+      req.session.context = "android";
+      const qrCodeUrl =
+        SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1047,15 +1122,33 @@ describe("journey middleware", () => {
       };
     });
 
-    // PYIC-4816 Update tests to get iphone/android from session.
     it("sets an Android appDownloadUrl value for the page", async function () {
       req.method = "GET";
+      req.session.context = "android";
 
       await middleware.handleJourneyPage(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-mobile-download-app.njk`,
-        sinon.match.has("appDownloadUrl", sinon.match("intent")),
+        sinon.match.has(
+          "appDownloadUrl",
+          SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID,
+        ),
+      );
+    });
+
+    it("sets an iPhone appDownloadUrl value for the page", async function () {
+      req.method = "GET";
+      req.session.context = "iphone";
+
+      await middleware.handleJourneyPage(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/pyi-triage-mobile-download-app.njk`,
+        sinon.match.has(
+          "appDownloadUrl",
+          SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE,
+        ),
       );
     });
   });

@@ -7,10 +7,10 @@ const {
 } = require("../shared/reuseHelper");
 const { pageRequiresUserDetails } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
-const PHONE_TYPES = require("../../constants/phone-types");
 const appDownloadHelper = require("../shared/appDownloadHelper");
-const PAGES = require("../../constants/ipvPages");
+const PAGES = require("../../constants/ipv-pages");
 const { getIpvPageTemplatePath, addNunjucksExt } = require("../../lib/paths");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 async function allTemplatesGet(req, res, next) {
   try {
@@ -69,11 +69,13 @@ async function templatesDisplayGet(req, res) {
   }
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      appDownloadHelper.getAppStoreRedirectUrl(PHONE_TYPES.IPHONE),
+      appDownloadHelper.getAppStoreRedirectUrl(
+        parseContextAsPhoneType(context),
+      ),
     );
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-      PHONE_TYPES.IPHONE,
+      parseContextAsPhoneType(context),
     );
   }
 

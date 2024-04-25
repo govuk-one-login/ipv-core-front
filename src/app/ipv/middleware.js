@@ -25,6 +25,7 @@ const {
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const fs = require("fs");
+const UAParser = require("ua-parser-js");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
@@ -36,7 +37,8 @@ const {
   getIpvPagePath,
   addNunjucksExt,
 } = require("../../lib/paths");
-const PAGES = require("../../constants/ipvPages");
+const PAGES = require("../../constants/ipv-pages");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -198,6 +200,15 @@ function checkForIpvAndOauthSessionId(req, res) {
     });
   }
 }
+function checkJourneyAction(req) {
+  if (!req.body?.journey) {
+    const err = new Error("req.body?.journey is missing");
+    err.status = HTTP_STATUS_CODES.BAD_REQUEST;
+    logError(req, err);
+
+    throw new Error("req.body?.journey is missing");
+  }
+}
 
 function pageRequiresUserDetails(pageId) {
   return [
@@ -213,7 +224,6 @@ function isValidPage(pageId) {
 }
 
 function handleAppStoreRedirect(req, res, next) {
-  // PYIC-4816 - consider whether we should override this with the current request's sniffed device type.
   const specifiedPhoneType = req.params.specifiedPhoneType;
 
   try {
@@ -273,15 +283,6 @@ module.exports = {
       next(error);
     }
   },
-  handlePageBackButton: async (req, res, next) => {
-    const currentPageId = req.params.pageId;
-
-    try {
-      await handleJourneyResponse(req, res, "back", currentPageId);
-    } catch (error) {
-      next(error);
-    }
-  },
   handleJourneyPage: async (req, res, next) => {
     try {
       const { pageId } = req.params;
@@ -328,25 +329,19 @@ module.exports = {
       if (pageRequiresUserDetails(pageId)) {
         renderOptions.userDetails = await fetchUserDetails(req);
       } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-        // PYIC-4816: Use the actual device type selected on a previous page.
         const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          PHONE_TYPES.IPHONE,
+          parseContextAsPhoneType(context),
         );
         renderOptions.qrCode =
           await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
       } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-        // PYIC-4816: Use the actual device type selected on a previous page and/or the current request's sniffed device type
         renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          PHONE_TYPES.ANDROID,
+          parseContextAsPhoneType(context),
         );
-      } else {
-        if (req.query?.errorState !== undefined) {
-          renderOptions.pageErrorState = req.query.errorState;
-        }
-
-        if (req.session.currentPageStatusCode !== undefined) {
-          res.status(req.session.currentPageStatusCode);
-        }
+      } else if (req.query?.errorState !== undefined) {
+        renderOptions.pageErrorState = req.query.errorState;
+      } else if (req.session.currentPageStatusCode !== undefined) {
+        res.status(req.session.currentPageStatusCode);
       }
 
       return res.render(
@@ -364,25 +359,25 @@ module.exports = {
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
-      "pyi-suggest-other-options",
-      "pyi-cri-escape",
-      "pyi-kbv-escape-m2b",
-      "pyi-escape-m2b",
-      "page-multiple-doc-check",
+      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
+      PAGES.PYI_CRI_ESCAPE,
+      PAGES.PYI_KBV_ESCAPE_M2B,
+      PAGES.PYI_ESCAPE_M2B,
+      PAGES.PAGE_MULTIPLE_DOC_CHECK,
     ];
 
     try {
-      const action = req.body?.journey || "next";
       if (pagesUsingSessionId.includes(currentPageId)) {
         checkForSessionId(req, res);
       } else {
         checkForIpvAndOauthSessionId(req, res);
       }
-
+      checkJourneyAction(req);
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       }
-      await handleJourneyResponse(req, res, action, currentPageId);
+
+      await handleJourneyResponse(req, res, req.body.journey, currentPageId);
     } catch (error) {
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
@@ -421,6 +416,12 @@ module.exports = {
 
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
+        if (req.body?.journey === "appTriage") {
+          const parser = new UAParser(req.headers["user-agent"]);
+          if (parser.getDevice()["type"] === "mobile") {
+            req.body.journey += "Smartphone";
+          }
+        }
         next();
       }
     } catch (error) {
@@ -445,5 +446,4 @@ module.exports = {
   pageRequiresUserDetails,
   handleAppStoreRedirect,
   checkForIpvAndOauthSessionId,
-  journeyApi,
 };

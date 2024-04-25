@@ -13,19 +13,15 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvBankAccountStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph1' | translate }}</p>
 
-  <ul class="govuk-list" role="list">
-    <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading' | translate }}</h2>
-      <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvBankAccountStart.content.paragraph2' | translate }}</p>
-      <ul class="govuk-list govuk-list--bullet ">
-        {% for listItem in 'pages.pageIpvBankAccountStart.content.personalDetails' | translate({ returnObjects: true }) %}
-          <li>{{ listItem }}</li>
-        {% endfor %}
-      </ul>
-    </li>
+  <h2 class="govuk-heading-m">{{ 'pages.pageIpvBankAccountStart.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    {% for listItem in 'pages.pageIpvBankAccountStart.content.personalDetails' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.pageIpvBankAccountStart.content.subHeading2' | translate }}</h2>
+  <h2 class="govuk-heading-m">{{ 'pages.pageIpvBankAccountStart.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pageIpvBankAccountStart.content.paragraph3' | translate }}</p>
 
   <form id="pageIpvBankAccountStartOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">

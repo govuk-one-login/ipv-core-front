@@ -359,11 +359,13 @@ module.exports = {
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
-      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
-      PAGES.PYI_CRI_ESCAPE,
-      PAGES.PYI_KBV_ESCAPE_M2B,
-      PAGES.PYI_ESCAPE_M2B,
+      PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
+      PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
       PAGES.PAGE_MULTIPLE_DOC_CHECK,
+      PAGES.PYI_CRI_ESCAPE,
+      PAGES.PYI_ESCAPE_M2B,
+      PAGES.PYI_KBV_ESCAPE_M2B,
+      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
     ];
 
     try {

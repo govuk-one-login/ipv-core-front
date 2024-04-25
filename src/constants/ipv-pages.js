@@ -1,9 +1,11 @@
 module.exports = Object.freeze({
   CONFIRM_ADDRESS: "confirm-address",
   CONFIRM_NAME_DATE_BIRTH: "confirm-name-date-birth",
+  NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
+  NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY: "no-photo-id-security-questions-find-another-way",
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
   PAGE_FACE_TO_FACE_HANDOFF: "page-face-to-face-handoff",
-  PAGE_IPV_BANK_ACCOUNT_START: "page-ipv-bank-account-start",
+  PAGE_IPV_BANK_ACCOUNT_START: "page-ipv-bank-account-start", // Remove in PYIC-6093
   PAGE_IPV_IDENTITY_DOCUMENT_START: "page-ipv-identity-document-start",
   PAGE_IPV_IDENTITY_POST_OFFICE_START: "page-ipv-identity-postoffice-start",
   PAGE_IPV_PENDING: "page-ipv-pending",
@@ -11,6 +13,7 @@ module.exports = Object.freeze({
   PAGE_IPV_SUCCESS: "page-ipv-success",
   PAGE_MULTIPLE_DOC_CHECK: "page-multiple-doc-check",
   PAGE_PRE_EXPERIAN_KBV_TRANSITION: "page-pre-experian-kbv-transition",
+  PROVE_IDENTITY_BANK_ACCOUNT: "prove-identity-bank-account",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
   PYI_CONFIRM_DELETE_DETAILS: "pyi-confirm-delete-details",
@@ -23,10 +26,10 @@ module.exports = Object.freeze({
   PYI_DRIVING_LICENCE_NO_MATCH_ANOTHER_WAY:
     "pyi-driving-licence-no-match-another-way",
   PYI_ESCAPE: "pyi-escape",
-  PYI_ESCAPE_M2B: "pyi-escape-m2b",
+  PYI_ESCAPE_M2B: "pyi-escape-m2b", // Remove in PYIC-6093
   PYI_F2F_DELETE_DETAILS: "pyi-f2f-delete-details",
   PYI_F2F_TECHNICAL: "pyi-f2f-technical",
-  PYI_KBV_ESCAPE_M2B: "pyi-kbv-escape-m2b",
+  PYI_KBV_ESCAPE_M2B: "pyi-kbv-escape-m2b", // Remove in PYIC-6093
   PYI_NEW_DETAILS: "pyi-new-details",
   PYI_NO_MATCH: "pyi-no-match",
   PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",

@@ -219,32 +219,6 @@
         }
       }
     },
-    "pyiEscapeM2b": {
-      "title": "Find another way to prove your identity",
-      "header": "Find another way to prove your identity",
-      "content": {
-        "subHeading": "If you do not have photo ID",
-        "paragraph1": "You can try proving your identity with the service you need to use. They may take other types of ID.",
-        "subHeading2": "If you have photo ID",
-        "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use",
-          "text": "<p class=\"govuk-body\">You can use a: </p><ul class=\"govuk-list--bullet\"><li>UK photocard driving licence</li><li>European Union (EU) photocard driving licence</li><li>UK passport</li><li>non-UK passport</li><li>National identity card from a European Economic Area (EEA) country</li><li>UK biometric residence permit (BRP)</li><li>UK biometric residence card (BRC)</li><li>UK Frontier Worker permit</li></ul>"
-        },
-        "subHeading3": "What would you like to do?",
-        "formRadioButtons": {
-          "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
-          "radioButton2Text": "Use photo ID to prove your identity with GOV.UK One Login",
-          "separateOptionsInFormText": "or",
-          "radioButton3Text": "Go back and try using your bank details to prove your identity"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
     "noPhotoIdExitFindAnotherWay": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",
@@ -271,37 +245,7 @@
         }
       }
     },
-    "pyiKbvEscapeM2b": {
-      "title": "Sorry, we cannot confirm your identity this way",
-      "titleDropout": "Find another way to prove your identity",
-      "header": "Sorry, we cannot confirm your identity this way",
-      "headerDropout": "Find another way to prove your identity",
-      "content": {
-        "paragraph1": "This is because you did not answer some of the security questions correctly.",
-        "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
-        "subHeading": "If you do not have photo ID",
-        "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
-        "subHeading2": "If you have photo ID",
-        "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use",
-          "text": "<p class=\"govuk-body\">You can use a: </p><ul class=\"govuk-list--bullet\"><li>UK photocard driving licence</li><li>European Union (EU) photocard driving licence</li><li>UK passport</li><li>non-UK passport</li><li>National identity card from a European Economic Area (EEA) country</li><li>UK biometric residence permit (BRP)</li><li>UK biometric residence card (BRC)</li><li>UK Frontier Worker permit</li></ul>"
-        },
-        "subHeading3": "What would you like to do?",
-        "formRadioButtons": {
-          "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
-          "radioButton2Text": "Prove your identity with the GOV.UK ID check app",
-          "radioButton2TextHint": "You’ll be shown how to download and use the app.",
-          "radioButton3Text": "Prove your identity at a Post Office",
-          "radioButton3TextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
+
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
       "title": "Sorry, we cannot confirm your identity this way",
       "titleDropout": "Find another way to prove your identity",
@@ -956,34 +900,6 @@
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
-    "pageIpvBankAccountStart": {
-      "title": "Prove your identity with bank or building society details and security questions",
-      "header": "Prove your identity with bank or building society details and security questions",
-      "content": {
-        "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
-        "subHeading": "Provide some personal details",
-        "paragraph2": "We'll ask you for your:",
-        "personalDetails": [
-          "name",
-          "date of birth",
-          "sort code and account number",
-          "National Insurance number",
-          "current address (you might also need your previous address if you've recently moved)"
-        ],
-        "subHeading2": "Answer some security questions",
-        "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
-        "subHeading3": "Do you have a UK bank or building society current account in your name?",
-        "formRadioButtons": {
-          "continueBankDetailsButtonText": "Yes",
-          "otherWayButtonText": "No - prove my identity another way"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you have a UK bank or building society account in your name",
-          "errorRadioMessage": "Select yes if you have a UK bank or building society account in your name"
         }
       }
     },

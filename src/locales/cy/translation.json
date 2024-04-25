@@ -219,32 +219,6 @@
         }
       }
     },
-    "pyiEscapeM2b": {
-      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "content": {
-        "subHeading": "Os nad oes gennych ID gyda llun",
-        "paragraph1": "Gallwch geisio profi eich hunaniaeth gyda’r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
-        "subHeading2": "Os oes gennych ID gyda llun",
-        "paragraph2": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
-        "details": {
-          "label": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
-          "text": "<p class=\"govuk-body\">Gallwch ddefnyddio: </p><ul class=\"govuk-list--bullet\"><li>Trwydded yrru cerdyn-llun yn y DU</li><li>Trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)</li><li>Pasbort y DU</li><li>pasbort o’r tu allan i’r DU</li><li>Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)</li><li>Trwydded breswylio biometrig y DU (BRP)</li><li>Cerdyn preswylio biometrig y DU (BRC)</li><li>Trwydded Gweithwyr Ffiniol y DU (FWP)</li></ul>"
-        },
-        "subHeading3": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "radioButton1Text": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
-          "radioButton2Text": "Defnyddiwch ID gyda llun i brofi eich hunaniaeth gyda GOV.UK One Login",
-          "separateOptionsInFormText": "Neu",
-          "radioButton3Text": "Ewch yn ôl a cheisio defnyddio’ch manylion banc i brofi eich hunaniaeth"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
     "noPhotoIdExitFindAnotherWay": {
       "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
@@ -263,37 +237,6 @@
           "radioButton2Text": "Defnyddiwch ID gyda llun i brofi eich hunaniaeth gyda GOV.UK One Login",
           "separateOptionsInFormText": "Neu",
           "radioButton3Text": "Ewch yn ôl a cheisio defnyddio’ch manylion banc i brofi eich hunaniaeth"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "pyiKbvEscapeM2b": {
-      "title": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
-      "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
-      "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "content": {
-        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
-        "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "subHeading": "Os nad oes gennych ID gyda llun",
-        "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda'r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
-        "subHeading2": "Os oes gennych ID gyda llun",
-        "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio'r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
-        "details": {
-          "label": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
-          "text": "<p class=\"govuk-body\">Gallwch ddefnyddio: </p><ul class=\"govuk-list--bullet\"><li>Trwydded yrru cerdyn-llun yn y DU</li><li>Trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)</li><li>Pasbort y DU</li><li>pasbort o'r tu allan i'r DU</li><li>Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)</li><li>Trwydded breswylio biometrig y DU (BRP)</li><li>Cerdyn preswylio biometrig y DU (BRC)</li><li>Trwydded Gweithwyr Ffiniol y DU (FWP)</li></ul>"
-        },
-        "subHeading3": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "radioButton1Text": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
-          "radioButton2Text": "Profi eich hunaniaeth gyda'r ap GOV.UK ID Check",
-          "radioButton2TextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
-          "radioButton3Text": "Profwch eich hunaniaeth mewn Swyddfa'r Post",
-          "radioButton3TextHint": "Byddwch yn rhoi manylion o'ch ID llun ar GOV.UK yn gyntaf."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -911,37 +854,9 @@
         }
       }
     },
-    "pageIpvBankAccountStart": {
+    "proveIdentityBankAccount": {
       "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
       "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "content": {
-        "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
-        "subHeading": "Darparwch rhywfaint o fanylion personol",
-        "paragraph2": "Byddwn yn gofyn i chi am eich:",
-        "personalDetails": [
-          "enw",
-          "dyddiad geni",
-          "cod didoli a rhif y cyfrif",
-          "rrhif Yswiriant Gwladol",
-          "cyfeiriad presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)"
-        ],
-        "subHeading2": "Atebwch rhai cwestiynau diogelwch",
-        "paragraph3": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Mae hyn yn ein helpu i wirio a yw'r manylion rydych wedi'u rhoi yn cael eu defnyddio gennych chi.",
-        "subHeading3": "A oes gennych gyfrif banc neu gymdeithas adeiladu cyfredol yn eich enw chi?",
-        "formRadioButtons": {
-          "continueBankDetailsButtonText": "Oes",
-          "otherWayButtonText": "Na - profi fy hunaniaeth mewn ffordd arall"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "proveIdentityBankAccount": {
-      "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
-      "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
       "content": {
         "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
         "subHeading": "Darparwch rhywfaint o fanylion personol",

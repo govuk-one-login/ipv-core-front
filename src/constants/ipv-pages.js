@@ -2,7 +2,8 @@ module.exports = Object.freeze({
   CONFIRM_ADDRESS: "confirm-address",
   CONFIRM_NAME_DATE_BIRTH: "confirm-name-date-birth",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
-  NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY: "no-photo-id-security-questions-find-another-way",
+  NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
+    "no-photo-id-security-questions-find-another-way",
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
   PAGE_FACE_TO_FACE_HANDOFF: "page-face-to-face-handoff",
   PAGE_IPV_BANK_ACCOUNT_START: "page-ipv-bank-account-start", // Remove in PYIC-6093

@@ -1156,6 +1156,7 @@ describe("journey middleware", () => {
   context("redirect to app store", () => {
     beforeEach(() => {
       req = {
+        headers: {},
         body: {},
         params: {},
       };

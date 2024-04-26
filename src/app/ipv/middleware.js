@@ -25,7 +25,6 @@ const {
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const fs = require("fs");
-const UAParser = require("ua-parser-js");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
@@ -39,6 +38,10 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
+const {
+  preferenceSniffedPhoneType,
+  modifyJourneyOnSniffing,
+} = require("../shared/deviceSniffingHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -224,7 +227,7 @@ function isValidPage(pageId) {
 }
 
 function handleAppStoreRedirect(req, res, next) {
-  const specifiedPhoneType = req.params.specifiedPhoneType;
+  const specifiedPhoneType = preferenceSniffedPhoneType(req);
 
   try {
     switch (specifiedPhoneType) {
@@ -417,10 +420,7 @@ module.exports = {
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
         if (req.body?.journey === "appTriage") {
-          const parser = new UAParser(req.headers["user-agent"]);
-          if (parser.getDevice()["type"] === "mobile") {
-            req.body.journey += "Smartphone";
-          }
+          modifyJourneyOnSniffing(req);
         }
         next();
       }

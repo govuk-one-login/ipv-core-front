@@ -122,6 +122,34 @@
         "paragraph3RepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
       }
     },
+    "coiNoMatch": {
+      "title": "TEMP Sorry, we could not confirm your details",
+      "header": "TEMP Sorry, we could not confirm your details",
+      "content": {
+        "paragraph1": "TEMP We could not find a match when we checked your details with another organisation.",
+        "paragraph2": "TEMP To keep your information safe, we cannot tell you which of your details we were unable to match.",
+        "subHeading": "TEMP What would you like to do?",
+        "formRadioButtons": {
+          "contactOption": "TEMP Contact the GOV.UK One Login team",
+          "contactOptionHint": "TEMP You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again.",
+          "contactOptionHintCoiCheck": "TEMP We can delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again.",
+          "endOption": "TEMP Continue to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TEMP There is a problem",
+          "errorSummaryDescriptionText": "TEMP Select what you would like to do",
+          "errorRadioMessage": "TEMP Select what you would like to do"
+        }
+      }
+    },
+    "coiUpdateSuccess": {
+      "title": "TEMP You've given us your new name",
+      "header": "TEMP You've given us your new name",
+      "content": {
+        "paragraph1": "TEMP You'll need to enter your current home address (and previous address if you've recently moved) when you continue.",
+        "paragraph1WithoutAddress": "TEMP We'll need to check your details when you continue."
+      }
+    },
     "pyiEscape": {
       "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
       "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",

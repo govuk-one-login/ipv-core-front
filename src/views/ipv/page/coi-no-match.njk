@@ -1,0 +1,56 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.coiNoMatch.title' %}
+{% set googleTagManagerPageId = "coiNoMatch" %}
+{% set isPageDynamic = true %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.coiNoMatch.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.coiNoMatch.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#coiNoMatchActionForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.coiNoMatch.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.coiNoMatch.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.coiNoMatch.content.paragraph2' | translate }}</p>
+
+  <form id="coiNoMatchActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+              legend: {
+                  text: 'pages.coiNoMatch.content.subHeading' | translate,
+                  classes: "govuk-fieldset__legend--m"
+              }
+          },
+          items: [
+                  {
+                  value: "contact",
+                  text: 'pages.coiNoMatch.content.formRadioButtons.contactOption' | translate,
+                  hint: { text: 'pages.coiNoMatch.content.formRadioButtons.contactOptionHint' | translateWithContext(context) }
+                  },
+                  {
+                  value: "end",
+                  text: 'pages.coiNoMatch.content.formRadioButtons.endOption' | translate
+                  }
+              ]
+      }
+      %}
+
+      {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.coiNoMatch.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+      {% endif %}
+
+      {{ govukRadios(radiosConfig) }}
+      <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+      </button>
+  </form>
+
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

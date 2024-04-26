@@ -1,0 +1,14 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.coiUpdateSuccess.title' %}
+{% set googleTagManagerPageId = "coiUpdateSuccess" %}
+{% set isPageDynamic = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.coiUpdateSuccess.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.coiUpdateSuccess.content.paragraph1' | translateWithContext(context) }}</p>
+  
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

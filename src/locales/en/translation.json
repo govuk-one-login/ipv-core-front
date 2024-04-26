@@ -122,6 +122,34 @@
         "paragraph3RepeatFraudCheck": "Continue to the service you were trying to use to find out if there are other ways to access it."
       }
     },
+    "coiNoMatch": {
+      "title": "Sorry, we could not confirm your details",
+      "header": "Sorry, we could not confirm your details",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your details with another organisation.",
+        "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "contactOption": "Contact the GOV.UK One Login team",
+          "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again.",
+          "contactOptionHintCoiCheck": "We can delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again.",
+          "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "coiUpdateSuccess": {
+      "title": "You've given us your new name",
+      "header": "You've given us your new name",
+      "content": {
+        "paragraph1": "You'll need to enter your current home address (and previous address if you've recently moved) when you continue.",
+        "paragraph1WithoutAddress": "We'll need to check your details when you continue."
+      }
+    },
     "pyiEscape": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",

@@ -139,7 +139,10 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: "page-ipv-identity-document-start" },
         csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-identity-document-start" },
+        session: {
+          ipvSessionId: "some ipv session id",
+          currentPage: "page-ipv-identity-document-start",
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -155,6 +158,7 @@ describe("journey middleware", () => {
         params: { pageId: "page-ipv-identity-document-start" },
         csrfToken: sinon.fake(),
         session: {
+          ipvSessionId: "some ipv session id",
           currentPage: "page-ipv-identity-document-start",
           currentPageStatusCode: 418,
         },
@@ -186,7 +190,10 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         params: { pageId: "pyi-timeout-unrecoverable" },
-        session: { currentPage: "../ipv/page/page-multiple-doc-check" },
+        session: {
+          ipvSessionId: "some ipv session id",
+          currentPage: "../ipv/page/page-multiple-doc-check",
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -201,6 +208,7 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: "page-ipv-reuse" },
         session: {
+          ipvSessionId: "some ipv session id",
           currentPage: "../ipv/page/page-multiple-doc-check",
           save: sinon.fake.yields(null),
         },
@@ -572,7 +580,10 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId },
+        session: {
+          ipvSessionId: "some ipv session id",
+          currentPage: pageId,
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };
@@ -639,7 +650,10 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId },
+        session: {
+          ipvSessionId: "some ipv session id",
+          currentPage: pageId,
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };

@@ -10,6 +10,7 @@ const {
   handleJourneyAction,
   renderFeatureSetPage,
   validateFeatureSet,
+  formHandleUpdateDetailsCheckBox,
   formRadioButtonChecked,
   handleAppStoreRedirect,
 } = require("./middleware");
@@ -18,6 +19,7 @@ const {
 const { allTemplatesMoved } = require("../development/middleware");
 const { getRoutePath } = require("../../lib/paths");
 const path = require("path");
+const { UPDATE_DETAILS } = require("../../constants/ipv-pages");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
@@ -44,6 +46,16 @@ router.get(path.join("/", "all-templates"), allTemplatesMoved);
 router.get(
   path.join("/", "app-redirect", ":specifiedPhoneType"),
   handleAppStoreRedirect,
+);
+
+// Special case to handle determination of COI journey type based in the checkboxes selected
+router.post(
+  getRoutePath(UPDATE_DETAILS),
+  parseForm,
+  csrfProtection,
+  formHandleUpdateDetailsCheckBox,
+  formRadioButtonChecked,
+  handleJourneyAction,
 );
 
 router.post(

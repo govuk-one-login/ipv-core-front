@@ -8,6 +8,7 @@ const {
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
+const UPDATE_DETAILS_JOURNEY_TYPES = require("../../constants/update-details-journeys");
 
 describe("journey middleware", () => {
   let req;
@@ -1219,6 +1220,121 @@ describe("journey middleware", () => {
       expect(
         middleware.handleJourneyResponse(req, res, "/journey/next"),
       ).to.be.rejectedWith("Unexpected backend response");
+    });
+  });
+
+  context("formHandleUpdateDetailsCheckBox middleware", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "update-details" },
+        csrfToken: sinon.fake(),
+        session: {
+          currentPage: "update-details",
+          save: sinon.fake.yields(null),
+        },
+        log: { error: sinon.fake() },
+      };
+    });
+
+    it("should not set journey if detailsToUpdate is empty", async function () {
+      req.body.detailsToUpdate = [];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(undefined);
+    });
+
+    it("should not set journey if detailsToUpdate is undefined", async function () {
+      req.body.detailsToUpdate = undefined;
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(undefined);
+    });
+
+    it("should set journey to UPDATE_CANCEL if detailsToUpdate is cancel", async function () {
+      req.body.detailsToUpdate = "cancel";
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL,
+      );
+    });
+
+    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is dateOfBirth", async function () {
+      req.body.detailsToUpdate = "dateOfBirth";
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
+      );
+    });
+
+    it("should set journey to UPDATE_NAME if detailsToUpdate is givenNames", async function () {
+      req.body.detailsToUpdate = "givenNames";
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME,
+      );
+    });
+
+    it("should set journey to UPDATE_NAME if detailsToUpdate is lastName", async function () {
+      req.body.detailsToUpdate = ["lastName"];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME,
+      );
+    });
+
+    it("should set journey to UPDATE_ADDRESS if detailsToUpdate is address", async function () {
+      req.body.detailsToUpdate = "address";
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS,
+      );
+    });
+
+    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is givenNames and lastName", async function () {
+      req.body.detailsToUpdate = ["givenNames", "lastName"];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
+      );
+    });
+
+    it("should set journey to UPDATE_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
+      req.body.detailsToUpdate = ["givenNames", "address"];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS,
+      );
+    });
+
+    it("should set journey to UPDATE_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
+      req.body.detailsToUpdate = ["lastName", "address"];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS,
+      );
+    });
+
+    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is givenNames, lastName, dateOfBirth, address", async function () {
+      req.body.detailsToUpdate = [
+        "givenNames",
+        "lastName",
+        "dateOfBirth",
+        "address",
+      ];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
+      );
     });
   });
 });

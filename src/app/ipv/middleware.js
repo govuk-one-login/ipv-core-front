@@ -39,6 +39,12 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
+const {
+  MissingIpvAndOauthSessionIdsError,
+} = require("../../exceptions/MissingIpvAndOauthSessionIdsError");
+const {
+  MissingIpvSessionIdError,
+} = require("../../exceptions/MissingIpvSessionIdError");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -171,20 +177,6 @@ function tryValidateClientResponse(client) {
   return true;
 }
 
-function checkForSessionId(req, res) {
-  if (!req.session?.ipvSessionId) {
-    const err = new Error("req.ipvSessionId is missing");
-    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-    logError(req, err);
-
-    req.session.currentPage = PAGES.PYI_TECHNICAL;
-    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-      context: "unrecoverable",
-    });
-  }
-}
-
 function checkForIpvAndOauthSessionId(req, res) {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
     const err = new Error(
@@ -262,6 +254,36 @@ async function handleUnexpectedPage(req, res, pageId) {
   );
 }
 
+function validateSession(req, res, currentPageId) {
+  const pagesUsingSessionId = [
+    PAGES.PYI_SUGGEST_OTHER_OPTIONS,
+    PAGES.PYI_CRI_ESCAPE,
+    PAGES.PYI_KBV_ESCAPE_M2B,
+    PAGES.PYI_ESCAPE_M2B,
+    PAGES.PAGE_MULTIPLE_DOC_CHECK,
+  ];
+
+  if (
+    pagesUsingSessionId.includes(currentPageId) &&
+    !req.session?.ipvSessionId
+  ) {
+    throw new MissingIpvSessionIdError();
+  } else if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
+    throw new MissingIpvAndOauthSessionIdsError();
+  }
+}
+
+function renderUnauthorisedPage(req, res, error) {
+  error.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+  logError(req, error);
+
+  req.session.currentPage = PAGES.PYI_TECHNICAL;
+  res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+  return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+    context: "unrecoverable",
+  });
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
     res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
@@ -299,21 +321,8 @@ module.exports = {
         return res.render("errors/page-not-found.njk");
       }
 
-      if (req.session?.ipvSessionId === null) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "req.ipvSessionId is null",
-        );
-
-        req.session.currentPage = PAGES.PYI_TECHNICAL;
-        return res.render(getIpvPageTemplatePath(req.session.currentPage), {
-          context: "unrecoverable",
-        });
-      } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+      validateSession(req, res, req.session?.currentPage);
+      if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
         req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
         return res.render(getIpvPageTemplatePath(req.session.currentPage));
       } else if (req.session.currentPage !== pageId) {
@@ -349,6 +358,13 @@ module.exports = {
         renderOptions,
       );
     } catch (error) {
+      if (
+        error instanceof MissingIpvSessionIdError ||
+        error instanceof MissingIpvAndOauthSessionIdsError
+      ) {
+        return renderUnauthorisedPage(req, res, error);
+      }
+
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
     } finally {
@@ -358,20 +374,9 @@ module.exports = {
 
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
-    const pagesUsingSessionId = [
-      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
-      PAGES.PYI_CRI_ESCAPE,
-      PAGES.PYI_KBV_ESCAPE_M2B,
-      PAGES.PYI_ESCAPE_M2B,
-      PAGES.PAGE_MULTIPLE_DOC_CHECK,
-    ];
 
     try {
-      if (pagesUsingSessionId.includes(currentPageId)) {
-        checkForSessionId(req, res);
-      } else {
-        checkForIpvAndOauthSessionId(req, res);
-      }
+      validateSession(req, res, currentPageId);
       checkJourneyAction(req);
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
@@ -379,6 +384,13 @@ module.exports = {
 
       await handleJourneyResponse(req, res, req.body.journey, currentPageId);
     } catch (error) {
+      if (
+        error instanceof MissingIpvSessionIdError ||
+        error instanceof MissingIpvAndOauthSessionIdsError
+      ) {
+        renderUnauthorisedPage(req, res, error);
+      }
+
       transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }

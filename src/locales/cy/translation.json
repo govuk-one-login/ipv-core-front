@@ -940,8 +940,8 @@
       }
     },
     "proveIdentityBankAccount": {
-      "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
-      "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch - GOV.UK",
+      "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
+      "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
       "content": {
         "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
         "subHeading": "Darparwch rhywfaint o fanylion personol",

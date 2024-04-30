@@ -2,23 +2,26 @@ const UAParser = require("ua-parser-js");
 const PHONE_TYPES = require("../../constants/phone-types");
 const OS_TYPES = require("../../constants/os-types");
 
-function modifyJourneyOnSniffing(req) {
+function getJourneyOnSniffing(req) {
   const parser = new UAParser(req.headers["user-agent"]);
+  let journeyEvent = req.body.journey;
 
   if (parser.getDevice()["type"] === "mobile") {
-    req.body.journey += "Smartphone";
+    journeyEvent += "Smartphone";
     switch (parser.getOS()["name"]) {
       case OS_TYPES.IOS:
-        req.body.journey += "Iphone";
+        journeyEvent += "Iphone";
         break;
       case OS_TYPES.ANDROID:
-        req.body.journey += "Android";
+        journeyEvent += "Android";
         break;
     }
   }
+
+  return journeyEvent;
 }
 
-function preferenceSniffedPhoneType(req) {
+function sniffPhoneType(req, fallback) {
   const parser = new UAParser(req.headers["user-agent"]);
 
   switch (parser.getOS()["name"]) {
@@ -27,11 +30,11 @@ function preferenceSniffedPhoneType(req) {
     case OS_TYPES.ANDROID:
       return PHONE_TYPES.ANDROID;
     default:
-      return req.params.specifiedPhoneType;
+      return fallback;
   }
 }
 
 module.exports = {
-  modifyJourneyOnSniffing,
-  preferenceSniffedPhoneType,
+  getJourneyOnSniffing,
+  sniffPhoneType,
 };

@@ -1,14 +1,14 @@
 const { expect } = require("chai");
 const PHONE_TYPES = require("../../constants/phone-types");
 const {
-  modifyJourneyOnSniffing,
-  preferenceSniffedPhoneType,
+  getJourneyOnSniffing,
+  sniffPhoneType,
 } = require("./deviceSniffingHelper");
 
 describe("User Agent Functions", () => {
   let req;
 
-  describe("modifyJourneyOnSniffing", () => {
+  describe("getJourneyOnSniffing", () => {
     beforeEach(() => {
       req = {
         body: {
@@ -23,8 +23,8 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (Windows Phone 10.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0) like Gecko",
       };
-      modifyJourneyOnSniffing(req);
-      expect(req.body.journey).to.equal("appTriageSmartphone");
+      const journeyEvent = getJourneyOnSniffing(req);
+      expect(journeyEvent).to.equal("appTriageSmartphone");
     });
 
     it("should append 'Iphone' for iOS devices", () => {
@@ -32,8 +32,8 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E277 Safari/602.1",
       };
-      modifyJourneyOnSniffing(req);
-      expect(req.body.journey).to.equal("appTriageSmartphoneIphone");
+      const journeyEvent = getJourneyOnSniffing(req);
+      expect(journeyEvent).to.equal("appTriageSmartphoneIphone");
     });
 
     it("should append 'Android' for Android devices", () => {
@@ -41,12 +41,12 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR6.170623.013) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36",
       };
-      modifyJourneyOnSniffing(req);
-      expect(req.body.journey).to.equal("appTriageSmartphoneAndroid");
+      const journeyEvent = getJourneyOnSniffing(req);
+      expect(journeyEvent).to.equal("appTriageSmartphoneAndroid");
     });
   });
 
-  describe("preferenceSniffedPhoneType", () => {
+  describe("sniffPhoneType", () => {
     beforeEach(() => {
       req = {
         params: {
@@ -60,7 +60,7 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E277 Safari/602.1",
       };
-      const result = preferenceSniffedPhoneType(req);
+      const result = sniffPhoneType(req, req.params.specifiedPhoneType);
       expect(result).to.equal(PHONE_TYPES.IPHONE);
     });
 
@@ -69,7 +69,7 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR6.170623.013) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36",
       };
-      const result = preferenceSniffedPhoneType(req);
+      const result = sniffPhoneType(req, req.params.specifiedPhoneType);
       expect(result).to.equal(PHONE_TYPES.ANDROID);
     });
 
@@ -78,7 +78,7 @@ describe("User Agent Functions", () => {
         "user-agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
       };
-      const result = preferenceSniffedPhoneType(req);
+      const result = sniffPhoneType(req, req.params.specifiedPhoneType);
       expect(result).to.equal("default");
     });
   });

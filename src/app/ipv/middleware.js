@@ -39,8 +39,8 @@ const {
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
 const {
-  preferenceSniffedPhoneType,
-  modifyJourneyOnSniffing,
+  sniffPhoneType,
+  getJourneyOnSniffing,
 } = require("../shared/deviceSniffingHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
@@ -227,7 +227,7 @@ function isValidPage(pageId) {
 }
 
 function handleAppStoreRedirect(req, res, next) {
-  const specifiedPhoneType = preferenceSniffedPhoneType(req);
+  const specifiedPhoneType = sniffPhoneType(req, req.params.specifiedPhoneType);
 
   try {
     switch (specifiedPhoneType) {
@@ -420,7 +420,7 @@ module.exports = {
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
         if (req.body?.journey === "appTriage") {
-          modifyJourneyOnSniffing(req);
+          req.body.journey = getJourneyOnSniffing(req);
         }
         next();
       }

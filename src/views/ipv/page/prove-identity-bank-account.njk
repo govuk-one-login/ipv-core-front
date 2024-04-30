@@ -13,16 +13,12 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityBankAccount.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph1' | translate }}</p>
 
-  <ul class="govuk-list" role="list">
-    <li>
-      <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.proveIdentityBankAccount.content.subHeading' | translate }}</h2>
-      <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.proveIdentityBankAccount.content.paragraph2' | translate }}</p>
-      <ul class="govuk-list govuk-list--bullet ">
-        {% for listItem in 'pages.proveIdentityBankAccount.content.personalDetails' | translate({ returnObjects: true }) %}
-          <li>{{ listItem }}</li>
-        {% endfor %}
-      </ul>
-    </li>
+  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityBankAccount.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    {% for listItem in 'pages.proveIdentityBankAccount.content.personalDetails' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
   </ul>
 
   <h2 class="govuk-heading-m govuk-!-margin-top-7">{{ 'pages.proveIdentityBankAccount.content.subHeading2' | translate }}</h2>

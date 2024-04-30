@@ -137,25 +137,25 @@ describe("journey middleware", () => {
     it("should render page case when given valid pageId", async () => {
       req = {
         id: "1",
-        params: { pageId: "page-ipv-identity-document-start" },
+        params: { pageId: "prove-identity-bank-account" },
         csrfToken: sinon.fake(),
-        session: { currentPage: "page-ipv-identity-document-start" },
+        session: { currentPage: "prove-identity-bank-account" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
       await middleware.handleJourneyPage(req, res);
       expect(res.render).to.have.been.calledWith(
-        "ipv/page/page-ipv-identity-document-start.njk",
+        "ipv/page/prove-identity-bank-account.njk",
       );
     });
 
     it("should set the response status code from a value in the session if present", async () => {
       req = {
         id: "1",
-        params: { pageId: "page-ipv-identity-document-start" },
+        params: { pageId: "prove-identity-bank-account" },
         csrfToken: sinon.fake(),
         session: {
-          currentPage: "page-ipv-identity-document-start",
+          currentPage: "prove-identity-bank-account",
           currentPageStatusCode: 418,
         },
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -164,7 +164,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res);
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/page/page-ipv-identity-document-start.njk",
+        "ipv/page/prove-identity-bank-account.njk",
       );
       expect(res.status).to.have.been.calledWith(418);
       expect(req.session.currentPageStatusCode).to.equal(undefined);

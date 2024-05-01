@@ -159,14 +159,6 @@
         }
       }
     },
-    "coiUpdateSuccess": {
-      "title": "You've given us your new name",
-      "header": "You've given us your new name",
-      "content": {
-        "paragraph1": "You'll need to enter your current home address (and previous address if you've recently moved) when you continue.",
-        "paragraph1WithoutAddress": "We'll need to check your details when you continue."
-      }
-    },
     "pyiEscape": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",

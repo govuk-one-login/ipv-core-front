@@ -159,14 +159,6 @@
         }
       }
     },
-    "coiUpdateSuccess": {
-      "title": "TEMP You've given us your new name",
-      "header": "TEMP You've given us your new name",
-      "content": {
-        "paragraph1": "TEMP You'll need to enter your current home address (and previous address if you've recently moved) when you continue.",
-        "paragraph1WithoutAddress": "TEMP We'll need to check your details when you continue."
-      }
-    },
     "pyiEscape": {
       "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
       "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",

@@ -499,12 +499,12 @@
         },
         "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
         "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
-        "paragraphAppendix2": "You can also prove your identity in person at a Post Office."
-      },
-      "formErrorMessage": {
-        "errorSummaryTitleText": "There is a problem",
-        "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
-        "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+        "paragraphAppendix2": "You can also prove your identity in person at a Post Office.",
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
+          "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+        }
       }
     },
     "pyiTimeoutRecoverable": {

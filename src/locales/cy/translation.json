@@ -764,12 +764,13 @@
           "rydych yn gallu ateb rhai cwestiynau diogelwch"
         ],
         "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "subHeading": "Sut ydych chi am barhau?",
+        "subHeading": "Ydych chi am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch y cwestiynau diogelwch ar-lein",
-          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
+          "continueDrivingLicenceButtonText": "trwydded yrru cerdyn-llun yn y DU",
+          "continuePassportButtonText": "pasbort y DU",
           "separateOptionsInFormText": "neu",
-          "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
+          "otherWayButtonText": "Nid oes gennyf unrhyw un o'r mathau hyn o ID gyda llun",
+          "otherWayButtonTextHint": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun.",
           "otherWayButtonTextF2f": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
@@ -934,13 +935,13 @@
       "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "header": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "content": {
-        "paragraph1": "Gallwch brofi pwy ydych chi mewn Swyddfa’r Post yn lle hynny.",
+        "paragraph1": "Efallai y byddwch yn gallu profi eich hunaniaeth mewn Swyddfa Bost yn lle hynny.",
         "paragraph2": "Gofynnir i chi:",
         "postOfficeTodo": [
           "rhoi manylion o’ch ID gyda llun ar GOV.UK",
           "mynd i Swyddfa Bost lle byddant yn sganio’ch ID a thynnu llun ohonoch"
         ],
-        "paragraph3": "Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "paragraph3": "Bydd hyn yn cymryd mwy o amser na phrofi eich hunaniaeth ar-lein. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
         "subHeading": "Mathau o ID gyda llun y gallwch eu defnyddio mewn Swyddfa Bost",
         "paragraph4": "Byddwch angen un o’r canlynol:",
         "postOfficeRequirements": [

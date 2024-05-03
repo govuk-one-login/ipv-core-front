@@ -53,10 +53,11 @@
       rows: rows
     }) }}
 
-    <form id="confirmAddressActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <form id="updateDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             {% set checkboxConfig = {
-              name: "nationality",
+              idPrefix: "journey",
+              name: "detailsToUpdate",
               fieldset: {
                 legend: {
                   text: 'pages.pyiUpdateDetails.content.checkboxes.heading' | translate,

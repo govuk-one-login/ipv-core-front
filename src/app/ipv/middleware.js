@@ -30,6 +30,7 @@ const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
+const UPDATE_DETAILS_JOURNEY_TYPES = require("../../constants/update-details-journeys");
 const appDownloadHelper = require("../shared/appDownloadHelper");
 const {
   getIpvPageTemplatePath,
@@ -210,6 +211,47 @@ function checkJourneyAction(req) {
     logError(req, err);
 
     throw new Error("req.body?.journey is missing");
+  }
+}
+
+// getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
+// field of the update-details page
+function getCoiUpdateDetailsJourney(detailsToUpdate) {
+  if (!detailsToUpdate) {
+    return;
+  }
+  // convert to array if its a string
+  if (typeof detailsToUpdate === "string") {
+    detailsToUpdate = [detailsToUpdate];
+  }
+
+  if (detailsToUpdate.includes("cancel")) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL;
+  }
+  // send to update-names-dob journey if dateOfBirth selected
+  if (detailsToUpdate.includes("dateOfBirth")) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
+  }
+
+  const hasAddress = detailsToUpdate.includes("address");
+  const hasGivenNames = detailsToUpdate.includes("givenNames");
+  const hasLastName = detailsToUpdate.includes("lastName");
+
+  // send to update-names-dob journey if both names selected
+  if (hasGivenNames && hasLastName) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
+  }
+  if (hasGivenNames || hasLastName) {
+    // send to update-name-address journey if only one name and address selected
+    if (hasAddress) {
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS;
+    }
+    // send to update-name journey if only one name selected and no address selected
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME;
+  }
+  // send to address journey if just the address
+  if (hasAddress) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS;
   }
 }
 
@@ -426,6 +468,14 @@ module.exports = {
         }
         next();
       }
+    } catch (error) {
+      next(error);
+    }
+  },
+  formHandleUpdateDetailsCheckBox: async (req, res, next) => {
+    try {
+      req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+      next();
     } catch (error) {
       next(error);
     }

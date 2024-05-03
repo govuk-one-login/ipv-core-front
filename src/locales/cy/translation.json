@@ -635,6 +635,8 @@
     "updateNameDateBirth": {
       "title": "Diweddaru eich enw neu ddyddiad geni",
       "header": "Diweddaru eich enw neu ddyddiad geni",
+      "titleCoi": "TODO: Update your full name or date of birth",
+      "headerCoi": "TODO: Update your full name or date of birth",
       "content": {
         "paragraph1": "I ddiweddaru eich enw neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
@@ -642,7 +644,8 @@
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",
-          "no": "Ewch yn ôl i wirio eich manylion eto"
+          "no": "Ewch yn ôl i wirio eich manylion eto",
+          "noHintCoi": "TODO: You might be able to update your details yourself if you only need to update either your first or middle names, or your last name"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

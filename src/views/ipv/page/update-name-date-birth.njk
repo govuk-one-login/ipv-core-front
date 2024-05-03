@@ -13,14 +13,14 @@
 
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translate }}</h1>
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translateWithContext(context) }}</h1>
 
     <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translate }}</p>
 
     {{ govukWarningText({
         text: 'pages.updateNameDateBirth.content.warningText' | translate,
         iconFallbackText: 'pages.updateNameDateBirth.content.warningTextFallback' | translate
-        }) }}   
+        }) }}
 
 
     <form id="updateNameDateBirthActionForm" action="/ipv/page/{{ pageId }}" method="POST">
@@ -36,12 +36,15 @@
             },
             items: [
                     {
-                    value: "contact",
-                    text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
+                        value: "contact",
+                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
                     },
                     {
-                    value: "end",
-                    text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContext(context)
+                        value: "end",
+                        text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translate,
+                        hint: {
+                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translateWithContext(context)
+                        }
                     }
                 ]
         }
@@ -51,7 +54,7 @@
         {% set errorMessageObject = { 'text': 'pages.updateNameDateBirth.content.formErrorMessage.errorRadioMessage' | translate } %}
         {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
         {% endif %}
-        
+
         {{ govukRadios(radiosConfig) }}
         <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
         {{ 'general.buttons.next' | translate }}

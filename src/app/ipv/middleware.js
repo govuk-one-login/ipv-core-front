@@ -1,7 +1,6 @@
 const sanitize = require("sanitize-filename");
 
 const {
-  ENABLE_PREVIEW,
   APP_STORE_URL_ANDROID,
   APP_STORE_URL_APPLE,
 } = require("../../lib/config");
@@ -35,7 +34,7 @@ const appDownloadHelper = require("../shared/appDownloadHelper");
 const {
   getIpvPageTemplatePath,
   getIpvPagePath,
-  addNunjucksExt,
+  getTemplatePath,
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
@@ -322,7 +321,7 @@ module.exports = {
         await handleJourneyResponse(req, res, action, currentPageId);
       } else {
         res.status(HTTP_STATUS_CODES.NOT_FOUND);
-        return res.render("errors/page-not-found.njk");
+        return res.render(getTemplatePath("errors", "page-not-found"));
       }
     } catch (error) {
       next(error);
@@ -333,15 +332,10 @@ module.exports = {
       const { pageId } = req.params;
       const { context } = req?.session || "";
 
-      // Remove this as part of PYIC-4278
-      if (ENABLE_PREVIEW && req.query.preview) {
-        return res.redirect(path.join("/", "ipv", "all-templates"));
-      }
-
       // handles page id validation first
       if (!isValidPage(pageId)) {
         res.status(HTTP_STATUS_CODES.NOT_FOUND);
-        return res.render("errors/page-not-found.njk");
+        return res.render(getTemplatePath("errors", "page-not-found"));
       }
 
       if (req.session?.ipvSessionId === null) {
@@ -432,7 +426,7 @@ module.exports = {
   },
 
   renderFeatureSetPage: async (req, res) => {
-    res.render(path.join("ipv", addNunjucksExt("page-featureset")), {
+    res.render(getTemplatePath("ipv", "page-featureset"), {
       featureSet: req.session.featureSet,
     });
   },

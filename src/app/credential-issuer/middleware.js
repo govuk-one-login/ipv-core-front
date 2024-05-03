@@ -3,12 +3,11 @@ const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const coreBackService = require("../../services/coreBackService");
-const path = require("path");
 
 module.exports = {
   sendParamsToAPI: async (req, res, next) => {
     const callbackUrl = new URL(
-      path.join("credential-issuer", "callback"),
+      "credential-issuer/callback",
       EXTERNAL_WEBSITE_HOST,
     );
     callbackUrl.searchParams.set("id", req.query?.id);
@@ -54,7 +53,7 @@ module.exports = {
   sendParamsToAPIV2: async (req, res, next) => {
     const criId = req.params.criId;
     const callbackUrl = new URL(
-      path.join("credential-issuer", "callback", criId),
+      `credential-issuer/callback/${encodeURIComponent(criId)}`,
       EXTERNAL_WEBSITE_HOST,
     );
 

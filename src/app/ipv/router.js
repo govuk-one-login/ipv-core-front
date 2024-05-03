@@ -15,42 +15,33 @@ const {
   handleAppStoreRedirect,
 } = require("./middleware");
 
-// Remove this as part of PYIC-4278
-const { allTemplatesMoved } = require("../development/middleware");
-const { getRoutePath } = require("../../lib/paths");
-const path = require("path");
-const { UPDATE_DETAILS } = require("../../constants/ipv-pages");
+const {
+  PYI_ATTEMPT_RECOVERY,
+  UPDATE_DETAILS,
+} = require("../../constants/ipv-pages");
 
 const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
-router.get(
-  path.join("/", "usefeatureset"),
-  validateFeatureSet,
-  renderFeatureSetPage,
-);
+function getPagePath(pageId) {
+  return `/page/${pageId}`;
+}
+
+router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 
 router.get(
-  path.join("/", "page", "attempt-recovery"),
+  getPagePath(PYI_ATTEMPT_RECOVERY),
   csrfProtection,
   renderAttemptRecoveryPage,
 );
-router.get(
-  path.join("/", "page", ":pageId"),
-  csrfProtection,
-  handleJourneyPage,
-);
-// Remove this as part of PYIC-4278
-router.get(path.join("/", "all-templates"), allTemplatesMoved);
 
-router.get(
-  path.join("/", "app-redirect", ":specifiedPhoneType"),
-  handleAppStoreRedirect,
-);
+router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
+
+router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 
 // Special case to handle determination of COI journey type based in the checkboxes selected
 router.post(
-  getRoutePath(UPDATE_DETAILS),
+  getPagePath(UPDATE_DETAILS),
   parseForm,
   csrfProtection,
   formHandleUpdateDetailsCheckBox,
@@ -59,12 +50,12 @@ router.post(
 );
 
 router.post(
-  getRoutePath(":pageId"),
+  getPagePath(":pageId"),
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
   handleJourneyAction,
 );
 
-router.get(path.join("/", "journey", ":pageId", ":action"), updateJourneyState);
+router.get("/journey/:pageId/:action", updateJourneyState);
 module.exports = router;

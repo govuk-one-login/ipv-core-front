@@ -1,24 +1,20 @@
 const path = require("path");
 
-function getRoutePath(page) {
-  return path.join("/", "page", page);
+function getIpvPagePath(pageId) {
+  return `/ipv/page/${encodeURIComponent(pageId)}`;
 }
 
-function getIpvPagePath(page) {
-  return path.join("/", "ipv", "page", page);
+function getIpvPageTemplatePath(pageId) {
+  return getTemplatePath("ipv", "page", pageId);
 }
 
-function getIpvPageTemplatePath(page) {
-  return path.join("ipv", "page", addNunjucksExt(page));
-}
-
-function addNunjucksExt(path) {
-  return `${path}.njk`;
+function getTemplatePath(...pathComponents) {
+  const pageId = pathComponents.splice(-1, 1);
+  return path.join(...pathComponents, `${pageId}.njk`);
 }
 
 module.exports = {
-  getRoutePath,
   getIpvPagePath,
   getIpvPageTemplatePath,
-  addNunjucksExt,
+  getTemplatePath,
 };

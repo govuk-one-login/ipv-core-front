@@ -718,6 +718,7 @@
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your name or date of birth",
           "no": "Go back and check your details again",
+          "noHint": "",
           "noHintCoi": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name"
         },
         "formErrorMessage": {

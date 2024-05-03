@@ -645,6 +645,7 @@
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",
           "no": "Ewch yn ôl i wirio eich manylion eto",
+          "noHint": "",
           "noHintCoi": "TODO: You might be able to update your details yourself if you only need to update either your first or middle names, or your last name"
         },
         "formErrorMessage": {

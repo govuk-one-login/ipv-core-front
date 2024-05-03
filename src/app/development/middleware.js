@@ -9,7 +9,7 @@ const { pageRequiresUserDetails } = require("../ipv/middleware");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const appDownloadHelper = require("../shared/appDownloadHelper");
 const PAGES = require("../../constants/ipv-pages");
-const { getIpvPageTemplatePath, addNunjucksExt } = require("../../lib/paths");
+const { getIpvPageTemplatePath, getTemplatePath } = require("../../lib/paths");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 async function allTemplatesGet(req, res, next) {
@@ -26,7 +26,7 @@ async function allTemplatesGet(req, res, next) {
         return { text: path.parse(file).name, value: path.parse(file).name };
       });
 
-      res.render(path.join("development", addNunjucksExt("all-templates")), {
+      res.render(getTemplatePath("development", "all-templates"), {
         templateRadioOptions: templateRadioOptions,
         csrfToken: req.csrfToken(),
       });
@@ -41,9 +41,9 @@ async function allTemplatesPost(req, res) {
   const language = req.body.language;
   const context = req.body.context;
 
-  let redirectUrl = path.join("/", "dev", "template", templateId, language);
+  let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
   if (context) {
-    redirectUrl += `?context=${context}`;
+    redirectUrl += `?context=${encodeURIComponent(context)}`;
   }
 
   return res.redirect(redirectUrl);
@@ -85,16 +85,8 @@ async function templatesDisplayGet(req, res) {
   );
 }
 
-// Remove this as part of PYIC-4278
-async function allTemplatesMoved(req, res) {
-  return res.render(
-    path.join("development", addNunjucksExt("all-templates-moved")),
-  );
-}
-
 module.exports = {
   allTemplatesGet,
   allTemplatesPost,
   templatesDisplayGet,
-  allTemplatesMoved,
 };

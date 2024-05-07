@@ -122,6 +122,43 @@
         "paragraph3RepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
       }
     },
+    "sorryCouldNotConfirmDetails": {
+      "title": "Mae'n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
+      "header": "Mae'n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
+      "content": {
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
+        "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
+        "subHeading": "Beth hoffech chi ei wneud? ",
+        "formRadioButtons": {
+          "contactOption": "Cysylltwch â thîm GOV.UK One Login",
+          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
+          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "findAnotherWayAccessService": {
+      "title": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
+      "header": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
+      "content": {
+        "paragraph1": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID Check.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "contactOption": "Cysylltwch â thîm GOV.UK One Login",
+          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
+          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiEscape": {
       "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
       "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
@@ -576,9 +613,15 @@
     },
     "pageDcmawSuccess": {
       "title": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "titleCoiAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "titleCoiNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
       "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "headerCoiAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "headerCoiNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
       "content": {
-        "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau."
+        "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau.",
+        "paragraph1CoiAddress": "TBC",
+        "paragraph1CoiNoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
       }
     },
     "pyiNewDetails": {

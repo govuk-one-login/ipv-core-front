@@ -19,6 +19,7 @@
     {% endfor %}
   </ul>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph3' | translate | safe }}</p>
 
   <form id="multipleDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

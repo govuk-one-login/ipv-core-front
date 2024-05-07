@@ -765,6 +765,7 @@
           "can answer some security questions"
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "UK photocard driving licence",

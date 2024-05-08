@@ -234,20 +234,29 @@ function getCoiUpdateDetailsJourney(detailsToUpdate) {
 
   const hasAddress = detailsToUpdate.includes("address");
   const hasGivenNames = detailsToUpdate.includes("givenNames");
-  const hasLastName = detailsToUpdate.includes("lastName");
+  const hasFamilyName = detailsToUpdate.includes("familyName");
 
   // send to update-names-dob journey if both names selected
-  if (hasGivenNames && hasLastName) {
+  if (hasGivenNames && hasFamilyName) {
     return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
   }
-  if (hasGivenNames || hasLastName) {
-    // send to update-name-address journey if only one name and address selected
+
+  if (hasGivenNames) {
     if (hasAddress) {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS;
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES_ADDRESS;
+    } else {
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES;
     }
-    // send to update-name journey if only one name selected and no address selected
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME;
   }
+
+  if (hasFamilyName) {
+    if (hasAddress) {
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS;
+    } else {
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME;
+    }
+  }
+
   // send to address journey if just the address
   if (hasAddress) {
     return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS;
@@ -402,8 +411,6 @@ module.exports = {
       PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
       PAGES.PAGE_MULTIPLE_DOC_CHECK,
       PAGES.PYI_CRI_ESCAPE,
-      PAGES.PYI_ESCAPE_M2B,
-      PAGES.PYI_KBV_ESCAPE_M2B,
       PAGES.PYI_SUGGEST_OTHER_OPTIONS,
     ];
 

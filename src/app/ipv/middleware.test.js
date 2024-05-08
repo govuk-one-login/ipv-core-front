@@ -1275,16 +1275,16 @@ describe("journey middleware", () => {
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME,
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES,
       );
     });
 
     it("should set journey to UPDATE_NAME if detailsToUpdate is lastName", async function () {
-      req.body.detailsToUpdate = ["lastName"];
+      req.body.detailsToUpdate = ["familyName"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME,
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME,
       );
     });
 
@@ -1298,7 +1298,7 @@ describe("journey middleware", () => {
     });
 
     it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is givenNames and lastName", async function () {
-      req.body.detailsToUpdate = ["givenNames", "lastName"];
+      req.body.detailsToUpdate = ["givenNames", "familyName"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal(
@@ -1311,16 +1311,16 @@ describe("journey middleware", () => {
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS,
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES_ADDRESS,
       );
     });
 
     it("should set journey to UPDATE_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
-      req.body.detailsToUpdate = ["lastName", "address"];
+      req.body.detailsToUpdate = ["familyName", "address"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAME_ADDRESS,
+        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS,
       );
     });
 

@@ -19,7 +19,7 @@
     {% endfor %}
   </ul>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
-  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph3' | translateWithContext(context) }}</p>
 
   <form id="multipleDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -28,18 +28,18 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pageMultipleDocCheck.content.subHeading' | translate,
+          text: 'pages.pageMultipleDocCheck.content.subHeading' | translateWithContext(context),
           classes: "govuk-fieldset__legend--m"
         }
       },
       items: [
         {
           value: "drivingLicence",
-          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translateWithContext(context)
         },
         {
           value: "ukPassport",
-          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate
+          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translateWithContext(context)
         },
         {
           divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
@@ -47,7 +47,7 @@
         {
           value: "end",
           text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translateWithContext(context),
-          hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonTextHint' | translate }
+          hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonTextHint' | translateWithContext(context) }
         }
       ]
     } %}

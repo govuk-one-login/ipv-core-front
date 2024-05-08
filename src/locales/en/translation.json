@@ -812,15 +812,20 @@
           "can answer some security questions"
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
-        "subHeading": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
+        "paragraph3": "",
+        "paragraph3F2f": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "How do you want to continue?",
+        "subHeadingF2f": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "UK photocard driving licence",
-          "continuePassportButtonText": "UK passport",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
+          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
+          "continueDrivingLicenceButtonTextF2f": "UK photocard driving licence",
+          "continuePassportButtonTextF2f": "UK passport",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "I do not have either of these types of photo ID",
-          "otherWayButtonTextHint": "There may be other ways to prove your identity if you have another type of photo ID.",
-          "otherWayButtonTextF2f": "Prove your identity another way"
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
+          "otherWayButtonTextF2f": "I do not have either of these types of photo ID",
+          "otherWayButtonTextHint": "",
+          "otherWayButtonTextHintF2f": "There may be other ways to prove your identity if you have another type of photo ID."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

@@ -1270,7 +1270,7 @@ describe("journey middleware", () => {
       );
     });
 
-    it("should set journey to UPDATE_NAME if detailsToUpdate is givenNames", async function () {
+    it("should set journey to UPDATE_GIVEN_NAMES if detailsToUpdate is givenNames", async function () {
       req.body.detailsToUpdate = "givenNames";
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
@@ -1279,7 +1279,7 @@ describe("journey middleware", () => {
       );
     });
 
-    it("should set journey to UPDATE_NAME if detailsToUpdate is lastName", async function () {
+    it("should set journey to UPDATE_FAMILY_NAME if detailsToUpdate is lastName", async function () {
       req.body.detailsToUpdate = ["familyName"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
@@ -1306,7 +1306,7 @@ describe("journey middleware", () => {
       );
     });
 
-    it("should set journey to UPDATE_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
+    it("should set journey to UPDATE_GIVEN_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
       req.body.detailsToUpdate = ["givenNames", "address"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;
@@ -1315,7 +1315,7 @@ describe("journey middleware", () => {
       );
     });
 
-    it("should set journey to UPDATE_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
+    it("should set journey to UPDATE_FAMILY_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
       req.body.detailsToUpdate = ["familyName", "address"];
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
       expect(next).to.have.been.calledOnce;

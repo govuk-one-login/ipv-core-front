@@ -812,12 +812,14 @@
           "can answer some security questions"
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "subHeading": "How do you want to continue?",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
-          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
+          "continueDrivingLicenceButtonText": "UK photocard driving licence",
+          "continuePassportButtonText": "UK passport",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
+          "otherWayButtonText": "I do not have either of these types of photo ID",
+          "otherWayButtonTextHint": "There may be other ways to prove your identity if you have another type of photo ID.",
           "otherWayButtonTextF2f": "Prove your identity another way"
         },
         "formErrorMessage": {
@@ -982,13 +984,13 @@
       "title": "Prove your identity at a Post Office",
       "header": "Prove your identity at a Post Office",
       "content": {
-        "paragraph1": "You can prove your identity at a Post Office instead.",
+        "paragraph1": "You may be able to prove your identity at a Post Office instead.",
         "paragraph2": "You’ll be asked to:",
         "postOfficeTodo": [
           "enter details from your photo ID on GOV.UK",
           "go to a Post Office where they’ll scan your ID and take a photo of you"
         ],
-        "paragraph3": "You’ll usually get a result within a day of going to the Post Office.",
+        "paragraph3": "This will take longer than proving your identity online. You’ll usually get a result within a day of going to the Post Office.",
         "subHeading": "Types of photo ID you can use at a Post Office",
         "paragraph4": "You’ll need one of the following:",
         "postOfficeRequirements": [

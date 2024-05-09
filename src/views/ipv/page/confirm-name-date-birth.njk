@@ -48,7 +48,7 @@
           legend: {
             text: 'pages.confirmNameDateBirth.content.radioButtonHeading' | translate,
             classes: "govuk-fieldset__legend--m"
-            } 
+            }
           },
           items: [
             {
@@ -66,7 +66,7 @@
           {% set errorMessageObject = { 'text': 'pages.confirmNameDateBirth.content.formErrorMessage.errorRadioMessage' | translate } %}
           {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
         {% endif %}
-        
+
         {{ govukRadios(radiosConfig) }}
         <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
           {{ 'general.buttons.next' | translate }}

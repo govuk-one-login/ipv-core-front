@@ -735,6 +735,38 @@
         }
       }
     },
+    "confirmDetails": {
+      "title": "TODO: You need to confirm your details",
+      "header": "TODO: You need to confirm your details",
+      "content": {
+        "paragraph1": "TODO: To keep your GOV.UK One Login secure, you need to confirm the details you gave us when you proved your identity.",
+        "summaryHeading": "TODO: Your details",
+        "summary1": "Enwau a roddwyd",
+        "summary2": "Enw olaf",
+        "summary3": "Cyfeiriad cartref presennol",
+        "summary4": "Dyddiad geni",
+        "detailsTitle": "TODO: There is a mistake in my name",
+        "detailsContent": "TODO: <p class=\"govuk-body\">Contact the GOV.UK One Login team if there is a mistake in your name. For example, if your name is missing letters or a hypen</p><p class=\"govuk-body\">Do not try to update your details unless the GOV.UK One Login support team has told you to.</p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a>.",
+        "formTitle": "TODO: Are your details up to date?",
+        "formRadioButtons": {
+          "yes": "Oes",
+          "no": "TODO: No - I need to update my details"
+        },
+        "errorSummaryTitleText": "Mae problem",
+        "errorRadioMessage": "TODO: Select yes if your details are up to date",
+        "formCheckBoxes": {
+          "heading": "Pa fanylion ydych chi angen eu diweddaru?",
+          "hint": "Dewiswch bob un sy'n berthnasol.",
+          "checkbox1": "Enwau a roddwyd",
+          "checkbox1Hint": "Dyma eich enw cyntaf a'ch enwau canol",
+          "checkbox2": "Enw olaf",
+          "checkbox3": "Cyfeiriad",
+          "checkbox4": "Dyddiad geni"
+        },
+        "errorCheckBoxMessage": "TODO: Select which details you need to update",
+        "warningText": "TODO: You may not be able to use your GOV.UK One Login if your details are not up to date."
+      }
+    },
     "pyiDetailsDeleted": {
       "title": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "header": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",

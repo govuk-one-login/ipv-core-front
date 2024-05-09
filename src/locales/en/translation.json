@@ -748,6 +748,38 @@
         }
       }
     },
+    "confirmDetails": {
+      "title": "You need to confirm your details",
+      "header": "You need to confirm your details",
+      "content": {
+        "paragraph1": "To keep your GOV.UK One Login secure, you need to confirm the details you gave us when you proved your identity.",
+        "summaryHeading": "Your details",
+        "summary1": "Given names",
+        "summary2": "Last name",
+        "summary3": "Current home address",
+        "summary4": "Date of birth",
+        "detailsTitle": "There is a mistake in my name",
+        "detailsContent": "<p class=\"govuk-body\">Contact the GOV.UK One Login team if there is a mistake in your name. For example, if your name is missing letters or a hypen</p><p class=\"govuk-body\">Do not try to update your details unless the GOV.UK One Login support team has told you to.</p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a>.",
+        "formTitle": "Are your details up to date?",
+        "formRadioButtons": {
+          "yes": "Yes",
+          "no": "No - I need to update my details"
+        },
+        "errorSummaryTitleText": "There is a problem",
+        "errorRadioMessage": "Select yes if your details are up to date",
+        "formCheckBoxes": {
+          "heading": "Which details do you need to update?",
+          "hint": "Select all that apply.",
+          "checkbox1": "Given names",
+          "checkbox1Hint": "This is your first name and middle names",
+          "checkbox2": "Last name",
+          "checkbox3": "Address",
+          "checkbox4": "Date of birth"
+        },
+        "errorCheckBoxMessage": "Select which details you need to update",
+        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date."
+      }
+    },
     "updateNameDateBirth": {
       "title": "Update your name or date of birth",
       "header": "Update your name or date of birth",

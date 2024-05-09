@@ -267,6 +267,7 @@ function pageRequiresUserDetails(pageId) {
     PAGES.PAGE_IPV_REUSE,
     PAGES.CONFIRM_NAME_DATE_BIRTH,
     PAGES.CONFIRM_ADDRESS,
+    PAGES.CONFIRM_DETAILS,
     PAGES.UPDATE_DETAILS,
   ].includes(pageId);
 }
@@ -458,7 +459,6 @@ module.exports = {
         if (pageRequiresUserDetails(pageId)) {
           renderOptions.userDetails = await fetchUserDetails(req);
         }
-
         req.renderOptions = renderOptions;
 
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
@@ -475,6 +475,31 @@ module.exports = {
   formHandleUpdateDetailsCheckBox: async (req, res, next) => {
     try {
       req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  formHandleCoiDetailsCorrect: async (req, res, next) => {
+    try {
+      const { context, currentPage } = req?.session || "";
+      if (req.body.detailsCorrect === "yes") {
+        // user has selected that their details are correct
+        req.body.journey = "next";
+      } else if (
+        !req.body.detailsCorrect ||
+        (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
+      ) {
+        // user has not selected yes/no to their details are correct OR
+        // they have selected no but not selected which details to update.
+        const renderOptions = {
+          errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
+          pageId: currentPage,
+          csrfToken: req.csrfToken(),
+          context: context,
+        };
+        return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
+      }
       next();
     } catch (error) {
       next(error);

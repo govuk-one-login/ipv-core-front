@@ -1,6 +1,7 @@
 module.exports = Object.freeze({
   CONFIRM_ADDRESS: "confirm-address",
   CONFIRM_NAME_DATE_BIRTH: "confirm-name-date-birth",
+  CONFIRM_DETAILS: "confirm-details",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
   NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
     "no-photo-id-security-questions-find-another-way",

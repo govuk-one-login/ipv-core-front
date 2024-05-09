@@ -1306,4 +1306,62 @@ describe("journey middleware", () => {
       );
     });
   });
+
+  context("formHandleCoiDetailsCorrect middleware", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "confirm-details" },
+        csrfToken: sinon.fake(),
+        session: {
+          context: "coi",
+          currentPage: "confirm-details",
+          save: sinon.fake.yields(null),
+        },
+        log: { error: sinon.fake() },
+      };
+    });
+
+    it("should set journey to next if detailsCorrect is yes", async function () {
+      req.body.detailsToUpdate = [];
+      req.body.detailsCorrect = "yes";
+      await middleware.formHandleCoiDetailsCorrect(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("next");
+    });
+    it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
+      await middleware.formHandleCoiDetailsCorrect(req, res, next);
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/confirm-details.njk",
+        {
+          context: "coi",
+          errorState: "radiobox",
+          pageId: "confirm-details",
+          csrfToken: undefined,
+        },
+      );
+    });
+    it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
+      req.body.detailsToUpdate = "";
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCorrect(req, res, next);
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/confirm-details.njk",
+        {
+          context: "coi",
+          errorState: "checkbox",
+          pageId: "confirm-details",
+          csrfToken: undefined,
+        },
+      );
+    });
+    it("should call next if detailsCorrect is no and detailsToUpdate is not empty", async function () {
+      req.body.detailsToUpdate = ["familyName", "givenNames"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCorrect(req, res, next);
+      expect(next).to.have.been.calledOnce;
+    });
+  });
 });

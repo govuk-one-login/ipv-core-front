@@ -1261,6 +1261,13 @@ describe("journey middleware", () => {
       );
     });
 
+    it("should set journey to undefined if detailsToUpdate is cancel and address", async function () {
+      req.body.detailsToUpdate = ["cancel", "address"];
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(undefined);
+    });
+
     it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is dateOfBirth", async function () {
       req.body.detailsToUpdate = "dateOfBirth";
       await middleware.formHandleUpdateDetailsCheckBox(req, res, next);

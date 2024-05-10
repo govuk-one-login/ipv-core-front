@@ -755,29 +755,29 @@
       }
     },
     "pyiUpdateDetails": {
-      "title": "Update your details",
-      "header": "Update your details",
+      "title": "Diweddaru eich manylion",
+      "header": "Diweddaru eich manylion",
       "content": {
-        "summaryListHeading1": "Given names",
-        "summaryListHeading2": "Last name",
-        "summaryListHeading3": "Current home address",
-        "summaryListHeading4": "Date of birth",
+        "summaryListHeading1": "Enwau a roddwyd",
+        "summaryListHeading2": "Enw olaf",
+        "summaryListHeading3": "Cyfeiriad cartref presennol",
+        "summaryListHeading4": "Dyddiad geni",
         "checkboxes": {
-          "heading": "Which details do you need to update?",
-          "hint": "Select all that apply.",
-          "errorMessage": "Select at least one option",
-          "checkbox1": "Given names",
-          "checkbox1Hint": "This is your first name and middle names",
-          "checkbox2": "Last name",
-          "checkbox3": "Address",
-          "checkbox4": "Date of birth",
-          "checkbox5Divisor": "or",
-          "checkbox5": "I do not need to update my details"
+          "heading": "Pa fanylion ydych chi angen eu diweddaru?",
+          "hint": "Dewiswch bob un sy'n berthnasol.",
+          "errorMessage": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch 'Nid wyf angen diweddaru fy manylion",
+          "checkbox1": "Enwau a roddwyd",
+          "checkbox1Hint": "Dyma eich enw cyntaf a'ch enwau canol",
+          "checkbox2": "Enw olaf",
+          "checkbox3": "Cyfeiriad",
+          "checkbox4": "Dyddiad geni",
+          "checkbox5Divisor": "neu",
+          "checkbox5": "Nid wyf angen diweddaru fy manylion"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select which details you need to update",
-          "errorCheckboxMessage": "Select which details you need to update"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch 'Nid wyf angen diweddaru fy manylion",
+          "errorCheckboxMessage": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch 'Nid wyf angen diweddaru fy manylion"
         }
       }
     },

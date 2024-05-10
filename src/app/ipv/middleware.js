@@ -216,9 +216,13 @@ function checkJourneyAction(req) {
 // getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
 // field of the update-details page
 function getCoiUpdateDetailsJourney(detailsToUpdate) {
-  if (!detailsToUpdate) {
+  if (
+    !detailsToUpdate ||
+    (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
+  ) {
     return;
   }
+
   // convert to array if its a string
   if (typeof detailsToUpdate === "string") {
     detailsToUpdate = [detailsToUpdate];

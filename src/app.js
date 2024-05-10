@@ -126,6 +126,9 @@ app.use((req, res, next) => {
     res.locals.pageTitleLang = req.i18n.language;
     res.locals.mainLang = req.i18n.language;
     res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
+    res.locals.currentUrl = new URL(
+      req.protocol + "://" + req.get("host") + req.originalUrl,
+    );
     next();
   }
 });

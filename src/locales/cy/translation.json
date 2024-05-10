@@ -842,6 +842,7 @@
         "subHeading": "Gwirio eich manylion",
         "paragraph3": "Fe wnaethoch gyflwyno’r manylion canlynol pan wnaethoch brofi eich hunaniaeth. Efallai y byddwch am wirio bod eich manylion yn dal yn gywir os nad ydych wedi mewngofnodi i GOV.UK One Login ers peth amser.",
         "paragraph4": "Efallai y bydd rhai o’r manylion hyn yn cael eu defnyddio i lenwi’r ffurflenni yn awtomatig yn y gwasanaeth rydych angen ei ddefnyddio.",
+        "subHeading2": "Eich manylion",
         "userDetailsInformation": {
           "fullName": "Enw",
           "dateOfBirth": "Dyddiad geni",
@@ -850,9 +851,9 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsLabelCoi": "TEMP My details are wrong",
+          "updateDetailsLabelCoi": "Os yw eich manylion yn anghywir",
           "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>.",
-          "updateDetailsHtmlCoi": "TEMP <h3 class=\"govuk-heading-s\">If your details have changed</h3> <p class=\"govuk-body\">Your proof of identity is still valid even if your details have changed.</p><p class=\"govuk-body\"> You do not need to update your details to continue to the service you need to use.</p><p class=\"govuk-body\"> If you continue, GOV.UK One Login will share your saved details with the service.</p><p class=\"govuk-body\"> If you need to, you can <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">update your details</a>.</p> <h3 class=\"govuk-heading-s\"> If there is a mistake in your name</h3> <p class=\"govuk-body\">Contact the GOV.UK One Login team if there is a mistake in your name. For example if your name is missing letters or a hyphen.</p><p class=\"govuk-body\"> Do not try to update your details or prove your identity again unless the GOV.UK One Login support team has told you to.</p> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a>"
+          "updateDetailsHtmlCoi": "<h4 class=\"govuk-heading-s\">Os yw'ch manylion wedi newid</h4> <p class=\"govuk-body\">Mae eich prawf hunaniaeth yn dal yn ddilys hyd yn oed os yw'ch manylion wedi newid.</p><p class=\"govuk-body\">Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio.</p><p class=\"govuk-body\"> Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion sydd wedi'u harbed gyda'r gwasanaeth.</p><p class=\"govuk-body\"> Os oes angen, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">ddiweddaru eich manylion</a>.</p> <h4 class=\"govuk-heading-s\"> Os oes camgymeriad yn eich enw</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\"> Peidiwch â cheisio diweddaru eich manylion na phrofi eich hunaniaeth eto oni bai bod tîm GOV.UK One Login wedi dweud wrthych i wneud hynny.</p> "
         }
       }
     },

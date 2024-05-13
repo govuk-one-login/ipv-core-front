@@ -130,37 +130,28 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/ipv/page",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        params: { pageId: "prove-identity-bank-account" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          currentPage: "prove-identity-bank-account",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
+        csrfToken: sinon.fake(),
       };
     });
 
     it("should render page case when given valid pageId", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "prove-identity-bank-account" },
-        csrfToken: sinon.fake(),
-        session: { currentPage: "prove-identity-bank-account" },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
-
       await middleware.handleJourneyPage(req, res);
+
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-bank-account.njk",
       );
     });
 
     it("should set the response status code from a value in the session if present", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "prove-identity-bank-account" },
-        csrfToken: sinon.fake(),
-        session: {
-          currentPage: "prove-identity-bank-account",
-          currentPageStatusCode: 418,
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      req.session.currentPageStatusCode = 418;
 
       await middleware.handleJourneyPage(req, res);
 
@@ -172,100 +163,69 @@ describe("journey middleware", () => {
     });
 
     it("should render page not found error page when given invalid pageId", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "../ipv/page/page-this-is-invalid" },
-        session: { currentPage: "../ipv/page/page-this-is-invalid" },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      req.params = { pageId: "page-this-is-invalid" };
+      req.session.currentPage = "page-this-is-invalid";
 
       await middleware.handleJourneyPage(req, res);
+
       expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
     });
 
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "pyi-timeout-unrecoverable" },
-        session: { currentPage: "../ipv/page/page-multiple-doc-check" },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      req.params = { pageId: "pyi-timeout-unrecoverable" };
 
       await middleware.handleJourneyPage(req, res);
+
       expect(res.render).to.have.been.calledWith(
         "ipv/page/pyi-timeout-unrecoverable.njk",
       );
     });
 
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "page-ipv-reuse" },
-        session: {
-          currentPage: "../ipv/page/page-multiple-doc-check",
-          save: sinon.fake.yields(null),
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      req.session.currentPage = "page-multiple-doc-check";
 
       await middleware.handleJourneyPage(req, res);
+
       expect(res.redirect).to.have.been.calledWith(
         "/ipv/page/pyi-attempt-recovery",
       );
     });
 
-    it("should raise an error when missing pageId", async () => {
+    it("should raise an error when missing params", async () => {
+      delete req.params;
+
       await middleware.handleJourneyPage(req, res, next);
+
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is missing", async () => {
-      req = {
-        id: "1",
-        params: { pageId: "page-multiple-doc-check" },
-        session: { currentPage: "page-ipv-success", ipvSessionId: null },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+    it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is null", async () => {
+      req.session.ipvSessionId = null;
 
       await middleware.handleJourneyPage(req, res);
+
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
 
-    it("should render pyi-technical page with 'unrecoverable' context if journey action is missing", async () => {
-      req = {
-        id: "1",
-        body: {},
-        params: { pageId: "page-multiple-doc-check" },
-        session: { currentPage: "page-ipv-success", ipvSessionId: null },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+    it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is undefined", async () => {
+      delete req.session.ipvSessionId;
 
       await middleware.handleJourneyPage(req, res);
+
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
 
     it("should render with errorState if in query", async function () {
-      req = {
-        id: "1",
-        body: { journey: "next" },
-        csrfToken: sinon.fake(),
-        query: { errorState: "some error state" },
-        params: { pageId: "page-multiple-doc-check" },
-        session: {
-          currentPage: "page-multiple-doc-check",
-          ipvSessionId: "ipv-session-id",
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      req.query = { errorState: "some error state" };
 
       await middleware.handleJourneyPage(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
-        `ipv/page/page-multiple-doc-check.njk`,
+        `ipv/page/prove-identity-bank-account.njk`,
         sinon.match.has("pageErrorState", "some error state"),
       );
     });
@@ -573,7 +533,7 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId },
+        session: { currentPage: pageId, ipvSessionId: "a-session-id" },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };
@@ -589,6 +549,7 @@ describe("journey middleware", () => {
         sinon.match.has("userDetails", expectedUserDetail),
       );
     });
+
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer with multiple given names", async function () {
       const axiosResponse = {};
       axiosResponse.status = 200;
@@ -640,7 +601,7 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId },
+        session: { currentPage: pageId, ipvSessionId: "a-session-id" },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };

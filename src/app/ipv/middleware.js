@@ -216,51 +216,50 @@ function checkJourneyAction(req) {
 // getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
 // field of the update-details page
 function getCoiUpdateDetailsJourney(detailsToUpdate) {
-  if (!detailsToUpdate) {
-    return;
-  }
   // convert to array if its a string
   if (typeof detailsToUpdate === "string") {
     detailsToUpdate = [detailsToUpdate];
   }
 
-  if (detailsToUpdate.includes("cancel")) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL;
-  }
-  // send to update-names-dob journey if dateOfBirth selected
-  if (detailsToUpdate.includes("dateOfBirth")) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
+  if (isInvalidDetailsToUpdate(detailsToUpdate)) {
+    return;
   }
 
   const hasAddress = detailsToUpdate.includes("address");
   const hasGivenNames = detailsToUpdate.includes("givenNames");
   const hasFamilyName = detailsToUpdate.includes("familyName");
 
-  // send to update-names-dob journey if both names selected
-  if (hasGivenNames && hasFamilyName) {
+  if (detailsToUpdate.includes("cancel")) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL;
+  }
+
+  if (
+    detailsToUpdate.includes("dateOfBirth") ||
+    (hasGivenNames && hasFamilyName)
+  ) {
     return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
   }
 
-  if (hasGivenNames) {
-    if (hasAddress) {
+  if (hasAddress) {
+    if (hasFamilyName) {
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS;
+    } else if (hasGivenNames) {
       return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES_ADDRESS;
     } else {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES;
+      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS;
     }
+  } else if (hasFamilyName) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME;
+  } else if (hasGivenNames) {
+    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES;
   }
+}
 
-  if (hasFamilyName) {
-    if (hasAddress) {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS;
-    } else {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME;
-    }
-  }
-
-  // send to address journey if just the address
-  if (hasAddress) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS;
-  }
+function isInvalidDetailsToUpdate(detailsToUpdate) {
+  return (
+    !detailsToUpdate ||
+    (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
+  );
 }
 
 function pageRequiresUserDetails(pageId) {

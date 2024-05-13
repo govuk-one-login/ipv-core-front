@@ -54,7 +54,7 @@
         {% if showLanguageToggle %}
           {{ languageSelect({
             ariaLabel: 'general.languageToggle.ariaLabel' | translate,
-            activeLanguage: htmlLang,
+            activeLanguage: activeLanguage,
             class: "",
             url: currentUrl,
             languages: [

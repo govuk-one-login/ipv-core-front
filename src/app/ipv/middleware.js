@@ -346,7 +346,7 @@ module.exports = {
         return res.render(getTemplatePath("errors", "page-not-found"));
       }
 
-      if (req.session?.ipvSessionId === null) {
+      if (!req.session?.ipvSessionId) {
         logError(
           req,
           {

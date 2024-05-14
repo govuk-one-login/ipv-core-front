@@ -122,10 +122,10 @@ app.use(
 
 app.use((req, res, next) => {
   if (req.i18n) {
-    res.locals.mainLang = req.i18n.language;
     res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
-    // These are required by the language toggle component
-    res.locals.activeLanguage = req.i18n.language;
+    res.locals.currentLanguage = req.i18n.language;
+
+    // currentUrl is required by the language toggle component
     res.locals.currentUrl = new URL(
       req.protocol + "://" + req.get("host") + req.originalUrl,
     );

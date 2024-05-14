@@ -4,7 +4,12 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./ga4/on-page-load-macro.njk" import ga4OnPageLoad %}
-{% from "one-login-language-toggle/macro.njk" import oneloginLanguageSelect %}
+{% from "frontend-language-toggle/macro.njk" import languageSelect %}
+
+{# Set language values for govuk/template.njk #}
+{% set htmlLang = currentLanguage %}
+{% set pageTitleLang = currentLanguage %}
+{% set mainLang = currentLanguage %}
 
 {% block head %}
 
@@ -52,10 +57,11 @@
         }) }}
         {% block beforeContent %}{% endblock %}
         {% if showLanguageToggle %}
-          {{ oneloginLanguageSelect({
+          {{ languageSelect({
             ariaLabel: 'general.languageToggle.ariaLabel' | translate,
-            activeLanguage: htmlLang,
+            activeLanguage: currentLanguage,
             class: "",
+            url: currentUrl,
             languages: [
             {
               code: 'en',
@@ -76,7 +82,7 @@
                 href: hrefBack
             }) }}
         {% endif %}
-        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds {{ rowClasses }}">
                    {% if errorState %}

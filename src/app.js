@@ -122,10 +122,13 @@ app.use(
 
 app.use((req, res, next) => {
   if (req.i18n) {
-    res.locals.htmlLang = req.i18n.language;
-    res.locals.pageTitleLang = req.i18n.language;
-    res.locals.mainLang = req.i18n.language;
     res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
+    res.locals.currentLanguage = req.i18n.language;
+
+    // currentUrl is required by the language toggle component
+    res.locals.currentUrl = new URL(
+      req.protocol + "://" + req.get("host") + req.originalUrl,
+    );
     next();
   }
 });

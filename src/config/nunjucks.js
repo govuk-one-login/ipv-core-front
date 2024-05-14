@@ -2,6 +2,7 @@ const nunjucks = require("nunjucks");
 const i18next = require("i18next");
 const { kebabCaseToPascalCase } = require("../app/shared/stringHelper");
 const config = require("../lib/config");
+const addLanguageParam = require("@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs");
 
 module.exports = {
   configureNunjucks: (app, viewsPath) => {
@@ -66,6 +67,8 @@ module.exports = {
       });
     });
 
+    // Required by the language toggle component
+    nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
     return nunjucksEnv;
   },
 };

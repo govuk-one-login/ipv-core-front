@@ -4,7 +4,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./ga4/on-page-load-macro.njk" import ga4OnPageLoad %}
-{% from "one-login-language-toggle/macro.njk" import oneloginLanguageSelect %}
+{% from "frontend-language-toggle/macro.njk" import languageSelect %}
 
 {% block head %}
 
@@ -52,10 +52,11 @@
         }) }}
         {% block beforeContent %}{% endblock %}
         {% if showLanguageToggle %}
-          {{ oneloginLanguageSelect({
+          {{ languageSelect({
             ariaLabel: 'general.languageToggle.ariaLabel' | translate,
-            activeLanguage: htmlLang,
+            activeLanguage: activeLanguage,
             class: "",
+            url: currentUrl,
             languages: [
             {
               code: 'en',

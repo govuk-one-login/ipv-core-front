@@ -1330,7 +1330,11 @@ describe("journey middleware", () => {
       expect(req.body.journey).to.equal("next");
     });
     it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+        .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
@@ -1339,13 +1343,23 @@ describe("journey middleware", () => {
           errorState: "radiobox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
+          userDetails: {
+            name: undefined,
+            nameParts: { givenName: undefined, familyName: undefined },
+            dateOfBirth: undefined,
+            addresses: undefined,
+          },
         },
       );
     });
     it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       req.body.detailsToUpdate = "";
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+        .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
@@ -1354,6 +1368,12 @@ describe("journey middleware", () => {
           errorState: "checkbox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
+          userDetails: {
+            name: undefined,
+            nameParts: { givenName: undefined, familyName: undefined },
+            dateOfBirth: undefined,
+            addresses: undefined,
+          },
         },
       );
     });

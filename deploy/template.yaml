@@ -236,7 +236,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202404121033
+    DependsOn: RestApiGwDeployment202405141531
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -997,7 +997,7 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202404121033:
+  RestApiGwDeployment202405141531:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
@@ -1074,8 +1074,10 @@ Resources:
       AuthorizationType: NONE
       MethodResponses:
         - StatusCode: "200"
+          ResponseParameters:
+              method.response.header.Cache-Control: true
           ResponseModels:
-            application/json: Empty
+            application/did+json: Empty
         - StatusCode: "404"
           ResponseModels: {}
       Integration:
@@ -1087,6 +1089,8 @@ Resources:
         IntegrationResponses:
           - StatusCode: "200"
             SelectionPattern: "200"
+            ResponseParameters:
+              method.response.header.Cache-Control: "'max-age=3600, private'"
           - StatusCode: "404"
             SelectionPattern: ""
             ResponseTemplates:
@@ -1118,7 +1122,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202404121033
+      DeploymentId: !Ref RestApiGwDeployment202405141531
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn

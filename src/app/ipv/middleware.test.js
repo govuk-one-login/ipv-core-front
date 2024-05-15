@@ -1377,12 +1377,40 @@ describe("journey middleware", () => {
         },
       );
     });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is not empty", async function () {
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName,givenNames", async function () {
       req.body.detailsToUpdate = ["familyName", "givenNames"];
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal("names-dob");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName", async function () {
+      req.body.detailsToUpdate = ["familyName"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("family-name-only");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth,address", async function () {
+      req.body.detailsToUpdate = ["dateOfBirth", "address"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("names-dob");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is address", async function () {
+      req.body.detailsToUpdate = "address";
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("address-only");
+    });
+    it("should set correct journey if detailsCorrect is yes and detailsToUpdate is not empty", async function () {
+      req.body.detailsToUpdate = ["familyName", "givenNames"];
+      req.body.detailsCorrect = "yes";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("next");
     });
   });
 });

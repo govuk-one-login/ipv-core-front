@@ -11,7 +11,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
-  formHandleCoiDetailsCorrect,
+  formHandleCoiDetailsCheck,
   formRadioButtonChecked,
   handleAppStoreRedirect,
 } = require("./middleware");
@@ -57,7 +57,7 @@ router.post(
   parseForm,
   csrfProtection,
   formHandleUpdateDetailsCheckBox,
-  formHandleCoiDetailsCorrect,
+  formHandleCoiDetailsCheck,
   formRadioButtonChecked,
   handleJourneyAction,
 );

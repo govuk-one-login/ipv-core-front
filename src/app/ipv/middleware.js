@@ -480,7 +480,7 @@ module.exports = {
       next(error);
     }
   },
-  formHandleCoiDetailsCorrect: async (req, res, next) => {
+  formHandleCoiDetailsCheck: async (req, res, next) => {
     try {
       const { context, currentPage } = req?.session || "";
       if (req.body.detailsCorrect === "yes") {

@@ -1,9 +1,6 @@
 const sinon = require("sinon");
 const { expect } = require("chai");
 const proxyquire = require("proxyquire");
-const {
-  createPersonalDataHeaders,
-} = require("@govuk-one-login/frontend-passthrough-headers");
 
 const configStub = {
   API_CRI_CALLBACK: "/cri/callback",
@@ -43,7 +40,7 @@ describe("CoreBackService", () => {
     const event = "test_event";
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "198.51.100.10:46532",
+      "x-forwarded-for": req.ip,
     };
 
     // Act
@@ -61,10 +58,8 @@ describe("CoreBackService", () => {
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
-          ...createPersonalDataHeaders(
-            `${configStub.API_BASE_URL}${configStub.API_JOURNEY_EVENT}`,
-            req,
-          ),
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.1",
         },
         logger: undefined,
       },
@@ -76,7 +71,7 @@ describe("CoreBackService", () => {
     const authParams = { someAuthParam: "someValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "198.51.100.10:46532",
+      "x-forwarded-for": req.ip,
     };
 
     // Act
@@ -94,10 +89,8 @@ describe("CoreBackService", () => {
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
-          ...createPersonalDataHeaders(
-            `${configStub.API_BASE_URL}${configStub.API_SESSION_INITIALISE}`,
-            req,
-          ),
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.1",
         },
         logger: undefined,
       },
@@ -110,7 +103,7 @@ describe("CoreBackService", () => {
     const errorDetails = { error_param: "anotherValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "198.51.100.10:46532",
+      "x-forwarded-for": req.ip,
     };
 
     // Act
@@ -128,10 +121,8 @@ describe("CoreBackService", () => {
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
-          ...createPersonalDataHeaders(
-            `${configStub.API_BASE_URL}${configStub.API_CRI_CALLBACK}`,
-            req,
-          ),
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.1",
         },
         logger: undefined,
       },
@@ -144,7 +135,7 @@ describe("CoreBackService", () => {
     const errorDetails = { error_param: "anotherValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "198.51.100.10:46532",
+      "x-forwarded-for": req.ip,
     };
 
     // Act
@@ -158,10 +149,8 @@ describe("CoreBackService", () => {
         "feature-set": "test_feature_set",
         "ipv-session-id": "test_ipv_session_id",
         "client-session-id": "test_client_session_id",
-        ...createPersonalDataHeaders(
-          `${configStub.API_BASE_URL}${configStub.API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,
-          req,
-        ),
+        "txma-audit-encoded": "dummy-txma-header",
+        "x-forwarded-for": "127.0.0.1",
       },
       logger: undefined,
     });

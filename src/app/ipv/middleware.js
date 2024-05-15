@@ -482,7 +482,7 @@ module.exports = {
   },
   formHandleCoiDetailsCheck: async (req, res, next) => {
     try {
-      const { context, currentPage } = req?.session || "";
+      const { context, currentPage } = req?.session || {};
       if (req.body.detailsCorrect === "yes") {
         // user has selected that their details are correct
         req.body.journey = "next";

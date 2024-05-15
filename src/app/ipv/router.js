@@ -11,6 +11,7 @@ const {
   renderFeatureSetPage,
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
+  formHandleCoiDetailsCheck,
   formRadioButtonChecked,
   handleAppStoreRedirect,
 } = require("./middleware");
@@ -18,6 +19,7 @@ const {
 const {
   PYI_ATTEMPT_RECOVERY,
   UPDATE_DETAILS,
+  CONFIRM_DETAILS,
 } = require("../../constants/ipv-pages");
 
 const csrfProtection = csrf({});
@@ -39,12 +41,22 @@ router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
 
 router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 
-// Special case to handle determination of COI journey type based in the checkboxes selected
+// Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
   getPagePath(UPDATE_DETAILS),
   parseForm,
   csrfProtection,
   formHandleUpdateDetailsCheckBox,
+  formRadioButtonChecked,
+  handleJourneyAction,
+);
+
+// Special case to handle determination of COI journey type based on the checkboxes selected and determine the error type
+router.post(
+  getPagePath(CONFIRM_DETAILS),
+  parseForm,
+  csrfProtection,
+  formHandleCoiDetailsCheck,
   formRadioButtonChecked,
   handleJourneyAction,
 );

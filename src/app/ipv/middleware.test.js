@@ -1306,4 +1306,63 @@ describe("journey middleware", () => {
       );
     });
   });
+
+  context("formHandleCoiDetailsCheck middleware", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "confirm-your-details" },
+        csrfToken: sinon.fake(),
+        session: {
+          context: "coi",
+          currentPage: "confirm-your-details",
+          save: sinon.fake.yields(null),
+        },
+        log: { error: sinon.fake() },
+      };
+    });
+
+    it("should set journey to next if detailsCorrect is yes", async function () {
+      req.body.detailsToUpdate = [];
+      req.body.detailsCorrect = "yes";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("next");
+    });
+    it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/confirm-your-details.njk",
+        {
+          context: "coi",
+          errorState: "radiobox",
+          pageId: "confirm-your-details",
+          csrfToken: undefined,
+        },
+      );
+    });
+    it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
+      req.body.detailsToUpdate = "";
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/confirm-your-details.njk",
+        {
+          context: "coi",
+          errorState: "checkbox",
+          pageId: "confirm-your-details",
+          csrfToken: undefined,
+        },
+      );
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is not empty", async function () {
+      req.body.detailsToUpdate = ["familyName", "givenNames"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("names-dob");
+    });
+  });
 });

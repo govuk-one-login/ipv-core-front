@@ -56,7 +56,6 @@ router.post(
   getPagePath(CONFIRM_DETAILS),
   parseForm,
   csrfProtection,
-  formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   formRadioButtonChecked,
   handleJourneyAction,

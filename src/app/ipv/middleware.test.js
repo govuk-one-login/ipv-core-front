@@ -1357,11 +1357,12 @@ describe("journey middleware", () => {
         },
       );
     });
-    it("should call next if detailsCorrect is no and detailsToUpdate is not empty", async function () {
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is not empty", async function () {
       req.body.detailsToUpdate = ["familyName", "givenNames"];
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
       expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("names-dob");
     });
   });
 });

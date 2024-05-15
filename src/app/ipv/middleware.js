@@ -486,6 +486,9 @@ module.exports = {
       if (req.body.detailsCorrect === "yes") {
         // user has selected that their details are correct
         req.body.journey = "next";
+      } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
+        // user has chosen details to update - so we set the correct journey
+        req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
       } else if (
         !req.body.detailsCorrect ||
         (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)

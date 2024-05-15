@@ -486,11 +486,9 @@ module.exports = {
       if (req.body.detailsCorrect === "yes") {
         // user has selected that their details are correct
         req.body.journey = "next";
-        next();
       } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
         // user has chosen details to update - so we set the correct journey
         req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-        next();
       } else if (
         !req.body.detailsCorrect ||
         (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
@@ -506,8 +504,9 @@ module.exports = {
         if (pageRequiresUserDetails(currentPage)) {
           renderOptions.userDetails = await fetchUserDetails(req);
         }
-        res.render(getIpvPageTemplatePath(currentPage), renderOptions);
+        return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
       }
+      next();
     } catch (error) {
       next(error);
     }

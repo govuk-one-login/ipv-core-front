@@ -1412,5 +1412,24 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal("next");
     });
+    it("should not get user details if the page does not require it", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      req.session.currentPage = "check-name-date-birth";
+      req.session.context = undefined;
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
+        .called;
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/check-name-date-birth.njk",
+        {
+          errorState: "radiobox",
+          pageId: "check-name-date-birth",
+          csrfToken: undefined,
+          context: undefined,
+        },
+      );
+    });
   });
 });

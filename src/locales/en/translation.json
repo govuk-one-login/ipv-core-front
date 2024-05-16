@@ -1164,6 +1164,29 @@
           "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the app.</p>We'll need to delete your details so you can prove your identity again with your new details.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a></p>"
         }
       }
+    },
+    "proveIdentityAnotherTypePhotoId": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph": "You chose to prove your identity another way.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "backButtonTextPassport": "Use your UK passport",
+          "backButtonTextDrivingLicence": "Use your UK photocard driving licence",
+          "backButtonTextHintPassport": "You can prove your identity by entering your UK passport details and answering security questions.",
+          "backButtonTextHintDrivingLicence": "You can prove your identity by entering your UK photocard driving licence details and answering security questions.",
+          "otherPhotoIdButtonText": "Try using another type of photo ID",
+          "otherPhotoIdButtonTextHint": "You may be able to prove your identity another way if you have a non-UK passport, a European Union (EU) photocard driving licence, a national identity card from a European Economic Area (EEA) country, or a biometric residence permit (BRP). This will take longer.",
+          "divisor": "or",
+          "returnToRpButtonText": "Continue to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
     }
   }
 }

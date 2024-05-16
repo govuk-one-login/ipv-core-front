@@ -1163,6 +1163,29 @@
           "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the app.</p>We'll need to delete your details so you can prove your identity again with your new details.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a></p>"
         }
       }
+    },
+    "proveIdentityAnotherTypePhotoId": {
+      "title": "Profi eich hunaniaeth mewn ffordd arall",
+      "header": "Profi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph": "Rydych wedi dewis profi eich hunaniaeth mewn ffordd arall.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "backButtonTextPassport": "Defnyddiwch eich pasbort y Deyrnas Unedig",
+          "backButtonTextDrivingLicence": "Defnyddiwch eich trwydded yrru cerdyn-llun y DU",
+          "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
+          "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
+          "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
+          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o'r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
+          "divisor": "neu",
+          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
     }
   }
 }

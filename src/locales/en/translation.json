@@ -1187,6 +1187,24 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "proveIdentityNoOtherPhotoId": {
+      "title": "Find another way to access the service",
+      "header": "Find another way to access the service",
+      "content": {
+        "paragraph": "Based on what you’ve told us, you cannot prove your identity another way with GOV.UK One Login.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "backButtonTextPassport": "Go back and try to prove your identity with your UK passport",
+          "backButtonTextDrivingLicence": "Go back and try to prove your identity with your UK photocard driving licence",
+          "returnToRpButtonText": "Continue to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
     }
   }
 }

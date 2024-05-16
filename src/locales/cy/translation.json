@@ -1186,6 +1186,24 @@
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
+    },
+    "proveIdentityNoOtherPhotoId": {
+      "title": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
+      "header": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
+      "content": {
+        "paragraph": "Yn seiliedig ar beth rydych wedi'i ddweud wrthym, ni fyddwch yn gallu profi eich hunaniaeth mewn ffordd arall gyda GOV.UK One Login.",
+        "subHeading": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "backButtonTextPassport": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch pasbort y DU",
+          "backButtonTextDrivingLicence": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch trwydded yrru cerdyn-llun y DU",
+          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
     }
   }
 }

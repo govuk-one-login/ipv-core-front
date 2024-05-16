@@ -40,7 +40,7 @@ describe("CoreBackService", () => {
     const event = "test_event";
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": req.ip,
+      "x-forwarded-for": "127.0.0.1",
     };
 
     // Act
@@ -71,7 +71,7 @@ describe("CoreBackService", () => {
     const authParams = { someAuthParam: "someValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": req.ip,
+      "x-forwarded-for": "127.0.0.1",
     };
 
     // Act
@@ -103,7 +103,7 @@ describe("CoreBackService", () => {
     const errorDetails = { error_param: "anotherValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": req.ip,
+      "x-forwarded-for": "127.0.0.1",
     };
 
     // Act
@@ -135,7 +135,7 @@ describe("CoreBackService", () => {
     const errorDetails = { error_param: "anotherValue" };
     req.headers = {
       "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": req.ip,
+      "x-forwarded-for": "127.0.0.1",
     };
 
     // Act

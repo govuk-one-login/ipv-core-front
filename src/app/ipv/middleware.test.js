@@ -1330,7 +1330,11 @@ describe("journey middleware", () => {
       expect(req.body.journey).to.equal("next");
     });
     it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+        .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
@@ -1339,13 +1343,23 @@ describe("journey middleware", () => {
           errorState: "radiobox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
+          userDetails: {
+            name: undefined,
+            nameParts: { givenName: undefined, familyName: undefined },
+            dateOfBirth: undefined,
+            addresses: undefined,
+          },
         },
       );
     });
     it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       req.body.detailsToUpdate = "";
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+        .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
@@ -1354,15 +1368,68 @@ describe("journey middleware", () => {
           errorState: "checkbox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
+          userDetails: {
+            name: undefined,
+            nameParts: { givenName: undefined, familyName: undefined },
+            dateOfBirth: undefined,
+            addresses: undefined,
+          },
         },
       );
     });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is not empty", async function () {
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName,givenNames", async function () {
       req.body.detailsToUpdate = ["familyName", "givenNames"];
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal("names-dob");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName", async function () {
+      req.body.detailsToUpdate = ["familyName"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("family-name-only");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth,address", async function () {
+      req.body.detailsToUpdate = ["dateOfBirth", "address"];
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("names-dob");
+    });
+    it("should set correct journey if detailsCorrect is no and detailsToUpdate is address", async function () {
+      req.body.detailsToUpdate = "address";
+      req.body.detailsCorrect = "no";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("address-only");
+    });
+    it("should set correct journey if detailsCorrect is yes and detailsToUpdate is not empty", async function () {
+      req.body.detailsToUpdate = ["familyName", "givenNames"];
+      req.body.detailsCorrect = "yes";
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal("next");
+    });
+    it("should not get user details if the page does not require it", async function () {
+      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      req.session.currentPage = "check-name-date-birth";
+      req.session.context = undefined;
+      await middleware.formHandleCoiDetailsCheck(req, res, next);
+
+      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
+        .called;
+      expect(next).to.not.have.been.called;
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/check-name-date-birth.njk",
+        {
+          errorState: "radiobox",
+          pageId: "check-name-date-birth",
+          csrfToken: undefined,
+          context: undefined,
+        },
+      );
     });
   });
 });

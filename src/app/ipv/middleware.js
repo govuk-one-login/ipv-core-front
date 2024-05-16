@@ -501,6 +501,9 @@ module.exports = {
           csrfToken: req.csrfToken(),
           context: context,
         };
+        if (pageRequiresUserDetails(currentPage)) {
+          renderOptions.userDetails = await fetchUserDetails(req);
+        }
         return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
       }
       next();

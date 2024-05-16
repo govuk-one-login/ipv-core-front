@@ -876,7 +876,8 @@
         "paragraph4": "Efallai y bydd rhai o’r manylion hyn yn cael eu defnyddio i lenwi’r ffurflenni yn awtomatig yn y gwasanaeth rydych angen ei ddefnyddio.",
         "subHeading2": "Eich manylion",
         "userDetailsInformation": {
-          "fullName": "Enw",
+          "fullName": "Enw wat",
+          "fullNameCoi": "Enw llawn",
           "dateOfBirth": "Dyddiad geni",
           "currentAddress": "Cyfeiriad cartref presennol",
           "previousAddress": "Cyfeiriad blaenorol"

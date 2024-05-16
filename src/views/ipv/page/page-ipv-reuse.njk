@@ -10,7 +10,7 @@
         data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvReuse.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph1' | translate }}</p>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
-    
+
     <h2 class="govuk-heading-m">{{ 'pages.pageIpvReuse.content.subHeading' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph3' | translate }}</p>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph4' | translate }}</p>
@@ -20,12 +20,15 @@
     {% set rows = [
         {
             key: {
-                text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translate
+                text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translateWithContext(context)
             },
             value: {
                 text: userDetails.name
             }
-        },
+        }
+    ] %}
+
+    {% set dobRow =
         {
             key: {
                 text: 'pages.pageIpvReuse.content.userDetailsInformation.dateOfBirth' | translate
@@ -34,9 +37,16 @@
                 text: userDetails.dateOfBirth | GDSDate
             }
         }
-    ] %}
+    %}
 
-    {% for addressDetail in userDetails.addresses %}
+    {% if context == "coi" %}
+        {% set addressesToDisplay = [userDetails.addresses[0]] %}
+    {% else %}
+        {% set rows = (rows.push(dobRow), rows) %}
+        {% set addressesToDisplay = userDetails.addresses %}
+    {% endif %}
+
+    {% for addressDetail in addressesToDisplay %}
         {% set addressRow =
             {
                 key:
@@ -51,6 +61,10 @@
         %}
         {% set rows =(rows.push(addressRow), rows) %}
     {% endfor %}
+
+    {% if context == "coi" %}
+        {% set rows = (rows.push(dobRow), rows) %}
+    {% endif %}
 
     {{ govukSummaryList({
         rows: rows

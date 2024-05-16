@@ -878,6 +878,7 @@
         "subHeading2": "Your details",
         "userDetailsInformation": {
           "fullName": "Name",
+          "fullNameCoi": "Full name",
           "dateOfBirth": "Date of birth",
           "currentAddress": "Current home address",
           "previousAddress": "Previous address"

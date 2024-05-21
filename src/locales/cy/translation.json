@@ -860,8 +860,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch sut rydych eisiau parhau",
-          "errorRadioMessage": "Dewiswch sut rydych eisiau parhau"
+          "errorSummaryDescriptionText": "Dewiswch os ydych am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch os ydych am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth"
         }
       }
     },

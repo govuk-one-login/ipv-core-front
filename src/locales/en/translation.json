@@ -861,8 +861,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
+          "errorSummaryDescriptionText": "Select if you want to use your UK photocard driving licence or UK passport to prove your identity",
+          "errorRadioMessage": "Select if you want to use your UK photocard driving licence or UK passport to prove your identity"
         }
       }
     },

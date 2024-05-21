@@ -736,24 +736,24 @@
       }
     },
     "confirmDetails": {
-      "title": "TODO: You need to confirm your details",
-      "header": "TODO: You need to confirm your details",
+      "title": "Mae angen i chi gadarnhau eich manylion",
+      "header": "Mae angen i chi gadarnhau eich manylion",
       "content": {
-        "paragraph1": "TODO: To keep your GOV.UK One Login secure, you need to confirm the details you gave us when you proved your identity.",
-        "summaryHeading": "TODO: Your details",
+        "paragraph1": "Er mwyn cadw'ch GOV.UK One Login yn ddiogel, mae angen i chi gadarnhau'r manylion a roesoch i ni pan wnaethoch brofi eich hunaniaeth.",
+        "summaryHeading": "Eich manylion",
         "summary1": "Enwau a roddwyd",
         "summary2": "Enw olaf",
         "summary3": "Cyfeiriad cartref presennol",
         "summary4": "Dyddiad geni",
-        "detailsTitle": "TODO: There is a mistake in my name",
-        "detailsContent": "TODO: <p class=\"govuk-body\">Contact the GOV.UK One Login team if there is a mistake in your name. For example, if your name is missing letters or a hypen</p><p class=\"govuk-body\">Do not try to update your details unless the GOV.UK One Login support team has told you to.</p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a>.",
-        "formTitle": "TODO: Are your details up to date?",
+        "detailsTitle": "Os oes camgymeriad yn eich enw",
+        "detailsContent": "<p class=\"govuk-body\">Cysylltwch â'r tîm GOV.UK One Login os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\">Peidiwch â cheisio diweddaru eich manylion oni bai bod tîm cymorth GOV.UK One Login wedi dweud wrthych i wneud hynny.</p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a>.",
+        "formTitle": "A yw eich manylion yn gyfredol?",
         "formRadioButtons": {
           "yes": "Oes",
-          "no": "TODO: No - I need to update my details"
+          "no": "Na - mae angen i mi ddiweddaru fy manylion"
         },
         "errorSummaryTitleText": "Mae problem",
-        "errorRadioMessage": "TODO: Select yes if your details are up to date",
+        "errorRadioMessage": "Dewiswch ie os yw'ch manylion yn gyfredol",
         "formCheckBoxes": {
           "heading": "Pa fanylion ydych chi angen eu diweddaru?",
           "hint": "Dewiswch bob un sy'n berthnasol.",
@@ -763,8 +763,8 @@
           "checkbox3": "Cyfeiriad",
           "checkbox4": "Dyddiad geni"
         },
-        "errorCheckBoxMessage": "TODO: Select which details you need to update",
-        "warningText": "TODO: You may not be able to use your GOV.UK One Login if your details are not up to date."
+        "errorCheckBoxMessage": "Dewiswch ba fanylion rydych angen eu diweddaru",
+        "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol."
       }
     },
     "pyiDetailsDeleted": {

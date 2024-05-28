@@ -786,9 +786,7 @@
       "titleCoi": "Update your full name or date of birth",
       "headerCoi": "Update your full name or date of birth",
       "content": {
-        "paragraph1": "To update your name or date of birth, you need to contact the GOV.UK One Login team.",
-        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
-        "warningTextFallback": "Warning",
+        "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
         "radioButtonHeading": "What would you like to do?",
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your name or date of birth",
@@ -1133,22 +1131,19 @@
       "title": "Update your name using the GOV.UK ID Check app",
       "header": "Update your name using the GOV.UK ID Check app",
       "content": {
-        "paragraph1": "To update your details, you need to prove your identity again with your new details.",
+        "paragraph1": "To update your name, you need to prove your identity again with your new name.",
         "paragraph2": "You'll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
         "list2": "to tell us where you've lived for the last 3 months",
         "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
-        "warningText": "You may not be able to use your GOV.UK One Login if we cannot confirm your identity using your new details.",
+        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
         "warningTextFallback": "Warning",
         "subHeading1": "If there is a mistake in your name",
         "paragraph4": "If there is a mistake in your name, do not try to prove your identity again unless the GOV.UK One Login support team has told you to.",
         "paragraph5": "For example, if your name is missing letters or a hyphen, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> instead.",
-        "subHeading2": "If you need to use the service now",
-        "paragraph6": "Your proof of identity is still valid even if your details are out of date.",
-        "paragraph7": "You can use your saved details to access the service you need to use.",
-        "subHeading3": "What would you like to do?",
+        "subHeading2": "What would you like to do?",
         "formRadioButtons": {
-          "updateDetailsButtonText": "Update your details using the GOV.UK ID Check app",
+          "updateDetailsButtonText": "Update your name using the GOV.UK ID Check app",
           "updateDetailsButtonTextHint": "We'll guide you through this",
           "continueServiceButtonText": "Continue to the service you were trying to use",
           "continueServiceButtonTextHint": "You can update your details later",
@@ -1161,8 +1156,8 @@
           "errorRadioMessage": "Select how you want to continue"
         },
         "cannotUseInformation": {
-          "summary": "I cannot use the GOV.UK ID Check app",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the app.</p>We'll need to delete your details so you can prove your identity again with your new details.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a></p>"
+          "summary": "If you cannot use the GOV.UK ID Check app",
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the GOV.UK ID Check app.</p>You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab).</a></p>"
         }
       }
     },

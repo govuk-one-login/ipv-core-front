@@ -37,10 +37,6 @@
   <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate( { url: contactUsUrl } ) | safe}}</p>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph6' | translate }}</p>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph7' | translate }}</p>
-
   <form class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2" id="pageUpdateNameOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
@@ -48,7 +44,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pageUpdateName.content.subHeading3' | translate,
+          text: 'pages.pageUpdateName.content.subHeading2' | translate,
           classes: "govuk-fieldset__legend--m"
         }
       },

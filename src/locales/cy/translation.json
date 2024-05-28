@@ -620,7 +620,7 @@
       "headerCoiNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
       "content": {
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau.",
-        "paragraph1CoiAddress": "TBC",
+        "paragraph1CoiAddress": "Bydd angen i chi roi eich cyfeiriad cartref presennol (a chyfeiriad blaenorol os ydych wedi symud yn ddiweddar) pan fyddwch yn parhau.",
         "paragraph1CoiNoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
       }
     },

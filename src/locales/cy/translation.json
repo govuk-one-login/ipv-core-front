@@ -682,6 +682,8 @@
       "headerCoi": "Diweddaru eich enw llawn neu ddyddiad geni",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
+        "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
+        "warningTextFallback": "Rhybudd",
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",

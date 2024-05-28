@@ -787,6 +787,8 @@
       "headerCoi": "Update your full name or date of birth",
       "content": {
         "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
+        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "Warning",
         "radioButtonHeading": "What would you like to do?",
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your name or date of birth",

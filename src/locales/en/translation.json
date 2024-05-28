@@ -1141,7 +1141,10 @@
         "subHeading1": "If there is a mistake in your name",
         "paragraph4": "If there is a mistake in your name, do not try to prove your identity again unless the GOV.UK One Login support team has told you to.",
         "paragraph5": "For example, if your name is missing letters or a hyphen, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> instead.",
-        "subHeading2": "What would you like to do?",
+        "subHeading2": "If you need to use the service now",
+        "paragraph6": "Your proof of identity is still valid even if your details are out of date.",
+        "paragraph7": "You can use your saved details to access the service you need to use.",
+        "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Update your name using the GOV.UK ID Check app",
           "updateDetailsButtonTextHint": "We'll guide you through this",

@@ -1140,7 +1140,10 @@
         "subHeading1": "Os oes camgymeriad yn eich enw",
         "paragraph4": "Os oes camgymeriad yn eich enw, peidiwch â cheisio profi eich hunaniaeth eto oni bai bod tîm cymorth GOV.UK One Login wedi dweud wrthych i wneud hynny.",
         "paragraph5": "Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">cysylltwch â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> yn lle hynny.",
-        "subHeading2": "Beth hoffech chi ei wneud?",
+        "subHeading2": "Os ydych angen defnyddio'r gwasanaeth nawr",
+        "paragraph6": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
+        "paragraph7": "Gallwch ddefnyddio'ch manylion sydd wedi'u harbed i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio.",
+        "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Diweddaru eich enw gan ddefnyddio'r ap GOV.UK ID Check",
           "updateDetailsButtonTextHint": "Byddwn yn eich tywys drwy hyn.",

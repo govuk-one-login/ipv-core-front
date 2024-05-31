@@ -1156,8 +1156,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         },
         "cannotUseInformation": {
           "summary": "Os na allwch ddefnyddio'r ap GOV.UK ID Check",

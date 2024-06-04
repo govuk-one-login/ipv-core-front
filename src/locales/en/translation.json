@@ -777,7 +777,8 @@
           "checkbox4": "Date of birth"
         },
         "errorCheckBoxMessage": "Select which details you need to update",
-        "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date."
+        "warningTextContent": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
+        "warningTextFallback": "Warning"
       }
     },
     "updateNameDateBirth": {

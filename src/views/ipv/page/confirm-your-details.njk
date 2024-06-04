@@ -24,30 +24,53 @@
 
     <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{ 'pages.confirmDetails.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.confirmDetails.content.paragraph1' | translate }}</p>
-    <h3 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summaryHeading' | translate }}</h3>
+    <h2 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summaryHeading' | translate }}</h2>
 
-    <h3 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summary1' | translate }}</h3>
-    <p class="govuk-body">{{ userDetails.nameParts.givenName }}</p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    {% set rows = [
+      {
+        key: {
+          text: 'pages.confirmDetails.content.summary1' | translate
+        },
+        value: {
+          text: userDetails.nameParts.givenName
+        }
+      },
+      {
+        key: {
+          text: 'pages.confirmDetails.content.summary2' | translate
+        },
+        value: {
+          text: userDetails.nameParts.familyName
+        }
+      },
+      {
+        key: {
+          text: 'pages.confirmDetails.content.summary3' | translate
+        },
+        value: {
+          text: userDetails.addresses[0].addressDetailHtml | safe
+        }
+      },
+      {
+        key: {
+          text: 'pages.confirmDetails.content.summary4' | translate
+        },
+        value: {
+          text: userDetails.dateOfBirth | GDSDate
+        }
+      }
+    ] %}
 
-    <h3 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summary2' | translate }}</h3>
-    <p class="govuk-body">{{ userDetails.nameParts.familyName }}</p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-    <h3 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summary3' | translate }}</h3>
-    <p class="govuk-body">{{ userDetails.addresses[0].addressDetailHtml | safe }}</p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-    <h3 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summary4' | translate }}</h3>
-    <p class="govuk-body">{{ userDetails.dateOfBirth | GDSDate }}</p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    {{ govukSummaryList({
+      rows: rows
+    }) }}
 
     {{ govukDetails({
         summaryText: 'pages.confirmDetails.content.detailsTitle' | translate,
         text: 'pages.confirmDetails.content.detailsContent' | translate({ url: contactUsUrl }) | safe
     }) }}
 
-    <form id="confirmDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <form id="confirmDetailsActionForm" action="§/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
         {% set checkboxConfig = {
@@ -130,8 +153,8 @@
         {{ govukRadios(radiosConfig) }}
 
         {{ govukWarningText({
-        text: 'pages.confirmDetails.content.warningText' | translate,
-        iconFallbackText: 'pages.confirmDetails.content.warningText' | translate
+        text: 'pages.confirmDetails.content.warningTextContent' | translate,
+        iconFallbackText: 'pages.confirmDetails.content.warningTextFallback' | translate
         }) }}
         <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
         {{ 'general.buttons.next' | translate }}

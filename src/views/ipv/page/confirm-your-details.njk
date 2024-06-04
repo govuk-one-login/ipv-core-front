@@ -70,7 +70,7 @@
         text: 'pages.confirmDetails.content.detailsContent' | translate({ url: contactUsUrl }) | safe
     }) }}
 
-    <form id="confirmDetailsActionForm" action="§/ipv/page/{{ pageId }}" method="POST">
+    <form id="confirmDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
         {% set checkboxConfig = {

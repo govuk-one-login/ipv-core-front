@@ -1162,7 +1162,7 @@
         },
         "cannotUseInformation": {
           "summary": "If you cannot use the GOV.UK ID Check app",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the GOV.UK ID Check app.</p>You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab).</a></p>"
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the GOV.UK ID Check app.</p><p class=\"govuk-body govuk-!-margin-bottom-2\">You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.</p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab).</a></p>"
         }
       }
     },

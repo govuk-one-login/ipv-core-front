@@ -62,12 +62,12 @@ Run `npm run build` again if changes are made to:
 * translations
 * images
 
-### Analytics
-https://www.npmjs.com/package/@govuk-one-login/frontend-analytics
-
 ### Configuring core-back to work with a local core-front
 
-You can use the [dev-deploy tool](https://github.com/govuk-one-login/ipv-core-common-infra/blob/main/utils/dev-deploy/README.md) to [configure your core-back to work with a local core-front](https://github.com/govuk-one-login/ipv-core-common-infra/blob/main/utils/dev-deploy/docs/local-development.md#configuring-core-back-to-work-with-a-local-core-front).
+You can run a containerised version of ipv-core-front locally with core-back and the CRI stubs by using the [local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
+
+### Analytics
+https://www.npmjs.com/package/@govuk-one-login/frontend-analytics
 
 ## Using pre-commit to verify your commits
 

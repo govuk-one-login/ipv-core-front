@@ -2,8 +2,6 @@ const {
   GTM_ANALYTICS_COOKIE_DOMAIN,
   GTM_ID,
   GTM_ID_GA4,
-  CDN_DOMAIN,
-  CDN_PATH,
   CONTACT_URL,
   SERVICE_URL,
   UA_DISABLED,
@@ -19,8 +17,6 @@ module.exports = {
     res.locals.isGa4Disabled = GA4_DISABLED;
     res.locals.isUaDisabled = UA_DISABLED;
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
-    res.locals.assetsCdnPath = CDN_PATH;
-    res.locals.assetPath = CDN_DOMAIN + "/assets";
 
     const contactUsUrl = new URL(CONTACT_URL);
     contactUsUrl.searchParams.set(

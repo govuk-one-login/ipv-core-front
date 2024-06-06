@@ -14,7 +14,7 @@
 {% block head %}
 
     <!--[if !IE 8]><!-->
-    <link href="{{ assetsCdnPath }}/public/stylesheets/application.css" rel="stylesheet">
+    <link href="/public/stylesheets/application.css" rel="stylesheet">
     <!--<![endif]-->
 
     {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -141,7 +141,7 @@
 
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
-    <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
+    <script nonce='{{ cspNonce }}' src="/public/javascripts/application.js"></script>
     <script nonce='{{ cspNonce }}'>
         window.GOVUKFrontend.initAll()
         window.DI = window.DI || {};

@@ -791,16 +791,6 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - uaDisabled
-            - Name: CDN_PATH
-              Value: !FindInMap
-                - EnvironmentConfiguration
-                - !Ref AWS::AccountId
-                - assetsPath
-            - Name: CDN_DOMAIN
-              Value: !FindInMap
-                - EnvironmentConfiguration
-                - !Ref AWS::AccountId
-                - assetsDomain
             - Name: CONTACT_URL
               Value: !FindInMap
                 - EnvironmentConfiguration

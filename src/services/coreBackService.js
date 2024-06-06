@@ -19,7 +19,6 @@ function generateAxiosConfig(url, req) {
     headers: {
       "content-type": "application/json",
       "x-request-id": req.id,
-      "ip-address": req.ip || "unknown",
       "feature-set": req.session.featureSet,
       ...(req.session.ipvSessionId && {
         "ipv-session-id": req.session.ipvSessionId,

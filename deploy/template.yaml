@@ -162,7 +162,7 @@ Mappings:
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
-      languageToggle: false
+      languageToggle: true
       desiredTaskCount: 1
       ga4Disabled: true
       uaDisabled: false
@@ -182,7 +182,7 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
-      languageToggle: false
+      languageToggle: true
       desiredTaskCount: 2
       ga4Disabled: true
       uaDisabled: false

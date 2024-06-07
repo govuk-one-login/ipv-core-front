@@ -82,8 +82,6 @@ Mappings:
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
-      assetsDomain: ""
-      assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -102,8 +100,6 @@ Mappings:
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
-      assetsDomain: ""
-      assetsPath: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -126,8 +122,6 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
-      assetsDomain: "https://assets.build.account.gov.uk"
-      assetsPath: "https://assets.build.account.gov.uk/core-front"
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -146,8 +140,6 @@ Mappings:
       desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
-      assetsDomain: "https://assets.staging.account.gov.uk"
-      assetsPath: "https://assets.staging.account.gov.uk/core-front"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -166,8 +158,6 @@ Mappings:
       desiredTaskCount: 1
       ga4Disabled: true
       uaDisabled: false
-      assetsDomain: "https://assets.integration.account.gov.uk"
-      assetsPath: "https://assets.integration.account.gov.uk/core-front"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -186,8 +176,6 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: true
       uaDisabled: false
-      assetsDomain: ""
-      assetsPath: ""
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables

@@ -69,5 +69,8 @@ router.post(
   handleJourneyAction,
 );
 
+// Enables a link in the frontend to iterate the journey state
+// This is needed because some redirects must be done with links, not forms
 router.get("/journey/:pageId/:action", updateJourneyState);
+
 module.exports = router;

@@ -11,6 +11,7 @@ const configStub = {
 };
 describe("CoreBackService", () => {
   let axiosInstanceStub = {};
+  let passthroughHeaders = {};
   let CoreBackService;
 
   let axiosStub = { createAxiosInstance: () => axiosInstanceStub };
@@ -28,20 +29,21 @@ describe("CoreBackService", () => {
   beforeEach(() => {
     axiosInstanceStub.post = sinon.fake();
     axiosInstanceStub.get = sinon.fake();
+    passthroughHeaders.createPersonalDataHeaders = sinon.stub().returns({
+      "txma-audit-encoded": "dummy-txma-header",
+      "x-forwarded-for": "127.0.0.2",
+    });
 
     CoreBackService = proxyquire("./coreBackService", {
       "../lib/config": configStub,
       "../app/shared/axiosHelper": axiosStub,
+      "@govuk-one-login/frontend-passthrough-headers": passthroughHeaders,
     });
   });
 
   it("should postJourneyEvent with correct parameters and headers", async () => {
     // Arrange
     const event = "test_event";
-    req.headers = {
-      "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "127.0.0.1",
-    };
 
     // Act
     await CoreBackService.postJourneyEvent(req, event);
@@ -54,12 +56,12 @@ describe("CoreBackService", () => {
         headers: {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
-          "ip-address": "127.0.0.1",
+          "ip-address": "127.0.0.2",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
           "txma-audit-encoded": "dummy-txma-header",
-          "x-forwarded-for": "127.0.0.1",
+          "x-forwarded-for": "127.0.0.2",
         },
         logger: undefined,
       },
@@ -69,10 +71,6 @@ describe("CoreBackService", () => {
   it("should postSessionInitialise with correct parameters and headers", async () => {
     // Arrange
     const authParams = { someAuthParam: "someValue" };
-    req.headers = {
-      "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "127.0.0.1",
-    };
 
     // Act
     await CoreBackService.postSessionInitialise(req, authParams);
@@ -85,12 +83,12 @@ describe("CoreBackService", () => {
         headers: {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
-          "ip-address": "127.0.0.1",
+          "ip-address": "127.0.0.2",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
           "txma-audit-encoded": "dummy-txma-header",
-          "x-forwarded-for": "127.0.0.1",
+          "x-forwarded-for": "127.0.0.2",
         },
         logger: undefined,
       },
@@ -101,10 +99,6 @@ describe("CoreBackService", () => {
     // Arrange
     const body = { test_param: "someValue" };
     const errorDetails = { error_param: "anotherValue" };
-    req.headers = {
-      "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "127.0.0.1",
-    };
 
     // Act
     await CoreBackService.postCriCallback(req, body, errorDetails);
@@ -117,12 +111,12 @@ describe("CoreBackService", () => {
         headers: {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
-          "ip-address": "127.0.0.1",
+          "ip-address": "127.0.0.2",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
           "txma-audit-encoded": "dummy-txma-header",
-          "x-forwarded-for": "127.0.0.1",
+          "x-forwarded-for": "127.0.0.2",
         },
         logger: undefined,
       },
@@ -133,10 +127,6 @@ describe("CoreBackService", () => {
     // Arrange
     const body = { test_param: "someValue" };
     const errorDetails = { error_param: "anotherValue" };
-    req.headers = {
-      "txma-audit-encoded": "dummy-txma-header",
-      "x-forwarded-for": "127.0.0.1",
-    };
 
     // Act
     await CoreBackService.getProvenIdentityUserDetails(req, body, errorDetails);
@@ -145,12 +135,12 @@ describe("CoreBackService", () => {
       headers: {
         "content-type": "application/json",
         "x-request-id": "test_request_id",
-        "ip-address": "127.0.0.1",
+        "ip-address": "127.0.0.2",
         "feature-set": "test_feature_set",
         "ipv-session-id": "test_ipv_session_id",
         "client-session-id": "test_client_session_id",
         "txma-audit-encoded": "dummy-txma-header",
-        "x-forwarded-for": "127.0.0.1",
+        "x-forwarded-for": "127.0.0.2",
       },
       logger: undefined,
     });

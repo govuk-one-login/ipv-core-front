@@ -8,7 +8,9 @@ const {
 } = require("../../lib/config");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
-const UPDATE_DETAILS_JOURNEY_TYPES = require("../../constants/update-details-journeys");
+const {
+  SUPPORTED_COMBO_EVENTS,
+} = require("../../constants/update-details-journeys");
 
 describe("journey middleware", () => {
   let req;
@@ -1199,111 +1201,147 @@ describe("journey middleware", () => {
       };
     });
 
-    it("should not set journey if detailsToUpdate is empty", async function () {
-      req.body.detailsToUpdate = [];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(undefined);
+    describe("valid combinations of details to update", () => {
+      it("should not set journey if detailsToUpdate is empty", async function () {
+        req.body.detailsToUpdate = [];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(undefined);
+      });
+
+      it("should not set journey if detailsToUpdate is undefined", async function () {
+        req.body.detailsToUpdate = undefined;
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(undefined);
+      });
+
+      it("should set journey to UPDATE_CANCEL if detailsToUpdate is cancel", async function () {
+        req.body.detailsToUpdate = "cancel";
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL);
+      });
+
+      it("should set journey to undefined if detailsToUpdate is cancel and address", async function () {
+        req.body.detailsToUpdate = ["cancel", "address"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(undefined);
+      });
+
+      it("should set journey to UPDATE_GIVEN_NAMES if detailsToUpdate is givenNames", async function () {
+        req.body.detailsToUpdate = "givenNames";
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(
+          SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES,
+        );
+      });
+
+      it("should set journey to UPDATE_FAMILY_NAME if detailsToUpdate is lastName", async function () {
+        req.body.detailsToUpdate = ["familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(
+          SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME,
+        );
+      });
+
+      it("should set journey to UPDATE_ADDRESS if detailsToUpdate is address", async function () {
+        req.body.detailsToUpdate = "address";
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(
+          SUPPORTED_COMBO_EVENTS.UPDATE_ADDRESS,
+        );
+      });
+
+      it("should set journey to UPDATE_GIVEN_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
+        req.body.detailsToUpdate = ["givenNames", "address"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(
+          SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES_ADDRESS,
+        );
+      });
+
+      it("should set journey to UPDATE_FAMILY_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
+        req.body.detailsToUpdate = ["familyName", "address"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal(
+          SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME_ADDRESS,
+        );
+      });
     });
 
-    it("should not set journey if detailsToUpdate is undefined", async function () {
-      req.body.detailsToUpdate = undefined;
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(undefined);
-    });
-
-    it("should set journey to UPDATE_CANCEL if detailsToUpdate is cancel", async function () {
-      req.body.detailsToUpdate = "cancel";
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL,
-      );
-    });
-
-    it("should set journey to undefined if detailsToUpdate is cancel and address", async function () {
-      req.body.detailsToUpdate = ["cancel", "address"];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(undefined);
-    });
-
-    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is dateOfBirth", async function () {
-      req.body.detailsToUpdate = "dateOfBirth";
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
-      );
-    });
-
-    it("should set journey to UPDATE_GIVEN_NAMES if detailsToUpdate is givenNames", async function () {
-      req.body.detailsToUpdate = "givenNames";
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES,
-      );
-    });
-
-    it("should set journey to UPDATE_FAMILY_NAME if detailsToUpdate is lastName", async function () {
-      req.body.detailsToUpdate = ["familyName"];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME,
-      );
-    });
-
-    it("should set journey to UPDATE_ADDRESS if detailsToUpdate is address", async function () {
-      req.body.detailsToUpdate = "address";
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS,
-      );
-    });
-
-    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is givenNames and lastName", async function () {
-      req.body.detailsToUpdate = ["givenNames", "familyName"];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
-      );
-    });
-
-    it("should set journey to UPDATE_GIVEN_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
-      req.body.detailsToUpdate = ["givenNames", "address"];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES_ADDRESS,
-      );
-    });
-
-    it("should set journey to UPDATE_FAMILY_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
-      req.body.detailsToUpdate = ["familyName", "address"];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS,
-      );
-    });
-
-    it("should set journey to UPDATE_NAMES_DOB if detailsToUpdate is givenNames, lastName, dateOfBirth, address", async function () {
-      req.body.detailsToUpdate = [
-        "givenNames",
-        "lastName",
-        "dateOfBirth",
-        "address",
-      ];
-      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal(
-        UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB,
-      );
+    describe("invalid combinations of details to update", () => {
+      it("should set journey to dob if detailsToUpdate is dateOfBirth", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob");
+      });
+      it("should set journey to dob-given if detailsToUpdate is dateOfBirth and givenNames", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "givenNames"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-given");
+      });
+      it("should set journey to dob-family if detailsToUpdate is dateOfBirth and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-family");
+      });
+      it("should set journey to address-dob if detailsToUpdate is dateOfBirth and address", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob");
+      });
+      it("should set journey to dob-family-given if detailsToUpdate is dateOfBirth, givenNames and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "givenNames", "familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-family-given");
+      });
+      it("should set journey to address-dob-given if detailsToUpdate is dateOfBirth, address and givenNames", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address", "givenNames"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-given");
+      });
+      it("should set journey to address-dob-family if detailsToUpdate is dateOfBirth, address and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address", "familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-family");
+      });
+      it("should set journey to address-dob-family-given if detailsToUpdate is dateOfBirth, address, givenNames and familyName", async function () {
+        req.body.detailsToUpdate = [
+          "dateOfBirth",
+          "address",
+          "givenNames",
+          "familyName",
+        ];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-family-given");
+      });
+      it("should set journey to family-given if detailsToUpdate is givenNames and familyName", async function () {
+        req.body.detailsToUpdate = ["givenNames", "familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("family-given");
+      });
+      it("should set journey to address-family-given if detailsToUpdate is address, givenNames, familyName", async function () {
+        req.body.detailsToUpdate = ["address", "givenNames", "familyName"];
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-family-given");
+      });
     });
   });
 
@@ -1377,34 +1415,135 @@ describe("journey middleware", () => {
         },
       );
     });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName,givenNames", async function () {
-      req.body.detailsToUpdate = ["familyName", "givenNames"];
-      req.body.detailsCorrect = "no";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("names-dob");
+
+    describe("valid combinations of attributes", () => {
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is address", async function () {
+        req.body.detailsToUpdate = "address";
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-only");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames", async function () {
+        req.body.detailsToUpdate = ["givenNames"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("given-names-only");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName", async function () {
+        req.body.detailsToUpdate = ["familyName"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("family-name-only");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames and address", async function () {
+        req.body.detailsToUpdate = ["givenNames", "address"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("given-names-and-address");
+      });
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName and address", async function () {
+        req.body.detailsToUpdate = ["familyName", "address"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("family-name-and-address");
+      });
     });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName", async function () {
-      req.body.detailsToUpdate = ["familyName"];
-      req.body.detailsCorrect = "no";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("family-name-only");
+
+    describe("invalid combinations of attributes", () => {
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and givenNames", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "givenNames"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-given");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "familyName"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-family");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and address", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, givenNames and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "givenNames", "familyName"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("dob-family-given");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address and givenNames", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address", "givenNames"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-given");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address and familyName", async function () {
+        req.body.detailsToUpdate = ["dateOfBirth", "address", "familyName"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-family");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address, givenNames and familyName", async function () {
+        req.body.detailsToUpdate = [
+          "dateOfBirth",
+          "address",
+          "givenNames",
+          "familyName",
+        ];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-dob-family-given");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames, familyName", async function () {
+        req.body.detailsToUpdate = ["familyName", "givenNames"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("family-given");
+      });
+
+      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames, familyName, address", async function () {
+        req.body.detailsToUpdate = ["address", "familyName", "givenNames"];
+        req.body.detailsCorrect = "no";
+        await middleware.formHandleCoiDetailsCheck(req, res, next);
+        expect(next).to.have.been.calledOnce;
+        expect(req.body.journey).to.equal("address-family-given");
+      });
     });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth,address", async function () {
-      req.body.detailsToUpdate = ["dateOfBirth", "address"];
-      req.body.detailsCorrect = "no";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("names-dob");
-    });
-    it("should set correct journey if detailsCorrect is no and detailsToUpdate is address", async function () {
-      req.body.detailsToUpdate = "address";
-      req.body.detailsCorrect = "no";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("address-only");
-    });
+
     it("should set correct journey if detailsCorrect is yes and detailsToUpdate is not empty", async function () {
       req.body.detailsToUpdate = ["familyName", "givenNames"];
       req.body.detailsCorrect = "yes";

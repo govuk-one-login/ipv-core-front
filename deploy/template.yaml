@@ -156,7 +156,7 @@ Mappings:
       nodeEnv: "production"
       languageToggle: true
       desiredTaskCount: 1
-      ga4Disabled: true
+      ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
@@ -174,7 +174,7 @@ Mappings:
       nodeEnv: "production"
       languageToggle: true
       desiredTaskCount: 2
-      ga4Disabled: true
+      ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true

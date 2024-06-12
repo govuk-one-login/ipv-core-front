@@ -520,10 +520,6 @@ Resources:
           - UseCanaryDeployment
           - CODE_DEPLOY
           - ECS
-      DesiredCount: !FindInMap
-        - EnvironmentConfiguration
-        - !Ref AWS::AccountId
-        - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
       LaunchType: FARGATE

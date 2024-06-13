@@ -29,7 +29,10 @@ const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
 const qrCodeHelper = require("../shared/qrCodeHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
-const UPDATE_DETAILS_JOURNEY_TYPES = require("../../constants/update-details-journeys");
+const {
+  SUPPORTED_COMBO_EVENTS,
+  UNSUPPORTED_COMBO_EVENTS,
+} = require("../../constants/update-details-journeys");
 const appDownloadHelper = require("../shared/appDownloadHelper");
 const {
   getIpvPageTemplatePath,
@@ -230,28 +233,31 @@ function getCoiUpdateDetailsJourney(detailsToUpdate) {
   const hasFamilyName = detailsToUpdate.includes("familyName");
 
   if (detailsToUpdate.includes("cancel")) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_CANCEL;
+    return SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL;
   }
 
   if (
     detailsToUpdate.includes("dateOfBirth") ||
     (hasGivenNames && hasFamilyName)
   ) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_NAMES_DOB;
+    return detailsToUpdate
+      .sort()
+      .map((details) => UNSUPPORTED_COMBO_EVENTS[details])
+      .join("-");
   }
 
   if (hasAddress) {
     if (hasFamilyName) {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME_ADDRESS;
+      return SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME_ADDRESS;
     } else if (hasGivenNames) {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES_ADDRESS;
+      return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES_ADDRESS;
     } else {
-      return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_ADDRESS;
+      return SUPPORTED_COMBO_EVENTS.UPDATE_ADDRESS;
     }
   } else if (hasFamilyName) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_FAMILY_NAME;
+    return SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME;
   } else if (hasGivenNames) {
-    return UPDATE_DETAILS_JOURNEY_TYPES.UPDATE_GIVEN_NAMES;
+    return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES;
   }
 }
 

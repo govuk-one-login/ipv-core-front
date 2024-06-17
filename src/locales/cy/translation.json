@@ -680,16 +680,19 @@
       "header": "Diweddaru eich enw neu ddyddiad geni",
       "titleCoi": "Diweddaru eich enw llawn neu ddyddiad geni",
       "headerCoi": "Diweddaru eich enw llawn neu ddyddiad geni",
+      "titleRepeatFraudCheck": "Diweddaru eich enw llawn neu ddyddiad geni",
+      "headerRepeatFraudCheck": "Diweddaru eich enw llawn neu ddyddiad geni",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
         "warningTextFallback": "Rhybudd",
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",
+          "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
           "no": "Ewch yn ôl i wirio eich manylion eto",
           "noHint": "",
-          "noHintCoi": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf."
+          "noHintCoi": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",
+          "noHintRepeatFraudCheck": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

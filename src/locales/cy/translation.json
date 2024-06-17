@@ -688,7 +688,7 @@
         "warningTextFallback": "Rhybudd",
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw neu ddyddiad geni",
+          "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
           "no": "Ewch yn ôl i wirio eich manylion eto",
           "noHint": "",
           "noHintCoi": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",

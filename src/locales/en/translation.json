@@ -771,7 +771,7 @@
           "heading": "Which details do you need to update?",
           "hint": "Select all that apply.",
           "checkbox1": "Given names",
-          "checkbox1Hint": "This is your first name and middle names",
+          "checkbox1Hint": "This is your first name and middle names.",
           "checkbox2": "Last name",
           "checkbox3": "Address",
           "checkbox4": "Date of birth"

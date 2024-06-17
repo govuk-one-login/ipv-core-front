@@ -24,7 +24,7 @@
 
     <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{ 'pages.confirmDetails.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.confirmDetails.content.paragraph1' | translate }}</p>
-    <h2 class="govuk-heading-s">{{ 'pages.confirmDetails.content.summaryHeading' | translate }}</h2>
+    <h2 class="govuk-heading-m">{{ 'pages.confirmDetails.content.summaryHeading' | translate }}</h2>
 
     {% set rows = [
       {
@@ -123,7 +123,7 @@
         name: "detailsCorrect",
         fieldset: {
             legend: {
-            text: 'pages.confirmDetails.content.formTitle' | translate,
+            text: 'pages.confirmDetails.content.formTitle' | translate | safe,
             classes: "govuk-fieldset__legend--m"
             }
         },

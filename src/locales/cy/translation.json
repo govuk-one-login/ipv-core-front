@@ -750,7 +750,7 @@
         "summary4": "Dyddiad geni",
         "detailsTitle": "Os oes camgymeriad yn eich enw",
         "detailsContent": "<p class=\"govuk-body\">Cysylltwch â'r tîm GOV.UK One Login os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\">Peidiwch â cheisio diweddaru eich manylion oni bai bod tîm cymorth GOV.UK One Login wedi dweud wrthych i wneud hynny.</p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a>.",
-        "formTitle": "A yw eich manylion yn gyfredol?",
+        "formTitle": "<h2 class=\"govuk-heading-m\">A yw eich manylion yn gyfredol?</h2>",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na - mae angen i mi ddiweddaru fy manylion"

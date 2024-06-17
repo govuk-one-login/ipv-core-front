@@ -25,7 +25,7 @@
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate | safe}}</p>
 
   {{ govukWarningText({
-    text: 'pages.pageUpdateName.content.warningText' | translate,
+    text: 'pages.pageUpdateName.content.warningText' | translateWithContext(context),
     iconFallbackText: 'pages.pageUpdateName.content.warningTextFallback' | translate
   }) }}
 
@@ -33,9 +33,11 @@
   <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate( { url: contactUsUrl } ) | safe}}</p>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph6' | translate }}</p>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph7' | translate }}</p>
+  {% if context != "repeatFraudCheck" %}
+    <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.subHeading2' | translate }}</h2>
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph6' | translate }}</p>
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph7' | translate }}</p>
+  {% endif %}
 
   <form class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2" id="pageUpdateNameOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -57,8 +59,8 @@
         },
         {
           value: "end",
-          text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonText' | translate,
-          hint: { text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonTextHint' | translate }
+          text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonText' | translateWithContext(context),
+          hint: { text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonTextHint' | translateWithContext(context) }
         },
         {
           divider: 'pages.pageUpdateName.content.formRadioButtons.separateOptionsInFormText' | translate

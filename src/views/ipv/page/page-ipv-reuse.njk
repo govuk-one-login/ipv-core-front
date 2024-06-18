@@ -70,10 +70,16 @@
         rows: rows
     }) }}
 
-    {{ govukDetails({
-        summaryText: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translateWithContext(context),
-        text: 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translateWithContext(context, { url: contactUsUrl } ) | safe
-    }) }}
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <h3 class="govuk-!-margin-0 govuk-!-font-size-19 govuk-!-font-weight-regular govuk-details__summary-text">
+          {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translateWithContext(context) }}
+        </h3>
+      </summary>
+      <div class="govuk-details__text">
+        {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translateWithContext(context, { url: contactUsUrl } ) | safe }}
+      </div>
+    </details>
 
     {% include 'shared/journey-next-form.njk' %}
 {% endblock %}

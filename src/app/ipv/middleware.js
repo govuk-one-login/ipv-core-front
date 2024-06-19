@@ -41,9 +41,7 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
-const {
-  sniffPhoneType,
-} = require("../shared/deviceSniffingHelper");
+const { sniffPhoneType } = require("../shared/deviceSniffingHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 

@@ -821,6 +821,8 @@ Resources:
       RequiresCompatibilities:
         - FARGATE
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
+      RuntimePlatform: 
+        CpuArchitecture: ARM64
 
   ECSTaskExecutionRole:
     Type: "AWS::IAM::Role"

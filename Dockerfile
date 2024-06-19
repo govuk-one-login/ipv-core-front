@@ -1,4 +1,4 @@
-FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd73b2ed091ba339004a75 AS builder
+FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 AS builder
 WORKDIR /app
 COPY /src ./src
 COPY package.json ./
@@ -10,7 +10,7 @@ RUN npm run build
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd73b2ed091ba339004a75 as final
+FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 as final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]

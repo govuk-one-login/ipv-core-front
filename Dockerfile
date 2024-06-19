@@ -1,4 +1,4 @@
-FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 AS builder
+FROM --platform="linux/arm64"  arm64v8/node@sha256:b16c4e21f9e9e4d02c226d7b2dde3283fc9315104b66009af546b50f5c7acad4 AS builder
 WORKDIR /app
 COPY /src ./src
 COPY package.json ./
@@ -10,11 +10,11 @@ RUN npm run build
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM arm64v8/node@sha256:feb4d8bbc80e1a369e394588e17d03b7a359f33fe0e597820e0d64cc9e723e74 as final
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+FROM --platform="linux/arm64"  arm64v8/node@sha256:b16c4e21f9e9e4d02c226d7b2dde3283fc9315104b66009af546b50f5c7acad4 as final
+#RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "add", "--no-cache", "tini"]
+RUN apt-get update
+RUN ["apt-get", "install", "-y", "tini"]
 USER appuser:appgroup
 
 WORKDIR /app
@@ -26,8 +26,8 @@ COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
 # Add in dynatrace layer
-COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
-ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
+# COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
+# ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV PORT 8080
 EXPOSE 8080

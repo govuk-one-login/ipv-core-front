@@ -7,9 +7,16 @@ let CoreBackServiceStub = {};
 const configStub = {
   API_BASE_URL: "https://example.org/subpath",
 };
+
+const ipvMiddleware = proxyquire("../ipv/middleware", {
+  "../../services/coreBackService": CoreBackServiceStub,
+  "../../lib/config": configStub,
+});
+
 const middleware = proxyquire("./middleware", {
   "../../services/coreBackService": CoreBackServiceStub,
   "../../lib/config": configStub,
+  "../ipv/middleware": ipvMiddleware,
 });
 
 describe("oauth middleware", () => {
@@ -39,6 +46,7 @@ describe("oauth middleware", () => {
     beforeEach(() => {
       req = {
         log: { info: sinon.fake(), error: sinon.fake() },
+        body: { journey: "journey/next" },
         query: {
           response_type: "code",
           client_id: "s6BhdRkqt3",
@@ -56,6 +64,36 @@ describe("oauth middleware", () => {
           ipvSessionId: {},
         },
       };
+    });
+
+    context("with handleOAuthJourneyAction", () => {
+      it("should pass next journey event when handling OAuth Call", async function () {
+        CoreBackServiceStub.postJourneyEvent = sinon.fake();
+
+        await middleware.handleOAuthJourneyAction(req, res, next);
+
+        expect(CoreBackServiceStub.postJourneyEvent).to.have.been.called;
+      });
+    });
+
+    it("should pass next journey event by default when handling OAuth Call", async function () {
+      CoreBackServiceStub.postJourneyEvent = sinon.fake();
+      req.body.journey = "journey/nonsense";
+
+      await middleware.handleOAuthJourneyAction(req, res, next);
+
+      expect(CoreBackServiceStub.postJourneyEvent).to.have.been.called;
+    });
+
+    it("should throw error when handling OAuth Call if missing ipvSessionId", async function () {
+      CoreBackServiceStub.postJourneyEvent = sinon.fake();
+      req.session.ipvSessionId = undefined;
+
+      await middleware.handleOAuthJourneyAction(req, res, next);
+
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
     });
 
     context("with ipvSessionId", () => {
@@ -126,71 +164,6 @@ describe("oauth middleware", () => {
             .instanceOf(Error)
             .and(sinon.match.has("message", "Client ID Missing")),
         );
-      });
-    });
-  });
-
-  describe("setIpAddress", () => {
-    beforeEach(() => {
-      req = {
-        headers: {
-          forwarded: "for=1.2.3.4;proto=https;by=4.3.2.1",
-        },
-        session: {
-          ipAddress: "",
-        },
-      };
-    });
-
-    context("with forwarded", () => {
-      it("should set ipAddress in session", async function () {
-        await middleware.setIpAddress(req, res, next);
-
-        expect(req.session.ipAddress).to.eq("1.2.3.4");
-      });
-
-      it("should call next", async function () {
-        await middleware.setIpAddress(req, res, next);
-        expect(next).to.have.been.called;
-      });
-    });
-
-    context("with forwarded multiple", () => {
-      beforeEach(() => {
-        req.headers.forwarded =
-          "for=1.2.3.4,1.2.3.4;proto=https;by=4.3.2.1,4.3.2.1";
-      });
-
-      it("should set first ipAddress in session", async function () {
-        await middleware.setIpAddress(req, res, next);
-        expect(req.session.ipAddress).to.eq("1.2.3.4");
-      });
-
-      it("should call next", async function () {
-        await middleware.setIpAddress(req, res, next);
-        expect(next).to.have.been.called;
-      });
-    });
-
-    context("with missing forwarded", () => {
-      beforeEach(() => {
-        req.headers.forwarded = null;
-      });
-
-      it("should set ipAddress as 'unknown'", async function () {
-        await middleware.setIpAddress(req, res, next);
-        expect(req.session.ipAddress).to.eq("unknown");
-      });
-    });
-
-    context("with no ipv4 match in forwarded", () => {
-      beforeEach(() => {
-        req.headers.forwarded = "malformed-header";
-      });
-
-      it("should set ipAddress as 'unknown'", async function () {
-        await middleware.setIpAddress(req, res, next);
-        expect(req.session.ipAddress).to.eq("unknown");
       });
     });
   });

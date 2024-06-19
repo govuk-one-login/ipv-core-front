@@ -1,0 +1,72 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set pageTitleKey = 'pages.confirmAddress.title' %}
+{% set googleTagManagerPageId = "confirmAddress" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.confirmAddress.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.confirmAddress.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#confirmAddressActionForm" %}
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/confirm-address/back" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.confirmAddress.header' | translate }}</h1>
+
+    <p class="govuk-body">{{'pages.confirmAddress.content.paragraph1' | translate }}</p>
+
+    {% set rows = [
+        {
+            key: {
+                text: 'pages.confirmAddress.content.summaryListHeading1' | translate
+            },
+            value: {
+                text: userDetails.addresses[0].addressDetailHtml | safe
+            }
+        }
+    ] %}
+
+    {{ govukSummaryList({
+        rows: rows
+    }) }}
+
+
+    <form id="confirmAddressActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set radiosConfig = {
+            idPrefix: "journey",
+            name: "journey",
+            fieldset: {
+                legend: {
+                    text: 'pages.confirmAddress.content.radioButtonHeading' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                    {
+                    value: "address-current",
+                    text: 'pages.confirmAddress.content.formRadioButtons.yes' | translate
+                    },
+                    {
+                    value: "next",
+                    text: 'pages.confirmAddress.content.formRadioButtons.no' | translate
+                    }
+                ]
+        }
+        %}
+
+        {% if errorState %}
+        {% set errorMessageObject = { 'text': 'pages.confirmAddress.content.formErrorMessage.errorRadioMessage' | translate } %}
+        {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+        {% endif %}
+
+        {{ govukRadios(radiosConfig) }}
+        <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+        {{ 'general.buttons.next' | translate }}
+        </button>
+    </form>
+{% endblock %}

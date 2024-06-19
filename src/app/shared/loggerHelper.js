@@ -40,4 +40,18 @@ module.exports = {
     }
     req.log.info({ message, level: "INFO", requestId: req.id });
   },
+  getCriFromErrorResponse: (err) => {
+    try {
+      const { config } = err;
+
+      const requestDataString = config?.data;
+
+      const credentialIssuerId =
+        requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
+
+      return credentialIssuerId;
+    } catch (error) {
+      return "An error occured when parsing the CRI from an error response";
+    }
+  },
 };

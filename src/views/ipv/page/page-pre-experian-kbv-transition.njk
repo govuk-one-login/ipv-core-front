@@ -1,0 +1,26 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.pagePreExperianKbvTransition.title' %}
+{% set googleTagManagerPageId = "pagePreExperianKbvTransition" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pagePreExperianKbvTransition.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pagePreExperianKbvTransition.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{'pages.pagePreExperianKbvTransition.content.paragraph2' | translate }}</p>
+
+  {{ govukWarningText({
+    text: 'pages.pagePreExperianKbvTransition.warningTextContent' | translate,
+    iconFallbackText: 'pages.pagePreExperianKbvTransition.warningTextFallback' | translate
+  }) }}
+
+  <p class="govuk-body">{{'pages.pagePreExperianKbvTransition.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.pagePreExperianKbvTransition.summaryText' | translate,
+    text: 'pages.pagePreExperianKbvTransition.summaryHtml' | translate | safe
+  }) }}
+
+  {% include 'shared/journey-next-form.njk' %}
+{% endblock %}

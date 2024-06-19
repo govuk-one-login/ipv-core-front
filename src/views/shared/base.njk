@@ -3,11 +3,18 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./ga4/on-page-load-macro.njk" import ga4OnPageLoad %}
+{% from "frontend-language-toggle/macro.njk" import languageSelect %}
+
+{# Set language values for govuk/template.njk #}
+{% set htmlLang = currentLanguage %}
+{% set pageTitleLang = currentLanguage %}
+{% set mainLang = currentLanguage %}
 
 {% block head %}
 
     <!--[if !IE 8]><!-->
-    <link href="{{ assetsCdnPath }}/public/stylesheets/application.css" rel="stylesheet">
+    <link href="/public/stylesheets/application.css" rel="stylesheet">
     <!--<![endif]-->
 
     {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -26,11 +33,10 @@
 {% endblock %}
 
 {% block pageTitle-%}
-    {%- if error or errors %}
-      {{ 'general.govuk.errorTitlePrefix' | translate }}
-      – GOV.UK
-    {%- endif %}
-    {%- if pageTitleName %}{{ pageTitleName }} – GOV.UK{% endif %}
+    {%- if pageErrorState %}
+        {{ 'general.govuk.errorTitlePrefix' | translate }}
+    {% endif %}
+    {%- if pageTitleKey %}{{ pageTitleKey | translateWithContextOrFallback(context) }} – GOV.UK One Login{% endif %}
 {%- endblock %}
 
 {% block bodyStart %}
@@ -50,13 +56,33 @@
             html: 'general.govuk.phaseBanner.content' | translate( { url: contactUsUrl } )
         }) }}
         {% block beforeContent %}{% endblock %}
+        {% if showLanguageToggle %}
+          {{ languageSelect({
+            ariaLabel: 'general.languageToggle.ariaLabel' | translate,
+            activeLanguage: currentLanguage,
+            class: "",
+            url: currentUrl,
+            languages: [
+            {
+              code: 'en',
+              text: 'English',
+              visuallyHidden: 'Change to English'
+            },
+            {
+              code:'cy',
+              text: 'Cymraeg',
+              visuallyHidden: 'Newid yr iaith ir Gymraeg'
+            }]
+          })
+          }}
+        {% endif %}
         {% if showBack %}
             {{ govukBackLink({
-                text: "general.backLink" | translate,
+                text: "general.govuk.backLink" | translate,
                 href: hrefBack
             }) }}
         {% endif %}
-        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds {{ rowClasses }}">
                    {% if errorState %}
@@ -115,14 +141,25 @@
 
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
-    <script nonce='{{ cspNonce }}' src="{{ assetsCdnPath }}/public/javascripts/application.js"></script>
+    <script nonce='{{ cspNonce }}' src="/public/javascripts/application.js"></script>
     <script nonce='{{ cspNonce }}'>
+        window.GOVUKFrontend.initAll()
+        window.DI = window.DI || {};
         window.DI.httpStatusCode = {{ statusCode | d(200) }};
         window.DI.journeyState = "{{ googleTagManagerPageId }}";
+
         window.DI.appInit({
-            analyticsCookieDomain: "{{ analyticsCookieDomain }}",
-            uaContainerId: "{{ uaContainerId }}",
             ga4ContainerId: "{{ ga4ContainerId }}",
-        });
+            uaContainerId: "{{ uaContainerId }}",
+        }, {
+        disableGa4Tracking: {{isGa4Disabled}},
+        disableUaTracking: {{isUaDisabled}},
+        cookieDomain: "{{analyticsCookieDomain}}"
+      });
     </script>
+    {{ ga4OnPageLoad({
+        cspNonce: cspNonce,
+        isPageDynamic: isPageDynamic,
+        englishPageTitle: pageTitleKey | translateToEnglish }) }}
+
 {% endblock %}

@@ -37,6 +37,7 @@ Parameters:
     # Allowed values: See https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html
     AllowedValues:
       - None
+      - ECSCanary50Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent5Minutes
       - CodeDeployDefault.ECSCanary10Percent15Minutes
       - CodeDeployDefault.ECSAllAtOnce
@@ -68,7 +69,6 @@ Conditions:
 Mappings:
   EnvironmentConfiguration:
     "130355686670": # core-dev01
-      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -78,14 +78,15 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
+      languageToggle: true
       desiredTaskCount: 1
-      assetsDomain: ""
-      assetsPath: ""
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::738810260032:root
     "175872367215": # core-dev02
-      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -95,14 +96,15 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
+      languageToggle: true
       desiredTaskCount: 1
-      assetsDomain: ""
-      assetsPath: ""
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::738810260032:root
     "457601271792": # Build
-      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -116,14 +118,15 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 2
-      assetsDomain: "https://assets.build.account.gov.uk"
-      assetsPath: "https://assets.build.account.gov.uk/core-front"
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::429671060046:root
     "335257547869": # Staging
-      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -133,14 +136,15 @@ Mappings:
       fargateRAMsize: "512"
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 1
-      assetsDomain: "https://assets.staging.account.gov.uk"
-      assetsPath: "https://assets.staging.account.gov.uk/core-front"
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::444977453444:root
     "991138514218": # Integration
-      lb400ErrorLimit: 10
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 10
@@ -150,14 +154,15 @@ Mappings:
       fargateRAMsize: "1024"
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 1
-      assetsDomain: "https://assets.integration.account.gov.uk"
-      assetsPath: "https://assets.integration.account.gov.uk/core-front"
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+      spotAccountArn: arn:aws:iam::298945768017:root
     "075701497069": # Production
-      lb400ErrorLimit: 20
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
       tg500ErrorLimit: 50
@@ -167,12 +172,14 @@ Mappings:
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
+      languageToggle: true
       desiredTaskCount: 2
-      assetsDomain: ""
-      assetsPath: ""
+      ga4Disabled: false
+      uaDisabled: false
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
+      spotAccountArn: arn:aws:iam::101836073728:root
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -217,7 +224,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment
+    DependsOn: RestApiGwDeployment202405141531
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -335,6 +342,52 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
 
+  SpotKeysS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub published-did-documents-${Environment}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt S3KmsKey.Arn
+              SSEAlgorithm: "aws:kms"
+      VersioningConfiguration:
+        Status: "Enabled"
+      LoggingConfiguration:
+        DestinationBucketName: !Ref AccessLogsBucket
+        LogFilePrefix: spot-signing-keys
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  SpotKeysBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SpotKeysS3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "s3:*"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
+          - Sid: AllowSpotAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - spotAccountArn
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
+
   CoreFrontAccessLogsBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -414,8 +467,8 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 5
-      HealthCheckIntervalSeconds: 10
+      HealthCheckTimeoutSeconds: 14
+      HealthCheckIntervalSeconds: 15
       HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
@@ -523,7 +576,7 @@ Resources:
       TargetTrackingScalingPolicyConfiguration:
         PredefinedMetricSpecification:
           PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 50
+        TargetValue: 45
         ScaleInCooldown: 420
         ScaleOutCooldown: 60
 
@@ -650,6 +703,10 @@ Resources:
                 - APIGatewayId:
                     Fn::ImportValue: !Sub IPVCorePrivateAPIGatewayID-${Environment}
                   Environment: !Ref Environment
+            - Name: APP_STORE_URL_ANDROID
+              Value: "https://play.google.com/store/apps/details?id=uk.gov.documentchecking"
+            - Name: APP_STORE_URL_APPLE
+              Value: "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566"
             - Name: SESSION_TABLE_NAME
               Value: !Sub
                 - "core-front-sessions-${Environment}"
@@ -691,6 +748,8 @@ Resources:
                   - !If [IsDev02, !Sub "https://${Environment}.02.dev.identity.account.gov.uk", !Sub "https://identity.${Environment}.account.gov.uk"]
             - Name: SESSION_SECRET
               Value: "no-secret"
+            - Name: LANGUAGE_TOGGLE
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, languageToggle ]
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''
@@ -710,16 +769,16 @@ Resources:
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "CognitoPoolID-${Environment}",
                   "" ]
-            - Name: CDN_PATH
+            - Name: GA4_DISABLED
               Value: !FindInMap
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
-                - assetsPath
-            - Name: CDN_DOMAIN
+                - ga4Disabled
+            - Name: UA_DISABLED
               Value: !FindInMap
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
-                - assetsDomain
+                - uaDisabled
             - Name: CONTACT_URL
               Value: !FindInMap
                 - EnvironmentConfiguration
@@ -877,6 +936,34 @@ Resources:
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
 
+  RestDidDocumentResourceS3Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+      Policies:
+        - PolicyName: AccessDidS3Document
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "s3:GetObject"
+                Resource: !Sub "arn:aws:s3:::published-did-documents-${Environment}/did.json"
+              - Effect: Allow
+                Action:
+                  - "kms:Decrypt"
+                Resource: !GetAtt S3KmsKey.Arn
+      PermissionsBoundary: !If
+        - UsePermissionsBoundary
+        - !Ref PermissionsBoundary
+        - !Ref AWS::NoValue
+
   #
   # REST API Gateway
   #
@@ -890,8 +977,10 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment:
-    DependsOn: RestApiGatewayMethod
+  RestApiGwDeployment202405141531:
+    DependsOn:
+      - RestApiGatewayMethod
+      - RestDidDocumentMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
@@ -937,6 +1026,60 @@ Resources:
       ParentId: !GetAtt RestApiGateway.RootResourceId
       PathPart: '{proxy+}'
 
+  RestWellKnownResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ParentId: !GetAtt RestApiGateway.RootResourceId
+      PathPart: ".well-known"
+
+  RestWellKnownDidResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ParentId: !Ref RestWellKnownResource
+      PathPart: "did.json"
+
+  RestDidDocumentMethod:
+    Type: AWS::ApiGateway::Method
+    Metadata:
+      checkov:
+        skip:
+          - id: "CKV_AWS_59"
+            comment: "API should have AuthorizationType if appropriate - this is intentionally public"
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      ResourceId: !Ref RestWellKnownDidResource
+      HttpMethod: GET
+      AuthorizationType: NONE
+      MethodResponses:
+        - StatusCode: "200"
+          ResponseParameters:
+              method.response.header.Cache-Control: true
+          ResponseModels:
+            application/did+json: Empty
+        - StatusCode: "404"
+          ResponseModels: {}
+      Integration:
+        Type: AWS
+        IntegrationHttpMethod: GET
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
+        PassthroughBehavior: WHEN_NO_MATCH
+        IntegrationResponses:
+          - StatusCode: "200"
+            SelectionPattern: "200"
+            ResponseParameters:
+              method.response.header.Cache-Control: "'max-age=3600, private'"
+          - StatusCode: "404"
+            SelectionPattern: ""
+            ResponseTemplates:
+              application/json: |-
+                #set($inputRoot = $input.path('$'))
+                {
+                    "message": "Not Found"
+                }
+
   ApiGatewayAccessLogGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
@@ -959,7 +1102,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment
+      DeploymentId: !Ref RestApiGwDeployment202405141531
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
@@ -985,6 +1128,7 @@ Resources:
 
   ApiGatewayVpcLink:
     Condition: IsDevelopment
+    DependsOn: NetworkLoadBalancerTargetGroup
     Type: AWS::ApiGateway::VpcLink
     Properties:
       Description: Link from REST API Gateway to NetworkLoadBalancer
@@ -1178,22 +1322,33 @@ Resources:
             Action:
               - kms:*
             Resource: "*"
+
+  S3KmsKey:
+    Type: AWS::KMS::Key
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Statement:
           - Effect: Allow
             Principal:
-              Service: "dynamodb.amazonaws.com"
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
             Action:
-              - "kms:Encrypt*"
+              - "kms:*"
+            Resource: "*"
+          - Effect: Allow
+            Principal:
+              AWS: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - spotAccountArn
+            Action:
+              - "kms:GenerateDataKey"
               - "kms:Decrypt*"
-              - "kms:ReEncrypt*"
-              - "kms:GenerateDataKey*"
-              - "kms:Describe*"
             Resource: "*"
             Condition:
               StringEquals:
-                "kms:CallerAccount": !Sub "${AWS::AccountId}"
-                "kms:ViaService":
-                  - "dynamodb.amazonaws.com"
-                  - "ecs-tasks.amazonaws.com"
+                kms:ViaService: !Sub "s3.${AWS::Region}.amazonaws.com"
 
   FrontLoadBalancer5xxErrors:
     Type: AWS::CloudWatch::Alarm
@@ -1260,6 +1415,47 @@ Resources:
                   Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
+
+  FrontTargetGroup5xxPercentErrors:
+    Type: AWS::CloudWatch::Alarm
+    Condition: UseCanaryDeployment
+    Properties:
+      AlarmName: FrontTargetGroup5xxPercentAlarm
+      AlarmDescription: >
+        The number of HTTP 5XX server error codes that originate from the
+        target group is greater than 5% of all traffic.
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+      - Id: e1
+        Label: ErrorPercent
+        ReturnData: true
+        Expression: (m1/m2)*100
+      - Id: m1
+        ReturnData: false
+        MetricStat:
+          Metric:
+            Namespace: AWS/ApplicationELB
+            MetricName: HTTPCode_Target_5XX_Count
+            Dimensions:
+              - Name: LoadBalancer
+                Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+          Period: 60
+          Stat: Sum
+      - Id: m2
+        ReturnData: false
+        MetricStat:
+          Metric:
+            Namespace: AWS/ApplicationELB
+            MetricName: RequestCount
+            Dimensions:
+            - Name: LoadBalancer
+              Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+          Period: 60
+          Stat: Sum
 
   LambdaInvocationsOutOfSync:
     Type: AWS::CloudWatch::Alarm
@@ -1378,20 +1574,18 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
     Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.amazonaws.com/ecs-canary-deployment/template.yaml"
+      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=9vFjXAXebnhiAago1o4zhHXwEGHub7ps" # v2.0.2
       Parameters:
         ECSClusterName: !Ref CoreFrontCluster
         ECSServiceName: !GetAtt CoreFrontService.Name
         TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
         LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
-        LoadBalancerFullName: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
         ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
         DeploymentStrategy: !Ref DeploymentStrategy
         VpcId: !Sub ${VpcStackName}-VpcId
         ContainerName: app
         ContainerPort: 8080
-        ELB4XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb400ErrorLimit ]
-        ELB5XXAlarmThreshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
+        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
         PermissionsBoundary: !If
           - UsePermissionsBoundary
           - !Ref PermissionsBoundary

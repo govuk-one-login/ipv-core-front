@@ -1,0 +1,19 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pyiNoMatch.title' %}
+{% set googleTagManagerPageId = "pyiNoMatch" %}
+{% set isPageDynamic = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiNoMatch.header' | translateWithContextOrFallback(context) }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph1' | translateWithContextOrFallback(context) }}</p>
+  {% if context !== "nino" %}
+    <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  {% endif %}
+  <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translateWithContextOrFallback(context) }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

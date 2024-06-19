@@ -1,0 +1,59 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.pyiContinueWithDrivingLicence.title' %}
+{% set googleTagManagerPageId = "pyiContinueWithDrivingLicence" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiContinueWithDrivingLicence.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiContinueWithDrivingLicence.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiContinueWithDrivingLicenceForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithDrivingLicence.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for listItem in 'pages.pyiContinueWithDrivingLicence.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph3' | translate }}</p>
+
+  <form id="pyiContinueWithDrivingLicenceForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiContinueWithDrivingLicence.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiContinueWithDrivingLicence.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+{% endblock %}

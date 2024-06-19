@@ -1,0 +1,93 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% set pageTitleKey = 'pages.pageUpdateName.title' %}
+{% set googleTagManagerPageId = "pageUpdateName" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageUpdateName.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageUpdateName.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pageUpdateNameOptionsForm" %}
+
+{% block content %}
+
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageUpdateName.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph1' | translate }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph2' | translate }}</p>
+
+  <ul class="govuk-list govuk-list--bullet" role="list">
+    <li>{{ 'pages.pageUpdateName.content.list1' | translate }}</li>
+    <li>{{ 'pages.pageUpdateName.content.list2' | translate }}</li>
+  </ul>
+
+  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate | safe}}</p>
+
+  {{ govukWarningText({
+    text: 'pages.pageUpdateName.content.warningText' | translateWithContext(context),
+    iconFallbackText: 'pages.pageUpdateName.content.warningTextFallback' | translate
+  }) }}
+
+  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.subHeading1' | translate }}</h2>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate( { url: contactUsUrl } ) | safe}}</p>
+
+  {% if context != "repeatFraudCheck" %}
+    <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.subHeading2' | translate }}</h2>
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph6' | translate }}</p>
+    <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph7' | translate }}</p>
+  {% endif %}
+
+  <form class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2" id="pageUpdateNameOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pageUpdateName.content.subHeading3' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "update-name",
+          text: 'pages.pageUpdateName.content.formRadioButtons.updateDetailsButtonText' | translate,
+          hint: {text: 'pages.pageUpdateName.content.formRadioButtons.updateDetailsButtonTextHint' | translate}
+
+        },
+        {
+          value: "end",
+          text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonText' | translateWithContext(context),
+          hint: { text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonTextHint' | translateWithContext(context) }
+        },
+        {
+          divider: 'pages.pageUpdateName.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "back",
+          text: 'pages.pageUpdateName.content.formRadioButtons.goBackButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageUpdateName.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+
+    {{ govukDetails({
+      summaryText: 'pages.pageUpdateName.content.cannotUseInformation.summary' | translate,
+      text: 'pages.pageUpdateName.content.cannotUseInformation.text' | translate( { url: contactUsUrl } ) | safe
+    }) }}
+
+
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+{% endblock %}

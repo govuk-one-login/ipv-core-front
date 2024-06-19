@@ -1,6 +1,9 @@
 const sanitize = require("sanitize-filename");
 
-const { ENABLE_PREVIEW } = require("../../lib/config");
+const {
+  APP_STORE_URL_ANDROID,
+  APP_STORE_URL_APPLE,
+} = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
@@ -20,15 +23,42 @@ const {
 } = require("../shared/loggerConstants");
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
-const { getIpAddress } = require("../shared/ipAddressHelper");
 const fs = require("fs");
 const path = require("path");
 const { saveSessionAndRedirect } = require("../shared/redirectHelper");
 const coreBackService = require("../../services/coreBackService");
+const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
+const {
+  SUPPORTED_COMBO_EVENTS,
+  UNSUPPORTED_COMBO_EVENTS,
+} = require("../../constants/update-details-journeys");
+const appDownloadHelper = require("../shared/appDownloadHelper");
+const {
+  getIpvPageTemplatePath,
+  getIpvPagePath,
+  getTemplatePath,
+} = require("../../lib/paths");
+const PAGES = require("../../constants/ipv-pages");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
+const {
+  sniffPhoneType,
+  getJourneyOnSniffing,
+} = require("../shared/deviceSniffingHelper");
 
-async function journeyApi(action, req) {
+const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+
+const allTemplates = fs
+  .readdirSync(directoryPath)
+  .map((file) => path.parse(file).name);
+
+async function journeyApi(action, req, currentPageId) {
   if (action.startsWith("/")) {
     action = action.substr(1);
+  }
+
+  if (action.startsWith("journey/")) {
+    action = action.substr(8);
   }
 
   logCoreBackCall(req, {
@@ -37,11 +67,19 @@ async function journeyApi(action, req) {
     path: action,
   });
 
-  return coreBackService.postAction(req, action);
+  return coreBackService.postJourneyEvent(req, action, currentPageId);
 }
 
-async function handleJourneyResponse(req, res, action) {
-  const backendResponse = (await journeyApi(action, req)).data;
+async function fetchUserDetails(req) {
+  const userDetailsResponse =
+    await coreBackService.getProvenIdentityUserDetails(req);
+
+  return generateUserDetails(userDetailsResponse, req.i18n);
+}
+
+async function handleJourneyResponse(req, res, action, currentPageId = "") {
+  const backendResponse = (await journeyApi(action, req, currentPageId)).data;
+
   return await handleBackendResponse(req, res, backendResponse);
 }
 
@@ -105,23 +143,25 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
-
-    // PYIC-3966 Code for transition, remove once core-back has been updated
-    if (req.session.currentPage === "page-pre-kbv-transition") {
-      req.session.currentPage = "page-pre-experian-kbv-transition";
-    }
+    req.session.currentPageStatusCode = backendResponse?.statusCode;
 
     return await saveSessionAndRedirect(
       req,
       res,
-      `/ipv/page/${req.session.currentPage}`,
+      getIpvPagePath(req.session.currentPage),
     );
   }
+  const message = {
+    description: "Unexpected backend response",
+    data: backendResponse,
+  };
+  req.log.error({ message, level: "ERROR" });
+  throw new Error(message.description);
 }
 
 function tryValidateCriResponse(criResponse) {
   if (!criResponse?.redirectUrl) {
-    throw new Error(`CRI response RedirectUrl is missing`);
+    throw new Error("CRI response RedirectUrl is missing");
   }
 
   return true;
@@ -131,7 +171,7 @@ function tryValidateClientResponse(client) {
   const { redirectUrl } = client;
 
   if (!redirectUrl) {
-    throw new Error(`Client Response redirect url is missing`);
+    throw new Error("Client Response redirect url is missing");
   }
 
   return true;
@@ -143,50 +183,160 @@ function checkForSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    req.session.currentPage = "pyi-technical";
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
     res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render("ipv/pyi-technical.njk", {
+    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
       context: "unrecoverable",
     });
   }
 }
 
-async function handleEscapeAction(req, res, next, actionType) {
-  try {
-    checkForSessionId(req, res);
+function checkForIpvAndOauthSessionId(req, res) {
+  if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
+    const err = new Error(
+      "req.ipvSessionId and req.clientOauthSessionId is missing",
+    );
+    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
+    logError(req, err);
 
-    if (req.body?.journey === "next/f2f") {
-      await handleJourneyResponse(req, res, "journey/f2f");
-    } else if (req.body?.journey === "next/dcmaw") {
-      await handleJourneyResponse(req, res, "journey/dcmaw");
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+      context: "unrecoverable",
+    });
+  }
+}
+function checkJourneyAction(req) {
+  if (!req.body?.journey) {
+    const err = new Error("req.body?.journey is missing");
+    err.status = HTTP_STATUS_CODES.BAD_REQUEST;
+    logError(req, err);
+
+    throw new Error("req.body?.journey is missing");
+  }
+}
+
+// getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
+// field of the update-details page
+function getCoiUpdateDetailsJourney(detailsToUpdate) {
+  // convert to array if its a string
+  if (typeof detailsToUpdate === "string") {
+    detailsToUpdate = [detailsToUpdate];
+  }
+
+  if (isInvalidDetailsToUpdate(detailsToUpdate)) {
+    return;
+  }
+
+  const hasAddress = detailsToUpdate.includes("address");
+  const hasGivenNames = detailsToUpdate.includes("givenNames");
+  const hasFamilyName = detailsToUpdate.includes("familyName");
+
+  if (detailsToUpdate.includes("cancel")) {
+    return SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL;
+  }
+
+  if (
+    detailsToUpdate.includes("dateOfBirth") ||
+    (hasGivenNames && hasFamilyName)
+  ) {
+    return detailsToUpdate
+      .sort()
+      .map((details) => UNSUPPORTED_COMBO_EVENTS[details])
+      .join("-");
+  }
+
+  if (hasAddress) {
+    if (hasFamilyName) {
+      return SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME_ADDRESS;
+    } else if (hasGivenNames) {
+      return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES_ADDRESS;
     } else {
-      await handleJourneyResponse(req, res, "journey/end");
+      return SUPPORTED_COMBO_EVENTS.UPDATE_ADDRESS;
+    }
+  } else if (hasFamilyName) {
+    return SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME;
+  } else if (hasGivenNames) {
+    return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES;
+  }
+}
+
+function isInvalidDetailsToUpdate(detailsToUpdate) {
+  return (
+    !detailsToUpdate ||
+    (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
+  );
+}
+
+function pageRequiresUserDetails(pageId) {
+  return [
+    PAGES.PAGE_IPV_REUSE,
+    PAGES.CONFIRM_NAME_DATE_BIRTH,
+    PAGES.CONFIRM_ADDRESS,
+    PAGES.CONFIRM_DETAILS,
+    PAGES.UPDATE_DETAILS,
+  ].includes(pageId);
+}
+
+function isValidPage(pageId) {
+  return allTemplates.includes(pageId);
+}
+
+function handleAppStoreRedirect(req, res, next) {
+  const specifiedPhoneType = sniffPhoneType(req, req.params.specifiedPhoneType);
+
+  try {
+    switch (specifiedPhoneType) {
+      case PHONE_TYPES.IPHONE:
+        res.redirect(APP_STORE_URL_APPLE);
+        break;
+      case PHONE_TYPES.ANDROID:
+        res.redirect(APP_STORE_URL_ANDROID);
+        break;
+      default:
+        throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
   } catch (error) {
-    transformError(error, `error invoking ${actionType}`);
+    transformError(error, "Error redirecting to app store");
     next(error);
   }
 }
 
+async function handleUnexpectedPage(req, res, pageId) {
+  logError(
+    req,
+    {
+      pageId: pageId,
+      expectedPage: req.session.currentPage,
+    },
+    "page :pageId doesn't match expected session page :expectedPage",
+  );
+
+  req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
+
+  return await saveSessionAndRedirect(
+    req,
+    res,
+    getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
+  );
+}
+
 module.exports = {
   renderAttemptRecoveryPage: async (req, res) => {
-    res.render("ipv/pyi-attempt-recovery.njk", {
+    res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
       csrfToken: req.csrfToken(),
     });
   },
-  // This method is currently only used by a link on the pyi-f2f-delete-details page.
-  // It shouldn't be used for anything else, see
-  // https://govukverify.atlassian.net/browse/PYIC-4859.
   updateJourneyState: async (req, res, next) => {
     try {
-      const allowedActions = ["/journey/end"];
+      const currentPageId = req.params.pageId;
+      const { action } = req.params;
 
-      const action = allowedActions.find((x) => x === req.url);
-
-      if (action) {
-        await handleJourneyResponse(req, res, action);
+      if (action && isValidPage(currentPageId)) {
+        await handleJourneyResponse(req, res, action, currentPageId);
       } else {
-        next(new Error(`Action ${req.url} not valid`));
+        res.status(HTTP_STATUS_CODES.NOT_FOUND);
+        return res.render(getTemplatePath("errors", "page-not-found"));
       }
     } catch (error) {
       next(error);
@@ -197,12 +347,13 @@ module.exports = {
       const { pageId } = req.params;
       const { context } = req?.session || "";
 
-      // Remove this as part of PYIC-4278
-      if (ENABLE_PREVIEW && req.query.preview) {
-        return res.redirect("/ipv/all-templates");
+      // handles page id validation first
+      if (!isValidPage(pageId)) {
+        res.status(HTTP_STATUS_CODES.NOT_FOUND);
+        return res.render(getTemplatePath("errors", "page-not-found"));
       }
 
-      if (req.session?.ipvSessionId === null) {
+      if (!req.session?.ipvSessionId) {
         logError(
           req,
           {
@@ -212,183 +363,156 @@ module.exports = {
           "req.ipvSessionId is null",
         );
 
-        req.session.currentPage = "pyi-technical";
-        return res.render(`ipv/${req.session.currentPage}.njk`, {
+        req.session.currentPage = PAGES.PYI_TECHNICAL;
+        return res.render(getIpvPageTemplatePath(req.session.currentPage), {
           context: "unrecoverable",
         });
-      } else if (pageId === "pyi-timeout-unrecoverable") {
-        req.session.currentPage = "pyi-timeout-unrecoverable";
-        return res.render(`ipv/${req.session.currentPage}.njk`);
+      } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+        req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
+        return res.render(getIpvPageTemplatePath(req.session.currentPage));
       } else if (req.session.currentPage !== pageId) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "page :pageId doesn't match expected session page :expectedPage",
-        );
-
-        req.session.currentPage = "pyi-attempt-recovery";
-        return await saveSessionAndRedirect(
-          req,
-          res,
-          `/ipv/page/pyi-attempt-recovery`,
-        );
+        return await handleUnexpectedPage(req, res, pageId);
       }
 
-      switch (pageId) {
-        case "pyi-new-details":
-        case "pyi-confirm-delete-details":
-        case "pyi-details-deleted":
-        case "pyi-f2f-delete-details":
-        case "page-ipv-identity-document-start":
-        case "page-ipv-identity-postoffice-start":
-        case "page-ipv-bank-account-start":
-        case "page-ipv-success":
-        case "page-face-to-face-handoff":
-        case "page-ipv-pending":
-        case "page-pre-experian-kbv-transition":
-        case "page-dcmaw-success":
-        case "page-multiple-doc-check":
-        case "pyi-attempt-recovery":
-        case "pyi-no-match":
-        case "pyi-escape":
-        case "pyi-cri-escape":
-        case "pyi-cri-escape-no-f2f":
-        case "pyi-suggest-other-options":
-        case "pyi-suggest-other-options-no-f2f":
-        case "pyi-post-office":
-        case "pyi-another-way":
-        case "pyi-timeout-recoverable":
-        case "pyi-timeout-unrecoverable":
-        case "pyi-f2f-technical":
-        case "pyi-technical": {
-          const renderOptions = {
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          };
+      const renderOptions = {
+        pageId,
+        csrfToken: req.csrfToken(),
+        context,
+      };
 
-          if (req.query?.errorState !== undefined) {
-            renderOptions.pageErrorState = req.query.errorState;
-          }
-
-          return res.render(`ipv/${sanitize(pageId)}.njk`, renderOptions);
-        }
-        case "page-ipv-reuse": {
-          const userDetailsResponse =
-            await coreBackService.getProvenIdentityUserDetails(req);
-          const userDetails = generateUserDetails(
-            userDetailsResponse,
-            req.i18n,
-          );
-
-          return res.render(`ipv/${sanitize(pageId)}.njk`, {
-            userDetails,
-            pageId,
-            csrfToken: req.csrfToken(),
-            context,
-          });
-        }
-        default:
-          return res.render(`ipv/pyi-technical.njk`);
+      if (pageRequiresUserDetails(pageId)) {
+        renderOptions.userDetails = await fetchUserDetails(req);
+      } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
+        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          parseContextAsPhoneType(context),
+        );
+        renderOptions.qrCode =
+          await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+      } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
+        renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+          parseContextAsPhoneType(context),
+        );
+      } else if (req.query?.errorState !== undefined) {
+        renderOptions.pageErrorState = req.query.errorState;
+      } else if (req.session.currentPageStatusCode !== undefined) {
+        res.status(req.session.currentPageStatusCode);
       }
+
+      return res.render(
+        getIpvPageTemplatePath(sanitize(pageId)),
+        renderOptions,
+      );
     } catch (error) {
       transformError(error, `error handling journey page: ${req.params}`);
       next(error);
+    } finally {
+      delete req.session.currentPageStatusCode;
     }
   },
+
   handleJourneyAction: async (req, res, next) => {
-    try {
-      if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
-        const err = new Error(
-          "req.ipvSessionId and req.clientOauthSessionId is missing",
-        );
-        err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-        logError(req, err);
+    const currentPageId = req.params.pageId;
+    const pagesUsingSessionId = [
+      PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
+      PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
+      PAGES.PAGE_MULTIPLE_DOC_CHECK,
+      PAGES.PYI_CRI_ESCAPE,
+      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
+    ];
 
-        req.session.currentPage = "pyi-technical";
-        res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-        return res.render("ipv/pyi-technical.njk", {
-          context: "unrecoverable",
-        });
-      }
-      if (req.body?.journey === "end") {
-        await handleJourneyResponse(req, res, "journey/end");
-      } else if (req.body?.journey === "attempt-recovery") {
-        await handleJourneyResponse(req, res, "journey/attempt-recovery");
-      } else if (req.body?.journey === "build-client-oauth-response") {
-        req.session.ipAddress = req?.session?.ipAddress
-          ? req.session.ipAddress
-          : getIpAddress(req);
-        await handleJourneyResponse(
-          req,
-          res,
-          "journey/build-client-oauth-response",
-        );
+    try {
+      if (pagesUsingSessionId.includes(currentPageId)) {
+        checkForSessionId(req, res);
       } else {
-        await handleJourneyResponse(req, res, "journey/next");
+        checkForIpvAndOauthSessionId(req, res);
       }
+      checkJourneyAction(req);
+      if (req.body?.journey === "contact") {
+        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      }
+
+      await handleJourneyResponse(req, res, req.body.journey, currentPageId);
     } catch (error) {
-      transformError(error, "error invoking handleJourneyAction");
+      transformError(error, `error handling POST request on ${currentPageId}`);
       next(error);
     }
   },
-  handleMultipleDocCheck: async (req, res, next) => {
-    try {
-      checkForSessionId(req, res);
 
-      if (req.body?.journey === "next/passport") {
-        await handleJourneyResponse(req, res, "journey/ukPassport");
-      } else if (req.body?.journey === "next/driving-licence") {
-        await handleJourneyResponse(req, res, "journey/drivingLicence");
-      } else {
-        await handleJourneyResponse(req, res, "journey/end");
-      }
-    } catch (error) {
-      transformError(error, "error invoking handleMultipleDocCheck");
-      next(error);
-    }
-  },
   renderFeatureSetPage: async (req, res) => {
-    res.render("ipv/page-featureset.njk", {
+    res.render(getTemplatePath("ipv", "page-featureset"), {
       featureSet: req.session.featureSet,
     });
   },
-  allTemplates: async (req, res, next) => {
+  formRadioButtonChecked: async (req, res, next) => {
     try {
-      const directoryPath = __dirname + "/../../views/ipv";
+      const { context } = req?.session || "";
+      const pageId = req.session.currentPage;
 
-      fs.readdir(directoryPath, function (err, files) {
-        if (err) {
-          return next(err);
+      const expectedPageId = req.params?.pageId;
+
+      if (expectedPageId && expectedPageId !== pageId) {
+        return await handleUnexpectedPage(req, res, expectedPageId);
+      }
+
+      if (req.method === "POST" && req.body.journey === undefined) {
+        const renderOptions = {
+          pageId,
+          csrfToken: req.csrfToken(),
+          pageErrorState: true,
+          context,
+        };
+
+        if (pageRequiresUserDetails(pageId)) {
+          renderOptions.userDetails = await fetchUserDetails(req);
         }
+        req.renderOptions = renderOptions;
 
-        // Remove the .njk extension from file names
-        const templatesWithoutExtension = files.map(
-          (file) => path.parse(file).name,
-        );
-
-        res.render("ipv/all-templates.njk", {
-          allTemplates: templatesWithoutExtension,
-        });
-      });
+        res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
+      } else {
+        if (req.body?.journey === "appTriage") {
+          req.body.journey = getJourneyOnSniffing(req);
+        }
+        next();
+      }
     } catch (error) {
       next(error);
     }
   },
-  formRadioButtonChecked: async (req, res, next) => {
+  formHandleUpdateDetailsCheckBox: async (req, res, next) => {
     try {
-      if (req.method === "POST" && req.body.journey === undefined) {
-        res.render(`ipv/${sanitize(req.session.currentPage)}.njk`, {
-          pageId: req.session.currentPage,
+      req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  formHandleCoiDetailsCheck: async (req, res, next) => {
+    try {
+      const { context, currentPage } = req?.session || {};
+      if (req.body.detailsCorrect === "yes") {
+        // user has selected that their details are correct
+        req.body.journey = "next";
+      } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
+        // user has chosen details to update - so we set the correct journey
+        req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+      } else if (
+        !req.body.detailsCorrect ||
+        (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
+      ) {
+        // user has not selected yes/no to their details are correct OR
+        // they have selected no but not selected which details to update.
+        const renderOptions = {
+          errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
+          pageId: currentPage,
           csrfToken: req.csrfToken(),
-          pageErrorState: true,
-        });
-      } else {
-        next();
+          context: context,
+        };
+        if (pageRequiresUserDetails(currentPage)) {
+          renderOptions.userDetails = await fetchUserDetails(req);
+        }
+        return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
       }
+      next();
     } catch (error) {
       next(error);
     }
@@ -396,7 +520,7 @@ module.exports = {
   validateFeatureSet: async (req, res, next) => {
     try {
       const featureSet = req.query.featureSet;
-      const isValidFeatureSet = /^\w{1,32}$/.test(featureSet);
+      const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
       if (!isValidFeatureSet) {
         throw new Error("Invalid feature set ID");
       }
@@ -408,5 +532,7 @@ module.exports = {
   },
   handleJourneyResponse,
   handleBackendResponse,
-  handleEscapeAction,
+  pageRequiresUserDetails,
+  handleAppStoreRedirect,
+  checkForIpvAndOauthSessionId,
 };

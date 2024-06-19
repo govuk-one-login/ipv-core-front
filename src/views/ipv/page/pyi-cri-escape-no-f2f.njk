@@ -1,0 +1,68 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.pyiCriEscapeNoF2f.title' %}
+{% set googleTagManagerPageId = "pyiCriEscapeNoF2f" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiCriEscapeNoF2f.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiCriEscapeNoF2f.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiCriEscapeNoF2fForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCriEscapeNoF2f.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph1' | translate | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscapeNoF2f.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiCriEscapeNoF2f.content.paragraph3' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for listItem in 'pages.pyiCriEscapeNoF2f.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+
+  <form id="pyiCriEscapeNoF2fForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiCriEscapeNoF2f.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "appTriage",
+          text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.continueAppButtonText' | translate,
+          hint: {text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.continueAppButtonTextHint' | translate}
+
+        },
+        {
+          value: "end",
+          text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.otherWayButtonText' | translate,
+          hint: { text: 'pages.pyiCriEscapeNoF2f.content.formRadioButtons.otherWayButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiCriEscapeNoF2f.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+
+  <p class="govuk-body">
+    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
+      {{ 'general.shared.contactLinkText' | translate }}
+    </a>
+  </p>
+
+{% endblock %}

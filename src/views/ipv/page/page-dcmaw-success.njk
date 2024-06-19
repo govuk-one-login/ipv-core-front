@@ -1,0 +1,17 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pageDcmawSuccess.title' %}
+{% set googleTagManagerPageId = "pageDcmawApp" %}
+{% set isPageDynamic = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageDcmawSuccess.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{'pages.pageDcmawSuccess.content.paragraph1' | translateWithContext(context) }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+
+  {% if context == "coiAddress" or context == "coiNoAddress" %}
+    <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+  {% endif %}
+
+{% endblock %}

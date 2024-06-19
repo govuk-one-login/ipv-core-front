@@ -1,0 +1,112 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% set pageTitleKey = 'pages.pyiUpdateDetails.title' %}
+{% set googleTagManagerPageId = "pyiUpdateDetails" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiUpdateDetails.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiUpdateDetails.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#updateDetailsActionForm" %}
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/update-details/back" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiUpdateDetails.header' | translate }}</h1>
+
+    {% set rows = [
+      {
+        key: {
+          text: 'pages.pyiUpdateDetails.content.summaryListHeading1' | translate
+        },
+        value: {
+          text: userDetails.nameParts.givenName
+        }
+      },
+      {
+        key: {
+          text: 'pages.pyiUpdateDetails.content.summaryListHeading2' | translate
+        },
+        value: {
+          text: userDetails.nameParts.familyName
+        }
+      },
+      {
+          key: {
+              text: 'pages.pyiUpdateDetails.content.summaryListHeading3' | translate
+          },
+          value: {
+              text: userDetails.addresses[0].addressDetailHtml | safe
+          }
+      },
+      {
+          key: {
+            text: 'pages.pyiUpdateDetails.content.summaryListHeading4' | translate
+          },
+          value: {
+            text: userDetails.dateOfBirth | GDSDate
+          }
+      }
+    ] %}
+
+    {{ govukSummaryList({
+      rows: rows
+    }) }}
+
+    <form id="updateDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            {% set checkboxConfig = {
+              idPrefix: "journey",
+              name: "detailsToUpdate",
+              fieldset: {
+                legend: {
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.heading' | translate,
+                  classes: "govuk-fieldset__legend--m"
+                }
+              },
+              hint: {
+                text: 'pages.pyiUpdateDetails.content.checkboxes.hint' | translate
+              },
+              items: [
+                {
+                  value: "givenNames",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox1' | translate,
+                  hint: {
+                    text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox1Hint' | translate
+                  }
+                },
+                {
+                  value: "familyName",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox2' | translate
+                },
+                {
+                  value: "address",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox3' | translate
+                },
+                {
+                  value: "dateOfBirth",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox4' | translate
+                },
+                {
+                  divider: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5Divisor' | translate
+                },
+                {
+                  value: "cancel",
+                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5' | translate,
+                  behaviour: "exclusive"
+                }
+              ]
+            } %}
+            {% if errorState %}
+              {% set errorMessageObject = { 'text': 'pages.pyiUpdateDetails.content.checkboxes.errorMessage' | translate } %}
+              {% set checkboxConfig = checkboxConfig | setAttribute('errorMessage', errorMessageObject) %}
+            {% endif %}
+            {{ govukCheckboxes(checkboxConfig) }}
+            <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+                {{ 'general.buttons.next' | translate }}
+            </button>
+    </form>
+{% endblock %}

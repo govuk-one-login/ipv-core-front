@@ -9,9 +9,8 @@ const {
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
-  CDN_PATH,
-  CDN_DOMAIN,
   ENABLE_PREVIEW,
+  LANGUAGE_TOGGLE_ENABLED,
 } = require("./lib/config");
 
 const { setLocals } = require("./lib/locals");
@@ -19,7 +18,6 @@ const { setLocals } = require("./lib/locals");
 const { loggerMiddleware, logger } = require("./lib/logger");
 const express = require("express");
 const { configureNunjucks } = require("./config/nunjucks");
-
 const cookieParser = require("cookie-parser");
 const i18next = require("i18next");
 const Backend = require("i18next-fs-backend");
@@ -39,6 +37,7 @@ const {
 const APP_VIEWS = [
   path.join(__dirname, "views"),
   path.resolve("node_modules/govuk-frontend/"),
+  path.resolve("node_modules/@govuk-one-login/"),
 ];
 
 let sessionStore;
@@ -67,26 +66,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(setLocals);
 app.use(securityHeadersHandler);
 
-if (CDN_PATH) {
-  app.get(["/public"], function (req, res) {
-    res.redirect(301, CDN_PATH + req.originalUrl);
-  });
-} else {
-  app.use("/public", express.static(path.join(__dirname, "../dist/public")));
-}
-
-if (CDN_DOMAIN) {
-  app.get(["/assets"], function (req, res) {
-    res.redirect(301, CDN_DOMAIN + req.originalUrl);
-  });
-} else {
-  app.use(
-    "/assets",
-    express.static(
-      path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets"),
-    ),
-  );
-}
+app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+app.use(
+  "/assets",
+  express.static(
+    path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets"),
+  ),
+);
 
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
@@ -121,9 +107,13 @@ app.use(
 
 app.use((req, res, next) => {
   if (req.i18n) {
-    res.locals.htmlLang = req.i18n.language;
-    res.locals.pageTitleLang = req.i18n.language;
-    res.locals.mainLang = req.i18n.language;
+    res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
+    res.locals.currentLanguage = req.i18n.language;
+
+    // currentUrl is required by the language toggle component
+    res.locals.currentUrl = new URL(
+      req.protocol + "://" + req.get("host") + req.originalUrl,
+    );
     next();
   }
 });

@@ -9,6 +9,7 @@ const {
 const {
   journeyEventErrorHandler,
 } = require("../../src/handlers/journey-event-error-handler");
+const proxyquire = require("proxyquire");
 
 describe("Error handlers", () => {
   let req;
@@ -16,6 +17,12 @@ describe("Error handlers", () => {
   let next;
 
   beforeEach(() => {
+    proxyquire("./internal-server-error-handler", {
+      axios: {
+        isAxiosError: sinon.stub().returns(false),
+      },
+    });
+
     req = {
       session: {},
       log: { info: sinon.fake(), error: sinon.fake() },
@@ -62,7 +69,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -73,7 +80,7 @@ describe("Error handlers", () => {
       serverErrorHandler(err, req, res, next);
 
       expect(res.status).to.have.been.calledOnceWith(500);
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk", {
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
       });
     });
@@ -96,6 +103,13 @@ describe("Error handlers", () => {
 
       expect(next).to.be.have.been.calledOnce;
     });
+
+    it("should log the error if not an axios error", () => {
+      const err = new Error("some error");
+      serverErrorHandler(err, req, res, next);
+
+      expect(req.log.error).to.be.have.been.calledOnce;
+    });
   });
 
   describe("journeyEventErrorHandler", () => {
@@ -117,7 +131,7 @@ describe("Error handlers", () => {
 
       journeyEventErrorHandler(err, req, res, next);
 
-      expect(res.render).to.have.been.calledWith("ipv/pyi-technical.njk");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
 
     it("should call next with error when there is no pageId", () => {
@@ -147,7 +161,7 @@ describe("Error handlers", () => {
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/pyi-timeout-recoverable.njk",
+        "ipv/page/pyi-timeout-recoverable.njk",
       );
     });
 

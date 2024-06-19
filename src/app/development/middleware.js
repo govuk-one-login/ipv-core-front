@@ -5,10 +5,16 @@ const {
   samplePersistedUserDetails,
   generateUserDetails,
 } = require("../shared/reuseHelper");
+const { pageRequiresUserDetails } = require("../ipv/middleware");
+const qrCodeHelper = require("../shared/qrCodeHelper");
+const appDownloadHelper = require("../shared/appDownloadHelper");
+const PAGES = require("../../constants/ipv-pages");
+const { getIpvPageTemplatePath, getTemplatePath } = require("../../lib/paths");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 async function allTemplatesGet(req, res, next) {
   try {
-    const directoryPath = __dirname + "/../../views/ipv";
+    const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
@@ -20,7 +26,7 @@ async function allTemplatesGet(req, res, next) {
         return { text: path.parse(file).name, value: path.parse(file).name };
       });
 
-      res.render("development/all-templates.njk", {
+      res.render(getTemplatePath("development", "all-templates"), {
         templateRadioOptions: templateRadioOptions,
         csrfToken: req.csrfToken(),
       });
@@ -35,10 +41,9 @@ async function allTemplatesPost(req, res) {
   const language = req.body.language;
   const context = req.body.context;
 
-  var redirectUrl = `/dev/template/${templateId}/${language}`;
-
+  let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
   if (context) {
-    redirectUrl += `?context=${context}`;
+    redirectUrl += `?context=${encodeURIComponent(context)}`;
   }
 
   return res.redirect(redirectUrl);
@@ -56,24 +61,32 @@ async function templatesDisplayGet(req, res) {
     context,
   };
 
-  if (templateId === "page-ipv-reuse") {
+  if (pageRequiresUserDetails(templateId)) {
     renderOptions["userDetails"] = generateUserDetails(
       samplePersistedUserDetails,
       req.i18n,
     );
   }
+  if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
+    renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
+      appDownloadHelper.getAppStoreRedirectUrl(
+        parseContextAsPhoneType(context),
+      ),
+    );
+  } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
+    renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+      parseContextAsPhoneType(context),
+    );
+  }
 
-  return res.render(`ipv/${sanitize(templateId)}.njk`, renderOptions);
-}
-
-// Remove this as part of PYIC-4278
-async function allTemplatesMoved(req, res) {
-  return res.render(`development/all-templates-moved.njk`);
+  return res.render(
+    getIpvPageTemplatePath(sanitize(templateId)),
+    renderOptions,
+  );
 }
 
 module.exports = {
   allTemplatesGet,
   allTemplatesPost,
   templatesDisplayGet,
-  allTemplatesMoved,
 };

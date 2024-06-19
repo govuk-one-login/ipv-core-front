@@ -1,89 +1,97 @@
-# Digital Identity Core Front
+# ipv-core-front
 
-`di-ipv-core-front`
+This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system. The IPV Core frontend is the first user-facing screen in the identity proving journey.
 
-This is the home for the core front end user interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In. This is the first user facing screen within the Identity Proving journey. Other repositories are used for core backend services or credential issuers.
+## Related repositories
 
-# Installation
+ipv-core-front works with the following IPV Core repositories:
 
-Clone this repository and then run
+* [ipv-core-back](https://github.com/govuk-one-login/ipv-core-back) - backend code
+* [ipv-core-tests](https://github.com/govuk-one-login/ipv-core-tests) - feature tests
+* [ipv-core-common-infra](https://github.com/govuk-one-login/ipv-core-common-infra) - utilities that automate IPV Core ancillary services
+* [ipv-stubs](https://github.com/govuk-one-login/ipv-stubs) - test stubs for IPV Core dependencies (credential issuers)
+
+# Developing ipv-core-front
+
+This guide explains how to:
+
+* [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
+* [run ipv-core-front locally](#running-ipv-core-front-locally)
+* [use pre-commit to verify your commits](#using-pre-commit-to-verify-your-commits)
+
+## Cloning and installing ipv-core-front
+
+1. Clone this repository to your local machine:
+
+```
+https://github.com/govuk-one-login/ipv-core-front.git
+```
+1. Change into the `ipv-core-front` folder.
+1. Run the following command to install the project dependencies:
+
 ```bash
 npm install
 ```
 
-## Environment Variables
+### Environment variables
 
-- 'BASE_URL': Externally accessible base url of the webserver. Used to generate the callback url as part of credential issuer oauth flows
-- `PORT` - Default port to run webserver on. (Default to `3000`)
-- `API_BASE_URL` - Base host of the backend API
+This project uses the following environment variables:
 
-## Running Locally
+| Variable name           | Description                                                    | Default value    |
+|-------------------------|----------------------------------------------------------------|------------------|
+| `API_BASE_URL`          | Specifies the base host of the backend API. It is used by the application to make requests to the backend services.             | -                |
+| `CONTACT_URL`           | URL of the GOV.UK One Login contact form.                               | [`https://home.account.gov.uk/contact-gov-uk-one-login`](https://home.account.gov.uk/contact-gov-uk-one-login)       |
+| `ENABLE_PREVIEW`        | Turns on the `dev/all-templates` route to preview individual pages. | `development`  |
+| `EXTERNAL_WEBSITE_HOST` | Sets the default host used by the application.                  | `http://localhost:8080` |
+| `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
+| `PORT`                  | Default port to run the web server on.                            | `3000`           |
+| `SESSION_SECRET`        | The secret key used for encrypting and decrypting session data.                                                        | -                |
+| `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | `false`                |
 
-Create a .env file based on .env.sample
-Run `npm run build`
-In your IDE set up a run configuration that starts `src/app.js` and use that (or run `npm run start-dev`)
-To get live updating of styles run `npm run watch-sass`
-Changes to the govuk-frontend library, translations, or images require you to run `npm run build` again.
+## Running ipv-core-front locally
+
+To run ipv-core-front locally:
+
+1. Create a `.env` file based on [`.env.sample`](https://github.com/govuk-one-login/ipv-core-front/blob/main/.env.sample).
+1. Run `npm run build`.
+1. In your code editor, use a run configuration that starts [`src/app.js`](https://github.com/govuk-one-login/ipv-core-front/blob/main/src/app.js). Alternatively, you can run `npm run start-dev`.
+1. To get live style updates, run `npm run watch-sass`.
+
+Run `npm run build` again if changes are made to:
+* the [govuk-frontend](https://github.com/alphagov/govuk-frontend) library
+* translations
+* images
 
 ### Configuring core-back to work with a local core-front
-In the core common infra repository dev-deploy documentation there are instructions on how to configure your dev
-stack to work with a locally running core-front.
 
-### Code Owners
+You can run a containerised version of ipv-core-front locally with core-back and the CRI stubs by using the [local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
 
-This repo has a `CODEOWNERS` file in the root and is configured to require PRs to reviewed by Code Owners.
+### Analytics
+https://www.npmjs.com/package/@govuk-one-login/frontend-analytics
 
-## Pre-Commit Checking / Verification
+## Using pre-commit to verify your commits
 
-There is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually committing, it runs the following checks:
+We use the [pre-commit](https://pre-commit.com/) tool to identify issues before you commit your code. It uses Git hook scripts which you can configure in [`.pre-commit-config.yaml`](https://github.com/govuk-one-login/ipv-core-front/blob/main/.pre-commit-config.yaml).
 
-- Check Json files for formatting issues
-- Fixes end of file issues (it will auto correct if it spots an issue - you will need to run the git commit again after it has fixed the issue)
-- It automatically removes trailing whitespaces (again will need to run commit again after it detects and fixes the issue)
-- Detects aws credentials or private keys accidentally added to the repo
-- runs cloud formation linter and detects issues
-- runs checkov and checks for any issues
-- runs detect-secrets to check for secrets accidentally added - where these are false positives, the `.secrets.baseline` file should be updated by running `detect-secrets scan > .secrets.baseline`
+On running `git commit`, pre-commit Git hooks check for:
 
-### Dependency Installation
+- formatting issues in JSON files
+- end of file issues
+- trailing whitespaces
+- AWS credentials or private keys you might have added by accident
+- AWS CloudFormation issues
+- infrastructure issues - by running [checkov](https://github.com/bridgecrewio/checkov)
+- secrets you might have added by accident - by running [detect-secrets](https://github.com/Yelp/detect-secrets).
 
-To use this locally you will first need to install the dependencies, this can be done in 2 ways:
+If any secrets detected are false positives, update the `.secrets.baseline` file by running `detect-secrets scan > .secrets.baseline`.
 
-#### Method 1 - Python pip
+### Committing after automatic changes
 
-Run the following in a terminal:
+Pre-commit automatically fixes end of file issues and trailing whitespaces. If this happens, run `git commit` again to commit the changes.
 
-```
-sudo -H pip3 install checkov pre-commit cfn-lint
-```
+### Understanding issue outputs
 
-this should work across platforms
-
-#### Method 2 - Brew
-
-If you have brew installed please run the following:
-
-```
-brew install pre-commit ;\
-brew install cfn-lint ;\
-brew install checkov
-```
-
-### Post Installation Configuration
-
-once installed run:
-
-```
-pre-commit install
-```
-
-To update the various versions of the pre-commit plugins, this can be done by running:
-
-```
-pre-commit autoupdate && pre-commit install
-```
-
-This will install / configure the pre-commit git hooks, if it detects an issue while committing it will produce an output like the following:
+If pre-commit detects an issue during a commit, it will produce an output similar to the following:
 
 ```
  git commit -a
@@ -101,10 +109,59 @@ Checkov..............................................(no files to check)Skipped
 - hook id: checkov
 ```
 
-### Assets upload to  CDN
-There is a step in the github workflow secure-post-merge.yml which pushes a zip of the /public
-and /assets folders to an S3 bucket, this is then decompressed and put into another bucket
-which is behind a cloudfront distribution. The infra for this is in:
-[https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets](https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets)
-If you add a new mimetype to the /assets or /public folders it will need to be added to the cloudfront
-function in that repo.
+### Installing the dependencies for pre-commit
+
+To use pre-commit locally you need to install some dependencies, using either:
+
+* [Python pip](https://pypi.org/project/pip/)
+* [Homebrew](https://brew.sh/)
+
+#### Using Python pip
+
+Run the following:
+
+```
+sudo -H pip3 install checkov pre-commit cfn-lint
+```
+
+This should work across all platforms.
+
+#### Using Homebrew
+
+Run the following:
+
+```
+brew install pre-commit ;\
+brew install cfn-lint ;\
+brew install checkov
+```
+
+#### Configuring pre-commit
+
+Once installed, run:
+
+```
+pre-commit install
+```
+
+Update the pre-commit plugins by running:
+
+```
+pre-commit autoupdate && pre-commit install
+```
+
+This command will install and configure the pre-commit Git hooks.
+
+## GitHub tools and workflows
+
+### GitHub CODEOWNERS
+
+You can use a [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file to define individuals or teams that are responsible for code in a repository. GitHub automatically requests reviews from these code owners when someone opens a pull request that modifies the code they own.
+
+You can find the [`CODEOWNERS` file for ipv-core-front](https://github.com/govuk-one-login/ipv-core-front/blob/main/CODEOWNERS) in the root.
+
+### Uploading assets to Amazon CloudFront
+
+If you add a new MIME type to either the `/assets` or `/public` folders, you must also add it to the CloudFront function in that repository.
+
+This is because there is a step in the `secure-post-merge.yml` GitHub workflow that pushes a ZIP archive of the `/public` and `/assets` folders to an Amazon S3 bucket. The archive is then decompressed and transferred to a separate bucket behind a CloudFront distribution, which is hosted at [https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets](https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets).

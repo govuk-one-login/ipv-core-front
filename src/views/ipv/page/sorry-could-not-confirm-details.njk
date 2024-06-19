@@ -1,0 +1,52 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.sorryCouldNotConfirmDetails.title' %}
+{% set googleTagManagerPageId = "sorryCouldNotConfirmDetails" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.sorryCouldNotConfirmDetails.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.sorryCouldNotConfirmDetails.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#sorryCouldNotConfirmDetailsActionForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.sorryCouldNotConfirmDetails.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph2' | translate }}</p>
+
+  <form id="sorryCouldNotConfirmDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+              legend: {
+                  text: 'pages.sorryCouldNotConfirmDetails.content.subHeading' | translate,
+                  classes: "govuk-fieldset__legend--m"
+              }
+          },
+          items: [
+                  {
+                  value: "contact",
+                  text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOption' | translate,
+                  hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOptionHint' | translate }
+                  },
+                  {
+                  value: "end",
+                  text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.endOption' | translate
+                  }
+              ]
+      }
+      %}
+
+      {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.sorryCouldNotConfirmDetails.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+      {% endif %}
+
+      {{ govukRadios(radiosConfig) }}
+      <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+      </button>
+  </form>
+{% endblock %}

@@ -1,15 +1,9 @@
 const sanitize = require("sanitize-filename");
 const { HTTP_STATUS_CODES } = require("../app.constants");
+const { getIpvPageTemplatePath } = require("../lib/paths");
 
 module.exports = {
   journeyEventErrorHandler(err, req, res, next) {
-    const message = {
-      err: err,
-      response: err?.response?.data,
-      description: "Error received in journey event error handler",
-    };
-    req.log.error({ message, level: "ERROR", requestId: req.id });
-
     if (res.headersSent) {
       return next(err);
     }
@@ -28,7 +22,7 @@ module.exports = {
         ? res.status(res.err.status)
         : res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
 
-      return res.render(`ipv/${pageId}.njk`, {
+      return res.render(getIpvPageTemplatePath(pageId), {
         pageId: pageId,
         csrfToken: req.csrfToken(),
       });

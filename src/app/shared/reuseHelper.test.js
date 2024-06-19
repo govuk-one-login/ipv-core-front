@@ -46,6 +46,10 @@ describe("Sample Persisted User Details", () => {
           },
         ],
         dateOfBirth: "1984-02-29",
+        nameParts: [
+          { type: "GivenName", value: "Alessandro" },
+          { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
+        ],
         name: "Alessandro Cholmondeley-Featherstonehaugh",
       },
     });
@@ -64,6 +68,10 @@ describe("Generate User Details", () => {
 
     expect(userDetails).to.deep.equal({
       name: "Alessandro Cholmondeley-Featherstonehaugh",
+      nameParts: {
+        givenName: "Alessandro",
+        familyName: "Cholmondeley-Featherstonehaugh",
+      },
       dateOfBirth: "1984-02-29",
       addresses: [
         {

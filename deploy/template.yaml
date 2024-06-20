@@ -62,6 +62,7 @@ Conditions:
   UseCanaryDeployment: !Or
     - !Condition IsNotDevelopment
     - !Equals [ !Ref Environment, dev-canary ]
+  EnableSpotArmInstance: !Equals [!Ref Environment, dev]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -526,7 +527,7 @@ Resources:
         - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
-      LaunchType: FARGATE
+      LaunchType: FARGATE_SPOT
       LoadBalancers:
         - ContainerName: app
           ContainerPort: 8080
@@ -820,6 +821,8 @@ Resources:
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
+      RuntimePlatform:
+        CpuArchitecture: !If [EnableSpotArmInstance, "ARM64", "X86_64"]
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
 
   ECSTaskExecutionRole:

@@ -41,10 +41,7 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
-const {
-  sniffPhoneType,
-  getJourneyOnSniffing,
-} = require("../shared/deviceSniffingHelper");
+const { sniffPhoneType } = require("../shared/deviceSniffingHelper");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -469,9 +466,6 @@ module.exports = {
 
         res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
       } else {
-        if (req.body?.journey === "appTriage") {
-          req.body.journey = getJourneyOnSniffing(req);
-        }
         next();
       }
     } catch (error) {

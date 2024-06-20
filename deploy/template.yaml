@@ -526,7 +526,7 @@ Resources:
         - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
-      LaunchType: FARGATE
+      LaunchType: FARGATE_SPOT
       LoadBalancers:
         - ContainerName: app
           ContainerPort: 8080
@@ -820,6 +820,8 @@ Resources:
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
+      RuntimePlatform:
+        CpuArchitecture: ARM64
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
 
   ECSTaskExecutionRole:

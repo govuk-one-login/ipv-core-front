@@ -711,43 +711,6 @@
         }
       }
     },
-    "confirmAddress": {
-      "title": "You need to confirm your address",
-      "header": "You need to confirm your address",
-      "content": {
-        "paragraph1": "To keep your GOV.UK One Login secure, you need to confirm the address you gave us when you proved your identity.",
-        "summaryListHeading1": "Current home address",
-        "radioButtonHeading": "Is this your current home address?",
-        "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No - I need to update my address"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if this is your current home address",
-          "errorRadioMessage": "Select yes if this is your current home address"
-        }
-      }
-    },
-    "confirmNameDateBirth": {
-      "title": "You need to confirm your name and date of birth",
-      "header": "You need to confirm your name and date of birth",
-      "content": {
-        "paragraph1": "To keep your GOV.UK One Login secure, you need to confirm the name and date of birth you gave us when you proved your identity.",
-        "summaryListHeading1": "Name",
-        "summaryListHeading2": "Date of birth",
-        "radioButtonHeading": "Are your details correct?",
-        "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No - I need to update my name or date of birth"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if your details are correct",
-          "errorRadioMessage": "Select yes if your details are correct"
-        }
-      }
-    },
     "confirmDetails": {
       "title": "You need to confirm your details",
       "header": "You need to confirm your details",
@@ -782,12 +745,8 @@
       }
     },
     "updateNameDateBirth": {
-      "title": "Update your name or date of birth",
-      "header": "Update your name or date of birth",
-      "titleCoi": "Update your full name or date of birth",
-      "headerCoi": "Update your full name or date of birth",
-      "titleRepeatFraudCheck": "Update your full name or date of birth",
-      "headerRepeatFraudCheck": "Update your full name or date of birth",
+      "title": "Update your full name or date of birth",
+      "header": "Update your full name or date of birth",
       "content": {
         "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
         "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
@@ -796,9 +755,7 @@
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your full name or date of birth",
           "no": "Go back and check your details again",
-          "noHint": "",
-          "noHintCoi": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name.",
-          "noHintRepeatFraudCheck": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name."
+          "noHint": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -881,17 +838,13 @@
         "paragraph4": "Some of these details might be used to automatically fill in the forms within the service you need to use.",
         "subHeading2": "Your details",
         "userDetailsInformation": {
-          "fullName": "Name",
-          "fullNameCoi": "Full name",
+          "fullName": "Full name",
           "dateOfBirth": "Date of birth",
-          "currentAddress": "Current home address",
-          "previousAddress": "Previous address"
+          "currentAddress": "Current home address"
         },
         "updateUserDetailsInformation": {
-          "updateDetailsLabel": "How to update your details",
-          "updateDetailsLabelCoi": "If your details are wrong",
-          "updateDetailsHtml": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a> to update your details.",
-          "updateDetailsHtmlCoi": "<h4 class=\"govuk-heading-s\">If your details have changed</h4> <p class=\"govuk-body\">Your proof of identity is still valid even if your details have changed.</p><p class=\"govuk-body\"> You do not need to update your details to continue to the service you need to use.</p><p class=\"govuk-body\"> When you continue, GOV.UK One Login will share your saved details with the service. </p><p class=\"govuk-body\"> If you need to, you can <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">update your details</a>.</p> <h4 class=\"govuk-heading-s\"> If there is a mistake in your name</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a> if there is a mistake in your name. For example, if your name is missing letters or a hyphen.</p><p class=\"govuk-body\"> Do not try to update your details or prove your identity again unless the GOV.UK One Login team has told you to.</p>"
+          "updateDetailsLabel": "If your details are wrong",
+          "updateDetailsHtml": "<h4 class=\"govuk-heading-s\">If your details have changed</h4> <p class=\"govuk-body\">Your proof of identity is still valid even if your details have changed.</p><p class=\"govuk-body\"> You do not need to update your details to continue to the service you need to use.</p><p class=\"govuk-body\"> When you continue, GOV.UK One Login will share your saved details with the service. </p><p class=\"govuk-body\"> If you need to, you can <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">update your details</a>.</p> <h4 class=\"govuk-heading-s\"> If there is a mistake in your name</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a> if there is a mistake in your name. For example, if your name is missing letters or a hyphen.</p><p class=\"govuk-body\"> Do not try to update your details or prove your identity again unless the GOV.UK One Login team has told you to.</p>"
         }
       }
     },

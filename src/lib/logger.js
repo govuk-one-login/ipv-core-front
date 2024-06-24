@@ -68,7 +68,7 @@ const loggerMiddleware = pinoHttp({
     };
   },
   customErrorMessage: function (req, res) {
-    res.statusCode = res?.err?.response?.status;
+    res.statusCode = res?.err?.response?.status || res?.statusCode;
     return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
   },
   customErrorObject: (req, res, error, val) => {

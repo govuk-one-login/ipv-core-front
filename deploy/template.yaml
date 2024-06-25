@@ -79,7 +79,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -97,7 +96,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -113,13 +111,11 @@ Mappings:
       #fargateCPUsize: "2048"
       #fargateRAMsize: "4096"
       #nodeOldSpaceLimit: "3792"
-      #desiredTaskCount: 2
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -137,7 +133,6 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
@@ -155,7 +150,6 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
@@ -173,7 +167,6 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"

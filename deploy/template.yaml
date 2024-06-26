@@ -79,7 +79,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -97,7 +96,6 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -113,13 +111,11 @@ Mappings:
       #fargateCPUsize: "2048"
       #fargateRAMsize: "4096"
       #nodeOldSpaceLimit: "3792"
-      #desiredTaskCount: 2
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
@@ -137,7 +133,6 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
@@ -155,7 +150,6 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
@@ -173,7 +167,6 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
@@ -520,10 +513,6 @@ Resources:
           - UseCanaryDeployment
           - CODE_DEPLOY
           - ECS
-      DesiredCount: !FindInMap
-        - EnvironmentConfiguration
-        - !Ref AWS::AccountId
-        - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
       LaunchType: FARGATE
@@ -550,7 +539,7 @@ Resources:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
       MaxCapacity: 60
-      MinCapacity: 2
+      MinCapacity: 4
       ResourceId: !Join
         - '/'
         - - "service"
@@ -595,9 +584,11 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 120
-        MinAdjustmentMagnitude: 5
+        Cooldown: 30
+        MinAdjustmentMagnitude: 3
         StepAdjustments:
+          - MetricIntervalUpperBound: 20
+            ScalingAdjustment: 100
           - MetricIntervalLowerBound: 20
             MetricIntervalUpperBound: 30
             ScalingAdjustment: 200
@@ -636,14 +627,14 @@ Resources:
         - !Ref CoreFrontStepScaleOutPolicy
       AlarmDescription: "CoreFrontClusterOver60PercentCPU"
       ComparisonOperator: "GreaterThanThreshold"
-      DatapointsToAlarm: "2"
+      DatapointsToAlarm: "1"
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "2"
+      EvaluationPeriods: "1"
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"

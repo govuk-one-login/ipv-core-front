@@ -30,6 +30,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.11.1
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:

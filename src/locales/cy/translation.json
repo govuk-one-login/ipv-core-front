@@ -676,12 +676,8 @@
       }
     },
     "updateNameDateBirth": {
-      "title": "Diweddaru eich enw neu ddyddiad geni",
-      "header": "Diweddaru eich enw neu ddyddiad geni",
-      "titleCoi": "Diweddaru eich enw llawn neu ddyddiad geni",
-      "headerCoi": "Diweddaru eich enw llawn neu ddyddiad geni",
-      "titleRepeatFraudCheck": "Diweddaru eich enw llawn neu ddyddiad geni",
-      "headerRepeatFraudCheck": "Diweddaru eich enw llawn neu ddyddiad geni",
+      "title": "Diweddaru eich enw llawn neu ddyddiad geni",
+      "header": "Diweddaru eich enw llawn neu ddyddiad geni",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
@@ -690,51 +686,12 @@
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
           "no": "Ewch yn ôl i wirio eich manylion eto",
-          "noHint": "",
-          "noHintCoi": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",
-          "noHintRepeatFraudCheck": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf."
+          "noHint": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "confirmAddress": {
-      "title": "Mae angen i chi gadarnhau eich cyfeiriad",
-      "header": "Mae angen i chi gadarnhau eich cyfeiriad",
-      "content": {
-        "paragraph1": "Er mwyn cadw'ch GOV.UK One Login yn ddiogel, mae angen i chi gadarnhau'r cyfeiriad a roesoch i ni pan wnaethoch brofi eich hunaniaeth.",
-        "summaryListHeading1": "Cyfeiriad cartref presennol",
-        "radioButtonHeading": "Ai hwn yw eich cyfeiriad cartref presennol?",
-        "formRadioButtons": {
-          "yes": "Oes",
-          "no": "Na - mae angen i mi ddiweddaru fy nghyfeiriad"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ie os mai hwn yw eich cyfeiriad cartref presennol",
-          "errorRadioMessage": "Dewiswch ie os mai hwn yw eich cyfeiriad cartref presennol"
-        }
-      }
-    },
-    "confirmNameDateBirth": {
-      "title": "Mae angen i chi gadarnhau eich enw a'ch dyddiad geni",
-      "header": "Mae angen i chi gadarnhau eich enw a'ch dyddiad geni",
-      "content": {
-        "paragraph1": "Er mwyn cadw eich GOV.UK One Login yn ddiogel, mae angen i chi gadarnhau'r enw a dyddiad geni a roesoch i ni pan wnaethoch brofi eich hunaniaeth.",
-        "summaryListHeading1": "Enw",
-        "summaryListHeading2": "Dyddiad geni",
-        "radioButtonHeading": "A yw eich manylion yn gywir?",
-        "formRadioButtons": {
-          "yes": "Oes",
-          "no": "Na - mae angen i mi ddiweddaru fy enw neu ddyddiad geni"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ydy os yw'ch manylion yn gywir",
-          "errorRadioMessage": "Dewiswch ydy os yw'ch manylion yn gywir"
         }
       }
     },
@@ -879,17 +836,13 @@
         "paragraph4": "Efallai y bydd rhai o’r manylion hyn yn cael eu defnyddio i lenwi’r ffurflenni yn awtomatig yn y gwasanaeth rydych angen ei ddefnyddio.",
         "subHeading2": "Eich manylion",
         "userDetailsInformation": {
-          "fullName": "Enw wat",
-          "fullNameCoi": "Enw llawn",
+          "fullName": "Enw llawn",
           "dateOfBirth": "Dyddiad geni",
-          "currentAddress": "Cyfeiriad cartref presennol",
-          "previousAddress": "Cyfeiriad blaenorol"
+          "currentAddress": "Cyfeiriad cartref presennol"
         },
         "updateUserDetailsInformation": {
-          "updateDetailsLabel": "Sut i ddiweddaru eich manylion",
-          "updateDetailsLabelCoi": "Os yw eich manylion yn anghywir",
-          "updateDetailsHtml": "Cysylltwch â thîm cymorth <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">GOV.UK One Login (agor mewn tab newydd)</a>.",
-          "updateDetailsHtmlCoi": "<h4 class=\"govuk-heading-s\">Os yw'ch manylion wedi newid</h4> <p class=\"govuk-body\">Mae eich prawf hunaniaeth yn dal yn ddilys hyd yn oed os yw'ch manylion wedi newid.</p><p class=\"govuk-body\">Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio.</p><p class=\"govuk-body\"> Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion sydd wedi'u harbed gyda'r gwasanaeth.</p><p class=\"govuk-body\"> Os oes angen, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">ddiweddaru eich manylion</a>.</p> <h4 class=\"govuk-heading-s\"> Os oes camgymeriad yn eich enw</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\"> Peidiwch â cheisio diweddaru eich manylion na phrofi eich hunaniaeth eto oni bai bod tîm GOV.UK One Login wedi dweud wrthych i wneud hynny.</p> "
+          "updateDetailsLabel": "Os yw eich manylion yn anghywir",
+          "updateDetailsHtml": "<h4 class=\"govuk-heading-s\">Os yw'ch manylion wedi newid</h4> <p class=\"govuk-body\">Mae eich prawf hunaniaeth yn dal yn ddilys hyd yn oed os yw'ch manylion wedi newid.</p><p class=\"govuk-body\">Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio.</p><p class=\"govuk-body\"> Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion sydd wedi'u harbed gyda'r gwasanaeth.</p><p class=\"govuk-body\"> Os oes angen, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">ddiweddaru eich manylion</a>.</p> <h4 class=\"govuk-heading-s\"> Os oes camgymeriad yn eich enw</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\"> Peidiwch â cheisio diweddaru eich manylion na phrofi eich hunaniaeth eto oni bai bod tîm GOV.UK One Login wedi dweud wrthych i wneud hynny.</p> "
         }
       }
     },

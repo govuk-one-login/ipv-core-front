@@ -13,7 +13,7 @@
 
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translateWithContext(context) }}</h1>
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translate }}</h1>
 
     <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translate }}</p>
 
@@ -44,7 +44,7 @@
                         value: "end",
                         text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translate,
                         hint: {
-                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translateWithContext(context)
+                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translate
                         }
                     }
                 ]

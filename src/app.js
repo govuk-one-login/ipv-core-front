@@ -160,6 +160,7 @@ if (ENABLE_PREVIEW) {
 
 const healthcheckRouter = express.Router();
 healthcheckRouter.get("/healthcheck", (req, res) => {
+  logger.info("Healthcheck endpoint returning")
   return res.status(200).send("OK");
 });
 

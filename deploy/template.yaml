@@ -460,9 +460,10 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
+      HealthCheckTimeoutSeconds: 30
+      HealthCheckIntervalSeconds: 31
       HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
       Port: 80

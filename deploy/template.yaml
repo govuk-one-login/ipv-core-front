@@ -588,7 +588,7 @@ Resources:
         MinAdjustmentMagnitude: 3
         StepAdjustments:
           - MetricIntervalUpperBound: 20
-            ScalingAdjustment: 100
+            ScalingAdjustment: 200
           - MetricIntervalLowerBound: 20
             MetricIntervalUpperBound: 30
             ScalingAdjustment: 200

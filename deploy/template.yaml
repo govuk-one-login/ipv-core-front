@@ -639,7 +639,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "50"
 
   CoreFrontStepScaleInAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -662,7 +662,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "40"
 
 
   ECSAccessLogsGroup:

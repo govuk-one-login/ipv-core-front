@@ -460,9 +460,10 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
+      HealthCheckTimeoutSeconds: 30
+      HealthCheckIntervalSeconds: 31
       HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
       Port: 80
@@ -588,7 +589,7 @@ Resources:
         MinAdjustmentMagnitude: 3
         StepAdjustments:
           - MetricIntervalUpperBound: 20
-            ScalingAdjustment: 100
+            ScalingAdjustment: 200
           - MetricIntervalLowerBound: 20
             MetricIntervalUpperBound: 30
             ScalingAdjustment: 200
@@ -639,7 +640,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "50"
 
   CoreFrontStepScaleInAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -662,7 +663,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "40"
 
 
   ECSAccessLogsGroup:
@@ -799,6 +800,13 @@ Resources:
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
+          HealthCheck:
+            Command:
+              - "CMD-SHELL"
+              - "curl -f http://localhost:8080/healthcheck || exit 1"
+            Interval: 10
+            Retries: 1
+            Timeout: 2
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -812,6 +820,7 @@ Resources:
       RequiresCompatibilities:
         - FARGATE
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
+      
 
   ECSTaskExecutionRole:
     Type: "AWS::IAM::Role"

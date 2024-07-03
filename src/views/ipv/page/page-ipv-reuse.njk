@@ -20,15 +20,22 @@
     {% set rows = [
         {
             key: {
-                text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translateWithContext(context)
+                text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translate
             },
             value: {
                 text: userDetails.name
             }
-        }
-    ] %}
-
-    {% set dobRow =
+        },
+        {
+            key:
+            {
+                text: userDetails.addresses[0].label
+            },
+            value:
+            {
+                text: userDetails.addresses[0].addressDetailHtml | safe
+            }
+        },
         {
             key: {
                 text: 'pages.pageIpvReuse.content.userDetailsInformation.dateOfBirth' | translate
@@ -37,34 +44,7 @@
                 text: userDetails.dateOfBirth | GDSDate
             }
         }
-    %}
-
-    {% if context == "coi" %}
-        {% set addressesToDisplay = [userDetails.addresses[0]] %}
-    {% else %}
-        {% set rows = (rows.push(dobRow), rows) %}
-        {% set addressesToDisplay = userDetails.addresses %}
-    {% endif %}
-
-    {% for addressDetail in addressesToDisplay %}
-        {% set addressRow =
-            {
-                key:
-                {
-                    text: addressDetail.label
-                },
-                value:
-                {
-                    text: addressDetail.addressDetailHtml | safe
-                }
-            }
-        %}
-        {% set rows =(rows.push(addressRow), rows) %}
-    {% endfor %}
-
-    {% if context == "coi" %}
-        {% set rows = (rows.push(dobRow), rows) %}
-    {% endif %}
+    ] %}
 
     {{ govukSummaryList({
         rows: rows
@@ -73,11 +53,11 @@
     <details class="govuk-details">
       <summary class="govuk-details__summary">
         <h3 class="govuk-!-margin-0 govuk-!-font-size-19 govuk-!-font-weight-regular govuk-details__summary-text">
-          {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translateWithContext(context) }}
+          {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translate }}
         </h3>
       </summary>
       <div class="govuk-details__text">
-        {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translateWithContext(context, { url: contactUsUrl } ) | safe }}
+        {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
       </div>
     </details>
 

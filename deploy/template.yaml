@@ -527,7 +527,7 @@ Resources:
         - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
-      LaunchType: FARGATE_SPOT
+      LaunchType: FARGATE
       LoadBalancers:
         - ContainerName: app
           ContainerPort: 8080

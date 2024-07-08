@@ -780,6 +780,14 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - templateCaching
+            - Name: LOGOUT_URL
+              Value: !If
+                - IsProduction
+                - "https://oidc.account.gov.uk/logout"
+                - !If
+                  - IsDevelopment
+                  - "https://oidc.dev.account.gov.uk/logout"
+                  - "https://oidc.${Environment}.account.gov.uk/logout"
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join

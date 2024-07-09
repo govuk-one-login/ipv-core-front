@@ -82,6 +82,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
@@ -99,6 +100,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
@@ -119,6 +121,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.build.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
@@ -136,6 +139,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.staging.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
@@ -153,6 +157,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.integration.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
@@ -170,6 +175,7 @@ Mappings:
       ga4Disabled: false
       uaDisabled: false
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
+      logoutUrl: "https://oidc.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
@@ -781,13 +787,10 @@ Resources:
                 - !Ref AWS::AccountId
                 - templateCaching
             - Name: LOGOUT_URL
-              Value: !If
-                - IsProduction
-                - "https://oidc.account.gov.uk/logout"
-                - !If
-                  - IsDevelopment
-                  - "https://oidc.dev.account.gov.uk/logout"
-                  - "https://oidc.${Environment}.account.gov.uk/logout"
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - logoutUrl
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join

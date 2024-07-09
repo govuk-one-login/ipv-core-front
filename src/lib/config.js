@@ -38,4 +38,5 @@ module.exports = {
   TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
   SERVICE_DOMAIN: process.env.SERVICE_DOMAIN || "localhost",
   LANGUAGE_TOGGLE_ENABLED: process.env.LANGUAGE_TOGGLE === "true",
+  LOGOUT_URL: process.env.LOGOUT_URL || "https://oidc.account.gov.uk/logout",
 };

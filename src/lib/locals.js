@@ -6,6 +6,7 @@ const {
   SERVICE_URL,
   UA_DISABLED,
   GA4_DISABLED,
+  LOGOUT_URL,
 } = require("./config");
 const { generateNonce } = require("./strings");
 
@@ -17,6 +18,7 @@ module.exports = {
     res.locals.isGa4Disabled = GA4_DISABLED;
     res.locals.isUaDisabled = UA_DISABLED;
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
+    res.locals.logoutUrl = LOGOUT_URL;
 
     const contactUsUrl = new URL(CONTACT_URL);
     contactUsUrl.searchParams.set(

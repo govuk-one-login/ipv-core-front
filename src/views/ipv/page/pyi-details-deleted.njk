@@ -10,7 +10,10 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiDetailsDeleted.header' | translate }}</h1>
 
-  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph1' | translate }}</p>
+  {% if context !== "f2f" %}
+    <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph1' | translate }}</p>
+  {% endif %}
+
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph2' | translateWithContext(context) }}</p>
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph3' | translateWithContext(context) }}</p>
 

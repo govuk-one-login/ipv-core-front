@@ -698,7 +698,7 @@
       "header": "Are you sure you want to delete your details and prove your identity again?",
       "headerF2f": "Are you sure you want to delete your details and prove your identity another way?",
       "content": {
-        "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have such as Government Gateway or Universal Credit.",
+        "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have, such as Government Gateway or Universal Credit.",
         "formRadioButtons": {
           "yes": "Yes, delete my details",
           "no": "No, cancel and go back to my current details",

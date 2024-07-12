@@ -856,7 +856,7 @@
         "paragraph3": "Mae eich gwiriad hunaniaeth yn dal i gael ei brosesu.",
         "paragraph4": "Byddwch yn cael e-bost pan fydd canlyniad i’ch gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
         "subHeading2": "Os ydych am brofi eich hunaniaeth mewn ffordd arall",
-        "paragraph5": "Os nad ydych bellach am brofi eich hunaniaeth mewn Swyddfa Bost, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">ddileu eich manylion a cheisio profi eich hunaniaeth mewn ffordd arall</a>.",
+        "paragraph5": "Os nad ydych bellach am brofi eich hunaniaeth mewn Swyddfa Bost, gallwch <a id=\"deleteDetailsLink\" class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">ddileu eich manylion a cheisio profi eich hunaniaeth mewn ffordd arall</a>.",
         "paragraph6": "Byddwn yn dileu'ch manylion yn awtomatig os na fyddwch yn mynd i Swyddfa'r Post o fewn 10 diwrnod o gael eich e-bost cadarnhau.",
         "subHeading3": "Os ydych angen help",
         "paragraph7": "Cysylltwch â ni os:",

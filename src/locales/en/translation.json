@@ -858,7 +858,7 @@
         "paragraph3": "Your identity check is still being processed.",
         "paragraph4": "You’ll get an email when there’s a result for your identity check - usually within a day of going to the Post Office.",
         "subHeading2": "If you want to prove your identity another way",
-        "paragraph5": "If you no longer want to prove your identity at a Post Office, you can <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">delete your details and try to prove your identity another way</a>.",
+        "paragraph5": "If you no longer want to prove your identity at a Post Office, you can <a id=\"deleteDetailsLink\" class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">delete your details and try to prove your identity another way</a>.",
         "paragraph6": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
         "subHeading3": "If you need help",
         "paragraph7": "Contact us if you:",

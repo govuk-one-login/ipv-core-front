@@ -731,17 +731,16 @@
       "title": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "header": "Rydych chi wedi dileu'r manylion yn eich GOV.UK One Login",
       "content": {
-        "paragraph1": "Rydych wedi derbyn e-bost cadarnhau.",
-        "paragraph2F2f": "Nid yw llythyr cwsmer Swyddfa'r Post bellach yn ddilys ac ni ddylech geisio ei ddefnyddio i brofi eich hunaniaeth.",
-        "paragraph2": "Nawr gallwch brofi eich hunaniaeth eto gan ddefnyddio'ch manylion newydd.",
-        "paragraph3F2f": "Nawr gallwch geisio profi eich hunaniaeth mewn ffordd arall.",
-        "paragraph3": "Byddwch angen:",
+        "paragraph1F2f": "Nid yw llythyr cwsmer Swyddfa'r Post bellach yn ddilys ac ni ddylech geisio ei ddefnyddio i brofi eich hunaniaeth.",
+        "paragraph1": "Nawr gallwch brofi eich hunaniaeth eto gan ddefnyddio'ch manylion newydd.",
+        "paragraph2F2f": "Nawr gallwch geisio profi eich hunaniaeth mewn ffordd arall.",
+        "paragraph2": "Byddwch angen:",
         "requirements": [
           "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio ",
           "dweud wrthym ble rydych chi wedi byw am y 3 mis diwetha"
         ],
-        "paragraph4": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
-        "paragraph4F2f": "Darganfyddwch am y <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">gwahanol ffyrdd i brofi eich hunaniaeth gyda GOV.UK One Login (agor mewn tab newydd)</a>.",
+        "paragraph3": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
+        "paragraph3F2f": "Darganfyddwch am y <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">gwahanol ffyrdd i brofi eich hunaniaeth gyda GOV.UK One Login (agor mewn tab newydd)</a>.",
         "submitButtonText": "Parhau i brofi eich hunaniaeth eto",
         "submitButtonTextF2f": "Parhau i brofi eich hunaniaeth eto"
       }

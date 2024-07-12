@@ -768,16 +768,17 @@
       "title": "You have deleted the details in your GOV.UK One Login",
       "header": "You have deleted the details in your GOV.UK One Login",
       "content": {
-        "paragraph1F2f": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity. ",
-        "paragraph1": "You can now prove your identity again using your new details.",
-        "paragraph2F2f": "You can now try to prove your identity another way.",
-        "paragraph2": "You'll need:",
+        "paragraph1": "You've been sent a confirmation email.",
+        "paragraph2F2f": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity. ",
+        "paragraph2": "You can now prove your identity again using your new details.",
+        "paragraph3F2f": "You can now try to prove your identity another way.",
+        "paragraph3": "You'll need:",
         "requirements": [
           "photo ID with the name you want GOV.UK One Login to use",
           "to tell us where you've lived for the last 3 months"
         ],
-        "paragraph3F2f": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
-        "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
+        "paragraph4F2f": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
+        "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "submitButtonTextF2f": "Continue to prove your identity",
         "submitButtonText": "Continue to prove your identity again"
       }

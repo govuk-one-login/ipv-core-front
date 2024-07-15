@@ -1,7 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleKey = 'pages.proveIdentityBankAccount.title' %}
+{% set pageTitleKey = 'pages.proveIdentityBankAccount.title' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "proveIdentityBankAccount" %}
 
 {% set errorState = pageErrorState %}
@@ -10,19 +10,24 @@
 {% set errorHref = "#proveIdentityBankAccountOptionsForm" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityBankAccount.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph1' | translate }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityBankAccount.header' | translateWithContext(context) }}</h1>
+  {% if context != "NINumber" %}
+    <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph1' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.proveIdentityBankAccount.content.subHeading' | translate }}</h2>
+  {% endif %}
 
-  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityBankAccount.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph2' | translateWithContext(context) }}</p>
   <ul class="govuk-list govuk-list--bullet ">
-    {% for listItem in 'pages.proveIdentityBankAccount.content.personalDetails' | translate({ returnObjects: true }) %}
+    {% for listItem in 'pages.proveIdentityBankAccount.content.personalDetails' | translateWithContext(context, { returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
 
-  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityBankAccount.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph3' | translate }}</p>
+  {% if context != "NINumber" %}
+    <h2 class="govuk-heading-m">{{ 'pages.proveIdentityBankAccount.content.subHeading2' | translate }}</h2>
+  {% endif %}
+
+  <p class="govuk-body">{{ 'pages.proveIdentityBankAccount.content.paragraph3' | translateWithContext(context) }}</p>
 
   <form id="proveIdentityBankAccountOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -31,7 +36,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.proveIdentityBankAccount.content.subHeading3' | translate,
+          text: 'pages.proveIdentityBankAccount.content.subHeading3' | translateWithContext(context),
           classes: "govuk-fieldset__legend--m"
         }
       },
@@ -42,7 +47,7 @@
         },
         {
           value: "end",
-          text: 'pages.proveIdentityBankAccount.content.formRadioButtons.otherWayButtonText' | translate
+          text: 'pages.proveIdentityBankAccount.content.formRadioButtons.otherWayButtonText' | translateWithContext(context)
         }
       ]
     } %}

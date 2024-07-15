@@ -132,11 +132,11 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/ipv/page",
-        params: { pageId: "prove-identity-bank-account" },
+        params: { pageId: "prove-identity-no-photo-id" },
         session: {
           ipvSessionId: "ipv-session-id",
           ipAddress: "ip-address",
-          currentPage: "prove-identity-bank-account",
+          currentPage: "prove-identity-no-photo-id",
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -148,7 +148,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res);
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/page/prove-identity-bank-account.njk",
+        "ipv/page/prove-identity-no-photo-id.njk",
       );
     });
 
@@ -158,7 +158,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res);
 
       expect(res.render).to.have.been.calledWith(
-        "ipv/page/prove-identity-bank-account.njk",
+        "ipv/page/prove-identity-no-photo-id.njk",
       );
       expect(res.status).to.have.been.calledWith(418);
       expect(req.session.currentPageStatusCode).to.equal(undefined);
@@ -227,7 +227,7 @@ describe("journey middleware", () => {
       await middleware.handleJourneyPage(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
-        `ipv/page/prove-identity-bank-account.njk`,
+        `ipv/page/prove-identity-no-photo-id.njk`,
         sinon.match.has("pageErrorState", "some error state"),
       );
     });

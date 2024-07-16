@@ -1,0 +1,69 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.proveIdentityNoPhotoId.title' | translateWithContext(context) %}
+{% set googleTagManagerPageId = "proveIdentityNoPhotoId" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#proveIdentityNoPhotoIdOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoPhotoId.header' | translateWithContext(context) }}</h1>
+  {% if context != "nino-only" %}
+    <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph1' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading' | translate }}</h2>
+  {% endif %}
+
+  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph2' | translateWithContext(context) }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.name' | translate }}</li>
+    <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.dob' | translate }}</li>
+    {% if context != "nino-only" %}
+      <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.accountNumber' | translate }}</li>
+      <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.NINumber' | translate }}</li>
+    {% endif %}
+    <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.address' | translate }}</li>
+  </ul>
+
+  {% if context != "nino-only" %}
+    <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading2' | translate }}</h2>
+  {% endif %}
+
+  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph3' | translateWithContext(context) }}</p>
+
+  <form id="proveIdentityNoPhotoIdOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.proveIdentityNoPhotoId.content.subHeading3' | translateWithContext(context),
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.proveIdentityNoPhotoId.content.formRadioButtons.continueBankDetailsButtonText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.proveIdentityNoPhotoId.content.formRadioButtons.otherWayButtonText' | translateWithContext(context)
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
+  </form>
+{% endblock %}

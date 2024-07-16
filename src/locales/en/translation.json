@@ -951,26 +951,32 @@
         }
       }
     },
-    "proveIdentityBankAccount": {
+    "proveIdentityNoPhotoId": {
       "title": "Prove your identity with bank or building society details and security questions",
+      "titleNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "header": "Prove your identity with bank or building society details and security questions",
+      "headerNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "content": {
         "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
         "subHeading": "Provide some personal details",
         "paragraph2": "We'll ask you for your:",
-        "personalDetails": [
-          "name",
-          "date of birth",
-          "sort code and account number",
-          "National Insurance number",
-          "current address (you might also need your previous address if you've recently moved)"
-        ],
+        "paragraph2NinoOnly": "As well as your National Insurance number, we also need your:",
+        "personalDetails": {
+          "name": "name",
+          "dob": "date of birth",
+          "accountNumber": "sort code and account number",
+          "NINumber": "National Insurance number",
+          "address": "current address (you might also need your previous address if you've recently moved)"
+        },
         "subHeading2": "Answer some security questions",
         "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
+        "paragraph3NinoOnly": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "Do you have a UK bank or building society current account in your name?",
+        "subHeading3NinoOnly": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Yes",
-          "otherWayButtonText": "No - prove my identity another way"
+          "otherWayButtonText": "No - prove my identity another way",
+          "otherWayButtonTextNinoOnly": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

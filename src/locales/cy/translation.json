@@ -901,38 +901,32 @@
         }
       }
     },
-    "proveIdentityBankAccount": {
+    "proveIdentityNoPhotoId": {
       "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "titleNINumber": "Prove your identity with your National Insurance number and security questions",
+      "titleNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "headerNINumber": "Prove your identity with your National Insurance number and security questions",
+      "headerNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "content": {
         "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
         "subHeading": "Darparwch rhywfaint o fanylion personol",
         "paragraph2": "Byddwn yn gofyn i chi am eich:",
-        "paragraph2NINumber": "As well as your National Insurance number, we also need your:",
-        "personalDetails": [
-          "enw",
-          "dyddiad geni",
-          "cod didoli a rhif y cyfrif",
-          "rrhif Yswiriant Gwladol",
-          "cyfeiriad presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)"
-        ],
-        "personalDetailsNINumber": [
-          "name",
-          "date of birth",
-          "sort code and account number",
-          "current address (you might also need your previous address if you've recently moved)"
-        ],
+        "paragraph2NinoOnly": "As well as your National Insurance number, we also need your:",
+        "personalDetails": {
+          "name": "enw",
+          "dob": "dyddiad geni",
+          "accountNumber": "cod didoli a rhif y cyfrif",
+          "NINumber": "rrhif Yswiriant Gwladol",
+          "address": "cyfeiriad presennol (efallai y byddwch hefyd angen eich cyfeiriad blaenorol os ydych wedi symud yn ddiweddar)"
+        },
         "subHeading2": "Atebwch rhai cwestiynau diogelwch",
         "paragraph3": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Mae hyn yn ein helpu i wirio a yw'r manylion rydych wedi'u rhoi yn cael eu defnyddio gennych chi.",
-        "paragraph3NINumber": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
+        "paragraph3NinoOnly": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "A oes gennych gyfrif banc neu gymdeithas adeiladu cyfredol yn eich enw chi?",
-        "subHeading3NINumber": "Do you have a National Insurance number?",
+        "subHeading3NinoOnly": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Oes",
           "otherWayButtonText": "Na - profi fy hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextNINumber": "Na"
+          "otherWayButtonTextNinoOnly": "Na"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

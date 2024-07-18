@@ -802,21 +802,39 @@
           "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
           "rydych yn gallu ateb rhai cwestiynau diogelwch"
         ],
+        "requirementsF2f": [
+          "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
+          "rydych yn gallu ateb rhai cwestiynau diogelwch"
+        ],
+        "requirementsNinoOnly": [
+          "have a UK driving licence (full or provisional)",
+          "UK passport",
+          "National Insurance number"
+        ],
         "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph2F2f": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph2NinoOnly": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
         "paragraph3": "",
         "paragraph3F2f": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "paragraph3NinoOnly": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "Sut ydych chi am barhau?",
         "subHeadingF2f": "Ydych chi am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth?",
+        "subHeadingNinoOnly": "What would you like to use to prove your identity?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "continueDrivingLicenceButtonTextF2f": "trwydded yrru cerdyn-llun yn y DU",
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "continuePassportButtonTextF2f": "pasbort y DU",
+          "continueDrivingLicenceButtonTextNinoOnly": "UK photocard driving licence",
+          "continuePassportButtonTextNinoOnly": "UK passport",
+          "continueNinoButtonTextNinoOnly": "National Insurance number",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
           "otherWayButtonTextF2f": "Nid oes gennyf unrhyw un o'r mathau hyn o ID gyda llun",
           "otherWayButtonTextHint": "",
-          "otherWayButtonTextHintF2f": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun."
+          "otherWayButtonTextHintF2f": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun.",
+          "otherWayButtonTextNinoOnly": "I do not have any of these",
+          "otherWayButtonTextHintNinoOnly": ""
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

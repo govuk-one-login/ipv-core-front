@@ -10,7 +10,7 @@
 {% set errorHref = "#multipleDocCheckingForm" %}
 {% set isPageDynamic = true %}
 
-{% set readioItems = [
+{% set radioItems = [
     {
       value: "drivingLicence",
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translateWithContext(context)
@@ -23,13 +23,13 @@
 %}
 
 {% if context == "nino-only" %}
-  {% set readioItems = (readioItems.push({
+  {% set radioItems = (radioItems.push({
     value: "nino",
     text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueNinoButtonText' | translateWithContext(context)
-  }), readioItems) %}}
+  }), radioItems) %}}
 {% endif %}
 
-{% set readioItems = (readioItems.push(
+{% set radioItems = (radioItems.push(
   {
       divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
     },
@@ -37,7 +37,7 @@
       value: "end",
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translateWithContext(context),
       hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonTextHint' | translateWithContext(context) }
-  }), readioItems)
+  }), radioItems)
 %}}
 
 {% block content %}
@@ -62,7 +62,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: readioItems
+      items: radioItems
     } %}
 
     {% if errorState %}

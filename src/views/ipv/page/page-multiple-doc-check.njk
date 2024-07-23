@@ -22,7 +22,7 @@
   ]
 %}
 
-{% if context == "nino-only" %}
+{% if context == "nino" %}
   {% set radioItems = (radioItems.push({
     value: "nino",
     text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueNinoButtonText' | translateWithContext(context)

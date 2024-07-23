@@ -806,35 +806,35 @@
           "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
           "rydych yn gallu ateb rhai cwestiynau diogelwch"
         ],
-        "requirementsNinoOnly": [
+        "requirementsNino": [
           "have a UK driving licence (full or provisional)",
           "UK passport",
           "National Insurance number"
         ],
         "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
         "paragraph2F2f": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph2NinoOnly": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph2Nino": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
         "paragraph3": "",
         "paragraph3F2f": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
-        "paragraph3NinoOnly": "It takes about 10 minutes to prove your identity this way.",
+        "paragraph3Nino": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "Sut ydych chi am barhau?",
         "subHeadingF2f": "Ydych chi am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth?",
-        "subHeadingNinoOnly": "What would you like to use to prove your identity?",
+        "subHeadingNino": "What would you like to use to prove your identity?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "continueDrivingLicenceButtonTextF2f": "trwydded yrru cerdyn-llun yn y DU",
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
           "continuePassportButtonTextF2f": "pasbort y DU",
-          "continueDrivingLicenceButtonTextNinoOnly": "UK photocard driving licence",
-          "continuePassportButtonTextNinoOnly": "UK passport",
-          "continueNinoButtonTextNinoOnly": "National Insurance number",
+          "continueDrivingLicenceButtonTextNino": "UK photocard driving licence",
+          "continuePassportButtonTextNino": "UK passport",
+          "continueNinoButtonTextNino": "National Insurance number",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
           "otherWayButtonTextF2f": "Nid oes gennyf unrhyw un o'r mathau hyn o ID gyda llun",
           "otherWayButtonTextHint": "",
           "otherWayButtonTextHintF2f": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun.",
-          "otherWayButtonTextNinoOnly": "I do not have any of these",
-          "otherWayButtonTextHintNinoOnly": ""
+          "otherWayButtonTextNino": "I do not have any of these",
+          "otherWayButtonTextHintNino": ""
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -921,14 +921,14 @@
     },
     "proveIdentityNoPhotoId": {
       "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "titleNinoOnly": "Prove your identity with your National Insurance number and security questions",
+      "titleNino": "Prove your identity with your National Insurance number and security questions",
       "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "headerNinoOnly": "Prove your identity with your National Insurance number and security questions",
+      "headerNino": "Prove your identity with your National Insurance number and security questions",
       "content": {
         "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i'ch enw fod ar y cyfrif.",
         "subHeading": "Darparwch rhywfaint o fanylion personol",
         "paragraph2": "Byddwn yn gofyn i chi am eich:",
-        "paragraph2NinoOnly": "As well as your National Insurance number, we also need your:",
+        "paragraph2Nino": "As well as your National Insurance number, we also need your:",
         "personalDetails": {
           "name": "enw",
           "dob": "dyddiad geni",
@@ -938,13 +938,13 @@
         },
         "subHeading2": "Atebwch rhai cwestiynau diogelwch",
         "paragraph3": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Mae hyn yn ein helpu i wirio a yw'r manylion rydych wedi'u rhoi yn cael eu defnyddio gennych chi.",
-        "paragraph3NinoOnly": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
+        "paragraph3Nino": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "A oes gennych gyfrif banc neu gymdeithas adeiladu cyfredol yn eich enw chi?",
-        "subHeading3NinoOnly": "Do you have a National Insurance number?",
+        "subHeading3Nino": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Oes",
           "otherWayButtonText": "Na - profi fy hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextNinoOnly": "Na"
+          "otherWayButtonTextNino": "Na"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

@@ -11,7 +11,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoPhotoId.header' | translateWithContext(context) }}</h1>
-  {% if context != "nino-only" %}
+  {% if context != "nino" %}
     <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph1' | translate }}</p>
     <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading' | translate }}</h2>
   {% endif %}
@@ -20,14 +20,14 @@
   <ul class="govuk-list govuk-list--bullet ">
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.name' | translate }}</li>
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.dob' | translate }}</li>
-    {% if context != "nino-only" %}
+    {% if context != "nino" %}
       <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.accountNumber' | translate }}</li>
       <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.NINumber' | translate }}</li>
     {% endif %}
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.address' | translate }}</li>
   </ul>
 
-  {% if context != "nino-only" %}
+  {% if context != "nino" %}
     <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading2' | translate }}</h2>
   {% endif %}
 

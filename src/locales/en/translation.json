@@ -808,35 +808,35 @@
           "have a UK driving licence (full or provisional) or a UK passport",
           "can answer some security questions"
         ],
-        "requirementsNinoOnly": [
+        "requirementsNino": [
           "have a UK driving licence (full or provisional)",
           "UK passport",
           "National Insurance number"
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
         "paragraph2F2f": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph2NinoOnly": "You'll need to answer some security questions. We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph2Nino": "You'll need to answer some security questions. We use security questions to stop anyone who might have your details from pretending to be you.",
         "paragraph3": "",
         "paragraph3F2f": "It takes about 10 minutes to prove your identity this way.",
-        "paragraph3NinoOnly": "It takes about 10 minutes to prove your identity this way.",
+        "paragraph3Nino": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "How do you want to continue?",
         "subHeadingF2f": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
-        "subHeadingNinoOnly": "What would you like to use to prove your identity?",
+        "subHeadingNino": "What would you like to use to prove your identity?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
           "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
           "continueDrivingLicenceButtonTextF2f": "UK photocard driving licence",
           "continuePassportButtonTextF2f": "UK passport",
-          "continueDrivingLicenceButtonTextNinoOnly": "UK photocard driving licence",
-          "continuePassportButtonTextNinoOnly": "UK passport",
-          "continueNinoButtonTextNinoOnly": "National Insurance number",
+          "continueDrivingLicenceButtonTextNino": "UK photocard driving licence",
+          "continuePassportButtonTextNino": "UK passport",
+          "continueNinoButtonTextNino": "National Insurance number",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
           "otherWayButtonTextF2f": "I do not have either of these types of photo ID",
           "otherWayButtonTextHint": "",
           "otherWayButtonTextHintF2f": "There may be other ways to prove your identity if you have another type of photo ID.",
-          "otherWayButtonTextNinoOnly": "I do not have any of these",
-          "otherWayButtonTextHintNinoOnly": ""
+          "otherWayButtonTextNino": "I do not have any of these",
+          "otherWayButtonTextHintNino": ""
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -971,14 +971,14 @@
     },
     "proveIdentityNoPhotoId": {
       "title": "Prove your identity with bank or building society details and security questions",
-      "titleNinoOnly": "Prove your identity with your National Insurance number and security questions",
+      "titleNino": "Prove your identity with your National Insurance number and security questions",
       "header": "Prove your identity with bank or building society details and security questions",
-      "headerNinoOnly": "Prove your identity with your National Insurance number and security questions",
+      "headerNino": "Prove your identity with your National Insurance number and security questions",
       "content": {
         "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
         "subHeading": "Provide some personal details",
         "paragraph2": "We'll ask you for your:",
-        "paragraph2NinoOnly": "As well as your National Insurance number, we also need your:",
+        "paragraph2Nino": "As well as your National Insurance number, we also need your:",
         "personalDetails": {
           "name": "name",
           "dob": "date of birth",
@@ -988,13 +988,13 @@
         },
         "subHeading2": "Answer some security questions",
         "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
-        "paragraph3NinoOnly": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
+        "paragraph3Nino": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "Do you have a UK bank or building society current account in your name?",
-        "subHeading3NinoOnly": "Do you have a National Insurance number?",
+        "subHeading3Nino": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Yes",
           "otherWayButtonText": "No - prove my identity another way",
-          "otherWayButtonTextNinoOnly": "No"
+          "otherWayButtonTextNino": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

@@ -10,15 +10,45 @@
 {% set errorHref = "#multipleDocCheckingForm" %}
 {% set isPageDynamic = true %}
 
+{% set radioItems = [
+    {
+      value: "drivingLicence",
+      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translateWithContext(context)
+    },
+    {
+      value: "ukPassport",
+      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translateWithContext(context)
+    }
+  ]
+%}
+
+{% if context == "nino" %}
+  {% set radioItems = (radioItems.push({
+    value: "nino",
+    text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueNinoButtonText' | translateWithContext(context)
+  }), radioItems) %}}
+{% endif %}
+
+{% set radioItems = (radioItems.push(
+  {
+      divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
+    },
+    {
+      value: "end",
+      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translateWithContext(context),
+      hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonTextHint' | translateWithContext(context) }
+  }), radioItems)
+%}}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph1' | translate | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% for listItem in 'pages.pageMultipleDocCheck.content.requirements' | translate({ returnObjects: true }) %}
+    {% for listItem in 'pages.pageMultipleDocCheck.content.requirements' | translateWithContext(context, { returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
-  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph2' | translateWithContext(context) | safe }}</p>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph3' | translateWithContext(context) }}</p>
 
   <form id="multipleDocCheckingForm" action="/ipv/page/{{ pageId }}" method="POST">
@@ -32,24 +62,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: [
-        {
-          value: "drivingLicence",
-          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translateWithContext(context)
-        },
-        {
-          value: "ukPassport",
-          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translateWithContext(context)
-        },
-        {
-          divider: 'pages.pageMultipleDocCheck.content.formRadioButtons.separateOptionsInFormText' | translate
-        },
-        {
-          value: "end",
-          text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translateWithContext(context),
-          hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonTextHint' | translateWithContext(context) }
-        }
-      ]
+      items: radioItems
     } %}
 
     {% if errorState %}

@@ -910,7 +910,8 @@
         "subHeading4": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
-          "no": "Na"
+          "no": "Na",
+          "noLastChoice": "Na - profi fy hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

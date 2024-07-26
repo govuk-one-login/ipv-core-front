@@ -24,11 +24,55 @@
 
   {{ govukDetails({
     summaryText: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.label' | translate,
-    text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.text' | translate | safe
+    text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.text' | translateWithContext(context) | safe
   }) }}
 
   <form id="noPhotoIdSecurityQuestionsFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% if context == "p1" or context == "p1Dropout" %}
+      {% set radioOptions =
+        [
+          {
+            value: "appTriage",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppText' | translate,
+            hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppTextHint' | translate }
+          },
+          {
+            value: "f2f",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoText' | translate,
+            hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoTextHint' | translate }
+          },
+          {
+            divider: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.separateOptionsInFormText' | translate
+          },
+          {
+            value: "end",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonBackToRpP1Text' | translate
+          }
+        ]
+    %}
+    {% else %}
+      {% set radioOptions =
+        [
+          {
+            value: "end",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonBackToRpText' | translate
+          },
+          {
+            value: "appTriage",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppText' | translate,
+            hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppTextHint' | translate }
+          },
+          {
+            value: "f2f",
+            text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoText' | translate,
+            hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoTextHint' | translate }
+          }
+        ]
+      %}
+    {% endif %}
+
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
@@ -38,24 +82,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: [
-        {
-          value: "end",
-          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButton1Text' | translate
-
-        },
-        {
-          value: "appTriage",
-          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButton2Text' | translate,
-          hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButton2TextHint' | translate }
-
-        },
-        {
-          value: "f2f",
-          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButton3Text' | translate,
-          hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButton3TextHint' | translate }
-        }
-      ]
+      items: radioOptions
     } %}
 
     {% if errorState %}

@@ -90,10 +90,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     return await handleJourneyResponse(req, res, backendResponse.journey);
   }
 
-  if (
-    backendResponse?.cri &&
-    validateRedirectUrlInResponse(backendResponse.cri)
-  ) {
+  if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
     logCoreBackCall(req, {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
       type: LOG_TYPE_CRI,
@@ -107,7 +104,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
   if (
     backendResponse?.client &&
-    validateRedirectUrlInResponse(backendResponse.client, true)
+    tryValidateClientResponse(backendResponse.client)
   ) {
     logCoreBackCall(req, {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
@@ -159,13 +156,19 @@ async function handleBackendResponse(req, res, backendResponse) {
   throw new Error(message.description);
 }
 
-function validateRedirectUrlInResponse(response, isClient = false) {
-  const { redirectUrl } = response;
+function tryValidateCriResponse(criResponse) {
+  if (!criResponse?.redirectUrl) {
+    throw new Error("CRI response RedirectUrl is missing");
+  }
+
+  return true;
+}
+
+function tryValidateClientResponse(client) {
+  const { redirectUrl } = client;
 
   if (!redirectUrl) {
-    throw new Error(
-      `${isClient ? "Client" : "CRI"} Response RedirectUrl is missing`,
-    );
+    throw new Error("Client Response redirect url is missing");
   }
 
   return true;
@@ -200,6 +203,7 @@ function checkForIpvAndOauthSessionId(req, res) {
     });
   }
 }
+
 function checkJourneyAction(req) {
   if (!req.body?.journey) {
     const err = new Error("req.body?.journey is missing");
@@ -403,7 +407,6 @@ module.exports = {
       delete req.session.currentPageStatusCode;
     }
   },
-
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
@@ -431,7 +434,6 @@ module.exports = {
       next(error);
     }
   },
-
   renderFeatureSetPage: async (req, res) => {
     res.render(getTemplatePath("ipv", "page-featureset"), {
       featureSet: req.session.featureSet,

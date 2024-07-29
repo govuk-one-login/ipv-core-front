@@ -314,7 +314,7 @@ describe("journey middleware", () => {
       it("should raise an error ", async () => {
         await middleware.handleJourneyAction(req, res, next);
         expect(next).to.have.been.calledWith(
-          sinon.match.has("message", "CRI Response RedirectUrl is missing"),
+          sinon.match.has("message", "CRI response RedirectUrl is missing"),
         );
       });
     },
@@ -379,10 +379,10 @@ describe("journey middleware", () => {
       });
     });
 
-    it("should call next with error message RedirectUrl is missing", async function () {
+    it("should call next with error message Redirect url is missing", async function () {
       await middleware.handleJourneyAction(req, res, next);
       expect(next).to.have.been.calledWith(
-        sinon.match.has("message", "Client Response RedirectUrl is missing"),
+        sinon.match.has("message", "Client Response redirect url is missing"),
       );
     });
   });

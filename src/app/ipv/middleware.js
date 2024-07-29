@@ -90,7 +90,10 @@ async function handleBackendResponse(req, res, backendResponse) {
     return await handleJourneyResponse(req, res, backendResponse.journey);
   }
 
-  if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
+  if (
+    backendResponse?.cri &&
+    validateRedirectUrlInResponse(backendResponse.cri)
+  ) {
     logCoreBackCall(req, {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
       type: LOG_TYPE_CRI,
@@ -104,7 +107,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
   if (
     backendResponse?.client &&
-    tryValidateClientResponse(backendResponse.client)
+    validateRedirectUrlInResponse(backendResponse.client, true)
   ) {
     logCoreBackCall(req, {
       logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
@@ -156,19 +159,13 @@ async function handleBackendResponse(req, res, backendResponse) {
   throw new Error(message.description);
 }
 
-function tryValidateCriResponse(criResponse) {
-  if (!criResponse?.redirectUrl) {
-    throw new Error("CRI response RedirectUrl is missing");
-  }
-
-  return true;
-}
-
-function tryValidateClientResponse(client) {
-  const { redirectUrl } = client;
+function validateRedirectUrlInResponse(response, isClient = false) {
+  const { redirectUrl } = response;
 
   if (!redirectUrl) {
-    throw new Error("Client Response redirect url is missing");
+    throw new Error(
+      `${isClient ? "Client" : "CRI"} Response RedirectUrl is missing`,
+    );
   }
 
   return true;

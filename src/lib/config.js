@@ -23,7 +23,7 @@ module.exports = {
     "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
-  PORT: process.env.PORT || 3000,
+  PORT: process.env.PORT || 4501,
   SESSION_SECRET: process.env.SESSION_SECRET,
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
   GTM_ID: process.env.GTM_ID,

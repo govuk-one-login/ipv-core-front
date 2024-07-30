@@ -590,19 +590,29 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 30
+        Cooldown: 30 # The policy will continue to respond to additional alarm breaches,
+                     # even while a scaling activity is in progress. This means Application
+                     # Auto Scaling will evaluate all alarm breaches as they occur.
+                     # A cooldown period is used to protect against over-scaling due to
+                     # multiple alarm breaches occurring in rapid succession.
         MinAdjustmentMagnitude: 3
         StepAdjustments:
-          - MetricIntervalUpperBound: 20
-            ScalingAdjustment: 100
-          - MetricIntervalLowerBound: 20
-            MetricIntervalUpperBound: 30
-            ScalingAdjustment: 200
-          - MetricIntervalLowerBound: 30
-            MetricIntervalUpperBound: 35
-            ScalingAdjustment: 300
-          - MetricIntervalLowerBound: 35
-            ScalingAdjustment: 500
+          - MetricIntervalUpperBound: 20 # 80%
+            ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
+                                   # with <80% utilisation
+          - MetricIntervalLowerBound: 20 # 80%
+            MetricIntervalUpperBound: 30 # 90%
+            ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
+                                   # with 80-90% utilisation
+          - MetricIntervalLowerBound: 30 # 90%
+            MetricIntervalUpperBound: 35 # 95%
+            ScalingAdjustment: 300 # Scale by 300% of containers if the metric is breached
+                                   # with 90-95% utilisation
+          - MetricIntervalLowerBound: 35 # 95%
+            ScalingAdjustment: 500 # Scale by 500% of containers if the metric is breached
+                                   # with >95% utilisation
+                                   # Note: CPU can scale greater than 100% in a burst mode
+                                   # on Fargate, so leave the upper bound open
 
   CoreFrontStepScaleInPolicy:
     DependsOn: CoreFrontAutoScalingTarget
@@ -619,10 +629,15 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 420
+        Cooldown: 420 # The policy will continue to respond to additional alarm breaches,
+                      # even while a scaling activity is in progress. This means Application
+                      # Auto Scaling will evaluate all alarm breaches as they occur.
+                      # A cooldown period is used to protect against under-scaling due to
+                      # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
-          - MetricIntervalUpperBound: -40
-            ScalingAdjustment: -50
+            MetricIntervalUpperBound: -40 # 20%
+            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
+                                   # with <20% utilisation
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget

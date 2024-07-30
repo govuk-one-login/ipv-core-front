@@ -44,13 +44,13 @@ This project uses the following environment variables:
 | `ENABLE_PREVIEW`        | Turns on the `dev/all-templates` route to preview individual pages. | `development`  |
 | `EXTERNAL_WEBSITE_HOST` | Sets the default host used by the application.                  | `http://localhost:8080` |
 | `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
-| `PORT`                  | Default port to run the web server on.                            | `3000`           |
+| `PORT`                  | Default port to run the web server on.                            | `4501`           |
 | `SESSION_SECRET`        | The secret key used for encrypting and decrypting session data.                                                        | -                |
 | `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | `false`                |
 
 ## Running ipv-core-front locally
 
-To run ipv-core-front locally:
+To run ipv-core-front locally in isolation:
 
 1. Create a `.env` file based on [`.env.sample`](https://github.com/govuk-one-login/ipv-core-front/blob/main/.env.sample).
 1. Run `npm run build`.
@@ -62,9 +62,10 @@ Run `npm run build` again if changes are made to:
 * translations
 * images
 
-### Configuring core-back to work with a local core-front
+### Running ipv-core-front locally with core-back and orch-stub
 
-You can run a containerised version of ipv-core-front locally with core-back and the CRI stubs by using the [local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
+You can run a complete IPV Core setup by using the
+[local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
 
 ### Analytics
 https://www.npmjs.com/package/@govuk-one-login/frontend-analytics

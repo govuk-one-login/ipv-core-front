@@ -159,6 +159,7 @@ if (ENABLE_PREVIEW) {
 }
 
 const healthcheckRouter = express.Router();
+healthcheckRouter.use(loggerMiddleware);
 healthcheckRouter.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });

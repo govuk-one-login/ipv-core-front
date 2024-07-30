@@ -94,10 +94,10 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "384"
-      nodeEnv: "development"
+      fargateCPUsize: "1024"
+      fargateRAMsize: "2048"
+      nodeOldSpaceLimit: "1896"
+      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false

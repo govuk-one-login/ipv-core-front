@@ -203,6 +203,7 @@ function checkForIpvAndOauthSessionId(req, res) {
     });
   }
 }
+
 function checkJourneyAction(req) {
   if (!req.body?.journey) {
     const err = new Error("req.body?.journey is missing");
@@ -406,7 +407,6 @@ module.exports = {
       delete req.session.currentPageStatusCode;
     }
   },
-
   handleJourneyAction: async (req, res, next) => {
     const currentPageId = req.params.pageId;
     const pagesUsingSessionId = [
@@ -434,7 +434,6 @@ module.exports = {
       next(error);
     }
   },
-
   renderFeatureSetPage: async (req, res) => {
     res.render(getTemplatePath("ipv", "page-featureset"), {
       featureSet: req.session.featureSet,

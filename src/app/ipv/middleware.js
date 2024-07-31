@@ -319,208 +319,226 @@ async function handleUnexpectedPage(req, res, pageId) {
   );
 }
 
-module.exports = {
-  renderAttemptRecoveryPage: async (req, res) => {
-    res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-      csrfToken: req.csrfToken(),
-    });
-  },
-  updateJourneyState: async (req, res, next) => {
-    try {
-      const currentPageId = req.params.pageId;
-      const { action } = req.params;
+async function renderAttemptRecoveryPage(req, res) {
+  res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
+    csrfToken: req.csrfToken(),
+  });
+}
 
-      if (action && isValidPage(currentPageId)) {
-        await handleJourneyResponse(req, res, action, currentPageId);
-      } else {
-        res.status(HTTP_STATUS_CODES.NOT_FOUND);
-        return res.render(getTemplatePath("errors", "page-not-found"));
-      }
-    } catch (error) {
-      next(error);
+async function updateJourneyState(req, res, next) {
+  try {
+    const currentPageId = req.params.pageId;
+    const { action } = req.params;
+
+    if (action && isValidPage(currentPageId)) {
+      await handleJourneyResponse(req, res, action, currentPageId);
+    } else {
+      res.status(HTTP_STATUS_CODES.NOT_FOUND);
+      return res.render(getTemplatePath("errors", "page-not-found"));
     }
-  },
-  handleJourneyPage: async (req, res, next) => {
-    try {
-      const { pageId } = req.params;
-      const { context } = req?.session || "";
+  } catch (error) {
+    next(error);
+  }
+}
 
-      // handles page id validation first
-      if (!isValidPage(pageId)) {
-        res.status(HTTP_STATUS_CODES.NOT_FOUND);
-        return res.render(getTemplatePath("errors", "page-not-found"));
-      }
+async function handleJourneyPage(req, res, next) {
+  try {
+    const { pageId } = req.params;
+    const { context } = req?.session || "";
 
-      if (!req.session?.ipvSessionId) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "req.ipvSessionId is null",
-        );
+    // handles page id validation first
+    if (!isValidPage(pageId)) {
+      res.status(HTTP_STATUS_CODES.NOT_FOUND);
+      return res.render(getTemplatePath("errors", "page-not-found"));
+    }
 
-        req.session.currentPage = PAGES.PYI_TECHNICAL;
-        return res.render(getIpvPageTemplatePath(req.session.currentPage), {
-          context: "unrecoverable",
-        });
-      } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
-        req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-        return res.render(getIpvPageTemplatePath(req.session.currentPage));
-      } else if (req.session.currentPage !== pageId) {
-        return await handleUnexpectedPage(req, res, pageId);
-      }
+    if (!req.session?.ipvSessionId) {
+      logError(
+        req,
+        {
+          pageId: pageId,
+          expectedPage: req.session.currentPage,
+        },
+        "req.ipvSessionId is null",
+      );
 
+      req.session.currentPage = PAGES.PYI_TECHNICAL;
+      return res.render(getIpvPageTemplatePath(req.session.currentPage), {
+        context: "unrecoverable",
+      });
+    } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+      req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
+      return res.render(getIpvPageTemplatePath(req.session.currentPage));
+    } else if (req.session.currentPage !== pageId) {
+      return await handleUnexpectedPage(req, res, pageId);
+    }
+
+    const renderOptions = {
+      pageId,
+      csrfToken: req.csrfToken(),
+      context,
+    };
+
+    if (pageRequiresUserDetails(pageId)) {
+      renderOptions.userDetails = await fetchUserDetails(req);
+    } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
+      const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
+        parseContextAsPhoneType(context),
+      );
+      renderOptions.qrCode =
+        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+    } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
+      renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+        parseContextAsPhoneType(context),
+      );
+    } else if (req.session.currentPageStatusCode !== undefined) {
+      res.status(req.session.currentPageStatusCode);
+    }
+
+    return res.render(
+      getIpvPageTemplatePath(sanitize(pageId)),
+      renderOptions,
+    );
+  } catch (error) {
+    transformError(error, `error handling journey page: ${req.params}`);
+    next(error);
+  } finally {
+    delete req.session.currentPageStatusCode;
+  }
+}
+
+async function handleJourneyAction(req, res, next) {
+  const currentPageId = req.params.pageId;
+  const pagesUsingSessionId = [
+    PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
+    PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
+    PAGES.PAGE_MULTIPLE_DOC_CHECK,
+    PAGES.PYI_CRI_ESCAPE,
+    PAGES.PYI_SUGGEST_OTHER_OPTIONS,
+  ];
+
+  try {
+    if (pagesUsingSessionId.includes(currentPageId)) {
+      checkForSessionId(req, res);
+    } else {
+      checkForIpvAndOauthSessionId(req, res);
+    }
+    checkJourneyAction(req);
+    if (req.body?.journey === "contact") {
+      return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+    }
+
+    await handleJourneyResponse(req, res, req.body.journey, currentPageId);
+  } catch (error) {
+    transformError(error, `error handling POST request on ${currentPageId}`);
+    next(error);
+  }
+}
+
+async function renderFeatureSetPage(req, res) {
+  res.render(getTemplatePath("ipv", "page-featureset"), {
+    featureSet: req.session.featureSet,
+  });
+}
+
+async function formRadioButtonChecked(req, res, next) {
+  try {
+    const { context } = req?.session || "";
+    const pageId = req.session.currentPage;
+
+    const expectedPageId = req.params?.pageId;
+
+    if (expectedPageId && expectedPageId !== pageId) {
+      return await handleUnexpectedPage(req, res, expectedPageId);
+    }
+
+    if (req.method === "POST" && req.body.journey === undefined) {
       const renderOptions = {
         pageId,
         csrfToken: req.csrfToken(),
+        pageErrorState: true,
         context,
       };
 
       if (pageRequiresUserDetails(pageId)) {
         renderOptions.userDetails = await fetchUserDetails(req);
-      } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-        const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          parseContextAsPhoneType(context),
-        );
-        renderOptions.qrCode =
-          await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
-      } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-        renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-          parseContextAsPhoneType(context),
-        );
-      } else if (req.session.currentPageStatusCode !== undefined) {
-        res.status(req.session.currentPageStatusCode);
       }
+      req.renderOptions = renderOptions;
 
-      return res.render(
-        getIpvPageTemplatePath(sanitize(pageId)),
-        renderOptions,
-      );
-    } catch (error) {
-      transformError(error, `error handling journey page: ${req.params}`);
-      next(error);
-    } finally {
-      delete req.session.currentPageStatusCode;
+      res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
+    } else {
+      next();
     }
-  },
-  handleJourneyAction: async (req, res, next) => {
-    const currentPageId = req.params.pageId;
-    const pagesUsingSessionId = [
-      PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
-      PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
-      PAGES.PAGE_MULTIPLE_DOC_CHECK,
-      PAGES.PYI_CRI_ESCAPE,
-      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
-    ];
+  } catch (error) {
+    next(error);
+  }
+}
 
-    try {
-      if (pagesUsingSessionId.includes(currentPageId)) {
-        checkForSessionId(req, res);
-      } else {
-        checkForIpvAndOauthSessionId(req, res);
-      }
-      checkJourneyAction(req);
-      if (req.body?.journey === "contact") {
-        return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
-      }
+async function formHandleUpdateDetailsCheckBox(req, res, next) {
+  try {
+    req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
 
-      await handleJourneyResponse(req, res, req.body.journey, currentPageId);
-    } catch (error) {
-      transformError(error, `error handling POST request on ${currentPageId}`);
-      next(error);
-    }
-  },
-  renderFeatureSetPage: async (req, res) => {
-    res.render(getTemplatePath("ipv", "page-featureset"), {
-      featureSet: req.session.featureSet,
-    });
-  },
-  formRadioButtonChecked: async (req, res, next) => {
-    try {
-      const { context } = req?.session || "";
-      const pageId = req.session.currentPage;
-
-      const expectedPageId = req.params?.pageId;
-
-      if (expectedPageId && expectedPageId !== pageId) {
-        return await handleUnexpectedPage(req, res, expectedPageId);
-      }
-
-      if (req.method === "POST" && req.body.journey === undefined) {
-        const renderOptions = {
-          pageId,
-          csrfToken: req.csrfToken(),
-          pageErrorState: true,
-          context,
-        };
-
-        if (pageRequiresUserDetails(pageId)) {
-          renderOptions.userDetails = await fetchUserDetails(req);
-        }
-        req.renderOptions = renderOptions;
-
-        res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
-      } else {
-        next();
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
-  formHandleUpdateDetailsCheckBox: async (req, res, next) => {
-    try {
+async function formHandleCoiDetailsCheck(req, res, next) {
+  try {
+    const { context, currentPage } = req?.session || {};
+    if (req.body.detailsCorrect === "yes") {
+      // user has selected that their details are correct
+      req.body.journey = "next";
+    } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
+      // user has chosen details to update - so we set the correct journey
       req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-      next();
-    } catch (error) {
-      next(error);
-    }
-  },
-  formHandleCoiDetailsCheck: async (req, res, next) => {
-    try {
-      const { context, currentPage } = req?.session || {};
-      if (req.body.detailsCorrect === "yes") {
-        // user has selected that their details are correct
-        req.body.journey = "next";
-      } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
-        // user has chosen details to update - so we set the correct journey
-        req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-      } else if (
-        !req.body.detailsCorrect ||
-        (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
-      ) {
-        // user has not selected yes/no to their details are correct OR
-        // they have selected no but not selected which details to update.
-        const renderOptions = {
-          errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
-          pageId: currentPage,
-          csrfToken: req.csrfToken(),
-          context: context,
-        };
-        if (pageRequiresUserDetails(currentPage)) {
-          renderOptions.userDetails = await fetchUserDetails(req);
-        }
-        return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
+    } else if (
+      !req.body.detailsCorrect ||
+      (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
+    ) {
+      // user has not selected yes/no to their details are correct OR
+      // they have selected no but not selected which details to update.
+      const renderOptions = {
+        errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
+        pageId: currentPage,
+        csrfToken: req.csrfToken(),
+        context: context,
+      };
+      if (pageRequiresUserDetails(currentPage)) {
+        renderOptions.userDetails = await fetchUserDetails(req);
       }
-      next();
-    } catch (error) {
-      next(error);
+      return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
     }
-  },
-  validateFeatureSet: async (req, res, next) => {
-    try {
-      const featureSet = req.query.featureSet;
-      const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
-      if (!isValidFeatureSet) {
-        throw new Error("Invalid feature set ID");
-      }
-      req.session.featureSet = featureSet;
-      next();
-    } catch (error) {
-      return next(error);
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function validateFeatureSet(req, res, next) {
+  try {
+    const featureSet = req.query.featureSet;
+    const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
+    if (!isValidFeatureSet) {
+      throw new Error("Invalid feature set ID");
     }
-  },
+    req.session.featureSet = featureSet;
+    next();
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = {
+  renderAttemptRecoveryPage,
+  updateJourneyState,
+  handleJourneyPage,
+  handleJourneyAction,
+  renderFeatureSetPage,
+  formRadioButtonChecked,
+  formHandleUpdateDetailsCheckBox,
+  formHandleCoiDetailsCheck,
+  validateFeatureSet,
   handleJourneyResponse,
   handleBackendResponse,
   pageRequiresUserDetails,

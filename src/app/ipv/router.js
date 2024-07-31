@@ -29,8 +29,6 @@ function getPagePath(pageId) {
   return `/page/${pageId}`;
 }
 
-router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
-
 router.get(
   getPagePath(PYI_ATTEMPT_RECOVERY),
   csrfProtection,
@@ -38,8 +36,6 @@ router.get(
 );
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
-
-router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 
 // Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
@@ -69,6 +65,8 @@ router.post(
   handleJourneyAction,
 );
 
+router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
+router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 // Enables a link in the frontend to iterate the journey state
 // This is needed because some redirects must be done with links, not forms
 router.get("/journey/:pageId/:action", updateJourneyState);

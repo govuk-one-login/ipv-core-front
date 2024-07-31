@@ -390,8 +390,6 @@ module.exports = {
         renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
           parseContextAsPhoneType(context),
         );
-      } else if (req.query?.errorState !== undefined) {
-        renderOptions.pageErrorState = req.query.errorState;
       } else if (req.session.currentPageStatusCode !== undefined) {
         res.status(req.session.currentPageStatusCode);
       }

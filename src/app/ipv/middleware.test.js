@@ -220,17 +220,6 @@ describe("journey middleware", () => {
         context: "unrecoverable",
       });
     });
-
-    it("should render with errorState if in query", async function () {
-      req.query = { errorState: "some error state" };
-
-      await middleware.handleJourneyPage(req, res, next);
-
-      expect(res.render).to.have.been.calledWith(
-        `ipv/page/prove-identity-no-photo-id.njk`,
-        sinon.match.has("pageErrorState", "some error state"),
-      );
-    });
   });
 
   context("handling CRI event response", async () => {

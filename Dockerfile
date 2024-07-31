@@ -14,7 +14,7 @@ FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "add", "--no-cache", "tini"]
+RUN ["apk", "add", "--no-cache", "tini", "curl"]
 USER appuser:appgroup
 
 WORKDIR /app
@@ -31,6 +31,9 @@ ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV PORT 8080
 EXPOSE 8080
+
+HEALTHCHECK --interval=5s --timeout=1s \
+  CMD curl -f http://localhost:8080/healthcheck || exit 1
 
 ENTRYPOINT ["tini", "--"]
 

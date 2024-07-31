@@ -8,6 +8,10 @@ function getIpvPageTemplatePath(pageId) {
   return getTemplatePath("ipv", "page", pageId);
 }
 
+function getErrorPageTemplatePath(pageId) {
+  return getTemplatePath("errors", pageId);
+}
+
 function getTemplatePath(...pathComponents) {
   const pageId = pathComponents.splice(-1, 1);
   return path.join(...pathComponents, `${pageId}.njk`);
@@ -16,5 +20,6 @@ function getTemplatePath(...pathComponents) {
 module.exports = {
   getIpvPagePath,
   getIpvPageTemplatePath,
+  getErrorPageTemplatePath,
   getTemplatePath,
 };

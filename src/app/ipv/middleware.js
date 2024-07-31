@@ -38,10 +38,12 @@ const {
   getIpvPageTemplatePath,
   getIpvPagePath,
   getTemplatePath,
+  getErrorPageTemplatePath,
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
 const { sniffPhoneType } = require("../shared/deviceSniffingHelper");
+const ERROR_PAGES = require("../../constants/error-pages");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -180,11 +182,7 @@ function checkForIpvSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    req.session.currentPage = PAGES.PYI_TECHNICAL;
-    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-      context: "unrecoverable",
-    });
+    renderTechnicalError(req, res);
   }
 }
 
@@ -196,11 +194,7 @@ function checkForIpvAndOauthSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    req.session.currentPage = PAGES.PYI_TECHNICAL;
-    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-      context: "unrecoverable",
-    });
+    renderTechnicalError(req, res);
   }
 }
 
@@ -319,6 +313,19 @@ async function handleUnexpectedPage(req, res, pageId) {
   );
 }
 
+function render404(response) {
+  response.status(HTTP_STATUS_CODES.NOT_FOUND);
+  response.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
+}
+
+function renderTechnicalError(request, response) {
+  request.session.currentPage = PAGES.PYI_TECHNICAL;
+  response.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+  response.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+    context: "unrecoverable",
+  });
+}
+
 async function renderAttemptRecoveryPage(req, res) {
   res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
     csrfToken: req.csrfToken(),
@@ -333,8 +340,7 @@ async function updateJourneyState(req, res, next) {
     if (action && isValidIpvPage(currentPageId)) {
       await handleJourneyResponse(req, res, action, currentPageId);
     } else {
-      res.status(HTTP_STATUS_CODES.NOT_FOUND);
-      return res.render(getTemplatePath("errors", "page-not-found"));
+      render404(res);
     }
   } catch (error) {
     next(error);
@@ -348,8 +354,8 @@ async function handleJourneyPage(req, res, next) {
 
     // handles page id validation first
     if (!isValidIpvPage(pageId)) {
-      res.status(HTTP_STATUS_CODES.NOT_FOUND);
-      return res.render(getTemplatePath("errors", "page-not-found"));
+      render404(res);
+      return;
     }
 
     if (!req.session?.ipvSessionId) {
@@ -362,10 +368,8 @@ async function handleJourneyPage(req, res, next) {
         "req.ipvSessionId is null",
       );
 
-      req.session.currentPage = PAGES.PYI_TECHNICAL;
-      return res.render(getIpvPageTemplatePath(req.session.currentPage), {
-        context: "unrecoverable",
-      });
+      renderTechnicalError(req, res);
+      return;
     } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
       req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
       res.render(getIpvPageTemplatePath(req.session.currentPage));

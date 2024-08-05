@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 
 const {
-  renderAttemptRecoveryPage,
   updateJourneyState,
   handleJourneyPage,
   handleJourneyAction,

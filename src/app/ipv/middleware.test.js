@@ -621,15 +621,6 @@ describe("journey middleware", () => {
     });
   });
 
-  context("renderAttemptRecoveryPage", () => {
-    it("should render attempt recovery page", () => {
-      middleware.renderAttemptRecoveryPage(req, res);
-      expect(res.render).to.have.been.calledWith(
-        "ipv/page/pyi-attempt-recovery.njk",
-      );
-    });
-  });
-
   context(
     "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
     () => {

@@ -105,8 +105,9 @@
               {% set checkboxConfig = checkboxConfig | setAttribute('errorMessage', errorMessageObject) %}
             {% endif %}
             {{ govukCheckboxes(checkboxConfig) }}
-            <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-                {{ 'general.buttons.next' | translate }}
-            </button>
+            {{ govukButton({
+              id: "submitButton",
+              text: 'general.buttons.next' | translate
+            }) }}
     </form>
 {% endblock %}

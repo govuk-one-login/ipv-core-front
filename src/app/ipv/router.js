@@ -17,7 +17,6 @@ const {
 } = require("./middleware");
 
 const {
-  PYI_ATTEMPT_RECOVERY,
   UPDATE_DETAILS,
   CONFIRM_DETAILS,
 } = require("../../constants/ipv-pages");
@@ -30,12 +29,6 @@ function getPagePath(pageId) {
 }
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
-
-router.get(
-  getPagePath(PYI_ATTEMPT_RECOVERY),
-  csrfProtection,
-  renderAttemptRecoveryPage,
-);
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
 

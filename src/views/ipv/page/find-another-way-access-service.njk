@@ -13,7 +13,6 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.findAnotherWayAccessService.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.findAnotherWayAccessService.content.paragraph1' | translate }}</p>
 
-
   <form id="findAnotherWayAccessServiceActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radiosConfig = {
@@ -26,30 +25,30 @@
               }
           },
           items: [
-                  {
+              {
                   value: "contact",
                   text: 'pages.findAnotherWayAccessService.content.formRadioButtons.contactOption' | translate,
                   hint: { text: 'pages.findAnotherWayAccessService.content.formRadioButtons.contactOptionHint' | translate }
-                  },
-                  {
+              },
+              {
                   value: "end",
                   text: 'pages.findAnotherWayAccessService.content.formRadioButtons.endOption' | translate
-                  }
+              }
               ]
       }
       %}
 
       {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.findAnotherWayAccessService.content.formErrorMessage.errorRadioMessage' | translate } %}
-      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+          {% set errorMessageObject = { 'text': 'pages.findAnotherWayAccessService.content.formErrorMessage.errorRadioMessage' | translate } %}
+          {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
       {% endif %}
 
       {{ govukRadios(radiosConfig) }}
-      <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-      </button>
+      {{ govukButton({
+          id: "submitButton",
+          text: 'general.buttons.next' | translate
+      }) }}
   </form>
 
-
-  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
+  {% include "components/contact-us-link.njk" %}
 {% endblock %}

@@ -319,11 +319,6 @@ async function handleUnexpectedPage(req, res, pageId) {
 }
 
 module.exports = {
-  renderAttemptRecoveryPage: async (req, res) => {
-    res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-      csrfToken: req.csrfToken(),
-    });
-  },
   updateJourneyState: async (req, res, next) => {
     try {
       const currentPageId = req.params.pageId;

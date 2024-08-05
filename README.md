@@ -18,6 +18,7 @@ This guide explains how to:
 * [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
 * [run ipv-core-front locally](#running-ipv-core-front-locally)
 * [use pre-commit to verify your commits](#using-pre-commit-to-verify-your-commits)
+* [creating a new page](src/views/README.md)
 
 ## Cloning and installing ipv-core-front
 

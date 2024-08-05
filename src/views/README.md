@@ -34,7 +34,7 @@ From a number of sources:
      - `errorState`
        - String indicating type of form error (`checkbox`/ `radiobox`).
 2. English/ Welsh content in `src/locales`.
-3. The `res.locals` variable set in `locales.js`.
+3. The `res.locals` variable set in `localesjs`.
 
 #### How the data is accessed
 
@@ -48,7 +48,7 @@ From a number of sources:
    - `translate` & variants are defined in `src/config/nunjucks.js`.
      - It takes the reference as a key to find the content saved in `src/locales` files for english/ welsh.
      - It can take secondary params, e.g.: `context`, which adds a suffix to the reference it's going to find.
-3. `locales.js`:
+3. `locals.js`:
     - the `res.locals` variable attributes are provided as variables in the Nunjucks file, to be accessible like `"{{contactUsUrl}}"`.
 
 ## Creating a new page
@@ -69,7 +69,7 @@ Breaking this example down:
     - `errorState` toggles error summary, which includes: `errorTitle`, `errorText` and `errorHref`.
     - `googleTagManagerPageId` sets state.
 
-- Import common, standard GovUK components.
+- Import common, standard GovUK components if they are needed.
     ```html
     {% from "govuk/components/button/macro.njk" import govukButton %}
     {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -106,7 +106,6 @@ Breaking this example down:
   - `req.csrfToken()` creates the token in the GET route handler
   - The result is saved in here
   - And `csrfProtection()` checks it, in the POST route handler.
-  - Arguably not a required security feature since our forms only lead to change in position on a journey map.
 
 - Variable with the config for the govukRadios component. Represents key value pair where key is "journey".
     ```html
@@ -114,7 +113,7 @@ Breaking this example down:
     ```
   - The values given to the radio map directly with the event the state associated will produce, so keep to camelCase.
 
-- This is the conditionally-visible error message inside radio.
+- This is the conditionally-visible error message within the form.
     ```html
     {% if errorState %}
         {% set errorMessageObject = { 'text': 'pages.proveIdentityNoOtherPhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
@@ -135,7 +134,7 @@ Breaking this example down:
     ```html
     {% include "components/contact-us-link.njk" %}
     ```
-    - The `contactUsUrl` is created in `locales.js` to include the `fromUrl` query.
+    - The `contactUsUrl` is created in `locals.js` to include the `fromUrl` query.
     - The link attributes are a blanket policy of GDS
 
 2. GET requests at `/page/:pageId` will be automatically handled with:
@@ -157,3 +156,6 @@ Breaking this example down:
 
 - When adding in a feature, check if a specific govUk component exists before styling a generic tag.
 - When updating a journey map to use the page it must produce consistent events, for a certain `context`, across the journey maps. This is enforced with unit tests.
+- Nunjucks docs: https://mozilla.github.io/nunjucks/
+- Design System docs: https://design-system.service.gov.uk/
+- Design System components (standard gov uk): https://design-system.service.gov.uk/components/

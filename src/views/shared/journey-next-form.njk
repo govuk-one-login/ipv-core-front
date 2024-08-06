@@ -3,15 +3,11 @@
 <form id="nextForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="journey" value="next">
-    {% if customButtonLabel %}
-        {{ govukButton({
-            id: "submitButton",
-            text: customButtonLabel
-        }) }}
-    {% else %}
-        {{ govukButton({
-            id: "submitButton",
-            text:'general.buttons.next' | translate
-        }) }}
-    {% endif %}
+    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+      {% if customButtonLabel %}
+      {{ customButtonLabel }}
+      {% else %}
+      {{'general.buttons.next' | translate }}
+      {% endif %}
+    </button>
 </form>

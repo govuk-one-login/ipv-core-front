@@ -9,14 +9,13 @@
   <h2 class="govuk-heading-m">{{'pages.pyiAttemptRecovery.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pyiAttemptRecovery.content.paragraph2' | translate }}</p>
 
-  <form id="attemptRecoveryForm" action="/ipv/page/{{ pageId }}" method="POST">
+  <form id="attemptRecoveryForm" action="/ipv/page/pyi-attempt-recovery" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="journey" value="attempt-recovery">
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.next' | translate
-    }) }}
+    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+      {{'general.buttons.next' | translate }}
+    </button>
   </form>
 
-  {% include "components/contact-us-link.njk" %}
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

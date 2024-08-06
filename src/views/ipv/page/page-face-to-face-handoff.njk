@@ -6,6 +6,7 @@
 {% set googleTagManagerPageId = "pageF2fHandoff" %}
 
 {% block content %}
+
   {{ govukPanel({
     titleText: 'pages.pageF2fHandoff.panelText' | translate,
     classes:"di-f2f-panel govuk-!-margin-bottom-7"
@@ -41,6 +42,6 @@
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{ 'general.shared.contactLinkText' | translate }}</a></p>
 
-  {% include "components/contact-us-link.njk" %}
 {% endblock %}

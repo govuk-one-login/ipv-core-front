@@ -71,9 +71,8 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.next' | translate
-    }) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
   </form>
 {% endblock %}

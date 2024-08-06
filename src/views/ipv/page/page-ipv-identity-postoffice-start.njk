@@ -11,7 +11,8 @@
 {% set errorHref = "#identityPostofficeStartPageOptionsForm" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
 
@@ -69,9 +70,8 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.next' | translate
-    }) }}
+    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
+      {{ 'general.buttons.next' | translate }}
+    </button>
   </form>
 {% endblock %}

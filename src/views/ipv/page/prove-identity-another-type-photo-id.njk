@@ -7,7 +7,7 @@
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.proveIdentityAnotherTypePhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.proveIdentityAnotherTypePhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
-{% set errorHref = "#proveIdentityAnotherTypePhotoIdForm" %}
+{% set errorHref = "#proveIdentityAnotherTypePhotoId" %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityAnotherTypePhotoId.header' | translate }}</h1>
@@ -53,7 +53,6 @@
       id: "submitButton",
       text: 'general.buttons.next' | translate
     }) }}
+    <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
   </form>
-
-  {% include "components/contact-us-link.njk" %}
 {% endblock %}

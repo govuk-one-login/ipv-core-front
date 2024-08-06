@@ -22,11 +22,10 @@
   <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="journey" value="build-client-oauth-response">
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.next' | translate
-    }) }}
+    <button name="submitButton" class="govuk-button button" data-module="govuk-button" id="submitButton">
+      {{'general.buttons.next' | translate }}
+    </button>
   </form>
 
-  {% include "components/contact-us-link.njk" %}
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

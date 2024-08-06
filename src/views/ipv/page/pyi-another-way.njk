@@ -11,5 +11,5 @@
 
   {% include 'shared/journey-next-form.njk' %}
 
-  {% include "components/contact-us-link.njk" %}
+  <p class="govuk-body"><a target="_blank" rel="noopener noreferrer" href="{{contactUsUrl}}" class="govuk-link">{{'general.shared.contactLinkText' | translate }}</a></p>
 {% endblock %}

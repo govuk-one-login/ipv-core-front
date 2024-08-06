@@ -4,7 +4,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% set pageTitleKey = 'pages.noPhotoIdExitFindAnotherWay.title' %}
-
 {% set googleTagManagerPageId = "noPhotoIdExitFindAnotherWay" %}
 
 {% set errorState = pageErrorState %}
@@ -28,10 +27,5 @@
 
   {% include "components/no-photo-id-exit-find-another-way-form.njk" %}
 
-  <p class="govuk-body">
-    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
-      {{ 'general.shared.contactLinkText' | translate }}
-    </a>
-  </p>
-
+  {% include "components/contact-us-link.njk" %}
 {% endblock %}

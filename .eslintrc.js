@@ -19,4 +19,7 @@ module.exports = {
       { blankLine: "any", prev: "*", next: "*" },
     ],
   },
+  parserOptions: {
+    sourceType: "module"
+  }
 };

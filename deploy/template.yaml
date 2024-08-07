@@ -320,6 +320,11 @@ Resources:
   AccessLogsBucket:
     Type: AWS::S3::Bucket
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W3045 # Using a legacy access control setup for now
     Properties:
       BucketName: !If
         - IsDevelopment # existing bucket names exist in the current dev env

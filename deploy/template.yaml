@@ -1003,7 +1003,7 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202405141531:
+  RestApiGwDeployment202408070900:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
@@ -1026,6 +1026,7 @@ Resources:
       RequestParameters:
         method.request.path.proxy: false
         method.request.header.x-forwarded-for: false
+        method.request.header.host: false
       Integration:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
@@ -1036,6 +1037,7 @@ Resources:
         RequestParameters:
           integration.request.path.proxy: "method.request.path.proxy"
           integration.request.header.x-forwarded-for: "method.request.header.x-forwarded-for"
+          integration.request.header.x-forwarded-host: "method.request.header.host"
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
         Uri: !Sub

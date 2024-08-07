@@ -1,6 +1,7 @@
 # ipv-core-front
 
-This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system. The IPV Core frontend is the first user-facing screen in the identity proving journey.
+This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system.
+The IPV Core frontend is the first user-facing screen in the identity proving journey.
 
 ## Related repositories
 

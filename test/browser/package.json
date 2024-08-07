@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test --update-snapshots"
   },
   "keywords": [],
   "author": "",

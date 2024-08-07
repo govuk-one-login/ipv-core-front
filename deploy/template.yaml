@@ -223,7 +223,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202405141531
+    DependsOn: RestApiGwDeployment202408070900
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -320,6 +320,11 @@ Resources:
   AccessLogsBucket:
     Type: AWS::S3::Bucket
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W3045 # Using a legacy access control setup for now
     Properties:
       BucketName: !If
         - IsDevelopment # existing bucket names exist in the current dev env
@@ -1130,7 +1135,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202405141531
+      DeploymentId: !Ref RestApiGwDeployment202408070900
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn

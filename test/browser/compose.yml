@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: local.Dockerfile
+    environment:
+      PORT: 4501
+      NODE_ENV: development
+      ENABLE_PREVIEW: development
+      LANGUAGE_TOGGLE_DISABLED: false
+    ports:
+      - "4501:4501"
+    network_mode: "host"
+
+  browser-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+    environment:
+      GITHUB_ACTIONS: true
+      WEBSITE_HOST: http://localhost:4501
+    volumes:
+      - /snapshot.spec.js-snapshots:/snapshot.spec.js-snapshots
+    network_mode: "host"

@@ -18,7 +18,6 @@
   <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>
 
-
   <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph3' | translate }}</p>
 
@@ -91,15 +90,11 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
   </form>
 
-  <p class="govuk-body">
-    <a target="_blank" rel="noopener noreferrer" href="{{ contactUsUrl }}" class="govuk-link">
-      {{ 'general.shared.contactLinkText' | translate }}
-    </a>
-  </p>
-
+  {% include "components/contact-us-link.njk" %}
 {% endblock %}

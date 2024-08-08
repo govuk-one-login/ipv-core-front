@@ -12,7 +12,6 @@
 {% set errorHref = "#pageUpdateNameOptionsForm" %}
 
 {% block content %}
-
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageUpdateName.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph1' | translate }}</p>
   <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageUpdateName.content.paragraph2' | translate }}</p>
@@ -83,11 +82,9 @@
       summaryText: 'pages.pageUpdateName.content.cannotUseInformation.summary' | translate,
       text: 'pages.pageUpdateName.content.cannotUseInformation.text' | translate( { url: contactUsUrl } ) | safe
     }) }}
-
-
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
   </form>
-
 {% endblock %}

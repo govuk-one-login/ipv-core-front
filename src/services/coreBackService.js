@@ -44,9 +44,13 @@ function postJourneyEvent(req, event, currentPage) {
     requestConfig.params = { currentPage };
   }
 
-  return axiosInstance.post(`${API_JOURNEY_EVENT}/${event}?lang=en`, {
-    "lng": "en"
-  }, requestConfig);
+  return axiosInstance.post(
+    `${API_JOURNEY_EVENT}/${event}?lang=en`,
+    {
+      lng: "en",
+    },
+    requestConfig,
+  );
 }
 
 function postSessionInitialise(req, authParams) {

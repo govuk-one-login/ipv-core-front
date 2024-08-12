@@ -63,7 +63,7 @@ jobs:
       - name: Pull repository
         uses: actions/checkout@v4
       - name: Start Docker
-        run: docker compose up web --detach
+        run: docker compose up web mocks --detach
       - name: Run UI tests
         run: docker compose up browser-test --exit-code-from browser-test
       - name: Stop Docker

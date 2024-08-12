@@ -1,0 +1,51 @@
+openapi: "3.0.1"
+info:
+  title: "Core back Api"
+  version: "1.0"
+
+paths:
+  /health:
+    get:
+      requestBody:
+      responses:
+        "200":
+          description:
+          content:
+            application/json: {}
+  /session/initialise:
+    post:
+      requestBody:
+        content:
+          application/json: {}
+        required: false
+      responses:
+        "200":
+          description:
+          content:
+            application/json: {}
+  /journey/next:
+    post:
+      queryParams:
+        currentPage: "page-ipv-identity-document-start"
+      requestBody:
+        content:
+          application/json: {}
+        required: false
+      responses:
+        "200":
+          description:
+          content:
+            application/json: {}
+  /journey/end:
+    post:
+      queryParams:
+        currentPage: "page-ipv-identity-postoffice-start"
+      requestBody:
+        content:
+          application/json: {}
+        required: false
+      responses:
+        "200":
+          description:
+          content:
+            application/json: {}

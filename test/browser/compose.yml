@@ -1,14 +1,26 @@
 version: "3.9"
 services:
+  mocks:
+    image: outofcoffee/imposter:3.44.0
+    volumes:
+      - "../imposter:/opt/imposter/config"
+    ports:
+      - "8050:8080"
+    network_mode: "host"
+
   web:
     build:
       context: ../..
       dockerfile: local.Dockerfile
+    depends_on:
+      - mocks
     environment:
-      PORT: 4501
-      NODE_ENV: development
+      NODE_ENV: local
       ENABLE_PREVIEW: development
       LANGUAGE_TOGGLE_DISABLED: false
+      SESSION_SECRET: dev_secret #pragma: allowlist secret
+      API_BASE_URL: http://localhost:8080
+      CONTACT_URL: https://home.account.gov.uk/contact-gov-uk-one-login
     ports:
       - "4501:4501"
     network_mode: "host"
@@ -18,9 +30,9 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
+      - mocks
       - web
     environment:
-      GITHUB_ACTIONS: true
       WEBSITE_HOST: http://localhost:4501
     volumes:
       - /snapshot.spec.js-snapshots:/snapshot.spec.js-snapshots

@@ -81,6 +81,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: true
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
@@ -99,6 +100,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: true
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
@@ -120,6 +122,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: false
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.build.account.gov.uk/logout"
       templateCaching: true
@@ -138,6 +141,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: false
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.staging.account.gov.uk/logout"
       templateCaching: true
@@ -156,6 +160,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: true
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.integration.account.gov.uk/logout"
       templateCaching: true
@@ -174,6 +179,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
+      rumDisabled: true
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.account.gov.uk/logout"
       templateCaching: true
@@ -796,6 +802,11 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - uaDisabled
+            - Name: RUM_DISABLED
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - rumDisabled
             - Name: CONTACT_URL
               Value: !FindInMap
                 - EnvironmentConfiguration

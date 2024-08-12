@@ -12,6 +12,10 @@
 {% set mainLang = currentLanguage %}
 
 {% block head %}
+    {# Dynatrace RUM snippet #}
+    {% if not isRUMDisabled %}
+    <script src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js" crossorigin="anonymous" nonce='{{ cspNonce }}'></script>
+    {% endif %}
 
     <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet">

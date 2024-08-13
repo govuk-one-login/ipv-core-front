@@ -1,6 +1,7 @@
 const express = require("express");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const router = express.Router();
 
 const {
@@ -48,6 +49,7 @@ router.post(
   csrfProtection,
   formHandleUpdateDetailsCheckBox,
   formRadioButtonChecked,
+  cookieParser(),
   handleJourneyAction,
 );
 
@@ -58,6 +60,7 @@ router.post(
   csrfProtection,
   formHandleCoiDetailsCheck,
   formRadioButtonChecked,
+  cookieParser(),
   handleJourneyAction,
 );
 
@@ -66,11 +69,12 @@ router.post(
   parseForm,
   csrfProtection,
   formRadioButtonChecked,
+  cookieParser(),
   handleJourneyAction,
 );
 
 // Enables a link in the frontend to iterate the journey state
 // This is needed because some redirects must be done with links, not forms
-router.get("/journey/:pageId/:action", updateJourneyState);
+router.get("/journey/:pageId/:action", cookieParser(), updateJourneyState);
 
 module.exports = router;

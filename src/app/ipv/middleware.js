@@ -174,20 +174,6 @@ function tryValidateClientResponse(client) {
   return true;
 }
 
-function checkForSessionId(req, res) {
-  if (!req.session?.ipvSessionId) {
-    const err = new Error("req.ipvSessionId is missing");
-    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-    logError(req, err);
-
-    req.session.currentPage = PAGES.PYI_TECHNICAL;
-    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-    return res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-      context: "unrecoverable",
-    });
-  }
-}
-
 function checkForIpvAndOauthSessionId(req, res) {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
     const err = new Error(
@@ -212,6 +198,50 @@ function checkJourneyAction(req) {
 
     throw new Error("req.body?.journey is missing");
   }
+}
+
+async function validateSessionAndPage(req, res, pageId) {
+  const { clientOauthSessionId, ipvSessionId, currentPage } = req.session || {};
+
+  // Check if the page is valid
+  // Return false to indicate the response has been handled and stop further processing
+  if (!isValidPage(pageId)) {
+    res.status(HTTP_STATUS_CODES.NOT_FOUND);
+    res.render(getTemplatePath("errors", "page-not-found"));
+    return false;
+  }
+
+  // Check for clientOauthSessionId for recoverable timeout page
+  if (clientOauthSessionId && pageId === PAGES.PYI_TIMEOUT_RECOVERABLE) {
+    req.session.currentPage = PAGES.PYI_TIMEOUT_RECOVERABLE;
+    return res.render(getIpvPageTemplatePath(req.session.currentPage));
+  }
+
+  // Check if ipvSessionId is present
+  if (!ipvSessionId) {
+    logError(
+      req,
+      { pageId, expectedPage: currentPage },
+      "req.session.ipvSessionId must be present",
+    );
+
+    req.session.currentPage = PAGES.PYI_TECHNICAL;
+    res.status(HTTP_STATUS_CODES.UNAUTHORIZED);
+    res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+      context: "unrecoverable",
+    });
+    return false;
+  }
+
+  // Handle the unrecoverable timeout page
+  if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+    req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
+    res.render(getIpvPageTemplatePath(req.session.currentPage));
+    return false;
+  }
+
+  // Return true if validation passed
+  return true;
 }
 
 // getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
@@ -345,31 +375,14 @@ module.exports = {
       const { pageId } = req.params;
       const { context } = req?.session || "";
 
-      // handles page id validation first
-      if (!isValidPage(pageId)) {
-        res.status(HTTP_STATUS_CODES.NOT_FOUND);
-        return res.render(getTemplatePath("errors", "page-not-found"));
+      if (!(await validateSessionAndPage(req, res, pageId))) {
+        return;
       }
 
-      if (!req.session?.ipvSessionId) {
-        logError(
-          req,
-          {
-            pageId: pageId,
-            expectedPage: req.session.currentPage,
-          },
-          "req.ipvSessionId is null",
-        );
-
-        req.session.currentPage = PAGES.PYI_TECHNICAL;
-        return res.render(getIpvPageTemplatePath(req.session.currentPage), {
-          context: "unrecoverable",
-        });
-      } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
-        req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-        return res.render(getIpvPageTemplatePath(req.session.currentPage));
-      } else if (req.session.currentPage !== pageId) {
-        return await handleUnexpectedPage(req, res, pageId);
+      // Handle unexpected page
+      if (req.session.currentPage !== pageId) {
+        await handleUnexpectedPage(req, res, pageId);
+        return false;
       }
 
       const renderOptions = {
@@ -407,30 +420,24 @@ module.exports = {
       delete req.session.currentPageStatusCode;
     }
   },
+
   handleJourneyAction: async (req, res, next) => {
-    const currentPageId = req.params.pageId;
-    const pagesUsingSessionId = [
-      PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
-      PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
-      PAGES.PAGE_MULTIPLE_DOC_CHECK,
-      PAGES.PYI_CRI_ESCAPE,
-      PAGES.PYI_SUGGEST_OTHER_OPTIONS,
-    ];
+    const pageId = req.params.pageId;
 
     try {
-      if (pagesUsingSessionId.includes(currentPageId)) {
-        checkForSessionId(req, res);
-      } else {
-        checkForIpvAndOauthSessionId(req, res);
+      if (!(await validateSessionAndPage(req, res, pageId))) {
+        return;
       }
+
       checkJourneyAction(req);
+
       if (req.body?.journey === "contact") {
         return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
       }
 
-      await handleJourneyResponse(req, res, req.body.journey, currentPageId);
+      await handleJourneyResponse(req, res, req.body.journey, pageId);
     } catch (error) {
-      transformError(error, `error handling POST request on ${currentPageId}`);
+      transformError(error, `error handling POST request on ${pageId}`);
       next(error);
     }
   },

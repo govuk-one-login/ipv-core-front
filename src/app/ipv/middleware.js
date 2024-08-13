@@ -348,6 +348,15 @@ async function updateJourneyState(req, res, next) {
 }
 
 async function handleJourneyPage(req, res, next) {
+  return handleJourneyPageInternal(req, res, next);
+}
+
+async function handleJourneyPageInternal(
+  req,
+  res,
+  next,
+  pageErrorState = undefined,
+) {
   try {
     const { pageId } = req.params;
     const { context } = req?.session || "";
@@ -363,7 +372,7 @@ async function handleJourneyPage(req, res, next) {
         req,
         {
           pageId: pageId,
-          expectedPage: req.session.currentPage,
+          expectedPage: req.session?.currentPage,
         },
         "req.ipvSessionId is null",
       );
@@ -382,6 +391,7 @@ async function handleJourneyPage(req, res, next) {
       pageId,
       csrfToken: req.csrfToken(),
       context,
+      pageErrorState,
     };
 
     if (pageRequiresUserDetails(pageId)) {
@@ -411,7 +421,7 @@ async function handleJourneyPage(req, res, next) {
 
 async function handleJourneyAction(req, res, next) {
   const currentPageId = req.params.pageId;
-  const pagesUsingSessionId = [
+  const pagesNotUsingOAuthSessionId = [
     PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
     PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
     PAGES.PAGE_MULTIPLE_DOC_CHECK,
@@ -420,7 +430,7 @@ async function handleJourneyAction(req, res, next) {
   ];
 
   try {
-    if (pagesUsingSessionId.includes(currentPageId)) {
+    if (pagesNotUsingOAuthSessionId.includes(currentPageId)) {
       checkForIpvSessionId(req, res);
     } else {
       checkForIpvAndOauthSessionId(req, res);
@@ -443,31 +453,11 @@ async function renderFeatureSetPage(req, res) {
   });
 }
 
-async function formRadioButtonChecked(req, res, next) {
+async function checkFormRadioButtonSelected(req, res, next) {
   try {
-    const { context } = req?.session || "";
-    const pageId = req.session.currentPage;
-
-    const expectedPageId = req.params?.pageId;
-
-    if (expectedPageId && expectedPageId !== pageId) {
-      return await handleUnexpectedPage(req, res, expectedPageId);
-    }
-
-    if (req.method === "POST" && req.body.journey === undefined) {
-      const renderOptions = {
-        pageId,
-        csrfToken: req.csrfToken(),
-        pageErrorState: true,
-        context,
-      };
-
-      if (pageRequiresUserDetails(pageId)) {
-        renderOptions.userDetails = await fetchUserDetails(req);
-      }
-      req.renderOptions = renderOptions;
-
-      res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
+    // If no radio option is selected re-display the form page with an error.
+    if (req.body.journey === undefined) {
+      handleJourneyPageInternal(req, res, next, true);
     } else {
       next();
     }
@@ -531,13 +521,22 @@ async function validateFeatureSet(req, res, next) {
   }
 }
 
+// You can use this handler to set req.params.pageId to mimic the `:pageId` path parameter used in the more generic handlers.
+function setRequestPageId(pageId) {
+  return async (req, res, next) => {
+    req.params = req.params || {};
+    req.params.pageId = pageId;
+    return next();
+  };
+}
+
 module.exports = {
   renderAttemptRecoveryPage,
   updateJourneyState,
   handleJourneyPage,
   handleJourneyAction,
   renderFeatureSetPage,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   validateFeatureSet,
@@ -546,4 +545,5 @@ module.exports = {
   pageRequiresUserDetails,
   handleAppStoreRedirect,
   checkForIpvAndOauthSessionId,
+  setRequestPageId,
 };

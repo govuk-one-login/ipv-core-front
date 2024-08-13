@@ -58,6 +58,18 @@ describe("journey middleware", () => {
     CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
   });
 
+  context("setRequestPageId", () => {
+    it("should return a handler that sets the page ID on a request", async function () {
+      const newPageId = "new-page-id";
+      const handler = middleware.setRequestPageId(newPageId);
+
+      await handler(req, res, next);
+
+      expect(req.params.pageId).to.equal(newPageId);
+      expect(next).to.have.been.called;
+    });
+  });
+
   context("from a sequence of events that ends with a page response", () => {
     beforeEach(() => {
       req = {
@@ -934,7 +946,7 @@ describe("journey middleware", () => {
     });
   });
 
-  context("formRadioButtonChecked middleware", () => {
+  context("checkFormRadioButtonSelected middleware", () => {
     beforeEach(() => {
       req = {
         body: {},
@@ -942,73 +954,24 @@ describe("journey middleware", () => {
         csrfToken: sinon.fake(),
         session: {
           currentPage: "page-ipv-identity-document-start",
+          ipvSessionId: "ipv-session-id",
           save: sinon.fake.yields(null),
         },
         log: { error: sinon.fake() },
       };
     });
 
-    it("should render if method is postJourneyEvent, journey is not defined", async function () {
+    it("should render if journey is not defined", async function () {
       req.body.journey = undefined;
-      req.method = "POST";
-      await middleware.formRadioButtonChecked(req, res, next);
+      await middleware.checkFormRadioButtonSelected(req, res, next);
 
       expect(res.render).to.have.been.called;
       expect(next).to.have.not.been.calledOnce;
     });
 
-    it("should not render if method is not postJourneyEvent", async function () {
-      req.method = "GET";
-      req.body.journey = undefined;
-      await middleware.formRadioButtonChecked(req, res, next);
-
-      expect(res.render).to.not.have.been.called;
-      expect(next).to.have.been.calledOnce;
-    });
-
     it("should not render if journey is defined", async function () {
       req.body.journey = "someJourney";
-      await middleware.formRadioButtonChecked(req, res, next);
-
-      expect(res.render).to.not.have.been.called;
-      expect(next).to.have.been.calledOnce;
-    });
-
-    it("should fetch user details if required", async function () {
-      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
-
-      req.session.currentPage = "page-ipv-reuse";
-      req.params.pageId = "page-ipv-reuse";
-      req.method = "POST";
-
-      await middleware.formRadioButtonChecked(req, res, next);
-
-      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
-        .called;
-      expect(res.render).to.not.have.been.called;
-      expect(next).to.have.been.calledOnce;
-    });
-
-    it("should handle unexpected pages", async function () {
-      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
-
-      req.session.currentPage = "page-ipv-reuse";
-      req.method = "POST";
-
-      await middleware.formRadioButtonChecked(req, res, next);
-
-      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
-        .called;
-      expect(res.render).to.not.have.been.called;
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-attempt-recovery",
-      );
-    });
-
-    it("should call next in case of a successful execution", async function () {
-      req.body.journey = "dcmaw";
-
-      await middleware.formRadioButtonChecked(req, res, next);
+      await middleware.checkFormRadioButtonSelected(req, res, next);
 
       expect(res.render).to.not.have.been.called;
       expect(next).to.have.been.calledOnce;

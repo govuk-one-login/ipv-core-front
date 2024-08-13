@@ -12,8 +12,9 @@ const {
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleAppStoreRedirect,
+  setRequestPageId,
 } = require("./middleware");
 
 const {
@@ -42,8 +43,9 @@ router.post(
   getPagePath(UPDATE_DETAILS),
   parseForm,
   csrfProtection,
+  setRequestPageId(UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 
@@ -52,8 +54,9 @@ router.post(
   getPagePath(CONFIRM_DETAILS),
   parseForm,
   csrfProtection,
+  setRequestPageId(CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 
@@ -61,7 +64,7 @@ router.post(
   getPagePath(":pageId"),
   parseForm,
   csrfProtection,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 

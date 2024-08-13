@@ -34,7 +34,7 @@ From a number of sources:
      - `errorState`
        - String indicating type of form error (`checkbox`/ `radiobox`).
 2. English/ Welsh content in `src/locales`.
-3. The `res.locals` variable set in `localesjs`.
+3. The `res.locals` variable set in `locals.js`.
 
 #### How the data is accessed
 

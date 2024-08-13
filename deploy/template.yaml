@@ -491,26 +491,6 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
 
-  SecondPrivateLoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
-    Properties:
-      HealthCheckEnabled: TRUE
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
-      HealthyThresholdCount: 2
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId:
-        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 30
-
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
@@ -1901,7 +1881,6 @@ Resources:
         ECSClusterName: !Ref CoreFrontCluster
         ECSServiceName: !GetAtt CoreFrontService.Name
         ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
-        GreenTargetGroupName: !GetAtt SecondPrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
         LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
         PermissionsBoundary: !If
           - UsePermissionsBoundary

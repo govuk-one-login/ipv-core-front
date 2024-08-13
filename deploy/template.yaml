@@ -81,7 +81,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: true
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
@@ -100,7 +100,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: true
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
@@ -122,7 +122,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: false
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.build.account.gov.uk/logout"
       templateCaching: true
@@ -141,7 +141,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: false
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.staging.account.gov.uk/logout"
       templateCaching: true
@@ -160,7 +160,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: true
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.integration.account.gov.uk/logout"
       templateCaching: true
@@ -179,7 +179,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      rumDisabled: true
+      dtRumUrl: "" # https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.account.gov.uk/logout"
       templateCaching: true
@@ -802,11 +802,11 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - uaDisabled
-            - Name: RUM_DISABLED
+            - Name: DT_RUM_URL
               Value: !FindInMap
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
-                - rumDisabled
+                - dtRumUrl
             - Name: CONTACT_URL
               Value: !FindInMap
                 - EnvironmentConfiguration

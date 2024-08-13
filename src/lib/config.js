@@ -31,7 +31,7 @@ module.exports = {
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   GA4_DISABLED: process.env.GA4_DISABLED,
   UA_DISABLED: process.env.UA_DISABLED,
-  RUM_DISABLED: process.env.RUM_DISABLED,
+  DT_RUM_URL: process.env.DT_RUM_URL,
   CONTACT_URL:
     process.env.CONTACT_URL ||
     "https://home.build.account.gov.uk/contact-gov-uk-one-login",

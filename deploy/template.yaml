@@ -491,7 +491,25 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 30
 
-
+  SecondPrivateLoadBalancerListenerTargetGroupECS:
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Properties:
+      HealthCheckEnabled: TRUE
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /healthcheck
+      HealthCheckTimeoutSeconds: 14
+      HealthCheckIntervalSeconds: 15
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 30
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -533,18 +551,22 @@ Resources:
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
       LaunchType: FARGATE
-      LoadBalancers:
-        - ContainerName: app
-          ContainerPort: 8080
-          TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          AssignPublicIp: DISABLED
-          SecurityGroups:
-            - !GetAtt CoreFrontECSSecurityGroup.GroupId
-          Subnets:
-            - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
-            - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
+      LoadBalancers: !If
+        - UseCanaryDeployment
+        - !Ref AWS::NoValue
+        - - ContainerName: app
+            ContainerPort: 8080
+            TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
+      NetworkConfiguration: !If
+        - UseCanaryDeployment
+        - !Ref AWS::NoValue
+        - AwsvpcConfiguration:
+            AssignPublicIp: DISABLED
+            SecurityGroups:
+              - !GetAtt CoreFrontECSSecurityGroup.GroupId
+            Subnets:
+              - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+              - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
       TaskDefinition: !If
         - UseCanaryDeployment
         - !Ref AWS::NoValue
@@ -1866,26 +1888,35 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: UseCanaryDeployment
     Properties:
-      TemplateURL: "https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=9vFjXAXebnhiAago1o4zhHXwEGHub7ps" # v2.0.2
+      TemplateURL: https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=5RRU1nfKQD_d08FKttr8W7pzrAsqQiUM # v2.1.1
       Parameters:
-        ECSClusterName: !Ref CoreFrontCluster
-        ECSServiceName: !GetAtt CoreFrontService.Name
-        TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
-        LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
-        ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
-        DeploymentStrategy: !Ref DeploymentStrategy
-        VpcId: !Sub ${VpcStackName}-VpcId
-        ContainerName: app
-        ContainerPort: 8080
-        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
-        PermissionsBoundary: !If
-          - UsePermissionsBoundary
-          - !Ref PermissionsBoundary
-          - none
         CodeSigningConfigArn: !If
           - UseCodeSigning
           - !Ref CodeSigningConfigArn
           - !Ref AWS::NoValue
+        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
+        ContainerName: app
+        ContainerPort: 8080
+        DeploymentStrategy: !Ref DeploymentStrategy
+        ECSClusterName: !Ref CoreFrontCluster
+        ECSServiceName: !GetAtt CoreFrontService.Name
+        ECSServiceTaskDefinition: !Ref ECSServiceTaskDefinition
+        GreenTargetGroupName: !GetAtt SecondPrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
+        LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
+        PermissionsBoundary: !If
+          - UsePermissionsBoundary
+          - Fn::ImportValue: !Sub "${AWS::StackName}-ECSCanaryPermissionsBoundaryArn"
+          - none
+        SecurityGroups: !GetAtt CoreFrontECSSecurityGroup.GroupId
+        Subnets: !Join
+          - ","
+          - - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
+            - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
+        TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
+        TGHealthCheckIntervalSeconds: 5
+        TGHealthCheckTimeoutSeconds: 2
+        TGPort: 8080
+        VpcId: !Sub ${VpcStackName}-VpcId
 
 Outputs:
   CoreFrontUrl:

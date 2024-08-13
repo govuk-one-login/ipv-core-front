@@ -1884,7 +1884,7 @@ Resources:
         LoadBalancerListenerARN: !Ref PrivateLoadBalancerListener
         PermissionsBoundary: !If
           - UsePermissionsBoundary
-          - Fn::ImportValue: !Sub "${AWS::StackName}-ECSCanaryPermissionsBoundaryArn"
+          - !Ref PermissionsBoundary
           - none
         SecurityGroups: !GetAtt CoreFrontECSSecurityGroup.GroupId
         Subnets: !Join
@@ -1892,9 +1892,9 @@ Resources:
           - - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdA
             - Fn::ImportValue: !Sub ${VpcStackName}-ProtectedSubnetIdB
         TargetGroupName: !GetAtt PrivateLoadBalancerListenerTargetGroupECS.TargetGroupName
-        TGHealthCheckIntervalSeconds: 5
-        TGHealthCheckTimeoutSeconds: 2
-        TGPort: 8080
+        TGHealthCheckIntervalSeconds: 15
+        TGHealthCheckTimeoutSeconds: 14
+        TGPort: 80
         VpcId: !Sub ${VpcStackName}-VpcId
 
 Outputs:

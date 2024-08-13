@@ -12,6 +12,10 @@
 {% set mainLang = currentLanguage %}
 
 {% block head %}
+    {# Dynatrace RUM snippet #}
+    {% if dynatraceRumUrl %}
+    <script src='{{ dynatraceRumUrl }}' crossorigin="anonymous" nonce='{{ cspNonce }}'></script>
+    {% endif %}
 
     <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet">

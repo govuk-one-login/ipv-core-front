@@ -1,4 +1,5 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 <form id="noPhotoIdExitFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -42,7 +43,8 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
   </form>

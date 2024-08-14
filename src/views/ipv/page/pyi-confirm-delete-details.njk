@@ -1,5 +1,6 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pyiConfirmDeleteDetails.title' %}
 {% set googleTagManagerPageId = "pyiConfirmDeleteDetails" %}
 {% set isPageDynamic = true %}
@@ -38,10 +39,11 @@
       {% set errorMessageObject = { 'text': 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
-      
+
     {{ govukRadios(radiosConfig) }}
-    <button name="submitButton" class="govuk-button" data-module="govuk-button" id="submitButton">
-      {{ 'general.buttons.next' | translate }}
-    </button>
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
   </form>
 {% endblock %}

@@ -12,6 +12,11 @@
 {% set errorText = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#updateNameDateBirthActionForm" %}
 
+{% if context === 'reuse' %}
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/update-name-date-birth/back" %}
+{% endif %}
+
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
         xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translateWithContextOrFallback(context) }}</h1>

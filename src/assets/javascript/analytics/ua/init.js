@@ -46,12 +46,17 @@ window.DI.analyticsUa = window.DI.analyticsUa || {};
     const consentGiven = window.DI.analyticsGa4.cookie.hasConsentForAnalytics();
 
     if (consentGiven) {
+      window.dtrum && window.dtrum.enable();
       window.DI.analyticsGa4.loadGtmScript(
         window.DI.analyticsGa4.uaContainerId,
       );
       initGtm();
     } else {
+      window.dtrum && window.dtrum.disable();
       window.addEventListener("cookie-consent", window.DI.analyticsUa.init);
+      window.addEventListener("cookie-consent", function () {
+        window.dtrum && window.dtrum.enable();
+      });
     }
   };
 

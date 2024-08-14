@@ -1,0 +1,13 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleKey = 'pages.deleteHandover.title' %}
+{% set googleTagManagerPageId = "deleteHandover" %}
+{% set isPageDynamic = false %}
+{% set showBack = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{ 'pages.deleteHandover.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph1Html' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph2' | translate  }}</p>
+
+  {% include 'shared/journey-next-form.njk' %}
+{% endblock %}

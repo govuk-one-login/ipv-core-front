@@ -1206,7 +1206,7 @@
         }
       }
     },
-    "deleteIdentity": {
+    "deleteHandover": {
       "title": "Delete your GOV.UK One Login",
       "header": "Delete your GOV.UK One Login",
       "content": {

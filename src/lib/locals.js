@@ -12,12 +12,6 @@ const {
 } = require("./config");
 const { generateNonce } = require("./strings");
 
-const generateUrlFromString = (stringURl, req) => {
-  const url = new URL(stringURl);
-  url.searchParams.set("fromUrl", `${SERVICE_URL}${req.originalUrl}`);
-  return url;
-};
-
 module.exports = {
   setLocals: function (req, res, next) {
     res.locals.uaContainerId = GTM_ID;
@@ -29,9 +23,14 @@ module.exports = {
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.logoutUrl = LOGOUT_URL;
 
-    res.locals.contactUsUrl = generateUrlFromString(CONTACT_URL).href;
-    res.locals.deleteAccountUrl =
-      generateUrlFromString(DELETE_ACCOUNT_URL).href;
+    const contactUsUrl = new URL(CONTACT_URL);
+    contactUsUrl.searchParams.set(
+      "fromUrl",
+      `${SERVICE_URL}${req.originalUrl}`,
+    );
+    res.locals.contactUsUrl = contactUsUrl.href;
+
+    res.locals.deleteAccountUrl = DELETE_ACCOUNT_URL;
 
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;

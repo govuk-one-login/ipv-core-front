@@ -27,14 +27,14 @@
         <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph2' | translate }}</p>
     {% endif %}
 
-    {% if context === "repeatFraudCheck" %}
+    {% if context === "repeatFraudCheck" or context === 'rfcAccountDeletion' %}
     {{ govukWarningText({
         text: 'pages.updateNameDateBirth.content.warningText' | translate,
         iconFallbackText: 'pages.updateNameDateBirth.content.warningTextFallback' | translate
         }) }}
     {% endif %}
 
-    {% if context === 'reuse' %}
+    {% if context === 'reuse' or context === 'rfcAccountDeletion' %}
         <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph3' | translate }}</p>
     {% endif %}
 
@@ -64,7 +64,7 @@
                 }
             },
             items: [
-                    yesButtonConfig["withHint"] if context === "reuse" else yesButtonConfig["withoutHint"],
+                    yesButtonConfig["withHint"] if context === "reuse" or context === "rfcAccountDeletion" else yesButtonConfig["withoutHint"],
                     {
                         value: "end",
                         text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContextOrFallback(context),

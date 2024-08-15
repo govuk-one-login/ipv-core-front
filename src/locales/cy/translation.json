@@ -694,6 +694,7 @@
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
         "paragraph1Reuse": "TODO PYIC-7195: This is to help protect you from identity fraud.",
+        "paragraph1RfcAccountDeletion": "TODO PYIC-7195: This is to help protect you from identity fraud.",
         "paragraph2": "TODO PYIC-7195: You can still use the service if your details are out of date.",
         "paragraph3": "TODO PYIC-7195: To use a different full name or date of birth, you'll need to delete your GOV.UK One Login and create a new one.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
@@ -702,7 +703,9 @@
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
           "yesReuse": "TODO PYIC-7195: Continue to the service without updating your details",
+          "yesRfcAccountDeletion": "TODO PYIC-7195: Delete your GOV.UK One Login",
           "yesHintReuse": "TODO PYIC-7195: Your proof of identity is valid even if your details have changed.",
+          "yesHintRfcAccountDeletion": "TODO PYIC-7195: Then create a new one and prove your identity with your new details.",
           "no": "Ewch yn ôl i wirio eich manylion eto",
           "noReuse": "TODO PYIC-7195: Delete your GOV.UK One Login",
           "noHint": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",

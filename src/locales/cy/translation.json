@@ -961,7 +961,9 @@
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud",
+          "errorSummaryDescriptionTextNino": "Select yes if you have a National Insurance number",
+          "errorRadioMessageNino": "Select yes if you have a National Insurance number"
         }
       }
     },

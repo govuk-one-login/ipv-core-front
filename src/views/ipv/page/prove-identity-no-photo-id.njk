@@ -6,7 +6,7 @@
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
-{% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translateWithContext(context) %}
 {% set errorHref = "#proveIdentityNoPhotoIdOptionsForm" %}
 
 {% block content %}
@@ -57,7 +57,7 @@
     } %}
 
     {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorRadioMessage' | translateWithContext(context) } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 

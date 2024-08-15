@@ -1013,6 +1013,33 @@
         }
       }
     },
+    "pageIpvIdentityDocumentTypes": {
+      "title": "Types of photo ID",
+      "header": "Types of photo ID",
+      "content": {
+        "subHeading": "UK photocard driving licence",
+        "paragraph": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": ["has your photo", "has not expired"],
+        "paragraph1": "It can be a full or provisional UK driving licence.",
+        "subHeading2": "UK passport",
+        "paragraph3": "You can use any UK passport if it has not expired.",
+        "subHeading3": "Non-UK passport with a biometric chip",
+        "paragraph4": "You can use a non-UK passport if it:",
+        "nonUkPassportRequirements": [
+          "has a biometric chip",
+          "has not expired"
+        ],
+        "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
+        "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
+        "subHeading4": "UK biometric residence permit (BRP)",
+        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired. You might have a BRP if you have a visa for longer than 6 months or indefinite leave to remain.",
+        "subHeading5": "UK biometric residence card (BRC)",
+        "paragraph7": "You can use a BRC that has not expired. You might have a BRC if you’re in the UK as a family member of a citizen from a European Economic Area (EEA) country.",
+        "subHeading6": "UK Frontier Worker permit (FWP)",
+        "paragraph8": "You can use an FWP that has not expired. You might have an FWP if you work in the UK but live in another country.",
+        "subHeading7": "Do you have any of these types of photo ID?"
+      }
+    },
     "pyiPostOffice": {
       "title": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
       "header": "Profwch eich hunaniaeth mewn Swyddfa’r Post",

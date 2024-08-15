@@ -8,8 +8,18 @@ const {
   GA4_DISABLED,
   DT_RUM_URL,
   LOGOUT_URL,
+  DELETE_ACCOUNT_URL
 } = require("./config");
 const { generateNonce } = require("./strings");
+
+const generateUrlFromString = (url, req) => {
+  const url = new URL(CONTACT_URL);
+  contactUsUrl.searchParams.set(
+    "fromUrl",
+    `${SERVICE_URL}${req.originalUrl}`,
+  );
+  return url;
+}
 
 module.exports = {
   setLocals: function (req, res, next) {
@@ -22,12 +32,8 @@ module.exports = {
     res.locals.analyticsCookieDomain = GTM_ANALYTICS_COOKIE_DOMAIN;
     res.locals.logoutUrl = LOGOUT_URL;
 
-    const contactUsUrl = new URL(CONTACT_URL);
-    contactUsUrl.searchParams.set(
-      "fromUrl",
-      `${SERVICE_URL}${req.originalUrl}`,
-    );
-    res.locals.contactUsUrl = contactUsUrl.href;
+    res.locals.contactUsUrl = generateUrlFromString(CONTACT_URL).href;
+    res.locals.deleteAccountUrl = generateUrlFromString(DELETE_ACCOUNT_URL).href;
 
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;

@@ -41,7 +41,7 @@ describe("journey middleware", () => {
       send: sinon.fake(),
       render: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
-      locals: { contactUsUrl: "contactUrl" },
+      locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
     };
     req = {
       session: {
@@ -698,6 +698,23 @@ describe("journey middleware", () => {
 
         await middleware.handleJourneyAction(req, res, next);
         expect(res.redirect).to.have.been.calledWith("contactUrl");
+      });
+
+      it("should call saveAndRedirect given 'deleteAccount' event", async function () {
+        req = {
+          id: "1",
+          body: { journey: "deleteAccount" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
+          },
+          log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "ipv-current-page" },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(res.redirect).to.have.been.calledWith("deleteAccount");
       });
     },
   );

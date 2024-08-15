@@ -429,7 +429,11 @@ module.exports = {
       }
 
       if (req.body?.journey === "deleteAccount") {
-        return await saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
+        return await saveSessionAndRedirect(
+          req,
+          res,
+          res.locals.deleteAccountUrl,
+        );
       }
 
       await handleJourneyResponse(req, res, req.body.journey, currentPageId);

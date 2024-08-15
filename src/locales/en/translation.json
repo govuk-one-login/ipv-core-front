@@ -132,6 +132,8 @@
         "formRadioButtons": {
           "contactOption": "Contact the GOV.UK One Login team",
           "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.",
+          "deleteOption": "Delete your GOV.UK One Login",
+          "deleteOptionHint": "You can then create a new one and prove your identity using your new details.",
           "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {

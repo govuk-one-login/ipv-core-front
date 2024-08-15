@@ -47,9 +47,23 @@
                             text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
                         }
         } if context === 'reuse' else {
-                        value: "contact",
-                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context)
+                        value: "continue",
+                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContext(context)
         })%}
+
+        {% set yesButtonConfig = {
+            reuse: {
+                value: "contact",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context),
+                hint: {
+                    text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
+                }
+            },
+            default: {
+                value: "continue",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContext(context)
+            }
+        } %}
 
         {% set radiosConfig = {
             idPrefix: "journey",
@@ -61,7 +75,7 @@
                 }
             },
             items: [
-                    yesButtonConfig,
+                    yesButtonConfig[context],
                     {
                         value: "end",
                         text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContextOrFallback(context),

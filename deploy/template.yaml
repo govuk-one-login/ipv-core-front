@@ -179,7 +179,7 @@ Mappings:
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
-      dtRumUrl: "" # https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       logoutUrl: "https://oidc.account.gov.uk/logout"
       templateCaching: true

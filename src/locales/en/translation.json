@@ -757,16 +757,25 @@
     },
     "updateNameDateBirth": {
       "title": "Update your full name or date of birth",
+      "titleReuse": "You cannot update your full name or date of birth",
       "header": "Update your full name or date of birth",
+      "headerReuse": "You cannot update your full name or date of birth",
       "content": {
         "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
+        "paragraph1Reuse": "This is to help protect you from identity fraud.",
+        "paragraph2": "You can still use the service if your details are out of date.",
+        "paragraph3": "To use a different full name or date of birth, you'll need to delete your GOV.UK One Login and create a new one.",
         "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
         "warningTextFallback": "Warning",
         "radioButtonHeading": "What would you like to do?",
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your full name or date of birth",
+          "yesReuse": "Continue to the service without updating your details",
+          "yesHintReuse": "Your proof of identity is valid even if your details have changed.",
           "no": "Go back and check your details again",
-          "noHint": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name."
+          "noReuse": "Delete your GOV.UK One Login",
+          "noHint": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name.",
+          "noHintReuse": "Then create a new one and prove your identity with your new details."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

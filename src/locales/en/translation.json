@@ -128,6 +128,7 @@
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
+        "paragraph3": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "contactOption": "Contact the GOV.UK One Login team",

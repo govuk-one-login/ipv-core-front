@@ -21,6 +21,7 @@ function generateAxiosConfig(url, req) {
       "content-type": "application/json",
       "x-request-id": req.id,
       "ip-address": personalDataHeaders["x-forwarded-for"] || "unknown", // Passing x-forwarded-for as ip-address because AWS appends its own incorrect IP address when using "x-forwarded-for"
+      language: req.cookies.lng,
       "feature-set": req.session.featureSet,
       ...(req.session.ipvSessionId && {
         "ipv-session-id": req.session.ipvSessionId,

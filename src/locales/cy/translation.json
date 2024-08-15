@@ -689,8 +689,10 @@
     "updateNameDateBirth": {
       "title": "Diweddaru eich enw llawn neu ddyddiad geni",
       "titleReuse": "TODO PYIC-7195: You cannot update your full name or date of birth",
+      "titleRfcAccountDeletion": "TODO PYIC-7195: You cannot update your full name or date of birth",
       "header": "Diweddaru eich enw llawn neu ddyddiad geni",
       "headerReuse": "TODO PYIC-7195: You cannot update your full name or date of birth",
+      "headerRfcAccountDeletion": "TODO PYIC-7195: You cannot update your full name or date of birth",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
         "paragraph1Reuse": "TODO PYIC-7195: This is to help protect you from identity fraud.",

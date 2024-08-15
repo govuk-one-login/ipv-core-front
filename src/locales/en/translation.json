@@ -758,8 +758,10 @@
     "updateNameDateBirth": {
       "title": "Update your full name or date of birth",
       "titleReuse": "You cannot update your full name or date of birth",
+      "titleRfcAccountDeletion": "You cannot update your full name or date of birth",
       "header": "Update your full name or date of birth",
       "headerReuse": "You cannot update your full name or date of birth",
+      "headerRfcAccountDeletion": "You cannot update your full name or date of birth",
       "content": {
         "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
         "paragraph1Reuse": "This is to help protect you from identity fraud.",

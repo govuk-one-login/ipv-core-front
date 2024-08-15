@@ -40,27 +40,16 @@
 
     <form id="updateNameDateBirthActionForm" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-        {% set yesButtonConfig = ({
-                        value: "contact",
-                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context),
-                        hint: {
-                            text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
-                        }
-        } if context === 'reuse' else {
-                        value: "continue",
-                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContext(context)
-        })%}
-
         {% set yesButtonConfig = {
-            reuse: {
-                value: "contact",
+            withHint: {
+                value: "continue",
                 text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context),
                 hint: {
                     text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
                 }
             },
-            default: {
-                value: "continue",
+            withoutHint: {
+                value: "contact",
                 text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContext(context)
             }
         } %}
@@ -75,7 +64,7 @@
                 }
             },
             items: [
-                    yesButtonConfig[context],
+                    yesButtonConfig["withHint"] if context === "reuse" else yesButtonConfig["withoutHint"],
                     {
                         value: "end",
                         text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContextOrFallback(context),

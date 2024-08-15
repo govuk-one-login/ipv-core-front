@@ -1211,6 +1211,25 @@
         "paragraph1Html": "TODO: When you continue, you'll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
         "paragraph2": "TODO: After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details."
       }
+    },
+    "updateDetailsFailed": {
+      "title": "TODO: You were not able to update your details with the GOV.UK ID check app",
+      "header": "TODO:You were not able to update your details with the GOV.UK ID check app",
+      "content": {
+        "paragraph1": "TODO:You can still use the service if your details are out of date.",
+        "subHeading": "TODO: What would you like to do?",
+        "formRadioButtons": {
+          "continueOption": "TODO: Continue to the service without updating your details",
+          "continueOptionHint": "TODO: Your proof of identity is valid even if your details have changed.",
+          "deleteOption": "TODO: Delete your GOV.UK One Login",
+          "deleteOptionHint": "YTODO: ou can then create a new one and prove your identity using your new details."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "TODO: There is a problem",
+          "errorSummaryDescriptionText": "TODO: Select what you would like to do",
+          "errorRadioMessage": "TODO: Select what you would like to do"
+        }
+      }
     }
   }
 }

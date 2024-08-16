@@ -14,6 +14,30 @@
   <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph2' | translate }}</p>
 
+  {% if context == "deleteDetailsReuse" %}
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph3' | translate }}</p>
+  {%
+    set radioItems = [{
+        value: "delete",
+        text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.deleteOption' | translate,
+        hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.deleteOptionHint' | translate }
+    }]
+  %}
+  {% else %}
+  {%
+    set radioItems = [{
+        value: "contact",
+        text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOption' | translate,
+        hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOptionHint' | translate }
+    }]
+  %}
+  {% endif %}
+  {%
+    set radioItems = radioItems.concat({
+        value: "end",
+        text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.endOption' | translate
+    })
+  %}
   <form id="sorryCouldNotConfirmDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radiosConfig = {
@@ -25,17 +49,7 @@
                   classes: "govuk-fieldset__legend--m"
               }
           },
-          items: [
-                  {
-                  value: "contact",
-                  text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOption' | translate,
-                  hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOptionHint' | translate }
-                  },
-                  {
-                  value: "end",
-                  text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.endOption' | translate
-                  }
-              ]
+          items: radioItems
       }
       %}
 

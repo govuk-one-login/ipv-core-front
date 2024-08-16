@@ -1124,18 +1124,23 @@ Resources:
                     "message": "Not Found"
                 }
 
-  ApiGatewayAccessLogGroup:
+  RestApiGatewayAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
+      LogGroupName: !If
+        - IsDevelopment
+        - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
+        - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
       RetentionInDays: 30
-      Tags:
-        - Key: Name
-          Value: ApiGatewayAccessLogGroup
-        - Key: Service
-          Value: IPV Core
-        - Key: Source
-          Value: alphagov/di-ipv-core-front/deploy/template.yaml
+
+  RestApiGatewayAccessLogsGroupSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: IsSubscriptionEnviroment
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
+      FilterPattern: ""
+      LogGroupName: !Ref RestApiGatewayAccessLogsGroup
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
@@ -1149,7 +1154,7 @@ Resources:
       DeploymentId: !Ref RestApiGwDeployment202408070900
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
-        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+        DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn
         Format: >-
           {
           "requestId":"$context.requestId",

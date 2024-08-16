@@ -182,7 +182,7 @@ function checkForIpvSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    renderTechnicalError(req, res);
+    return renderTechnicalError(req, res);
   }
 }
 
@@ -194,7 +194,7 @@ function checkForIpvAndOauthSessionId(req, res) {
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
     logError(req, err);
 
-    renderTechnicalError(req, res);
+    return renderTechnicalError(req, res);
   }
 }
 
@@ -280,11 +280,9 @@ function handleAppStoreRedirect(req, res, next) {
   try {
     switch (specifiedPhoneType) {
       case PHONE_TYPES.IPHONE:
-        res.redirect(APP_STORE_URL_APPLE);
-        break;
+        return res.redirect(APP_STORE_URL_APPLE);
       case PHONE_TYPES.ANDROID:
-        res.redirect(APP_STORE_URL_ANDROID);
-        break;
+        return res.redirect(APP_STORE_URL_ANDROID);
       default:
         throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
@@ -315,19 +313,19 @@ async function handleUnexpectedPage(req, res, pageId) {
 
 function render404(response) {
   response.status(HTTP_STATUS_CODES.NOT_FOUND);
-  response.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
+  return response.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
 }
 
 function renderTechnicalError(request, response) {
   request.session.currentPage = PAGES.PYI_TECHNICAL;
   response.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-  response.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
+  return response.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
     context: "unrecoverable",
   });
 }
 
 async function renderAttemptRecoveryPage(req, res) {
-  res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
+  return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
     csrfToken: req.csrfToken(),
   });
 }
@@ -340,7 +338,7 @@ async function updateJourneyState(req, res, next) {
     if (action && isValidIpvPage(currentPageId)) {
       await handleJourneyResponse(req, res, action, currentPageId);
     } else {
-      render404(res);
+      return render404(res);
     }
   } catch (error) {
     next(error);
@@ -354,8 +352,7 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
 
     // handles page id validation first
     if (!isValidIpvPage(pageId)) {
-      render404(res);
-      return;
+      return render404(res);
     }
 
     if (!req.session?.ipvSessionId) {
@@ -368,12 +365,10 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
         "req.ipvSessionId is null",
       );
 
-      renderTechnicalError(req, res);
-      return;
+      return renderTechnicalError(req, res);
     } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
       req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-      res.render(getIpvPageTemplatePath(req.session.currentPage));
-      return;
+      return res.render(getIpvPageTemplatePath(req.session.currentPage));
     } else if (req.session.currentPage !== pageId) {
       return await handleUnexpectedPage(req, res, pageId);
     }
@@ -401,7 +396,7 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
       res.status(req.session.currentPageStatusCode);
     }
 
-    res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
+    return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
   } catch (error) {
     transformError(error, `error handling journey page: ${req.params}`);
     next(error);
@@ -439,7 +434,7 @@ async function handleJourneyAction(req, res, next) {
 }
 
 async function renderFeatureSetPage(req, res) {
-  res.render(getTemplatePath("ipv", "page-featureset"), {
+  return res.render(getTemplatePath("ipv", "page-featureset"), {
     featureSet: req.session.featureSet,
   });
 }

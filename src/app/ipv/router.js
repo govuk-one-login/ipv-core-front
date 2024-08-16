@@ -12,8 +12,9 @@ const {
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleAppStoreRedirect,
+  setRequestPageId,
 } = require("./middleware");
 
 const {
@@ -29,8 +30,6 @@ function getPagePath(pageId) {
   return `/page/${pageId}`;
 }
 
-router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
-
 router.get(
   getPagePath(PYI_ATTEMPT_RECOVERY),
   csrfProtection,
@@ -39,15 +38,14 @@ router.get(
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
 
-router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
-
 // Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
   getPagePath(UPDATE_DETAILS),
   parseForm,
   csrfProtection,
+  setRequestPageId(UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 
@@ -56,8 +54,9 @@ router.post(
   getPagePath(CONFIRM_DETAILS),
   parseForm,
   csrfProtection,
+  setRequestPageId(CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 
@@ -65,10 +64,12 @@ router.post(
   getPagePath(":pageId"),
   parseForm,
   csrfProtection,
-  formRadioButtonChecked,
+  checkFormRadioButtonSelected,
   handleJourneyAction,
 );
 
+router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
+router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 // Enables a link in the frontend to iterate the journey state
 // This is needed because some redirects must be done with links, not forms
 router.get("/journey/:pageId/:action", updateJourneyState);

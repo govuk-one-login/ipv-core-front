@@ -1,5 +1,6 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
-const { getTemplatePath } = require("../lib/paths");
+const { getErrorPageTemplatePath } = require("../lib/paths");
+const ERROR_PAGES = require("../constants/error-pages");
 
 module.exports = {
   pageNotFoundHandler: (req, res, next) => {
@@ -8,6 +9,6 @@ module.exports = {
     }
 
     res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    res.render(getTemplatePath("errors", "page-not-found"));
+    res.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
   },
 };

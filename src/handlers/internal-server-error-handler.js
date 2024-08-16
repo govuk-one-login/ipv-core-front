@@ -1,7 +1,11 @@
 const { HTTP_STATUS_CODES } = require("../app.constants");
 const axios = require("axios");
 const PAGES = require("../constants/ipv-pages");
-const { getIpvPageTemplatePath, getTemplatePath } = require("../lib/paths");
+const {
+  getIpvPageTemplatePath,
+  getErrorPageTemplatePath,
+} = require("../lib/paths");
+const ERROR_PAGES = require("../constants/error-pages");
 
 module.exports = {
   serverErrorHandler(err, req, res, next) {
@@ -17,7 +21,7 @@ module.exports = {
     }
 
     if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {
-      return res.render(getTemplatePath("errors", "session-ended"));
+      return res.render(getErrorPageTemplatePath(ERROR_PAGES.SESSION_ENDED));
     }
     res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
     res.err?.status

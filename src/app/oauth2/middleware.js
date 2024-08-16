@@ -41,7 +41,7 @@ async function setIpvSessionId(req, res, next) {
     return next(error);
   }
 
-  next();
+  return next();
 }
 
 async function handleOAuthJourneyAction(req, res, next) {
@@ -50,7 +50,7 @@ async function handleOAuthJourneyAction(req, res, next) {
     await handleJourneyResponse(req, res, "next");
   } catch (error) {
     transformError(error, "error invoking handleOAuthJourneyAction");
-    next(error);
+    return next(error);
   }
 }
 

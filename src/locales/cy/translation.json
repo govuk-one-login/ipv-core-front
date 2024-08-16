@@ -1029,28 +1029,19 @@
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
-        "paragraph1": "Gallwch ddefnyddio trwydded yrru lawn neu dros dro y DU os yw’n:",
-        "drivingLicenceRequirements": [
-          "gerdyn-llun plastig, ddim yn drwydded papur",
-          "heb ddod i ben"
+        "paragraph1": "You can use one of the following types of photo ID:",
+        "documentsList": [
+          "UK photocard driving licence",
+          "UK passport",
+          "non-UK passport with a biometric chip",
+          "UK biometric residence permit (BRP)",
+          "UK biometric residence card (BRC)",
+          "UK Frontier Worker permit (FWP)"
         ],
-        "subHeading2": "Pasbort y DU",
-        "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU. Os yw’ch pasbort y DU wedi dod i ben, gallwch barhau i’w ddefnyddio i brofi eich hunaniaeth hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
-        "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodion biometrig",
-        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os:",
-        "nonUkPassportRequirements": [
-          "mae ganddo sglodyn biometrig",
-          "nid yw wedi dod i ben"
-        ],
-        "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
-        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
-        "subHeading4": "Trwydded breswylio biometrig y DU",
-        "paragraph6": "Gallwch ddefnyddio trwydded breswylio biometrig (BRP) y DU sydd heb ddod i ben. Efallai y bydd gennych BRP os oes gennych fisa am fwy na 6 mis neu ganiatâd amhenodol i aros.",
-        "subHeading5": "Cerdyn preswylio biometrig y DU (BRC)",
-        "paragraph7": "Gelwir hyn hefyd yn Gerdyn Preswylio y DU. Gallwch ddefnyddio BRC nad yw wedi dod i ben. Efallai y bydd gennych BRC os ydych yn y DU fel aelod o deulu dinesydd o wlad Ardal Economaidd Ewropeaidd (AEE).",
-        "subHeading6": "Trwydded Gweithwyr Ffiniol y DU (FWP)",
-        "paragraph8": "Gallwch ddefnyddio FWP sydd heb ddod i ben. Efallai y bydd gennych FWP os ydych yn gweithio yn y DU ond yn byw mewn gwlad arall.",
-        "subHeading7": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
+        "insetText": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
+        "paragraph3": "Your photo ID must not have expired.",
+        "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",
+        "subHeading1": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"

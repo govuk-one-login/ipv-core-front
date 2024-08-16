@@ -347,16 +347,7 @@ async function updateJourneyState(req, res, next) {
   }
 }
 
-async function handleJourneyPage(req, res, next) {
-  return handleJourneyPageInternal(req, res, next);
-}
-
-async function handleJourneyPageInternal(
-  req,
-  res,
-  next,
-  pageErrorState = undefined,
-) {
+async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
   try {
     const { pageId } = req.params;
     const { context } = req?.session || "";
@@ -457,7 +448,7 @@ async function checkFormRadioButtonSelected(req, res, next) {
   try {
     // If no radio option is selected re-display the form page with an error.
     if (req.body.journey === undefined) {
-      handleJourneyPageInternal(req, res, next, true);
+      await handleJourneyPage(req, res, next, true);
     } else {
       next();
     }

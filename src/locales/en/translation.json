@@ -1020,7 +1020,9 @@
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select yes if you have a UK bank or building society account in your name",
-          "errorRadioMessage": "Select yes if you have a UK bank or building society account in your name"
+          "errorRadioMessage": "Select yes if you have a UK bank or building society account in your name",
+          "errorSummaryDescriptionTextNino": "Select yes if you have a National Insurance number",
+          "errorRadioMessageNino": "Select yes if you have a National Insurance number"
         }
       }
     },

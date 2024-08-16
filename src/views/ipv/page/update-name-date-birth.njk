@@ -12,11 +12,20 @@
 {% set errorText = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#updateNameDateBirthActionForm" %}
 
+{% if context === 'reuse' %}
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/update-name-date-birth/back" %}
+{% endif %}
+
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
-        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translate }}</h1>
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translateWithContextOrFallback(context) }}</h1>
 
-    <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translateWithContextOrFallback(context) }}</p>
+
+    {% if context === 'reuse' %}
+        <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph2' | translate }}</p>
+    {% endif %}
 
     {% if context === "repeatFraudCheck" %}
     {{ govukWarningText({
@@ -25,8 +34,26 @@
         }) }}
     {% endif %}
 
+    {% if context === 'reuse' %}
+        <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph3' | translate }}</p>
+    {% endif %}
+
     <form id="updateNameDateBirthActionForm" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set yesButtonConfig = {
+            withHint: {
+                value: "continue",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context),
+                hint: {
+                    text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
+                }
+            },
+            withoutHint: {
+                value: "contact",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
+            }
+        } %}
+
         {% set radiosConfig = {
             idPrefix: "journey",
             name: "journey",
@@ -37,15 +64,12 @@
                 }
             },
             items: [
-                    {
-                        value: "contact",
-                        text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
-                    },
+                    yesButtonConfig["withHint"] if context === "reuse" else yesButtonConfig["withoutHint"],
                     {
                         value: "end",
-                        text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translate,
+                        text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContextOrFallback(context),
                         hint: {
-                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translate
+                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translateWithContextOrFallback(context)
                         }
                     }
                 ]

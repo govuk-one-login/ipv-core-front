@@ -24,6 +24,9 @@ describe("CoreBackService", () => {
     },
     id: "test_request_id",
     ip: "127.0.0.1",
+    cookies: {
+      lng: "en",
+    },
   };
 
   beforeEach(() => {
@@ -57,6 +60,7 @@ describe("CoreBackService", () => {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
           "ip-address": "127.0.0.2",
+          language: "en",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
@@ -84,6 +88,7 @@ describe("CoreBackService", () => {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
           "ip-address": "127.0.0.2",
+          language: "en",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
@@ -112,6 +117,7 @@ describe("CoreBackService", () => {
           "content-type": "application/json",
           "x-request-id": "test_request_id",
           "ip-address": "127.0.0.2",
+          language: "en",
           "feature-set": "test_feature_set",
           "ipv-session-id": "test_ipv_session_id",
           "client-session-id": "test_client_session_id",
@@ -136,6 +142,7 @@ describe("CoreBackService", () => {
         "content-type": "application/json",
         "x-request-id": "test_request_id",
         "ip-address": "127.0.0.2",
+        language: "en",
         "feature-set": "test_feature_set",
         "ipv-session-id": "test_ipv_session_id",
         "client-session-id": "test_client_session_id",

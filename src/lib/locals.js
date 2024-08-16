@@ -8,6 +8,7 @@ const {
   GA4_DISABLED,
   DT_RUM_URL,
   LOGOUT_URL,
+  DELETE_ACCOUNT_URL,
 } = require("./config");
 const { generateNonce } = require("./strings");
 
@@ -28,6 +29,8 @@ module.exports = {
       `${SERVICE_URL}${req.originalUrl}`,
     );
     res.locals.contactUsUrl = contactUsUrl.href;
+
+    res.locals.deleteAccountUrl = DELETE_ACCOUNT_URL;
 
     // Patch the status code setter to make it available in locals as well
     const setStatusCode = res.status;

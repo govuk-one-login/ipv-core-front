@@ -426,6 +426,14 @@ async function handleJourneyAction(req, res, next) {
       return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
     }
 
+    if (req.body?.journey === "deleteAccount") {
+      return await saveSessionAndRedirect(
+        req,
+        res,
+        res.locals.deleteAccountUrl,
+      );
+    }
+
     await handleJourneyResponse(req, res, req.body.journey, currentPageId);
   } catch (error) {
     transformError(error, `error handling POST request on ${currentPageId}`);

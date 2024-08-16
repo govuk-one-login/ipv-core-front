@@ -342,6 +342,8 @@
           ]
         },
         "subHeading3": "What would you like to do?",
+        "subHeading3Dropout": "What would you like to do?",
+        "subHeading3P1Dropout": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go to the service you need to use and find out if they take other types of ID",
           "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",

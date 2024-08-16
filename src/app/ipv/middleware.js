@@ -288,7 +288,7 @@ function handleAppStoreRedirect(req, res, next) {
     }
   } catch (error) {
     transformError(error, "Error redirecting to app store");
-    next(error);
+    return next(error);
   }
 }
 
@@ -341,7 +341,7 @@ async function updateJourneyState(req, res, next) {
       return render404(res);
     }
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
@@ -399,7 +399,7 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
   } catch (error) {
     transformError(error, `error handling journey page: ${req.params}`);
-    next(error);
+    return next(error);
   } finally {
     delete req.session.currentPageStatusCode;
   }
@@ -429,7 +429,7 @@ async function handleJourneyAction(req, res, next) {
     await handleJourneyResponse(req, res, req.body.journey, currentPageId);
   } catch (error) {
     transformError(error, `error handling POST request on ${currentPageId}`);
-    next(error);
+    return next(error);
   }
 }
 
@@ -445,19 +445,19 @@ async function checkFormRadioButtonSelected(req, res, next) {
     if (req.body.journey === undefined) {
       await handleJourneyPage(req, res, next, true);
     } else {
-      next();
+      return next();
     }
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
 async function formHandleUpdateDetailsCheckBox(req, res, next) {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-    next();
+    return next();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
@@ -487,9 +487,9 @@ async function formHandleCoiDetailsCheck(req, res, next) {
       }
       return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
     }
-    next();
+    return next();
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
@@ -501,7 +501,7 @@ async function validateFeatureSet(req, res, next) {
       throw new Error("Invalid feature set ID");
     }
     req.session.featureSet = featureSet;
-    next();
+    return next();
   } catch (error) {
     return next(error);
   }

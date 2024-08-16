@@ -32,7 +32,7 @@ async function allTemplatesGet(req, res, next) {
       });
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 

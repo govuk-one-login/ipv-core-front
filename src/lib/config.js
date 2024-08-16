@@ -40,4 +40,7 @@ module.exports = {
   SERVICE_DOMAIN: process.env.SERVICE_DOMAIN || "localhost",
   LANGUAGE_TOGGLE_ENABLED: process.env.LANGUAGE_TOGGLE === "true",
   LOGOUT_URL: process.env.LOGOUT_URL || "https://oidc.account.gov.uk/logout",
+  DELETE_ACCOUNT_URL:
+    process.env.DELETE_ACCOUNT_URL ||
+    "https://home.build.account.gov.uk/enter-password?type=deleteAccount",
 };

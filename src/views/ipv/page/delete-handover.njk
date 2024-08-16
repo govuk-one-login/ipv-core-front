@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.deleteHandover.title' %}
 {% set googleTagManagerPageId = "deleteHandover" %}
 {% set isPageDynamic = false %}
@@ -10,5 +11,12 @@
   <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph1Html' | translate | safe }}</p>
   <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph2' | translate  }}</p>
 
-  {% include 'shared/journey-next-form.njk' %}
+  <form id="deleteAccountForm" action="/ipv/page/{{pageId}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="journey" value="deleteAccount">
+    {{ govukButton({
+        id: "submitButton",
+        text:'general.buttons.next' | translate
+    }) }}
+  </form>
 {% endblock %}

@@ -49,7 +49,7 @@ describe("journey middleware", () => {
         ipAddress: "ip-address",
         featureSet: "feature-set",
       },
-      params: { pageId: "ipv-current-page" },
+      params: { pageId: "page-ipv-identity-document-start" },
       csrfToken: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
     };
@@ -299,9 +299,13 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "next" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         const callBack = sinon.stub();
@@ -367,9 +371,13 @@ describe("journey middleware", () => {
         id: "1",
         url: "/journey/next",
         body: { journey: "next" },
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          currentPage: "page-ipv-identity-document-start",
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
-        params: { pageId: "ipv-current-page" },
+        params: { pageId: "page-ipv-identity-document-start" },
       };
 
       const callBack = sinon.stub();
@@ -395,40 +403,59 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "end" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "end",
+          "page-ipv-identity-document-start",
+        );
       });
 
       it("should postJourneyEvent with attempt-recovery", async function () {
         req = {
           id: "1",
           body: { journey: "attempt-recovery" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "attempt-recovery", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "attempt-recovery",
+          "page-ipv-identity-document-start",
+        );
       });
 
       it("should postJourneyEvent with build-client-oauth-response and use ip address from header when not present in session", async function () {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
-          session: { ipvSessionId: "ipv-session-id" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            currentPage: "page-ipv-identity-document-start",
+          },
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
@@ -437,7 +464,7 @@ describe("journey middleware", () => {
         ).to.have.been.calledWith(
           req,
           "build-client-oauth-response",
-          "ipv-current-page",
+          "page-ipv-identity-document-start",
         );
       });
 
@@ -445,10 +472,14 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "build-client-oauth-response" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
@@ -457,7 +488,7 @@ describe("journey middleware", () => {
         ).to.have.been.calledWith(
           req,
           "build-client-oauth-response",
-          "ipv-current-page",
+          "page-ipv-identity-document-start",
         );
       });
     },
@@ -472,7 +503,7 @@ describe("journey middleware", () => {
           ipvSessionId: null,
           ipAddress: "ip-address",
         },
-        params: { pageId: "ipv-current-page" },
+        params: { pageId: "page-ipv-identity-document-start" },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -638,30 +669,46 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "ukPassport" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "ukPassport", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "ukPassport",
+          "page-ipv-identity-document-start",
+        );
       });
 
       it("should postJourneyEvent with drivingLicence", async function () {
         req = {
           id: "1",
           body: { journey: "drivingLicence" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "drivingLicence", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "drivingLicence",
+          "page-ipv-identity-document-start",
+        );
       });
     },
   );
@@ -673,15 +720,23 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "end" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "end", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "end",
+          "page-ipv-identity-document-start",
+        );
       });
 
       it("should call saveAndRedirect given 'contact' event", async function () {
@@ -692,9 +747,10 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             save: sinon.fake.yields(null),
+            currentPage: "page-ipv-identity-document-start",
           },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
@@ -709,9 +765,10 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             save: sinon.fake.yields(null),
+            currentPage: "page-ipv-identity-document-start",
           },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
@@ -727,56 +784,45 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "next" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
-          log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
-        };
-
-        await middleware.handleJourneyAction(req, res, next);
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "next", "ipv-current-page");
-      });
-
-      it("should postJourneyEvent with bankAccount", async function () {
-        req = {
-          id: "1",
-          body: { journey: "bankAccount" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
-          log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
-        };
-
-        await middleware.handleJourneyAction(req, res, next);
-        expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "bankAccount", "ipv-current-page");
-      });
-    },
-  );
-
-  context(
-    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
-    () => {
-      it("should render the technical unrecoverable page", async function () {
-        req = {
-          id: "1",
           session: {
-            currentPage: "page-ipv-identity-document-start",
-            ipvSessionId: null,
+            ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
-        expect(res.status).to.have.been.calledWith(401);
-        expect(res.render).to.have.been.calledWith(
-          "ipv/page/pyi-technical.njk",
-          {
-            context: "unrecoverable",
+        expect(
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(
+          req,
+          "next",
+          "page-ipv-identity-document-start",
+        );
+      });
+
+      it("should postJourneyEvent with bankAccount", async function () {
+        req = {
+          id: "1",
+          body: { journey: "bankAccount" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
           },
+          log: { info: sinon.fake(), error: sinon.fake() },
+          params: { pageId: "page-ipv-identity-document-start" },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(
+          CoreBackServiceStub.postJourneyEvent.firstCall,
+        ).to.have.been.calledWith(
+          req,
+          "bankAccount",
+          "page-ipv-identity-document-start",
         );
       });
     },
@@ -789,35 +835,51 @@ describe("journey middleware", () => {
         req = {
           id: "1",
           body: { journey: "f2f" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(
           req,
           res,
           next,
-          "ipv-current-page",
+          "page-ipv-identity-document-start",
         );
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "f2f", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "f2f",
+          "page-ipv-identity-document-start",
+        );
       });
 
       it("should postJourneyEvent with dcmaw", async function () {
         req = {
           id: "1",
           body: { journey: "dcmaw" },
-          session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+          session: {
+            ipvSessionId: "ipv-session-id",
+            ipAddress: "ip-address",
+            currentPage: "page-ipv-identity-document-start",
+          },
           log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "ipv-current-page" },
+          params: { pageId: "page-ipv-identity-document-start" },
         };
 
         await middleware.handleJourneyAction(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, "dcmaw", "ipv-current-page");
+        ).to.have.been.calledWith(
+          req,
+          "dcmaw",
+          "page-ipv-identity-document-start",
+        );
       });
     },
   );
@@ -858,6 +920,7 @@ describe("journey middleware", () => {
           session: {
             currentPage: "pyi-suggest-other-options",
             ipvSessionId: null,
+            clientOauthSessionId: null,
             ipAddress: "ip-address",
           },
           params: { pageId: "pyi-suggest-other-options" },

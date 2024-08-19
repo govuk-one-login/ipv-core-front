@@ -6,6 +6,7 @@ module.exports = Object.freeze({
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
   PAGE_FACE_TO_FACE_HANDOFF: "page-face-to-face-handoff",
   PAGE_IPV_IDENTITY_DOCUMENT_START: "page-ipv-identity-document-start",
+  PAGE_IPV_IDENTITY_DOCUMENT_TYPES: "page-ipv-identity-document-types",
   PAGE_IPV_IDENTITY_POST_OFFICE_START: "page-ipv-identity-postoffice-start",
   PAGE_IPV_PENDING: "page-ipv-pending",
   PAGE_IPV_REUSE: "page-ipv-reuse",

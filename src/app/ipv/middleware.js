@@ -356,12 +356,8 @@ async function validateSessionAndPage(req, res, pageId) {
   }
 
   if (req.session.currentPage !== pageId) {
-    await handleUnexpectedPage(req, res, pageId);
-    return false;
+    return await handleUnexpectedPage(req, res, pageId);
   }
-
-  // Return true if validation passed
-  return true;
 }
 
 async function updateJourneyState(req, res, next) {
@@ -384,9 +380,7 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
     const { pageId } = req.params;
     const { context } = req?.session || "";
 
-    if (!(await validateSessionAndPage(req, res, pageId))) {
-      return;
-    }
+    await validateSessionAndPage(req, res, pageId);
 
     const renderOptions = {
       pageId,
@@ -424,9 +418,7 @@ async function handleJourneyAction(req, res, next) {
   const pageId = req.params.pageId;
 
   try {
-    if (!(await validateSessionAndPage(req, res, pageId))) {
-      return;
-    }
+    await validateSessionAndPage(req, res, pageId);
 
     checkJourneyAction(req);
     if (req.body?.journey === "contact") {

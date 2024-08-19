@@ -171,7 +171,7 @@ app.use(journeyEventErrorHandler);
 app.use(serverErrorHandler);
 app.use(pageNotFoundHandler);
 
-app
+const server = app
   .listen(PORT, () => {
     logger.info(`Server listening on port ${PORT}`);
     app.emit("appStarted");
@@ -179,5 +179,10 @@ app
   .on("error", (error) => {
     logger.error(`Unable to start server because of ${error.message}`);
   });
+
+// AWS recommends the keep-alive duration of the target is longer than the idle timeout value of the load balancer (default 60s)
+// to prevent possible 502 errors where the target connection has already been closed
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
+server.keepAliveTimeout = 65000;
 
 module.exports = app;

@@ -323,8 +323,7 @@ async function renderAttemptRecoveryPage(req, res) {
 async function validateSessionAndPage(req, res, pageId) {
   // Check if the page is valid
   if (!isValidIpvPage(pageId)) {
-    res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    return res.render(getTemplatePath("errors", "page-not-found"));
+    return render404(res);
   }
 
   // Check for clientOauthSessionId for recoverable timeout page
@@ -385,7 +384,6 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
     const { pageId } = req.params;
     const { context } = req?.session || "";
 
-    // handles page id validation first
     if (!(await validateSessionAndPage(req, res, pageId))) {
       return;
     }

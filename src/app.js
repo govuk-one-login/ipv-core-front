@@ -4,6 +4,7 @@ const path = require("path");
 const session = require("express-session");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
+const { frontendVitalSignsInit } = require("@govuk-one-login/frontend-vital-signs");
 
 // Checking for functions blocking the eventLoop
 const blocked = require("blocked-at");
@@ -178,7 +179,7 @@ app.use(journeyEventErrorHandler);
 app.use(serverErrorHandler);
 app.use(pageNotFoundHandler);
 
-app
+const server = app
   .listen(PORT, () => {
     logger.info(`Server listening on port ${PORT}`);
     app.emit("appStarted");
@@ -186,5 +187,16 @@ app
   .on("error", (error) => {
     logger.error(`Unable to start server because of ${error.message}`);
   });
+
+frontendVitalSignsInit(server, {
+  interval: 10000,
+  logLevel: "info",
+  staticPaths: [
+    "/fonts",
+    "/images",
+    "/javascripts",
+    "/stylesheets",
+  ]
+});
 
 module.exports = app;

@@ -494,8 +494,10 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
       TargetGroupAttributes:
+        # AWS suggests setting this higher than the idle timeout of the load balancer (default 60s) to prevent possible 504 errors
+        # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
-          Value: 30
+          Value: 65
 
 
 

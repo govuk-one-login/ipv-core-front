@@ -858,49 +858,30 @@
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",
       "content": {
-        "paragraph1": "You can continue proving your identity online if you:",
+        "paragraph1": "You can continue proving your identity online by entering details from any of the following:",
         "requirements": [
-          "have a UK driving licence (full or provisional) or a UK passport",
-          "can answer some security questions"
-        ],
-        "requirementsF2f": [
-          "have a UK driving licence (full or provisional) or a UK passport",
-          "can answer some security questions"
+          "UK photocard driving licence (full or provisional)",
+          "UK passport"
         ],
         "requirementsNino": [
-          "have a UK driving licence (full or provisional)",
+          "UK photocard driving licence (full or provisional)",
           "UK passport",
           "National Insurance number"
         ],
-        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph2F2f": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph2Nino": "You'll need to answer some security questions. We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph3": "",
-        "paragraph3F2f": "It takes about 10 minutes to prove your identity this way.",
-        "paragraph3Nino": "It takes about 10 minutes to prove your identity this way.",
-        "subHeading": "How do you want to continue?",
-        "subHeadingF2f": "Do you want to use your UK photocard driving licence or UK passport to prove your identity?",
-        "subHeadingNino": "What would you like to use to prove your identity?",
+        "paragraph2": "You'll also need to answer some security questions. We use these to stop anyone who might have your details from pretending to be you.",
+        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "subHeading": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details and answer security questions online",
-          "continuePassportButtonText": "Enter your UK passport details and answer security questions online",
-          "continueDrivingLicenceButtonTextF2f": "UK photocard driving licence",
-          "continuePassportButtonTextF2f": "UK passport",
-          "continueDrivingLicenceButtonTextNino": "UK photocard driving licence",
-          "continuePassportButtonTextNino": "UK passport",
-          "continueNinoButtonTextNino": "National Insurance number",
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details",
+          "continuePassportButtonText": "Enter your UK passport details",
+          "continueNinoButtonText": "Enter your National Insurance number",
           "separateOptionsInFormText": "or",
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to prove your identity",
-          "otherWayButtonTextF2f": "I do not have either of these types of photo ID",
-          "otherWayButtonTextHint": "",
-          "otherWayButtonTextHintF2f": "There may be other ways to prove your identity if you have another type of photo ID.",
-          "otherWayButtonTextNino": "I do not have any of these",
-          "otherWayButtonTextHintNino": ""
+          "otherWayButtonText": "Prove your identity another way"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select if you want to use your UK photocard driving licence or UK passport to prove your identity",
-          "errorRadioMessage": "Select if you want to use your UK photocard driving licence or UK passport to prove your identity"
+          "errorSummaryDescriptionText": "Select what you would like to use to prove your identity",
+          "errorRadioMessage": "Select what you would like to use to prove your identity"
         }
       }
     },

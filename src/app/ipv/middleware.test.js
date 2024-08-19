@@ -939,6 +939,76 @@ describe("journey middleware", () => {
     },
   );
 
+  context(
+    "handleJourneyAction: should render timeout-recoverable page if present clientOauthSessionId",
+    () => {
+      it("should render the timeout-recoverable page", async function () {
+        req = {
+          id: "1",
+          session: {
+            currentPage: "pyi-timeout-recoverable",
+            ipvSessionId: null,
+            clientOauthSessionId: "client-oauth-session-id",
+            ipAddress: "ip-address",
+          },
+          params: { pageId: "pyi-timeout-recoverable" },
+          log: { info: sinon.fake(), error: sinon.fake() },
+        };
+
+        await middleware.handleJourneyAction(req, res, next);
+        expect(res.render).to.have.been.calledWith(
+          "ipv/page/pyi-timeout-recoverable.njk",
+        );
+      });
+    },
+  );
+
+  context("updateJourneyState: handling invalid pageId", () => {
+    it("should render 404 page when pageId is invalid", async function () {
+      req = {
+        params: { pageId: "invalid-page-id", action: "next" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+      res = {
+        render: sinon.fake(),
+        status: sinon.stub().returnsThis(),
+      };
+      next = sinon.fake();
+
+      await middleware.updateJourneyState(req, res, next);
+
+      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
+      expect(res.status).to.have.been.calledWith(404);
+    });
+  });
+
+  context("updateJourneyState: handling missing action", () => {
+    it("should render 404 page when action is not provided", async function () {
+      req = {
+        params: { pageId: "pyi-suggest-other-options", action: null },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+      };
+      res = {
+        render: sinon.fake(),
+        status: sinon.stub().returnsThis(),
+      };
+      next = sinon.fake();
+
+      await middleware.updateJourneyState(req, res, next);
+
+      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
+      expect(res.status).to.have.been.calledWith(404);
+    });
+  });
+
   context("validateFeatureSet", () => {
     beforeEach(() => {
       req = {

@@ -1,5 +1,4 @@
 const pino = require("pino");
-const { randomUUID } = require("node:crypto");
 const pinoHttp = require("pino-http");
 
 const logger = pino({
@@ -35,7 +34,8 @@ const loggerMiddleware = pinoHttp({
     if (req.id) return req.id;
     let id = req.get("x-request-id");
     if (id) return id;
-    id = randomUUID();
+    // Not securely random, but this is just used for request correlation
+    id = Math.random().toString(36).slice(2);
     res.header("x-request-id", id);
     return id;
   },

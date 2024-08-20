@@ -8,15 +8,6 @@ const {
   frontendVitalSignsInit,
 } = require("@govuk-one-login/frontend-vital-signs");
 
-// Checking for functions blocking the eventLoop
-const blocked = require("blocked-at");
-blocked(
-  (time, stack) => {
-    console.log(`Blocked for ${time}ms, operation started here:`, stack);
-  },
-  { threshold: 20 },
-);
-// Remove this check, don't merge.
 
 const {
   PORT,

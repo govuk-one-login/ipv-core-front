@@ -4,13 +4,18 @@ const path = require("path");
 const session = require("express-session");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
-const { frontendVitalSignsInit } = require("@govuk-one-login/frontend-vital-signs");
+const {
+  frontendVitalSignsInit,
+} = require("@govuk-one-login/frontend-vital-signs");
 
 // Checking for functions blocking the eventLoop
 const blocked = require("blocked-at");
-blocked((time, stack) => {
-  console.log(`Blocked for ${time}ms, operation started here:`, stack)
-}, { threshold: 20 })
+blocked(
+  (time, stack) => {
+    console.log(`Blocked for ${time}ms, operation started here:`, stack);
+  },
+  { threshold: 20 },
+);
 // Remove this check, don't merge.
 
 const {
@@ -193,12 +198,7 @@ const server = app
 frontendVitalSignsInit(server, {
   interval: 10000,
   logLevel: "info",
-  staticPaths: [
-    "/fonts",
-    "/images",
-    "/javascripts",
-    "/stylesheets",
-  ]
+  staticPaths: ["/fonts", "/images", "/javascripts", "/stylesheets"],
 });
 
 module.exports = app;

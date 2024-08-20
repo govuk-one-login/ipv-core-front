@@ -32,6 +32,7 @@ const {
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
 const {
   securityHeadersHandler,
+  cspHandler,
 } = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
@@ -63,7 +64,6 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(setLocals);
 app.use(securityHeadersHandler);
 
 app.use("/public", express.static(path.join(__dirname, "../dist/public")));
@@ -74,6 +74,8 @@ app.use(
   ),
 );
 
+app.use(setLocals);
+app.use(cspHandler);
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
 i18next

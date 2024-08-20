@@ -323,7 +323,8 @@ async function renderAttemptRecoveryPage(req, res) {
 async function validateSessionAndPage(req, res, pageId) {
   // Check if the page is valid
   if (!isValidIpvPage(pageId)) {
-    return render404(res);
+    render404(res);
+    return false;
   }
 
   // Check for clientOauthSessionId for recoverable timeout page
@@ -332,7 +333,8 @@ async function validateSessionAndPage(req, res, pageId) {
     pageId === PAGES.PYI_TIMEOUT_RECOVERABLE
   ) {
     req.session.currentPage = PAGES.PYI_TIMEOUT_RECOVERABLE;
-    return res.render(getIpvPageTemplatePath(req.session.currentPage));
+    res.render(getIpvPageTemplatePath(req.session.currentPage));
+    return false;
   }
 
   // Check if ipvSessionId is present
@@ -346,18 +348,23 @@ async function validateSessionAndPage(req, res, pageId) {
       "req.ipvSessionId is null",
     );
 
-    return renderTechnicalError(req, res);
+    renderTechnicalError(req, res);
+    return false;
   }
 
   // Handle the unrecoverable timeout page
   if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
     req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-    return res.render(getIpvPageTemplatePath(req.session.currentPage));
+    res.render(getIpvPageTemplatePath(req.session.currentPage));
+    return false;
   }
 
   if (req.session.currentPage !== pageId) {
-    return await handleUnexpectedPage(req, res, pageId);
+    await handleUnexpectedPage(req, res, pageId);
+    return false;
   }
+
+  return true;
 }
 
 async function updateJourneyState(req, res, next) {
@@ -380,7 +387,10 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
     const { pageId } = req.params;
     const { context } = req?.session || "";
 
-    await validateSessionAndPage(req, res, pageId);
+    // Stop further processing if response has already been handled
+    if (!(await validateSessionAndPage(req, res, pageId))) {
+      return;
+    }
 
     const renderOptions = {
       pageId,
@@ -418,7 +428,10 @@ async function handleJourneyAction(req, res, next) {
   const pageId = req.params.pageId;
 
   try {
-    await validateSessionAndPage(req, res, pageId);
+    // Stop further processing if response has already been handled
+    if (!(await validateSessionAndPage(req, res, pageId))) {
+      return;
+    }
 
     checkJourneyAction(req);
     if (req.body?.journey === "contact") {

@@ -4,6 +4,10 @@ const path = require("path");
 const session = require("express-session");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const DynamoDBStore = require("connect-dynamodb")(session);
+const uid = require("uid-safe");
+const {
+  frontendVitalSignsInit,
+} = require("@govuk-one-login/frontend-vital-signs");
 
 const {
   PORT,
@@ -11,6 +15,7 @@ const {
   SESSION_TABLE_NAME,
   ENABLE_PREVIEW,
   LANGUAGE_TOGGLE_ENABLED,
+  SESSION_COOKIE_NAME,
 } = require("./lib/config");
 
 const { setLocals } = require("./lib/locals");
@@ -32,6 +37,7 @@ const {
 const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
 const {
   securityHeadersHandler,
+  cspHandler,
 } = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
@@ -63,7 +69,6 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(setLocals);
 app.use(securityHeadersHandler);
 
 app.use("/public", express.static(path.join(__dirname, "../dist/public")));
@@ -74,6 +79,8 @@ app.use(
   ),
 );
 
+app.use(setLocals);
+app.use(cspHandler);
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
 
 i18next
@@ -87,20 +94,38 @@ i18next
 
 app.use(i18nextMiddleware.handle(i18next));
 
+app.use(cookieParser());
+
+// Generate a new session ID asynchronously if no session cookie
+// `express-session` does not support sync session ID generation
+// https://github.com/expressjs/session/issues/107
+app.use(async (req, res, next) => {
+  if (!req.cookies[SESSION_COOKIE_NAME]) {
+    req.generatedSessionId = await uid(24);
+  }
+  next();
+});
+
 app.use(
   session({
-    name: "ipv_core_service_session",
+    name: SESSION_COOKIE_NAME,
     store: sessionStore,
     saveUninitialized: false,
     secret: SESSION_SECRET,
     unset: "destroy",
     resave: false,
     cookie: {
-      name: "ipv_core_service_session",
+      name: SESSION_COOKIE_NAME,
       expires: false,
       secret: SESSION_SECRET,
       signed: true,
       secure: "auto",
+    },
+    // Use the newly generated session ID, or fall back to the default behaviour
+    genid: (req) => {
+      const sessionId = req.generatedSessionId || uid.sync(24);
+      delete req.generatedSessionId;
+      return sessionId;
     },
   }),
 );
@@ -126,8 +151,6 @@ app.use((req, res, next) => {
   });
   next();
 });
-
-app.use(cookieParser());
 
 app.use((req, res, next) => {
   res.set(
@@ -185,4 +208,9 @@ const server = app
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
 server.keepAliveTimeout = 65000;
 
+frontendVitalSignsInit(server, {
+  interval: 10000,
+  logLevel: "info",
+  staticPaths: ["/fonts", "/images", "/javascripts", "/stylesheets"],
+});
 module.exports = app;

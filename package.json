@@ -8,7 +8,7 @@
     "npm": "10.x"
   },
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node --trace-sync-io src/app.js",
     "start-dev": "node src/app.js | pino-pretty",
     "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
     "build": "npm run build-js && npm run build-sass && npm run copy-locales && npm run copy-images",
@@ -58,7 +58,9 @@
     "@govuk-one-login/frontend-analytics": "2.0.1",
     "@govuk-one-login/frontend-language-toggle": "1.1.0",
     "@govuk-one-login/frontend-passthrough-headers": "1.0.0",
+    "@govuk-one-login/frontend-vital-signs": "^0.0.4",
     "axios": "1.6.7",
+    "blocked-at": "^1.2.0",
     "body-parser": "1.20.2",
     "cfenv": "1.2.4",
     "connect-dynamodb": "3.0.3",

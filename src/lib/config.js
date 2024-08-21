@@ -24,6 +24,7 @@ module.exports = {
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 4501,
+  SESSION_COOKIE_NAME: "ipv_core_service_session",
   SESSION_SECRET: process.env.SESSION_SECRET,
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
   GTM_ID: process.env.GTM_ID,

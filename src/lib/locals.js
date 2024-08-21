@@ -13,10 +13,10 @@ const {
 const { generateNonce } = require("./strings");
 
 module.exports = {
-  setLocals: function (req, res, next) {
+  setLocals: async function (req, res, next) {
     res.locals.uaContainerId = GTM_ID;
     res.locals.ga4ContainerId = GTM_ID_GA4;
-    res.locals.cspNonce = generateNonce();
+    res.locals.cspNonce = await generateNonce();
     res.locals.isGa4Disabled = GA4_DISABLED;
     res.locals.isUaDisabled = UA_DISABLED;
     res.locals.dynatraceRumUrl = DT_RUM_URL;

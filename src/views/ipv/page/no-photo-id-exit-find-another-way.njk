@@ -37,7 +37,8 @@
 
   {{ govukDetails({
     summaryText: 'pages.noPhotoIdExitFindAnotherWay.content.details.label' | translate,
-    html: detailsHTML
+    html: detailsHTML,
+    id: 'typesOfPhotoIdDetails'
   }) }}
 
   {% include "components/no-photo-id-exit-find-another-way-form.njk" %}

@@ -38,7 +38,8 @@
 
   {{ govukDetails({
     summaryText: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.label' | translate,
-    html: detailsHTML
+    html: detailsHTML,
+    id: 'typesOfPhotoIdDetails'
   }) }}
 
   <form id="noPhotoIdSecurityQuestionsFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">

@@ -483,8 +483,8 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
+      HealthCheckTimeoutSeconds: 10 # Default for https
+      HealthCheckIntervalSeconds: 30 # Default for https
       HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200

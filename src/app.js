@@ -203,10 +203,14 @@ const server = app
     logger.error(`Unable to start server because of ${error.message}`);
   });
 
+// AWS recommends the keep-alive duration of the target is longer than the idle timeout value of the load balancer (default 60s)
+// to prevent possible 502 errors where the target connection has already been closed
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
+server.keepAliveTimeout = 65000;
+
 frontendVitalSignsInit(server, {
   interval: 10000,
   logLevel: "info",
   staticPaths: ["/fonts", "/images", "/javascripts", "/stylesheets"],
 });
-
 module.exports = app;

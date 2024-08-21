@@ -654,7 +654,7 @@ Resources:
         StepAdjustments:
           - MetricIntervalUpperBound: -20 # 20%
             ScalingAdjustment: -10 # Scale down 10% of containers if the metric is breached
-                                   # with <20% utilisation
+                                   # with <10% utilisation
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget

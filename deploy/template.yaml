@@ -427,6 +427,11 @@ Resources:
             Condition:
               StringEquals:
                 "aws:SourceAccount": !Sub "${AWS::AccountId}"
+          - Effect: Allow
+            Principal:
+              "AWS": "arn:aws:iam::652711504416:root" # This is the AWS ELB for eu-west-2
+            Action:  s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
           - Effect: Deny
             Resource:
               - !GetAtt AccessLogsBucket.Arn
@@ -483,8 +488,8 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
+      HealthCheckTimeoutSeconds: 10 # Default for https
+      HealthCheckIntervalSeconds: 30 # Default for https
       HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
@@ -648,15 +653,15 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 420 # The policy will continue to respond to additional alarm breaches,
+        Cooldown: 120 # The policy will continue to respond to additional alarm breaches,
                       # even while a scaling activity is in progress. This means Application
                       # Auto Scaling will evaluate all alarm breaches as they occur.
                       # A cooldown period is used to protect against under-scaling due to
                       # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
-          - MetricIntervalUpperBound: -40 # 20%
-            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
-                                   # with <20% utilisation
+          - MetricIntervalUpperBound: -20 # 20%
+            ScalingAdjustment: -10 # Scale down 10% of containers if the metric is breached
+                                   # with <10% utilisation
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -702,7 +707,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "40"
 
 
   ECSAccessLogsGroup:
@@ -854,6 +859,13 @@ Resources:
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
+          HealthCheck:
+            Command:
+              - "CMD-SHELL"
+              - "curl -f http://localhost:8080/healthcheck || exit 1"
+            Interval: 10
+            Retries: 1
+            Timeout: 2
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -1214,6 +1226,13 @@ Resources:
           Value: identity
         - Key: Source
           Value: alphagov/di-ipv-core-front/deploy/template.yaml
+      LoadBalancerAttributes:
+        - Key: access_logs.s3.enabled
+          Value: true
+        - Key: access_logs.s3.bucket
+          Value: !Ref AccessLogsBucket
+        - Key: access_logs.s3.prefix
+          Value: nlb-perf
     Metadata:
       checkov:
         skip:

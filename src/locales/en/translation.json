@@ -306,16 +306,13 @@
       "title": "Sorry, we cannot confirm your identity this way",
       "titleP1": "Sorry, we cannot confirm your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "titleP1Dropout": "Find another way to prove your identity",
       "header": "Sorry, we cannot confirm your identity this way",
       "headerP1": "Sorry, we cannot confirm your identity this way",
       "headerDropout": "Find another way to prove your identity",
-      "headerP1Dropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "paragraph1P1": "This is because you did not answer some of the security questions correctly.",
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
-        "paragraph1P1Dropout": "We were not able to complete your identity check using security questions.",
         "subHeading": "If you do not have photo ID",
         "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
@@ -341,11 +338,8 @@
             "UK biometric residence permit (BRP)"
           ]
         },
-        "subHeading3": "What would you like to do?",
-        "subHeading3Dropout": "What would you like to do?",
-        "subHeading3P1Dropout": "How would you like to prove your identity?",
+        "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Go to the service you need to use and find out if they take other types of ID",
           "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",
           "radioButtonAppText": "Prove your identity with the GOV.UK ID check app",
           "radioButtonAppTextHint": "You’ll be shown how to download and use the app.",

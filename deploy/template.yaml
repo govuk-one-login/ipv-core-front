@@ -48,6 +48,7 @@ Conditions:
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
+  IsDevPerf: !Equals [ !Ref Environment, dev-perf ]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
@@ -411,28 +412,51 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Effect: Allow
+          - Sid: ELBRegionEu-West-2
+            Effect: Allow
             Principal:
-              AWS:
-                - arn:aws:iam::652711504416:root
-            Action:
-              - s3:PutObject
-            Resource:
-              - !Sub arn:aws:s3:::${AccessLogsBucket}/core-front-${Environment}/AWSLogs/${AWS::AccountId}/*
-          - Effect: Allow
+              AWS: "arn:aws:iam::652711504416:root" # This is the AWS ELB for eu-west-2
+            Action:  s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
+          - Sid: AWSLogdeliveryWriteELB
+            Effect: Allow
+            Principal:
+              Service: "logdelivery.elasticloadbalancing.amazonaws.com"
+            Action:  s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref AWS::AccountId
+          - Sid: AWSLogdeliveryWrite
+            Effect: Allow
+            Principal:
+              Service: "delivery.logs.amazonaws.com"
+            Action:  s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref AWS::AccountId
+              "s3:x-amz-acl": "bucket-owner-full-control"
+          - Sid: AWSLogdeliveryAclCheck
+            Effect: Allow
+            Principal:
+              Service: "delivery.logs.amazonaws.com"
+            Action:  s3:GetBucketAcl
+            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}"
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref AWS::AccountId
+          - Sid: AWSLoggingAccess
+            Effect: Allow
             Principal:
               Service: logging.s3.amazonaws.com
             Action: s3:PutObject
             Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
             Condition:
               StringEquals:
-                "aws:SourceAccount": !Sub "${AWS::AccountId}"
-          - Effect: Allow
-            Principal:
-              "AWS": "arn:aws:iam::652711504416:root" # This is the AWS ELB for eu-west-2
-            Action:  s3:PutObject
-            Resource: !Sub "arn:aws:s3:::${AccessLogsBucket}/*"
-          - Effect: Deny
+                "aws:SourceAccount": !Ref AWS::AccountId
+          - Sid: DenyInsecureTransport
+            Effect: Deny
             Resource:
               - !GetAtt AccessLogsBucket.Arn
               - !Sub "${AccessLogsBucket.Arn}/*"
@@ -464,22 +488,38 @@ Resources:
           - IsNotDevelopment
           - Key: access_logs.s3.enabled
             Value: true
-          - !Ref AWS::NoValue
+          - !If
+            - IsDevPerf
+            - Key: access_logs.s3.enabled
+              Value: true
+            - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment
           - Key: access_logs.s3.bucket
             Value: !Ref AccessLogsBucket
-          - !Ref AWS::NoValue
+          - !If
+            - IsDevPerf
+            - Key: access_logs.s3.bucket
+              Value: !Ref AccessLogsBucket
+            - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment
           - Key: access_logs.s3.prefix
             Value: !Sub core-front-${Environment}
-          - !Ref AWS::NoValue
+          - !If
+            - IsDevPerf
+            - Key: access_logs.s3.prefix
+              Value: !Sub core-front-${Environment}
+            - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment
           - Key: deletion_protection.enabled
             Value: true
-          - !Ref AWS::NoValue
+          - !If
+            - IsDevPerf
+            - Key: deletion_protection.enabled
+              Value: true
+            - !Ref AWS::NoValue
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
   PrivateLoadBalancerListenerTargetGroupECS:
@@ -503,8 +543,6 @@ Resources:
         # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
           Value: 65
-
-
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"

@@ -337,7 +337,7 @@
         },
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",
+          "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
           "radioButtonAppText": "Prove your identity with the GOV.UK ID check app",
           "radioButtonAppTextHint": "You’ll be shown how to download and use the app.",
           "radioButtonPoText": "Prove your identity at a Post Office",

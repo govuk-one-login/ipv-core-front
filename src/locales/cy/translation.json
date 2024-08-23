@@ -303,18 +303,12 @@
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
       "title": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
-      "titleP1": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "titleP1Dropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "header": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
-      "headerP1": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "headerP1Dropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
-        "paragraph1P1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "paragraph1P1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "subHeading": "Os nad oes gennych ID gyda llun",
         "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda'r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
         "subHeading2": "Os oes gennych ID gyda llun",
@@ -340,10 +334,9 @@
             "UK biometric residence permit (BRP)"
           ]
         },
-        "subHeading3": "Beth hoffech chi ei wneud?",
+        "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
-          "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",
+          "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
           "radioButtonAppText": "Profi eich hunaniaeth gyda'r ap GOV.UK ID Check",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
           "radioButtonPoText": "Profwch eich hunaniaeth mewn Swyddfa'r Post",

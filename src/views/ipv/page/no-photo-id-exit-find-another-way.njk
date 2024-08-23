@@ -61,6 +61,7 @@
         }
       ] %}
 
+    {# TODO 7211: Remove the abandon context once core-back has been updated #}
     {% if context === "abandon" %}
       {% set radioOptions = radioOptions.slice(0, -2) %}
     {% endif %}

@@ -676,9 +676,8 @@ Resources:
                       # A cooldown period is used to protect against under-scaling due to
                       # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
-          - MetricIntervalUpperBound: -20 # 20%
-            ScalingAdjustment: -10 # Scale down 10% of containers if the metric is breached
-                                   # with <10% utilisation
+          - MetricIntervalUpperBound: -40 # 20%
+            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached 
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget

@@ -9,6 +9,7 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   renderFeatureSetPage,
+  renderStaticPage,
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
@@ -21,6 +22,7 @@ const {
   PYI_ATTEMPT_RECOVERY,
   UPDATE_DETAILS,
   CONFIRM_DETAILS,
+  PAGE_IPV_IDENTITY_DOCUMENT_TYPES,
 } = require("../../constants/ipv-pages");
 
 const csrfProtection = csrf({});
@@ -34,6 +36,12 @@ router.get(
   getPagePath(PYI_ATTEMPT_RECOVERY),
   csrfProtection,
   renderAttemptRecoveryPage,
+);
+
+router.get(
+  getPagePath(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
+  csrfProtection,
+  renderStaticPage,
 );
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);

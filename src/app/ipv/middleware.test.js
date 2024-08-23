@@ -662,6 +662,15 @@ describe("journey middleware", () => {
     });
   });
 
+  context("renderStaticPage", () => {
+    it("should render static document type page", () => {
+      middleware.renderStaticPage(req, res);
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/page-ipv-identity-document-types.njk",
+      );
+    });
+  });
+
   context(
     "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
     () => {

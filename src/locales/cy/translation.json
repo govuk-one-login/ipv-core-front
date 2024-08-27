@@ -1285,10 +1285,13 @@
       "header": "TODO:You were not able to update your details with the GOV.UK ID check app",
       "content": {
         "paragraph1": "TODO:You can still use the service if your details are out of date.",
+        "paragraph1RepeatFraudCheck": "TODO:You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "TODO: What would you like to do?",
         "formRadioButtons": {
           "continueOption": "TODO: Continue to the service without updating your details",
           "continueOptionHint": "TODO: Your proof of identity is valid even if your details have changed.",
+          "backOption": "TODO: Go back to the service you are trying to use",
+          "backOptionHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
           "deleteOption": "TODO: Delete your GOV.UK One Login",
           "deleteOptionHint": "YTODO: ou can then create a new one and prove your identity using your new details."
         },

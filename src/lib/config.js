@@ -8,9 +8,11 @@ if (!appEnv.isLocal) {
   serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
 }
 
+const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
+
 module.exports = {
   ANDROID_APP_ID: process.env.ANDROID_APP_ID || "uk.gov.documentchecking",
-  API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
+  API_BASE_URL: serviceConfig.coreBackAPIUrl || API_BASE_URL,
   API_CRI_CALLBACK: "/cri/callback",
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",

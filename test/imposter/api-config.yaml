@@ -1,0 +1,73 @@
+plugin: openapi
+specFile: ./core-back-api.yaml
+
+pickFirstIfNoneMatch: false
+
+validation:
+  request: false
+
+resources:
+  - method: POST
+    path: /health
+    response:
+      statusCode: 200
+      content: |
+        {
+          "success": "true"
+        }
+
+  - method: POST
+    path: /session/initialise
+    requestHeaders:
+      content-type: "application/json"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "ipvSessionId": "fake-session",
+          "clientOauthSessionId": "fake-oauth-session-id",
+          "page": "page-ipv-identity-document-start"
+        }
+
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "ipvSessionId": "fake-session",
+          "clientOauthSessionId": "fake-oauth-session-id",
+          "page": "page-ipv-identity-document-start"
+        }
+
+  - method: POST
+    path: /journey/end
+    requestHeaders:
+      content-type: "application/json"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "ipvSessionId": "fake-session",
+          "clientOauthSessionId": "fake-oauth-session-id",
+          "page": "page-ipv-identity-postoffice-start"
+        }
+
+  - method: POST
+    path: /journey/end
+    requestHeaders:
+      content-type: "application/json"
+    queryParams:
+      currentPage: "page-ipv-identity-postoffice-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "ipvSessionId": "fake-session",
+          "clientOauthSessionId": "fake-oauth-session-id",
+          "page": "pyi-escape"
+        }

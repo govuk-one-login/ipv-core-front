@@ -320,13 +320,10 @@ async function renderAttemptRecoveryPage(req, res) {
   });
 }
 
-async function renderStaticPage(req, res) {
-  return res.render(
-    getIpvPageTemplatePath(PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
-    {
-      csrfToken: req.csrfToken(),
-    },
-  );
+function staticPageMiddleware(pageId) {
+  return function (req, res) {
+    return res.render(getIpvPageTemplatePath(pageId));
+  };
 }
 
 async function validateSessionAndPage(req, res, pageId) {
@@ -547,7 +544,7 @@ module.exports = {
   handleJourneyPage,
   handleJourneyAction,
   renderFeatureSetPage,
-  renderStaticPage,
+  staticPageMiddleware,
   checkFormRadioButtonSelected,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,

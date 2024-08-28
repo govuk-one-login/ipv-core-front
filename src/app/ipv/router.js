@@ -9,7 +9,7 @@ const {
   handleJourneyPage,
   handleJourneyAction,
   renderFeatureSetPage,
-  renderStaticPage,
+  staticPageMiddleware,
   validateFeatureSet,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
@@ -40,8 +40,7 @@ router.get(
 
 router.get(
   getPagePath(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
-  csrfProtection,
-  renderStaticPage,
+  staticPageMiddleware(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
 );
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);

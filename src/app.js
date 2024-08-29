@@ -207,7 +207,12 @@ const server = app
 // AWS recommends the keep-alive duration of the target is longer than the idle timeout value of the load balancer (default 60s)
 // to prevent possible 502 errors where the target connection has already been closed
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
-server.keepAliveTimeout = 65000;
+
+// The idle timeout of the NLB is 350 seconds, so this is going to be configured to be greater than that too.
+// The NLB is hardcoded - so 350 seconds.
+// The ALB is configurable - so 355 seconds.
+// This servier is now configured to 360 seconds.
+server.keepAliveTimeout = 360000;
 
 frontendVitalSignsInit(server, {
   interval: 10000,

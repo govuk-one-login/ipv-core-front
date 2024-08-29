@@ -519,7 +519,7 @@ Resources:
         # AWS suggests setting this higher than the idle timeout of the load balancer (default 60s) to prevent possible 504 errors
         # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
-          Value: 65
+          Value: 355
 
 
 
@@ -677,7 +677,7 @@ Resources:
                       # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
           - MetricIntervalUpperBound: -20 # 20%
-            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached 
+            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget

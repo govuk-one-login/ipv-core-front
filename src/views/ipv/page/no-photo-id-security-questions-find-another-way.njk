@@ -11,19 +11,8 @@
 {% set errorText = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#noPhotoIdSecurityQuestionsFindAnotherWayForm" %}
 
-{% set detailsHTML %}
-  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.paragraph1' | translate | safe }}</p>
-  <ul class="govuk-list--bullet">
-    {% for listItem in 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.appDocumentList' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
-  </ul>
-  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.paragraph2' | translate | safe }}</p>
-  <ul class="govuk-list--bullet">
-    {% for listItem in 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.postOfficeDocumentList' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
-  </ul>
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
 {% endset %}
 
 {% block content %}
@@ -38,7 +27,7 @@
 
   {{ govukDetails({
     summaryText: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.details.label' | translate,
-    html: detailsHTML,
+    html: photoIdHtml,
     id: 'typesOfPhotoIdDetails'
   }) }}
 

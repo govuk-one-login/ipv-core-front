@@ -97,6 +97,28 @@
       }
     }
   },
+  "components": {
+    "typesOfPhotoId": {
+      "paragraph1": "For the GOV.UK ID Check app, you can use a:",
+      "appDocumentList": [
+        "UK photocard driving licence",
+        "UK passport",
+        "non-UK passport with a biometric chip",
+        "UK biometric residence permit (BRP)",
+        "UK biometric residence card (BRC)",
+        "UK Frontier Worker permit"
+      ],
+      "paragraph2": "At a Post Office, you can use a:",
+      "postOfficeDocumentList": [
+        "UK photocard driving licence",
+        "European Union (EU) photocard driving licence",
+        "UK passport",
+        "non-UK passport",
+        "National identity card from a European Economic Area (EEA) country",
+        "UK biometric residence permit (BRP)"
+      ]
+    }
+  },
   "pages": {
     "pyiAttemptRecovery": {
       "title": "Sorry, you cannot go back",
@@ -267,25 +289,7 @@
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
         "details": {
-          "label": "Types of photo ID you can use",
-          "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-          "appDocumentList": [
-            "UK photocard driving licence",
-            "UK passport",
-            "non-UK passport with a biometric chip",
-            "UK biometric residence permit (BRP)",
-            "UK biometric residence card (BRC)",
-            "UK Frontier Worker permit"
-          ],
-          "paragraph2": "At a Post Office, you can use a:",
-          "postOfficeDocumentList": [
-            "UK photocard driving licence",
-            "European Union (EU) photocard driving licence",
-            "UK passport",
-            "non-UK passport",
-            "National identity card from a European Economic Area (EEA) country",
-            "UK biometric residence permit (BRP)"
-          ]
+          "label": "Types of photo ID you can use"
         },
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
@@ -315,25 +319,7 @@
         ],
         "paragraph3": "You can also prove your identity at a Post Office.",
         "details": {
-          "label": "Types of photo ID you can use with GOV.UK ID Check app and at the Post Office",
-          "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-          "appDocumentList": [
-            "UK photocard driving licence",
-            "UK passport",
-            "non-UK passport with a biometric chip",
-            "UK biometric residence permit (BRP)",
-            "UK biometric residence card (BRC)",
-            "UK Frontier Worker permit"
-          ],
-          "paragraph2": "At a Post Office, you can use a:",
-          "postOfficeDocumentList": [
-            "UK photocard driving licence",
-            "European Union (EU) photocard driving licence",
-            "UK passport",
-            "non-UK passport",
-            "National identity card from a European Economic Area (EEA) country",
-            "UK biometric residence permit (BRP)"
-          ]
+          "label": "Types of photo ID you can use with GOV.UK ID Check app and at the Post Office"
         },
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
@@ -366,25 +352,7 @@
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
         "details": {
-          "label": "Types of photo ID you can use",
-          "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-          "appDocumentList": [
-            "UK photocard driving licence",
-            "UK passport",
-            "non-UK passport with a biometric chip",
-            "UK biometric residence permit (BRP)",
-            "UK biometric residence card (BRC)",
-            "UK Frontier Worker permit"
-          ],
-          "paragraph2": "At a Post Office, you can use a:",
-          "postOfficeDocumentList": [
-            "UK photocard driving licence",
-            "European Union (EU) photocard driving licence",
-            "UK passport",
-            "non-UK passport",
-            "National identity card from a European Economic Area (EEA) country",
-            "UK biometric residence permit (BRP)"
-          ]
+          "label": "Types of photo ID you can use"
         },
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {

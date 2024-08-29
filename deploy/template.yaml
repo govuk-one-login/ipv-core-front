@@ -490,6 +490,15 @@ Resources:
             - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment
+          - Key: idle_timeout.timeout_seconds
+            Value: 355
+          - !If
+            - IsDevPerf
+            - Key: idle_timeout.timeout_seconds
+              Value: 355
+            - !Ref AWS::NoValue
+        - !If
+          - IsNotDevelopment
           - Key: deletion_protection.enabled
             Value: true
           - !If

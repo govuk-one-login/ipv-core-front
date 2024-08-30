@@ -8,7 +8,7 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageDcmawSuccess.header' | translateWithContext(context) }}</h1>
   <p class="govuk-body">{{'pages.pageDcmawSuccess.content.paragraph1' | translateWithContext(context) }}</p>
 
-  {% include 'shared/journey-next-form.njk' %}
+  {% include 'components/journey-next-form.njk' %}
 
   {% if context == "coiAddress" or context == "coiNoAddress" %}
     {% include "components/contact-us-link.njk" %}

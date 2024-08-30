@@ -178,13 +178,10 @@ if (ENABLE_PREVIEW) {
   router.use("/dev", require("./app/development/router"));
 }
 
-const healthcheckRouter = express.Router();
-healthcheckRouter.use(loggerMiddleware);
-healthcheckRouter.get("/healthcheck", (req, res) => {
+router.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
-app.use(healthcheckRouter);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

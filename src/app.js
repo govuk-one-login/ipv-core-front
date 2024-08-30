@@ -79,9 +79,18 @@ app.use(
   ),
 );
 
+app.use((req, res, next) => {
+  req.log = logger.child({
+    requestId: req.id,
+    ipvSessionId: req.session?.ipvSessionId,
+    sessionId: req.session?.id,
+  });
+  next();
+});
+
 const healthcheckRouter = express.Router();
-healthcheckRouter.use(loggerMiddleware);
 healthcheckRouter.get("/healthcheck", (req, res) => {
+  logger.info(`Healthcheck returning 200 OK.`);
   return res.status(200).send("OK");
 });
 
@@ -149,15 +158,6 @@ app.use((req, res, next) => {
     );
     next();
   }
-});
-
-app.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
-  next();
 });
 
 app.use((req, res, next) => {

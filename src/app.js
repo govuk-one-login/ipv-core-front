@@ -173,15 +173,6 @@ app.set("etag", false);
 const router = express.Router();
 router.use(loggerMiddleware);
 
-router.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
-  next();
-});
-
 router.use("/oauth2", require("./app/oauth2/router"));
 router.use("/credential-issuer", require("./app/credential-issuer/router"));
 router.use("/ipv", require("./app/ipv/router"));

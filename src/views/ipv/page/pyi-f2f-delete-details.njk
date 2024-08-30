@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
@@ -19,7 +20,7 @@
 
   <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph3' | translate }}</p>
 
-  {% include "components/journey-next-form.njk" %}
+  {{ journeyNextForm.journeyNextForm(pageId, csrfToken, customButtonLabel ) }}
 
   <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph4LinkText' | translate | safe }}</p>
 {% endblock %}

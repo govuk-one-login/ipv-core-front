@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
@@ -22,5 +23,5 @@
     text: 'pages.pagePreExperianKbvTransition.summaryHtml' | translate | safe
   }) }}
 
-  {% include 'components/journey-next-form.njk' %}
+  {{ journeyNextForm.journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 {% endblock %}

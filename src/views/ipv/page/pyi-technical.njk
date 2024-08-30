@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pyiTechnical.title' %}
 {% set googleTagManagerPageId = "pyiTechnical" %}
@@ -17,7 +18,7 @@
       "href": 'general.shared.govUKHomepageButtonHref' | translate
     }) }}
   {% else %}
-    {% include 'components/journey-next-form.njk' %}
+    {{ journeyNextForm.journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
   {% endif %}
 
   {% include "components/contact-us-link.njk" %}

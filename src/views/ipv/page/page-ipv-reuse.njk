@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
@@ -61,5 +62,5 @@
       </div>
     </details>
 
-    {% include 'components/journey-next-form.njk' %}
+    {{ journeyNextForm.journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 {% endblock %}

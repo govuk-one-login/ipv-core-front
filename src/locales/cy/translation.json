@@ -21,8 +21,7 @@
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
-      "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
-      "contactLinkText": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
+      "govUKHomepageButtonText": "Ewch i hafan GOV.UK"
     },
     "cookie": {
       "cookieBanner": {
@@ -98,6 +97,9 @@
     }
   },
   "components": {
+    "contactUsLink": {
+      "linkText": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
+    },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
       "appDocumentList": [

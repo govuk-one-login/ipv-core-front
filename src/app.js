@@ -1,5 +1,8 @@
 require("express");
 require("express-async-errors");
+
+const { underPressure } = require("express-under-pressure")
+
 const path = require("path");
 const session = require("express-session");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
@@ -60,6 +63,13 @@ if (process.env.NODE_ENV !== "local") {
 }
 
 const app = express();
+
+underPressure(app,  {
+    maxEventLoopDelay: 200, // Maximum event loop delay in milliseconds
+    maxHeapUsedBytes: 200 * 1024 * 1024, // Maximum heap used in bytes
+    maxRssBytes: 300 * 1024 * 1024, // Maximum RSS memory used in bytes
+    message: 'Server Under Pressure, try against later.', // Custom response message
+  });
 
 app.enable("trust proxy");
 app.use(function (req, res, next) {

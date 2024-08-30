@@ -71,6 +71,7 @@
     "express": "4.19.2",
     "express-async-errors": "3.1.1",
     "express-session": "1.18.0",
+    "express-under-pressure": "^0.1.1",
     "govuk-frontend": "4.8.0",
     "i18next": "23.10.0",
     "i18next-fs-backend": "2.3.1",

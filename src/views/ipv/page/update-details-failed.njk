@@ -11,11 +11,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.updateDetailsFailed.header' | translate }}</h1>
-  {% if context == "repeatFraudCheck" %}
-    <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1RepeatFraudCheck' | translate }}</p>
-  {% else %}
-    <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translate }}</p>
-  {% endif %}
+  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithContext(context) }}</p>
 
   <form id="updateDetailsFailedActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">

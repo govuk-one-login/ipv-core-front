@@ -21,7 +21,8 @@
     "lint-fix": "prettier --write src test && eslint --fix .",
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "test:profile": "clinic doctor --autocannon [ -c 10 -d 10 dev/template/find-another-way-access-service/en ] -- node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -78,6 +79,7 @@
     "i18next-http-middleware": "3.5.0",
     "jsonwebtoken": "9.0.2",
     "nunjucks": "3.2.4",
+    "overload-protection": "^1.2.3",
     "pino": "8.19.0",
     "pino-http": "9.0.0",
     "qrcode": "1.5.3",

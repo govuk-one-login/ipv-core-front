@@ -1,8 +1,6 @@
 require("express");
 require("express-async-errors");
 
-const { underPressure } = require("express-under-pressure")
-
 const path = require("path");
 const session = require("express-session");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
@@ -53,7 +51,7 @@ let sessionStore;
 
 if (process.env.NODE_ENV !== "local") {
   const dynamodb = new DynamoDBClient({
-    region: "eu-west-2",
+    region: "eu-west-2"
   });
 
   sessionStore = new DynamoDBStore({
@@ -64,12 +62,21 @@ if (process.env.NODE_ENV !== "local") {
 
 const app = express();
 
-underPressure(app,  {
-    maxEventLoopDelay: 200, // Maximum event loop delay in milliseconds
-    maxHeapUsedBytes: 200 * 1024 * 1024, // Maximum heap used in bytes
-    maxRssBytes: 300 * 1024 * 1024, // Maximum RSS memory used in bytes
-    message: 'Server Under Pressure, try against later.', // Custom response message
-  });
+const protectCfg = {
+  production: process.env.NODE_ENV === 'production', // if production is false, detailed error messages are exposed to the client
+  clientRetrySecs: 1, // Retry-After header, in seconds (0 to disable) [default 1]
+  sampleInterval: 5, // sample rate, milliseconds [default 5]
+  maxEventLoopDelay: 42, // maximum detected delay between event loop ticks [default 42]
+  maxHeapUsedBytes: 0, // maximum heap used threshold (0 to disable) [default 0]
+  maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
+  errorPropagationMode: false, // dictate behavior: take over the response
+                              // or propagate an error to the framework [default false]
+  logging: false, // set to string for log level or function to pass data to
+  logStatsOnReq: false // set to true to log stats on every requests
+}
+
+const protect = require('overload-protection')('express', protectCfg)
+app.use(protect)
 
 app.enable("trust proxy");
 app.use(function (req, res, next) {
@@ -212,7 +219,7 @@ const server = app
 // The idle timeout of the NLB is 350 seconds, so this is going to be configured to be greater than that too.
 // The NLB is hardcoded - so 350 seconds.
 // The ALB is configurable - so 355 seconds.
-// This servier is now configured to 360 seconds.
+// This server is now configured to 360 seconds.
 server.keepAliveTimeout = 360000;
 
 frontendVitalSignsInit(server, {
@@ -220,5 +227,12 @@ frontendVitalSignsInit(server, {
   logLevel: "info",
   staticPaths: ["/fonts", "/images", "/javascripts", "/stylesheets"],
 });
+
+process.on('SIGTERM', () => {
+  logger.debug('SIGTERM signal received: closing HTTP server')
+  server.close(() => {
+    logger.debug('HTTP server closed')
+  })
+})
 
 module.exports = app;

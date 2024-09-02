@@ -87,12 +87,12 @@ const loggerMiddleware = pinoHttp({
 
     return customErrorObject;
   },
-  customSuccessMessage: function (req, res) {
-    if (res.statusCode === 404) {
-      return "RESOURCE NOT FOUND";
-    }
-    return `REQUEST COMPLETED WITH STATUS CODE OF: ${res.statusCode}`;
-  },
+  // customSuccessMessage: function (req, res) {
+  //   if (res.statusCode === 404) {
+  //     return "RESOURCE NOT FOUND";
+  //   }
+  //   return `REQUEST COMPLETED WITH STATUS CODE OF: ${res.statusCode}`;
+  // },
   customSuccessObject: function (req, res, val) {
     const commonParams = {
       requestId: req.id,

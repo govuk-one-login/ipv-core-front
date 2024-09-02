@@ -884,13 +884,13 @@ Resources:
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
-#          HealthCheck:
-#            Command:
-#              - "CMD-SHELL"
-#              - "curl -f http://localhost:8080/healthcheck || exit 1"
-#            Interval: 10
-#            Retries: 1
-#            Timeout: 2
+         HealthCheck:
+           Command:
+             - "CMD-SHELL"
+             - "curl -f http://localhost:8080/healthcheck || exit 1"
+           Interval: 10
+           Retries: 1
+           Timeout: 2
           LogConfiguration:
             LogDriver: awslogs
             Options:

@@ -14,7 +14,7 @@ FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "add", "--no-cache", "tini"]
+RUN ["apk", "add", "--no-cache", "tini", "curl"]
 USER appuser:appgroup
 
 WORKDIR /app
@@ -25,11 +25,11 @@ COPY --chown=appuser:appgroup --from=builder /app/src ./src
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
-# Add in dynatrace layer
-COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
-ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
-ENV PORT=8080
-ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
+# # Add in dynatrace layer
+# COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
+# ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
+# ENV PORT=8080
+# ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
 
 EXPOSE 8080
 

@@ -290,9 +290,7 @@
         "paragraph1": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use"
-        },
+        "detailsLabel": "Types of photo ID you can use",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
@@ -320,9 +318,7 @@
           "entering the details from your UK passport or UK photocard driving licence and answering security questions"
         ],
         "paragraph3": "You can also prove your identity at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use with GOV.UK ID Check app and at the Post Office"
-        },
+        "detailsLabel": "Types of photo ID you can use with GOV.UK ID Check app and at the Post Office",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonApp": "Use the GOV.UK ID Check app",
@@ -353,9 +349,7 @@
         "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use"
-        },
+        "detailsLabel": "Types of photo ID you can use",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",

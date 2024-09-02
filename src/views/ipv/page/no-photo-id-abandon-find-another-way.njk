@@ -33,7 +33,7 @@
   <p class="govuk-body">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.paragraph3' | translate }}</p>
 
   {{ govukDetails({
-    summaryText: 'pages.noPhotoIdAbandonFindAnotherWay.content.details.label' | translate,
+    summaryText: 'pages.noPhotoIdAbandonFindAnotherWay.content.detailsLabel' | translate,
     html: photoIdHtml,
     id: 'typesOfPhotoIdDetails'
   }) }}
@@ -42,7 +42,7 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radioOptions = [
         {
-          value: "app",
+          value: "mobileApp",
           id: "radio-app",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonApp' | translate,
           hint: { text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonAppHint' | translate }

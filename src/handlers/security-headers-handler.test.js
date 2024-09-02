@@ -3,6 +3,7 @@ const sinon = require("sinon");
 
 const {
   securityHeadersHandler,
+  cspHandler,
 } = require("../../src/handlers/security-headers-handler");
 
 describe("Security headers handler", () => {
@@ -30,18 +31,11 @@ describe("Security headers handler", () => {
   });
 
   it("should add security headers to response", () => {
-    const testNonce = "test-nonce";
-
-    res.locals.cspNonce = testNonce;
     securityHeadersHandler(req, res, next);
 
     expect(res.set).to.have.been.calledOnce;
     expect(res.set).to.have.been.calledWith({
       "Strict-Transport-Security": "max-age=31536000",
-      "Content-Security-Policy":
-        "object-src 'none'; " +
-        `script-src 'nonce-${testNonce}' 'unsafe-inline' 'strict-dynamic' https:; ` +
-        "base-uri 'none'",
       "X-Frame-Options": "DENY",
       "X-XSS-Protection": "0",
       "X-Content-Type-Options": "nosniff",
@@ -53,6 +47,22 @@ describe("Security headers handler", () => {
     securityHeadersHandler(req, res, next);
     expect(res.removeHeader).to.have.been.calledOnce;
     expect(res.removeHeader).to.have.been.calledWith("X-Powered-By");
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should add csp header to response", () => {
+    const testNonce = "test-nonce";
+
+    res.locals.cspNonce = testNonce;
+    cspHandler(req, res, next);
+
+    expect(res.set).to.have.been.calledOnce;
+    expect(res.set).to.have.been.calledWith({
+      "Content-Security-Policy":
+        "object-src 'none'; " +
+        `script-src 'nonce-${testNonce}' 'unsafe-inline' 'strict-dynamic' https:; ` +
+        "base-uri 'none'",
+    });
     expect(next).to.have.been.calledOnce;
   });
 });

@@ -176,16 +176,6 @@ function tryValidateClientResponse(client) {
   return true;
 }
 
-function checkForIpvSessionId(req, res) {
-  if (!req.session?.ipvSessionId) {
-    const err = new Error("req.ipvSessionId is missing");
-    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-    logError(req, err);
-
-    return renderTechnicalError(req, res);
-  }
-}
-
 function checkForIpvAndOauthSessionId(req, res) {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
     const err = new Error(
@@ -330,6 +320,49 @@ async function renderAttemptRecoveryPage(req, res) {
   });
 }
 
+async function validateSessionAndPage(req, res, pageId) {
+  if (!isValidIpvPage(pageId)) {
+    render404(res);
+    return false;
+  }
+
+  // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario
+  if (
+    req.session?.clientOauthSessionId &&
+    pageId === PAGES.PYI_TIMEOUT_RECOVERABLE
+  ) {
+    req.session.currentPage = PAGES.PYI_TIMEOUT_RECOVERABLE;
+    return true;
+  }
+
+  if (!req.session?.ipvSessionId) {
+    logError(
+      req,
+      {
+        pageId: pageId,
+        expectedPage: req.session?.currentPage,
+      },
+      "req.ipvSessionId is null",
+    );
+
+    renderTechnicalError(req, res);
+    return false;
+  }
+
+  if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
+    req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
+    res.render(getIpvPageTemplatePath(req.session.currentPage));
+    return false;
+  }
+
+  if (req.session.currentPage !== pageId) {
+    await handleUnexpectedPage(req, res, pageId);
+    return false;
+  }
+
+  return true;
+}
+
 async function updateJourneyState(req, res, next) {
   try {
     const currentPageId = req.params.pageId;
@@ -350,27 +383,9 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
     const { pageId } = req.params;
     const { context } = req?.session || "";
 
-    // handles page id validation first
-    if (!isValidIpvPage(pageId)) {
-      return render404(res);
-    }
-
-    if (!req.session?.ipvSessionId) {
-      logError(
-        req,
-        {
-          pageId: pageId,
-          expectedPage: req.session?.currentPage,
-        },
-        "req.ipvSessionId is null",
-      );
-
-      return renderTechnicalError(req, res);
-    } else if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
-      req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-      return res.render(getIpvPageTemplatePath(req.session.currentPage));
-    } else if (req.session.currentPage !== pageId) {
-      return await handleUnexpectedPage(req, res, pageId);
+    // Stop further processing if response has already been handled
+    if (!(await validateSessionAndPage(req, res, pageId))) {
+      return;
     }
 
     const renderOptions = {
@@ -406,21 +421,14 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
 }
 
 async function handleJourneyAction(req, res, next) {
-  const currentPageId = req.params.pageId;
-  const pagesNotUsingOAuthSessionId = [
-    PAGES.NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY,
-    PAGES.NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY,
-    PAGES.PAGE_MULTIPLE_DOC_CHECK,
-    PAGES.PYI_CRI_ESCAPE,
-    PAGES.PYI_SUGGEST_OTHER_OPTIONS,
-  ];
+  const pageId = req.params.pageId;
 
   try {
-    if (pagesNotUsingOAuthSessionId.includes(currentPageId)) {
-      checkForIpvSessionId(req, res);
-    } else {
-      checkForIpvAndOauthSessionId(req, res);
+    // Stop further processing if response has already been handled
+    if (!(await validateSessionAndPage(req, res, pageId))) {
+      return;
     }
+
     checkJourneyAction(req);
     if (req.body?.journey === "contact") {
       return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
@@ -434,9 +442,9 @@ async function handleJourneyAction(req, res, next) {
       );
     }
 
-    await handleJourneyResponse(req, res, req.body.journey, currentPageId);
+    await handleJourneyResponse(req, res, req.body.journey, pageId);
   } catch (error) {
-    transformError(error, `error handling POST request on ${currentPageId}`);
+    transformError(error, `error handling POST request on ${pageId}`);
     return next(error);
   }
 }

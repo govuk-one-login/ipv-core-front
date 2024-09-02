@@ -238,7 +238,6 @@
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "subHeading": "What you can do",
         "paragraph2": "Based on what you’ve told us, you have a photo ID you can use to prove your identity.",
-        "paragraph2NoPhotoId": "TEMP If you have a photo ID instead you may be able to use it to prove your identity",
         "paragraph3": "You can do this online with the GOV.UK ID Check app if you have:",
         "requirements": [
           "an iPhone 7 or higher",
@@ -305,18 +304,12 @@
 
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
       "title": "Sorry, we cannot confirm your identity this way",
-      "titleP1": "Sorry, we cannot confirm your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "titleP1Dropout": "Find another way to prove your identity",
       "header": "Sorry, we cannot confirm your identity this way",
-      "headerP1": "Sorry, we cannot confirm your identity this way",
       "headerDropout": "Find another way to prove your identity",
-      "headerP1Dropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
-        "paragraph1P1": "This is because you did not answer some of the security questions correctly.",
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
-        "paragraph1P1Dropout": "We were not able to complete your identity check using security questions.",
         "subHeading": "If you do not have photo ID",
         "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
@@ -342,10 +335,9 @@
             "UK biometric residence permit (BRP)"
           ]
         },
-        "subHeading3": "What would you like to do?",
+        "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Go to the service you need to use and find out if they take other types of ID",
-          "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",
+          "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
           "radioButtonAppText": "Prove your identity with the GOV.UK ID check app",
           "radioButtonAppTextHint": "You’ll be shown how to download and use the app.",
           "radioButtonPoText": "Prove your identity at a Post Office",
@@ -354,8 +346,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
+          "errorRadioMessage": "Select how you would like to prove your identity"
         }
       }
     },
@@ -1276,10 +1268,13 @@
       "header": "You were not able to update your details with the GOV.UK ID check app",
       "content": {
         "paragraph1": "You can still use the service if your details are out of date.",
+        "paragraph1RepeatFraudCheck": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continueOption": "Continue to the service without updating your details",
           "continueOptionHint": "Your proof of identity is valid even if your details have changed.",
+          "backOption": "Go back to the service you were trying to use",
+          "backOptionHint": "There may be another way to access the service without using your GOV.UK One Login.",
           "deleteOption": "Delete your GOV.UK One Login",
           "deleteOptionHint": "You can then create a new one and prove your identity using your new details."
         },

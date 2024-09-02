@@ -11,20 +11,28 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.updateDetailsFailed.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithContext(context) }}</p>
 
   <form id="updateDetailsFailedActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-      {% set radiosConfig = {
-          idPrefix: "journey",
-          name: "journey",
-          fieldset: {
-              legend: {
-                  text: 'pages.updateDetailsFailed.content.subHeading' | translate,
-                  classes: "govuk-fieldset__legend--m"
-              }
-          },
-          items: [
+         {% if context == "repeatFraudCheck" %}
+            {% set radioOptions =
+              [
+                   {
+                   value: "delete",
+                   text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteOption' | translate,
+                   hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteOptionHint' | translate }
+                   },
+                  {
+                  value: "back",
+                  text: 'pages.updateDetailsFailed.content.formRadioButtons.backOption' | translate,
+                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.backOptionHint' | translate }
+                  }
+              ]
+            %}
+          {% else %}
+            {% set radioOptions =
+              [
                   {
                   value: "continue",
                   text: 'pages.updateDetailsFailed.content.formRadioButtons.continueOption' | translate,
@@ -36,6 +44,18 @@
                   hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteOptionHint' | translate }
                   }
               ]
+            %}
+          {% endif %}
+      {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+              legend: {
+                  text: 'pages.updateDetailsFailed.content.subHeading' | translate,
+                  classes: "govuk-fieldset__legend--m"
+              }
+          },
+          items: radioOptions
       }
       %}
 

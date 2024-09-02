@@ -107,7 +107,7 @@ app.use((req, res, next) => {
 
 const healthcheckRouter = express.Router();
 healthcheckRouter.get("/healthcheck", (req, res) => {
-  logger.info(`Healthcheck returning 200 OK.`);
+  logger.info(`Healthcheck returning 200 OK from ${req.ip}.`);
   return res.status(200).send("OK");
 });
 

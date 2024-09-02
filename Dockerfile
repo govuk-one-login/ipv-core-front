@@ -25,10 +25,10 @@ COPY --chown=appuser:appgroup --from=builder /app/src ./src
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
-# # Add in dynatrace layer
-# COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
-# ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
-# ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
+# Add in dynatrace layer
+COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
+ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
+ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
 
 ENV PORT=8080
 

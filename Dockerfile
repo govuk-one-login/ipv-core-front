@@ -31,6 +31,9 @@ COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 # ENV PORT=8080
 # ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
 
+HEALTHCHECK --interval=10s --timeout=2s \
+  CMD curl -f http://localhost:4501/healthcheck || exit 1
+
 EXPOSE 8080
 
 ENTRYPOINT ["tini", "--"]

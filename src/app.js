@@ -71,7 +71,7 @@ const protectCfg = {
   maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
   errorPropagationMode: false, // dictate behavior: take over the response
                               // or propagate an error to the framework [default false]
-  logging: info, // set to string for log level or function to pass data to
+  logging: "info", // set to string for log level or function to pass data to
   logStatsOnReq: false // set to true to log stats on every requests
 }
 

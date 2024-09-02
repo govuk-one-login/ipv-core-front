@@ -519,7 +519,7 @@ Resources:
       HealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
-      Port: 80
+      Port: 8080
       Protocol: HTTP
       TargetType: ip
       VpcId:

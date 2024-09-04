@@ -1290,12 +1290,12 @@
         "paragraph1RepeatFraudCheck": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
-          "continueOption": "Continue to the service without updating your details",
-          "continueOptionHint": "Your proof of identity is valid even if your details have changed.",
-          "backOption": "Go back to the service you were trying to use",
-          "backOptionHint": "There may be another way to access the service without using your GOV.UK One Login.",
-          "deleteOption": "Delete your GOV.UK One Login",
-          "deleteOptionHint": "You can then create a new one and prove your identity using your new details."
+          "continue": "Continue to the service without updating your details",
+          "continueHint": "Your proof of identity is valid even if your details have changed.",
+          "returnToRp": "Go back to the service you were trying to use",
+          "returnToRpHint": "There may be another way to access the service without using your GOV.UK One Login.",
+          "delete": "Delete your GOV.UK One Login",
+          "deleteHint": "You can then create a new one and prove your identity using your new details."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

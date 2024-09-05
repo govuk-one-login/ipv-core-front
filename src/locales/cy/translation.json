@@ -1290,8 +1290,8 @@
         "formRadioButtons": {
           "continue": "TODO: Continue to the service without updating your details",
           "continueHint": "TODO: Your proof of identity is valid even if your details have changed.",
-          "returnToRp": "TODO: Go back to the service you are trying to use",
-          "returnToRpHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
+          "returnToService": "TODO: Go back to the service you are trying to use",
+          "returnToServiceHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
           "delete": "TODO: Delete your GOV.UK One Login",
           "deleteHint": "TODO: ou can then create a new one and prove your identity using your new details."
         },

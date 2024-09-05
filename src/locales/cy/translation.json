@@ -326,7 +326,7 @@
           "radioButtonPassport": "Enter your UK passport details and answer security questions",
           "radioButtonDrivingLicence": "Enter your UK photocard driving licence details and answer security questions",
           "radioButtonPostOffice": "Go to a Post Office",
-          "radioButtonPostOfficeHint": "You'll be asked to enter details from your photo ID on GOV.UK first",
+          "radioButtonPostOfficeHint": "You’ll be asked to enter details from your photo ID on GOV.UK first",
           "separateOptionsInForm": "or",
           "radioButtonRp": "Go to the service you need to use and look for other ways to prove your identity"
         },
@@ -423,7 +423,7 @@
       "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
       "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
       "content": {
-        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You'll be shown how to download and use the app.",
+        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You’ll be shown how to download and use the app.",
         "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
         "iphone": {
           "subHeading": "iPhone",
@@ -451,7 +451,7 @@
           "androidButtonText": "Yes, I have an Android phone",
           "neitherButtonText": "No"
         },
-        "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
+        "subHeadingAppendix": "If you’re not sure you’ll be able to prove your identity with the app",
         "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
         "paragraphAppendix2": "You can also prove your identity in person at a Post Office.",
         "formErrorMessage": {
@@ -465,7 +465,7 @@
       "title": "Are you on a computer or tablet right now?",
       "header": "Are you on a computer or tablet right now?",
       "content": {
-        "paragraph1": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "paragraph1": "Some ways of confirming your identity require a smartphone. Let us know what you’re using right now.",
         "formRadioButtons": {
           "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
           "onSmartphoneButtonText": "No, I am on a smartphone"
@@ -740,7 +740,7 @@
         "paragraph1Reuse": "TODO PYIC-7195: This is to help protect you from identity fraud.",
         "paragraph1RfcAccountDeletion": "TODO PYIC-7195: This is to help protect you from identity fraud.",
         "paragraph2": "TODO PYIC-7195: You can still use the service if your details are out of date.",
-        "paragraph3": "TODO PYIC-7195: To use a different full name or date of birth, you'll need to delete your GOV.UK One Login and create a new one.",
+        "paragraph3": "TODO PYIC-7195: To use a different full name or date of birth, you’ll need to delete your GOV.UK One Login and create a new one.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
         "warningTextFallback": "Rhybudd",
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
@@ -1151,7 +1151,7 @@
       },
       "section2": {
         "circle": "2",
-        "heading": "Come back here when you're done using the app",
+        "heading": "Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
@@ -1171,7 +1171,7 @@
         }
       },
       "section2": {
-        "heading": "Step 2 - Come back here when you're done using the app",
+        "heading": "Step 2 - Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
@@ -1292,7 +1292,7 @@
       "title": "TODO: Delete your GOV.UK One Login",
       "header": "TODO: Delete your GOV.UK One Login",
       "content": {
-        "paragraph1Html": "TODO: When you continue, you'll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
+        "paragraph1Html": "TODO: When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
         "paragraph2": "TODO: After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details."
       }
     },

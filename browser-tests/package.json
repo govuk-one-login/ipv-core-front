@@ -1,0 +1,15 @@
+{
+  "name": "ipv-core-front-browser-tests",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "npx playwright test --update-snapshots"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@playwright/test": "1.46.0",
+    "dotenv": "^16.4.5"
+  }
+}

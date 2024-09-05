@@ -1,0 +1,63 @@
+plugin: openapi
+specFile: ./core-back-api.yaml
+
+pickFirstIfNoneMatch: false
+
+resources:
+  - method: GET
+    path: /healthcheck
+    response:
+      statusCode: 200
+      content: |
+        {
+          "success": "true"
+        }
+
+  # First couple of requests to transfer from orchestration to core back.
+  # We return the state from the request as the ipvSessionId so that it can be used to pick which responses to send to
+  # later requests.
+  - method: POST
+    path: /session/initialise
+    requestHeaders:
+      content-type: "application/json"
+    # Capture the state value here so we can use it in the response to key later responses
+    capture:
+      testJourney:
+        jsonPath: $.state
+        store: request
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "ipvSessionId": "${stores.request.testJourney}"
+        }
+
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-document-start"
+        }
+
+  # Journey for example test
+  - method: POST
+    path: /journey/end
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "exampleTest"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-postoffice-start"
+        }

@@ -1304,12 +1304,12 @@
         "paragraph1RepeatFraudCheck": "TODO:You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "TODO: What would you like to do?",
         "formRadioButtons": {
-          "continueOption": "TODO: Continue to the service without updating your details",
-          "continueOptionHint": "TODO: Your proof of identity is valid even if your details have changed.",
-          "backOption": "TODO: Go back to the service you are trying to use",
-          "backOptionHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
-          "deleteOption": "TODO: Delete your GOV.UK One Login",
-          "deleteOptionHint": "YTODO: ou can then create a new one and prove your identity using your new details."
+          "continue": "TODO: Continue to the service without updating your details",
+          "continueHint": "TODO: Your proof of identity is valid even if your details have changed.",
+          "returnToService": "TODO: Go back to the service you are trying to use",
+          "returnToServiceHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
+          "delete": "TODO: Delete your GOV.UK One Login",
+          "deleteHint": "TODO: ou can then create a new one and prove your identity using your new details."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "TODO: There is a problem",

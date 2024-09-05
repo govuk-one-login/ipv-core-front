@@ -1,5 +1,5 @@
 {% extends "shared/base.njk" %}
-{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pyiAnotherWay.title' %}
 {% set googleTagManagerPageId = "pyiAnotherWay" %}
@@ -10,7 +10,7 @@
   <h2 class="govuk-heading-m">{{'pages.pyiAnotherWay.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{'pages.pyiAnotherWay.content.paragraph2' | translate }}</p>
 
-  {{ journeyNextForm.journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
   {% include "components/contact-us-link.njk" %}
 {% endblock %}

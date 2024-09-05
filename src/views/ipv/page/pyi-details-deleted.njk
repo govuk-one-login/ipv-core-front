@@ -1,5 +1,5 @@
 {% extends "shared/base.njk" %}
-{% import "components/journeyNextForm/journey-next-form.njk" as journeyNextForm %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% set isPageDynamic = true %}
@@ -28,5 +28,5 @@
 
   <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translateWithContext(context) | safe }}</p>
 
-  {{ journeyNextForm.journeyNextForm(pageId, csrfToken, customButtonLabel ) }}
+  {{ journeyNextForm(pageId, csrfToken, customButtonLabel ) }}
 {% endblock %}

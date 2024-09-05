@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pyiNoMatch.title' %}
 {% set googleTagManagerPageId = "pyiNoMatch" %}
@@ -13,7 +14,7 @@
   <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translateWithContextOrFallback(context) }}</p>
 
-  {% include 'shared/journey-next-form.njk' %}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
   {% include "components/contact-us-link.njk" %}
 {% endblock %}

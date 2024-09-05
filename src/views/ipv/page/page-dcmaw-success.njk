@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pageDcmawSuccess.title' %}
 {% set googleTagManagerPageId = "pageDcmawApp" %}
@@ -8,7 +9,7 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageDcmawSuccess.header' | translateWithContext(context) }}</h1>
   <p class="govuk-body">{{'pages.pageDcmawSuccess.content.paragraph1' | translateWithContext(context) }}</p>
 
-  {% include 'shared/journey-next-form.njk' %}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
   {% if context == "coiAddress" or context == "coiNoAddress" %}
     {% include "components/contact-us-link.njk" %}

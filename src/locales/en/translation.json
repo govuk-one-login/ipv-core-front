@@ -21,8 +21,7 @@
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
-      "govUKHomepageButtonText": "Go to the GOV.UK homepage",
-      "contactLinkText": "Contact the GOV.UK One Login team (opens in a new tab)"
+      "govUKHomepageButtonText": "Go to the GOV.UK homepage"
     },
     "cookie": {
       "cookieBanner": {
@@ -95,6 +94,31 @@
         "subHeading": "What you can do",
         "paragraph1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
+    }
+  },
+  "components": {
+    "contactUsLink": {
+      "linkText": "Contact the GOV.UK One Login team (opens in a new tab)"
+    },
+    "typesOfPhotoId": {
+      "paragraph1": "For the GOV.UK ID Check app, you can use a:",
+      "appDocumentList": [
+        "UK photocard driving licence",
+        "UK passport",
+        "non-UK passport with a biometric chip",
+        "UK biometric residence permit (BRP)",
+        "UK biometric residence card (BRC)",
+        "UK Frontier Worker permit"
+      ],
+      "paragraph2": "At a Post Office, you can use a:",
+      "postOfficeDocumentList": [
+        "UK photocard driving licence",
+        "European Union (EU) photocard driving licence",
+        "UK passport",
+        "non-UK passport",
+        "National identity card from a European Economic Area (EEA) country",
+        "UK biometric residence permit (BRP)"
+      ]
     }
   },
   "pages": {
@@ -266,27 +290,7 @@
         "paragraph1": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use",
-          "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-          "appDocumentList": [
-            "UK photocard driving licence",
-            "UK passport",
-            "non-UK passport with a biometric chip",
-            "UK biometric residence permit (BRP)",
-            "UK biometric residence card (BRC)",
-            "UK Frontier Worker permit"
-          ],
-          "paragraph2": "At a Post Office, you can use a:",
-          "postOfficeDocumentList": [
-            "UK photocard driving licence",
-            "European Union (EU) photocard driving licence",
-            "UK passport",
-            "non-UK passport",
-            "National identity card from a European Economic Area (EEA) country",
-            "UK biometric residence permit (BRP)"
-          ]
-        },
+        "detailsLabel": "Types of photo ID you can use",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
@@ -301,7 +305,38 @@
         }
       }
     },
-
+    "noPhotoIdAbandonFindAnotherWay": {
+      "title": "Find another way to prove your identity",
+      "header": "Find another way to prove your identity",
+      "content": {
+        "subHeading": "If you do not have photo ID",
+        "paragraph1": "You can try proving your identity with the service you need to use. They may take other types of ID.",
+        "subHeading2": "If you have photo ID",
+        "paragraph2": "If you have photo ID, you can prove your identity online by:",
+        "list": [
+          "using the GOV.UK ID Check app",
+          "entering the details from your UK passport or UK photocard driving licence and answering security questions"
+        ],
+        "paragraph3": "You can also prove your identity at a Post Office.",
+        "detailsLabel": "Types of photo ID you can use with GOV.UK ID Check app and at the Post Office",
+        "subHeading3": "How would you like to prove your identity?",
+        "formRadioButtons": {
+          "radioButtonApp": "Use the GOV.UK ID Check app",
+          "radioButtonAppHint": "You’ll be shown how to download and use the app.",
+          "radioButtonPassport": "Enter your UK passport details and answer security questions",
+          "radioButtonDrivingLicence": "Enter your UK photocard driving licence details and answer security questions",
+          "radioButtonPostOffice": "Go to a Post Office",
+          "radioButtonPostOfficeHint": "You’ll be asked to enter details from your photo ID on GOV.UK first",
+          "separateOptionsInForm": "or",
+          "radioButtonRp": "Go to the service you need to use and look for other ways to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
+          "errorRadioMessage": "Select how you would like to prove your identity"
+        }
+      }
+    },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
       "title": "Sorry, we cannot confirm your identity this way",
       "titleDropout": "Find another way to prove your identity",
@@ -314,27 +349,7 @@
         "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
-        "details": {
-          "label": "Types of photo ID you can use",
-          "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-          "appDocumentList": [
-            "UK photocard driving licence",
-            "UK passport",
-            "non-UK passport with a biometric chip",
-            "UK biometric residence permit (BRP)",
-            "UK biometric residence card (BRC)",
-            "UK Frontier Worker permit"
-          ],
-          "paragraph2": "At a Post Office, you can use a:",
-          "postOfficeDocumentList": [
-            "UK photocard driving licence",
-            "European Union (EU) photocard driving licence",
-            "UK passport",
-            "non-UK passport",
-            "National identity card from a European Economic Area (EEA) country",
-            "UK biometric residence permit (BRP)"
-          ]
-        },
+        "detailsLabel": "Types of photo ID you can use",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
@@ -393,7 +408,7 @@
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
+          "continuePassportButtonTextHint": "You can use a UK passport that’s expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
@@ -408,7 +423,7 @@
       "title": "Are you on a computer or tablet right now?",
       "header": "Are you on a computer or tablet right now?",
       "content": {
-        "hint": "Some ways of confirming your identity require a smartphone. Let us know what you're using right now.",
+        "hint": "Some ways of confirming your identity require a smartphone. Let us know what you’re using right now.",
         "formRadioButtons": {
           "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
           "onSmartphoneButtonText": "No, I am on a smartphone"
@@ -426,7 +441,7 @@
       "content": {
         "paragraph1": "You can continue proving your identity online if you:",
         "requirements": [
-          "have a UK passport (you can use a UK passport that's expired within the past 18 months)",
+          "have a UK passport (you can use a UK passport that’s expired within the past 18 months)",
           "can answer some security questions"
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
@@ -434,7 +449,7 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that's expired within the past 18 months.",
+          "continuePassportButtonTextHint": "You can use a UK passport that’s expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
@@ -543,7 +558,7 @@
       "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
       "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
       "content": {
-        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You'll be shown how to download and use the app.",
+        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You’ll be shown how to download and use the app.",
         "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
         "iphone": {
           "subHeading": "iPhone",
@@ -571,7 +586,7 @@
           "androidButtonText": "Yes, I have an Android phone",
           "neitherButtonText": "No"
         },
-        "subHeadingAppendix": "If you're not sure you'll be able to prove your identity with the app",
+        "subHeadingAppendix": "If you’re not sure you’ll be able to prove your identity with the app",
         "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
         "paragraphAppendix2": "You can also prove your identity in person at a Post Office.",
         "formErrorMessage": {
@@ -686,15 +701,15 @@
     },
     "pageDcmawSuccess": {
       "title": "We’ve successfully matched you to the photo on your ID",
-      "titleCoiAddress": "You've given us your new name",
-      "titleCoiNoAddress": "You've given us your new name",
+      "titleCoiAddress": "You’ve given us your new name",
+      "titleCoiNoAddress": "You’ve given us your new name",
       "header": "We’ve successfully matched you to the photo on your ID",
-      "headerCoiAddress": "You've given us your new name",
-      "headerCoiNoAddress": "You've given us your new name",
+      "headerCoiAddress": "You’ve given us your new name",
+      "headerCoiNoAddress": "You’ve given us your new name",
       "content": {
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
         "paragraph1CoiAddress": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
-        "paragraph1CoiNoAddress": "We'll need to check your details when you continue."
+        "paragraph1CoiNoAddress": "We’ll need to check your details when you continue."
       }
     },
     "pyiNewDetails": {
@@ -706,10 +721,10 @@
           "delete your details",
           "prove your identity again with new details"
         ],
-        "paragraph2": "You'll need:",
+        "paragraph2": "You’ll need:",
         "updateDetailsRequirements": [
           "photo ID with the name you want GOV.UK One Login to use",
-          "to tell us where you've lived for the last 3 months"
+          "to tell us where you’ve lived for the last 3 months"
         ],
         "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
@@ -793,7 +808,7 @@
         "paragraph1Reuse": "This is to help protect you from identity fraud.",
         "paragraph1RfcAccountDeletion": "This is to help protect you from identity fraud.",
         "paragraph2": "You can still use the service if your details are out of date.",
-        "paragraph3": "To use a different full name or date of birth, you'll need to delete your GOV.UK One Login and create a new one.",
+        "paragraph3": "To use a different full name or date of birth, you’ll need to delete your GOV.UK One Login and create a new one.",
         "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
         "warningTextFallback": "Warning",
         "radioButtonHeading": "What would you like to do?",
@@ -819,14 +834,14 @@
       "title": "You have deleted the details in your GOV.UK One Login",
       "header": "You have deleted the details in your GOV.UK One Login",
       "content": {
-        "paragraph1": "You've been sent a confirmation email.",
+        "paragraph1": "You’ve been sent a confirmation email.",
         "paragraph2F2f": "Your Post Office customer letter is no longer valid and you should not try to use it to prove your identity. ",
         "paragraph2": "You can now prove your identity again using your new details.",
         "paragraph3F2f": "You can now try to prove your identity another way.",
-        "paragraph3": "You'll need:",
+        "paragraph3": "You’ll need:",
         "requirements": [
           "photo ID with the name you want GOV.UK One Login to use",
-          "to tell us where you've lived for the last 3 months"
+          "to tell us where you’ve lived for the last 3 months"
         ],
         "paragraph4F2f": "Find out about <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">the different ways to prove your identity with GOV.UK One Login (opens in new tab)</a>.",
         "paragraph4": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
@@ -866,7 +881,7 @@
         ],
         "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
         "paragraph2F2f": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph2Nino": "You'll need to answer some security questions. We use security questions to stop anyone who might have your details from pretending to be you.",
+        "paragraph2Nino": "You’ll need to answer some security questions. We use security questions to stop anyone who might have your details from pretending to be you.",
         "paragraph3": "",
         "paragraph3F2f": "It takes about 10 minutes to prove your identity this way.",
         "paragraph3Nino": "It takes about 10 minutes to prove your identity this way.",
@@ -942,7 +957,7 @@
       "header": "Continue to the service you want to use",
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
-        "paragraph1RepeatFraudCheck": "We've checked your details. You can now continue to the service you need to use.",
+        "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },
@@ -1055,17 +1070,17 @@
       "content": {
         "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
         "subHeading": "Provide some personal details",
-        "paragraph2": "We'll ask you for your:",
+        "paragraph2": "We’ll ask you for your:",
         "paragraph2Nino": "As well as your National Insurance number, we also need your:",
         "personalDetails": {
           "name": "name",
           "dob": "date of birth",
           "accountNumber": "sort code and account number",
           "NINumber": "National Insurance number",
-          "address": "current address (you might also need your previous address if you've recently moved)"
+          "address": "current address (you might also need your previous address if you’ve recently moved)"
         },
         "subHeading2": "Answer some security questions",
-        "paragraph3": "We'll then ask you some security questions. This helps us check if the details you've given are being used by you.",
+        "paragraph3": "We’ll then ask you some security questions. This helps us check if the details you’ve given are being used by you.",
         "paragraph3Nino": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "Do you have a UK bank or building society current account in your name?",
         "subHeading3Nino": "Do you have a National Insurance number?",
@@ -1137,7 +1152,7 @@
       },
       "section2": {
         "circle": "2",
-        "heading": "Come back here when you're done using the app",
+        "heading": "Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
@@ -1157,7 +1172,7 @@
         }
       },
       "section2": {
-        "heading": "Step 2 - Come back here when you're done using the app",
+        "heading": "Step 2 - Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
@@ -1198,9 +1213,9 @@
       "header": "Update your name using the GOV.UK ID Check app",
       "content": {
         "paragraph1": "To update your name, you need to prove your identity again with your new name.",
-        "paragraph2": "You'll need:",
+        "paragraph2": "You’ll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
-        "list2": "to tell us where you've lived for the last 3 months",
+        "list2": "to tell us where you’ve lived for the last 3 months",
         "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "warningText": "You may not be able to use your GOV.UK One Login if we cannot confirm your identity using your new details.",
         "warningTextRepeatFraudCheck": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
@@ -1214,7 +1229,7 @@
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Update your name using the GOV.UK ID Check app",
-          "updateDetailsButtonTextHint": "We'll guide you through this.",
+          "updateDetailsButtonTextHint": "We’ll guide you through this.",
           "continueServiceButtonText": "Continue to the service you were trying to use",
           "continueServiceButtonTextRepeatFraudCheck": "Continue to the service you were trying to use to find out if there are other ways to access it",
           "continueServiceButtonTextHint": "You can update your details later.",
@@ -1278,7 +1293,7 @@
       "title": "Delete your GOV.UK One Login",
       "header": "Delete your GOV.UK One Login",
       "content": {
-        "paragraph1Html": "When you continue, you'll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
+        "paragraph1Html": "When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
         "paragraph2": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details."
       }
     },

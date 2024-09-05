@@ -848,7 +848,7 @@
       "title": "Parhau i brofi eich hunaniaeth ar-lein",
       "header": "Parhau i brofi eich hunaniaeth ar-lein",
       "content": {
-        "paragraph1": "Gallwch barhau i brofi'ch hunaniaeth ar-lein drwy roi manylion o unrhyw un o'r canlynol:",
+        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein drwy roi manylion o unrhyw un o’r canlynol:",
         "requirements": [
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU"
@@ -856,10 +856,10 @@
         "requirementsNino": [
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",
-          "'rhif Yswiriant Gwladol"
+          "’rhif Yswiriant Gwladol"
         ],
-        "paragraph2": "Bydd angen i chi hefyd ateb rhai cwestiynau diogelwch. Rydym yn defnyddio'r rhain i atal unrhyw un a allai fod â'ch manylion rhag esgus bod yn chi.",
-        "paragraph3": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "paragraph2": "Bydd angen i chi hefyd ateb rhai cwestiynau diogelwch. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
         "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",

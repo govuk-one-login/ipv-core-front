@@ -152,13 +152,13 @@
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
-        "paragraph3": "TODO: You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph3": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad i'r gwasanaeth.",
         "subHeading": "Beth hoffech chi ei wneud? ",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
           "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
-          "deleteOption": "TODO: Delete your GOV.UK One Login",
-          "deleteOptionHint": "TODO: You can then create a new one and prove your identity using your new details.",
+          "deleteOption": "Dileu eich GOV.UK One Login",
+          "deleteOptionHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd.",
           "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
@@ -730,30 +730,30 @@
     },
     "updateNameDateBirth": {
       "title": "Diweddaru eich enw llawn neu ddyddiad geni",
-      "titleReuse": "TODO PYIC-7195: You cannot update your full name or date of birth",
-      "titleRfcAccountDeletion": "TODO PYIC-7195: You cannot update your full name or date of birth",
+      "titleReuse": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
+      "titleRfcAccountDeletion": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
       "header": "Diweddaru eich enw llawn neu ddyddiad geni",
-      "headerReuse": "TODO PYIC-7195: You cannot update your full name or date of birth",
-      "headerRfcAccountDeletion": "TODO PYIC-7195: You cannot update your full name or date of birth",
+      "headerReuse": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
+      "headerRfcAccountDeletion": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â'r tîm GOV.UK One Login.",
-        "paragraph1Reuse": "TODO PYIC-7195: This is to help protect you from identity fraud.",
-        "paragraph1RfcAccountDeletion": "TODO PYIC-7195: This is to help protect you from identity fraud.",
-        "paragraph2": "TODO PYIC-7195: You can still use the service if your details are out of date.",
-        "paragraph3": "TODO PYIC-7195: To use a different full name or date of birth, you’ll need to delete your GOV.UK One Login and create a new one.",
+        "paragraph1Reuse": "Mae hyn er mwyn helpu i'ch diogelu rhag twyll hunaniaeth.",
+        "paragraph1RfcAccountDeletion": "Mae hyn er mwyn helpu i'ch diogelu rhag twyll hunaniaeth.",
+        "paragraph2": "Gallwch barhau i ddefnyddio'r gwasanaeth os yw'ch manylion allan o ddyddiad.",
+        "paragraph3": "I ddefnyddio enw llawn neu ddyddiad geni gwahanol, bydd angen i chi ddileu eich GOV.UK One Login a chreu un newydd.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
         "warningTextFallback": "Rhybudd",
         "radioButtonHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "yes": "Cysylltwch â'r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
-          "yesReuse": "TODO PYIC-7195: Continue to the service without updating your details",
-          "yesRfcAccountDeletion": "TODO PYIC-7195: Delete your GOV.UK One Login",
-          "yesHintReuse": "TODO PYIC-7195: Your proof of identity is valid even if your details have changed.",
-          "yesHintRfcAccountDeletion": "TODO PYIC-7195: Then create a new one and prove your identity with your new details.",
+          "yesReuse": "Parhau i'r gwasanaeth heb ddiweddaru eich manylion",
+          "yesRfcAccountDeletion": "Dileu eich GOV.UK One Login",
+          "yesHintReuse": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw'ch manylion wedi newid.",
+          "yesHintRfcAccountDeletion": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda'ch manylion newydd.",
           "no": "Ewch yn ôl i wirio eich manylion eto",
-          "noReuse": "TODO PYIC-7195: Delete your GOV.UK One Login",
+          "noReuse": "Dileu eich GOV.UK One Login",
           "noHint": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",
-          "noHintReuse": "TODO PYIC-7195: Then create a new one and prove your identity with your new details."
+          "noHintReuse": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda'ch manylion newydd."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1289,32 +1289,32 @@
       }
     },
     "deleteHandover": {
-      "title": "TODO: Delete your GOV.UK One Login",
-      "header": "TODO: Delete your GOV.UK One Login",
+      "title": "Dileu eich GOV.UK One Login",
+      "header": "Dileu eich GOV.UK One Login",
       "content": {
-        "paragraph1Html": "TODO: When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
-        "paragraph2": "TODO: After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details."
+        "paragraph1Html": "Pan fyddwch yn parhau, byddwch yn gallu dileu eich GOV.UK One Login yn barhaol. Darganfyddwch <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">beth sy'n digwydd pan fyddwch yn dileu eich GOV.UK One Login (agor mewn tab newydd)<a>.",
+        "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i'r gwasanaeth  roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda'ch manylion newydd."
       }
     },
     "updateDetailsFailed": {
-      "title": "TODO: You were not able to update your details with the GOV.UK ID check app",
-      "header": "TODO:You were not able to update your details with the GOV.UK ID check app",
+      "title": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID check",
+      "header": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID check",
       "content": {
-        "paragraph1": "TODO:You can still use the service if your details are out of date.",
-        "paragraph1RepeatFraudCheck": "TODO:You will not be able to use your GOV.UK One Login to access the service.",
-        "subHeading": "TODO: What would you like to do?",
+        "paragraph1": "Gallwch barhau i ddefnyddio'r gwasanaeth os yw'ch manylion allan o ddyddiad.",
+        "paragraph1RepeatFraudCheck": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continue": "TODO: Continue to the service without updating your details",
-          "continueHint": "TODO: Your proof of identity is valid even if your details have changed.",
-          "returnToService": "TODO: Go back to the service you are trying to use",
-          "returnToServiceHint": "TODO: There may be another way to access the service without using your GOV.UK One Login.",
-          "delete": "TODO: Delete your GOV.UK One Login",
-          "deleteHint": "TODO: ou can then create a new one and prove your identity using your new details."
+          "continue": "Parhau i'r gwasanaeth heb ddiweddaru eich manylion",
+          "continueHint": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw'ch manylion wedi newid.",
+          "returnToService": "Ewch yn ôl i'r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i'r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
+          "delete": "Dileu eich GOV.UK One Login",
+          "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "TODO: There is a problem",
-          "errorSummaryDescriptionText": "TODO: Select what you would like to do",
-          "errorRadioMessage": "TODO: Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     }

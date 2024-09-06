@@ -52,7 +52,7 @@ resources:
     path: /journey/end
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "exampleTest"
+      ipv-session-id: "examplePageNavigation"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:

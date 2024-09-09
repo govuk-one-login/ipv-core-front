@@ -861,52 +861,33 @@
       }
     },
     "pageMultipleDocCheck": {
-      "title": "Parhau profi eich hunaniaeth ar-lein",
-      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "title": "Parhau i brofi eich hunaniaeth ar-lein",
+      "header": "Parhau i brofi eich hunaniaeth ar-lein",
       "content": {
-        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein os:",
+        "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein drwy roi manylion o unrhyw un o’r canlynol:",
         "requirements": [
-          "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
-          "rydych yn gallu ateb rhai cwestiynau diogelwch"
-        ],
-        "requirementsF2f": [
-          "gennych drwydded yrru y DU (llawn neu dros dro) neu basbort y DU",
-          "rydych yn gallu ateb rhai cwestiynau diogelwch"
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
+          "pasbort y DU"
         ],
         "requirementsNino": [
-          "have a UK driving licence (full or provisional)",
-          "UK passport",
-          "National Insurance number"
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
+          "pasbort y DU",
+          "’rhif Yswiriant Gwladol"
         ],
-        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph2F2f": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph2Nino": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph3": "",
-        "paragraph3F2f": "Mae'n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
-        "paragraph3Nino": "It takes about 10 minutes to prove your identity this way.",
-        "subHeading": "Sut ydych chi am barhau?",
-        "subHeadingF2f": "Ydych chi am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth?",
-        "subHeadingNino": "What would you like to use to prove your identity?",
+        "paragraph2": "Bydd angen i chi hefyd ateb rhai cwestiynau diogelwch. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch y cwestiynau diogelwch ar-lein",
-          "continueDrivingLicenceButtonTextF2f": "trwydded yrru cerdyn-llun yn y DU",
-          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch ar-lein",
-          "continuePassportButtonTextF2f": "pasbort y DU",
-          "continueDrivingLicenceButtonTextNino": "UK photocard driving licence",
-          "continuePassportButtonTextNino": "UK passport",
-          "continueNinoButtonTextNino": "National Insurance number",
+          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",
+          "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU",
+          "continueNinoButtonText": "Rhowch eich rhif Yswiriant Gwladol",
           "separateOptionsInFormText": "neu",
-          "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
-          "otherWayButtonTextF2f": "Nid oes gennyf unrhyw un o'r mathau hyn o ID gyda llun",
-          "otherWayButtonTextHint": "",
-          "otherWayButtonTextHintF2f": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun.",
-          "otherWayButtonTextNino": "I do not have any of these",
-          "otherWayButtonTextHintNino": ""
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch os ydych am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth",
-          "errorRadioMessage": "Dewiswch os ydych am ddefnyddio eich trwydded yrru cerdyn-llun y DU neu basbort y DU i brofi eich hunaniaeth"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth"
         }
       }
     },

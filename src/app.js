@@ -148,6 +148,7 @@ app.use((req, res, next) => {
   });
   next();
 });
+app.use(loggerMiddleware);
 
 app.use((req, res, next) => {
   res.set(
@@ -160,7 +161,6 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
-router.use(loggerMiddleware);
 
 router.use((req, res, next) => {
   req.log = logger.child({

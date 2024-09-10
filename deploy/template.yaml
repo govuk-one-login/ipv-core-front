@@ -206,16 +206,16 @@ Resources:
       DomainName: !If
         - IsDev01
         - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+        - !Sub "${Environment}.02.dev.identity.account.gov.uk"
       DomainValidationOptions:
         - DomainName: !If
             - IsDev01
             - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-            - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+            - !Sub "${Environment}.02.dev.identity.account.gov.uk"
           HostedZoneId: !If
             - IsDev01
             - !ImportValue Dev01IdentityHostedZoneId
-            - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
+            - !ImportValue Dev02IdentityHostedZoneId
       ValidationMethod: DNS
 
   # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
@@ -226,7 +226,7 @@ Resources:
       DomainName: !If
         - IsDev01
         - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+        - !Sub "${Environment}.02.dev.identity.account.gov.uk"
       DomainNameConfigurations:
         - CertificateArn: !Ref DevSSLCert
           EndpointType: REGIONAL
@@ -252,7 +252,7 @@ Resources:
       HostedZoneId: !If
           - IsDev01
           - !ImportValue Dev01IdentityHostedZoneId
-          - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
+          - !ImportValue Dev02IdentityHostedZoneId
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
@@ -1662,7 +1662,6 @@ Resources:
       AlarmActions:
         - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
-      Dimensions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 5
       Threshold: 1
@@ -1738,7 +1737,6 @@ Resources:
       AlarmActions:
         - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
-      Dimensions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: 1000
@@ -1784,7 +1782,6 @@ Resources:
       AlarmActions:
         - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
-      Dimensions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: 2500
@@ -1828,7 +1825,6 @@ Resources:
       AlarmActions:
         - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
-      Dimensions: []
       EvaluationPeriods: 1
       DatapointsToAlarm: 1
       Threshold: 1
@@ -1859,7 +1855,6 @@ Resources:
       AlarmActions:
         - !ImportValue alarm-alerts-topic
       InsufficientDataActions: []
-      Dimensions: []
       EvaluationPeriods: 1
       DatapointsToAlarm: 1
       Threshold: 0

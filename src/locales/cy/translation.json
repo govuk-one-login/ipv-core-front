@@ -21,7 +21,15 @@
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
-      "govUKHomepageButtonText": "Ewch i hafan GOV.UK"
+      "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+      "suitableAppPhotoIds": [
+        "trwydded yrru cerdyn-llun y DU",
+        "pasbort y DU",
+        "pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "trwydded breswylio biometrig y DU (BRP)",
+        "cerdyn preswylio biometrig y DU (BRC)",
+        "trwydded Gweithiwr Ffiniol y DU (FWP)"
+      ]
     },
     "cookie": {
       "cookieBanner": {
@@ -102,14 +110,6 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-      "appDocumentList": [
-        "UK photocard driving licence",
-        "UK passport",
-        "non-UK passport with a biometric chip",
-        "UK biometric residence permit (BRP)",
-        "UK biometric residence card (BRC)",
-        "UK Frontier Worker permit"
-      ],
       "paragraph2": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
@@ -1020,14 +1020,6 @@
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
         "paragraph1": "Gallwch ddefnyddio un o’r mathau canlynol o ID gyda llun:",
-        "documentsList": [
-          "trwydded yrru cerdyn-llun y DU",
-          "pasbort y DU",
-          "pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
-          "trwydded breswylio biometrig y DU (BRP)",
-          "cerdyn preswylio biometrig y DU (BRC)",
-          "trwydded Gweithiwr Ffiniol y DU (FWP)"
-        ],
         "insetText": "Darganfyddwch fwy am y gwahanol fathau o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ID gyda llun rydym yn ei dderbyn (agor mewn tab newydd)</a>",
         "paragraph3": "Ni ddylai eich ID gyda llun fod wedi dod i ben.",
         "hint": "Bydd angen i chi gael eich ID gyda llun yn barod. Ni allwch ddefnyddio copi digidol neu lungopi.",

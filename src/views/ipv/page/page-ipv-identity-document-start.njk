@@ -16,7 +16,7 @@
   <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
   <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet ">
-    {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.documentsList' | translate({ returnObjects: true }) %}
+    {% for listItem in 'general.shared.suitableAppPhotoIds' | translate({ returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>

@@ -21,7 +21,15 @@
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
-      "govUKHomepageButtonText": "Go to the GOV.UK homepage"
+      "govUKHomepageButtonText": "Go to the GOV.UK homepage",
+      "suitableAppPhotoIds": [
+        "UK photocard driving licence",
+        "UK passport",
+        "non-UK passport with a biometric chip",
+        "UK biometric residence permit (BRP)",
+        "UK biometric residence card (BRC)",
+        "UK Frontier Worker permit (FWP)"
+      ]
     },
     "cookie": {
       "cookieBanner": {
@@ -102,14 +110,6 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-      "appDocumentList": [
-        "UK photocard driving licence",
-        "UK passport",
-        "non-UK passport with a biometric chip",
-        "UK biometric residence permit (BRP)",
-        "UK biometric residence card (BRC)",
-        "UK Frontier Worker permit"
-      ],
       "paragraph2": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
@@ -949,14 +949,6 @@
         "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
         "paragraph1": "You can use one of the following types of photo ID:",
-        "documentsList": [
-          "UK photocard driving licence",
-          "UK passport",
-          "non-UK passport with a biometric chip",
-          "UK biometric residence permit (BRP)",
-          "UK biometric residence card (BRC)",
-          "UK Frontier Worker permit (FWP)"
-        ],
         "insetText": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
         "paragraph3": "Your photo ID must not have expired.",
         "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",

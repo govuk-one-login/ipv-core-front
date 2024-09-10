@@ -1,6 +1,6 @@
 <p class="govuk-body">{{ 'components.typesOfPhotoId.paragraph1' | translate }}</p>
 <ul class="govuk-list--bullet">
-  {% for listItem in 'components.typesOfPhotoId.appDocumentList' | translate({ returnObjects: true }) %}
+  {% for listItem in 'general.shared.suitableAppPhotoIds' | translate({ returnObjects: true }) %}
     <li>{{ listItem }}</li>
   {% endfor %}
 </ul>

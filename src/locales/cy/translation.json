@@ -1059,10 +1059,7 @@
       "content": {
         "subHeading": "Trwydded yrru cerdyn-llun y DU",
         "paragraph": "Gallwch ddefnyddio trwydded yrru'r DU os yw:",
-        "drivingLicenceRequirements": [
-          "gyda'ch llun",
-          "heb ddod i ben"
-        ],
+        "drivingLicenceRequirements": ["gyda'ch llun", "heb ddod i ben"],
         "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
         "subHeading2": "Pasbort y DU",
         "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",

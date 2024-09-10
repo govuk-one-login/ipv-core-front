@@ -88,19 +88,15 @@ resources:
   - method: POST
     path: /cri/callback
     requestBody:
-      jsonPath: $.credentialIssuerId
-      value: "fakeDcmaw"
-#    qq:DCC can we match more properties here to properly test core-front is sending the right stuff to core-back?
-#    requestBody:
-#      jsonPath: $
-#      #qq:DCC this is an access_denied simulation so what should the auth code etc actually be?
-#      value: |
-#        {
-#          "authorizationCode": "dummyAuthCode",
-#          "credentialIssuerId": "fakeDcmaw",
-#          "redirectUri": "http://localhost:4601/credential-issuer/callback/fakeDcmaw",
-#          "state": "exampleContext"
-#        }
+      allOf:
+      - jsonPath: $.authorizationCode
+        value: "dummyAuthCode"
+      - jsonPath: $.credentialIssuerId
+        value: "fakeDcmaw"
+      - jsonPath: $.redirectUri
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
+      - jsonPath: $.state
+        value: "exampleContext"
     response:
       statusCode: 200
       content: |
@@ -131,8 +127,15 @@ resources:
   - method: POST
     path: /cri/callback
     requestBody:
-      jsonPath: $.credentialIssuerId
-      value: "fakePassport"
+      allOf:
+        - jsonPath: $.authorizationCode
+          value: "dummyAuthCode"
+        - jsonPath: $.credentialIssuerId
+          value: "fakePassport"
+        - jsonPath: $.redirectUri
+          value: "http://localhost:4601/credential-issuer/callback/fakePassport"
+        - jsonPath: $.state
+          value: "exampleContext"
     response:
       statusCode: 200
       content: |

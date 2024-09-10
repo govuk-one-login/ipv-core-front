@@ -47,7 +47,7 @@ resources:
           "page": "page-ipv-identity-document-start"
         }
 
-  # Journey for example test
+  # Journey for example page navigation test
   - method: POST
     path: /journey/end
     requestHeaders:
@@ -60,4 +60,83 @@ resources:
       content: |
         {
           "page": "page-ipv-identity-postoffice-start"
+        }
+
+  # Journey for example context test
+  # When the user selects the DCMAW option core back sends back the CRI URL to redirect the user to. The CRI then
+  # eventually sends the user back to core-front. Here we just redirect the user straight to core front so there's no
+  # need to set up a fake CRI too.
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "exampleContext"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "cri": {
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=exampleContext&code=dummyAuthCode",
+            "id": "fakeDcmaw"
+          }
+        }
+
+  # When core front receives a callback from a CRI it sends the details to core-back. Here we pretend that we got
+  # access_denied back the DCMAW cri
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      jsonPath: $.credentialIssuerId
+      value: "fakeDcmaw"
+#    qq:DCC can we match more properties here to properly test core-front is sending the right stuff to core-back?
+#    requestBody:
+#      jsonPath: $
+#      #qq:DCC this is an access_denied simulation so what should the auth code etc actually be?
+#      value: |
+#        {
+#          "authorizationCode": "dummyAuthCode",
+#          "credentialIssuerId": "fakeDcmaw",
+#          "redirectUri": "http://localhost:4601/credential-issuer/callback/fakeDcmaw",
+#          "state": "exampleContext"
+#        }
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
+        }
+
+  # Fake visiting the web passport CRI
+  - method: POST
+    path: /journey/ukPassport
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "exampleContext"
+    queryParams:
+      currentPage: "page-multiple-doc-check"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "cri": {
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakePassport?state=exampleContext&code=dummyAuthCode",
+            "id": "fakePassport"
+          }
+        }
+
+  # When core front receives a callback from a CRI it sends the details to core-back. Here we pretend that we got
+  # access_denied back the web passport cri
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      jsonPath: $.credentialIssuerId
+      value: "fakePassport"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id",
+          "context": "passport"
         }

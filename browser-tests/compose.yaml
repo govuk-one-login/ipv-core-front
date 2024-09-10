@@ -21,6 +21,7 @@ services:
       ENABLE_PREVIEW: development
       SESSION_SECRET: session-secret #pragma: allowlist secret
       API_BASE_URL: http://core-back-imposter:8080
+      EXTERNAL_WEBSITE_HOST: http://localhost:4601
       CONTACT_URL: https://home.account.gov.uk/contact-gov-uk-one-login
       LANGUAGE_TOGGLE: true
     ports:

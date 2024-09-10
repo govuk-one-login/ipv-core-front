@@ -52,13 +52,13 @@ jobs:
           cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:test" .
   browser-tests:
-    name: Run UI tests
+    name: Run browser tests
     runs-on: ubuntu-latest
     permissions: {}
     defaults:
       run:
         shell: bash
-        working-directory: test/browser
+        working-directory: browser-tests
     steps:
       - name: Pull repository
         uses: actions/checkout@v4

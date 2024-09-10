@@ -119,7 +119,7 @@
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph3": "Parhewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o brofi eich hunaniaeth.",
-        "paragraph3RepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        "paragraph3RepeatFraudCheck": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
       }
     },
     "sorryCouldNotConfirmDetails": {
@@ -135,7 +135,7 @@
           "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
           "deleteOption": "TODO: Delete your GOV.UK One Login",
           "deleteOptionHint": "TODO: You can then create a new one and prove your identity using your new details.",
-          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -153,7 +153,7 @@
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
           "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
-          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -311,8 +311,8 @@
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "headerP1Dropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
-        "paragraph1P1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "paragraph1P1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "paragraph1P1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "subHeading": "Os nad oes gennych ID gyda llun",
@@ -342,7 +342,7 @@
         },
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
+          "radioButtonBackToRpText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
           "radioButtonBackToRpP1Text": "Go to the service you need to use and look for other ways to prove your identity",
           "radioButtonAppText": "Profi eich hunaniaeth gyda'r ap GOV.UK ID Check",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
@@ -401,7 +401,7 @@
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -484,7 +484,7 @@
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -510,7 +510,7 @@
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -534,7 +534,7 @@
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -566,7 +566,7 @@
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Os ydych wedi ddechrau eich taith o ddolen mewn ap neu borwr arall:",
         "possibleActions": [
-          "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
+          "Ewch yn ôl i’r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
           "Dewiswch y botwm 'Link GOV.UK ID Check' i barhau â'ch cais."
         ],
         "paragraph3": "Os ydych wedi mewngofnodi fwy nag awr yn ôl, neu os ydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall, parhewch â'r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto."
@@ -687,7 +687,7 @@
         "warningTextFallback": "Rhybudd",
         "subHeading1": "Os ydych angen defnyddio'r gwasanaeth nawr",
         "paragraph4": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
-        "paragraph5": "Gallwch ddefnyddio'ch manylion cyfredol i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio. ",
+        "paragraph5": "Gallwch ddefnyddio'ch manylion cyfredol i gael mynediad i’r gwasanaeth rydych angen ei ddefnyddio. ",
         "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "yes": "Parhau i ddileu fy manylion",
@@ -836,7 +836,7 @@
       "header": "Mae angen i chi brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae angen i ni wirio pwy ydych chi cyn y gallwch barhau i ddefnyddio'r gwasanaeth.",
-        "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o'r blaen."
+        "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o’r blaen."
       }
     },
     "pyiF2fDeleteDetails": {
@@ -888,7 +888,7 @@
           "continueNinoButtonTextNino": "National Insurance number",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
-          "otherWayButtonTextF2f": "Nid oes gennyf unrhyw un o'r mathau hyn o ID gyda llun",
+          "otherWayButtonTextF2f": "Nid oes gennyf unrhyw un o’r mathau hyn o ID gyda llun",
           "otherWayButtonTextHint": "",
           "otherWayButtonTextHintF2f": "Efallai y bydd ffyrdd eraill o brofi eich hunaniaeth os oes gennych fath arall o ID gyda llun.",
           "otherWayButtonTextNino": "I do not have any of these",
@@ -1029,11 +1029,11 @@
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
-        "paragraph1": "Gallwch ddefnyddio un o'r mathau canlynol o ID gyda llun:",
+        "paragraph1": "Gallwch ddefnyddio un o’r mathau canlynol o ID gyda llun:",
         "documentsList": [
           "trwydded yrru cerdyn-llun y DU",
           "pasbort y DU",
-          "pasbort o’r tu allan i'r DU gyda sglodyn biometrig",
+          "pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
           "trwydded breswylio biometrig y DU (BRP)",
           "cerdyn preswylio biometrig y DU (BRC)",
           "trwydded Gweithiwr Ffiniol y DU (FWP)"
@@ -1063,8 +1063,8 @@
         "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
         "subHeading2": "Pasbort y DU",
         "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
-        "subHeading3": "Pasbort o’r tu allan i'r DU gyda sglodyn biometrig",
-        "paragraph4": "Gallwch ddefnyddio pasbort o'r tu allan i'r DU os yw:",
+        "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
         "nonUkPassportRequirements": [
           "gyda sglodyn biometrig",
           "heb ddod i ben"
@@ -1206,13 +1206,13 @@
         "paragraph5": "Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">cysylltwch â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> yn lle hynny.",
         "subHeading2": "Os ydych angen defnyddio'r gwasanaeth nawr",
         "paragraph6": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
-        "paragraph7": "Gallwch ddefnyddio'ch manylion sydd wedi'u harbed i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio.",
+        "paragraph7": "Gallwch ddefnyddio'ch manylion sydd wedi'u harbed i gael mynediad i’r gwasanaeth rydych angen ei ddefnyddio.",
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Diweddaru eich enw gan ddefnyddio'r ap GOV.UK ID Check",
           "updateDetailsButtonTextHint": "Byddwn yn eich tywys drwy hyn.",
           "continueServiceButtonText": "Parhau i ddefnyddio'r gwasanaeth roeddech yn ceisio ei ddefnyddio",
-          "continueServiceButtonTextRepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "continueServiceButtonTextRepeatFraudCheck": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "continueServiceButtonTextHint": "Gallwch ddiweddaru'ch manylion yn nes ymlaen.",
           "continueServiceButtonTextHintRepeatFraudCheck": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i ddefnyddio'r gwasanaeth.",
           "goBackButtonText": "Ewch yn ôl i wirio eich manylion eto",
@@ -1241,9 +1241,9 @@
           "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
           "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
           "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o'r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
+          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
           "divisor": "neu",
-          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1261,7 +1261,7 @@
         "formRadioButtons": {
           "backButtonTextPassport": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch pasbort y DU",
           "backButtonTextDrivingLicence": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch trwydded yrru cerdyn-llun y DU",
-          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

@@ -148,6 +148,7 @@ app.use((req, res, next) => {
   });
   next();
 });
+app.use(loggerMiddleware);
 
 app.use((req, res, next) => {
   res.set(
@@ -160,7 +161,6 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
-router.use(loggerMiddleware);
 
 router.use((req, res, next) => {
   req.log = logger.child({
@@ -178,13 +178,10 @@ if (ENABLE_PREVIEW) {
   router.use("/dev", require("./app/development/router"));
 }
 
-const healthcheckRouter = express.Router();
-healthcheckRouter.use(loggerMiddleware);
-healthcheckRouter.get("/healthcheck", (req, res) => {
+router.get("/healthcheck", (req, res) => {
   return res.status(200).send("OK");
 });
 
-app.use(healthcheckRouter);
 app.use(router);
 
 app.use(journeyEventErrorHandler);

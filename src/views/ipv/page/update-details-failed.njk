@@ -11,10 +11,41 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.updateDetailsFailed.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithContext(context) }}</p>
 
   <form id="updateDetailsFailedActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+         {% if context == "repeatFraudCheck" %}
+            {% set radioOptions =
+              [
+                   {
+                   value: "delete",
+                   text: 'pages.updateDetailsFailed.content.formRadioButtons.delete' | translate,
+                   hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteHint' | translate }
+                   },
+                  {
+                  value: "return-to-service",
+                  text: 'pages.updateDetailsFailed.content.formRadioButtons.returnToService' | translate,
+                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.returnToServiceHint' | translate }
+                  }
+              ]
+            %}
+          {% else %}
+            {% set radioOptions =
+              [
+                  {
+                  value: "continue",
+                  text: 'pages.updateDetailsFailed.content.formRadioButtons.continue' | translate,
+                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.continueHint' | translate }
+                  },
+                  {
+                  value: "delete",
+                  text: 'pages.updateDetailsFailed.content.formRadioButtons.delete' | translate,
+                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteHint' | translate }
+                  }
+              ]
+            %}
+          {% endif %}
       {% set radiosConfig = {
           idPrefix: "journey",
           name: "journey",
@@ -24,18 +55,7 @@
                   classes: "govuk-fieldset__legend--m"
               }
           },
-          items: [
-                  {
-                  value: "continue",
-                  text: 'pages.updateDetailsFailed.content.formRadioButtons.continueOption' | translate,
-                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.continueOptionHint' | translate }
-                  },
-                  {
-                  value: "delete",
-                  text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteOption' | translate,
-                  hint: { text: 'pages.updateDetailsFailed.content.formRadioButtons.deleteOptionHint' | translate }
-                  }
-              ]
+          items: radioOptions
       }
       %}
 

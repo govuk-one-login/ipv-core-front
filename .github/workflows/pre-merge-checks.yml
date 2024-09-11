@@ -63,7 +63,7 @@ jobs:
       - name: Pull repository
         uses: actions/checkout@v4
       - name: Run browser tests
-        run: docker compose up --exit-code-from browser-tests
+        run: docker compose up --exit-code-from browser-tests-tests
       - name: Stop Docker
         if: ${{ always() }}
         run: docker compose down

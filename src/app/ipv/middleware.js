@@ -320,6 +320,12 @@ async function renderAttemptRecoveryPage(req, res) {
   });
 }
 
+function staticPageMiddleware(pageId) {
+  return function (req, res) {
+    return res.render(getIpvPageTemplatePath(pageId));
+  };
+}
+
 async function validateSessionAndPage(req, res, pageId) {
   if (!isValidIpvPage(pageId)) {
     render404(res);
@@ -538,6 +544,7 @@ module.exports = {
   handleJourneyPage,
   handleJourneyAction,
   renderFeatureSetPage,
+  staticPageMiddleware,
   checkFormRadioButtonSelected,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,

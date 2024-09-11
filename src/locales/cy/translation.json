@@ -21,7 +21,15 @@
     },
     "shared": {
       "govUKHomepageButtonHref": "https://www.gov.uk/",
-      "govUKHomepageButtonText": "Ewch i hafan GOV.UK"
+      "govUKHomepageButtonText": "Ewch i hafan GOV.UK",
+      "suitableAppPhotoIds": [
+        "trwydded yrru cerdyn-llun y DU",
+        "pasbort y DU",
+        "pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "trwydded breswylio biometrig y DU (BRP)",
+        "cerdyn preswylio biometrig y DU (BRC)",
+        "trwydded Gweithiwr Ffiniol y DU (FWP)"
+      ]
     },
     "cookie": {
       "cookieBanner": {
@@ -102,14 +110,6 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-      "appDocumentList": [
-        "UK photocard driving licence",
-        "UK passport",
-        "non-UK passport with a biometric chip",
-        "UK biometric residence permit (BRP)",
-        "UK biometric residence card (BRC)",
-        "UK Frontier Worker permit"
-      ],
       "paragraph2": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
@@ -143,7 +143,7 @@
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph3": "Parhewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o brofi eich hunaniaeth.",
-        "paragraph3RepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+        "paragraph3RepeatFraudCheck": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
       }
     },
     "sorryCouldNotConfirmDetails": {
@@ -156,10 +156,10 @@
         "subHeading": "Beth hoffech chi ei wneud? ",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
-          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
+          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.",
           "deleteOption": "Dileu eich GOV.UK One Login",
           "deleteOptionHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd.",
-          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -172,12 +172,12 @@
       "title": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
       "header": "Dod o hyd i ffordd arall o ddefnyddio'r gwasanaeth",
       "content": {
-        "paragraph1": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID Check.",
+        "paragraph1": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID Check.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
-          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.",
-          "endOption": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "contactOptionHint": "Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.",
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -343,17 +343,17 @@
       "header": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o'r cwestiynau diogelwch yn gywir.",
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "subHeading": "Os nad oes gennych ID gyda llun",
-        "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda'r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
+        "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda’r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio'r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
-          "radioButtonAppText": "Profi eich hunaniaeth gyda'r ap GOV.UK ID Check",
+          "radioButtonAppText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
           "radioButtonPoText": "Profwch eich hunaniaeth mewn Swyddfa'r Post",
           "radioButtonPoTextHint": "Byddwch yn rhoi manylion o'ch ID llun ar GOV.UK yn gyntaf.",
@@ -410,7 +410,7 @@
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -493,7 +493,7 @@
           "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
           "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -519,7 +519,7 @@
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -543,7 +543,7 @@
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -575,7 +575,7 @@
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Os ydych wedi ddechrau eich taith o ddolen mewn ap neu borwr arall:",
         "possibleActions": [
-          "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
+          "Ewch yn ôl i’r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
           "Dewiswch y botwm 'Link GOV.UK ID Check' i barhau â'ch cais."
         ],
         "paragraph3": "Os ydych wedi mewngofnodi fwy nag awr yn ôl, neu os ydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall, parhewch â'r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto."
@@ -688,7 +688,7 @@
         ],
         "paragraph2": "Byddwch angen:",
         "updateDetailsRequirements": [
-          "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
+          "ID gyda llun gyda’r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
           "dweud wrthym ble rydych chi wedi byw am y 3 mis diwethaf"
         ],
         "paragraph3": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
@@ -696,7 +696,7 @@
         "warningTextFallback": "Rhybudd",
         "subHeading1": "Os ydych angen defnyddio'r gwasanaeth nawr",
         "paragraph4": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
-        "paragraph5": "Gallwch ddefnyddio'ch manylion cyfredol i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio. ",
+        "paragraph5": "Gallwch ddefnyddio'ch manylion cyfredol i gael mynediad i’r gwasanaeth rydych angen ei ddefnyddio. ",
         "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "yes": "Parhau i ddileu fy manylion",
@@ -749,11 +749,11 @@
           "yesReuse": "Parhau i'r gwasanaeth heb ddiweddaru eich manylion",
           "yesRfcAccountDeletion": "Dileu eich GOV.UK One Login",
           "yesHintReuse": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw'ch manylion wedi newid.",
-          "yesHintRfcAccountDeletion": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda'ch manylion newydd.",
+          "yesHintRfcAccountDeletion": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda’ch manylion newydd.",
           "no": "Ewch yn ôl i wirio eich manylion eto",
           "noReuse": "Dileu eich GOV.UK One Login",
           "noHint": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu'ch enw olaf.",
-          "noHintReuse": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda'ch manylion newydd."
+          "noHintReuse": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda’ch manylion newydd."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -805,7 +805,7 @@
         "paragraph3F2f": "Nawr gallwch geisio profi eich hunaniaeth mewn ffordd arall.",
         "paragraph3": "Byddwch angen:",
         "requirements": [
-          "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio ",
+          "ID gyda llun gyda’r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio ",
           "dweud wrthym ble rydych chi wedi byw am y 3 mis diwetha"
         ],
         "paragraph4": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">pa ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
@@ -846,7 +846,7 @@
       "header": "Mae angen i chi brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae angen i ni wirio pwy ydych chi cyn y gallwch barhau i ddefnyddio'r gwasanaeth.",
-        "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o'r blaen."
+        "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o’r blaen."
       }
     },
     "pyiF2fDeleteDetails": {
@@ -909,7 +909,7 @@
         },
         "updateUserDetailsInformation": {
           "updateDetailsLabel": "Os yw eich manylion yn anghywir",
-          "updateDetailsHtml": "<h4 class=\"govuk-heading-s\">Os yw'ch manylion wedi newid</h4> <p class=\"govuk-body\">Mae eich prawf hunaniaeth yn dal yn ddilys hyd yn oed os yw'ch manylion wedi newid.</p><p class=\"govuk-body\">Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio.</p><p class=\"govuk-body\"> Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion sydd wedi'u harbed gyda'r gwasanaeth.</p><p class=\"govuk-body\"> Os oes angen, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">ddiweddaru eich manylion</a>.</p> <h4 class=\"govuk-heading-s\"> Os oes camgymeriad yn eich enw</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\"> Peidiwch â cheisio diweddaru eich manylion na phrofi eich hunaniaeth eto oni bai bod tîm GOV.UK One Login wedi dweud wrthych i wneud hynny.</p> "
+          "updateDetailsHtml": "<h4 class=\"govuk-heading-s\">Os yw'ch manylion wedi newid</h4> <p class=\"govuk-body\">Mae eich prawf hunaniaeth yn dal yn ddilys hyd yn oed os yw'ch manylion wedi newid.</p><p class=\"govuk-body\">Nid oes angen i chi ddiweddaru'ch manylion i barhau â'r gwasanaeth rydych angen ei ddefnyddio.</p><p class=\"govuk-body\"> Pan fyddwch yn parhau, bydd GOV.UK One Login yn rhannu eich manylion sydd wedi'u harbed gyda’r gwasanaeth.</p><p class=\"govuk-body\"> Os oes angen, gallwch <a class=\"govuk-link\" href=\"/ipv/journey/page-ipv-reuse/update-details\" rel=\"noopener noreferrer\">ddiweddaru eich manylion</a>.</p> <h4 class=\"govuk-heading-s\"> Os oes camgymeriad yn eich enw</h4> <p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> os oes camgymeriad yn eich enw. Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod.</p><p class=\"govuk-body\"> Peidiwch â cheisio diweddaru eich manylion na phrofi eich hunaniaeth eto oni bai bod tîm GOV.UK One Login wedi dweud wrthych i wneud hynny.</p> "
         }
       }
     },
@@ -1020,28 +1020,11 @@
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
-        "paragraph1": "Gallwch ddefnyddio trwydded yrru lawn neu dros dro y DU os yw’n:",
-        "drivingLicenceRequirements": [
-          "gerdyn-llun plastig, ddim yn drwydded papur",
-          "heb ddod i ben"
-        ],
-        "subHeading2": "Pasbort y DU",
-        "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU. Os yw’ch pasbort y DU wedi dod i ben, gallwch barhau i’w ddefnyddio i brofi eich hunaniaeth hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
-        "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodion biometrig",
-        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os:",
-        "nonUkPassportRequirements": [
-          "mae ganddo sglodyn biometrig",
-          "nid yw wedi dod i ben"
-        ],
-        "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
-        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
-        "subHeading4": "Trwydded breswylio biometrig y DU",
-        "paragraph6": "Gallwch ddefnyddio trwydded breswylio biometrig (BRP) y DU sydd heb ddod i ben. Efallai y bydd gennych BRP os oes gennych fisa am fwy na 6 mis neu ganiatâd amhenodol i aros.",
-        "subHeading5": "Cerdyn preswylio biometrig y DU (BRC)",
-        "paragraph7": "Gelwir hyn hefyd yn Gerdyn Preswylio y DU. Gallwch ddefnyddio BRC nad yw wedi dod i ben. Efallai y bydd gennych BRC os ydych yn y DU fel aelod o deulu dinesydd o wlad Ardal Economaidd Ewropeaidd (AEE).",
-        "subHeading6": "Trwydded Gweithwyr Ffiniol y DU (FWP)",
-        "paragraph8": "Gallwch ddefnyddio FWP sydd heb ddod i ben. Efallai y bydd gennych FWP os ydych yn gweithio yn y DU ond yn byw mewn gwlad arall.",
-        "subHeading7": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
+        "paragraph1": "Gallwch ddefnyddio un o’r mathau canlynol o ID gyda llun:",
+        "insetText": "Darganfyddwch fwy am y gwahanol fathau o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ID gyda llun rydym yn ei dderbyn (agor mewn tab newydd)</a>",
+        "paragraph3": "Ni ddylai eich ID gyda llun fod wedi dod i ben.",
+        "hint": "Bydd angen i chi gael eich ID gyda llun yn barod. Ni allwch ddefnyddio copi digidol neu lungopi.",
+        "subHeading1": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
@@ -1054,29 +1037,29 @@
       }
     },
     "pageIpvIdentityDocumentTypes": {
-      "title": "Types of photo ID",
-      "header": "Types of photo ID",
+      "title": "Mathau o ID gyda llun",
+      "header": "Mathau o ID gyda llun",
       "content": {
-        "subHeading": "UK photocard driving licence",
-        "paragraph": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": ["has your photo", "has not expired"],
-        "paragraph1": "It can be a full or provisional UK driving licence.",
-        "subHeading2": "UK passport",
-        "paragraph3": "You can use any UK passport if it has not expired.",
-        "subHeading3": "Non-UK passport with a biometric chip",
-        "paragraph4": "You can use a non-UK passport if it:",
+        "subHeading": "Trwydded yrru cerdyn-llun y DU",
+        "paragraph": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
+        "drivingLicenceRequirements": ["gyda’ch llun", "heb ddod i ben"],
+        "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "subHeading2": "Pasbort y DU",
+        "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
+        "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
         "nonUkPassportRequirements": [
-          "has a biometric chip",
-          "has not expired"
+          "gyda sglodyn biometrig",
+          "heb ddod i ben"
         ],
-        "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
-        "subHeading4": "UK biometric residence permit (BRP)",
-        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired. You might have a BRP if you have a visa for longer than 6 months or indefinite leave to remain.",
-        "subHeading5": "UK biometric residence card (BRC)",
-        "paragraph7": "You can use a BRC that has not expired. You might have a BRC if you’re in the UK as a family member of a citizen from a European Economic Area (EEA) country.",
-        "subHeading6": "UK Frontier Worker permit (FWP)",
-        "paragraph8": "You can use an FWP that has not expired. You might have an FWP if you work in the UK but live in another country."
+        "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
+        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
+        "subHeading4": "Trwydded breswylio biometrig y DU (BRP)",
+        "paragraph6": "Gallwch ddefnyddio trwydded breswyl biometrig  y DU (BRP) sydd heb ddod i ben. Efallai y bydd gennych BRP os oes gennych fisa am fwy na 6 mis neu ganiatâd amhenodol i aros.",
+        "subHeading5": "Cerdyn preswylio biometrig y DU (BRC)",
+        "paragraph7": "Gallwch ddefnyddio BRC sydd heb ddod i ben. Efallai y bydd gennych BRC os ydych yn y DU fel aelod o deulu dinesydd o wlad Ardal Economaidd Ewropeaidd (AEE).",
+        "subHeading6": "Trwydded Gweithiwr Ffiniol y DU (FWP)",
+        "paragraph8": "Gallwch ddefnyddio FWP sydd heb ddod i ben. Efallai y bydd gennych FWP os ydych yn gweithio yn y DU ond yn byw mewn gwlad arall."
       }
     },
     "pyiPostOffice": {
@@ -1193,9 +1176,9 @@
       "title": "Diweddaru eich enw gan ddefnyddio'r ap GOV.UK ID Check",
       "header": "Diweddaru eich enw gan ddefnyddio'r ap GOV.UK ID Check",
       "content": {
-        "paragraph1": "I ddiweddaru eich enw, mae angen i chi brofi eich hunaniaeth eto gyda'ch enw newydd.",
+        "paragraph1": "I ddiweddaru eich enw, mae angen i chi brofi eich hunaniaeth eto gyda’ch enw newydd.",
         "paragraph2": "Byddwch angen:",
-        "list1": "ID gyda llun gyda'r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
+        "list1": "ID gyda llun gyda’r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
         "list2": "dweud wrthym ble rydych chi wedi byw am y 3 mis diwethaf",
         "paragraph3": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">ba ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os na allwn gadarnhau eich hunaniaeth gan ddefnyddio'ch manylion newydd.",
@@ -1206,13 +1189,13 @@
         "paragraph5": "Er enghraifft, os yw'ch enw gyda llythrennau ar goll neu gysylltnod, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">cysylltwch â'r tîm GOV.UK One Login (agor mewn tab newydd)</a> yn lle hynny.",
         "subHeading2": "Os ydych angen defnyddio'r gwasanaeth nawr",
         "paragraph6": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw'ch manylion ddim yn gyfredol.",
-        "paragraph7": "Gallwch ddefnyddio'ch manylion sydd wedi'u harbed i gael mynediad i'r gwasanaeth rydych angen ei ddefnyddio.",
+        "paragraph7": "Gallwch ddefnyddio'ch manylion sydd wedi'u harbed i gael mynediad i’r gwasanaeth rydych angen ei ddefnyddio.",
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Diweddaru eich enw gan ddefnyddio'r ap GOV.UK ID Check",
           "updateDetailsButtonTextHint": "Byddwn yn eich tywys drwy hyn.",
           "continueServiceButtonText": "Parhau i ddefnyddio'r gwasanaeth roeddech yn ceisio ei ddefnyddio",
-          "continueServiceButtonTextRepeatFraudCheck": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "continueServiceButtonTextRepeatFraudCheck": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "continueServiceButtonTextHint": "Gallwch ddiweddaru'ch manylion yn nes ymlaen.",
           "continueServiceButtonTextHintRepeatFraudCheck": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i ddefnyddio'r gwasanaeth.",
           "goBackButtonText": "Ewch yn ôl i wirio eich manylion eto",
@@ -1225,7 +1208,7 @@
         },
         "cannotUseInformation": {
           "summary": "Os na allwch ddefnyddio'r ap GOV.UK ID Check",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â'r tîm GOV.UK One Login os na allwch ddefnyddio'r ap GOV.UK ID Check.</p>Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda'ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â'r tîm GOV.UK One Login os na allwch ddefnyddio'r ap GOV.UK ID Check.</p>Efallai y bydd angen i chi ddileu'ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â'r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
         }
       }
     },
@@ -1241,9 +1224,9 @@
           "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
           "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
           "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o'r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
+          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
           "divisor": "neu",
-          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1259,9 +1242,9 @@
         "paragraph": "Yn seiliedig ar beth rydych wedi'i ddweud wrthym, ni fyddwch yn gallu profi eich hunaniaeth mewn ffordd arall gyda GOV.UK One Login.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "backButtonTextPassport": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch pasbort y DU",
-          "backButtonTextDrivingLicence": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda'ch trwydded yrru cerdyn-llun y DU",
-          "returnToRpButtonText": "Parhau i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "backButtonTextPassport": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda’ch pasbort y DU",
+          "backButtonTextDrivingLicence": "Ewch yn ôl a cheisiwch brofi eich hunaniaeth gyda’ch trwydded yrru cerdyn-llun y DU",
+          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1275,12 +1258,12 @@
       "header": "Dileu eich GOV.UK One Login",
       "content": {
         "paragraph1Html": "Pan fyddwch yn parhau, byddwch yn gallu dileu eich GOV.UK One Login yn barhaol. Darganfyddwch <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">beth sy'n digwydd pan fyddwch yn dileu eich GOV.UK One Login (agor mewn tab newydd)<a>.",
-        "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i'r gwasanaeth  roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda'ch manylion newydd."
+        "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i'r gwasanaeth  roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda’ch manylion newydd."
       }
     },
     "updateDetailsFailed": {
-      "title": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID check",
-      "header": "Nid oeddech yn gallu diweddaru eich manylion gyda'r ap GOV.UK ID check",
+      "title": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID check",
+      "header": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID check",
       "content": {
         "paragraph1": "Gallwch barhau i ddefnyddio'r gwasanaeth os yw'ch manylion allan o ddyddiad.",
         "paragraph1RepeatFraudCheck": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad at y gwasanaeth.",

@@ -662,6 +662,25 @@ describe("journey middleware", () => {
     });
   });
 
+  context("staticPageMiddleware", () => {
+    it("should render static document type page", () => {
+      const req = {};
+      const res = {
+        render: sinon.spy(),
+      };
+      const next = sinon.spy();
+
+      const staticPageMiddleware = middleware.staticPageMiddleware(
+        "page-ipv-identity-document-types",
+      );
+      staticPageMiddleware(req, res, next);
+
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/page-ipv-identity-document-types.njk",
+      );
+    });
+  });
+
   context(
     "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
     () => {

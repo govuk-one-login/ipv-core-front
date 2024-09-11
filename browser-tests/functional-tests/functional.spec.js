@@ -27,7 +27,7 @@ test("Welsh language toggle", async ({ page }) => {
   await page.goto(getAuthoriseUrlForJourney("exampleWelshLanguage"));
 
   // Click the language toggle
-  await page.click('[rel="alternate"]');
+  await page.click('[hreflang="cy"]');
 
   // Check the page heading for the start page is in Welsh
   const pageHeading = await page.locator("h1").textContent();
@@ -46,8 +46,7 @@ test("Context is used to display page", async ({ page }) => {
 
   // Check that we use the context returned by imposter to render the page
   const contextSpecificTextLocator = await page.getByText("Use your UK photocard driving licence");
-  const textCount = await contextSpecificTextLocator.count();
-  expect(textCount).toBe(1);
+  await expect(contextSpecificTextLocator).toBeVisible();
 });
 
 test("Visiting a CRI", async ({ page }) => {
@@ -64,6 +63,7 @@ test("Visiting a CRI", async ({ page }) => {
 });
 
 // Put the journey into the 'state' parameter of the request so that imposter sends it back as the IpvSessionId
+// See the readme and/or `imposter/config/api-config.yaml` for more information
 function getAuthoriseUrlForJourney(journey) {
   return "/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fexample.com&state=" + journey + "&scope=openid+phone+email4&request=FAKE_JAR&client_id=orchestrator";
 }

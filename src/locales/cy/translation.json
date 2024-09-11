@@ -791,7 +791,8 @@
           "checkbox4": "Dyddiad geni"
         },
         "errorCheckBoxMessage": "Dewiswch ba fanylion rydych angen eu diweddaru",
-        "warningText": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol."
+        "warningTextContent": "Efallai na fyddwch yn gallu defnyddio'ch GOV.UK One Login os nad yw'ch manylion yn gyfredol.",
+        "warningTextFallback": "Rhybudd"
       }
     },
     "pyiDetailsDeleted": {

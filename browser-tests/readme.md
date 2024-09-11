@@ -14,13 +14,13 @@ Each test can have its own journey configured in `imposter/config/api-config.yam
 
 ## Running all the Playwright tests
 - Build the docker containers `docker compose build`
-- Run the tests `docker compose up --exit-code-from browser-tests`
+- Run the tests `docker compose up browser-tests`
 
 ## Debugging core front during tests
 - Build the docker containers `docker compose build`
 - Run the imposter and core-front containers in one terminal `docker compose up core-front-browser-test`
 - Attach IntelliJ to core front on localhost port 5101
-- Run the tests in another terminal `docker compose browser-tests`
+- Run the tests in another terminal `docker compose up browser-tests`
 
 ## Ports
 4601 core front

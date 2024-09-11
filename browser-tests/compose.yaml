@@ -47,8 +47,6 @@ services:
         condition: service_healthy
     environment:
       WEBSITE_HOST: http://localhost:4601
-    volumes:
-      - ./snapshot.spec.js-snapshots:/snapshot.spec.js-snapshots
     command:
       - npm
       - "run"

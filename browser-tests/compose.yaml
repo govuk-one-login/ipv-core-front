@@ -40,15 +40,15 @@ services:
   browser-tests-tests:
     container_name: browser-tests-tests
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: browser-tests/Dockerfile
     depends_on:
       browser-tests-core-front:
         condition: service_healthy
+    volumes:
+      - ./snapshot-tests/snapshot.spec.js-snapshots:/browser-tests/snapshot-tests/snapshot.spec.js-snapshots
+      - ./test-results:/browser-tests/test-results
     environment:
       WEBSITE_HOST: http://localhost:4601
-    command:
-      - npm
-      - "run"
-      - "test"
+    command: npm run ${NPM_COMMAND:-test}
     network_mode: "host"

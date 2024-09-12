@@ -1,0 +1,54 @@
+services:
+  browser-tests-core-back-imposter:
+    container_name: browser-tests-core-back-imposter
+    build:
+      context: .
+      dockerfile: imposter/Dockerfile
+    ports:
+      - "4602:8080"
+
+  browser-tests-core-front:
+    container_name: browser-tests-core-front
+    build:
+      context: ..
+      dockerfile: dev-deploy/Dockerfile
+    depends_on:
+      browser-tests-core-back-imposter:
+        condition: service_healthy
+    environment:
+      PORT: 4601
+      NODE_ENV: local
+      ENABLE_PREVIEW: development
+      SESSION_SECRET: session-secret #pragma: allowlist secret
+      API_BASE_URL: http://browser-tests-core-back-imposter:8080
+      EXTERNAL_WEBSITE_HOST: http://localhost:4601
+      CONTACT_URL: https://home.account.gov.uk/contact-gov-uk-one-login
+      LANGUAGE_TOGGLE: true
+    ports:
+      - "4601:4601"
+      - "5101:9229"
+    command:
+      - node
+      - "--inspect=0.0.0.0"
+      - "src/app.js"
+    healthcheck:
+      test: wget --spider http://localhost:4601/healthcheck || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  browser-tests-tests:
+    container_name: browser-tests-tests
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      browser-tests-core-front:
+        condition: service_healthy
+    environment:
+      WEBSITE_HOST: http://localhost:4601
+    command:
+      - npm
+      - "run"
+      - "test"
+    network_mode: "host"

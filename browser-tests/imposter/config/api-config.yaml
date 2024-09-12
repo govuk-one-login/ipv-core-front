@@ -1,0 +1,122 @@
+plugin: openapi
+specFile: ./core-back-api.yaml
+
+pickFirstIfNoneMatch: false
+
+resources:
+  - method: GET
+    path: /healthcheck
+    response:
+      statusCode: 200
+      content: |
+        {
+          "success": "true"
+        }
+
+  # First couple of requests to transfer from orchestration to core back.
+  # We return the state from the request as the ipvSessionId so that it can be used to pick which responses to send to
+  # later requests.
+  - method: POST
+    path: /session/initialise
+    requestHeaders:
+      content-type: "application/json"
+    # Capture the state value here so we can use it in the response to key later responses
+    capture:
+      testJourney:
+        jsonPath: $.state
+        store: request
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "ipvSessionId": "${stores.request.testJourney}"
+        }
+
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-document-start"
+        }
+
+  # Journey for page navigation test
+  - method: POST
+    path: /journey/end
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "examplePageNavigation"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-postoffice-start"
+        }
+
+  # Journey for context test
+  # We just want to test context so this journey does not match what core-back actually does
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "exampleContext"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id",
+          "context": "passport"
+        }
+
+  # Journey for CRI test
+  # When the user selects the DCMAW option core back sends back the CRI URL to redirect the user to. The CRI then
+  # eventually sends the user back to core-front. Here we short circuit that and redirect the user straight to core
+  # front so there's no need to set up a fake CRI too.
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "exampleCri"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "cri": {
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=exampleCri&code=dummyAuthCode",
+            "id": "fakeDcmaw"
+          }
+        }
+
+  # When core front receives a callback from a CRI it sends the details to core-back. Here we pretend that we got
+  # access_denied back the DCMAW cri and send the use to page-multiple-doc-check
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      allOf:
+      - jsonPath: $.authorizationCode
+        value: "dummyAuthCode"
+      - jsonPath: $.credentialIssuerId
+        value: "fakeDcmaw"
+      - jsonPath: $.redirectUri
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
+      - jsonPath: $.state
+        value: "exampleCri"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
+        }

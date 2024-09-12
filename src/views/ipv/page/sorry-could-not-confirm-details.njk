@@ -32,9 +32,9 @@
   %}
   {% endif %}
 
-  {% if context == "deleteDetailsRfc" %}
+  {% if context == "existingIdentityInvalid" %}
     {% set radioItems = [ deleteOption, returnToServiceOption] %}
-  {% elif context == "deleteDetailsReuse" %}
+  {% elif context == "existingIdentityValid" %}
     {% set radioItems = [ returnToServiceOption, deleteOption] %}
   {% else %}
   {%

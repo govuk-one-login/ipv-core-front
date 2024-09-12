@@ -1271,7 +1271,7 @@
       "header": "You were not able to update your details with the GOV.UK ID check app",
       "content": {
         "paragraph1": "You can still use the service if your details are out of date.",
-        "paragraph1RepeatFraudCheck": "You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph1ExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continue": "Continue to the service without updating your details",

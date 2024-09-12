@@ -1271,7 +1271,7 @@
       "header": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID check",
       "content": {
         "paragraph1": "Gallwch barhau i ddefnyddio'r gwasanaeth os yw'ch manylion allan o ddyddiad.",
-        "paragraph1RepeatFraudCheck": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
+        "paragraph1ExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continue": "Parhau i'r gwasanaeth heb ddiweddaru eich manylion",

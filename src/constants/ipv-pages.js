@@ -13,6 +13,7 @@ module.exports = Object.freeze({
   PAGE_IPV_SUCCESS: "page-ipv-success",
   PAGE_MULTIPLE_DOC_CHECK: "page-multiple-doc-check",
   PAGE_PRE_EXPERIAN_KBV_TRANSITION: "page-pre-experian-kbv-transition",
+  PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
   PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",

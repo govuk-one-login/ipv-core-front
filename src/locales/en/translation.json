@@ -152,13 +152,18 @@
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
-        "paragraph3": "You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph3DeleteDetailsRfc": "You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph3DeleteDetailsReuse": "Your details have not been updated.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "contactOption": "Contact the GOV.UK One Login team",
           "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.",
           "deleteOption": "Delete your GOV.UK One Login",
           "deleteOptionHint": "You can then create a new one and prove your identity using your new details.",
+          "returnToServiceDeleteDetailsRfc": "Go back to the service you were trying to use",
+          "returnToServiceHintDeleteDetailsRfc": "There may be another way to access the service without using your GOV.UK One Login.",
+          "returnToServiceDeleteDetailsReuse": "Continue to the service without updating your details",
+          "returnToServiceHintDeleteDetailsReuse": "Your proof of identity is valid even if your details have changed.",
           "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {

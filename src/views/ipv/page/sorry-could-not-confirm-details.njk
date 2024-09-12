@@ -14,30 +14,43 @@
   <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph2' | translate }}</p>
 
-  {% if context == "deleteDetailsReuse" %}
-  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph3' | translate }}</p>
+  {% if context %}
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetails.content.paragraph3' | translateWithContext(context) }}</p>
   {%
-    set radioItems = [{
+    set deleteOption = {
         value: "delete",
         text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.deleteOption' | translate,
         hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.deleteOptionHint' | translate }
-    }]
+      }
   %}
-  {% else %}
   {%
-    set radioItems = [{
-        value: "contact",
-        text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOption' | translate,
-        hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOptionHint' | translate }
-    }]
+    set returnToServiceOption = {
+        value: "returnToRp",
+          text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.returnToService' | translateWithContext(context),
+          hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.returnToServiceHint' | translateWithContext(context) }
+      }
   %}
   {% endif %}
+
+  {% if context == "deleteDetailsRfc" %}
+    {% set radioItems = [ deleteOption, returnToServiceOption] %}
+  {% elif context == "deleteDetailsReuse" %}
+    {% set radioItems = [ returnToServiceOption, deleteOption] %}
+  {% else %}
   {%
-    set radioItems = radioItems.concat({
-        value: "end",
-        text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.endOption' | translate
-    })
+    set radioItems = [
+      {
+          value: "contact",
+          text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOption' | translate,
+          hint: { text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.contactOptionHint' | translate }
+      },
+      {
+          value: "end",
+          text: 'pages.sorryCouldNotConfirmDetails.content.formRadioButtons.endOption' | translate
+      }]
   %}
+  {% endif %}
+
   <form id="sorryCouldNotConfirmDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radiosConfig = {

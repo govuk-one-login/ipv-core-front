@@ -153,7 +153,7 @@
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
         "paragraph3ExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad i'r gwasanaeth.",
-        "paragraph3ExistingIdentityValid": "TODO: Your details have not been updated.",
+        "paragraph3ExistingIdentityValid": "Nid yw eich manylion wedi cael eu diweddaru.",
         "subHeading": "Beth hoffech chi ei wneud? ",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",

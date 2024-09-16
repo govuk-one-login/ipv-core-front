@@ -60,6 +60,7 @@ async function templatesDisplayGet(req, res) {
     templateId,
     csrfToken: req.csrfToken(),
     context,
+    errorState: req.query.errorState,
   };
 
   if (pageRequiresUserDetails(templateId)) {

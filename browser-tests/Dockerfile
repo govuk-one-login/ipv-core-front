@@ -6,6 +6,7 @@ COPY ./browser-tests/package.json ./browser-tests/package-lock.json ./
 
 RUN npm install
 
+COPY ./browser-tests/data ./data
 COPY ./browser-tests/functional-tests ./functional-tests
 COPY ./browser-tests/snapshot-tests ./snapshot-tests
 COPY ./browser-tests/playwright.config.js ./

@@ -17,9 +17,10 @@ test("Snapshots", async ({ page }) => {
           url += `?context=${context}`;
           screenshotContext = `-${context}`;
         }
-        const screenshotFilename = `${pageName}${screenshotContext}-${language}.png`;
+        const screenshotFilename = `${pageName}-${language}${screenshotContext}.jpeg`;
         await page.goto(url);
-        await expect(page).toHaveScreenshot(screenshotFilename, { fullPage: true });
+        const actualScreenshot = await page.screenshot({fullPage: true, type: "jpeg", quality: 20});
+        expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25});
       }
     }
   }

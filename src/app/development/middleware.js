@@ -54,7 +54,7 @@ async function templatesDisplayGet(req, res) {
   const language = req.params.language;
   const context = req.query.context;
   await req.i18n.changeLanguage(language);
-  // res.locals.currentLanguage = language;
+  res.locals.currentLanguage = language;
 
   const renderOptions = {
     templateId,

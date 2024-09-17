@@ -64,6 +64,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Run browser tests
         run: docker compose up --exit-code-from browser-tests-tests
+      - name: Upload test artifacts
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-results
+          path: ./browser-tests/test-results/
       - name: Stop Docker
         if: ${{ always() }}
         run: docker compose down

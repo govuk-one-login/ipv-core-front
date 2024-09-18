@@ -1235,7 +1235,7 @@
           "summaryText": "How we use your details",
           "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you'd like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a></p>"
         },
-        "paragraph8LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/page-pre-dwp-kbv-transition/end\" rel=\"noopener noreferrer\">I need to prove my identity another way</a>"
+        "paragraph8LinkText": "I need to prove my identity another way"
       }
     },
     "personalIndependencePayment": {

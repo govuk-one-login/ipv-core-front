@@ -1,0 +1,60 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.personalIndependencePayment.title' %}
+{% set googleTagManagerPageId = "personalIndependencePayment" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.personalIndependencePayment.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.personalIndependencePayment.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#personalIndependencePaymentForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.personalIndependencePayment.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.personalIndependencePayment.content.paragraph' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.personalIndependencePayment.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.personalIndependencePayment.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.personalIndependencePayment.content.details.summaryText' | translate,
+    text: 'pages.personalIndependencePayment.content.details.text' | translate
+  }) }}
+
+  <form id="personalIndependencePaymentForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "next",
+          text: 'pages.personalIndependencePayment.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.personalIndependencePayment.content.formRadioButtons.no' | translate
+        },
+        {
+          divider: 'pages.personalIndependencePayment.content.formRadioButtons.divisor' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.personalIndependencePayment.content.formRadioButtons.preferNotToSayText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.personalIndependencePayment.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+{% endblock %}

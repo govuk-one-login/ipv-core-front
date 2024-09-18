@@ -1,5 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
+const domainUrl = process.env.WEBSITE_HOST;
+
 test.describe.parallel("Functional tests", () => {
   test("Handover from orchestration", async ({ page }) => {
     // Start a session
@@ -7,7 +9,7 @@ test.describe.parallel("Functional tests", () => {
 
     // Check that we are on the start page
     const url = page.url();
-    expect(url).toBe("http://localhost:4601/ipv/page/page-ipv-identity-document-start");
+    expect(url).toBe(`${domainUrl}/ipv/page/page-ipv-identity-document-start`);
   });
 
   test("Page navigation", async ({ page }) => {
@@ -20,7 +22,7 @@ test.describe.parallel("Functional tests", () => {
 
     // Check that we are on the post office start page
     const url = page.url();
-    expect(url).toBe("http://localhost:4601/ipv/page/page-ipv-identity-postoffice-start");
+    expect(url).toBe(`${domainUrl}/ipv/page/page-ipv-identity-postoffice-start`);
   });
 
   test("Welsh language toggle", async ({ page }) => {
@@ -60,7 +62,7 @@ test.describe.parallel("Functional tests", () => {
 
     // When we come back from DCMAW with access_denied, core back eventually sends us to page-multiple-doc-check
     const url = page.url();
-    expect(url).toBe("http://localhost:4601/ipv/page/page-multiple-doc-check");
+    expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
 })
 

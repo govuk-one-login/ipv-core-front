@@ -61,7 +61,7 @@ function iteratePagesAndContexts(test) {
 
     for (const context of contextsToTest) {
       for (const language of [ "en", "cy" ]) {
-        let url = `http://localhost:4601/dev/template/${pageName}/${language}`
+        let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}`
         if (context !== undefined) {
           url += `?context=${context}`;
         }

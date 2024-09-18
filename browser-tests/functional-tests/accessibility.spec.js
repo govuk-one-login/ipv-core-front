@@ -2,12 +2,25 @@ const { test, expect } = require("@playwright/test");
 const { iteratePagesAndContexts } = require("../data/pagesAndContexts.js");
 const AxeBuilder = require("@axe-core/playwright");
 
+const domainUrl = process.env.WEBSITE_HOST;
+
 test.describe.parallel("Accessibility tests", () => {
   test.setTimeout(120000);
   iteratePagesAndContexts(
     (pageName, context, language, url) => {
       test(`Accessibility check for ${pageName}, context ${context} and language ${language}`, async ({ page }) => {
         await page.goto(url);
+
+        // Open summaries
+        const allSummaries = await page.locator("summary").all();
+        for (const summary of allSummaries) {
+          await summary.click();
+        }
+        const allSummaryDetails = await page.locator(".govuk-details__text").all();
+        for (const details of allSummaryDetails) {
+          await details.waitFor();
+        }
+
         await assertNoAccessibilityViolations(page);
       });
     }
@@ -16,19 +29,11 @@ test.describe.parallel("Accessibility tests", () => {
   (["radio", "checkbox"]).forEach((errorState) => {
     ["en", "cy"].forEach((language) => {
       test(`Accessibility check for ${errorState} error state in ${language}`, async ({ page }) => {
-        await page.goto(`http://localhost:4601/dev/template/confirm-your-details/${language}?errorState=${errorState}`);
+        await page.goto(`${domainUrl}/dev/template/confirm-your-details/${language}?errorState=${errorState}`);
         await assertNoAccessibilityViolations(page);
       });
     })
   });
-
-  ["en", "cy"].forEach((language) => {
-    test(`Accessibility check for open details in ${language}`, async ({ page }) => {
-      await page.goto(`http://localhost:4601/dev/template/pyi-triage-select-smartphone/${language}`);
-      await page.click(".govuk-details__summary");
-      await assertNoAccessibilityViolations(page);
-    });
-  })
 });
 
 const assertNoAccessibilityViolations = async (page) => {

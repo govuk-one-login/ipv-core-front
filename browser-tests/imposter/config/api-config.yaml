@@ -95,7 +95,7 @@ resources:
       content: |
         {
           "cri": {
-            "redirectUrl": "${WEBSITE_HOST}/credential-issuer/callback/fakeDcmaw?state=exampleCri&code=dummyAuthCode",
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=exampleCri&code=dummyAuthCode",
             "id": "fakeDcmaw"
           }
         }
@@ -111,7 +111,7 @@ resources:
       - jsonPath: $.credentialIssuerId
         value: "fakeDcmaw"
       - jsonPath: $.redirectUri
-        value: "${WEBSITE_HOST}/credential-issuer/callback/fakeDcmaw"
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
       - jsonPath: $.state
         value: "exampleCri"
     response:

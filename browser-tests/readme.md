@@ -36,6 +36,7 @@ generated will be named differently.
 
 ### Updating snapshots
 If you make a change that affects the appearance of a page then you will need to update the saved snapshot file.
+- `docker compose build`
 - `NPM_COMMAND=update-snapshots docker compose up --exit-code-from browser-tests-tests`
 
 ## Ports

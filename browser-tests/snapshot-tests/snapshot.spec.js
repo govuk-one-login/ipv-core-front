@@ -19,6 +19,13 @@ test("Snapshots", async ({ page }) => {
         }
         const screenshotFilename = `${pageName}-${language}${screenshotContext}.jpeg`;
         await page.goto(url);
+
+        // Open all summaries on the page
+        const allSummaries = await page.locator("summary").all();
+        for (const summary of allSummaries) {
+          await summary.click();
+        }
+
         const actualScreenshot = await page.screenshot({fullPage: true, type: "jpeg", quality: 20});
         expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25});
       }

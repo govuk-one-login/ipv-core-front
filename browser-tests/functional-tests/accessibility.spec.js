@@ -11,7 +11,7 @@ test.describe.parallel("Accessibility tests", () => {
       test(`Accessibility check for ${pageName}, context ${context} and language ${language}`, async ({ page }) => {
         await page.goto(url);
 
-        // Open summaries
+        // Open all summaries on the page
         const allSummaries = await page.locator("summary").all();
         for (const summary of allSummaries) {
           await summary.click();

@@ -1235,7 +1235,7 @@
           "summaryText": "Sut rydym yn defnyddio eich manylion",
           "html": "<p>Ni fyddwn yn cadw eich atebion nac yn eu rhannu â’r gwasanaeth rydych angen ei ddefnyddio.</p><p>Os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi eich hunaniaeth, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a></p>"
         },
-        "paragraph8LinkText": "I need to prove my identity another way"
+        "paragraph8LinkText": "Rwyf angen profi fy hunaniaeth mewn ffordd arall"
       }
     },
     "personalIndependencePayment": {
@@ -1256,7 +1256,7 @@
           "preferNotToSayText": "Gwell gen i beidio â dweud"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
           "errorRadioMessage": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)"
         }

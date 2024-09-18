@@ -21,6 +21,14 @@ test.describe.parallel("Accessibility tests", () => {
       });
     })
   });
+
+  ["en", "cy"].forEach((language) => {
+    test(`Accessibility check for open details in ${language}`, async ({ page }) => {
+      await page.goto(`http://localhost:4601/dev/template/pyi-triage-select-smartphone/${language}`);
+      await page.click(".govuk-details__summary");
+      await assertNoAccessibilityViolations(page);
+    });
+  })
 });
 
 const assertNoAccessibilityViolations = async (page) => {

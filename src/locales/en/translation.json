@@ -1217,6 +1217,27 @@
         }
       }
     },
+    "pagePreDwpKbvTransition": {
+      "title": "Answer security questions",
+      "header": "Answer security questions",
+      "content": {
+        "paragraph": "We use security questions as the last step in checking your identity.",
+        "paragraph2": "The questions are about information that’s personal to you. This stops other people from pretending to be you.",
+        "paragraph3": "The questions use information from the Department for Work and Pensions (DWP).",
+        "paragraph4": "You must answer enough questions correctly to prove your identity. You can then continue to the service you need to use.",
+        "subHeading": "Before you start",
+        "paragraph5": "You’ll need information from the bank or building society account that your PIP is paid into.",
+        "paragraph6": "You can get this information from your:",
+        "list1": "most recent statement",
+        "list2": "online account or banking app",
+        "paragraph7": "You may also need the letter from the DWP saying that you were awarded PIP.",
+        "details": {
+          "summaryText": "How we use your details",
+          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you'd like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a></p>"
+        },
+        "paragraph8LinkText": "<a class=\"govuk-link\" href=\"/ipv/journey/page-pre-dwp-kbv-transition/end\" rel=\"noopener noreferrer\">I need to prove my identity another way</a>"
+      }
+    },
     "personalIndependencePayment": {
       "title": "Do you get Personal Independence Payment (PIP)?",
       "header": "Do you get Personal Independence Payment (PIP)?",

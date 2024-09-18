@@ -1217,6 +1217,27 @@
         }
       }
     },
+    "pagePreDwpKbvTransition": {
+      "title": "Answer security questions",
+      "header": "Answer security questions",
+      "content": {
+        "paragraph": "Rydym yn defnyddio cwestiynau diogelwch fel y cam olaf i wirio eich hunaniaeth.",
+        "paragraph2": "Mae’r cwestiynau yn ymwneud â gwybodaeth sy’n bersonol i chi. Mae hyn yn atal pobl eraill rhag esgus bod yn chi.",
+        "paragraph3": "Mae’r cwestiynau’n defnyddio gwybodaeth gan yr Adran Gwaith a Phensiynau (DWP).",
+        "paragraph4": "Mae’n rhaid i chi ateb digon o gwestiynau yn gywir i brofi eich hunaniaeth. Yna gallwch barhau â’r gwasanaeth rydych angen ei ddefnyddio.",
+        "subHeading": "Cyn i chi ddechrau",
+        "paragraph5": "YByddwch angen gwybodaeth o’r cyfrif banc neu gymdeithas adeiladu y telir eich PIP iddo.",
+        "paragraph6": "Gallwch gael y wybodaeth hon oddi ar eich:",
+        "list1": "cyfriflen diweddaraf",
+        "list2": "cyfrif ar-lein neu ap bancio",
+        "paragraph7": "Efallai y byddwch hefyd angen y llythyr gan y DWP yn dweud eich bod wedi cael dyfarniad o PIP.",
+        "details": {
+          "summaryText": "Sut rydym yn defnyddio eich manylion",
+          "html": "<p>Ni fyddwn yn cadw eich atebion nac yn eu rhannu â’r gwasanaeth rydych angen ei ddefnyddio.</p><p>Os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi eich hunaniaeth, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a></p>"
+        },
+        "paragraph8LinkText": "I need to prove my identity another way"
+      }
+    },
     "personalIndependencePayment": {
       "title": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
       "header": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",

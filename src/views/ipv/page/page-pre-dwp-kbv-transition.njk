@@ -1,0 +1,38 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.pagePreDwpKbvTransition.title' %}
+{% set googleTagManagerPageId = "pagePreDwpKbvTransition" %}
+{% set isPageDynamic = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pagePreDwpKbvTransition.header' | translate }}</h1>
+
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph' | translate }}</p>
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph4' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{'pages.pagePreDwpKbvTransition.content.subHeading' | translate }}</h2>
+
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph5' | translate }}</p>
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph6' | translate }}</p>
+
+  <ul class="govuk-list govuk-list--bullet" role="list">
+    <li>{{ 'pages.pagePreDwpKbvTransition.content.list1' | translate }}</li>
+    <li>{{ 'pages.pagePreDwpKbvTransition.content.list2' | translate }}</li>
+  </ul>
+
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph7' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.pagePreDwpKbvTransition.content.details.summaryText' | translate,
+    html: 'pages.pagePreDwpKbvTransition.content.details.html' | translate
+  }) }}
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.start' | translate ) }}
+
+  <p class="govuk-body">{{'pages.pagePreDwpKbvTransition.content.paragraph8LinkText' | translate | safe }}</p>
+
+{% endblock %}

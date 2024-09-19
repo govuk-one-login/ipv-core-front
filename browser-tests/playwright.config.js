@@ -2,6 +2,7 @@ const { devices } = require("@playwright/test");
 require("dotenv").config();
 
 module.exports = {
+  workers: 6,
   projects: [
     {
       name: "chromium",

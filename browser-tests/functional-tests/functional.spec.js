@@ -1,66 +1,70 @@
 const { test, expect } = require("@playwright/test");
 
-test("Handover from orchestration", async ({ page }) => {
-  // Start a session
-  await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+const domainUrl = process.env.WEBSITE_HOST;
 
-  // Check that we are on the start page
-  const url = page.url();
-  expect(url).toBe("http://localhost:4601/ipv/page/page-ipv-identity-document-start");
-});
+test.describe.parallel("Functional tests", () => {
+  test("Handover from orchestration", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
 
-test("Page navigation", async ({ page }) => {
-  // Start a session
-  await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+    // Check that we are on the start page
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/page-ipv-identity-document-start`);
+  });
 
-  // Go to the F2F start page
-  await page.click("input[type='radio'][value='end']");
-  await page.click("button[id='submitButton']");
+  test("Page navigation", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
 
-  // Check that we are on the post office start page
-  const url = page.url();
-  expect(url).toBe("http://localhost:4601/ipv/page/page-ipv-identity-postoffice-start");
-});
+    // Go to the F2F start page
+    await page.click("input[type='radio'][value='end']");
+    await page.click("button[id='submitButton']");
 
-test("Welsh language toggle", async ({ page }) => {
-  // Start a session
-  await page.goto(getAuthoriseUrlForJourney("exampleWelshLanguage"));
+    // Check that we are on the post office start page
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/page-ipv-identity-postoffice-start`);
+  });
 
-  // Click the language toggle
-  await page.click('[hreflang="cy"]');
+  test("Welsh language toggle", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("exampleWelshLanguage"));
 
-  // Check the page heading for the start page is in Welsh
-  const pageHeading = await page.locator("h1").textContent();
-  expect(pageHeading).toBe(
-    "Dywedwch wrthym os oes gennych un o’r mathau canlynol o ID gyda llun",
-  );
-});
+    // Click the language toggle
+    await page.click('[hreflang="cy"]');
 
-test("Context is used to display page", async ({ page }) => {
-  // Start a session
-  await page.goto(getAuthoriseUrlForJourney("exampleContext"));
+    // Check the page heading for the start page is in Welsh
+    const pageHeading = await page.locator("h1").textContent();
+    expect(pageHeading).toBe(
+      "Dywedwch wrthym os oes gennych un o’r mathau canlynol o ID gyda llun",
+    );
+  });
 
-  // Go to the DCMAW CRI
-  await page.click("input[type='radio'][value='appTriage']");
-  await page.click("button[id='submitButton']");
+  test("Context is used to display page", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("exampleContext"));
 
-  // Check that we use the context returned by imposter to render the page
-  const contextSpecificTextLocator = await page.getByText("Use your UK photocard driving licence");
-  await expect(contextSpecificTextLocator).toBeVisible();
-});
+    // Go to the DCMAW CRI
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
 
-test("Visiting a CRI", async ({ page }) => {
-  // Start a session
-  await page.goto(getAuthoriseUrlForJourney("exampleCri"));
+    // Check that we use the context returned by imposter to render the page
+    const contextSpecificTextLocator = await page.getByText("Use your UK photocard driving licence");
+    await expect(contextSpecificTextLocator).toBeVisible();
+  });
 
-  // Go to the DCMAW CRI
-  await page.click("input[type='radio'][value='appTriage']");
-  await page.click("button[id='submitButton']");
+  test("Visiting a CRI", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("exampleCri"));
 
-  // When we come back from DCMAW with access_denied, core back eventually sends us to page-multiple-doc-check
-  const url = page.url();
-  expect(url).toBe("http://localhost:4601/ipv/page/page-multiple-doc-check");
-});
+    // Go to the DCMAW CRI
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    // When we come back from DCMAW with access_denied, core back eventually sends us to page-multiple-doc-check
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
+  });
+})
 
 // Put the journey into the 'state' parameter of the request so that imposter sends it back as the IpvSessionId
 // See the readme and/or `imposter/config/api-config.yaml` for more information

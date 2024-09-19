@@ -19,11 +19,13 @@ Each test can have its own journey configured in `imposter/config/api-config.yam
 - Build the docker containers `docker compose build`
 - Run the imposter and core-front containers `docker compose up browser-tests-core-front`
 - Optionally disable headless mode in `playwright.config.js` so you can see what happening
+- Set up environment variables as in the `browser-tests-tests` container setup
 - Click on the arrow next to the test in IntelliJ
 
 ### Debugging core front during tests
 - Build the docker containers `docker compose build`
 - Run the imposter and core-front containers in one terminal `docker compose up browser-tests-core-front`
+- Set up environment variables as in the `browser-tests-tests` container setup
 - Attach IntelliJ to core front on localhost port 5101
 - Run the tests in another terminal `docker compose up browser-tests-tests`
 

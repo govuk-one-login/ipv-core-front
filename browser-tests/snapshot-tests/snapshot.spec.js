@@ -15,6 +15,19 @@ test.describe.parallel("Snapshot tests", () => {
         }
         const screenshotFilename = `${pageName}-${language}${screenshotContext}.jpeg`;
         await page.goto(url);
+
+        // Open all summaries on the page
+        const allSummaries = await page.locator("details summary").all();
+        for (const summary of allSummaries) {
+          await summary.click();
+        }
+
+        // Make sure that all the summary details are visible
+        const allSummaryDetails = await page.locator("details div").all();
+        for (const details of allSummaryDetails) {
+          await details.waitFor();
+        }
+
         const actualScreenshot = await page.screenshot({fullPage: true, type: "jpeg", quality: 20});
         expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25});
       });

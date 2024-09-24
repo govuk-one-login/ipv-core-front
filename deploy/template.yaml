@@ -1009,7 +1009,7 @@ Resources:
         - !Ref AWS::NoValue
 
   ECSFatalErrorMetricFilter:
-    Condition: IsNotDevelopment
+    #Condition: IsNotDevelopment
     Type: AWS::Logs::MetricFilter
     Properties:
       LogGroupName: !Ref ECSAccessLogsGroup
@@ -1324,17 +1324,17 @@ Resources:
       FilterPattern: ""
       LogGroupName: !Ref APIGWAccessLogsGroup
 
-  APIGWFatalErrorMetricFilter:
-    Condition: IsNotDevelopment
+  RESTAPIGWFatalErrorMetricFilter:
+    #Condition: IsNotDevelopment
     Type: AWS::Logs::MetricFilter
     Properties:
-      LogGroupName: !Ref APIGWAccessLogsGroup
+      LogGroupName: !Ref RestApiGatewayAccessLogsGroup
       FilterPattern: '{ $.level = "FATAL" || $.message = "Unhandled Exception:*" }'
       MetricTransformations:
         -
           MetricValue: "1"
           MetricNamespace: !Sub "${AWS::StackName}/LogMessages"
-          MetricName: "APIGWFatalerror-message"
+          MetricName: "RESTAPIGWFatalerror-message"
 
   CoreFrontSessionsTable:
     Type: AWS::DynamoDB::Table
@@ -1700,30 +1700,41 @@ Resources:
           Expression: (error/invocations) * 100
 
   FatalErrorAlarm:
-    Condition: IsNotDevelopment
-    DependsOn:
-      - "ECSFatalErrorMetricFilter"
-      - "APIGWFatalErrorMetricFilter"
+    #Condition: IsNotDevelopment
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub "${AWS::StackName}-FatalErrorAlarm"
-      AlarmDescription: "Trigger an alarm when Fatal Error occurs"
-      ActionsEnabled: true
-      OKActions:
-        - !ImportValue alarm-alerts-topic
-      AlarmActions:
-        - !ImportValue alarm-alerts-topic
-      InsufficientDataActions: []
-      MetricName: FatalErrorMessage
-      Namespace: !Sub "${AWS::StackName}/LogMessages"
-      Statistic: Sum
-      Dimensions: []
-      Period: 60
+      AlarmDescription: "Trigger an alarm when a FATAL level error, or Unhandled Exception occurs."
+      # ActionsEnabled: true
+      # OKActions:
+      #   - !ImportValue alarm-alerts-topic
+      # AlarmActions:
+      #   - !ImportValue alarm-alerts-topic
       EvaluationPeriods: 1
-      DatapointsToAlarm: 1
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
       TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: FatalErrors
+          ReturnData: true
+          Expression: m1+m2
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: !Sub "${AWS::StackName}/LogMessages"
+              MetricName: ECSFatalerror-message
+            Period: 60
+            Stat: Sum
+        - Id: m2
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: !Sub "${AWS::StackName}/LogMessages"
+              MetricName: RESTAPIGWFatalerror-message
+            Period: 60
+            Stat: Sum
 
   FELatencyAlarmP95:
     Condition: IsNotDevelopment

@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const TEST_CONSTANTS = require("../../test/constants");
 
 const domainUrl = process.env.WEBSITE_HOST;
 
@@ -65,6 +66,66 @@ test.describe.parallel("Functional tests", () => {
     expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
 })
+
+test.describe("iPhone tests", () => {
+  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE });
+
+  test("Device sniffing", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testDeviceSniffingIphone"));
+
+    // core-back will return prove-identity-another-type-photo-id for an appTriageIphoneEvent
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+
+  test("Handling identify-device", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceIphone"));
+
+    // Have core-back return an identify-device page response
+    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
+    // a prove-identity-another-type-photo-id page response
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+});
+
+test.describe("Android tests", () => {
+  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID });
+
+  test("Device sniffing", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testDeviceSniffingAndroid"));
+
+    // core-back will return prove-identity-another-type-photo-id for an appTriageIphoneEvent
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+
+  test("Handling identify-device", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceAndroid"));
+
+    // Have core-back return an identify-device page response
+    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
+    // a prove-identity-another-type-photo-id page response
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+});
 
 // Put the journey into the 'state' parameter of the request so that imposter sends it back as the IpvSessionId
 // See the readme and/or `imposter/config/api-config.yaml` for more information

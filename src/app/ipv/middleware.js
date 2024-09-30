@@ -101,6 +101,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     });
     req.cri = backendResponse.cri;
     req.session.currentPage = req.cri.id;
+    //qq:DCC should we be saving the session here?
     await buildCredentialIssuerRedirectURL(req, res);
     return redirectToAuthorize(req, res);
   }
@@ -129,6 +130,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;
+    //qq:DCC should we be saving the session here?
     return res.redirect(redirectUrl);
   }
 

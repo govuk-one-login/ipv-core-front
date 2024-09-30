@@ -1,3 +1,4 @@
+//qq:DCC use constants here instead!
 const pagesToTest = {
   "confirm-your-details": [],
   "delete-handover": [],

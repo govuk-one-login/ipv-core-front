@@ -5,7 +5,7 @@ const domainUrl = process.env.WEBSITE_HOST;
 test.describe.parallel("Functional tests", () => {
   test("Handover from orchestration", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
     // Check that we are on the start page
     const url = page.url();
@@ -14,7 +14,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Page navigation", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
     // Go to the F2F start page
     await page.click("input[type='radio'][value='end']");
@@ -27,7 +27,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Welsh language toggle", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleWelshLanguage"));
+    await page.goto(getAuthoriseUrlForJourney("testWelshLanguage"));
 
     // Click the language toggle
     await page.click('[hreflang="cy"]');
@@ -41,7 +41,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Context is used to display page", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleContext"));
+    await page.goto(getAuthoriseUrlForJourney("testContext"));
 
     // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");
@@ -54,7 +54,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Visiting a CRI", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleCri"));
+    await page.goto(getAuthoriseUrlForJourney("testCri"));
 
     // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");

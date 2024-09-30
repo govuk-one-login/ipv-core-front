@@ -16,6 +16,7 @@ const {
   checkFormRadioButtonSelected,
   handleAppStoreRedirect,
   setRequestPageId,
+  updateAppTriageJourneyEvent,
 } = require("./middleware");
 
 const {
@@ -53,6 +54,7 @@ router.post(
   setRequestPageId(UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
   checkFormRadioButtonSelected,
+  updateAppTriageJourneyEvent,
   handleJourneyAction,
 );
 
@@ -64,6 +66,7 @@ router.post(
   setRequestPageId(CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
   checkFormRadioButtonSelected,
+  updateAppTriageJourneyEvent,
   handleJourneyAction,
 );
 
@@ -72,6 +75,7 @@ router.post(
   parseForm,
   csrfProtection,
   checkFormRadioButtonSelected,
+  updateAppTriageJourneyEvent,
   handleJourneyAction,
 );
 

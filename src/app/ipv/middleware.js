@@ -144,11 +144,22 @@ async function handleBackendResponse(req, res, backendResponse) {
     req.session.context = backendResponse?.context;
     req.session.currentPageStatusCode = backendResponse?.statusCode;
 
-    return await saveSessionAndRedirect(
-      req,
-      res,
-      getIpvPagePath(req.session.currentPage),
-    );
+    await req.session.save(function (err) {
+      if (err) {
+        logError(req, err, "Error saving session");
+        throw err;
+      }
+    });
+
+    // Special case handling for "identify-device". This is used by core-back to signal that we need to
+    // check the user's device and send back the relevant "appTriage" event.
+    if (backendResponse.page === "identify-device") {
+      const event = "appTriage" + sniffPhoneType(req);
+      return await handleJourneyResponse(req, res, event, backendResponse.page);
+    }
+    else {
+      return res.redirect(req.session.currentPage);
+    }
   }
   const message = {
     description: "Unexpected backend response",

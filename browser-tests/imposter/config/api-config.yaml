@@ -120,3 +120,90 @@ resources:
         {
           "page": "page-multiple-doc-check"
         }
+
+  # Journeys for device sniffing on first page
+  - method: POST
+    path: /journey/appTriageIphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testDeviceSniffingIphone"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }
+
+  - method: POST
+    path: /journey/appTriageAndroid
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testDeviceSniffingAndroid"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }
+
+  # Journeys for identify-device test
+  # We just want to test the handling of identify-device so this journey does not match what core-back actually does
+  - method: POST
+    path: /journey/appTriageIphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceIphone"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "identify-device"
+        }
+
+  - method: POST
+    path: /journey/appTriageIphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceIphone"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }
+
+  - method: POST
+    path: /journey/appTriageAndroid
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceAndroid"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "identify-device"
+        }
+
+  - method: POST
+    path: /journey/appTriageAndroid
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceAndroid"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }

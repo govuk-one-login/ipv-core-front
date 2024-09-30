@@ -42,8 +42,9 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
-const { sniffPhoneType } = require("../shared/deviceSniffingHelper");
+const { sniffPhoneType, detectAppTriageEvent} = require("../shared/deviceSniffingHelper");
 const ERROR_PAGES = require("../../constants/error-pages");
+const EVENTS = require("../../constants/events");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -154,11 +155,11 @@ async function handleBackendResponse(req, res, backendResponse) {
     // Special case handling for "identify-device". This is used by core-back to signal that we need to
     // check the user's device and send back the relevant "appTriage" event.
     if (backendResponse.page === "identify-device") {
-      const event = "appTriage" + sniffPhoneType(req);
+      const event = detectAppTriageEvent(req);
       return await handleJourneyResponse(req, res, event, backendResponse.page);
     }
     else {
-      return res.redirect(req.session.currentPage);
+      return res.redirect(getIpvPagePath(req.session.currentPage));
     }
   }
   const message = {
@@ -486,8 +487,8 @@ async function checkFormRadioButtonSelected(req, res, next) {
 }
 
 function updateAppTriageJourneyEvent(req, res, next) {
-  if (req.body?.journey === "appTriage") {
-    req.body.journey += sniffPhoneType(req);
+  if (req.body?.journey === EVENTS.APP_TRIAGE) {
+    req.body.journey = detectAppTriageEvent(req);
   }
   next();
 }

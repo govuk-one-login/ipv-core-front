@@ -474,6 +474,13 @@ async function checkFormRadioButtonSelected(req, res, next) {
   }
 }
 
+function updateAppTriageJourneyEvent(req, res, next) {
+  if (req.body?.journey === "appTriage") {
+    req.body.journey += sniffPhoneType(req);
+  }
+  next();
+}
+
 async function formHandleUpdateDetailsCheckBox(req, res, next) {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
@@ -546,6 +553,7 @@ module.exports = {
   renderFeatureSetPage,
   staticPageMiddleware,
   checkFormRadioButtonSelected,
+  updateAppTriageJourneyEvent,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   validateFeatureSet,

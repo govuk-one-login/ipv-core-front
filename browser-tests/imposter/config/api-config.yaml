@@ -52,7 +52,7 @@ resources:
     path: /journey/end
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "examplePageNavigation"
+      ipv-session-id: "testPageNavigation"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -68,7 +68,7 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "exampleContext"
+      ipv-session-id: "testContext"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -87,7 +87,7 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "exampleCri"
+      ipv-session-id: "testCri"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -95,7 +95,7 @@ resources:
       content: |
         {
           "cri": {
-            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=exampleCri&code=dummyAuthCode",
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=testCri&code=dummyAuthCode",
             "id": "fakeDcmaw"
           }
         }
@@ -113,7 +113,7 @@ resources:
       - jsonPath: $.redirectUri
         value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
       - jsonPath: $.state
-        value: "exampleCri"
+        value: "testCri"
     response:
       statusCode: 200
       content: |

@@ -1,47 +1,34 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleKey = 'pages.pyiTriageMobileDownload.title' %}
 {% set googleTagManagerPageId = "pyiTriageMobileDownload" %}
 
 {% block content %}
-    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
-        {{ 'pages.pyiTriageMobileDownload.header' | translate }}
-    </h1>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
+      {{ 'pages.pyiTriageMobileDownload.header' | translate }}
+  </h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">
+    {{ 'pages.pyiTriageMobileDownload.content.subHeading1' | translate }}
+  </h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph3' | translate }}</p>
 
-    <h2 class="govuk-heading-m">
-        {{ 'pages.pyiTriageMobileDownload.section1.heading' | translate }}
-    </h2>
-    <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.section1.paragraph1' | translate }}</p>
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details1.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details1.html' | translate
+  }) }}
 
-    {{ govukButton({
-      href: appDownloadUrl,
-      text: 'pages.pyiTriageMobileDownload.section1.button' | translate
-    }) }}
+  {{ govukButton({
+    href: appDownloadUrl,
+    text: 'pages.pyiTriageMobileDownload.content.button' | translate
+  }) }}
 
-    {{ govukDetails({
-        summaryText: 'pages.pyiTriageMobileDownload.section1.details.summaryText' | translate,
-        text: 'pages.pyiTriageMobileDownload.section1.details.text' | translate
-    }) }}
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details2.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details2.html' | translate
+  }) }}
 
-    <h2 class="govuk-heading-m">
-        {{ 'pages.pyiTriageMobileDownload.section2.heading' | translate }}
-    </h2>
-
-    <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.section2.paragraph1' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.section2.paragraph2' | translate }}</p>
-
-    <form id="pyiTriageMobileDownloadForm" action="/ipv/page/{{ pageId }}" method="POST">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-        {{ govukButton({
-          id: "submitButton",
-          text: 'general.buttons.next' | translate
-        }) }}
-    </form>
-
-    {{ govukInsetText({
-        html: 'pages.pyiTriageMobileDownload.section2.inset' | translate( { contactUsUrl: contactUsUrl } ) | safe
-    }) }}
-
+  {% include "components/contact-us-link.njk" %}
 {% endblock %}

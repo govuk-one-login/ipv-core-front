@@ -70,6 +70,18 @@ test.describe.parallel("Functional tests", () => {
 test.describe("iPhone tests", () => {
   test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE });
 
+  test("Device sniffing", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testDeviceSniffingIphone"));
+
+    // core-back will return prove-identity-another-type-photo-id for an appTriageIphoneEvent
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+
   test("Handling identify-device", async ({ page }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceIphone"));
@@ -87,6 +99,18 @@ test.describe("iPhone tests", () => {
 
 test.describe("Android tests", () => {
   test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID });
+
+  test("Device sniffing", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testDeviceSniffingAndroid"));
+
+    // core-back will return prove-identity-another-type-photo-id for an appTriageIphoneEvent
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
 
   test("Handling identify-device", async ({ page }) => {
     // Start a session

@@ -47,6 +47,7 @@ const {
   detectAppTriageEvent,
 } = require("../shared/deviceSniffingHelper");
 const ERROR_PAGES = require("../../constants/error-pages");
+const EVENTS = require("../../constants/events");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
 
@@ -492,6 +493,13 @@ async function checkFormRadioButtonSelected(req, res, next) {
   }
 }
 
+function updateAppTriageJourneyEvent(req, res, next) {
+  if (req.body?.journey === EVENTS.APP_TRIAGE) {
+    req.body.journey = detectAppTriageEvent(req);
+  }
+  next();
+}
+
 async function formHandleUpdateDetailsCheckBox(req, res, next) {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
@@ -564,6 +572,7 @@ module.exports = {
   renderFeatureSetPage,
   staticPageMiddleware,
   checkFormRadioButtonSelected,
+  updateAppTriageJourneyEvent,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   validateFeatureSet,

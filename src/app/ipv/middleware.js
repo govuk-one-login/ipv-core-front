@@ -42,7 +42,10 @@ const {
 } = require("../../lib/paths");
 const PAGES = require("../../constants/ipv-pages");
 const { parseContextAsPhoneType } = require("../shared/contextHelper");
-const { sniffPhoneType, detectAppTriageEvent} = require("../shared/deviceSniffingHelper");
+const {
+  sniffPhoneType,
+  detectAppTriageEvent,
+} = require("../shared/deviceSniffingHelper");
 const ERROR_PAGES = require("../../constants/error-pages");
 
 const directoryPath = path.join(__dirname, "/../../views/ipv/page");
@@ -156,8 +159,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
       const event = detectAppTriageEvent(req);
       return await handleJourneyResponse(req, res, event, backendResponse.page);
-    }
-    else {
+    } else {
       return res.redirect(getIpvPagePath(req.session.currentPage));
     }
   }

@@ -21,8 +21,7 @@ describe("User Agent Functions", () => {
 
     it("should return APP_TRIAGE for unrecognised devices", () => {
       req.headers = {
-        "user-agent":
-          TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_NO_PHONE,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_NO_PHONE,
       };
       const journeyEvent = detectAppTriageEvent(req);
       expect(journeyEvent).to.equal(EVENTS.APP_TRIAGE);
@@ -30,8 +29,7 @@ describe("User Agent Functions", () => {
 
     it("should return APP_TRIAGE_IPHONE for iOS devices", () => {
       req.headers = {
-        "user-agent":
-          TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE,
       };
       const journeyEvent = detectAppTriageEvent(req);
       expect(journeyEvent).to.equal(EVENTS.APP_TRIAGE_IPHONE);
@@ -39,14 +37,12 @@ describe("User Agent Functions", () => {
 
     it("should return APP_TRIAGE_ANDROID for Android devices", () => {
       req.headers = {
-        "user-agent":
-          TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID,
       };
       const journeyEvent = detectAppTriageEvent(req);
       expect(journeyEvent).to.equal(EVENTS.APP_TRIAGE_ANDROID);
     });
   });
-
 
   describe("sniffPhoneType", () => {
     beforeEach(() => {
@@ -55,8 +51,7 @@ describe("User Agent Functions", () => {
 
     it("should return IPHONE for iOS user agents", () => {
       req.headers = {
-        "user-agent":
-        TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE,
       };
       const result = sniffPhoneType(req, "fallback");
       expect(result).to.equal(PHONE_TYPES.IPHONE);
@@ -64,8 +59,7 @@ describe("User Agent Functions", () => {
 
     it("should return ANDROID for Android user agents", () => {
       req.headers = {
-        "user-agent":
-        TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID,
       };
       const result = sniffPhoneType(req, "fallback");
       expect(result).to.equal(PHONE_TYPES.ANDROID);
@@ -73,8 +67,7 @@ describe("User Agent Functions", () => {
 
     it("should return fallback when OS is not iOS or Android", () => {
       req.headers = {
-        "user-agent":
-        TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_NO_PHONE,
+        "user-agent": TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_NO_PHONE,
       };
       const result = sniffPhoneType(req, "fallback");
       expect(result).to.equal("fallback");

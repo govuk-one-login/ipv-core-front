@@ -124,7 +124,7 @@ resources:
   # Journeys for identify-device test
   # We just want to test the handling of identify-device so this journey does not match what core-back actually does
   - method: POST
-    path: /journey/appTriageIphone
+    path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "testIdentifyDeviceIphone"
@@ -152,7 +152,7 @@ resources:
         }
 
   - method: POST
-    path: /journey/appTriageAndroid
+    path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "testIdentifyDeviceAndroid"

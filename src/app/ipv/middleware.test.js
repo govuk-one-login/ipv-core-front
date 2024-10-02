@@ -15,6 +15,11 @@ const {
   IDENTIFY_DEVICE,
   PROVE_IDENTITY_NO_PHOTO_ID,
 } = require("../../constants/ipv-pages");
+const {
+  HTTP_HEADER_USER_AGENT_ANDROID,
+  HTTP_HEADER_USER_AGENT_NO_PHONE,
+} = require("../../../test/constants");
+const { APP_TRIAGE, APP_TRIAGE_ANDROID } = require("../../constants/events");
 
 describe("journey middleware", () => {
   let req;
@@ -1680,6 +1685,7 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledOnce;
       expect(req.body.journey).to.equal("next");
     });
+
     it("should not get user details if the page does not require it", async function () {
       CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       req.session.currentPage = "check-name-date-birth";
@@ -1698,6 +1704,49 @@ describe("journey middleware", () => {
           context: undefined,
         },
       );
+    });
+  });
+
+  describe("updateAppTriageJourneyEvent", () => {
+    beforeEach(() => {
+      req = {
+        body: {},
+        params: { pageId: "confirm-your-details" },
+        csrfToken: sinon.fake(),
+        session: {
+          context: "coi",
+          currentPage: "confirm-your-details",
+          save: sinon.fake.yields(null),
+        },
+        headers: { "user-agent": HTTP_HEADER_USER_AGENT_ANDROID },
+        log: { error: sinon.fake() },
+      };
+    });
+
+    it("should leave the journey alone if it's not appTriage", function () {
+      const dummyEvent = "Some-event";
+      req.body.journey = dummyEvent;
+
+      middleware.updateAppTriageJourneyEvent(req, res, next);
+      expect(req.body.journey).to.equal(dummyEvent);
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should not update the journey it's appTriage and a device cannot be detected", function () {
+      req.body.journey = APP_TRIAGE;
+      req.headers["user-agent"] = HTTP_HEADER_USER_AGENT_NO_PHONE;
+
+      middleware.updateAppTriageJourneyEvent(req, res, next);
+      expect(req.body.journey).to.equal(APP_TRIAGE);
+      expect(next).to.have.been.calledOnce;
+    });
+
+    it("should update the journey it's appTriage and a device can be detected", function () {
+      req.body.journey = APP_TRIAGE;
+
+      middleware.updateAppTriageJourneyEvent(req, res, next);
+      expect(req.body.journey).to.equal(APP_TRIAGE_ANDROID);
+      expect(next).to.have.been.calledOnce;
     });
   });
 });

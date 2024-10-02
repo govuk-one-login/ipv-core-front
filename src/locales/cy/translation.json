@@ -1130,22 +1130,26 @@
       }
     },
     "pyiTriageMobileDownload": {
-      "title": "Prove your identity with the GOV.UK One Login app",
-      "header": "Prove your identity with the GOV.UK One Login app",
-      "section1": {
-        "heading": "Step 1 - Download and open the GOV.UK One Login app",
+      "title": "Use the GOV.UK One Login app to prove your identity",
+      "header": "Use the GOV.UK One Login app to prove your identity",
+      "content": {
         "paragraph1": "If you already have the app installed, open it now.",
+        "subHeading1": "What to expect",
+        "paragraph2": "The GOV.UK One Login app works by matching your face to your photo ID.",
+        "paragraph3": "There will be instructions on what you need to do at each step.",
+        "details1": {
+          "summaryText": "The app uses a face scan with flashing colours",
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+        },
         "button": "Download GOV.UK One Login",
-        "details": {
+        "details2": {
           "summaryText": "Help downloading the app",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details3": {
+          "summaryText": "I’d prefer not to use the app",
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/next\">prove your identity another way</a>.</p>"
         }
-      },
-      "section2": {
-        "heading": "Step 2 - Come back here when you’re done using the app",
-        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
-        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
-        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
     },
     "pyiTriageMobileConfirm": {

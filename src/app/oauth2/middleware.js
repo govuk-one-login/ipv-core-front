@@ -4,7 +4,7 @@ const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const coreBackService = require("../../services/coreBackService");
 const {
   checkForIpvAndOauthSessionId,
-  handleJourneyResponse,
+  processAction,
 } = require("../ipv/middleware");
 
 async function setIpvSessionId(req, res, next) {
@@ -47,7 +47,7 @@ async function setIpvSessionId(req, res, next) {
 async function handleOAuthJourneyAction(req, res, next) {
   try {
     checkForIpvAndOauthSessionId(req, res);
-    await handleJourneyResponse(req, res, "next");
+    await processAction(req, res, "next");
   } catch (error) {
     transformError(error, "error invoking handleOAuthJourneyAction");
     return next(error);

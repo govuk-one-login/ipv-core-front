@@ -79,7 +79,7 @@ async function fetchUserDetails(req) {
   return generateUserDetails(userDetailsResponse, req.i18n);
 }
 
-async function handleJourneyResponse(req, res, action, currentPageId = "") {
+async function processAction(req, res, action, currentPageId = "") {
   const backendResponse = (await journeyApi(action, req, currentPageId)).data;
 
   return await handleBackendResponse(req, res, backendResponse);
@@ -92,7 +92,7 @@ async function handleBackendResponse(req, res, backendResponse) {
       type: LOG_TYPE_JOURNEY,
       path: backendResponse.journey,
     });
-    return await handleJourneyResponse(req, res, backendResponse.journey);
+    return await processAction(req, res, backendResponse.journey);
   }
 
   if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
@@ -158,7 +158,7 @@ async function handleBackendResponse(req, res, backendResponse) {
     // check the user's device and send back the relevant "appTriage" event.
     if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
       const event = detectAppTriageEvent(req);
-      return await handleJourneyResponse(req, res, event, backendResponse.page);
+      return await processAction(req, res, event, backendResponse.page);
     } else {
       return res.redirect(getIpvPagePath(req.session.currentPage));
     }
@@ -388,7 +388,7 @@ async function updateJourneyState(req, res, next) {
     const action = req.params.action;
 
     if (action && isValidIpvPage(currentPageId)) {
-      await handleJourneyResponse(req, res, action, currentPageId);
+      await processAction(req, res, action, currentPageId);
     } else {
       return render404(res);
     }
@@ -397,7 +397,12 @@ async function updateJourneyState(req, res, next) {
   }
 }
 
-async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
+async function handleJourneyPageRequest(
+  req,
+  res,
+  next,
+  pageErrorState = undefined,
+) {
   try {
     const { pageId } = req.params;
     const { context } = req?.session || "";
@@ -439,7 +444,7 @@ async function handleJourneyPage(req, res, next, pageErrorState = undefined) {
   }
 }
 
-async function handleJourneyAction(req, res, next) {
+async function handleJourneyActionRequest(req, res, next) {
   const pageId = req.params.pageId;
 
   try {
@@ -461,7 +466,7 @@ async function handleJourneyAction(req, res, next) {
       );
     }
 
-    await handleJourneyResponse(req, res, req.body.journey, pageId);
+    await processAction(req, res, req.body.journey, pageId);
   } catch (error) {
     transformError(error, `error handling POST request on ${pageId}`);
     return next(error);
@@ -478,7 +483,7 @@ async function checkFormRadioButtonSelected(req, res, next) {
   try {
     // If no radio option is selected re-display the form page with an error.
     if (req.body.journey === undefined) {
-      await handleJourneyPage(req, res, next, true);
+      await handleJourneyPageRequest(req, res, next, true);
     } else {
       return next();
     }
@@ -554,15 +559,15 @@ function setRequestPageId(pageId) {
 module.exports = {
   renderAttemptRecoveryPage,
   updateJourneyState,
-  handleJourneyPage,
-  handleJourneyAction,
+  handleJourneyPageRequest,
+  handleJourneyActionRequest,
   renderFeatureSetPage,
   staticPageMiddleware,
   checkFormRadioButtonSelected,
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   validateFeatureSet,
-  handleJourneyResponse,
+  processAction,
   handleBackendResponse,
   pageRequiresUserDetails,
   handleAppStoreRedirect,

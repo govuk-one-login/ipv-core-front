@@ -6,8 +6,8 @@ const router = express.Router();
 const {
   renderAttemptRecoveryPage,
   updateJourneyState,
-  handleJourneyPage,
-  handleJourneyAction,
+  handleJourneyPageRequest,
+  handleJourneyActionRequest,
   renderFeatureSetPage,
   staticPageMiddleware,
   validateFeatureSet,
@@ -43,7 +43,7 @@ router.get(
   staticPageMiddleware(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
 );
 
-router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
+router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPageRequest);
 
 // Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
@@ -53,7 +53,7 @@ router.post(
   setRequestPageId(UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
   checkFormRadioButtonSelected,
-  handleJourneyAction,
+  handleJourneyActionRequest,
 );
 
 // Special case to handle determination of COI journey type based on the checkboxes selected and determine the error type
@@ -64,7 +64,7 @@ router.post(
   setRequestPageId(CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
   checkFormRadioButtonSelected,
-  handleJourneyAction,
+  handleJourneyActionRequest,
 );
 
 router.post(
@@ -72,7 +72,7 @@ router.post(
   parseForm,
   csrfProtection,
   checkFormRadioButtonSelected,
-  handleJourneyAction,
+  handleJourneyActionRequest,
 );
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);

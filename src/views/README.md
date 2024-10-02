@@ -139,7 +139,7 @@ Breaking this example down:
 
 2. GET requests at `/page/:pageId` will be automatically handled with:
    ```javascript
-   router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPage);
+   router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPageRequest);
    ```
 3. POST requests, with:
     ```javascript
@@ -148,7 +148,7 @@ Breaking this example down:
         parseForm,
         csrfProtection,
         formRadioButtonChecked,
-        handleJourneyAction,
+        handleJourneyActionRequest,
     );
     ```
 

@@ -425,13 +425,14 @@
       }
     },
     "pyiTriageSelectDevice": {
-      "title": "Are you on a computer or tablet right now?",
-      "header": "Are you on a computer or tablet right now?",
+      "title": "Are you on a computer or a tablet right now?",
+      "header": "Are you on a computer or a tablet right now?",
       "content": {
-        "hint": "Some ways of confirming your identity require a smartphone. Let us know what you’re using right now.",
+        "hint": "You’ll need to use a smartphone to prove your identity if you use the GOV.UK One Login app.",
         "formRadioButtons": {
-          "onComputerOrTabletButtonText": "Yes, I am on a computer or tablet",
-          "onSmartphoneButtonText": "No, I am on a smartphone"
+          "onComputerOrTabletButtonText": "Yes - I am on a computer or tablet",
+          "onComputerOrTabletHint": "We’ll tell you when to switch devices. You will not need to start again.",
+          "onSmartphoneButtonText": "No - I am on a smartphone"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

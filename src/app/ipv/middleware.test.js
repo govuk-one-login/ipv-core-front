@@ -11,6 +11,10 @@ const PHONE_TYPES = require("../../constants/phone-types");
 const {
   SUPPORTED_COMBO_EVENTS,
 } = require("../../constants/update-details-journeys");
+const {
+  IDENTIFY_DEVICE,
+  PROVE_IDENTITY_NO_PHOTO_ID,
+} = require("../../constants/ipv-pages");
 
 describe("journey middleware", () => {
   let req;
@@ -349,6 +353,54 @@ describe("journey middleware", () => {
       await middleware.processAction(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
       expect(req.session.clientOauthSessionId).to.be.null;
+    });
+  });
+
+  context("handling identify-device page response", () => {
+    beforeEach(() => {
+      req = {
+        id: "1",
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          clientOauthSessionId: "fake-oauth-session-id",
+          featureSet: "feature-set",
+          save: sinon.fake.yields(null),
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+        headers: { "user-agent": "Not mobile device" },
+      };
+    });
+
+    it("should send an appTriage event to core-back and then handle the response", async function () {
+      const pageId = PROVE_IDENTITY_NO_PHOTO_ID;
+      const eventResponses = [
+        {
+          data: { page: IDENTIFY_DEVICE },
+        },
+        {
+          data: { page: pageId },
+        },
+      ];
+
+      const callBack = sinon.stub();
+      CoreBackServiceStub.postJourneyEvent = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+
+      //req.session.clientOauthSessionId = "fake-client-session";
+      await middleware.processAction(req, res, "next");
+
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(0),
+      ).to.have.been.calledWith(req, "next");
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(1),
+      ).to.have.been.calledWith(req, "appTriage");
+
+      expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
   });
 

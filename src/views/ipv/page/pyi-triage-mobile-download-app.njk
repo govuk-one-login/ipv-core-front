@@ -27,7 +27,12 @@
 
   {{ govukDetails({
       summaryText: 'pages.pyiTriageMobileDownload.content.details2.summaryText' | translate,
-      html: 'pages.pyiTriageMobileDownload.content.details2.html' | translate
+      text: 'pages.pyiTriageMobileDownload.content.details2.text' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details3.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details3.html' | translate
   }) }}
 
   {% include "components/contact-us-link.njk" %}

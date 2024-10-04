@@ -2,15 +2,15 @@
   "name": "di-ipv-core-front",
   "version": "0.0.1",
   "description": "User interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
-  "main": "src/server.js",
+  "main": "src/app.ts",
   "engines": {
     "node": "20.x",
     "npm": "10.x"
   },
   "scripts": {
-    "start": "node src/app.js",
-    "start-dev": "node src/app.js | pino-pretty",
-    "dev": "nodemon --inspect=0.0.0.0:9228 src/app.js",
+    "start": "node build/app.js",
+    "start-dev": "ts-node src/app.ts | pino-pretty",
+    "dev": "nodemon --exec \"node --inspect=0.0.0.0:9228 --require ts-node/register src/app.ts\" --ext js,ts,json",
     "build": "npm run build-js && npm run build-sass && npm run copy-images",
     "build-js": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/govuk/all.js node_modules/@govuk-one-login/frontend-analytics/lib/analytics.js src/assets/javascript/**/**/*.js src/assets/javascript/**/*.js -o dist/public/javascripts/application.js -c -m ",
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
@@ -20,7 +20,8 @@
     "lint-fix": "prettier --write src test && eslint --fix .",
     "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,10 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.0",
+    "@types/uid-safe": "^2.1.5",
     "chai": "4.4.0",
     "chai-as-promised": "7.1.1",
     "copy-webpack-plugin": "12.0.2",
@@ -51,6 +56,8 @@
     "sinon": "17.0.1",
     "sinon-chai": "3.7.0",
     "terser-webpack-plugin": "5.3.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
     "uglify-js": "latest",
     "webpack": "5.94.0"
   },

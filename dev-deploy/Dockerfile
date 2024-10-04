@@ -5,9 +5,11 @@ COPY /locales ./locales
 COPY /views ./views
 COPY package.json ./
 COPY package-lock.json ./
+COPY tsconfig.json ./
 
 RUN npm install
 RUN npm run build
+RUN npm run tsc
 
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
@@ -23,7 +25,7 @@ WORKDIR /app
 # Copy in compile assets and deps from build container
 COPY --chown=appuser:appgroup --from=builder /app/node_modules ./node_modules
 COPY --chown=appuser:appgroup --from=builder /app/dist ./dist
-COPY --chown=appuser:appgroup --from=builder /app/src ./src
+COPY --chown=appuser:appgroup --from=builder /app/build ./build
 COPY --chown=appuser:appgroup --from=builder /app/locales ./locales
 COPY --chown=appuser:appgroup --from=builder /app/views ./views
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./

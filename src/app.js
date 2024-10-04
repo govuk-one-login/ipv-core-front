@@ -38,7 +38,7 @@ const {
 } = require("./handlers/security-headers-handler");
 
 const APP_VIEWS = [
-  path.join(__dirname, "views"),
+  path.resolve("views/"),
   path.resolve("node_modules/govuk-frontend/"),
   path.resolve("node_modules/@govuk-one-login/"),
 ];
@@ -68,11 +68,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(securityHeadersHandler);
 
-app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
   "/assets",
   express.static(
-    path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets"),
+    path.resolve("node_modules/govuk-frontend/govuk/assets"),
   ),
 );
 
@@ -85,7 +85,7 @@ i18next
   .use(i18nextMiddleware.LanguageDetector)
   .init(
     i18nextConfigurationOptions(
-      path.join(__dirname, "locales/{{lng}}/{{ns}}.json"),
+      path.resolve("locales/{{lng}}/{{ns}}.json"),
     ),
   );
 

@@ -11,6 +11,10 @@ const PHONE_TYPES = require("../../constants/phone-types");
 const {
   SUPPORTED_COMBO_EVENTS,
 } = require("../../constants/update-details-journeys");
+const {
+  IDENTIFY_DEVICE,
+  PROVE_IDENTITY_NO_PHOTO_ID,
+} = require("../../constants/ipv-pages");
 
 describe("journey middleware", () => {
   let req;
@@ -106,7 +110,7 @@ describe("journey middleware", () => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
 
-      await middleware.handleJourneyResponse(req, res, "next");
+      await middleware.processAction(req, res, "next");
       expect(
         CoreBackServiceStub.postJourneyEvent.getCall(0),
       ).to.have.been.calledWith(req, "next");
@@ -127,7 +131,7 @@ describe("journey middleware", () => {
         .returns({ data: { page: "a-page-id", statusCode: 418 } });
       CoreBackServiceStub.postJourneyEvent = callBack;
 
-      await middleware.handleJourneyResponse(req, res, "next");
+      await middleware.processAction(req, res, "next");
 
       expect(CoreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
         req,
@@ -157,7 +161,7 @@ describe("journey middleware", () => {
     });
 
     it("should render page case when given valid pageId", async () => {
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
@@ -167,7 +171,7 @@ describe("journey middleware", () => {
     it("should set the response status code from a value in the session if present", async () => {
       req.session.currentPageStatusCode = 418;
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
@@ -180,7 +184,7 @@ describe("journey middleware", () => {
       req.params = { pageId: "page-this-is-invalid" };
       req.session.currentPage = "page-this-is-invalid";
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
     });
@@ -188,7 +192,7 @@ describe("journey middleware", () => {
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
       req.params = { pageId: "pyi-timeout-unrecoverable" };
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/pyi-timeout-unrecoverable.njk",
@@ -198,7 +202,7 @@ describe("journey middleware", () => {
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
       req.session.currentPage = "page-multiple-doc-check";
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.redirect).to.have.been.calledWith(
         "/ipv/page/pyi-attempt-recovery",
@@ -208,7 +212,7 @@ describe("journey middleware", () => {
     it("should raise an error when missing params", async () => {
       delete req.params;
 
-      await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
     });
@@ -216,7 +220,7 @@ describe("journey middleware", () => {
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is null", async () => {
       req.session.ipvSessionId = null;
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
@@ -226,7 +230,7 @@ describe("journey middleware", () => {
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is undefined", async () => {
       delete req.session.ipvSessionId;
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
@@ -273,7 +277,7 @@ describe("journey middleware", () => {
     });
 
     it("should be redirected to a valid redirectURL", async function () {
-      await middleware.handleJourneyResponse(req, res, "next");
+      await middleware.processAction(req, res, "next");
       expect(req.redirectURL.toString()).to.equal(
         "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
       );
@@ -317,7 +321,7 @@ describe("journey middleware", () => {
       });
 
       it("should raise an error ", async () => {
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(next).to.have.been.calledWith(
           sinon.match.has("message", "CRI response RedirectUrl is missing"),
         );
@@ -346,9 +350,57 @@ describe("journey middleware", () => {
 
     it("should be redirected to a valid Client URL", async function () {
       req.session.clientOauthSessionId = "fake-client-session";
-      await middleware.handleJourneyResponse(req, res, "next");
+      await middleware.processAction(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
       expect(req.session.clientOauthSessionId).to.be.null;
+    });
+  });
+
+  context("handling identify-device page response", () => {
+    beforeEach(() => {
+      req = {
+        id: "1",
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          clientOauthSessionId: "fake-oauth-session-id",
+          featureSet: "feature-set",
+          save: sinon.fake.yields(null),
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+        headers: { "user-agent": "Not mobile device" },
+      };
+    });
+
+    it("should send an appTriage event to core-back and then handle the response", async function () {
+      const pageId = PROVE_IDENTITY_NO_PHOTO_ID;
+      const eventResponses = [
+        {
+          data: { page: IDENTIFY_DEVICE },
+        },
+        {
+          data: { page: pageId },
+        },
+      ];
+
+      const callBack = sinon.stub();
+      CoreBackServiceStub.postJourneyEvent = callBack;
+
+      eventResponses.forEach((er, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
+      });
+
+      //req.session.clientOauthSessionId = "fake-client-session";
+      await middleware.processAction(req, res, "next");
+
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(0),
+      ).to.have.been.calledWith(req, "next");
+      expect(
+        CoreBackServiceStub.postJourneyEvent.getCall(1),
+      ).to.have.been.calledWith(req, "appTriage");
+
+      expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
     });
   });
 
@@ -389,7 +441,7 @@ describe("journey middleware", () => {
     });
 
     it("should call next with error message Redirect url is missing", async function () {
-      await middleware.handleJourneyAction(req, res, next);
+      await middleware.handleJourneyActionRequest(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match.has("message", "Client Response redirect url is missing"),
       );
@@ -412,7 +464,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -435,7 +487,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -458,7 +510,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -482,7 +534,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -507,7 +559,7 @@ describe("journey middleware", () => {
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
-      await middleware.handleJourneyAction(req, res, next);
+      await middleware.handleJourneyActionRequest(req, res, next);
       expect(res.status).to.have.been.calledWith(401);
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
@@ -572,7 +624,7 @@ describe("journey middleware", () => {
         i18n: { t: () => "Some label" },
       };
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(
         CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
@@ -640,7 +692,7 @@ describe("journey middleware", () => {
         i18n: { t: () => "Some label" },
       };
 
-      await middleware.handleJourneyPage(req, res);
+      await middleware.handleJourneyPageRequest(req, res);
 
       expect(
         CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
@@ -682,7 +734,7 @@ describe("journey middleware", () => {
   });
 
   context(
-    "handleJourneyAction: handling journey action with ukPassport, drivingLicence, end",
+    "handleJourneyActionRequest: handling journey action with ukPassport, drivingLicence, end",
     () => {
       it("should postJourneyEvent with ukPassport", async function () {
         req = {
@@ -697,7 +749,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -720,7 +772,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -733,7 +785,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleJourneyAction: handling journey action events - 'contact', 'end'",
+    "handleJourneyActionRequest: handling journey action events - 'contact', 'end'",
     () => {
       it("should postJourneyEvent with end", async function () {
         req = {
@@ -748,7 +800,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -772,7 +824,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.redirect).to.have.been.calledWith("contactUrl");
       });
 
@@ -790,14 +842,14 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.redirect).to.have.been.calledWith("deleteAccount");
       });
     },
   );
 
   context(
-    "handleJourneyAction: handling journey action with next, bankAccount, end",
+    "handleJourneyActionRequest: handling journey action with next, bankAccount, end",
     () => {
       it("should postJourneyEvent with next", async function () {
         req = {
@@ -812,7 +864,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -835,7 +887,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -848,7 +900,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
+    "handleJourneyActionRequest: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -862,7 +914,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",
@@ -875,7 +927,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleJourneyAction: handling journey action with f2f, dcmaw, end",
+    "handleJourneyActionRequest: handling journey action with f2f, dcmaw, end",
     () => {
       it("should postJourneyEvent with f2f", async function () {
         req = {
@@ -890,7 +942,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(
+        await middleware.handleJourneyActionRequest(
           req,
           res,
           next,
@@ -918,7 +970,7 @@ describe("journey middleware", () => {
           params: { pageId: "page-ipv-identity-document-start" },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
           CoreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
@@ -931,7 +983,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleJourneyAction: handling missing ipvSessionId before calling the backend",
+    "handleJourneyActionRequest: handling missing ipvSessionId before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -945,7 +997,7 @@ describe("journey middleware", () => {
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",
@@ -958,7 +1010,7 @@ describe("journey middleware", () => {
   );
 
   context(
-    "handleJourneyAction: handling missing ipv session and oauth id before calling the backend",
+    "handleJourneyActionRequest: handling missing ipv session and oauth id before calling the backend",
     () => {
       it("should render the technical unrecoverable page", async function () {
         req = {
@@ -972,7 +1024,7 @@ describe("journey middleware", () => {
           log: { info: sinon.fake(), error: sinon.fake() },
         };
 
-        await middleware.handleJourneyAction(req, res, next);
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
         expect(res.render).to.have.been.calledWith(
           "ipv/page/pyi-technical.njk",
@@ -1124,7 +1176,7 @@ describe("journey middleware", () => {
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
-      await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-desktop-download-app.njk`,
@@ -1140,7 +1192,7 @@ describe("journey middleware", () => {
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
-      await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-desktop-download-app.njk`,
@@ -1167,7 +1219,7 @@ describe("journey middleware", () => {
       req.method = "GET";
       req.session.context = "android";
 
-      await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-mobile-download-app.njk`,
@@ -1182,7 +1234,7 @@ describe("journey middleware", () => {
       req.method = "GET";
       req.session.context = "iphone";
 
-      await middleware.handleJourneyPage(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         `ipv/page/pyi-triage-mobile-download-app.njk`,
@@ -1259,7 +1311,7 @@ describe("journey middleware", () => {
 
     it("should throw an error when receiving an unexpected backend response", async function () {
       expect(
-        middleware.handleJourneyResponse(req, res, "/journey/next"),
+        middleware.processAction(req, res, "/journey/next"),
       ).to.be.rejectedWith("Unexpected backend response");
     });
   });

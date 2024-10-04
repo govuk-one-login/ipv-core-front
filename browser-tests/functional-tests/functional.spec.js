@@ -1,11 +1,12 @@
 const { test, expect } = require("@playwright/test");
+const TEST_CONSTANTS = require("../../test/constants");
 
 const domainUrl = process.env.WEBSITE_HOST;
 
 test.describe.parallel("Functional tests", () => {
   test("Handover from orchestration", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
     // Check that we are on the start page
     const url = page.url();
@@ -14,7 +15,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Page navigation", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("examplePageNavigation"));
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
     // Go to the F2F start page
     await page.click("input[type='radio'][value='end']");
@@ -27,7 +28,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Welsh language toggle", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleWelshLanguage"));
+    await page.goto(getAuthoriseUrlForJourney("testWelshLanguage"));
 
     // Click the language toggle
     await page.click('[hreflang="cy"]');
@@ -41,7 +42,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Context is used to display page", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleContext"));
+    await page.goto(getAuthoriseUrlForJourney("testContext"));
 
     // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");
@@ -54,7 +55,7 @@ test.describe.parallel("Functional tests", () => {
 
   test("Visiting a CRI", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("exampleCri"));
+    await page.goto(getAuthoriseUrlForJourney("testCri"));
 
     // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");
@@ -65,6 +66,42 @@ test.describe.parallel("Functional tests", () => {
     expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
 })
+
+test.describe("iPhone tests", () => {
+  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE });
+
+  test("Handling identify-device", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceIphone"));
+
+    // Have core-back return an identify-device page response
+    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
+    // a prove-identity-another-type-photo-id page response
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+});
+
+test.describe("Android tests", () => {
+  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID });
+
+  test("Handling identify-device", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceAndroid"));
+
+    // Have core-back return an identify-device page response
+    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
+    // a prove-identity-another-type-photo-id page response
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+});
 
 // Put the journey into the 'state' parameter of the request so that imposter sends it back as the IpvSessionId
 // See the readme and/or `imposter/config/api-config.yaml` for more information

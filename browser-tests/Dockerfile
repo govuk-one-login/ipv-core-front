@@ -11,5 +11,6 @@ COPY ./browser-tests/functional-tests ./functional-tests
 COPY ./browser-tests/snapshot-tests ./snapshot-tests
 COPY ./browser-tests/playwright.config.js ./
 COPY ../src/views/ipv/page ../src/views/ipv/page
+COPY ../test ../test
 
 CMD ["npm run test"]

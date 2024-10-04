@@ -1,27 +1,24 @@
 const UAParser = require("ua-parser-js");
 const PHONE_TYPES = require("../../constants/phone-types");
 const OS_TYPES = require("../../constants/os-types");
+const EVENTS = require("../../constants/events");
 
-function getJourneyOnSniffing(req) {
-  const parser = new UAParser(req.headers["user-agent"]);
-  let journeyEvent = req.body.journey;
+// The AppTriage event is special in that we want to send a more specialised version if we can detect the current
+// device type as being an Android phone or iPhone.
+function detectAppTriageEvent(req) {
+  const detectedPhone = sniffPhoneType(req);
 
-  if (parser.getDevice()["type"] === "mobile") {
-    journeyEvent += "Smartphone";
-    switch (parser.getOS()["name"]) {
-      case OS_TYPES.IOS:
-        journeyEvent += "Iphone";
-        break;
-      case OS_TYPES.ANDROID:
-        journeyEvent += "Android";
-        break;
-    }
+  switch (detectedPhone) {
+    case PHONE_TYPES.ANDROID:
+      return EVENTS.APP_TRIAGE_ANDROID;
+    case PHONE_TYPES.IPHONE:
+      return EVENTS.APP_TRIAGE_IPHONE;
+    default:
+      return EVENTS.APP_TRIAGE;
   }
-
-  return journeyEvent;
 }
 
-function sniffPhoneType(req, fallback) {
+function sniffPhoneType(req, fallback = null) {
   const parser = new UAParser(req.headers["user-agent"]);
 
   switch (parser.getOS()["name"]) {
@@ -35,6 +32,6 @@ function sniffPhoneType(req, fallback) {
 }
 
 module.exports = {
-  getJourneyOnSniffing,
+  detectAppTriageEvent,
   sniffPhoneType,
 };

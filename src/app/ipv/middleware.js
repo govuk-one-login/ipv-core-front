@@ -304,7 +304,7 @@ async function handleUnexpectedPage(req, res, pageId) {
 
   req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
 
-  return await saveSessionAndRedirect(
+  return saveSessionAndRedirect(
     req,
     res,
     getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
@@ -452,15 +452,11 @@ async function handleJourneyActionRequest(req, res, next) {
 
     checkJourneyAction(req);
     if (req.body?.journey === "contact") {
-      return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      return saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
     }
 
     if (req.body?.journey === "deleteAccount") {
-      return await saveSessionAndRedirect(
-        req,
-        res,
-        res.locals.deleteAccountUrl,
-      );
+      return saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
     }
 
     await processAction(req, res, req.body.journey, pageId);

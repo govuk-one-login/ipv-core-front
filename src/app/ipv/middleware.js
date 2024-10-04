@@ -131,7 +131,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;
-    return saveSessionAndRedirect(redirectUrl);
+    return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
   if (backendResponse?.page) {
@@ -153,7 +153,11 @@ async function handleBackendResponse(req, res, backendResponse) {
       const event = detectAppTriageEvent(req);
       return await processAction(req, res, event, backendResponse.page);
     } else {
-      return saveSessionAndRedirect(getIpvPagePath(req.session.currentPage));
+      return saveSessionAndRedirect(
+        req,
+        res,
+        getIpvPagePath(req.session.currentPage),
+      );
     }
   }
   const message = {
@@ -276,9 +280,9 @@ function handleAppStoreRedirect(req, res, next) {
   try {
     switch (specifiedPhoneType) {
       case PHONE_TYPES.IPHONE:
-        return saveSessionAndRedirect(APP_STORE_URL_APPLE);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_APPLE);
       case PHONE_TYPES.ANDROID:
-        return saveSessionAndRedirect(APP_STORE_URL_ANDROID);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_ANDROID);
       default:
         throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }

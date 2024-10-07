@@ -30,7 +30,7 @@ services:
     command:
       - node
       - "--inspect=0.0.0.0"
-      - "src/app.js"
+      - "build/app.js"
     healthcheck:
       test: wget --spider http://localhost:4601/healthcheck || exit 1
       interval: 5s

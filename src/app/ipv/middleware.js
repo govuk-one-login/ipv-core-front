@@ -131,7 +131,7 @@ async function handleBackendResponse(req, res, backendResponse) {
 
     req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;
-    return res.redirect(redirectUrl);
+    return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
   if (backendResponse?.page) {
@@ -147,20 +147,17 @@ async function handleBackendResponse(req, res, backendResponse) {
     req.session.context = backendResponse?.context;
     req.session.currentPageStatusCode = backendResponse?.statusCode;
 
-    await req.session.save(function (err) {
-      if (err) {
-        logError(req, err, "Error saving session");
-        throw err;
-      }
-    });
-
     // Special case handling for "identify-device". This is used by core-back to signal that we need to
     // check the user's device and send back the relevant "appTriage" event.
     if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
       const event = detectAppTriageEvent(req);
       return await processAction(req, res, event, backendResponse.page);
     } else {
-      return res.redirect(getIpvPagePath(req.session.currentPage));
+      return saveSessionAndRedirect(
+        req,
+        res,
+        getIpvPagePath(req.session.currentPage),
+      );
     }
   }
   const message = {
@@ -283,9 +280,9 @@ function handleAppStoreRedirect(req, res, next) {
   try {
     switch (specifiedPhoneType) {
       case PHONE_TYPES.IPHONE:
-        return res.redirect(APP_STORE_URL_APPLE);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_APPLE);
       case PHONE_TYPES.ANDROID:
-        return res.redirect(APP_STORE_URL_ANDROID);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_ANDROID);
       default:
         throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
@@ -307,7 +304,7 @@ async function handleUnexpectedPage(req, res, pageId) {
 
   req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
 
-  return await saveSessionAndRedirect(
+  return saveSessionAndRedirect(
     req,
     res,
     getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
@@ -455,15 +452,11 @@ async function handleJourneyActionRequest(req, res, next) {
 
     checkJourneyAction(req);
     if (req.body?.journey === "contact") {
-      return await saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+      return saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
     }
 
     if (req.body?.journey === "deleteAccount") {
-      return await saveSessionAndRedirect(
-        req,
-        res,
-        res.locals.deleteAccountUrl,
-      );
+      return saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
     }
 
     await processAction(req, res, req.body.journey, pageId);

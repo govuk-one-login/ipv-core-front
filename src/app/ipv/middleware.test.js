@@ -52,6 +52,7 @@ describe("journey middleware", () => {
         ipvSessionId: "ipv-session-id",
         ipAddress: "ip-address",
         featureSet: "feature-set",
+        save: sinon.fake.yields(null),
       },
       params: { pageId: "page-ipv-identity-document-start" },
       csrfToken: sinon.fake(),
@@ -260,7 +261,11 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/journey/next",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 
@@ -307,6 +312,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -343,7 +349,11 @@ describe("journey middleware", () => {
 
       req = {
         id: "1",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
     });
@@ -427,6 +437,7 @@ describe("journey middleware", () => {
           ipvSessionId: "ipv-session-id",
           ipAddress: "ip-address",
           currentPage: "page-ipv-identity-document-start",
+          save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         params: { pageId: "page-ipv-identity-document-start" },
@@ -459,6 +470,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -482,6 +494,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -504,6 +517,7 @@ describe("journey middleware", () => {
           session: {
             ipvSessionId: "ipv-session-id",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
@@ -528,6 +542,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
@@ -554,6 +569,7 @@ describe("journey middleware", () => {
           currentPage: "page-ipv-identity-document-start",
           ipvSessionId: null,
           ipAddress: "ip-address",
+          save: sinon.fake.yields(null),
         },
         params: { pageId: "page-ipv-identity-document-start" },
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -619,7 +635,11 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId, ipvSessionId: "a-session-id" },
+        session: {
+          currentPage: pageId,
+          ipvSessionId: "a-session-id",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };
@@ -687,7 +707,11 @@ describe("journey middleware", () => {
         id: "1",
         params: { pageId: pageId },
         csrfToken: sinon.fake(),
-        session: { currentPage: pageId, ipvSessionId: "a-session-id" },
+        session: {
+          currentPage: pageId,
+          ipvSessionId: "a-session-id",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
       };
@@ -744,6 +768,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -767,6 +792,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -795,6 +821,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -817,8 +844,8 @@ describe("journey middleware", () => {
           session: {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
-            save: sinon.fake.yields(null),
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -835,8 +862,8 @@ describe("journey middleware", () => {
           session: {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
-            save: sinon.fake.yields(null),
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -859,6 +886,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -882,6 +910,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -909,6 +938,7 @@ describe("journey middleware", () => {
             currentPage: "page-ipv-identity-document-start",
             ipvSessionId: null,
             ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -937,6 +967,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -965,6 +996,7 @@ describe("journey middleware", () => {
             ipvSessionId: "ipv-session-id",
             ipAddress: "ip-address",
             currentPage: "page-ipv-identity-document-start",
+            save: sinon.fake.yields(null),
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
@@ -992,6 +1024,7 @@ describe("journey middleware", () => {
             currentPage: "page-ipv-identity-document-start",
             ipvSessionId: null,
             ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
           },
           params: { pageId: "page-ipv-identity-document-start" },
           log: { info: sinon.fake(), error: sinon.fake() },
@@ -1019,6 +1052,7 @@ describe("journey middleware", () => {
             currentPage: "pyi-suggest-other-options",
             ipvSessionId: null,
             ipAddress: "ip-address",
+            save: sinon.fake.yields(null),
           },
           params: { pageId: "pyi-suggest-other-options" },
           log: { info: sinon.fake(), error: sinon.fake() },
@@ -1163,6 +1197,7 @@ describe("journey middleware", () => {
         session: {
           ipvSessionId: "ipv-session-id",
           currentPage: "pyi-triage-desktop-download-app",
+          save: sinon.fake.yields(null),
         },
         csrfToken: sinon.fake(),
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -1209,6 +1244,7 @@ describe("journey middleware", () => {
         session: {
           ipvSessionId: "ipv-session-id",
           currentPage: "pyi-triage-mobile-download-app",
+          save: sinon.fake.yields(null),
         },
         csrfToken: sinon.fake(),
         log: { info: sinon.fake(), error: sinon.fake() },
@@ -1252,6 +1288,9 @@ describe("journey middleware", () => {
         headers: {},
         body: {},
         params: {},
+        session: {
+          save: sinon.fake.yields(null),
+        },
       };
     });
 
@@ -1293,7 +1332,11 @@ describe("journey middleware", () => {
       req = {
         id: "1",
         url: "/journey/next",
-        session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          save: sinon.fake.yields(null),
+        },
         log: { info: sinon.fake(), error: sinon.fake() },
       };
 

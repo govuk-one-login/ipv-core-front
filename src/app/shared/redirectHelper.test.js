@@ -22,6 +22,9 @@ describe("saveSessionAndRedirect", () => {
     const error = new Error("Something went wrong saving session");
 
     const req = {
+      log: {
+        error: sinon.fake(),
+      },
       session: {
         save: sinon.fake.yields(error),
       },
@@ -31,7 +34,7 @@ describe("saveSessionAndRedirect", () => {
       redirect: sinon.fake(),
     };
 
-    expect(saveSessionAndRedirect(req, res, "/somewhere")).to.eventually.throw(
+    expect(() => saveSessionAndRedirect(req, res, "/somewhere")).to.throw(
       error,
     );
     expect(res.redirect).not.to.have.been.called;

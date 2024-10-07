@@ -1,7 +1,10 @@
 import { expect } from "chai";
 import { NextFunction, Request, Response } from "express";
 import sinon from "sinon";
-import { securityHeadersHandler, cspHandler } from "../../src/handlers/security-headers-handler";
+import {
+  securityHeadersHandler,
+  cspHandler,
+} from "../../src/handlers/security-headers-handler";
 
 describe("Security headers handler", () => {
   let req: Request;

@@ -12,6 +12,7 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 declare global {
+  // eslint-disable-next-line no-var
   var expect: Chai.ExpectStatic;
 }
 

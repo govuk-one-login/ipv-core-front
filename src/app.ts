@@ -8,6 +8,10 @@ import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import i18nextMiddleware from "i18next-http-middleware";
 import uid from "uid-safe";
+import criRouter from "./app/credential-issuer/router";
+import devRouter from "./app/development/router";
+import ipvRouter from "./app/ipv/router";
+import oauthRouter from "./app/oauth2/router";
 import {
   PORT,
   SESSION_SECRET,
@@ -23,21 +27,25 @@ import { configureNunjucks } from "./config/nunjucks";
 import { serverErrorHandler } from "./handlers/internal-server-error-handler";
 import { journeyEventErrorHandler } from "./handlers/journey-event-error-handler";
 import { pageNotFoundHandler } from "./handlers/page-not-found-handler";
-import { securityHeadersHandler, cspHandler } from "./handlers/security-headers-handler.js";
+import {
+  securityHeadersHandler,
+  cspHandler,
+} from "./handlers/security-headers-handler.js";
 
 import "express-async-errors";
 
 // Extend request object with our own extensions
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
-      interface Request {
-        generatedSessionId?: string;
-      }
+    interface Request {
+      generatedSessionId?: string;
+    }
   }
 }
 
 // Extend session object with properties we expect
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
     ipvSessionId: string;
   }
@@ -51,12 +59,13 @@ const APP_VIEWS = [
   path.resolve("node_modules/@govuk-one-login/"),
 ];
 
-const sessionStore: SessionStore | undefined = process.env.NODE_ENV !== "local"
-  ? new DynamoDBStore({
-      client: new DynamoDBClient({ region: "eu-west-2" }),
-      table: SESSION_TABLE_NAME,
-    })
-  : undefined;
+const sessionStore: SessionStore | undefined =
+  process.env.NODE_ENV !== "local"
+    ? new DynamoDBStore({
+        client: new DynamoDBClient({ region: "eu-west-2" }),
+        table: SESSION_TABLE_NAME,
+      })
+    : undefined;
 
 const app = express();
 
@@ -84,9 +93,7 @@ i18next
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
   .init(
-    i18nextConfigurationOptions(
-      path.resolve("locales/{{lng}}/{{ns}}.json"),
-    ),
+    i18nextConfigurationOptions(path.resolve("locales/{{lng}}/{{ns}}.json")),
   );
 
 app.use(i18nextMiddleware.handle(i18next));
@@ -169,11 +176,11 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use("/oauth2", require("./app/oauth2/router"));
-router.use("/credential-issuer", require("./app/credential-issuer/router"));
-router.use("/ipv", require("./app/ipv/router"));
+router.use("/oauth2", oauthRouter);
+router.use("/credential-issuer", criRouter);
+router.use("/ipv", ipvRouter);
 if (ENABLE_PREVIEW) {
-  router.use("/dev", require("./app/development/router"));
+  router.use("/dev", devRouter);
 }
 
 router.get("/healthcheck", (req, res) => {

@@ -23,7 +23,7 @@ import { configureNunjucks } from "./config/nunjucks";
 import { serverErrorHandler } from "./handlers/internal-server-error-handler";
 import { journeyEventErrorHandler } from "./handlers/journey-event-error-handler";
 import { pageNotFoundHandler } from "./handlers/page-not-found-handler";
-import { securityHeadersHandler, cspHandler } from "./handlers/security-headers-handler";
+import { securityHeadersHandler, cspHandler } from "./handlers/security-headers-handler.js";
 
 import "express-async-errors";
 

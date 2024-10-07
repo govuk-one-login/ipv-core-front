@@ -8,7 +8,8 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "outDir": "build"
+    "outDir": "build",
+    "types": ["node", "mocha"]
   },
   "include": ["src"],
   "exclude": ["**/*.test.js"]

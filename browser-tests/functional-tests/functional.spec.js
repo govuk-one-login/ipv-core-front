@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const TEST_CONSTANTS = require("../../test/constants");
+const TEST_CONSTANTS = require("../test-utils/constants");
 
 const domainUrl = process.env.WEBSITE_HOST;
 

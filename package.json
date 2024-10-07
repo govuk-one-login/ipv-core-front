@@ -18,9 +18,9 @@
     "copy-images": "copyfiles -u 3 src/assets/images/** dist/public/images",
     "lint": "prettier --check src test && eslint .",
     "lint-fix": "prettier --write src test && eslint --fix .",
-    "test": "mocha",
+    "test": "mocha --require ts-node/register src/**/*.[jt]s",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
-    "test:watch": "mocha --watch",
+    "test:watch": "mocha --require ts-node/register --watch src/**/*.[jt]s",
     "tsc": "tsc"
   },
   "repository": {
@@ -34,9 +34,14 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
+    "@types/chai": "^4.3.20",
+    "@types/chai-as-promised": "^7.1.8",
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
+    "@types/mocha": "^10.0.8",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^3.2.12",
     "@types/uid-safe": "^2.1.5",
     "chai": "4.4.0",
     "chai-as-promised": "7.1.1",

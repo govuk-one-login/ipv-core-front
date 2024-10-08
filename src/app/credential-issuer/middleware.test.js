@@ -69,7 +69,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        {},
       );
     });
 
@@ -86,8 +85,6 @@ describe("credential issuer middleware", () => {
         credentialIssuerId: req.query.id,
         redirectUri: `http://example.com/credential-issuer/callback?id=${req.query.id}`,
         state: req.query.state,
-      };
-      const expectedErrorDetails = {
         error: req.query.error,
         errorDescription: req.query.error_description,
       };
@@ -97,7 +94,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        expectedErrorDetails,
       );
     });
 
@@ -151,7 +147,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        {},
       );
     });
   });
@@ -220,7 +215,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        {},
       );
     });
 
@@ -237,8 +231,6 @@ describe("credential issuer middleware", () => {
         credentialIssuerId: req.params.criId,
         redirectUri: `http://example.com/credential-issuer/callback/${req.params.criId}`,
         state: req.query.state,
-      };
-      const expectedErrorDetails = {
         error: req.query.error,
         errorDescription: req.query.error_description,
       };
@@ -248,7 +240,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        expectedErrorDetails,
       );
     });
 
@@ -302,7 +293,6 @@ describe("credential issuer middleware", () => {
       expect(CoreBackServiceStub.postCriCallback).to.have.been.calledWith(
         req,
         expectedBody,
-        {},
       );
     });
   });

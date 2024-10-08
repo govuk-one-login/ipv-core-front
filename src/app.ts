@@ -45,6 +45,7 @@ declare module "express-session" {
     clientOauthSessionId?: string;
     currentPage?: string;
     context?: string;
+    featureSet?: string;
   }
 }
 

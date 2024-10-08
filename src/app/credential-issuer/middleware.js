@@ -1,4 +1,4 @@
-const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } = require("../../lib/config");
+const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } = require("../../lib/config").default;
 const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");

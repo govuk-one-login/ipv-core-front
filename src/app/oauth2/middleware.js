@@ -1,4 +1,4 @@
-const { API_SESSION_INITIALISE } = require("../../lib/config");
+const { API_SESSION_INITIALISE } = require("../../lib/config").default;
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
 const coreBackService = require("../../services/coreBackService");

@@ -1,7 +1,8 @@
-const pino = require("pino");
-const pinoHttp = require("pino-http");
+import { RequestHandler } from "express";
+import pino, { Logger } from "pino";
+import pinoHttp from "pino-http";
 
-const logger = pino({
+export const logger: Logger = pino({
   name: "di-ipv-core-front",
   level: process.env.LOGS_LEVEL || "debug",
   messageKey: "message", // rename default msg property to message,
@@ -26,7 +27,7 @@ const logger = pino({
   },
 });
 
-const loggerMiddleware = pinoHttp({
+export const loggerMiddleware: RequestHandler = pinoHttp({
   // Reuse an existing logger instance
   logger,
   // Define a custom request id function, this will be assigned to req.id
@@ -41,9 +42,6 @@ const loggerMiddleware = pinoHttp({
   },
   // Set to `false` to prevent standard serializers from being wrapped.
   wrapSerializers: false,
-  autoLogging: {
-    ignorePaths: [],
-  },
   // Define a custom receive message
   customReceivedMessage: function (req) {
     return "REQUEST RECEIVED: " + req.method;
@@ -68,7 +66,8 @@ const loggerMiddleware = pinoHttp({
     };
   },
   customErrorMessage: function (req, res) {
-    res.statusCode = res?.err?.response?.status || res?.statusCode;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    res.statusCode = (res?.err as any)?.response?.status || res?.statusCode;
     return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
   },
   customErrorObject: (req, res, error, val) => {
@@ -128,8 +127,3 @@ const loggerMiddleware = pinoHttp({
     return "info";
   },
 });
-
-module.exports = {
-  loggerMiddleware,
-  logger,
-};

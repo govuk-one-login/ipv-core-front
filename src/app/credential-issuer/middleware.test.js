@@ -23,7 +23,7 @@ describe("credential issuer middleware", () => {
 
       middleware = proxyquire("./middleware", {
         "../../services/coreBackService": CoreBackServiceStub,
-        "../../lib/config": configStub,
+        "../../lib/config": { default: configStub },
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {
@@ -176,7 +176,7 @@ describe("credential issuer middleware", () => {
 
       middleware = proxyquire("./middleware", {
         "../../services/coreBackService": CoreBackServiceStub,
-        "../../lib/config": configStub,
+        "../../lib/config": { default: configStub },
         "../ipv/middleware": ipvMiddlewareStub,
       });
       req = {

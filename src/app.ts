@@ -30,7 +30,7 @@ import { pageNotFoundHandler } from "./handlers/page-not-found-handler";
 import {
   securityHeadersHandler,
   cspHandler,
-} from "./handlers/security-headers-handler.js";
+} from "./handlers/security-headers-handler";
 
 import "express-async-errors";
 

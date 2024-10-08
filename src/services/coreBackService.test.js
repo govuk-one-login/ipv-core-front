@@ -38,7 +38,7 @@ describe("CoreBackService", () => {
     });
 
     CoreBackService = proxyquire("./coreBackService", {
-      "../lib/config": configStub,
+      "../lib/config": { default: configStub },
       "../app/shared/axiosHelper": axiosStub,
       "@govuk-one-login/frontend-passthrough-headers": passthroughHeaders,
     });

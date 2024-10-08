@@ -15,14 +15,7 @@ import criRouter from "./app/credential-issuer/router";
 import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
 import oauthRouter from "./app/oauth2/router";
-import {
-  PORT,
-  SESSION_SECRET,
-  SESSION_TABLE_NAME,
-  ENABLE_PREVIEW,
-  LANGUAGE_TOGGLE_ENABLED,
-  SESSION_COOKIE_NAME,
-} from "./lib/config";
+import config from "./lib/config";
 import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
@@ -51,6 +44,7 @@ declare module "express-session" {
     ipvSessionId: string;
     clientOauthSessionId?: string;
     currentPage?: string;
+    context?: string;
   }
 }
 
@@ -66,7 +60,7 @@ const sessionStore: SessionStore | undefined =
   process.env.NODE_ENV !== "local"
     ? new DynamoDBStore({
         client: new DynamoDBClient({ region: "eu-west-2" }),
-        table: SESSION_TABLE_NAME,
+        table: config.SESSION_TABLE_NAME,
       })
     : undefined;
 
@@ -107,7 +101,7 @@ app.use(cookieParser());
 // `express-session` does not support async session ID generation
 // https://github.com/expressjs/session/issues/107
 app.use(async (req, res, next) => {
-  if (!req.cookies[SESSION_COOKIE_NAME]) {
+  if (!req.cookies[config.SESSION_COOKIE_NAME]) {
     req.generatedSessionId = await uid(24);
   }
   next();
@@ -115,10 +109,10 @@ app.use(async (req, res, next) => {
 
 app.use(
   session({
-    name: SESSION_COOKIE_NAME,
+    name: config.SESSION_COOKIE_NAME,
     store: sessionStore,
     saveUninitialized: false,
-    secret: SESSION_SECRET,
+    secret: config.SESSION_SECRET,
     unset: "destroy",
     resave: false,
     cookie: {
@@ -137,7 +131,7 @@ app.use(
 
 app.use((req, res, next) => {
   if (req.i18n) {
-    res.locals.showLanguageToggle = LANGUAGE_TOGGLE_ENABLED;
+    res.locals.showLanguageToggle = config.LANGUAGE_TOGGLE_ENABLED;
     res.locals.currentLanguage = req.i18n.language;
 
     // currentUrl is required by the language toggle component
@@ -182,7 +176,7 @@ router.use((req, res, next) => {
 router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
 router.use("/ipv", ipvRouter);
-if (ENABLE_PREVIEW) {
+if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }
 
@@ -197,8 +191,8 @@ app.use(serverErrorHandler);
 app.use(pageNotFoundHandler);
 
 const server = app
-  .listen(PORT, () => {
-    logger.info(`Server listening on port ${PORT}`);
+  .listen(config.PORT, () => {
+    logger.info(`Server listening on port ${config.PORT}`);
     app.emit("appStarted");
   })
   .on("error", (error) => {

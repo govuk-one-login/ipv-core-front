@@ -4,7 +4,7 @@ const {
   API_SESSION_INITIALISE,
   API_BASE_URL,
   API_JOURNEY_EVENT,
-} = require("../lib/config");
+} = require("../lib/config").default;
 
 const {
   createPersonalDataHeaders,

@@ -16,8 +16,8 @@
     "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "watch-sass": "sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed --watch",
     "copy-images": "copyfiles -u 3 src/assets/images/** dist/public/images",
-    "lint": "prettier --check src && eslint .",
-    "lint-fix": "prettier --write src && eslint --fix .",
+    "lint": "prettier --check src && eslint src/",
+    "lint-fix": "prettier --write src && eslint --fix src/",
     "test": "mocha --require ts-node/register src/**/*.[jt]s",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
     "test:watch": "mocha --require ts-node/register --watch src/**/*.[jt]s",
@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
+    "@types/cfenv": "^1.2.4",
     "@types/chai": "^4.3.20",
     "@types/chai-as-promised": "^7.1.8",
     "@types/cookie-parser": "^1.4.7",

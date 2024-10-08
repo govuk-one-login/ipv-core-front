@@ -1,4 +1,4 @@
-const { SERVICE_DOMAIN } = require("../lib/config");
+const { SERVICE_DOMAIN } = require("../lib/config").default;
 
 module.exports = {
   i18nextConfigurationOptions: function (path) {

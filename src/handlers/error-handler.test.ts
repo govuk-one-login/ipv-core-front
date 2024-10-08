@@ -1,20 +1,16 @@
-const { expect } = require("chai");
-const sinon = require("sinon");
-const {
-  pageNotFoundHandler,
-} = require("../../src/handlers/page-not-found-handler");
-const {
-  serverErrorHandler,
-} = require("../../src/handlers/internal-server-error-handler");
-const {
-  journeyEventErrorHandler,
-} = require("../../src/handlers/journey-event-error-handler");
-const proxyquire = require("proxyquire");
+import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import { expect } from "chai";
+import { NextFunction, Request, Response } from "express";
+import proxyquire from "proxyquire";
+import sinon from "sinon";
+import { pageNotFoundHandler } from "../../src/handlers/page-not-found-handler";
+import { serverErrorHandler } from "../../src/handlers/internal-server-error-handler";
+import { journeyEventErrorHandler } from "../../src/handlers/journey-event-error-handler";
 
 describe("Error handlers", () => {
-  let req;
-  let res;
-  let next;
+  let req: Request;
+  let res: Response;
+  let next: NextFunction;
 
   beforeEach(() => {
     proxyquire("./internal-server-error-handler", {
@@ -27,16 +23,16 @@ describe("Error handlers", () => {
       session: {},
       log: { info: sinon.fake(), error: sinon.fake() },
       csrfToken: sinon.fake(),
-    };
+    } as any;
 
     res = {
       status: sinon.fake(),
       redirect: sinon.fake(),
       send: sinon.fake(),
       render: sinon.fake(),
-    };
+    } as any;
 
-    next = sinon.fake();
+    next = sinon.fake() as any;
   });
 
   afterEach(() => {
@@ -64,7 +60,7 @@ describe("Error handlers", () => {
   describe("serverErrorHandler", () => {
     it("should render pyi-unrecoverable view when csrf token is invalid", () => {
       const err = new Error("invalid csrf token");
-      err["code"] = "EBADCSRFTOKEN";
+      (err as any).code = "EBADCSRFTOKEN";
 
       serverErrorHandler(err, req, res, next);
 
@@ -113,11 +109,10 @@ describe("Error handlers", () => {
   });
 
   describe("journeyEventErrorHandler", () => {
-    let axiosResponse;
-    let axiosStub = {};
-    axiosResponse = {
-      status: {},
-    };
+    const axiosResponse: AxiosResponse = {
+      status: undefined,
+    } as any;
+    const axiosStub: AxiosInstance = {} as any;
 
     it("should render page with provided pageId", () => {
       axiosResponse.data = {
@@ -125,7 +120,7 @@ describe("Error handlers", () => {
         statusCode: 400,
       };
 
-      const err = new Error("some error");
+      const err = new AxiosError("some error");
       err.response = axiosResponse;
       axiosStub.post = sinon.fake.throws(err);
 
@@ -139,7 +134,7 @@ describe("Error handlers", () => {
         statusCode: 400,
       };
 
-      const err = new Error("some error");
+      const err = new AxiosError("some error");
       err.response = axiosResponse;
       axiosStub.post = sinon.fake.throws(err);
       journeyEventErrorHandler(err, req, res, next);
@@ -154,7 +149,7 @@ describe("Error handlers", () => {
         clientOAuthSessionId: "fake-session-id",
       };
       res.statusCode = 401;
-      const err = new Error("timeout recoverable error");
+      const err = new AxiosError("timeout recoverable error");
       err.response = axiosResponse;
       axiosStub.post = sinon.fake.throws(err);
       journeyEventErrorHandler(err, req, res, next);

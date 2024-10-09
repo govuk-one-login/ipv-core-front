@@ -13,17 +13,23 @@ interface FilterContext {
   };
 }
 
-export const configureNunjucks = (app: Application, viewPaths: string[]): Environment => {
+export const configureNunjucks = (
+  app: Application,
+  viewPaths: string[],
+): Environment => {
   const nunjucksEnv = nunjucks.configure(viewPaths, {
     autoescape: true,
     express: app,
     noCache: !config.TEMPLATE_CACHING,
   });
 
-  nunjucksEnv.addFilter("translate", function (this: FilterContext, key, options) {
-    const translate = i18next.getFixedT(this.ctx.i18n.language);
-    return translate(key, options);
-  });
+  nunjucksEnv.addFilter(
+    "translate",
+    function (this: FilterContext, key, options) {
+      const translate = i18next.getFixedT(this.ctx.i18n.language);
+      return translate(key, options);
+    },
+  );
 
   nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
     const translate = i18next.getFixedT("en");

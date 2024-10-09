@@ -1,25 +1,38 @@
 import fs from "fs/promises";
 import path from "path";
+import { RequestHandler } from "express";
 import sanitize from "sanitize-filename";
-import { samplePersistedUserDetails, generateUserDetails } from "../shared/reuseHelper";
+import {
+  samplePersistedUserDetails,
+  generateUserDetails,
+} from "../shared/reuseHelper";
 import { pageRequiresUserDetails } from "../ipv/middleware";
+import { parseContextAsPhoneType } from "../shared/contextHelper";
 import qrCodeHelper from "../shared/qrCodeHelper";
 import appDownloadHelper from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
-import { parseContextAsPhoneType } from "../shared/contextHelper";
-import { RequestHandler } from "express";
+import config from "../../lib/config";
+
+interface RadioOption {
+  text: string;
+  value: string;
+}
+
+let templateRadioOptions: RadioOption[];
 
 export const allTemplatesGet: RequestHandler = async (req, res, next) => {
   try {
     const directoryPath = path.resolve("views/ipv/page");
 
-    const templateFiles = await fs.readdir(directoryPath);
-
-    // Convert filenames into radio option objects for the GOVUK Design System nunjucks template
-    const templateRadioOptions = templateFiles.map((file) => {
-      return { text: path.parse(file).name, value: path.parse(file).name };
-    });
+    // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
+    if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
+      const templateFiles = await fs.readdir(directoryPath);
+      templateRadioOptions = templateFiles.map((file) => ({
+        text: path.parse(file).name,
+        value: path.parse(file).name,
+      }));
+    }
 
     res.render(getTemplatePath("development", "all-templates"), {
       templateRadioOptions: templateRadioOptions,

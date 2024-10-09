@@ -1,6 +1,10 @@
 import express from "express";
 import csrf from "csurf";
-import { allTemplatesGet, allTemplatesPost, templatesDisplayGet } from "./middleware";
+import {
+  allTemplatesGet,
+  allTemplatesPost,
+  templatesDisplayGet,
+} from "./middleware";
 
 const router = express.Router();
 

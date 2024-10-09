@@ -1,5 +1,4 @@
 const express = require("express");
-const csrf = require("csurf");
 const router = express.Router();
 
 const {
@@ -8,14 +7,8 @@ const {
   templatesDisplayGet,
 } = require("./middleware");
 
-const csrfProtection = csrf({});
-
-router.post("/all-templates", csrfProtection, allTemplatesPost);
-router.get("/all-templates", csrfProtection, allTemplatesGet);
-router.get(
-  "/template/:templateId/:language",
-  csrfProtection,
-  templatesDisplayGet,
-);
+router.post("/all-templates", allTemplatesPost);
+router.get("/all-templates", allTemplatesGet);
+router.get("/template/:templateId/:language", templatesDisplayGet);
 
 module.exports = router;

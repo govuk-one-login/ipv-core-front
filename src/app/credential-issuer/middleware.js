@@ -44,7 +44,7 @@ module.exports = {
 
       return handleBackendResponse(req, res, apiResponse?.data);
     } catch (error) {
-      error.csrfToken = req.csrfToken();
+      error.csrfToken = req.csrfToken(true);
       transformError(error, "error calling validate-callback lambda");
       next(error);
     }

@@ -1,5 +1,9 @@
 const { test, expect } = require("@playwright/test");
-const TEST_CONSTANTS = require("../../test/constants");
+
+const HTTP_HEADER_USER_AGENT_ANDROID =
+  "Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR6.170623.013) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
+const HTTP_HEADER_USER_AGENT_IPHONE =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E277 Safari/602.1";
 
 const domainUrl = process.env.WEBSITE_HOST;
 
@@ -68,7 +72,7 @@ test.describe.parallel("Functional tests", () => {
 })
 
 test.describe("iPhone tests", () => {
-  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_IPHONE });
+  test.use({ userAgent: HTTP_HEADER_USER_AGENT_IPHONE });
 
   test("Handling identify-device", async ({ page }) => {
     // Start a session
@@ -86,7 +90,7 @@ test.describe("iPhone tests", () => {
 });
 
 test.describe("Android tests", () => {
-  test.use({ userAgent: TEST_CONSTANTS.HTTP_HEADER_USER_AGENT_ANDROID });
+  test.use({ userAgent: HTTP_HEADER_USER_AGENT_ANDROID });
 
   test("Handling identify-device", async ({ page }) => {
     // Start a session

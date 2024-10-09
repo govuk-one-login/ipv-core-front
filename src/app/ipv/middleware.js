@@ -48,7 +48,7 @@ const {
 } = require("../shared/deviceSniffingHelper");
 const ERROR_PAGES = require("../../constants/error-pages");
 
-const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+const directoryPath = path.resolve("views/ipv/page");
 
 const allTemplates = fs
   .readdirSync(directoryPath)

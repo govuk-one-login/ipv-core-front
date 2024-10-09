@@ -5,7 +5,7 @@ const {
   sniffPhoneType,
 } = require("./deviceSniffingHelper");
 const EVENTS = require("../../constants/events");
-const TEST_CONSTANTS = require("../../../test/constants");
+const TEST_CONSTANTS = require("../../test-utils/constants");
 
 describe("User Agent Functions", () => {
   let req;

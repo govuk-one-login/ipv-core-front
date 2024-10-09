@@ -19,7 +19,7 @@ This guide explains how to:
 * [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
 * [run ipv-core-front locally](#running-ipv-core-front-locally)
 * [use pre-commit to verify your commits](#using-pre-commit-to-verify-your-commits)
-* [creating a new page](views/README.md)
+* [creating a new page](src/views/README.md)
 
 ## Cloning and installing ipv-core-front
 
@@ -56,7 +56,7 @@ To run ipv-core-front locally in isolation:
 
 1. Create a `.env` file based on [`.env.sample`](https://github.com/govuk-one-login/ipv-core-front/blob/main/.env.sample).
 1. Run `npm run build`.
-1. In your code editor, use a run configuration that starts [`src/app.ts`](https://github.com/govuk-one-login/ipv-core-front/blob/main/src/app.ts). Alternatively, you can run `npm run start-dev`.
+1. In your code editor, use a run configuration that starts [`src/app.js`](https://github.com/govuk-one-login/ipv-core-front/blob/main/src/app.js). Alternatively, you can run `npm run start-dev`.
 1. To get live style updates, run `npm run watch-sass`.
 
 Run `npm run build` again if changes are made to:

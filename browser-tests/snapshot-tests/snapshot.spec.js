@@ -35,7 +35,7 @@ test.describe.parallel("Snapshot tests", () => {
   );
 
   test("All templates have snapshot tests", async () => {
-    const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+    const directoryPath = path.join(__dirname, "/../../src/views/ipv/page");
     const missingTemplates = [];
 
     fs.readdir(directoryPath, function (err, files) {

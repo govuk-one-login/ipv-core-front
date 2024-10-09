@@ -33,7 +33,7 @@ From a number of sources:
        - Boolean indicating a form validating error on that page.
      - `errorState`
        - String indicating type of form error (`checkbox`/ `radiobox`).
-2. English/ Welsh content in `locales`.
+2. English/ Welsh content in `src/locales`.
 3. The `res.locals` variable set in `locals.js`.
 
 #### How the data is accessed
@@ -46,7 +46,7 @@ From a number of sources:
     {% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
     ```
    - `translate` & variants are defined in `src/config/nunjucks.js`.
-     - It takes the reference as a key to find the content saved in `locales` files for english/ welsh.
+     - It takes the reference as a key to find the content saved in `src/locales` files for english/ welsh.
      - It can take secondary params, e.g.: `context`, which adds a suffix to the reference it's going to find.
 3. `locals.js`:
     - the `res.locals` variable attributes are provided as variables in the Nunjucks file, to be accessible like `"{{contactUsUrl}}"`.
@@ -55,7 +55,7 @@ From a number of sources:
 
 Assuming this page wants a radio input on it
 
-1. Add a Nunjucks template in `views/ipv/page`, e.g. `prove-identity-no-other-photo-id`
+1. Add a Nunjucks template in `src/views/ipv/page`, e.g. `prove-identity-no-other-photo-id`
 
 Breaking this example down:
 - Needed as contains the common stylesheets, layout.

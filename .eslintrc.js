@@ -11,9 +11,7 @@ module.exports = {
     expect: true,
   },
   root: true,
-  extends: [
-    "eslint:recommended",
-    "prettier"],
+  extends: ["eslint:recommended", "prettier"],
   rules: {
     "no-console": 2,
     "padding-line-between-statements": [
@@ -21,21 +19,4 @@ module.exports = {
       { blankLine: "any", prev: "*", next: "*" },
     ],
   },
-  overrides: [
-    {
-      files: ["**/*.ts"],
-      plugins: ["@typescript-eslint"],
-      extends: [
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-      ],
-    },
-    {
-      files: ["**/*.test.ts"],
-      rules: {
-        "@typescript-eslint/no-explicit-any": "off", // any is convenient for tests
-        "@typescript-eslint/no-unused-expressions": "off", // chai assertions are often 'unused' expressions
-      }
-    }
-  ],
 };

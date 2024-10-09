@@ -1,26 +1,29 @@
-import { expect } from "chai";
-import { NextFunction, Request, Response } from "express";
-import sinon from "sinon";
-import {
+const { expect } = require("chai");
+const sinon = require("sinon");
+
+const {
   securityHeadersHandler,
   cspHandler,
-} from "../../src/handlers/security-headers-handler";
+} = require("../../src/handlers/security-headers-handler");
 
 describe("Security headers handler", () => {
-  let req: Request;
-  let res: Response;
-  let next: NextFunction;
+  let req;
+  let res;
+  let next;
 
   beforeEach(() => {
-    req = {} as any;
+    req = {
+      session: {},
+      log: { info: sinon.fake(), error: sinon.fake() },
+    };
 
     res = {
       locals: {},
       set: sinon.fake(),
       removeHeader: sinon.fake(),
-    } as any;
+    };
 
-    next = sinon.fake() as any;
+    next = sinon.fake();
   });
 
   afterEach(() => {

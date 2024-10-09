@@ -4,4 +4,4 @@ spec:
 ignore:
   - 'node_modules/**'
 file:
-  - './src/test-utils/mocha-helpers'
+  - './test/utils/mocha-helpers'

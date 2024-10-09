@@ -25,7 +25,7 @@ module.exports = {
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT || 4501,
   SESSION_COOKIE_NAME: "ipv_core_service_session",
-  SESSION_SECRET: process.env.SESSION_SECRET,
+  SESSION_SECRET: process.env.SESSION_SECRET || "dev_secret",
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
   GTM_ID: process.env.GTM_ID,
   GTM_ID_GA4: process.env.GTM_ID_GA4,

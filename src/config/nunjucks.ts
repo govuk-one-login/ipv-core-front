@@ -1,10 +1,9 @@
-/// <reference types="./language-toggle" />
+import addLanguageParam from "@govuk-one-login/frontend-language-toggle";
 import { Application } from "express";
 import i18next from "i18next";
 import nunjucks, { Environment } from "nunjucks";
 import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
 import config from "../lib/config";
-import addLanguageParam from "@govuk-one-login/frontend-language-toggle/build/cjs/language-param-setter.cjs";
 
 interface FilterContext {
   ctx: {

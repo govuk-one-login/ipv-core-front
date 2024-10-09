@@ -23,6 +23,7 @@ const {
   UPDATE_DETAILS,
   CONFIRM_DETAILS,
   PAGE_IPV_IDENTITY_DOCUMENT_TYPES,
+  PYI_POST_OFFICE,
 } = require("../../constants/ipv-pages");
 
 const csrfProtection = csrf({});
@@ -38,10 +39,11 @@ router.get(
   renderAttemptRecoveryPage,
 );
 
-router.get(
-  getPagePath(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
-  staticPageMiddleware(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
-);
+const pages = [PAGE_IPV_IDENTITY_DOCUMENT_TYPES, PYI_POST_OFFICE];
+
+pages.forEach((page) => {
+  router.get(getPagePath(page), staticPageMiddleware(page));
+});
 
 router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPageRequest);
 

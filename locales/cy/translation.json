@@ -895,6 +895,12 @@
           "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth",
           "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth"
+        },
+        "outageBanner": {
+          "title": "Some of this service will be unavailable between 6pm and 10pm on Sunday 13 October.",
+          "paragraph1": "You will not be able to prove your identity online with a passport or driving licence during this time.",
+          "paragraph2": "You can try again another time or",
+          "linkText": "prove your identity at a Post Office"
         }
       }
     },

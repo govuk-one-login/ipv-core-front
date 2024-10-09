@@ -1,12 +1,8 @@
-const express = require("express");
-const csrf = require("csurf");
-const router = express.Router();
+import express from "express";
+import csrf from "csurf";
+import { allTemplatesGet, allTemplatesPost, templatesDisplayGet } from "./middleware";
 
-const {
-  allTemplatesGet,
-  allTemplatesPost,
-  templatesDisplayGet,
-} = require("./middleware");
+const router = express.Router();
 
 const csrfProtection = csrf({});
 
@@ -18,4 +14,4 @@ router.get(
   templatesDisplayGet,
 );
 
-module.exports = router;
+export default router;

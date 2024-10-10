@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% set pageTitleKey = 'pages.pageMultipleDocCheck.title' %}
 {% set googleTagManagerPageId = "pageMultipleDocCheck" %}
 
@@ -41,6 +42,16 @@
 %}}
 
 {% block content %}
+  {% if displayOutageBanner %}
+    {% set html %}
+      <h3 class="govuk-notification-banner__heading">{{ 'pages.pageMultipleDocCheck.content.outageBanner.title' | translate }}</h3>
+      <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.outageBanner.paragraph1' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.outageBanner.paragraph2' | translate }} <a class="govuk-link" href="/ipv/journey/page-multiple-doc-check/end">{{ 'pages.pageMultipleDocCheck.content.outageBanner.linkText' | translate }}</a>.</p>
+    {% endset %}
+    {{ govukNotificationBanner({
+      html: html
+    }) }}
+  {% endif %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pageMultipleDocCheck.content.paragraph1' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">

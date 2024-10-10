@@ -876,6 +876,10 @@
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU"
         ],
+        "requirementsF2f": [
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
+          "pasbort y DU"
+        ],
         "requirementsNino": [
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",
@@ -895,6 +899,12 @@
           "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth",
           "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth"
+        },
+        "outageBanner": {
+          "title": "Ni fydd rhywfaint o'r gwasanaeth hwn ar gael rhwng 6pm a 10pm ar ddydd Sul 13 Hydref.",
+          "paragraph1": "Ni fyddwch yn gallu profi eich hunaniaeth ar-lein gyda phasport neu drwydded yrru yn ystod y cyfnod hwn.",
+          "paragraph2": "Gallwch roi cynnig arall ar amser arall neu",
+          "linkText": "profi eich hunaniaeth mewn Swyddfa'r Post"
         }
       }
     },

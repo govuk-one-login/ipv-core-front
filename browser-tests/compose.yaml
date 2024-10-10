@@ -24,6 +24,7 @@ services:
       EXTERNAL_WEBSITE_HOST: http://localhost:4601
       CONTACT_URL: https://home.account.gov.uk/contact-gov-uk-one-login
       LANGUAGE_TOGGLE: true
+      OUTAGE_BANNER: true
     ports:
       - "4601:4601"
       - "5101:9229"

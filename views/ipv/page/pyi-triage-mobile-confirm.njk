@@ -11,23 +11,16 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageMobileConfirm.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph1' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph2' | translate }}</p>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph3' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiTriageMobileConfirm.content.bullet1' | translate }}</li>
-    <li>{{ 'pages.pyiTriageMobileConfirm.content.bullet2' | translate }}</li>
-  </ul>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph4' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ 'pages.pyiTriageMobileConfirm.content.bullet3' | translate }}</li>
-    <li>{{ 'pages.pyiTriageMobileConfirm.content.bullet4' | translate }}</li>
-  </ul>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeading3' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph5' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph6' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph1' | translateWithContext(context) }}</p>
+
+  {% if context === "iphone" %}
+    <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeading1' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph2' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeading2' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph3' | translate }}</p>
+  {% endif %}
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageMobileConfirm.content.subHeadingQuestion' | translateWithContext(context) }}</h2>
 
   <form id="pyiTriageMobileConfirmForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -43,12 +36,12 @@
       items: [
         {
           value: "next",
-          text: 'pages.pyiTriageMobileConfirm.content.formRadioButtons.proveWithAppButtonText' | translate,
+          text: 'pages.pyiTriageMobileConfirm.content.formRadioButtons.yes' | translate,
           hint: {text: 'pages.pyiTriageMobileConfirm.content.formRadioButtons.proveWithAppButtonTextHint' | translate}
         },
         {
           value: "end",
-          text: 'pages.pyiTriageMobileConfirm.content.formRadioButtons.otherWayButtonText' | translate        }
+          text: 'pages.pyiTriageMobileConfirm.content.formRadioButtons.no' | translate        }
       ]
     } %}
 

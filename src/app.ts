@@ -46,6 +46,7 @@ declare module "express-session" {
     currentPage?: string;
     context?: string;
     featureSet?: string;
+    ipAddress?: string;
   }
 }
 

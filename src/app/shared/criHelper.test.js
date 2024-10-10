@@ -58,7 +58,7 @@ describe("cri Helper", () => {
       const { buildCredentialIssuerRedirectURL } = proxyquire(
         "../shared/criHelper",
         {
-          "../../lib/config": configStub,
+          "../../lib/config": { default: configStub },
         },
       );
 
@@ -74,7 +74,7 @@ describe("cri Helper", () => {
         const { buildCredentialIssuerRedirectURL } = proxyquire(
           "../shared/criHelper",
           {
-            "../../lib/config": configStub,
+            "../../lib/config": { default: configStub },
           },
         );
         req.query = {};
@@ -106,7 +106,7 @@ describe("cri Helper", () => {
     });
     it("should successfully be redirected", async function () {
       const { redirectToAuthorize } = proxyquire("../shared/criHelper", {
-        "../../lib/config": configStub,
+        "../../lib/config": { default: configStub },
       });
 
       await redirectToAuthorize(req, res);

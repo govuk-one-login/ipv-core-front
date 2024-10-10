@@ -1,4 +1,4 @@
-const { SERVICE_URL } = require("../../lib/config");
+const { SERVICE_URL } = require("../../lib/config").default;
 const PHONE_TYPES = require("../../constants/phone-types");
 
 function getAppStoreRedirectUrl(phoneType) {

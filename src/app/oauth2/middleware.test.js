@@ -10,12 +10,12 @@ const configStub = {
 
 const ipvMiddleware = proxyquire("../ipv/middleware", {
   "../../services/coreBackService": CoreBackServiceStub,
-  "../../lib/config": configStub,
+  "../../lib/config": { default: configStub },
 });
 
 const middleware = proxyquire("./middleware", {
   "../../services/coreBackService": CoreBackServiceStub,
-  "../../lib/config": configStub,
+  "../../lib/config": { default: configStub },
   "../ipv/middleware": ipvMiddleware,
 });
 

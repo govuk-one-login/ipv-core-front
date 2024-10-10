@@ -4,7 +4,7 @@ const {
   APP_STORE_URL_ANDROID,
   APP_STORE_URL_APPLE,
   DISPLAY_OUTAGE_BANNER,
-} = require("../../lib/config");
+} = require("../../lib/config").default;
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,

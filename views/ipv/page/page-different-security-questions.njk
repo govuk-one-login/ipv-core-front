@@ -1,0 +1,16 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pageDifferentSecurityQuestions.title' %}
+{% set googleTagManagerPageId = "pageDifferentSecurityQuestions" %}
+{% set isPageDynamic = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageDifferentSecurityQuestions.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageDifferentSecurityQuestions.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pageDifferentSecurityQuestions.content.paragraph2' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

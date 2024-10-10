@@ -87,15 +87,18 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "testCri"
+      ipv-session-id:
+        value: "testCri"
+        operator: Contains
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
       statusCode: 200
+      template: true
       content: |
         {
           "cri": {
-            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=testCri&code=dummyAuthCode",
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=${context.request.headers.ipv-session-id}&code=dummyAuthCode",
             "id": "fakeDcmaw"
           }
         }
@@ -119,6 +122,38 @@ resources:
       content: |
         {
           "page": "page-multiple-doc-check"
+        }
+
+  # Journey that generates an error
+  - method: POST
+    path: /journey/error
+    requestHeaders:
+      content-type: "application/json"
+    response:
+      statusCode: 500
+      content: |
+        {
+          "error": "something-went-wrong"
+        }
+
+  # CRI callback that redirects to an error
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      allOf:
+      - jsonPath: $.authorizationCode
+        value: "dummyAuthCode"
+      - jsonPath: $.credentialIssuerId
+        value: "fakeDcmaw"
+      - jsonPath: $.redirectUri
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
+      - jsonPath: $.state
+        value: "testCriError"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "journey": "error"
         }
 
   # Journeys for identify-device test

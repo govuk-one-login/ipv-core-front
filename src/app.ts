@@ -1,60 +1,72 @@
-require("express");
-require("express-async-errors");
-const path = require("path");
-const session = require("express-session");
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const DynamoDBStore = require("connect-dynamodb")(session);
-const uid = require("uid-safe");
+// Must be imported before any route definitions to correctly patch express
+import "express-async-errors";
 
-const {
+import path from "path";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import connect from "connect-dynamodb";
+import cookieParser from "cookie-parser";
+import express from "express";
+import session, { Store as SessionStore } from "express-session";
+import i18next from "i18next";
+import Backend from "i18next-fs-backend";
+import i18nextMiddleware from "i18next-http-middleware";
+import uid from "uid-safe";
+import criRouter from "./app/credential-issuer/router";
+import devRouter from "./app/development/router";
+import ipvRouter from "./app/ipv/router";
+import oauthRouter from "./app/oauth2/router";
+import {
   PORT,
   SESSION_SECRET,
   SESSION_TABLE_NAME,
   ENABLE_PREVIEW,
   LANGUAGE_TOGGLE_ENABLED,
   SESSION_COOKIE_NAME,
-} = require("./lib/config");
-
-const { setLocals } = require("./lib/locals");
-
-const { loggerMiddleware, logger } = require("./lib/logger");
-const express = require("express");
-const { configureNunjucks } = require("./config/nunjucks");
-const cookieParser = require("cookie-parser");
-const i18next = require("i18next");
-const Backend = require("i18next-fs-backend");
-const i18nextMiddleware = require("i18next-http-middleware");
-const { i18nextConfigurationOptions } = require("./config/i18next");
-const {
-  journeyEventErrorHandler,
-} = require("./handlers/journey-event-error-handler");
-const {
-  serverErrorHandler,
-} = require("./handlers/internal-server-error-handler");
-const { pageNotFoundHandler } = require("./handlers/page-not-found-handler");
-const {
+} from "./lib/config";
+import { setLocals } from "./lib/locals";
+import { loggerMiddleware, logger } from "./lib/logger";
+import { i18nextConfigurationOptions } from "./config/i18next";
+import { configureNunjucks } from "./config/nunjucks";
+import { serverErrorHandler } from "./handlers/internal-server-error-handler";
+import { journeyEventErrorHandler } from "./handlers/journey-event-error-handler";
+import { pageNotFoundHandler } from "./handlers/page-not-found-handler";
+import {
   securityHeadersHandler,
   cspHandler,
-} = require("./handlers/security-headers-handler");
+} from "./handlers/security-headers-handler";
+
+// Extend request object with our own extensions
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    interface Request {
+      generatedSessionId?: string;
+    }
+  }
+}
+
+// Extend session object with properties we expect
+declare module "express-session" {
+  interface SessionData {
+    ipvSessionId: string;
+  }
+}
+
+const DynamoDBStore = connect(session);
 
 const APP_VIEWS = [
-  path.join(__dirname, "views"),
+  path.resolve("views/"),
   path.resolve("node_modules/govuk-frontend/"),
   path.resolve("node_modules/@govuk-one-login/"),
 ];
 
-let sessionStore;
-
-if (process.env.NODE_ENV !== "local") {
-  const dynamodb = new DynamoDBClient({
-    region: "eu-west-2",
-  });
-
-  sessionStore = new DynamoDBStore({
-    client: dynamodb,
-    table: SESSION_TABLE_NAME,
-  });
-}
+const sessionStore: SessionStore | undefined =
+  process.env.NODE_ENV !== "local"
+    ? new DynamoDBStore({
+        client: new DynamoDBClient({ region: "eu-west-2" }),
+        table: SESSION_TABLE_NAME,
+      })
+    : undefined;
 
 const app = express();
 
@@ -68,12 +80,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(securityHeadersHandler);
 
-app.use("/public", express.static(path.join(__dirname, "../dist/public")));
+app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
   "/assets",
-  express.static(
-    path.join(__dirname, "../node_modules/govuk-frontend/govuk/assets"),
-  ),
+  express.static(path.resolve("node_modules/govuk-frontend/govuk/assets")),
 );
 
 app.use(setLocals);
@@ -84,9 +94,7 @@ i18next
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
   .init(
-    i18nextConfigurationOptions(
-      path.join(__dirname, "locales/{{lng}}/{{ns}}.json"),
-    ),
+    i18nextConfigurationOptions(path.resolve("locales/{{lng}}/{{ns}}.json")),
   );
 
 app.use(i18nextMiddleware.handle(i18next));
@@ -112,9 +120,7 @@ app.use(
     unset: "destroy",
     resave: false,
     cookie: {
-      name: SESSION_COOKIE_NAME,
-      expires: false,
-      secret: SESSION_SECRET,
+      expires: undefined,
       signed: true,
       secure: "auto",
     },
@@ -171,15 +177,15 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use("/oauth2", require("./app/oauth2/router"));
-router.use("/credential-issuer", require("./app/credential-issuer/router"));
-router.use("/ipv", require("./app/ipv/router"));
+router.use("/oauth2", oauthRouter);
+router.use("/credential-issuer", criRouter);
+router.use("/ipv", ipvRouter);
 if (ENABLE_PREVIEW) {
-  router.use("/dev", require("./app/development/router"));
+  router.use("/dev", devRouter);
 }
 
 router.get("/healthcheck", (req, res) => {
-  return res.status(200).send("OK");
+  res.status(200).send("OK");
 });
 
 app.use(router);
@@ -202,4 +208,4 @@ const server = app
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
 server.keepAliveTimeout = 65000;
 
-module.exports = app;
+export default app;

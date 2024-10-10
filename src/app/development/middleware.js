@@ -14,7 +14,7 @@ const { parseContextAsPhoneType } = require("../shared/contextHelper");
 
 async function allTemplatesGet(req, res, next) {
   try {
-    const directoryPath = path.join(__dirname, "/../../views/ipv/page");
+    const directoryPath = path.resolve("views/ipv/page");
 
     fs.readdir(directoryPath, function (err, files) {
       if (err) {

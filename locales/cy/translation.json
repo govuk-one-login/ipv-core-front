@@ -897,10 +897,10 @@
           "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth"
         },
         "outageBanner": {
-          "title": "Some of this service will be unavailable between 6pm and 10pm on Sunday 13 October.",
-          "paragraph1": "You will not be able to prove your identity online with a passport or driving licence during this time.",
-          "paragraph2": "You can try again another time or",
-          "linkText": "prove your identity at a Post Office"
+          "title": "Ni fydd rhywfaint o'r gwasanaeth hwn ar gael rhwng 6pm a 10pm ar ddydd Sul 13 Hydref.",
+          "paragraph1": "Ni fyddwch yn gallu profi eich hunaniaeth ar-lein gyda phasport neu drwydded yrru yn ystod y cyfnod hwn.",
+          "paragraph2": "Gallwch roi cynnig arall ar amser arall neu",
+          "linkText": "profi eich hunaniaeth mewn Swyddfa'r Post"
         }
       }
     },

@@ -29,7 +29,7 @@ async function allTemplatesGet(req, res, next) {
 
       res.render(getTemplatePath("development", "all-templates"), {
         templateRadioOptions: templateRadioOptions,
-        csrfToken: req.csrfToken(),
+        csrfToken: req.csrfToken(true),
       });
     });
   } catch (error) {
@@ -59,7 +59,7 @@ async function templatesDisplayGet(req, res) {
 
   const renderOptions = {
     templateId,
-    csrfToken: req.csrfToken(),
+    csrfToken: req.csrfToken(true),
     context,
     errorState: req.query.errorState,
     displayOutageBanner: DISPLAY_OUTAGE_BANNER,

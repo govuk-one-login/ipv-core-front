@@ -1,5 +1,4 @@
 const express = require("express");
-const csrf = require("csurf");
 const bodyParser = require("body-parser");
 const router = express.Router();
 
@@ -25,31 +24,25 @@ const {
   PAGE_IPV_IDENTITY_DOCUMENT_TYPES,
 } = require("../../constants/ipv-pages");
 
-const csrfProtection = csrf({});
 const parseForm = bodyParser.urlencoded({ extended: false });
 
 function getPagePath(pageId) {
   return `/page/${pageId}`;
 }
 
-router.get(
-  getPagePath(PYI_ATTEMPT_RECOVERY),
-  csrfProtection,
-  renderAttemptRecoveryPage,
-);
+router.get(getPagePath(PYI_ATTEMPT_RECOVERY), renderAttemptRecoveryPage);
 
 router.get(
   getPagePath(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
   staticPageMiddleware(PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
 );
 
-router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPageRequest);
+router.get(getPagePath(":pageId"), handleJourneyPageRequest);
 
 // Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
   getPagePath(UPDATE_DETAILS),
   parseForm,
-  csrfProtection,
   setRequestPageId(UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
   checkFormRadioButtonSelected,
@@ -60,7 +53,6 @@ router.post(
 router.post(
   getPagePath(CONFIRM_DETAILS),
   parseForm,
-  csrfProtection,
   setRequestPageId(CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
   checkFormRadioButtonSelected,
@@ -70,7 +62,6 @@ router.post(
 router.post(
   getPagePath(":pageId"),
   parseForm,
-  csrfProtection,
   checkFormRadioButtonSelected,
   handleJourneyActionRequest,
 );

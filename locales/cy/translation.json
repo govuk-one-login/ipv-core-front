@@ -876,6 +876,10 @@
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU"
         ],
+        "requirementsF2f": [
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
+          "pasbort y DU"
+        ],
         "requirementsNino": [
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",

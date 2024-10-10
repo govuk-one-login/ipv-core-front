@@ -876,6 +876,10 @@
           "UK photocard driving licence (full or provisional)",
           "UK passport"
         ],
+        "requirementsF2f": [
+          "UK photocard driving licence (full or provisional)",
+          "UK passport"
+        ],
         "requirementsNino": [
           "UK photocard driving licence (full or provisional)",
           "UK passport",

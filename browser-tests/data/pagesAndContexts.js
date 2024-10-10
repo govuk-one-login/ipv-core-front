@@ -17,6 +17,7 @@ const pagesToTest = {
   "page-pre-dwp-kbv-transition": [],
   "page-pre-experian-kbv-transition": [],
   "page-update-name": ["repeatFraudCheck",undefined],
+  "page-different-security-questions": [],
   "personal-independence-payment": [],
   "prove-identity-another-type-photo-id": ["drivingLicence", "passport"],
   "prove-identity-no-other-photo-id": ["drivingLicence", "passport"],

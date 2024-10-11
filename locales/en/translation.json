@@ -1190,6 +1190,24 @@
         }
       }
     },
+    "pyiTriageBuffer": {
+      "title": "Are you sure you want to try to prove your identity another way?",
+      "header": "Are you sure you want to try to prove your identity another way?",
+      "content": {
+        "paragraph1": "There are other ways to prove your identity with GOV.UK One Login. The app may be the most suitable way if you have photo ID.",
+        "formRadioButtons": {
+          "heading": "What would you like to do?",
+          "anotherWay": "Try to prove your identity another way",
+          "anotherWayHint": "If you change your mind and want to use the app, you’ll have to start again.",
+          "back": "Go back and use GOV.UK One Login app"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to use to prove your identity",
+          "errorRadioMessage": "Select what you would like to use to prove your identity"
+        }
+      }
+    },
     "pageUpdateName": {
       "title": "Update your name using the GOV.UK ID Check app",
       "header": "Update your name using the GOV.UK ID Check app",

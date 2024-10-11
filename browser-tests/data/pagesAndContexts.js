@@ -45,6 +45,7 @@ const pagesToTest = {
   "pyi-technical": [],
   "pyi-timeout-recoverable": [],
   "pyi-timeout-unrecoverable": [],
+  "pyi-triage-buffer": [],
   "pyi-triage-desktop-download-app": ["android", "iphone"],
   "pyi-triage-mobile-confirm": ["android", "iphone"],
   "pyi-triage-mobile-download-app": ["android", "iphone"],

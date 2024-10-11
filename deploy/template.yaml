@@ -187,7 +187,7 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       languageToggle: true
-      outageBanner: false
+      outageBanner: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"

@@ -855,6 +855,14 @@
         "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o’r blaen."
       }
     },
+    "pageDifferentSecurityQuestions": {
+      "title": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Nid oes gennym ddigon o wybodaeth i ofyn cwestiynau diogelwch i chi am eich PIP.",
+        "paragraph2": "Byddwn yn gwirio a allwn ofyn cwestiynau diogelwch gwahanol yn seiliedig ar fanylion eraill rydych wedi’u rhoi."
+      }
+    },
     "pyiF2fDeleteDetails": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",

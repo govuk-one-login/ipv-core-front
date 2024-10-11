@@ -32,7 +32,7 @@ export interface CriCallbackRequest {
   state?: string;
 }
 
-function generateAxiosConfig(url: string, req: Request): AxiosRequestConfig {
+const generateAxiosConfig = (url: string, req: Request): AxiosRequestConfig => {
   const personalDataHeaders = createPersonalDataHeaders(url, req);
   return {
     headers: {
@@ -51,13 +51,13 @@ function generateAxiosConfig(url: string, req: Request): AxiosRequestConfig {
     },
     logger: req.log,
   };
-}
+};
 
-export function postJourneyEvent(
+export const postJourneyEvent = (
   req: Request,
   event: string,
   currentPage?: string,
-): Promise<AxiosResponse> {
+): Promise<AxiosResponse> => {
   const requestConfig = generateAxiosConfig(
     `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${event}`,
     req,
@@ -72,12 +72,12 @@ export function postJourneyEvent(
     {},
     requestConfig,
   );
-}
+};
 
-export function postSessionInitialise(
+export const postSessionInitialise = (
   req: Request,
   body: InitialiseSessionRequest,
-): Promise<AxiosResponse> {
+): Promise<AxiosResponse> => {
   return axiosInstance.post(
     config.API_SESSION_INITIALISE,
     body,
@@ -86,12 +86,12 @@ export function postSessionInitialise(
       req,
     ),
   );
-}
+};
 
-export function postCriCallback(
+export const postCriCallback = (
   req: Request,
   body: CriCallbackRequest,
-): Promise<AxiosResponse> {
+): Promise<AxiosResponse> => {
   return axiosInstance.post(
     config.API_CRI_CALLBACK,
     body,
@@ -100,11 +100,11 @@ export function postCriCallback(
       req,
     ),
   );
-}
+};
 
-export function getProvenIdentityUserDetails(
+export const getProvenIdentityUserDetails = (
   req: Request,
-): Promise<AxiosResponse> {
+): Promise<AxiosResponse> => {
   return axiosInstance.get(
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(
@@ -112,4 +112,4 @@ export function getProvenIdentityUserDetails(
       req,
     ),
   );
-}
+};

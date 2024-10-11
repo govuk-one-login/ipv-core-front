@@ -3,9 +3,9 @@ import { expect } from "chai";
 import { NextFunction, Request, Response } from "express";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
-import { pageNotFoundHandler } from "../../src/handlers/page-not-found-handler";
-import { serverErrorHandler } from "../../src/handlers/internal-server-error-handler";
-import { journeyEventErrorHandler } from "../../src/handlers/journey-event-error-handler";
+import pageNotFoundHandler from "./page-not-found-handler";
+import serverErrorHandler from "./internal-server-error-handler";
+import journeyEventErrorHandler from "./journey-event-error-handler";
 
 describe("Error handlers", () => {
   let req: Request;

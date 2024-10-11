@@ -8,12 +8,7 @@ import { ErrorRequestHandler } from "express";
 const hasStatus = (input: unknown): input is { status: number } =>
   !!(input as { status: number }).status;
 
-export const serverErrorHandler: ErrorRequestHandler = (
-  err,
-  req,
-  res,
-  next,
-) => {
+const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
@@ -41,3 +36,5 @@ export const serverErrorHandler: ErrorRequestHandler = (
     context: "unrecoverable",
   });
 };
+
+export default serverErrorHandler;

@@ -4,12 +4,7 @@ import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
 import { ErrorRequestHandler } from "express";
 
-export const journeyEventErrorHandler: ErrorRequestHandler = (
-  err,
-  req,
-  res,
-  next,
-) => {
+const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
@@ -39,3 +34,5 @@ export const journeyEventErrorHandler: ErrorRequestHandler = (
 
   next(err);
 };
+
+export default journeyEventErrorHandler;

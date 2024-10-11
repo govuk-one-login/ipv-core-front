@@ -20,9 +20,9 @@ import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
 import { configureNunjucks } from "./config/nunjucks";
-import { serverErrorHandler } from "./handlers/internal-server-error-handler";
-import { journeyEventErrorHandler } from "./handlers/journey-event-error-handler";
-import { pageNotFoundHandler } from "./handlers/page-not-found-handler";
+import serverErrorHandler from "./handlers/internal-server-error-handler";
+import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
+import pageNotFoundHandler from "./handlers/page-not-found-handler";
 import {
   securityHeadersHandler,
   cspHandler,

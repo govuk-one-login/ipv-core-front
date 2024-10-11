@@ -67,7 +67,7 @@ const protectCfg = {
   production: false, // if production is false, detailed error messages are exposed to the client
   clientRetrySecs: 1, // Retry-After header, in seconds (0 to disable) [default 1]
   sampleInterval: 5, // sample rate, milliseconds [default 5]
-  maxEventLoopDelay: 400, // maximum detected delay between event loop ticks [default 42]
+  maxEventLoopDelay: 100, // maximum detected delay between event loop ticks [default 42]
   maxHeapUsedBytes: 0, // maximum heap used threshold (0 to disable) [default 0]
   maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
   errorPropagationMode: false, // dictate behavior: take over the response

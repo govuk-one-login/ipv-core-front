@@ -888,7 +888,7 @@ Resources:
             Command:
               - "CMD-SHELL"
               - "curl -f http://localhost:8080/healthcheck || exit 1"
-            Interval: 10
+            Interval: 5
             Retries: 1
             Timeout: 2
           LogConfiguration:

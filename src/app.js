@@ -51,7 +51,8 @@ let sessionStore;
 
 if (process.env.NODE_ENV !== "local") {
   const dynamodb = new DynamoDBClient({
-    region: "eu-west-2"
+    region: "eu-west-2",
+    endpoint: "http:/.localhost:8080"
   });
 
   sessionStore = new DynamoDBStore({
@@ -76,7 +77,7 @@ const protectCfg = {
 }
 
 const protect = require('overload-protection')('express', protectCfg)
-app.use(protect)
+//app.use(protect)  // Removed overload-protection from app, and moved to healcheck router.
 
 app.enable("trust proxy");
 app.use(function (req, res, next) {
@@ -106,10 +107,12 @@ app.use((req, res, next) => {
 });
 
 const healthcheckRouter = express.Router();
+healthcheckRouter.use(protect)
 healthcheckRouter.get("/healthcheck", (req, res) => {
   logger.info(`Healthcheck returning 200 OK from ${req.ip}.`);
   return res.status(200).send("OK");
 });
+
 
 app.use(healthcheckRouter);
 

@@ -32,7 +32,7 @@ ENV DT_HOST_ID='CORE-FRONT-${RANDOM}'
 
 ENV PORT=8080
 
-HEALTHCHECK --interval=10s --timeout=2s \
+HEALTHCHECK --interval=5s --timeout=2s \
   CMD curl -f http://localhost:8080/healthcheck || exit 1
 
 EXPOSE 8080

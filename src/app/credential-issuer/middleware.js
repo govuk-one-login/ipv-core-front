@@ -1,4 +1,5 @@
-const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } = require("../../lib/config");
+const { API_CRI_CALLBACK, EXTERNAL_WEBSITE_HOST } =
+  require("../../lib/config").default;
 const { handleBackendResponse } = require("../ipv/middleware");
 const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
 const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
@@ -19,11 +20,10 @@ module.exports = {
       state: req.query?.state,
     };
 
-    const errorDetails = {};
     if (req.query?.error) {
-      errorDetails.error = req.query.error;
+      body.error = req.query.error;
       if (req.query.error_description) {
-        errorDetails.errorDescription = req.query.error_description;
+        body.errorDescription = req.query.error_description;
       }
     }
 
@@ -33,11 +33,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await coreBackService.postCriCallback(
-        req,
-        body,
-        errorDetails,
-      );
+      const apiResponse = await coreBackService.postCriCallback(req, body);
       if (apiResponse?.status) {
         res.status(apiResponse.status);
       }
@@ -64,11 +60,10 @@ module.exports = {
       state: req.query?.state,
     };
 
-    const errorDetails = {};
     if (req.query?.error) {
-      errorDetails.error = req.query.error;
+      body.error = req.query.error;
       if (req.query.error_description) {
-        errorDetails.errorDescription = req.query.error_description;
+        body.errorDescription = req.query.error_description;
       }
     }
 
@@ -78,11 +73,7 @@ module.exports = {
         path: API_CRI_CALLBACK,
       });
 
-      const apiResponse = await coreBackService.postCriCallback(
-        req,
-        body,
-        errorDetails,
-      );
+      const apiResponse = await coreBackService.postCriCallback(req, body);
       if (apiResponse?.status) {
         res.status(apiResponse.status);
       }

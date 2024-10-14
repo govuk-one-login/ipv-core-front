@@ -5,7 +5,7 @@ const {
   LOG_COMMUNICATION_TYPE_REQUEST,
   LOG_TYPE_JOURNEY,
 } = require("./loggerConstants");
-const { API_SESSION_INITIALISE } = require("../../lib/config");
+const { API_SESSION_INITIALISE } = require("../../lib/config").default;
 
 describe("logger helper", () => {
   context("#transformError", () => {

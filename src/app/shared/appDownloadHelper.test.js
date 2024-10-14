@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { getAppStoreRedirectUrl } = require("./appDownloadHelper");
 const PHONE_TYPES = require("../../constants/phone-types");
-const { SERVICE_URL } = require("../../lib/config");
+const { SERVICE_URL } = require("../../lib/config").default;
 
 describe("Get app store redirect url", () => {
   it("should get iphone redirect url", () => {

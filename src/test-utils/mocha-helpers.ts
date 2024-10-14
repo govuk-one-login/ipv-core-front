@@ -3,6 +3,9 @@ import sinon from "sinon";
 import sinonChai from "sinon-chai";
 import chaiAsPromised from "chai-as-promised";
 
+// Import app types to get all ambient module declarations
+import type {} from "../app";
+
 process.env.ENABLE_PREVIEW = "test";
 
 chai.should();

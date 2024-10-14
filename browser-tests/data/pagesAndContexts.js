@@ -49,7 +49,7 @@ const pagesToTest = {
   "pyi-triage-mobile-confirm": [],
   "pyi-triage-mobile-download-app": ["android", "iphone"],
   "pyi-triage-select-device": [],
-  "pyi-triage-select-smartphone": [],
+  "pyi-triage-select-smartphone": ["mam", "dad"],
   "reprove-identity-start": [],
   "sorry-could-not-confirm-details": ["deleteDetailsReuse",undefined],
   "update-details-failed": ["repeatFraudCheck",undefined],

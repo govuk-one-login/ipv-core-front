@@ -884,10 +884,6 @@
           "UK photocard driving licence (full or provisional)",
           "UK passport"
         ],
-        "requirementsF2f": [
-          "UK photocard driving licence (full or provisional)",
-          "UK passport"
-        ],
         "requirementsNino": [
           "UK photocard driving licence (full or provisional)",
           "UK passport",
@@ -907,12 +903,6 @@
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select what you would like to use to prove your identity",
           "errorRadioMessage": "Select what you would like to use to prove your identity"
-        },
-        "outageBanner": {
-          "title": "Some of this service will be unavailable between 6pm and 10pm on Sunday 13 October.",
-          "paragraph1": "You will not be able to prove your identity online with a passport or driving licence during this time.",
-          "paragraph2": "You can try again another time or",
-          "linkText": "prove your identity at a Post Office"
         }
       }
     },

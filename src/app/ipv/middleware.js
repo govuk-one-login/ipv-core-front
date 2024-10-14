@@ -3,7 +3,6 @@ const sanitize = require("sanitize-filename");
 const {
   APP_STORE_URL_ANDROID,
   APP_STORE_URL_APPLE,
-  DISPLAY_OUTAGE_BANNER,
 } = require("../../lib/config");
 const {
   buildCredentialIssuerRedirectURL,
@@ -415,7 +414,6 @@ async function handleJourneyPageRequest(
       csrfToken: req.csrfToken(),
       context,
       pageErrorState,
-      displayOutageBanner: DISPLAY_OUTAGE_BANNER,
     };
 
     if (pageRequiresUserDetails(pageId)) {

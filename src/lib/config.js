@@ -44,5 +44,4 @@ module.exports = {
   DELETE_ACCOUNT_URL:
     process.env.DELETE_ACCOUNT_URL ||
     "https://home.build.account.gov.uk/enter-password?type=deleteAccount",
-  DISPLAY_OUTAGE_BANNER: process.env.OUTAGE_BANNER === "true",
 };

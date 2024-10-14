@@ -13,7 +13,7 @@ const pagesToTest = {
   "page-ipv-pending": ["f2f-delete-details", undefined],
   "page-ipv-reuse": [],
   "page-ipv-success": ["repeatFraudCheck", undefined],
-  "page-multiple-doc-check": ["f2f","nino",undefined],
+  "page-multiple-doc-check": ["nino",undefined],
   "page-pre-dwp-kbv-transition": [],
   "page-pre-experian-kbv-transition": [],
   "page-update-name": ["repeatFraudCheck",undefined],

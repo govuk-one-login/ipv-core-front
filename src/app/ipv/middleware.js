@@ -1,9 +1,7 @@
 const sanitize = require("sanitize-filename");
 
-const {
-  APP_STORE_URL_ANDROID,
-  APP_STORE_URL_APPLE,
-} = require("../../lib/config");
+const { APP_STORE_URL_ANDROID, APP_STORE_URL_APPLE } =
+  require("../../lib/config").default;
 const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,

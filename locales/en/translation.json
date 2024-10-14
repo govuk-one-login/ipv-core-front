@@ -591,12 +591,12 @@
           "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
           "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
           "neitherButtonTextDad": "No",
-          "neitherButtonTextMam": "No, I’m on a computer, tablet or different phone"
+          "neitherButtonTextMam": "No - I’m on a computer, tablet or different phone"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select if you are on an iPhone, Android or neither of these phones",
-          "errorRadioMessage": "Select if you are on an iPhone, Android or neither of these phones"
+          "errorSummaryDescriptionText": "Select if you are on an iPhone, Android phone or neither of these phones",
+          "errorRadioMessage": "Select if you are on an iPhone, Android phone or neither of these phones"
         }
       }
     },

@@ -26,7 +26,7 @@
     {% set radioItems = (radioItems.push({
         value: "nino",
         text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueNinoButtonText' | translate
-    }), radioItems) %}}
+    }), radioItems) %}
 {% endif %}
 
 {% set radioItems = (radioItems.push(
@@ -38,7 +38,7 @@
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translate
     }),
     radioItems)
-%}}
+%}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageMultipleDocCheck.header' | translate }}</h1>

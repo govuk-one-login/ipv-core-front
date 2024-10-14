@@ -51,8 +51,7 @@ let sessionStore;
 
 if (process.env.NODE_ENV !== "local") {
   const dynamodb = new DynamoDBClient({
-    region: "eu-west-2",
-    endpoint: "http:/.localhost:8080"
+    region: "eu-west-2"
   });
 
   sessionStore = new DynamoDBStore({
@@ -108,13 +107,13 @@ app.use((req, res, next) => {
 
 const healthcheckRouter = express.Router();
 healthcheckRouter.use(protect)
-healthcheckRouter.get("/healthcheck", (req, res) => {
+healthcheckRouter.get("/", (req, res) => {
   logger.info(`Healthcheck returning 200 OK from ${req.ip}.`);
   return res.status(200).send("OK");
 });
 
 
-app.use(healthcheckRouter);
+app.use('/healthcheck', healthcheckRouter);
 
 app.use(setLocals);
 app.use(cspHandler);

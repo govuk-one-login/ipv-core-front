@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const sanitize = require("sanitize-filename");
-const { DISPLAY_OUTAGE_BANNER } = require("../../lib/config");
 const {
   samplePersistedUserDetails,
   generateUserDetails,
@@ -62,7 +61,6 @@ async function templatesDisplayGet(req, res) {
     csrfToken: req.csrfToken(),
     context,
     errorState: req.query.errorState,
-    displayOutageBanner: DISPLAY_OUTAGE_BANNER,
   };
 
   if (pageRequiresUserDetails(templateId)) {

@@ -108,6 +108,3 @@ deploy/core-front-*.yaml
 
 # TSC output
 build
-
-# Browser test results
-test-results

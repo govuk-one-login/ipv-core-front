@@ -517,6 +517,7 @@ Resources:
       HealthCheckTimeoutSeconds: 2 # Default for https
       HealthCheckIntervalSeconds: 5 # Default for https
       HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
       Port: 8080

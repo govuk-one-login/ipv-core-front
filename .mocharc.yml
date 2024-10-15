@@ -1,6 +1,7 @@
 fail-zero: false
 spec:
-  - '**/*.test.js'
+  - 'src/**/*.test.js'
+  - 'src/**/*.test.ts'
 ignore:
   - 'node_modules/**'
 file:

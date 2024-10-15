@@ -948,10 +948,11 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "Continue to the service you need to use",
-      "header": "Continue to the service you need to use",
+      "title": "Continue to the service you want to use",
+      "header": "Continue to the service you want to use",
       "content": {
-        "paragraph1": "We’ve checked your details. You can now continue to the service you need to use.",
+        "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
+        "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },

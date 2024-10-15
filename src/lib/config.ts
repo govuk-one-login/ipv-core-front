@@ -10,7 +10,8 @@ const coreBackApiUrl = appEnv.isLocal
 
 export default {
   ANDROID_APP_ID: process.env.ANDROID_APP_ID || "uk.gov.documentchecking",
-  API_BASE_URL: coreBackApiUrl || process.env.API_BASE_URL,
+  API_BASE_URL:
+    coreBackApiUrl || process.env.API_BASE_URL || "http://localhost:4502",
   API_CRI_CALLBACK: "/cri/callback",
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",

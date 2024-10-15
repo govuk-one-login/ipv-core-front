@@ -1,6 +1,5 @@
 import { handleBackendResponse } from "../ipv/middleware";
-import { logCoreBackCall, transformError } from "../shared/loggerHelper";
-import { LOG_COMMUNICATION_TYPE_REQUEST } from "../shared/loggerConstants";
+import { transformError } from "../shared/loggerHelper";
 import config from "../../lib/config";
 import {
   CriCallbackRequest,
@@ -45,12 +44,8 @@ export const sendParamsToAPI: RequestHandler = async (req, res, next) => {
   }
 
   try {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-      path: config.API_CRI_CALLBACK,
-    });
-
     const apiResponse = await postCriCallback(req, body);
+
     if (apiResponse?.status) {
       res.status(apiResponse.status);
     }
@@ -87,12 +82,8 @@ export const sendParamsToAPIV2: RequestHandler = async (req, res, next) => {
   }
 
   try {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-      path: config.API_CRI_CALLBACK,
-    });
-
     const apiResponse = await postCriCallback(req, body);
+
     if (apiResponse?.status) {
       res.status(apiResponse.status);
     }

@@ -6,19 +6,7 @@ const {
   buildCredentialIssuerRedirectURL,
   redirectToAuthorize,
 } = require("../shared/criHelper");
-const {
-  logError,
-  logCoreBackCall,
-  transformError,
-} = require("../shared/loggerHelper");
-const {
-  LOG_COMMUNICATION_TYPE_REQUEST,
-  LOG_TYPE_JOURNEY,
-  LOG_COMMUNICATION_TYPE_RESPONSE,
-  LOG_TYPE_CRI,
-  LOG_TYPE_CLIENT,
-  LOG_TYPE_PAGE,
-} = require("../shared/loggerConstants");
+const { logError, transformError } = require("../shared/loggerHelper");
 const { generateUserDetails } = require("../shared/reuseHelper");
 const { HTTP_STATUS_CODES } = require("../../app.constants");
 const fs = require("fs");
@@ -61,12 +49,6 @@ async function journeyApi(action, req, currentPageId) {
     action = action.substr(8);
   }
 
-  logCoreBackCall(req, {
-    logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-    type: LOG_TYPE_JOURNEY,
-    path: action,
-  });
-
   return coreBackService.postJourneyEvent(req, action, currentPageId);
 }
 
@@ -85,20 +67,10 @@ async function processAction(req, res, action, currentPageId = "") {
 
 async function handleBackendResponse(req, res, backendResponse) {
   if (backendResponse?.journey) {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
-      type: LOG_TYPE_JOURNEY,
-      path: backendResponse.journey,
-    });
     return await processAction(req, res, backendResponse.journey);
   }
 
   if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
-      type: LOG_TYPE_CRI,
-      path: req.cri,
-    });
     req.cri = backendResponse.cri;
     req.session.currentPage = req.cri.id;
     await buildCredentialIssuerRedirectURL(req, res);
@@ -109,12 +81,6 @@ async function handleBackendResponse(req, res, backendResponse) {
     backendResponse?.client &&
     tryValidateClientResponse(backendResponse.client)
   ) {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
-      type: LOG_TYPE_CLIENT,
-      path: backendResponse.client,
-    });
-
     req.session.currentPage = "orchestrator";
 
     const message = {
@@ -133,14 +99,6 @@ async function handleBackendResponse(req, res, backendResponse) {
   }
 
   if (backendResponse?.page) {
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_RESPONSE,
-      type: LOG_TYPE_PAGE,
-      path: backendResponse.page,
-      requestId: req.requestId,
-      context: backendResponse?.context,
-    });
-
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
     req.session.currentPageStatusCode = backendResponse?.statusCode;

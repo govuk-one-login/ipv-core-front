@@ -1,13 +1,4 @@
-import { AxiosResponse } from "axios";
 import { Request } from "express";
-
-interface ApiCallContext {
-  logCommunicationType: string;
-  path: string;
-  type?: string;
-  info?: string;
-  context?: string;
-}
 
 // For now, treat errors as any for simplicity
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,30 +32,4 @@ export const logError = (
     level: "ERROR",
     requestId: req.id,
   });
-};
-
-export const logCoreBackCall = (
-  req: Request,
-  context: ApiCallContext,
-): void => {
-  req.log.info({ message: context, level: "INFO", requestId: req.id });
-};
-
-export const getCriFromErrorResponse = (
-  response: AxiosResponse,
-): string | undefined => {
-  try {
-    const { config } = response;
-
-    const requestDataString = config?.data;
-
-    const credentialIssuerId =
-      requestDataString && JSON.parse(requestDataString)?.credentialIssuerId;
-
-    return credentialIssuerId;
-    // An error here is not useful - this is used in error handling
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    return undefined;
-  }
 };

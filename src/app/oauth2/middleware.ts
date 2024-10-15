@@ -1,13 +1,14 @@
-const { API_SESSION_INITIALISE } = require("../../lib/config").default;
-const { logCoreBackCall, transformError } = require("../shared/loggerHelper");
-const { LOG_COMMUNICATION_TYPE_REQUEST } = require("../shared/loggerConstants");
-const coreBackService = require("../../services/coreBackService");
-const {
-  checkForIpvAndOauthSessionId,
-  processAction,
-} = require("../ipv/middleware");
+import config from "../../lib/config";
+import { logCoreBackCall, transformError } from "../shared/loggerHelper";
+import { LOG_COMMUNICATION_TYPE_REQUEST } from "../shared/loggerConstants";
+import {
+  InitialiseSessionRequest,
+  postSessionInitialise,
+} from "../../services/coreBackService";
+import { checkForIpvAndOauthSessionId, processAction } from "../ipv/middleware";
+import { RequestHandler } from "express";
 
-async function setIpvSessionId(req, res, next) {
+export const setIpvSessionId: RequestHandler = async (req, res, next) => {
   try {
     const authParams = {
       responseType: req.query.response_type,
@@ -16,7 +17,7 @@ async function setIpvSessionId(req, res, next) {
       state: req.query.state,
       scope: req.query.scope,
       request: req.query.request,
-    };
+    } as InitialiseSessionRequest;
 
     if (!authParams.request) {
       return next(new Error("Request JWT Missing"));
@@ -27,13 +28,10 @@ async function setIpvSessionId(req, res, next) {
 
     logCoreBackCall(req, {
       logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-      path: API_SESSION_INITIALISE,
+      path: config.API_SESSION_INITIALISE,
     });
 
-    const response = await coreBackService.postSessionInitialise(
-      req,
-      authParams,
-    );
+    const response = await postSessionInitialise(req, authParams);
 
     req.session.ipvSessionId = response?.data?.ipvSessionId;
   } catch (error) {
@@ -42,9 +40,13 @@ async function setIpvSessionId(req, res, next) {
   }
 
   return next();
-}
+};
 
-async function handleOAuthJourneyAction(req, res, next) {
+export const handleOAuthJourneyAction: RequestHandler = async (
+  req,
+  res,
+  next,
+) => {
   try {
     checkForIpvAndOauthSessionId(req, res);
     await processAction(req, res, "next");
@@ -52,9 +54,4 @@ async function handleOAuthJourneyAction(req, res, next) {
     transformError(error, "error invoking handleOAuthJourneyAction");
     return next(error);
   }
-}
-
-module.exports = {
-  handleOAuthJourneyAction,
-  setIpvSessionId,
 };

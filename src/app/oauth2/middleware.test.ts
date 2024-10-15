@@ -4,9 +4,9 @@ import sinon from "sinon";
 import { NextFunction, Request, Response } from "express";
 import { AxiosError, AxiosResponse } from "axios";
 
-let coreBackServiceStub = {
+const coreBackServiceStub = {
   postJourneyEvent: sinon.fake(),
-  postSessionInitialise: sinon.fake()
+  postSessionInitialise: sinon.fake(),
 };
 
 const configStub = {
@@ -42,7 +42,7 @@ describe("oauth middleware", () => {
       render: sinon.fake(),
     } as any;
 
-    next = sinon.fake() as any
+    next = sinon.fake() as any;
   });
 
   describe("setIpvSessionId", () => {

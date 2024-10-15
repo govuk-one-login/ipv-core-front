@@ -1,7 +1,10 @@
 import config from "../../lib/config";
 import { logCoreBackCall, transformError } from "../shared/loggerHelper";
 import { LOG_COMMUNICATION_TYPE_REQUEST } from "../shared/loggerConstants";
-import { InitialiseSessionRequest, postSessionInitialise } from "../../services/coreBackService";
+import {
+  InitialiseSessionRequest,
+  postSessionInitialise,
+} from "../../services/coreBackService";
 import { checkForIpvAndOauthSessionId, processAction } from "../ipv/middleware";
 import { RequestHandler } from "express";
 
@@ -28,10 +31,7 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
       path: config.API_SESSION_INITIALISE,
     });
 
-    const response = await postSessionInitialise(
-      req,
-      authParams,
-    );
+    const response = await postSessionInitialise(req, authParams);
 
     req.session.ipvSessionId = response?.data?.ipvSessionId;
   } catch (error) {
@@ -40,9 +40,13 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
   }
 
   return next();
-}
+};
 
-export const handleOAuthJourneyAction: RequestHandler = async (req, res, next) => {
+export const handleOAuthJourneyAction: RequestHandler = async (
+  req,
+  res,
+  next,
+) => {
   try {
     checkForIpvAndOauthSessionId(req, res);
     await processAction(req, res, "next");
@@ -50,4 +54,4 @@ export const handleOAuthJourneyAction: RequestHandler = async (req, res, next) =
     transformError(error, "error invoking handleOAuthJourneyAction");
     return next(error);
   }
-}
+};

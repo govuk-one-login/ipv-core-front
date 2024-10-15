@@ -1,6 +1,4 @@
-import config from "../../lib/config";
-import { logCoreBackCall, transformError } from "../shared/loggerHelper";
-import { LOG_COMMUNICATION_TYPE_REQUEST } from "../shared/loggerConstants";
+import { transformError } from "../shared/loggerHelper";
 import {
   InitialiseSessionRequest,
   postSessionInitialise,
@@ -25,11 +23,6 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
     if (!authParams.clientId) {
       return next(new Error("Client ID Missing"));
     }
-
-    logCoreBackCall(req, {
-      logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-      path: config.API_SESSION_INITIALISE,
-    });
 
     const response = await postSessionInitialise(req, authParams);
 

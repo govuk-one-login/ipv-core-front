@@ -2,12 +2,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { expect } from "chai";
 import { Request } from "express";
 import sinon, { SinonSpy } from "sinon";
-import {
-  LOG_COMMUNICATION_TYPE_REQUEST,
-  LOG_TYPE_JOURNEY,
-} from "./loggerConstants";
-import { transformError, logError, logCoreBackCall } from "./loggerHelper";
-import config from "../../lib/config";
+import { transformError, logError } from "./loggerHelper";
 
 describe("logger helper", () => {
   context("#transformError", () => {
@@ -57,45 +52,6 @@ describe("logger helper", () => {
       expect(logMessage).to.deep.equal({
         errorMessage: "Some error",
         errorMessageContext: extraMessage,
-      });
-    });
-  });
-
-  context("#logCoreBackCall", () => {
-    const req: Request = {
-      session: { ipvSessionId: "ipv-session-id", ipAddress: "ip-address" },
-      log: { info: sinon.fake(), error: sinon.fake() },
-    } as any;
-
-    it("should log message under info with the defined fields", () => {
-      logCoreBackCall(req, {
-        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-        path: config.API_SESSION_INITIALISE,
-        info: "extra info",
-      });
-
-      const logMessage = (req.log.info as SinonSpy).lastCall.firstArg.message;
-      expect(logMessage).to.deep.equal({
-        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-        path: config.API_SESSION_INITIALISE,
-        info: "extra info",
-      });
-    });
-
-    it("should append type onto message", () => {
-      logCoreBackCall(req, {
-        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-        path: config.API_SESSION_INITIALISE,
-        type: LOG_TYPE_JOURNEY,
-        info: "extra info",
-      });
-
-      const logMessage = (req.log.info as SinonSpy).lastCall.firstArg.message;
-      expect(logMessage).to.deep.equal({
-        logCommunicationType: LOG_COMMUNICATION_TYPE_REQUEST,
-        path: config.API_SESSION_INITIALISE,
-        type: LOG_TYPE_JOURNEY,
-        info: "extra info",
       });
     });
   });

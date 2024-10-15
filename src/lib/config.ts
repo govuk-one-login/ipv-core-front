@@ -1,16 +1,17 @@
-require("dotenv").config();
+import cfenv from "cfenv";
+import dotenv from "dotenv";
 
-const cfenv = require("cfenv");
+dotenv.config();
+
 const appEnv = cfenv.getAppEnv();
-const serviceConfig = {};
+const coreBackApiUrl = appEnv.isLocal
+  ? undefined
+  : appEnv.getServiceURL("core-back-api");
 
-if (!appEnv.isLocal) {
-  serviceConfig.coreBackAPIUrl = appEnv.getServiceURL("core-back-api");
-}
-
-module.exports = {
+export default {
   ANDROID_APP_ID: process.env.ANDROID_APP_ID || "uk.gov.documentchecking",
-  API_BASE_URL: serviceConfig.coreBackAPIUrl || process.env.API_BASE_URL,
+  API_BASE_URL:
+    coreBackApiUrl || process.env.API_BASE_URL || "http://localhost:4502",
   API_CRI_CALLBACK: "/cri/callback",
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",

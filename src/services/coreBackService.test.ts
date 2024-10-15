@@ -1,6 +1,12 @@
-const sinon = require("sinon");
-const { expect } = require("chai");
-const proxyquire = require("proxyquire");
+import sinon from "sinon";
+import { expect } from "chai";
+import proxyquire from "proxyquire";
+import { AxiosInstance } from "axios";
+import { Request } from "express";
+import {
+  CriCallbackRequest,
+  InitialiseSessionRequest,
+} from "./coreBackService";
 
 const configStub = {
   API_CRI_CALLBACK: "/cri/callback",
@@ -9,14 +15,16 @@ const configStub = {
   API_SESSION_INITIALISE: "/session-initialise",
   API_JOURNEY_EVENT: "/journey",
 };
+
 describe("CoreBackService", () => {
-  let axiosInstanceStub = {};
-  let passthroughHeaders = {};
-  let CoreBackService;
+  const axiosInstanceStub: AxiosInstance = {} as any;
+  const passthroughHeaders: typeof import("@govuk-one-login/frontend-passthrough-headers") =
+    {} as any;
+  let coreBackService: typeof import("./coreBackService");
 
-  let axiosStub = { createAxiosInstance: () => axiosInstanceStub };
+  const axiosStub = { createAxiosInstance: () => axiosInstanceStub };
 
-  const req = {
+  const req: Request = {
     session: {
       clientOauthSessionId: "test_client_session_id",
       ipvSessionId: "test_ipv_session_id",
@@ -27,7 +35,7 @@ describe("CoreBackService", () => {
     cookies: {
       lng: "en",
     },
-  };
+  } as any;
 
   beforeEach(() => {
     axiosInstanceStub.post = sinon.fake();
@@ -37,8 +45,8 @@ describe("CoreBackService", () => {
       "x-forwarded-for": "127.0.0.2",
     });
 
-    CoreBackService = proxyquire("./coreBackService", {
-      "../lib/config": configStub,
+    coreBackService = proxyquire("./coreBackService", {
+      "../lib/config": { default: configStub },
       "../app/shared/axiosHelper": axiosStub,
       "@govuk-one-login/frontend-passthrough-headers": passthroughHeaders,
     });
@@ -49,7 +57,7 @@ describe("CoreBackService", () => {
     const event = "test_event";
 
     // Act
-    await CoreBackService.postJourneyEvent(req, event);
+    await coreBackService.postJourneyEvent(req, event);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
@@ -74,15 +82,15 @@ describe("CoreBackService", () => {
 
   it("should postSessionInitialise with correct parameters and headers", async () => {
     // Arrange
-    const authParams = { someAuthParam: "someValue" };
+    const body = {} as InitialiseSessionRequest;
 
     // Act
-    await CoreBackService.postSessionInitialise(req, authParams);
+    await coreBackService.postSessionInitialise(req, body);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
       "/session-initialise",
-      { someAuthParam: "someValue" },
+      body,
       {
         headers: {
           "content-type": "application/json",
@@ -102,16 +110,15 @@ describe("CoreBackService", () => {
 
   it("should postCriCallback with correct parameters and headers", async () => {
     // Arrange
-    const body = { test_param: "someValue" };
-    const errorDetails = { error_param: "anotherValue" };
+    const body = {} as CriCallbackRequest;
 
     // Act
-    await CoreBackService.postCriCallback(req, body, errorDetails);
+    await coreBackService.postCriCallback(req, body);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
       "/cri/callback",
-      { test_param: "someValue", error_param: "anotherValue" },
+      body,
       {
         headers: {
           "content-type": "application/json",
@@ -130,12 +137,9 @@ describe("CoreBackService", () => {
   });
 
   it("should getProvenIdentityUserDetails to retrieve user identity details", async () => {
-    // Arrange
-    const body = { test_param: "someValue" };
-    const errorDetails = { error_param: "anotherValue" };
-
     // Act
-    await CoreBackService.getProvenIdentityUserDetails(req, body, errorDetails);
+    await coreBackService.getProvenIdentityUserDetails(req);
+
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWith("/proven-identity", {
       headers: {

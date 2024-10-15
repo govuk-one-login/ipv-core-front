@@ -29,12 +29,12 @@ describe("journey middleware", () => {
 
   const sharedCriHelper = proxyquire("../shared/criHelper", {
     "../../services/coreBackService": CoreBackServiceStub,
-    "../../lib/config": configStub,
+    "../../lib/config": { default: configStub },
   });
 
   const middleware = proxyquire("./middleware", {
     "../../services/coreBackService": CoreBackServiceStub,
-    "../../lib/config": configStub,
+    "../../lib/config": { default: configStub },
     "../shared/../shared/criHelper": sharedCriHelper,
   });
 

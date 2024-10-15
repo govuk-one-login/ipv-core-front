@@ -1,14 +1,14 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   allTemplatesGet,
   allTemplatesPost,
   templatesDisplayGet,
-} = require("./middleware");
+} from "./middleware";
+
+const router = express.Router();
 
 router.post("/all-templates", allTemplatesPost);
 router.get("/all-templates", allTemplatesGet);
 router.get("/template/:templateId/:language", templatesDisplayGet);
 
-module.exports = router;
+export default router;

@@ -855,6 +855,14 @@
         "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o’r blaen."
       }
     },
+    "pageDifferentSecurityQuestions": {
+      "title": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "header": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "content": {
+        "paragraph1": "Nid oes gennym ddigon o wybodaeth i ofyn cwestiynau diogelwch i chi am eich PIP.",
+        "paragraph2": "Byddwn yn gwirio a allwn ofyn cwestiynau diogelwch gwahanol yn seiliedig ar fanylion eraill rydych wedi’u rhoi."
+      }
+    },
     "pyiF2fDeleteDetails": {
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
@@ -1153,32 +1161,32 @@
       }
     },
     "pyiTriageMobileConfirm": {
-      "title": "Prove your identity with the GOV.UK One Login app",
-      "header": "Prove your identity with the GOV.UK One Login app",
+      "title": "Tell us what smartphone you are using now",
+      "header": "Tell us what smartphone you are using now",
       "content": {
-        "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
-        "paragraph2": "You can prove your identity this way if you have an iPhone or Android phone.",
-        "subHeading": "iPhone",
-        "paragraph3": "You can use an iPhone if it:",
-        "bullet1": "an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
-        "bullet2": "has a working camera",
-        "subHeading2": "Android phone (for example, Samsung or Google Pixel)",
-        "paragraph4": "You can use an Android phone if it:",
-        "bullet3": "has a working camera",
-        "bullet4": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contacless payments",
-        "subHeading3": "If you’re not sure you’ll be able to prove your identity with the app",
-        "paragraph5": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
-        "paragraph6": "You can also prove your identity in person at a Post Office.",
-        "subHeading4": "What would you like to do?",
+        "paragraph1Android": "It looks like you’re on an Android phone.",
+        "paragraph1Iphone": "It looks like you’re on an iPhone.",
+        "paragraph2": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
+        "subHeading1": "If your photo ID is a UK photocard driving licence",
+        "paragraph3": "You need an iPhone 6s or newer.",
+        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
+        "paragraph4": "You need an iPhone 7 or newer.",
+        "details": {
+          "summaryText": "How do I know which iPhone I have?",
+          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select 'General' then 'About' and look for the 'Model Name'.</p>"
+        },
+        "subHeadingQuestionAndroid": "Are you on an Android phone?",
+        "subHeadingQuestionIphone": "Are you on one of these iPhones?",
         "formRadioButtons": {
-          "proveWithAppButtonText": "Prove your identity with the GOV.UK One Login app",
-          "proveWithAppButtonTextHint": "You’ll be shown how to download and use the app.",
-          "otherWayButtonText": "Prove your identity another way"
+          "yes": "Yes",
+          "no": "No - I’m on a computer, tablet, or different phone"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryDescriptionTextIphone": "Select if you are using a computer or tablet or using an iPhone",
+          "errorSummaryDescriptionTextAndroid": "Select if you are using a computer or tablet or using an Android",
+          "errorRadioMessageIphone": "Select if you are using a computer or tablet or using an iPhone",
+          "errorRadioMessageAndroid": "Select if you are using a computer or tablet or using an Android"
         }
       }
     },

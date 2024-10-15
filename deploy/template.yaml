@@ -571,7 +571,7 @@ Resources:
           - CODE_DEPLOY
           - ECS
       EnableECSManagedTags: false
-      HealthCheckGracePeriodSeconds: 45
+      HealthCheckGracePeriodSeconds: 300
       LaunchType: FARGATE
       LoadBalancers:
         - ContainerName: app

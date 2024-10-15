@@ -1,47 +1,52 @@
-const proxyquire = require("proxyquire");
-const { expect } = require("chai");
-const sinon = require("sinon");
+import proxyquire from "proxyquire";
+import { expect } from "chai";
+import sinon from "sinon";
+import { NextFunction, Request, Response } from "express";
+import { AxiosError, AxiosResponse } from "axios";
 
-let CoreBackServiceStub = {};
+let coreBackServiceStub = {
+  postJourneyEvent: sinon.fake(),
+  postSessionInitialise: sinon.fake()
+};
 
 const configStub = {
   API_BASE_URL: "https://example.org/subpath",
 };
 
 const ipvMiddleware = proxyquire("../ipv/middleware", {
-  "../../services/coreBackService": CoreBackServiceStub,
+  "../../services/coreBackService": coreBackServiceStub,
   "../../lib/config": { default: configStub },
 });
 
 const middleware = proxyquire("./middleware", {
-  "../../services/coreBackService": CoreBackServiceStub,
+  "../../services/coreBackService": coreBackServiceStub,
   "../../lib/config": { default: configStub },
   "../ipv/middleware": ipvMiddleware,
 });
 
 describe("oauth middleware", () => {
-  let req;
-  let res;
-  let next;
+  let req: Request;
+  let res: Response;
+  let next: NextFunction;
 
   beforeEach(() => {
     req = {
       session: {},
       log: { info: sinon.fake(), error: sinon.fake() },
-    };
+    } as any;
 
     res = {
       status: sinon.fake(),
       redirect: sinon.fake(),
       send: sinon.fake(),
       render: sinon.fake(),
-    };
+    } as any;
 
-    next = sinon.fake();
+    next = sinon.fake() as any
   });
 
   describe("setIpvSessionId", () => {
-    let axiosResponse;
+    let axiosResponse: AxiosResponse;
 
     beforeEach(() => {
       req = {
@@ -58,35 +63,35 @@ describe("oauth middleware", () => {
         session: {
           ipvSessionId: "abadcafe",
         },
-      };
+      } as any;
       axiosResponse = {
         data: {
           ipvSessionId: {},
         },
-      };
+      } as any;
     });
 
     context("with handleOAuthJourneyAction", () => {
       it("should pass next journey event when handling OAuth Call", async function () {
-        CoreBackServiceStub.postJourneyEvent = sinon.fake();
+        coreBackServiceStub.postJourneyEvent = sinon.fake();
 
         await middleware.handleOAuthJourneyAction(req, res, next);
 
-        expect(CoreBackServiceStub.postJourneyEvent).to.have.been.called;
+        expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
       });
     });
 
     it("should pass next journey event by default when handling OAuth Call", async function () {
-      CoreBackServiceStub.postJourneyEvent = sinon.fake();
+      coreBackServiceStub.postJourneyEvent = sinon.fake();
       req.body.journey = "journey/nonsense";
 
       await middleware.handleOAuthJourneyAction(req, res, next);
 
-      expect(CoreBackServiceStub.postJourneyEvent).to.have.been.called;
+      expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
     });
 
     it("should throw error when handling OAuth Call if missing ipvSessionId", async function () {
-      CoreBackServiceStub.postJourneyEvent = sinon.fake();
+      coreBackServiceStub.postJourneyEvent = sinon.fake();
       req.session.ipvSessionId = undefined;
 
       await middleware.handleOAuthJourneyAction(req, res, next);
@@ -102,7 +107,7 @@ describe("oauth middleware", () => {
       });
 
       it("should set ipvSessionId in session", async function () {
-        CoreBackServiceStub.postSessionInitialise =
+        coreBackServiceStub.postSessionInitialise =
           sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
@@ -120,7 +125,7 @@ describe("oauth middleware", () => {
       });
 
       it("should set ipvSessionId as null in session", async function () {
-        CoreBackServiceStub.postSessionInitialise =
+        coreBackServiceStub.postSessionInitialise =
           sinon.fake.returns(axiosResponse);
         await middleware.setIpvSessionId(req, res, next);
         expect(req.session.ipvSessionId).to.eq(null);
@@ -134,12 +139,13 @@ describe("oauth middleware", () => {
 
     context("with missing Request JWT", () => {
       beforeEach(() => {
-        req.query.request = null;
+        req.query.request = undefined;
       });
 
       it("should throw error", async function () {
-        CoreBackServiceStub.postSessionInitialise =
-          sinon.fake.throws(axiosResponse);
+        const axiosError = new AxiosError("api error");
+        coreBackServiceStub.postSessionInitialise =
+          sinon.fake.throws(axiosError);
         await middleware.setIpvSessionId(req, res, next);
 
         expect(next).to.have.been.calledWith(
@@ -152,12 +158,13 @@ describe("oauth middleware", () => {
 
     context("with Client ID missing", () => {
       beforeEach(() => {
-        req.query.client_id = null;
+        req.query.client_id = undefined;
       });
 
       it("should throw error", async function () {
-        CoreBackServiceStub.postSessionInitialise =
-          sinon.fake.throws(axiosResponse);
+        const axiosError = new AxiosError("api error");
+        coreBackServiceStub.postSessionInitialise =
+          sinon.fake.throws(axiosError);
         await middleware.setIpvSessionId(req, res, next);
         expect(next).to.have.been.calledWith(
           sinon.match

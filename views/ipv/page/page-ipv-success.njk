@@ -8,7 +8,7 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header"
       data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvSuccess.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pageIpvSuccess.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }}</p>
   <p class="govuk-body">{{ 'pages.pageIpvSuccess.content.paragraph2' | translate }}</p>
   {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 {% endblock %}

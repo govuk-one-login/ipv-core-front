@@ -890,7 +890,7 @@ Resources:
               - "CMD-SHELL"
               - "curl -f http://localhost:8080/healthcheck || exit 1"
             Interval: 5
-            Retries: 1
+            Retries: 10
             Timeout: 2
           LogConfiguration:
             LogDriver: awslogs

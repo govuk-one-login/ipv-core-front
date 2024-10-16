@@ -1124,7 +1124,7 @@
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
         "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
-        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
     },
     "pyiTriageMobileDownload": {
@@ -1137,7 +1137,7 @@
         "paragraph3": "There will be instructions on what you need to do at each step.",
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1146,7 +1146,7 @@
         },
         "details3": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/next\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }
       }
     },
@@ -1177,6 +1177,24 @@
           "errorSummaryDescriptionTextAndroid": "Select if you are using a computer or tablet or using an Android",
           "errorRadioMessageIphone": "Select if you are using a computer or tablet or using an iPhone",
           "errorRadioMessageAndroid": "Select if you are using a computer or tablet or using an Android"
+        }
+      }
+    },
+    "pyiTriageBuffer": {
+      "title": "Are you sure you want to try to prove your identity another way?",
+      "header": "Are you sure you want to try to prove your identity another way?",
+      "content": {
+        "paragraph1": "There are other ways to prove your identity with GOV.UK One Login. The app may be the most suitable way if you have photo ID.",
+        "formRadioButtons": {
+          "heading": "What would you like to do?",
+          "anotherWay": "Try to prove your identity another way",
+          "anotherWayHint": "If you change your mind and want to use the app, you’ll have to start again.",
+          "back": "Go back and use GOV.UK One Login app"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to use to prove your identity",
+          "errorRadioMessage": "Select what you would like to use to prove your identity"
         }
       }
     },

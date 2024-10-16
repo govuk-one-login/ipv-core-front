@@ -717,7 +717,7 @@ Resources:
       TreatMissingData: ignore
       Metrics:
         - Id: "e1"
-          Expression: "FILL(m1, 0)"
+          Expression: "FILL(m1, REPEAT)"
           Label: "MaxFillInvocations"
           ReturnData: true
         - Id: "m1"
@@ -759,7 +759,7 @@ Resources:
       TreatMissingData: ignore
       Metrics:
         - Id: "e1"
-          Expression: "FILL(m1, 0)"
+          Expression: "FILL(m1, REPEAT)"
           Label: "MaxFillInvocations"
           ReturnData: true
         - Id: "m1"

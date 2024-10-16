@@ -712,8 +712,9 @@ Resources:
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"
-      Period: "60"
+      Period: 60
       Threshold: "40"
+      TreatMissingData: ignore
 
   CoreFrontStepScaleInAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -735,8 +736,9 @@ Resources:
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"
-      Period: "60"
+      Period: 60
       Threshold: "20"
+      TreatMissingData: ignore
 
 
   ECSAccessLogsGroup:

@@ -514,10 +514,10 @@ Resources:
       HealthCheckEnabled: True
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck/alb
-      HealthCheckTimeoutSeconds: 5 # Default for https
-      HealthCheckIntervalSeconds: 6 # Default for https
+      HealthCheckTimeoutSeconds: 20 # Default for https
+      HealthCheckIntervalSeconds: 21 # Default for https
       HealthyThresholdCount: 2
-      UnhealthyThresholdCount: 10
+      UnhealthyThresholdCount: 3
       Matcher:
         HttpCode: 200
       Port: 8080

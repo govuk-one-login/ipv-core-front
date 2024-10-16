@@ -66,7 +66,7 @@ const protectCfg = {
   production: false, // if production is false, detailed error messages are exposed to the client
   clientRetrySecs: 1, // Retry-After header, in seconds (0 to disable) [default 1]
   sampleInterval: 5, // sample rate, milliseconds [default 5]
-  maxEventLoopDelay: 42, // maximum detected delay between event loop ticks [default 42]
+  maxEventLoopDelay: 200, // maximum detected delay between event loop ticks [default 42]
   maxHeapUsedBytes: 0, // maximum heap used threshold (0 to disable) [default 0]
   maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
   errorPropagationMode: false, // dictate behavior: take over the response
@@ -76,7 +76,7 @@ const protectCfg = {
 }
 
 const protect = require('overload-protection')('express', protectCfg)
-//app.use(protect)  // Removed overload-protection from app, and moved to healcheck router.
+app.use(protect)  // Removed overload-protection from app, and moved to healthcheck router.
 
 app.enable("trust proxy");
 app.use(function (req, res, next) {
@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 });
 
 const healthcheckRouter = express.Router();
-healthcheckRouter.use(protect)
+
 healthcheckRouter.get("/", (req, res) => {
   logger.info(`Healthcheck returning 200 OK from ${req.ip}.`);
   return res.status(200).send("OK");

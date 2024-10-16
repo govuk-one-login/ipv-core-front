@@ -534,10 +534,10 @@ Resources:
           Value: false
         - Key: target_health_state.unhealthy.draining_interval_seconds
           Value: 35
+        - Key: target_group_health.dns_failover.minimum_healthy_targets.count
+          Value: 8
         - Key: target_group_health.unhealthy_state_routing.minimum_healthy_targets.count
           Value: 8
-        - Key: target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage
-          Value: 50
 
 
   PrivateLoadBalancerListener:
@@ -613,25 +613,25 @@ Resources:
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
 
-  CoreFrontAutoScalingPolicy:
-    DependsOn: CoreFrontAutoScalingTarget
-    Type: AWS::ApplicationAutoScaling::ScalingPolicy
-    Properties:
-      PolicyName: CoreFrontAutoScalingPolicy
-      PolicyType: TargetTrackingScaling
-      ResourceId: !Join
-        - '/'
-        - - "service"
-          - !Ref CoreFrontCluster
-          - !GetAtt CoreFrontService.Name
-      ScalableDimension: ecs:service:DesiredCount
-      ServiceNamespace: ecs
-      TargetTrackingScalingPolicyConfiguration:
-        PredefinedMetricSpecification:
-          PredefinedMetricType: ECSServiceAverageCPUUtilization
-        TargetValue: 45
-        ScaleInCooldown: 420
-        ScaleOutCooldown: 60
+  # CoreFrontAutoScalingPolicy:
+  #   DependsOn: CoreFrontAutoScalingTarget
+  #   Type: AWS::ApplicationAutoScaling::ScalingPolicy
+  #   Properties:
+  #     PolicyName: CoreFrontAutoScalingPolicy
+  #     PolicyType: TargetTrackingScaling
+  #     ResourceId: !Join
+  #       - '/'
+  #       - - "service"
+  #         - !Ref CoreFrontCluster
+  #         - !GetAtt CoreFrontService.Name
+  #     ScalableDimension: ecs:service:DesiredCount
+  #     ServiceNamespace: ecs
+  #     TargetTrackingScalingPolicyConfiguration:
+  #       PredefinedMetricSpecification:
+  #         PredefinedMetricType: ECSServiceAverageCPUUtilization
+  #       TargetValue: 45
+  #       ScaleInCooldown: 420
+  #       ScaleOutCooldown: 60
 
   CoreFrontStepScaleOutPolicy:
     DependsOn: CoreFrontAutoScalingTarget
@@ -653,22 +653,22 @@ Resources:
                      # Auto Scaling will evaluate all alarm breaches as they occur.
                      # A cooldown period is used to protect against over-scaling due to
                      # multiple alarm breaches occurring in rapid succession.
-        MinAdjustmentMagnitude: 3
+        MinAdjustmentMagnitude: 4
         StepAdjustments:
-          - MetricIntervalUpperBound: 20 # 80%
+          - MetricIntervalUpperBound: 20 # 60%
             ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
                                    # with <80% utilisation
-          - MetricIntervalLowerBound: 20 # 80%
-            MetricIntervalUpperBound: 30 # 90%
+          - MetricIntervalLowerBound: 20 # 60%
+            MetricIntervalUpperBound: 30 # 70%
             ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
                                    # with 80-90% utilisation
-          - MetricIntervalLowerBound: 30 # 90%
-            MetricIntervalUpperBound: 35 # 95%
+          - MetricIntervalLowerBound: 30 # 70%
+            MetricIntervalUpperBound: 35 # 75%
             ScalingAdjustment: 300 # Scale by 300% of containers if the metric is breached
-                                   # with 90-95% utilisation
-          - MetricIntervalLowerBound: 35 # 95%
+                                   # with 70-75% utilisation
+          - MetricIntervalLowerBound: 35 # 75%
             ScalingAdjustment: 500 # Scale by 500% of containers if the metric is breached
-                                   # with >95% utilisation
+                                   # with >75% utilisation
                                    # Note: CPU can scale greater than 100% in a burst mode
                                    # on Fargate, so leave the upper bound open
 
@@ -693,7 +693,7 @@ Resources:
                       # A cooldown period is used to protect against under-scaling due to
                       # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
-          - MetricIntervalUpperBound: -20 # 20%
+          - MetricIntervalUpperBound: 0 # 20%
             ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
 
   CoreFrontStepScaleOutAlarm:
@@ -703,7 +703,7 @@ Resources:
       ActionsEnabled: true
       AlarmActions:
         - !Ref CoreFrontStepScaleOutPolicy
-      AlarmDescription: "CoreFrontClusterOver60PercentCPU"
+      AlarmDescription: "CoreFrontClusterOver40PercentCPU"
       ComparisonOperator: "GreaterThanThreshold"
       DatapointsToAlarm: "1"
       Dimensions:
@@ -717,7 +717,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "40"
 
   CoreFrontStepScaleInAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -740,7 +740,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "40"
+      Threshold: "20"
 
 
   ECSAccessLogsGroup:
@@ -898,7 +898,7 @@ Resources:
               - "curl -f http://localhost:8080/healthcheck/ecs || exit 1"
             Interval: 5
             Retries: 10
-            Timeout: 2
+            Timeout: 5
           LogConfiguration:
             LogDriver: awslogs
             Options:

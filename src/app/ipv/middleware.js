@@ -282,7 +282,7 @@ function renderTechnicalError(request, response) {
 
 async function renderAttemptRecoveryPage(req, res) {
   return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-    csrfToken: req.csrfToken(),
+    csrfToken: req.csrfToken(true),
   });
 }
 
@@ -367,7 +367,7 @@ async function handleJourneyPageRequest(
 
     const renderOptions = {
       pageId,
-      csrfToken: req.csrfToken(),
+      csrfToken: req.csrfToken(true),
       context,
       pageErrorState,
     };
@@ -468,7 +468,7 @@ async function formHandleCoiDetailsCheck(req, res, next) {
       const renderOptions = {
         errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
         pageId: currentPage,
-        csrfToken: req.csrfToken(),
+        csrfToken: req.csrfToken(true),
         context: context,
       };
       if (pageRequiresUserDetails(currentPage)) {

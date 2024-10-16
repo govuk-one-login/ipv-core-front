@@ -28,7 +28,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
     return res.render(getIpvPageTemplatePath(pageId), {
       pageId: pageId,
-      csrfToken: req.csrfToken(),
+      csrfToken: req.csrfToken?.(true),
     });
   }
 

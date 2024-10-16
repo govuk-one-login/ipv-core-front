@@ -1,5 +1,4 @@
 import express from "express";
-import csrf from "csurf";
 import {
   allTemplatesGet,
   allTemplatesPost,
@@ -8,14 +7,8 @@ import {
 
 const router = express.Router();
 
-const csrfProtection = csrf({});
-
-router.post("/all-templates", csrfProtection, allTemplatesPost);
-router.get("/all-templates", csrfProtection, allTemplatesGet);
-router.get(
-  "/template/:templateId/:language",
-  csrfProtection,
-  templatesDisplayGet,
-);
+router.post("/all-templates", allTemplatesPost);
+router.get("/all-templates", allTemplatesGet);
+router.get("/template/:templateId/:language", templatesDisplayGet);
 
 export default router;

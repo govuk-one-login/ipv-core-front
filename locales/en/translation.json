@@ -251,7 +251,7 @@
           "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+          "otherWayButtonTextHint": "Go to the service you need to use and look for other ways to prove your identity."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -388,7 +388,7 @@
           "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+          "otherWayButtonTextHint": "Go to the service you need to use and look for other ways to prove your identity."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -565,7 +565,7 @@
       "content": {
         "paragraph1": "Based on what you told us, you cannot prove your identity with GOV.UK One Login.",
         "subHeading": "What you can do",
-        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
+        "paragraph2": "Go to the service you need to use and look for other ways to prove your identity."
       }
     },
     "pyiTriageSelectSmartphone": {
@@ -948,11 +948,10 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "Continue to the service you want to use",
-      "header": "Continue to the service you want to use",
+      "title": "Continue to the service you need to use",
+      "header": "Continue to the service you need to use",
       "content": {
-        "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
-        "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
+        "paragraph1": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },
@@ -1132,7 +1131,7 @@
         "circle": "2",
         "heading": "Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
-        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you need to use.",
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
         "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }

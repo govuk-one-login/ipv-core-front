@@ -511,7 +511,7 @@ Resources:
   PrivateLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
-      HealthCheckEnabled: TRUE
+      HealthCheckEnabled: False
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
       HealthCheckTimeoutSeconds: 2 # Default for https
@@ -1286,7 +1286,7 @@ Resources:
       Targets:
         - Id: !Ref PrivateLoadBalancer
       TargetType: alb
-      HealthCheckEnabled: true
+      HealthCheckEnabled: false
       HealthCheckPath: '/healthcheck'
       VpcId:
         Fn::ImportValue:

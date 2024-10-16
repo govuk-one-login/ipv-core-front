@@ -72,7 +72,7 @@ const protectCfg = {
   errorPropagationMode: false, // dictate behavior: take over the response
                               // or propagate an error to the framework [default false]
   logging: "info", // set to string for log level or function to pass data to
-  logStatsOnReq: false // set to true to log stats on every requests
+  logStatsOnReq: true // set to true to log stats on every requests
 }
 
 const protect = require('overload-protection')('express', protectCfg)

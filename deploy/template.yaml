@@ -511,13 +511,13 @@ Resources:
   PrivateLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
-      HealthCheckEnabled: False
+      HealthCheckEnabled: True
       HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      HealthCheckTimeoutSeconds: 2 # Default for https
-      HealthCheckIntervalSeconds: 5 # Default for https
+      HealthCheckPath: /healthcheck/alb
+      HealthCheckTimeoutSeconds: 5 # Default for https
+      HealthCheckIntervalSeconds: 6 # Default for https
       HealthyThresholdCount: 2
-      UnhealthyThresholdCount: 2
+      UnhealthyThresholdCount: 10
       Matcher:
         HttpCode: 200
       Port: 8080
@@ -529,7 +529,7 @@ Resources:
         # AWS suggests setting this higher than the idle timeout of the load balancer (default 60s) to prevent possible 504 errors
         # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
-          Value: 355
+          Value: 61
 
 
 
@@ -1286,7 +1286,7 @@ Resources:
       Targets:
         - Id: !Ref PrivateLoadBalancer
       TargetType: alb
-      HealthCheckEnabled: false
+      HealthCheckEnabled: True
       HealthCheckPath: '/healthcheck'
       VpcId:
         Fn::ImportValue:

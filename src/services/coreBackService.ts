@@ -32,6 +32,35 @@ export interface CriCallbackRequest {
   state?: string;
 }
 
+export interface CriResponse {
+  cri: {
+    id: string;
+    redirectUrl: string;
+  };
+}
+
+export interface PageResponse {
+  page: string;
+  statusCode?: string;
+  context?: string;
+  type?: string;
+  clientOAuthSessionId?: string;
+}
+
+export interface JourneyResponse {
+  journey: string;
+}
+
+export interface ClientResponse {
+  client: { redirectUrl: string };
+}
+
+export type PostJourneyEventResponse =
+  | JourneyResponse
+  | PageResponse
+  | CriResponse
+  | ClientResponse;
+
 const generateAxiosConfig = (url: string, req: Request): AxiosRequestConfig => {
   const personalDataHeaders = createPersonalDataHeaders(url, req);
   return {
@@ -57,7 +86,7 @@ export const postJourneyEvent = (
   req: Request,
   event: string,
   currentPage?: string,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   const requestConfig = generateAxiosConfig(
     `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${event}`,
     req,

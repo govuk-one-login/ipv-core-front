@@ -35,6 +35,10 @@ declare global {
   namespace Express {
     interface Request {
       generatedSessionId?: string;
+      cri?: {
+        id?: string;
+        redirectUrl?: string;
+      }
     }
   }
 }
@@ -42,12 +46,13 @@ declare global {
 // Extend session object with properties we expect
 declare module "express-session" {
   interface SessionData {
-    ipvSessionId: string;
-    clientOauthSessionId?: string;
+    ipvSessionId: string | null;
+    clientOauthSessionId?: string | null;
     currentPage?: string;
     context?: string;
     featureSet?: string;
     ipAddress?: string;
+    currentPageStatusCode?: string;
   }
 }
 

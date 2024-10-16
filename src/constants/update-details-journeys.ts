@@ -1,4 +1,4 @@
-const SUPPORTED_COMBO_EVENTS = Object.freeze({
+export const SUPPORTED_COMBO_EVENTS = Object.freeze({
   UPDATE_ADDRESS: "address-only",
   UPDATE_GIVEN_NAMES: "given-names-only",
   UPDATE_FAMILY_NAME: "family-name-only",
@@ -7,14 +7,13 @@ const SUPPORTED_COMBO_EVENTS = Object.freeze({
   UPDATE_CANCEL: "cancel",
 });
 
-const UNSUPPORTED_COMBO_EVENTS = Object.freeze({
+export const UNSUPPORTED_COMBO_EVENTS = Object.freeze({
   address: "address",
   givenNames: "given",
   familyName: "family",
   dateOfBirth: "dob",
-});
+}) satisfies Record<UpdateDetailsOptions, string>;
 
-module.exports = {
-  SUPPORTED_COMBO_EVENTS: SUPPORTED_COMBO_EVENTS,
-  UNSUPPORTED_COMBO_EVENTS: UNSUPPORTED_COMBO_EVENTS,
-};
+export type UpdateDetailsOptions = "address"| "givenNames" | "familyName" | "dateOfBirth";
+
+export type UpdateDetailsOptionsWithCancel = "cancel" | UpdateDetailsOptions;

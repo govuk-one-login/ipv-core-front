@@ -531,13 +531,11 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 61
         - Key: target_health_state.unhealthy.connection_termination.enabled
-          Value: true
-        - Key: target_health_state.unhealthy.connection_termination.enabled
           Value: false
         - Key: target_health_state.unhealthy.draining_interval_seconds
           Value: 35
         - Key: target_group_health.unhealthy_state_routing.minimum_healthy_targets.count
-          Value: !GetAtt CoreFrontAutoScalingTarget.MinCapacity
+          Value: 8
         - Key: target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage
           Value: 50
 

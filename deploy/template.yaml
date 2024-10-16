@@ -888,7 +888,7 @@ Resources:
           HealthCheck:
             Command:
               - "CMD-SHELL"
-              - "curl -f http://localhost:8080/healthcheck || exit 1"
+              - "curl -f http://localhost:8080/healthcheck/ecs || exit 1"
             Interval: 5
             Retries: 10
             Timeout: 2
@@ -1287,7 +1287,7 @@ Resources:
         - Id: !Ref PrivateLoadBalancer
       TargetType: alb
       HealthCheckEnabled: True
-      HealthCheckPath: '/healthcheck'
+      HealthCheckPath: '/healthcheck/nlb'
       VpcId:
         Fn::ImportValue:
           !Sub "${VpcStackName}-VpcId"

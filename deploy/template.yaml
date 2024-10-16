@@ -701,20 +701,20 @@ Resources:
         - !Ref CoreFrontStepScaleOutPolicy
       AlarmDescription: "CoreFrontClusterOver40PercentCPU"
       ComparisonOperator: "GreaterThanThreshold"
-      DatapointsToAlarm: "1"
+      DatapointsToAlarm: 1
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "1"
+      EvaluationPeriods: 1
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"
-      Period: 60
-      Threshold: "40"
-      TreatMissingData: ignore
+      Period: 10
+      Threshold: 40
+      TreatMissingData: breaching
 
   CoreFrontStepScaleInAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -725,20 +725,20 @@ Resources:
         - !Ref CoreFrontStepScaleInPolicy
       AlarmDescription: "CoreFrontClusterUnder60PercentCPU"
       ComparisonOperator: "LessThanThreshold"
-      DatapointsToAlarm: "2"
+      DatapointsToAlarm: 2
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "2"
+      EvaluationPeriods: 2
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"
-      Period: 60
-      Threshold: "20"
-      TreatMissingData: ignore
+      Period: 10
+      Threshold: 20
+      TreatMissingData: breaching
 
 
   ECSAccessLogsGroup:

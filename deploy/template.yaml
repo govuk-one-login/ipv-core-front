@@ -683,7 +683,7 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 120 # The policy will continue to respond to additional alarm breaches,
+        Cooldown: 60 # The policy will continue to respond to additional alarm breaches,
                       # even while a scaling activity is in progress. This means Application
                       # Auto Scaling will evaluate all alarm breaches as they occur.
                       # A cooldown period is used to protect against under-scaling due to
@@ -724,14 +724,14 @@ Resources:
         - !Ref CoreFrontStepScaleInPolicy
       AlarmDescription: "CoreFrontClusterUnder60PercentCPU"
       ComparisonOperator: "LessThanThreshold"
-      DatapointsToAlarm: "5"
+      DatapointsToAlarm: "2"
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "5"
+      EvaluationPeriods: "2"
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"

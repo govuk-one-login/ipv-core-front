@@ -66,7 +66,7 @@ const protectCfg = {
   production: false, // if production is false, detailed error messages are exposed to the client
   clientRetrySecs: 1, // Retry-After header, in seconds (0 to disable) [default 1]
   sampleInterval: 5, // sample rate, milliseconds [default 5]
-  maxEventLoopDelay: 100, // maximum detected delay between event loop ticks [default 42]
+  maxEventLoopDelay: 42, // maximum detected delay between event loop ticks [default 42]
   maxHeapUsedBytes: 0, // maximum heap used threshold (0 to disable) [default 0]
   maxRssBytes: 0, // maximum rss size threshold (0 to disable) [default 0]
   errorPropagationMode: false, // dictate behavior: take over the response
@@ -109,6 +109,22 @@ const healthcheckRouter = express.Router();
 healthcheckRouter.use(protect)
 healthcheckRouter.get("/", (req, res) => {
   logger.info(`Healthcheck returning 200 OK from ${req.ip}.`);
+  return res.status(200).send("OK");
+});
+healthcheckRouter.get("/docker", (req, res) => {
+  logger.info(`Docker Healthcheck returning 200 OK from ${req.ip}.`);
+  return res.status(200).send("OK");
+});
+healthcheckRouter.get("/ecs", (req, res) => {
+  logger.info(`ECS Healthcheck returning 200 OK from ${req.ip}.`);
+  return res.status(200).send("OK");
+});
+healthcheckRouter.get("/alb", (req, res) => {
+  logger.info(`ALB Healthcheck returning 200 OK from ${req.ip}.`);
+  return res.status(200).send("OK");
+});
+healthcheckRouter.get("/nlb", (req, res) => {
+  logger.info(`NLB Healthcheck returning 200 OK from ${req.ip}.`);
   return res.status(200).send("OK");
 });
 

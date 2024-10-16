@@ -1,9 +1,9 @@
 import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { Request } from "express";
+import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../lib/config";
-import { Request } from "express";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Logger } from "pino";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 

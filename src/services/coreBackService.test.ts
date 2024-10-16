@@ -20,7 +20,7 @@ describe("CoreBackService", () => {
   const axiosInstanceStub: AxiosInstance = {} as any;
   const passthroughHeaders: typeof import("@govuk-one-login/frontend-passthrough-headers") =
     {} as any;
-  let CoreBackService: typeof import("./coreBackService");
+  let coreBackService: typeof import("./coreBackService");
 
   const axiosStub = { createAxiosInstance: () => axiosInstanceStub };
 
@@ -45,7 +45,7 @@ describe("CoreBackService", () => {
       "x-forwarded-for": "127.0.0.2",
     });
 
-    CoreBackService = proxyquire("./coreBackService", {
+    coreBackService = proxyquire("./coreBackService", {
       "../lib/config": { default: configStub },
       "../app/shared/axiosHelper": axiosStub,
       "@govuk-one-login/frontend-passthrough-headers": passthroughHeaders,
@@ -57,7 +57,7 @@ describe("CoreBackService", () => {
     const event = "test_event";
 
     // Act
-    await CoreBackService.postJourneyEvent(req, event);
+    await coreBackService.postJourneyEvent(req, event);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
@@ -85,7 +85,7 @@ describe("CoreBackService", () => {
     const body = {} as InitialiseSessionRequest;
 
     // Act
-    await CoreBackService.postSessionInitialise(req, body);
+    await coreBackService.postSessionInitialise(req, body);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
@@ -113,7 +113,7 @@ describe("CoreBackService", () => {
     const body = {} as CriCallbackRequest;
 
     // Act
-    await CoreBackService.postCriCallback(req, body);
+    await coreBackService.postCriCallback(req, body);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWith(
@@ -138,7 +138,7 @@ describe("CoreBackService", () => {
 
   it("should getProvenIdentityUserDetails to retrieve user identity details", async () => {
     // Act
-    await CoreBackService.getProvenIdentityUserDetails(req);
+    await coreBackService.getProvenIdentityUserDetails(req);
 
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWith("/proven-identity", {

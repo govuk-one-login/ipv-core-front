@@ -36,7 +36,7 @@ export const allTemplatesGet: RequestHandler = async (req, res, next) => {
 
     res.render(getTemplatePath("development", "all-templates"), {
       templateRadioOptions: templateRadioOptions,
-      csrfToken: req.csrfToken(),
+      csrfToken: req.csrfToken?.(true),
     });
   } catch (error) {
     return next(error);
@@ -65,7 +65,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
 
   const renderOptions: Record<string, unknown> = {
     templateId,
-    csrfToken: req.csrfToken(),
+    csrfToken: req.csrfToken?.(true),
     context,
     errorState: req.query.errorState,
   };

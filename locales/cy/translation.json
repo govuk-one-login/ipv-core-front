@@ -425,44 +425,34 @@
       }
     },
     "pyiTriageSelectSmartphone": {
-      "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
-      "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "titleDad": "Tell us if you have access to an iPhone or Android phone",
+      "titleMam": "Tell us what smartphone you are using now",
+      "headerDad": "Tell us if you have access to an iPhone or Android phone",
+      "headerMam": "Tell us what smartphone you are using now",
       "content": {
-        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You’ll be shown how to download and use the app.",
-        "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
-        "iphone": {
-          "subHeading": "iPhone",
-          "paragraph": "You can use an iPhone if it:",
-          "conditions": [
-            "is an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
-            "is running iOS13 or higher"
-          ],
-          "infoLabel": "How do I know which iPhone I have?",
-          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
+        "subHeading1": "If your photo ID is a UK photocard driving licence",
+        "paragraph2": "You need an iPhone 6s or newer, or an Android phone.",
+        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
+        "paragraph3": "You need an iPhone 7 or newer, or an Android phone.",
+        "details": {
+          "summaryText": "How do I know which iPhone I have?",
+          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
         },
-        "android": {
-          "subHeading": "Android phone (for example, Samsung or Google Pixel)",
-          "paragraph": "You can use an Android phone if it:",
-          "conditions": [
-            "is running Android version 10 or higher",
-            "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contactless payments"
-          ],
-          "infoLabel": "How do I know which Android I have?",
-          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
-        },
-        "subHeadingSelectSmartphone": "Do you have one of these smartphones?",
+        "subHeading3Dad": "Do you have access to an iPhone or Android phone?",
+        "subHeading3Mam": "Are you on one of these phones?",
         "formRadioButtons": {
-          "iphoneButtonText": "Yes, I have an iPhone",
-          "androidButtonText": "Yes, I have an Android phone",
-          "neitherButtonText": "No"
+          "iphoneButtonTextDad": "Yes - I have access to an iPhone",
+          "iphoneButtonTextMam": "Yes - I’m on an iPhone",
+          "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
+          "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
+          "neitherButtonTextDad": "No",
+          "neitherButtonTextMam": "No - I’m on a computer, tablet or different phone"
         },
-        "subHeadingAppendix": "If you’re not sure you’ll be able to prove your identity with the app",
-        "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
-        "paragraphAppendix2": "You can also prove your identity in person at a Post Office.",
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
-          "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+          "errorSummaryDescriptionText": "Select if you are on an iPhone, Android phone or neither of these phones",
+          "errorRadioMessage": "Select if you are on an iPhone, Android phone or neither of these phones"
         }
       }
     },

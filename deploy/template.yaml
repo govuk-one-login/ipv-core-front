@@ -652,18 +652,18 @@ Resources:
         MinAdjustmentMagnitude: 4
         StepAdjustments:
           - MetricIntervalUpperBound: 20 # 60%
-            ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
-                                   # with <80% utilisation
+            ScalingAdjustment: 50 # Scale by 50% of containers if the metric is breached
+                                   # with <60% utilisation
           - MetricIntervalLowerBound: 20 # 60%
             MetricIntervalUpperBound: 30 # 70%
-            ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
-                                   # with 80-90% utilisation
+            ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
+                                   # with 60-70% utilisation
           - MetricIntervalLowerBound: 30 # 70%
             MetricIntervalUpperBound: 35 # 75%
-            ScalingAdjustment: 300 # Scale by 300% of containers if the metric is breached
+            ScalingAdjustment: 150 # Scale by 150% of containers if the metric is breached
                                    # with 70-75% utilisation
           - MetricIntervalLowerBound: 35 # 75%
-            ScalingAdjustment: 500 # Scale by 500% of containers if the metric is breached
+            ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
                                    # with >75% utilisation
                                    # Note: CPU can scale greater than 100% in a burst mode
                                    # on Fargate, so leave the upper bound open

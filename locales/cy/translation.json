@@ -251,7 +251,7 @@
           "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -388,7 +388,7 @@
           "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych am ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth."
+          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -554,7 +554,7 @@
       "content": {
         "paragraph1": "Yn seiliedig ar beth rydych wedi dweud wrthym, ni allwch brofi eich hunaniaeth gyda GOV.UK One Login.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi."
+        "paragraph2": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
       }
     },
     "pyiTimeoutRecoverable": {
@@ -1010,11 +1010,10 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
-      "header": "Parhau i’r gwasanaeth rydych am ei ddefnyddio",
+      "title": "Parhau i'r gwasanaeth rydych angen ei ddefnyddio",
+      "header": "Parhau i'r gwasanaeth rydych angen ei ddefnyddio",
       "content": {
-        "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych eisiau ei ddefnyddio.",
-        "paragraph1RepeatFraudCheck": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â'r gwasanaeth rydych angen ei ddefnyddio.",
+        "paragraph1": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â'r gwasanaeth rydych angen ei ddefnyddio.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },

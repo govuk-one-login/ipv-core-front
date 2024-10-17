@@ -1,4 +1,8 @@
 import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import {
+  NamePartClass,
+  PostalAddressClass,
+} from "@govuk-one-login/data-vocab/credentials.js";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Request } from "express";
 import { Logger } from "pino";
@@ -32,6 +36,42 @@ export interface CriCallbackRequest {
   state?: string;
 }
 
+export interface CriResponse {
+  cri: {
+    id: string;
+    redirectUrl: string;
+  };
+}
+
+export interface PageResponse {
+  page: string;
+  statusCode?: number;
+  context?: string;
+  type?: string;
+  clientOAuthSessionId?: string;
+}
+
+export interface JourneyResponse {
+  journey: string;
+}
+
+export interface ClientResponse {
+  client: { redirectUrl: string };
+}
+
+export type PostJourneyEventResponse =
+  | JourneyResponse
+  | PageResponse
+  | CriResponse
+  | ClientResponse;
+
+export interface ProvenUserIdentityDetails {
+  name: string;
+  dateOfBirth: string;
+  nameParts: NamePartClass[];
+  addresses: PostalAddressClass[];
+}
+
 const generateAxiosConfig = (url: string, req: Request): AxiosRequestConfig => {
   const personalDataHeaders = createPersonalDataHeaders(url, req);
   return {
@@ -57,7 +97,7 @@ export const postJourneyEvent = (
   req: Request,
   event: string,
   currentPage?: string,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   const requestConfig = generateAxiosConfig(
     `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${event}`,
     req,
@@ -104,7 +144,7 @@ export const postCriCallback = (
 
 export const getProvenIdentityUserDetails = (
   req: Request,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<ProvenUserIdentityDetails>> => {
   return axiosInstance.get(
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(

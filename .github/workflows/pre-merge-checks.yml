@@ -29,7 +29,11 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20.11.1
+          node-version: 20.11.sef
+      - name: Setup .npmrc
+        run: |
+          cp .npmrc.template .npmrc && \
+          sed -i s/GITHUB_PAT_WITH_READ:PACKAGES/${{ secrets.GITHUB_TOKEN }}/ .npmrc
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:

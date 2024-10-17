@@ -38,7 +38,8 @@ declare global {
       cri?: {
         id?: string;
         redirectUrl?: string;
-      }
+      };
+      redirectURL?: URL;
     }
   }
 }
@@ -52,7 +53,7 @@ declare module "express-session" {
     context?: string;
     featureSet?: string;
     ipAddress?: string;
-    currentPageStatusCode?: string;
+    currentPageStatusCode?: number;
   }
 }
 

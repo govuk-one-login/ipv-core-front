@@ -1,4 +1,8 @@
 import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import {
+  NamePartClass,
+  PostalAddressClass,
+} from "@govuk-one-login/data-vocab/credentials.js";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Request } from "express";
 import { Logger } from "pino";
@@ -41,7 +45,7 @@ export interface CriResponse {
 
 export interface PageResponse {
   page: string;
-  statusCode?: string;
+  statusCode?: number;
   context?: string;
   type?: string;
   clientOAuthSessionId?: string;
@@ -60,6 +64,13 @@ export type PostJourneyEventResponse =
   | PageResponse
   | CriResponse
   | ClientResponse;
+
+export interface ProvenUserIdentityDetails {
+  name: string;
+  dateOfBirth: string;
+  nameParts: NamePartClass[];
+  addresses: PostalAddressClass[];
+}
 
 const generateAxiosConfig = (url: string, req: Request): AxiosRequestConfig => {
   const personalDataHeaders = createPersonalDataHeaders(url, req);
@@ -133,7 +144,7 @@ export const postCriCallback = (
 
 export const getProvenIdentityUserDetails = (
   req: Request,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<ProvenUserIdentityDetails>> => {
   return axiosInstance.get(
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(

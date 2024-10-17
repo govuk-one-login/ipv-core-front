@@ -14,6 +14,10 @@ export const UNSUPPORTED_COMBO_EVENTS = Object.freeze({
   dateOfBirth: "dob",
 }) satisfies Record<UpdateDetailsOptions, string>;
 
-export type UpdateDetailsOptions = "address"| "givenNames" | "familyName" | "dateOfBirth";
+export type UpdateDetailsOptions =
+  | "address"
+  | "givenNames"
+  | "familyName"
+  | "dateOfBirth";
 
 export type UpdateDetailsOptionsWithCancel = "cancel" | UpdateDetailsOptions;

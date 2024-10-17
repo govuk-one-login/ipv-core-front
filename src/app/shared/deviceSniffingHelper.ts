@@ -6,7 +6,9 @@ import EVENTS from "../../constants/events";
 
 // The AppTriage event is special in that we want to send a more specialised version if we can detect the current
 // device type as being an Android phone or iPhone.
-export function detectAppTriageEvent(req: Request) {
+export const detectAppTriageEvent = (
+  req: Request,
+): (typeof EVENTS)[keyof typeof EVENTS] => {
   const detectedPhone = sniffPhoneType(req, null);
 
   switch (detectedPhone) {
@@ -17,9 +19,12 @@ export function detectAppTriageEvent(req: Request) {
     default:
       return EVENTS.APP_TRIAGE;
   }
-}
+};
 
-export const sniffPhoneType = (req: Request, fallback: string | null = null) => {
+export const sniffPhoneType = (
+  req: Request,
+  fallback: string | null = null,
+): string | null => {
   const parser = new UAParser(req.headers["user-agent"]);
 
   switch (parser.getOS()["name"]) {
@@ -30,4 +35,4 @@ export const sniffPhoneType = (req: Request, fallback: string | null = null) => 
     default:
       return fallback;
   }
-}
+};

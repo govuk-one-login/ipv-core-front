@@ -340,7 +340,7 @@ const renderAttemptRecoveryPage = async (
   res: Response,
 ): Promise<void> => {
   return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-    csrfToken: req.csrfToken(true),
+    csrfToken: req.csrfToken?.(true)
   });
 };
 
@@ -431,7 +431,7 @@ export const handleJourneyPageRequest = async (
 
     const renderOptions: Record<string, unknown> = {
       pageId,
-      csrfToken: req.csrfToken(true),
+      csrfToken: req.csrfToken?.(true),
       context,
       pageErrorState,
     };
@@ -555,7 +555,7 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
       const renderOptions: Record<string, unknown> = {
         errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
         pageId: currentPage,
-        csrfToken: req.csrfToken(true),
+        csrfToken: req.csrfToken?.(true),
         context: context,
       };
       if (pageRequiresUserDetails(currentPage)) {

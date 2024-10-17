@@ -33,7 +33,7 @@ jobs:
       - name: Setup .npmrc
         run: |
           cp .npmrc.template .npmrc && \
-          sed -i s/GITHUB_PAT_WITH_READ:PACKAGES/${{ secrets.GITHUB_TOKEN }}/ .npmrc
+          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:

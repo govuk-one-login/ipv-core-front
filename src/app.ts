@@ -28,6 +28,7 @@ import {
   cspHandler,
 } from "./handlers/security-headers-handler";
 import { csrfSynchronisedProtection } from "./lib/csrf";
+import notificationBannerHandler from "./handlers/notification-banner-handler";
 
 // Extend request object with our own extensions
 declare global {
@@ -79,6 +80,7 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(securityHeadersHandler);
+app.use(notificationBannerHandler);
 
 app.use("/public", express.static(path.resolve("dist/public")));
 app.use(

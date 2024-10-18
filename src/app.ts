@@ -80,7 +80,6 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(securityHeadersHandler);
-app.use(notificationBannerHandler);
 
 app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
@@ -147,6 +146,8 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+app.use(notificationBannerHandler);
 
 app.use((req, res, next) => {
   req.log = logger.child({

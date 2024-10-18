@@ -2,8 +2,9 @@ import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
 interface BannerConfig {
   pageId: string;
-  bannerType: string;
+  bannerType?: string;
   bannerMessage: string;
+  bannerMessageCy: string;
   startTime: number;
   endTime: number;
 }
@@ -14,8 +15,9 @@ export const getParameter = async (
   if (process.env.NODE_ENV === "local") {
     return {
       pageId: "/dev/template/confirm-your-details/en",
-      bannerType: "success",
-      bannerMessage: "This is a success banner",
+      bannerMessage: "<h3>Test banner</h3> <p>This is a test banner</p>",
+      bannerMessageCy:
+        "<h3>Welsh Test banner</h3> <p>This is a Welsh test banner</p>",
       startTime: Date.now(),
       endTime: Date.now() + 1000 * 60 * 60 * 24,
     };

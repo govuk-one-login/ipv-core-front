@@ -531,9 +531,9 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 61
         - Key: target_group_health.dns_failover.minimum_healthy_targets.count
-          Value: 8
+          Value: 4
         - Key: target_group_health.unhealthy_state_routing.minimum_healthy_targets.count
-          Value: 8
+          Value: 4
 
 
   PrivateLoadBalancerListener:
@@ -599,7 +599,7 @@ Resources:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
       MaxCapacity: 60
-      MinCapacity: 8
+      MinCapacity: 4
       ResourceId: !Join
         - '/'
         - - "service"

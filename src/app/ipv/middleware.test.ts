@@ -76,7 +76,7 @@ describe("journey middleware", () => {
       const newPageId = "new-page-id";
       const handler = middleware.setRequestPageId(newPageId);
 
-      await handler(req, next);
+      await handler(req, res, next);
 
       expect(req.params.pageId).to.equal(newPageId);
       expect(next).to.have.been.called;
@@ -1099,21 +1099,21 @@ describe("journey middleware", () => {
 
     it("should call next if featureSet is valid", async () => {
       req.query.featureSet = "F01";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(req.session.featureSet).to.equal("F01");
       expect(next).to.have.been.calledOnce;
     });
 
     it("should call next if comma separated multiple featureSet is valid", async () => {
       req.query.featureSet = "F01,D01";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(req.session.featureSet).to.equal("F01,D01");
       expect(next).to.have.been.calledOnce;
     });
 
     it("should throw an error if comma separated featureSet is invalid", async () => {
       req.query.featureSet = "F01, D01";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
@@ -1124,7 +1124,7 @@ describe("journey middleware", () => {
 
     it("should throw an error if comma not followed by text for featureSet is invalid", async () => {
       req.query.featureSet = "F01,";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
@@ -1135,7 +1135,7 @@ describe("journey middleware", () => {
 
     it("should throw an error if empty featureSet is invalid", async () => {
       req.query.featureSet = "";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
@@ -1146,7 +1146,7 @@ describe("journey middleware", () => {
 
     it("should throw an error if blank space featureSet is invalid", async () => {
       req.query.featureSet = " ";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
@@ -1157,7 +1157,7 @@ describe("journey middleware", () => {
 
     it("should throw an error if featureSet is invalid", async () => {
       req.query.featureSet = "invalid-featureset";
-      await middleware.validateFeatureSet(req, next);
+      await middleware.validateFeatureSet(req, res, next);
       expect(next).to.have.been.calledWith(
         sinon.match
           .instanceOf(Error)
@@ -1396,35 +1396,35 @@ describe("journey middleware", () => {
     describe("valid combinations of details to update", () => {
       it("should not set journey if detailsToUpdate is empty", async function () {
         req.body.detailsToUpdate = [];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(undefined);
       });
 
       it("should not set journey if detailsToUpdate is undefined", async function () {
         req.body.detailsToUpdate = undefined;
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(undefined);
       });
 
       it("should set journey to UPDATE_CANCEL if detailsToUpdate is cancel", async function () {
         req.body.detailsToUpdate = "cancel";
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL);
       });
 
       it("should set journey to undefined if detailsToUpdate is cancel and address", async function () {
         req.body.detailsToUpdate = ["cancel", "address"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(undefined);
       });
 
       it("should set journey to UPDATE_GIVEN_NAMES if detailsToUpdate is givenNames", async function () {
         req.body.detailsToUpdate = "givenNames";
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(
           SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES,
@@ -1433,7 +1433,7 @@ describe("journey middleware", () => {
 
       it("should set journey to UPDATE_FAMILY_NAME if detailsToUpdate is lastName", async function () {
         req.body.detailsToUpdate = ["familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(
           SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME,
@@ -1442,7 +1442,7 @@ describe("journey middleware", () => {
 
       it("should set journey to UPDATE_ADDRESS if detailsToUpdate is address", async function () {
         req.body.detailsToUpdate = "address";
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(
           SUPPORTED_COMBO_EVENTS.UPDATE_ADDRESS,
@@ -1451,7 +1451,7 @@ describe("journey middleware", () => {
 
       it("should set journey to UPDATE_GIVEN_NAME_ADDRESS if detailsToUpdate is givenNames and address", async function () {
         req.body.detailsToUpdate = ["givenNames", "address"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(
           SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES_ADDRESS,
@@ -1460,7 +1460,7 @@ describe("journey middleware", () => {
 
       it("should set journey to UPDATE_FAMILY_NAME_ADDRESS if detailsToUpdate is lastName and address", async function () {
         req.body.detailsToUpdate = ["familyName", "address"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal(
           SUPPORTED_COMBO_EVENTS.UPDATE_FAMILY_NAME_ADDRESS,
@@ -1471,43 +1471,43 @@ describe("journey middleware", () => {
     describe("invalid combinations of details to update", () => {
       it("should set journey to dob if detailsToUpdate is dateOfBirth", async function () {
         req.body.detailsToUpdate = ["dateOfBirth"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("dob");
       });
       it("should set journey to dob-given if detailsToUpdate is dateOfBirth and givenNames", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "givenNames"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("dob-given");
       });
       it("should set journey to dob-family if detailsToUpdate is dateOfBirth and familyName", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("dob-family");
       });
       it("should set journey to address-dob if detailsToUpdate is dateOfBirth and address", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "address"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("address-dob");
       });
       it("should set journey to dob-family-given if detailsToUpdate is dateOfBirth, givenNames and familyName", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "givenNames", "familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("dob-family-given");
       });
       it("should set journey to address-dob-given if detailsToUpdate is dateOfBirth, address and givenNames", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "address", "givenNames"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("address-dob-given");
       });
       it("should set journey to address-dob-family if detailsToUpdate is dateOfBirth, address and familyName", async function () {
         req.body.detailsToUpdate = ["dateOfBirth", "address", "familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("address-dob-family");
       });
@@ -1518,19 +1518,19 @@ describe("journey middleware", () => {
           "givenNames",
           "familyName",
         ];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("address-dob-family-given");
       });
       it("should set journey to family-given if detailsToUpdate is givenNames and familyName", async function () {
         req.body.detailsToUpdate = ["givenNames", "familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("family-given");
       });
       it("should set journey to address-family-given if detailsToUpdate is address, givenNames, familyName", async function () {
         req.body.detailsToUpdate = ["address", "givenNames", "familyName"];
-        await middleware.formHandleUpdateDetailsCheckBox(req, next);
+        await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
         expect(next).to.have.been.calledOnce;
         expect(req.body.journey).to.equal("address-family-given");
       });

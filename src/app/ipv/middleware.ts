@@ -189,7 +189,7 @@ const isValidClientResponse = (client: ClientResponse): boolean => {
   return true;
 };
 
-const checkForIpvAndOauthSessionId = (req: Request, res: Response): void => {
+export const checkForIpvAndOauthSessionId = (req: Request, res: Response): void => {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
     const err = new AxiosError(
       "req.ipvSessionId and req.clientOauthSessionId are both missing",
@@ -335,12 +335,12 @@ const renderTechnicalError = (request: Request, response: Response): void => {
   });
 };
 
-const renderAttemptRecoveryPage = async (
+export const renderAttemptRecoveryPage = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
   return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-    csrfToken: req.csrfToken?.(true)
+    csrfToken: req.csrfToken?.(true),
   });
 };
 
@@ -516,9 +516,10 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   }
 };
 
-export const formHandleUpdateDetailsCheckBox = async (
-  req: Request,
-  next: NextFunction,
+export const formHandleUpdateDetailsCheckBox: RequestHandler = async (
+  req,
+  res,
+  next,
 ): Promise<void> => {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
@@ -569,9 +570,10 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
   }
 };
 
-export const validateFeatureSet = async (
-  req: Request,
-  next: NextFunction,
+export const validateFeatureSet: RequestHandler = async (
+  req,
+  res,
+  next,
 ): Promise<void> => {
   try {
     const featureSet = req.query.featureSet as string;
@@ -590,12 +592,10 @@ export const validateFeatureSet = async (
 };
 
 // You can use this handler to set req.params.pageId to mimic the `:pageId` path parameter used in the more generic handlers.
-export const setRequestPageId = (pageId: string) => {
-  return async (req: Request, next: NextFunction) => {
+export const setRequestPageId = (pageId: string): RequestHandler => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     req.params = req.params || {};
     req.params.pageId = pageId;
     return next();
   };
 };
-
-export { renderAttemptRecoveryPage, checkForIpvAndOauthSessionId };

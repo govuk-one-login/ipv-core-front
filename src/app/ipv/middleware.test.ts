@@ -1195,60 +1195,34 @@ describe("journey middleware", () => {
       expect(next).to.have.been.calledOnce;
     });
 
-    it("should throw an error if comma separated featureSet is invalid", async () => {
-      req.query.featureSet = "F01, D01";
-      await middleware.validateFeatureSet(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
-      );
-      expect(req.session.featureSet).to.be.undefined;
-    });
+    const errorTestCases = [
+      {
+        scenario: "comma separated featureSet is invalid",
+        featureSet: "F01, D01",
+      },
+      {
+        scenario: "comma is not followed by text for featureSet",
+        featureSet: "F01,",
+      },
+      { scenario: "empty featureSet is provided", featureSet: "" },
+      { scenario: "blank featureSet is provided", featureSet: " " },
+      { scenario: "featureSet is invalid", featureSet: "invalid-featureset" },
+    ];
 
-    it("should throw an error if comma not followed by text for featureSet is invalid", async () => {
-      req.query.featureSet = "F01,";
-      await middleware.validateFeatureSet(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
-      );
-      expect(req.session.featureSet).to.be.undefined;
-    });
-
-    it("should throw an error if empty featureSet is invalid", async () => {
-      req.query.featureSet = "";
-      await middleware.validateFeatureSet(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
-      );
-      expect(req.session.featureSet).to.be.undefined;
-    });
-
-    it("should throw an error if blank space featureSet is invalid", async () => {
-      req.query.featureSet = " ";
-      await middleware.validateFeatureSet(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
-      );
-      expect(req.session.featureSet).to.be.undefined;
-    });
-
-    it("should throw an error if featureSet is invalid", async () => {
-      req.query.featureSet = "invalid-featureset";
-      await middleware.validateFeatureSet(req, res, next);
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
-      );
-      expect(req.session.featureSet).to.be.undefined;
-    });
+    errorTestCases.forEach(
+      ({ scenario, featureSet }: { scenario: string; featureSet: string }) => {
+        it(`should throw an error if ${scenario}`, async () => {
+          req.query.featureSet = featureSet;
+          await middleware.validateFeatureSet(req, res, next);
+          expect(next).to.have.been.calledWith(
+            sinon.match
+              .instanceOf(Error)
+              .and(sinon.match.has("message", "Invalid feature set ID")),
+          );
+          expect(req.session.featureSet).to.be.undefined;
+        });
+      },
+    );
   });
 
   context("renderFeatureSetPage", () => {

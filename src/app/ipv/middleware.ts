@@ -189,7 +189,10 @@ const isValidClientResponse = (client: ClientResponse): boolean => {
   return true;
 };
 
-export const checkForIpvAndOauthSessionId = (req: Request, res: Response): void => {
+export const checkForIpvAndOauthSessionId = (
+  req: Request,
+  res: Response,
+): void => {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
     const err = new AxiosError(
       "req.ipvSessionId and req.clientOauthSessionId are both missing",
@@ -239,8 +242,8 @@ const getCoiUpdateDetailsJourney = (
     detailsToUpdate.includes("dateOfBirth") ||
     (hasGivenNames && hasFamilyName)
   ) {
+    detailsToUpdate.sort((a, b) => a.localeCompare(b));
     return detailsToUpdate
-      .sort()
       .map(
         (details) => UNSUPPORTED_COMBO_EVENTS[details as UpdateDetailsOptions],
       )

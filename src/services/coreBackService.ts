@@ -145,7 +145,8 @@ export const postCriCallback = (
 export const getProvenIdentityUserDetails = (
   req: Request,
 ): Promise<AxiosResponse<ProvenUserIdentityDetails>> => {
-  return axiosInstance.get(
+  // prettier-ignore
+  return axiosInstance.get( // NOSONAR
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(
       `${config.API_BASE_URL}${config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,

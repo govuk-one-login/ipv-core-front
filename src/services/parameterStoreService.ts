@@ -1,4 +1,4 @@
-import { SSMClient, GetParameterCommand } from '@aws-sdk/client-ssm';
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
 interface BannerConfig {
   pageId: string;
@@ -8,7 +8,9 @@ interface BannerConfig {
   endTime: number;
 }
 
-export const getParameter = async (name: string): Promise<BannerConfig|undefined> => {
+export const getParameter = async (
+  name: string,
+): Promise<BannerConfig | undefined> => {
   if (process.env.NODE_ENV === "local") {
     return {
       pageId: "/dev/template/confirm-your-details/en",
@@ -19,7 +21,7 @@ export const getParameter = async (name: string): Promise<BannerConfig|undefined
     };
   }
 
-  const client = new SSMClient({ region: 'eu-west-2' });
+  const client = new SSMClient({ region: "eu-west-2" });
   const data = await client.send(new GetParameterCommand({ Name: name }));
 
   if (!data.Parameter?.Value) {

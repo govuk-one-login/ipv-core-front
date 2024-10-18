@@ -17,7 +17,8 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
     ) {
       res.locals.displayBanner = true;
       res.locals.bannerType = data.bannerType;
-      res.locals.bannerMessage = data.bannerMessage;
+      res.locals.bannerMessage =
+        req.i18n.language === "en" ? data.bannerMessage : data.bannerMessageCy;
     }
     next();
   } catch (err) {

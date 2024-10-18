@@ -147,24 +147,22 @@ describe("journey middleware", () => {
   });
 
   context("calling the journeyPage endpoint", () => {
-    beforeEach(() => {
-      req = {
-        id: "1",
-        url: "/ipv/page",
-        params: { pageId: "prove-identity-no-photo-id" },
-        session: {
-          ipvSessionId: "ipv-session-id",
-          ipAddress: "ip-address",
-          currentPage: "prove-identity-no-photo-id",
-          save: sinon.fake.yields(null),
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-        csrfToken: sinon.fake(),
-      } as any;
-    });
+    const testReq = {
+      id: "1",
+      url: "/ipv/page",
+      params: { pageId: "prove-identity-no-photo-id" },
+      session: {
+        ipvSessionId: "ipv-session-id",
+        ipAddress: "ip-address",
+        currentPage: "prove-identity-no-photo-id",
+        save: sinon.fake.yields(null),
+      },
+      log: { info: sinon.fake(), error: sinon.fake() },
+      csrfToken: sinon.fake(),
+    } as any;
 
     it("should render page case when given valid pageId", async () => {
-      await middleware.handleJourneyPageRequest(req, res, next);
+      await middleware.handleJourneyPageRequest(testReq, res, next);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
@@ -172,40 +170,68 @@ describe("journey middleware", () => {
     });
 
     it("should set the response status code from a value in the session if present", async () => {
-      req.session.currentPageStatusCode = 418;
+      const request = {...testReq, session: {...testReq.session, currentPageStatusCode: 418}}
 
-      await middleware.handleJourneyPageRequest(req, res, next);
+      await middleware.handleJourneyPageRequest(request, res, next);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
       );
       expect(res.status).to.have.been.calledWith(418);
-      expect(req.session.currentPageStatusCode).to.equal(undefined);
+      expect(testReq.session.currentPageStatusCode).to.equal(undefined);
     });
 
-    it("should render page not found error page when given invalid pageId", async () => {
-      req.params = { pageId: "page-this-is-invalid" };
-      req.session.currentPage = "page-this-is-invalid";
+    const errorPageScenarios = [
+      {
+        req: {...testReq, params: {...testReq.params, pageId: "invalid-page"}},
+        scenario: "invalid page id",
+        expectedPageRendered: "errors/page-not-found.njk",
+      },
+      {
+        req: {...testReq, params: {...testReq.params, pageId: "pyi-timeout-unrecoverable"}},
+        scenario: "unrecoverable timeout pageId",
+        expectedPageRendered: "ipv/page/pyi-timeout-unrecoverable.njk",
+      },
+      {
+        req: {...testReq, session: {...testReq.session, ipvSessionId: null}},
+        scenario: "ipvSessionId is null",
+        expectedPageRendered: "ipv/page/pyi-technical.njk",
+        context: "unrecoverable"
+      },
+      {
+        req: {...testReq, session: {...testReq.session, ipvSessionId: undefined}},
+        scenario: "ipvSessionId is undefined",
+        expectedPageRendered: "ipv/page/pyi-technical.njk",
+        context: "unrecoverable"
+      },
+    ];
 
-      await middleware.handleJourneyPageRequest(req, res, next);
+    errorPageScenarios.forEach(
+      ({
+        req,
+        scenario,
+        expectedPageRendered,
+        context
+      }: {
+        req: any
+        scenario: string;
+        expectedPageRendered: string;
+        context?: string;
+      }) => {
+        it(`should render ${expectedPageRendered} with context ${context} when given ${scenario}`, async () => {
+          await middleware.handleJourneyPageRequest(req, res, next);
 
-      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
-    });
+          const expectedArgs = [expectedPageRendered, ...(context ? [{context}] : [])]
 
-    it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
-      req.params = { pageId: "pyi-timeout-unrecoverable" };
-
-      await middleware.handleJourneyPageRequest(req, res, next);
-
-      expect(res.render).to.have.been.calledWith(
-        "ipv/page/pyi-timeout-unrecoverable.njk",
-      );
-    });
+          expect(res.render).to.have.been.calledWith(...expectedArgs);
+        });
+      },
+    );
 
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
-      req.session.currentPage = "page-multiple-doc-check";
+      const request = {...testReq, session: {...testReq.session, currentPage: "page-multiple-doc-check"}};
 
-      await middleware.handleJourneyPageRequest(req, res, next);
+      await middleware.handleJourneyPageRequest(testReq, res, next);
 
       expect(res.redirect).to.have.been.calledWith(
         "/ipv/page/pyi-attempt-recovery",
@@ -213,7 +239,7 @@ describe("journey middleware", () => {
     });
 
     it("should raise an error when missing params", async () => {
-      req = {
+      const req = {
         session: {
           ipvSessionId: "ipv-session-id",
           ipAddress: "ip-address",
@@ -248,7 +274,7 @@ describe("journey middleware", () => {
     });
   });
 
-  context("handling CRI event response", async () => {
+  context("handle event response", async () => {
     const redirectUrl = "https://someurl.com";
     let eventResponses = [] as { data: PostJourneyEventResponse }[];
     const clientId = "test-client-id";
@@ -257,6 +283,25 @@ describe("journey middleware", () => {
     const responseType = "code";
 
     beforeEach(() => {
+      req = {
+        id: "1",
+        body: { journey: "next" },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          currentPage: "page-ipv-identity-document-start",
+          save: sinon.fake.yields(null),
+        },
+        log: { info: sinon.fake(), error: sinon.fake() },
+        params: { pageId: "page-ipv-identity-document-start" },
+      } as any;
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it("should be redirected to a valid redirectURL given a valid CRI event response", async function () {
       eventResponses = [
         {
           data: {
@@ -267,16 +312,6 @@ describe("journey middleware", () => {
           },
         },
       ];
-      req = {
-        id: "1",
-        url: "/journey/next",
-        session: {
-          ipvSessionId: "ipv-session-id",
-          ipAddress: "ip-address",
-          save: sinon.fake.yields(null),
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      } as any;
 
       const callBack = sinon.stub();
       coreBackServiceStub.postJourneyEvent = callBack;
@@ -284,96 +319,54 @@ describe("journey middleware", () => {
       eventResponses.forEach((_, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
-    });
 
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it("should be redirected to a valid redirectURL", async function () {
       await middleware.processAction(req, res, "next");
       expect(res.redirect).to.have.been.calledWith(
         `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
       );
     });
-  });
 
-  context(
-    "handling CRI event response that has missing redirectUrl",
-    async () => {
-      let eventResponses = [] as { data: PostJourneyEventResponse }[];
-
-      beforeEach(() => {
-        eventResponses = [
-          {
-            data: {
-              cri: {
-                id: "someid3",
-                redirectUrl: "",
-              },
+    it("should raise an error given an empty redirectURl", async () => {
+      eventResponses = [
+        {
+          data: {
+            cri: {
+              id: "someid",
+              redirectUrl: ""
             },
           },
-        ];
-        req = {
-          id: "1",
-          body: { journey: "next" },
-          session: {
-            ipvSessionId: "ipv-session-id",
-            ipAddress: "ip-address",
-            currentPage: "page-ipv-identity-document-start",
-            save: sinon.fake.yields(null),
-          },
-          log: { info: sinon.fake(), error: sinon.fake() },
-          params: { pageId: "page-ipv-identity-document-start" },
-        } as any;
+        },
+      ];
 
-        const callBack = sinon.stub();
-        coreBackServiceStub.postJourneyEvent = callBack;
+      const callBack = sinon.stub();
+      coreBackServiceStub.postJourneyEvent = callBack;
 
-        eventResponses.forEach((er, index) => {
-          callBack.onCall(index).returns(eventResponses[index]);
-        });
+      eventResponses.forEach((_, index) => {
+        callBack.onCall(index).returns(eventResponses[index]);
       });
 
-      it("should raise an error ", async () => {
-        await middleware.handleJourneyActionRequest(req, res, next);
-        expect(next).to.have.been.calledWith(
-          sinon.match.has("message", "CRI response RedirectUrl is missing"),
-        );
-      });
-    },
-  );
+      await middleware.handleJourneyActionRequest(req, res, next);
+      expect(next).to.have.been.calledWith(
+        sinon.match.has("message", "CRI response RedirectUrl is missing"),
+      );
+    });
 
-  context("handling Client event response", () => {
-    const redirectUrl = "https://someurl.org";
+    it("should be redirected to a valid Client URL given a valid Client event response", async function () {
+      const redirectUrl = "https://someurl.org";
+      const callBack = sinon.stub();
 
-    const callBack = sinon.stub();
-
-    beforeEach(() => {
       coreBackServiceStub.postJourneyEvent = callBack;
 
       callBack.onCall(0).returns({
         data: { client: { redirectUrl: redirectUrl } },
       });
 
-      req = {
-        id: "1",
-        session: {
-          ipvSessionId: "ipv-session-id",
-          ipAddress: "ip-address",
-          save: sinon.fake.yields(null),
-        },
-        log: { info: sinon.fake(), error: sinon.fake() },
-      } as any;
-    });
-
-    it("should be redirected to a valid Client URL", async function () {
       req.session.clientOauthSessionId = "fake-client-session";
       await middleware.processAction(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
       expect(req.session.clientOauthSessionId).to.be.undefined;
     });
-  });
+  })
 
   context("handling identify-device page response", () => {
     beforeEach(() => {

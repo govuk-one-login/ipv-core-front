@@ -35,11 +35,6 @@ declare global {
   namespace Express {
     interface Request {
       generatedSessionId?: string;
-      cri?: {
-        id?: string;
-        redirectUrl?: string;
-      };
-      redirectURL?: URL;
     }
   }
 }
@@ -48,7 +43,7 @@ declare global {
 declare module "express-session" {
   interface SessionData {
     ipvSessionId: string | null;
-    clientOauthSessionId?: string | null;
+    clientOauthSessionId?: string;
     currentPage?: string;
     context?: string;
     featureSet?: string;

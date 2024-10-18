@@ -11,6 +11,6 @@ export const saveSessionAndRedirect = (
       logError(req, err, "Error saving session");
       throw err;
     }
-    return res.redirect(redirectUrl);
+    return new Promise(() => res.redirect(redirectUrl));
   });
 };

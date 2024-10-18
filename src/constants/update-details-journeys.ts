@@ -12,7 +12,7 @@ export const UNSUPPORTED_COMBO_EVENTS = Object.freeze({
   givenNames: "given",
   familyName: "family",
   dateOfBirth: "dob",
-}) satisfies Record<UpdateDetailsOptions, string>;
+});
 
 export type UpdateDetailsOptions =
   | "address"

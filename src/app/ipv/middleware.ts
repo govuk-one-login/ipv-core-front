@@ -4,10 +4,6 @@ import { AxiosError, AxiosResponse } from "axios";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
 
 import config from "../../lib/config";
-import {
-  buildCredentialIssuerRedirectURL,
-  redirectToAuthorize,
-} from "../shared/criHelper";
 import { logError, transformError } from "../shared/loggerHelper";
 import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
 import { HTTP_STATUS_CODES } from "../../app.constants";
@@ -15,13 +11,8 @@ import fs from "fs";
 import path from "path";
 import { saveSessionAndRedirect } from "../shared/redirectHelper";
 import {
-  PostJourneyEventResponse,
   postJourneyEvent,
   getProvenIdentityUserDetails,
-  CriResponse,
-  ClientResponse,
-  JourneyResponse,
-  PageResponse,
 } from "../../services/coreBackService";
 import qrCodeHelper from "../shared/qrCodeHelper";
 import PHONE_TYPES from "../../constants/phone-types";
@@ -45,6 +36,15 @@ import {
   detectAppTriageEvent,
 } from "../shared/deviceSniffingHelper";
 import ERROR_PAGES from "../../constants/error-pages";
+import {
+  ClientResponse,
+  CriResponse,
+  isClientResponse,
+  isCriResponse,
+  isJourneyResponse,
+  isPageResponse,
+  PostJourneyEventResponse,
+} from "../validators/postJourneyEventResponse";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -68,30 +68,16 @@ const journeyApi = async (
   return postJourneyEvent(req, action, currentPageId);
 };
 
-const fetchUserDetails = async (req: Request): Promise<UserDetails> => {
+const fetchUserDetails = async (
+  req: Request,
+): Promise<UserDetails | undefined> => {
   const userDetailsResponse = await getProvenIdentityUserDetails(req);
 
-  return generateUserDetails(userDetailsResponse, req.i18n);
-};
+  if (!userDetailsResponse.data) {
+    return undefined;
+  }
 
-const isJourneyResponse = (
-  res: PostJourneyEventResponse,
-): res is JourneyResponse => {
-  return (res as JourneyResponse).journey !== undefined;
-};
-
-const isCriResponse = (res: PostJourneyEventResponse): res is CriResponse => {
-  return (res as CriResponse).cri !== undefined;
-};
-
-const isClientResponse = (
-  res: PostJourneyEventResponse,
-): res is ClientResponse => {
-  return (res as ClientResponse).client !== undefined;
-};
-
-const isPageResponse = (res: PostJourneyEventResponse): res is PageResponse => {
-  return (res as PageResponse).page !== undefined;
+  return generateUserDetails(userDetailsResponse.data, req.i18n);
 };
 
 export const processAction = async (
@@ -115,10 +101,9 @@ export const handleBackendResponse = async (
   }
 
   if (isCriResponse(backendResponse) && isValidCriResponse(backendResponse)) {
-    req.cri = backendResponse.cri;
-    req.session.currentPage = req.cri.id;
-    await buildCredentialIssuerRedirectURL(req, res);
-    return redirectToAuthorize(req, res);
+    req.session.currentPage = backendResponse.cri.id;
+    const redirectUrl = backendResponse.cri.redirectUrl;
+    return res.redirect(redirectUrl);
   }
 
   if (
@@ -134,10 +119,10 @@ export const handleBackendResponse = async (
     req.log.info({ message, level: "INFO", requestId: req.id });
 
     if (req?.session?.clientOauthSessionId) {
-      req.session.clientOauthSessionId = null;
+      req.session.clientOauthSessionId = undefined;
     }
 
-    req.session.ipvSessionId = null;
+    req.session.ipvSessionId = undefined;
     const { redirectUrl } = backendResponse.client;
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
@@ -265,12 +250,12 @@ const getCoiUpdateDetailsJourney = (
   }
 };
 
-function isInvalidDetailsToUpdate(detailsToUpdate: string[]): boolean {
+const isInvalidDetailsToUpdate = (detailsToUpdate: string[]): boolean => {
   return (
     !detailsToUpdate ||
     (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
   );
-}
+};
 
 export const pageRequiresUserDetails = (pageId: string): boolean => {
   return [
@@ -523,7 +508,7 @@ export const formHandleUpdateDetailsCheckBox: RequestHandler = async (
   req,
   res,
   next,
-): Promise<void> => {
+) => {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
     return next();
@@ -543,7 +528,6 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
     if (!currentPage) {
       throw new Error("currentPage cannot be empty");
     }
-
     if (req.body.detailsCorrect === "yes") {
       // user has selected that their details are correct
       req.body.journey = "next";
@@ -573,11 +557,7 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
   }
 };
 
-export const validateFeatureSet: RequestHandler = async (
-  req,
-  res,
-  next,
-): Promise<void> => {
+export const validateFeatureSet: RequestHandler = async (req, res, next) => {
   try {
     const featureSet = req.query.featureSet as string;
     const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);

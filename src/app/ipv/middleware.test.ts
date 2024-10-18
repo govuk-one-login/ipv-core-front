@@ -12,7 +12,7 @@ import {
   IDENTIFY_DEVICE,
   PROVE_IDENTITY_NO_PHOTO_ID,
 } from "../../constants/ipv-pages";
-import { PostJourneyEventResponse } from "../../services/coreBackService";
+import { PostJourneyEventResponse } from "../validators/postJourneyEventResponse";
 
 describe("journey middleware", () => {
   let req: Request;
@@ -34,15 +34,9 @@ describe("journey middleware", () => {
       "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
   };
 
-  const sharedCriHelper = proxyquire("../shared/criHelper", {
-    "../../services/coreBackService": coreBackServiceStub,
-    "../../lib/config": { default: configStub },
-  });
-
   const middleware: typeof import("./middleware") = proxyquire("./middleware", {
     "../../services/coreBackService": coreBackServiceStub,
     "../../lib/config": { default: configStub },
-    "../shared/../shared/criHelper": sharedCriHelper,
   });
 
   beforeEach(() => {
@@ -298,9 +292,8 @@ describe("journey middleware", () => {
 
     it("should be redirected to a valid redirectURL", async function () {
       await middleware.processAction(req, res, "next");
-      expect(req.redirectURL).to.not.equal(undefined);
-      expect(req.redirectURL && req.redirectURL.toString()).to.equal(
-        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code", // pragma: allowlist secret
+      expect(res.redirect).to.have.been.calledWith(
+        `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
       );
     });
   });
@@ -378,7 +371,7 @@ describe("journey middleware", () => {
       req.session.clientOauthSessionId = "fake-client-session";
       await middleware.processAction(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
-      expect(req.session.clientOauthSessionId).to.be.null;
+      expect(req.session.clientOauthSessionId).to.be.undefined;
     });
   });
 
@@ -1573,17 +1566,14 @@ describe("journey middleware", () => {
           errorState: "radiobox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
-          userDetails: {
-            name: undefined,
-            nameParts: { givenName: undefined, familyName: undefined },
-            dateOfBirth: undefined,
-            addresses: undefined,
-          },
+          userDetails: undefined,
         },
       );
     });
     it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
-      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves(
+        {},
+      );
       req.body.detailsToUpdate = "";
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
@@ -1598,12 +1588,7 @@ describe("journey middleware", () => {
           errorState: "checkbox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
-          userDetails: {
-            name: undefined,
-            nameParts: { givenName: undefined, familyName: undefined },
-            dateOfBirth: undefined,
-            addresses: undefined,
-          },
+          userDetails: undefined,
         },
       );
     });

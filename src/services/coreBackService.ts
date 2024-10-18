@@ -8,6 +8,7 @@ import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../lib/config";
+import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 
@@ -35,35 +36,6 @@ export interface CriCallbackRequest {
   redirectUri: string;
   state?: string;
 }
-
-export interface CriResponse {
-  cri: {
-    id: string;
-    redirectUrl: string;
-  };
-}
-
-export interface PageResponse {
-  page: string;
-  statusCode?: number;
-  context?: string;
-  type?: string;
-  clientOAuthSessionId?: string;
-}
-
-export interface JourneyResponse {
-  journey: string;
-}
-
-export interface ClientResponse {
-  client: { redirectUrl: string };
-}
-
-export type PostJourneyEventResponse =
-  | JourneyResponse
-  | PageResponse
-  | CriResponse
-  | ClientResponse;
 
 export interface ProvenUserIdentityDetails {
   name: string;
@@ -146,7 +118,7 @@ export const getProvenIdentityUserDetails = (
   req: Request,
 ): Promise<AxiosResponse<ProvenUserIdentityDetails>> => {
   // prettier-ignore
-  return axiosInstance.get( // NOSONAR
+  return axiosInstance.get(
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(
       `${config.API_BASE_URL}${config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS}`,

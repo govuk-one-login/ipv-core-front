@@ -1,8 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
+
 const router = express.Router();
 
-const {
+import {
   renderAttemptRecoveryPage,
   updateJourneyState,
   handleJourneyPageRequest,
@@ -15,20 +16,20 @@ const {
   checkFormRadioButtonSelected,
   handleAppStoreRedirect,
   setRequestPageId,
-} = require("./middleware");
+} from "./middleware";
 
-const {
+import {
   PYI_ATTEMPT_RECOVERY,
   UPDATE_DETAILS,
   CONFIRM_DETAILS,
   PAGE_IPV_IDENTITY_DOCUMENT_TYPES,
-} = require("../../constants/ipv-pages");
+} from "../../constants/ipv-pages";
 
 const parseForm = bodyParser.urlencoded({ extended: false });
 
-function getPagePath(pageId) {
+const getPagePath = (pageId: string): string => {
   return `/page/${pageId}`;
-}
+};
 
 router.get(getPagePath(PYI_ATTEMPT_RECOVERY), renderAttemptRecoveryPage);
 
@@ -72,4 +73,4 @@ router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
 // This is needed because some redirects must be done with links, not forms
 router.get("/journey/:pageId/:action", updateJourneyState);
 
-module.exports = router;
+export default router;

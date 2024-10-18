@@ -170,7 +170,10 @@ describe("journey middleware", () => {
     });
 
     it("should set the response status code from a value in the session if present", async () => {
-      const request = {...testReq, session: {...testReq.session, currentPageStatusCode: 418}}
+      const request = {
+        ...testReq,
+        session: { ...testReq.session, currentPageStatusCode: 418 },
+      };
 
       await middleware.handleJourneyPageRequest(request, res, next);
 
@@ -183,26 +186,38 @@ describe("journey middleware", () => {
 
     const errorPageScenarios = [
       {
-        req: {...testReq, params: {...testReq.params, pageId: "invalid-page"}},
+        req: {
+          ...testReq,
+          params: { ...testReq.params, pageId: "invalid-page" },
+        },
         scenario: "invalid page id",
         expectedPageRendered: "errors/page-not-found.njk",
       },
       {
-        req: {...testReq, params: {...testReq.params, pageId: "pyi-timeout-unrecoverable"}},
+        req: {
+          ...testReq,
+          params: { ...testReq.params, pageId: "pyi-timeout-unrecoverable" },
+        },
         scenario: "unrecoverable timeout pageId",
         expectedPageRendered: "ipv/page/pyi-timeout-unrecoverable.njk",
       },
       {
-        req: {...testReq, session: {...testReq.session, ipvSessionId: null}},
+        req: {
+          ...testReq,
+          session: { ...testReq.session, ipvSessionId: null },
+        },
         scenario: "ipvSessionId is null",
         expectedPageRendered: "ipv/page/pyi-technical.njk",
-        context: "unrecoverable"
+        context: "unrecoverable",
       },
       {
-        req: {...testReq, session: {...testReq.session, ipvSessionId: undefined}},
+        req: {
+          ...testReq,
+          session: { ...testReq.session, ipvSessionId: undefined },
+        },
         scenario: "ipvSessionId is undefined",
         expectedPageRendered: "ipv/page/pyi-technical.njk",
-        context: "unrecoverable"
+        context: "unrecoverable",
       },
     ];
 
@@ -211,9 +226,9 @@ describe("journey middleware", () => {
         req,
         scenario,
         expectedPageRendered,
-        context
+        context,
       }: {
-        req: any
+        req: any;
         scenario: string;
         expectedPageRendered: string;
         context?: string;
@@ -221,7 +236,10 @@ describe("journey middleware", () => {
         it(`should render ${expectedPageRendered} with context ${context} when given ${scenario}`, async () => {
           await middleware.handleJourneyPageRequest(req, res, next);
 
-          const expectedArgs = [expectedPageRendered, ...(context ? [{context}] : [])]
+          const expectedArgs = [
+            expectedPageRendered,
+            ...(context ? [{ context }] : []),
+          ];
 
           expect(res.render).to.have.been.calledWith(...expectedArgs);
         });
@@ -229,9 +247,12 @@ describe("journey middleware", () => {
     );
 
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
-      const request = {...testReq, session: {...testReq.session, currentPage: "page-multiple-doc-check"}};
+      const request = {
+        ...testReq,
+        session: { ...testReq.session, currentPage: "page-multiple-doc-check" },
+      };
 
-      await middleware.handleJourneyPageRequest(testReq, res, next);
+      await middleware.handleJourneyPageRequest(request, res, next);
 
       expect(res.redirect).to.have.been.calledWith(
         "/ipv/page/pyi-attempt-recovery",
@@ -332,7 +353,7 @@ describe("journey middleware", () => {
           data: {
             cri: {
               id: "someid",
-              redirectUrl: ""
+              redirectUrl: "",
             },
           },
         },
@@ -366,7 +387,7 @@ describe("journey middleware", () => {
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
       expect(req.session.clientOauthSessionId).to.be.undefined;
     });
-  })
+  });
 
   context("handling identify-device page response", () => {
     beforeEach(() => {
@@ -1538,13 +1559,6 @@ describe("journey middleware", () => {
       } as any;
     });
 
-    it("should set journey to next if detailsCorrect is yes", async function () {
-      req.body.detailsToUpdate = [];
-      req.body.detailsCorrect = "yes";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("next");
-    });
     it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
       coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       await middleware.formHandleCoiDetailsCheck(req, res, next);
@@ -1563,6 +1577,7 @@ describe("journey middleware", () => {
         },
       );
     });
+
     it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
       coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves(
         {},
@@ -1586,141 +1601,114 @@ describe("journey middleware", () => {
       );
     });
 
-    describe("valid combinations of attributes", () => {
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is address", async function () {
-        req.body.detailsToUpdate = "address";
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-only");
-      });
+    const updateDetailsCombosTestData = [
+      {
+        detailsToUpdate: [],
+        detailsCorrect: "yes",
+        expectedJourney: "next",
+      },
+      {
+        detailsToUpdate: "address",
+        detailsCorrect: "no",
+        expectedJourney: "address-only",
+      },
+      {
+        detailsToUpdate: ["givenNames"],
+        detailsCorrect: "no",
+        expectedJourney: "given-names-only",
+      },
+      {
+        detailsToUpdate: ["familyName"],
+        detailsCorrect: "no",
+        expectedJourney: "family-name-only",
+      },
+      {
+        detailsToUpdate: ["givenNames", "address"],
+        detailsCorrect: "no",
+        expectedJourney: "given-names-and-address",
+      },
+      {
+        detailsToUpdate: ["familyName", "address"],
+        detailsCorrect: "no",
+        expectedJourney: "family-name-and-address",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth"],
+        detailsCorrect: "no",
+        expectedJourney: "dob",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "givenNames"],
+        detailsCorrect: "no",
+        expectedJourney: "dob-given",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "familyName"],
+        detailsCorrect: "no",
+        expectedJourney: "dob-family",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "address"],
+        detailsCorrect: "no",
+        expectedJourney: "address-dob",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "givenNames", "familyName"],
+        detailsCorrect: "no",
+        expectedJourney: "dob-family-given",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "address", "givenNames"],
+        detailsCorrect: "no",
+        expectedJourney: "address-dob-given",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "address", "familyName"],
+        detailsCorrect: "no",
+        expectedJourney: "address-dob-family",
+      },
+      {
+        detailsToUpdate: ["dateOfBirth", "address", "givenNames", "familyName"],
+        detailsCorrect: "no",
+        expectedJourney: "address-dob-family-given",
+      },
+      {
+        detailsToUpdate: ["familyName", "givenNames"],
+        detailsCorrect: "no",
+        expectedJourney: "family-given",
+      },
+      {
+        detailsToUpdate: ["address", "familyName", "givenNames"],
+        detailsCorrect: "no",
+        expectedJourney: "address-family-given",
+      },
+      {
+        detailsToUpdate: ["familyName", "givenNames"],
+        detailsCorrect: "yes",
+        expectedJourney: "next",
+      },
+    ];
 
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames", async function () {
-        req.body.detailsToUpdate = ["givenNames"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("given-names-only");
-      });
+    updateDetailsCombosTestData.forEach(
+      ({
+        detailsToUpdate,
+        detailsCorrect,
+        expectedJourney,
+      }: {
+        detailsToUpdate: string | string[];
+        detailsCorrect: string;
+        expectedJourney: string;
+      }) => {
+        it(`should set the journey to ${expectedJourney} id detailsCorrect is ${detailsCorrect} and detailsToUpdate is ${detailsToUpdate}`, async () => {
+          req.body.detailsToUpdate = detailsToUpdate;
+          req.body.detailsCorrect = detailsCorrect;
+          await middleware.formHandleCoiDetailsCheck(req, res, next);
+          expect(next).to.have.been.calledOnce;
+          expect(req.body.journey).to.equal(expectedJourney);
+        });
+      },
+    );
 
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName", async function () {
-        req.body.detailsToUpdate = ["familyName"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("family-name-only");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames and address", async function () {
-        req.body.detailsToUpdate = ["givenNames", "address"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("given-names-and-address");
-      });
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is familyName and address", async function () {
-        req.body.detailsToUpdate = ["familyName", "address"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("family-name-and-address");
-      });
-    });
-
-    describe("invalid combinations of attributes", () => {
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("dob");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and givenNames", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "givenNames"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("dob-given");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and familyName", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "familyName"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("dob-family");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth and address", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "address"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-dob");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, givenNames and familyName", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "givenNames", "familyName"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("dob-family-given");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address and givenNames", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "address", "givenNames"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-dob-given");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address and familyName", async function () {
-        req.body.detailsToUpdate = ["dateOfBirth", "address", "familyName"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-dob-family");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is dateOfBirth, address, givenNames and familyName", async function () {
-        req.body.detailsToUpdate = [
-          "dateOfBirth",
-          "address",
-          "givenNames",
-          "familyName",
-        ];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-dob-family-given");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames, familyName", async function () {
-        req.body.detailsToUpdate = ["familyName", "givenNames"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("family-given");
-      });
-
-      it("should set correct journey if detailsCorrect is no and detailsToUpdate is givenNames, familyName, address", async function () {
-        req.body.detailsToUpdate = ["address", "familyName", "givenNames"];
-        req.body.detailsCorrect = "no";
-        await middleware.formHandleCoiDetailsCheck(req, res, next);
-        expect(next).to.have.been.calledOnce;
-        expect(req.body.journey).to.equal("address-family-given");
-      });
-    });
-
-    it("should set correct journey if detailsCorrect is yes and detailsToUpdate is not empty", async function () {
-      req.body.detailsToUpdate = ["familyName", "givenNames"];
-      req.body.detailsCorrect = "yes";
-      await middleware.formHandleCoiDetailsCheck(req, res, next);
-      expect(next).to.have.been.calledOnce;
-      expect(req.body.journey).to.equal("next");
-    });
     it("should not get user details if the page does not require it", async function () {
       coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       req.session.currentPage = "check-name-date-birth";

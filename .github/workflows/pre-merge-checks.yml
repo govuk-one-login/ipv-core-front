@@ -60,7 +60,8 @@ jobs:
   browser-tests:
     name: Run browser tests
     runs-on: ubuntu-latest
-    permissions: {}
+    permissions:
+      packages: read
     defaults:
       run:
         shell: bash
@@ -68,6 +69,10 @@ jobs:
     steps:
       - name: Pull repository
         uses: actions/checkout@v4
+      - name: Setup .npmrc
+        run: |
+          cp ../.npmrc.template ../.npmrc && \
+          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ ../.npmrc
       - name: Run browser tests
         run: docker compose up --exit-code-from browser-tests-tests
       - name: Upload test artifacts

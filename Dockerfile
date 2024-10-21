@@ -28,7 +28,7 @@ COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 # Add in dynatrace layer
 COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
 ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
-ENV DT_HOST_ID="CORE-FRONT-${HOSTNAME}"
+ENV DT_HOST_ID="CORE-FRONT-`openssl rand -base64 12`"
 
 ENV PORT=8080
 
@@ -37,6 +37,6 @@ HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
 
 EXPOSE 8080
 
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini", "--"]
 
 CMD ["npm", "start"]

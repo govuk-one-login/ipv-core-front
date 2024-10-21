@@ -1,4 +1,4 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
 import sanitize from "sanitize-filename";
 import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
@@ -9,9 +9,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return next(err);
   }
 
-  res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
-
-  if (axios.isAxiosError(res.err) && res.err.response?.data?.page) {
+  if (isAxiosError(res.err) && res.err.response?.data?.page) {
     const pageId = sanitize(res.err.response.data.page);
 
     if (res.err?.response?.data?.clientOAuthSessionId) {
@@ -20,8 +18,8 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     }
     req.session.currentPage = pageId;
 
-    if (res.err.status) {
-      res.status(res.err.status);
+    if (res.err.response.status) {
+      res.status(res.err.response.status);
     } else {
       res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }

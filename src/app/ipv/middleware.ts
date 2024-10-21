@@ -37,12 +37,12 @@ import {
 } from "../shared/deviceSniffingHelper";
 import ERROR_PAGES from "../../constants/error-pages";
 import {
-  ClientResponse,
-  CriResponse,
   isClientResponse,
   isCriResponse,
   isJourneyResponse,
   isPageResponse,
+  isValidClientResponse,
+  isValidCriResponse,
   PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
 
@@ -152,26 +152,6 @@ export const handleBackendResponse = async (
   };
   req.log.error({ message, level: "ERROR" });
   throw new Error(message.description);
-};
-
-const isValidCriResponse = (criResponse: CriResponse): boolean => {
-  if (!criResponse.cri.redirectUrl) {
-    throw new Error("CRI response RedirectUrl is missing");
-  }
-
-  return true;
-};
-
-const isValidClientResponse = (client: ClientResponse): boolean => {
-  const {
-    client: { redirectUrl },
-  } = client;
-
-  if (!redirectUrl) {
-    throw new Error("Client Response redirect url is missing");
-  }
-
-  return true;
 };
 
 export const checkForIpvAndOauthSessionId = (

@@ -42,7 +42,7 @@ declare global {
 // Extend session object with properties we expect
 declare module "express-session" {
   interface SessionData {
-    ipvSessionId: string | null;
+    ipvSessionId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
     context?: string;

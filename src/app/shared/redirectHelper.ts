@@ -5,12 +5,15 @@ export const saveSessionAndRedirect = (
   req: Request,
   res: Response,
   redirectUrl: string,
-): void => {
-  req.session.save((err) => {
-    if (err) {
-      logError(req, err, "Error saving session");
-      throw err;
-    }
-    return new Promise(() => res.redirect(redirectUrl));
+): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    req.session.save((err) => {
+      if (err) {
+        logError(req, err, "Error saving session");
+        reject(err);
+      } else {
+        resolve(res.redirect(redirectUrl));
+      }
+    });
   });
 };

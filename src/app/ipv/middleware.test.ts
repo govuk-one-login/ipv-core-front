@@ -228,7 +228,7 @@ describe("journey middleware", () => {
     });
 
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is null", async () => {
-      req.session.ipvSessionId = null;
+      req.session.ipvSessionId = undefined;
 
       await middleware.handleJourneyPageRequest(req, res, next);
 

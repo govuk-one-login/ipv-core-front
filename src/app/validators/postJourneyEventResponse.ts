@@ -50,3 +50,23 @@ export const isPageResponse = (
 ): res is PageResponse => {
   return (res as PageResponse).page !== undefined;
 };
+
+export const isValidCriResponse = (criResponse: CriResponse): boolean => {
+  if (!criResponse.cri.redirectUrl) {
+    throw new Error("CRI response RedirectUrl is missing");
+  }
+
+  return true;
+};
+
+export const isValidClientResponse = (client: ClientResponse): boolean => {
+  const {
+    client: { redirectUrl },
+  } = client;
+
+  if (!redirectUrl) {
+    throw new Error("Client Response redirect url is missing");
+  }
+
+  return true;
+};

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import proxyquire from "proxyquire";
+import { checkFormRadioButtonSelected } from "../middleware";
 
 describe("checkFormRadioButtonSelected middleware", () => {
   const testReq = {
@@ -26,21 +26,13 @@ describe("checkFormRadioButtonSelected middleware", () => {
 
   const next = sinon.fake() as any;
 
-  const middleware: typeof import("../middleware") = proxyquire(
-    "../middleware",
-    {
-      "../../services/coreBackService": {},
-      "../../lib/config": { default: {} },
-    },
-  );
-
   beforeEach(() => {
     res.render = sinon.fake();
   });
 
   it("should render if journey is not defined", async function () {
     const req = { ...testReq, body: { journey: undefined } };
-    await middleware.checkFormRadioButtonSelected(req, res, next);
+    await checkFormRadioButtonSelected(req, res, next);
 
     expect(res.render).to.have.been.called;
     expect(next).to.have.not.been.calledOnce;
@@ -48,7 +40,7 @@ describe("checkFormRadioButtonSelected middleware", () => {
 
   it("should not render if journey is defined", async function () {
     const req = { ...testReq, body: { journey: "someJourney" } };
-    await middleware.checkFormRadioButtonSelected(req, res, next);
+    await checkFormRadioButtonSelected(req, res, next);
 
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.been.calledOnce;

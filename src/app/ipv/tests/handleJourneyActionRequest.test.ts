@@ -29,20 +29,17 @@ describe("handleJourneyActionRequest", () => {
 
   const coreBackServiceStub = {
     postJourneyEvent: sinon.stub(),
-    getProvenIdentityUserDetails: sinon.stub(),
   };
 
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
       "../../services/coreBackService": coreBackServiceStub,
-      "../../lib/config": { default: {} },
     },
   );
 
   afterEach(() => {
     coreBackServiceStub.postJourneyEvent = sinon.stub();
-    coreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
   });
 
   it("should call next with error message given redirect url is missing from client event response", async function () {

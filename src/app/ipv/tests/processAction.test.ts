@@ -40,7 +40,7 @@ describe("processAction", () => {
   );
 
   beforeEach(() => {
-    coreBackServiceStub.postJourneyEvent = sinon.stub();
+    coreBackServiceStub.postJourneyEvent = sinon.spy();
     coreBackServiceStub.postAction = sinon.fake();
   });
 

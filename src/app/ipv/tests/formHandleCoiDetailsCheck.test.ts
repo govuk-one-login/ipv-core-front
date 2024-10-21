@@ -28,24 +28,13 @@ describe("formHandleCoiDetailsCheck middleware", () => {
   let next: NextFunction;
 
   const coreBackServiceStub = {
-    postJourneyEvent: sinon.spy(),
     getProvenIdentityUserDetails: sinon.spy(),
-  };
-
-  const configStub = {
-    API_BASE_URL: "https://example.org/subpath",
-    EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org",
-    APP_STORE_URL_ANDROID:
-      "https://play.google.com/store/apps/details?id=uk.gov.documentchecking",
-    APP_STORE_URL_APPLE:
-      "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
   };
 
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
       "../../services/coreBackService": coreBackServiceStub,
-      "../../lib/config": { default: configStub },
     },
   );
 

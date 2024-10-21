@@ -31,7 +31,6 @@ describe("handleJourneyPageResponse", () => {
   let next: NextFunction;
 
   const coreBackServiceStub = {
-    postJourneyEvent: sinon.spy(),
     getProvenIdentityUserDetails: sinon.spy(),
   };
 
@@ -45,6 +44,7 @@ describe("handleJourneyPageResponse", () => {
   beforeEach(() => {
     res.render = sinon.fake();
     next = sinon.fake() as any;
+    coreBackServiceStub.getProvenIdentityUserDetails = sinon.spy();
   });
 
   context("handling page-ipv-reuse journey route", () => {

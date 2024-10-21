@@ -598,8 +598,8 @@ Resources:
   CoreFrontAutoScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MaxCapacity: 60
-      MinCapacity: 4
+      MaxCapacity: 4
+      MinCapacity: 2
       ResourceId: !Join
         - '/'
         - - "service"

@@ -7,7 +7,7 @@ export const saveSessionAndRedirect = (
   redirectUrl: string,
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
-    req.session.save((err) => {
+    req.session.save((err: Error) => {
       if (err) {
         logError(req, err, "Error saving session");
         reject(err);

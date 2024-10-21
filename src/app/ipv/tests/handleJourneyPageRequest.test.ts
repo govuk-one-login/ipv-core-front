@@ -4,7 +4,7 @@ import sinon from "sinon";
 import proxyquire from "proxyquire";
 import { AxiosResponse } from "axios";
 
-describe("handleJourneyPageResponse", () => {
+describe("handleJourneyPageRequest", () => {
   const testReq = {
     id: "1",
     url: "/ipv/page",

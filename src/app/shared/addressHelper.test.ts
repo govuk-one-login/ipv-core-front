@@ -1,5 +1,5 @@
-const { expect } = require("chai");
-const { generateHTMLofAddress } = require("./addressHelper");
+import { expect } from "chai";
+import { generateHTMLofAddress } from "./addressHelper";
 
 describe("Address Helper", () => {
   context("generateHTMLofAddress", () => {

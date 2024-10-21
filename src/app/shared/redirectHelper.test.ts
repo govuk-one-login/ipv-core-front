@@ -1,5 +1,6 @@
-const { expect } = require("chai");
-const { saveSessionAndRedirect } = require("./redirectHelper");
+import { expect } from "chai";
+import { saveSessionAndRedirect } from "./redirectHelper";
+import sinon from "sinon";
 
 describe("saveSessionAndRedirect", () => {
   it("should redirect to given URL", () => {
@@ -7,11 +8,11 @@ describe("saveSessionAndRedirect", () => {
       session: {
         save: sinon.fake.yields(null),
       },
-    };
+    } as any;
 
     const res = {
       redirect: sinon.fake(),
-    };
+    } as any;
     saveSessionAndRedirect(req, res, "/somewhere");
 
     expect(req.session.save).to.have.been.calledOnce;
@@ -28,11 +29,11 @@ describe("saveSessionAndRedirect", () => {
       session: {
         save: sinon.fake.yields(error),
       },
-    };
+    } as any;
 
     const res = {
       redirect: sinon.fake(),
-    };
+    } as any;
 
     await expect(
       saveSessionAndRedirect(req, res, "/somewhere"),

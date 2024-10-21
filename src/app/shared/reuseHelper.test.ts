@@ -1,8 +1,6 @@
-const { expect } = require("chai");
-const {
-  samplePersistedUserDetails,
-  generateUserDetails,
-} = require("./reuseHelper");
+import { expect } from "chai";
+import { samplePersistedUserDetails, generateUserDetails } from "./reuseHelper";
+import { i18n } from "i18next";
 
 describe("Sample Persisted User Details", () => {
   it("should have the expected structure", () => {

@@ -49,6 +49,7 @@ Conditions:
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
+  IsStaging: !Equals [ !Ref Environment, "staging" ]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
@@ -88,9 +89,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${AWS::StackName}"
-
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -111,8 +109,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${AWS::StackName}"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -136,8 +132,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${Environment}"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -158,8 +152,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${Environment}"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -180,8 +172,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub published-did-documents-${Environment}
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -202,8 +192,6 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
-      PublishedKeysS3BucketName:
-        - Fn::ImportValue: !Sub published-did-documents-${Environment}
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -1012,9 +1000,11 @@ Resources:
                 Action:
                   - "s3:GetObject"
                 Resource: !Sub
-                  - "${BucketName}/did.json"
-                  - BucketName:
-                      !FindInMap [EnvironmentConfiguration, !Ref AWS::AccountId, PublishedKeysS3BucketName]
+                  - "arn:aws:s3:::${BucketName}/did.json"
+                  - BucketName: !If
+                      - IsStaging
+                      - !Sub "govuk-one-login-spot-published-keys-${Environment}"
+                      - !Sub "published-did-documents-${Environment}"
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
@@ -1136,7 +1126,10 @@ Resources:
       Integration:
         Type: AWS
         IntegrationHttpMethod: GET
-        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Uri: !If
+           - IsStaging
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationResponses:

@@ -7,8 +7,6 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY tsconfig.json ./
 
-COPY .npmrc ./
-
 RUN npm install
 RUN npm run build
 RUN npm run tsc

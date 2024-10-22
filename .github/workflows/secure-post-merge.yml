@@ -30,11 +30,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup .npmrc
-        run: |
-          cp .npmrc.template .npmrc && \
-          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
-
       - name: npm build assets, zip and sign
         uses: govuk-one-login/github-actions/govuk/upload-assets@main
         with:

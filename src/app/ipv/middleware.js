@@ -1,50 +1,38 @@
-import sanitize from "sanitize-filename";
-import { Request, Response } from "express";
-import { AxiosError, AxiosResponse } from "axios";
-import { NextFunction, RequestHandler } from "express-serve-static-core";
+const sanitize = require("sanitize-filename");
 
-import config from "../../lib/config";
-import { logError, transformError } from "../shared/loggerHelper";
-import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
-import { HTTP_STATUS_CODES } from "../../app.constants";
-import fs from "fs";
-import path from "path";
-import { saveSessionAndRedirect } from "../shared/redirectHelper";
-import {
-  postJourneyEvent,
-  getProvenIdentityUserDetails,
-} from "../../services/coreBackService";
-import qrCodeHelper from "../shared/qrCodeHelper";
-import PHONE_TYPES from "../../constants/phone-types";
-import {
+const { APP_STORE_URL_ANDROID, APP_STORE_URL_APPLE } =
+  require("../../lib/config").default;
+const {
+  buildCredentialIssuerRedirectURL,
+  redirectToAuthorize,
+} = require("../shared/criHelper");
+const { logError, transformError } = require("../shared/loggerHelper");
+const { generateUserDetails } = require("../shared/reuseHelper");
+const { HTTP_STATUS_CODES } = require("../../app.constants");
+const fs = require("fs");
+const path = require("path");
+const { saveSessionAndRedirect } = require("../shared/redirectHelper");
+const coreBackService = require("../../services/coreBackService");
+const qrCodeHelper = require("../shared/qrCodeHelper");
+const PHONE_TYPES = require("../../constants/phone-types");
+const {
   SUPPORTED_COMBO_EVENTS,
   UNSUPPORTED_COMBO_EVENTS,
-  UpdateDetailsOptions,
-  UpdateDetailsOptionsWithCancel,
-} from "../../constants/update-details-journeys";
-import appDownloadHelper from "../shared/appDownloadHelper";
-import {
+} = require("../../constants/update-details-journeys");
+const appDownloadHelper = require("../shared/appDownloadHelper");
+const {
   getIpvPageTemplatePath,
   getIpvPagePath,
   getTemplatePath,
   getErrorPageTemplatePath,
-} from "../../lib/paths";
-import PAGES from "../../constants/ipv-pages";
-import { parseContextAsPhoneType } from "../shared/contextHelper";
-import {
+} = require("../../lib/paths");
+const PAGES = require("../../constants/ipv-pages");
+const { parseContextAsPhoneType } = require("../shared/contextHelper");
+const {
   sniffPhoneType,
   detectAppTriageEvent,
-} from "../shared/deviceSniffingHelper";
-import ERROR_PAGES from "../../constants/error-pages";
-import {
-  isClientResponse,
-  isCriResponse,
-  isJourneyResponse,
-  isPageResponse,
-  isValidClientResponse,
-  isValidCriResponse,
-  PostJourneyEventResponse,
-} from "../validators/postJourneyEventResponse";
+} = require("../shared/deviceSniffingHelper");
+const ERROR_PAGES = require("../../constants/error-pages");
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -52,63 +40,46 @@ const allTemplates = fs
   .readdirSync(directoryPath)
   .map((file) => path.parse(file).name);
 
-const journeyApi = async (
-  action: string,
-  req: Request,
-  currentPageId: string,
-): Promise<AxiosResponse<PostJourneyEventResponse>> => {
+async function journeyApi(action, req, currentPageId) {
   if (action.startsWith("/")) {
-    action = action.substring(1);
+    action = action.substr(1);
   }
 
   if (action.startsWith("journey/")) {
-    action = action.substring(8);
+    action = action.substr(8);
   }
 
-  return postJourneyEvent(req, action, currentPageId);
-};
+  return coreBackService.postJourneyEvent(req, action, currentPageId);
+}
 
-const fetchUserDetails = async (
-  req: Request,
-): Promise<UserDetails | undefined> => {
-  const userDetailsResponse = await getProvenIdentityUserDetails(req);
+async function fetchUserDetails(req) {
+  const userDetailsResponse =
+    await coreBackService.getProvenIdentityUserDetails(req);
 
-  if (!userDetailsResponse.data) {
-    return undefined;
-  }
+  return generateUserDetails(userDetailsResponse, req.i18n);
+}
 
-  return generateUserDetails(userDetailsResponse.data, req.i18n);
-};
-
-export const processAction = async (
-  req: Request,
-  res: Response,
-  action: string,
-  currentPageId = "",
-): Promise<void> => {
+async function processAction(req, res, action, currentPageId = "") {
   const backendResponse = (await journeyApi(action, req, currentPageId)).data;
 
   return await handleBackendResponse(req, res, backendResponse);
-};
+}
 
-export const handleBackendResponse = async (
-  req: Request,
-  res: Response,
-  backendResponse: PostJourneyEventResponse,
-): Promise<void> => {
-  if (isJourneyResponse(backendResponse)) {
+async function handleBackendResponse(req, res, backendResponse) {
+  if (backendResponse?.journey) {
     return await processAction(req, res, backendResponse.journey);
   }
 
-  if (isCriResponse(backendResponse) && isValidCriResponse(backendResponse)) {
-    req.session.currentPage = backendResponse.cri.id;
-    const redirectUrl = backendResponse.cri.redirectUrl;
-    return res.redirect(redirectUrl);
+  if (backendResponse?.cri && tryValidateCriResponse(backendResponse.cri)) {
+    req.cri = backendResponse.cri;
+    req.session.currentPage = req.cri.id;
+    await buildCredentialIssuerRedirectURL(req, res);
+    return redirectToAuthorize(req, res);
   }
 
   if (
-    isClientResponse(backendResponse) &&
-    isValidClientResponse(backendResponse)
+    backendResponse?.client &&
+    tryValidateClientResponse(backendResponse.client)
   ) {
     req.session.currentPage = "orchestrator";
 
@@ -119,15 +90,15 @@ export const handleBackendResponse = async (
     req.log.info({ message, level: "INFO", requestId: req.id });
 
     if (req?.session?.clientOauthSessionId) {
-      req.session.clientOauthSessionId = undefined;
+      req.session.clientOauthSessionId = null;
     }
 
-    req.session.ipvSessionId = undefined;
+    req.session.ipvSessionId = null;
     const { redirectUrl } = backendResponse.client;
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
-  if (isPageResponse(backendResponse)) {
+  if (backendResponse?.page) {
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
     req.session.currentPageStatusCode = backendResponse?.statusCode;
@@ -145,21 +116,35 @@ export const handleBackendResponse = async (
       );
     }
   }
-
   const message = {
     description: "Unexpected backend response",
     data: backendResponse,
   };
   req.log.error({ message, level: "ERROR" });
   throw new Error(message.description);
-};
+}
 
-export const checkForIpvAndOauthSessionId = (
-  req: Request,
-  res: Response,
-): void => {
+function tryValidateCriResponse(criResponse) {
+  if (!criResponse?.redirectUrl) {
+    throw new Error("CRI response RedirectUrl is missing");
+  }
+
+  return true;
+}
+
+function tryValidateClientResponse(client) {
+  const { redirectUrl } = client;
+
+  if (!redirectUrl) {
+    throw new Error("Client Response redirect url is missing");
+  }
+
+  return true;
+}
+
+function checkForIpvAndOauthSessionId(req, res) {
   if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
-    const err = new AxiosError(
+    const err = new Error(
       "req.ipvSessionId and req.clientOauthSessionId are both missing",
     );
     err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
@@ -167,25 +152,21 @@ export const checkForIpvAndOauthSessionId = (
 
     return renderTechnicalError(req, res);
   }
-};
+}
 
-const checkJourneyAction = (req: Request): void => {
+function checkJourneyAction(req) {
   if (!req.body?.journey) {
-    const err = new AxiosError("req.body?.journey is missing");
+    const err = new Error("req.body?.journey is missing");
     err.status = HTTP_STATUS_CODES.BAD_REQUEST;
     logError(req, err);
 
     throw new Error("req.body?.journey is missing");
   }
-};
+}
 
 // getCoiUpdateDetailsJourney determines the next journey based on the detailsToUpdate
 // field of the update-details page
-const getCoiUpdateDetailsJourney = (
-  detailsToUpdate:
-    | UpdateDetailsOptionsWithCancel
-    | UpdateDetailsOptionsWithCancel[],
-): string | undefined => {
+function getCoiUpdateDetailsJourney(detailsToUpdate) {
   // convert to array if its a string
   if (typeof detailsToUpdate === "string") {
     detailsToUpdate = [detailsToUpdate];
@@ -207,11 +188,9 @@ const getCoiUpdateDetailsJourney = (
     detailsToUpdate.includes("dateOfBirth") ||
     (hasGivenNames && hasFamilyName)
   ) {
-    detailsToUpdate.sort((a, b) => a.localeCompare(b));
     return detailsToUpdate
-      .map(
-        (details) => UNSUPPORTED_COMBO_EVENTS[details as UpdateDetailsOptions],
-      )
+      .sort()
+      .map((details) => UNSUPPORTED_COMBO_EVENTS[details])
       .join("-");
   }
 
@@ -228,36 +207,38 @@ const getCoiUpdateDetailsJourney = (
   } else if (hasGivenNames) {
     return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES;
   }
-};
+}
 
-const isInvalidDetailsToUpdate = (detailsToUpdate: string[]): boolean => {
+function isInvalidDetailsToUpdate(detailsToUpdate) {
   return (
     !detailsToUpdate ||
     (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
   );
-};
+}
 
-export const pageRequiresUserDetails = (pageId: string): boolean => {
+function pageRequiresUserDetails(pageId) {
   return [
     PAGES.PAGE_IPV_REUSE,
+    PAGES.CONFIRM_NAME_DATE_BIRTH,
+    PAGES.CONFIRM_ADDRESS,
     PAGES.CONFIRM_DETAILS,
     PAGES.UPDATE_DETAILS,
-  ].some((page) => page === pageId);
-};
+  ].includes(pageId);
+}
 
-const isValidIpvPage = (pageId: string): boolean => {
+function isValidIpvPage(pageId) {
   return allTemplates.includes(pageId);
-};
+}
 
-export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
+function handleAppStoreRedirect(req, res, next) {
   const specifiedPhoneType = sniffPhoneType(req, req.params.specifiedPhoneType);
 
   try {
     switch (specifiedPhoneType) {
       case PHONE_TYPES.IPHONE:
-        return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_APPLE);
       case PHONE_TYPES.ANDROID:
-        return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
+        return saveSessionAndRedirect(req, res, APP_STORE_URL_ANDROID);
       default:
         throw new Error("Unrecognised phone type: " + specifiedPhoneType);
     }
@@ -265,13 +246,9 @@ export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
     transformError(error, "Error redirecting to app store");
     return next(error);
   }
-};
+}
 
-const handleUnexpectedPage = async (
-  req: Request,
-  res: Response,
-  pageId: string,
-): Promise<void> => {
+async function handleUnexpectedPage(req, res, pageId) {
   logError(
     req,
     {
@@ -288,43 +265,34 @@ const handleUnexpectedPage = async (
     res,
     getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
   );
-};
+}
 
-const render404 = (response: Response): void => {
+function render404(response) {
   response.status(HTTP_STATUS_CODES.NOT_FOUND);
   return response.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
-};
+}
 
-const renderTechnicalError = (request: Request, response: Response): void => {
+function renderTechnicalError(request, response) {
   request.session.currentPage = PAGES.PYI_TECHNICAL;
   response.status(HTTP_STATUS_CODES.UNAUTHORIZED);
   return response.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
     context: "unrecoverable",
   });
-};
+}
 
-export const renderAttemptRecoveryPage = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+async function renderAttemptRecoveryPage(req, res) {
   return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
-    csrfToken: req.csrfToken?.(true),
+    csrfToken: req.csrfToken(true),
   });
-};
+}
 
-export const staticPageMiddleware = (
-  pageId: string,
-): ((req: Request, res: Response) => void) => {
-  return (req: Request, res: Response) => {
+function staticPageMiddleware(pageId) {
+  return function (req, res) {
     return res.render(getIpvPageTemplatePath(pageId));
   };
-};
+}
 
-const validateSessionAndPage = async (
-  req: Request,
-  res: Response,
-  pageId: string,
-): Promise<boolean> => {
+async function validateSessionAndPage(req, res, pageId) {
   if (!isValidIpvPage(pageId)) {
     render404(res);
     return false;
@@ -365,9 +333,9 @@ const validateSessionAndPage = async (
   }
 
   return true;
-};
+}
 
-export const updateJourneyState: RequestHandler = async (req, res, next) => {
+async function updateJourneyState(req, res, next) {
   try {
     const currentPageId = req.params.pageId;
     const action = req.params.action;
@@ -380,14 +348,14 @@ export const updateJourneyState: RequestHandler = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
+}
 
-export const handleJourneyPageRequest = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-  pageErrorState: boolean | undefined = undefined,
-): Promise<void> => {
+async function handleJourneyPageRequest(
+  req,
+  res,
+  next,
+  pageErrorState = undefined,
+) {
   try {
     const { pageId } = req.params;
     const { context } = req?.session || "";
@@ -397,9 +365,9 @@ export const handleJourneyPageRequest = async (
       return;
     }
 
-    const renderOptions: Record<string, unknown> = {
+    const renderOptions = {
       pageId,
-      csrfToken: req.csrfToken?.(true),
+      csrfToken: req.csrfToken(true),
       context,
       pageErrorState,
     };
@@ -427,13 +395,9 @@ export const handleJourneyPageRequest = async (
   } finally {
     delete req.session.currentPageStatusCode;
   }
-};
+}
 
-export const handleJourneyActionRequest: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+async function handleJourneyActionRequest(req, res, next) {
   const pageId = req.params.pageId;
 
   try {
@@ -456,22 +420,15 @@ export const handleJourneyActionRequest: RequestHandler = async (
     transformError(error, `error handling POST request on ${pageId}`);
     return next(error);
   }
-};
+}
 
-export const renderFeatureSetPage = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+async function renderFeatureSetPage(req, res) {
   return res.render(getTemplatePath("ipv", "page-featureset"), {
     featureSet: req.session.featureSet,
   });
-};
+}
 
-export const checkFormRadioButtonSelected: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+async function checkFormRadioButtonSelected(req, res, next) {
   try {
     // If no radio option is selected re-display the form page with an error.
     if (req.body.journey === undefined) {
@@ -482,32 +439,20 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   } catch (error) {
     return next(error);
   }
-};
+}
 
-export const formHandleUpdateDetailsCheckBox: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+async function formHandleUpdateDetailsCheckBox(req, res, next) {
   try {
     req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
     return next();
   } catch (error) {
     return next(error);
   }
-};
+}
 
-export const formHandleCoiDetailsCheck: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+async function formHandleCoiDetailsCheck(req, res, next) {
   try {
     const { context, currentPage } = req?.session || {};
-
-    if (!currentPage) {
-      throw new Error("currentPage cannot be empty");
-    }
     if (req.body.detailsCorrect === "yes") {
       // user has selected that their details are correct
       req.body.journey = "next";
@@ -520,10 +465,10 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
     ) {
       // user has not selected yes/no to their details are correct OR
       // they have selected no but not selected which details to update.
-      const renderOptions: Record<string, unknown> = {
+      const renderOptions = {
         errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
         pageId: currentPage,
-        csrfToken: req.csrfToken?.(true),
+        csrfToken: req.csrfToken(true),
         context: context,
       };
       if (pageRequiresUserDetails(currentPage)) {
@@ -535,30 +480,46 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
   } catch (error) {
     return next(error);
   }
-};
+}
 
-export const validateFeatureSet: RequestHandler = async (req, res, next) => {
+async function validateFeatureSet(req, res, next) {
   try {
-    const featureSet = req.query.featureSet as string;
+    const featureSet = req.query.featureSet;
     const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
-
     if (!isValidFeatureSet) {
       throw new Error("Invalid feature set ID");
     }
-
     req.session.featureSet = featureSet;
-
     return next();
   } catch (error) {
     return next(error);
   }
-};
+}
 
 // You can use this handler to set req.params.pageId to mimic the `:pageId` path parameter used in the more generic handlers.
-export const setRequestPageId = (pageId: string): RequestHandler => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+function setRequestPageId(pageId) {
+  return async (req, res, next) => {
     req.params = req.params || {};
     req.params.pageId = pageId;
     return next();
   };
+}
+
+module.exports = {
+  renderAttemptRecoveryPage,
+  updateJourneyState,
+  handleJourneyPageRequest,
+  handleJourneyActionRequest,
+  renderFeatureSetPage,
+  staticPageMiddleware,
+  checkFormRadioButtonSelected,
+  formHandleUpdateDetailsCheckBox,
+  formHandleCoiDetailsCheck,
+  validateFeatureSet,
+  processAction,
+  handleBackendResponse,
+  pageRequiresUserDetails,
+  handleAppStoreRedirect,
+  checkForIpvAndOauthSessionId,
+  setRequestPageId,
 };

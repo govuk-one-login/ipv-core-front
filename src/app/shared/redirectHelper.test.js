@@ -34,9 +34,9 @@ describe("saveSessionAndRedirect", () => {
       redirect: sinon.fake(),
     };
 
-    await expect(
-      saveSessionAndRedirect(req, res, "/somewhere"),
-    ).to.be.rejectedWith(error);
+    expect(() => saveSessionAndRedirect(req, res, "/somewhere")).to.throw(
+      error,
+    );
     expect(res.redirect).not.to.have.been.called;
   });
 });

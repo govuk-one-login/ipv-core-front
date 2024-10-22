@@ -7,49 +7,51 @@ const {
 describe("Sample Persisted User Details", () => {
   it("should have the expected structure", () => {
     expect(samplePersistedUserDetails).to.deep.equal({
-      addresses: [
-        {
-          departmentName: "Room 25",
-          organisationName: "Turing House",
-          subBuildingName: "Block 4b",
-          buildingName: "Vital Living",
-          buildingNumber: "1",
-          dependentStreetName: "Circular Square",
-          streetName: "7 O'Reilly Way",
-          doubleDependentAddressLocality: "Oxford Lane",
-          dependentAddressLocality: "University Quarter",
-          addressLocality: "Lancaster",
-          postalCode: "M12 7LU",
-        },
-        {
-          subBuildingName: "Flat 24",
-          buildingName: "Wollatorn House",
-          buildingNumber: "7",
-          streetName: "Batchelor Street",
-          addressLocality: "London",
-          postalCode: "N15 0EY",
-        },
-        {
-          subBuildingName: "Flat 18",
-          buildingName: "The Paper Apartments",
-          buildingNumber: "162",
-          streetName: "Offord Road",
-          addressLocality: "London",
-          postalCode: "N2 1NS",
-        },
-        {
-          buildingNumber: "7",
-          streetName: "Acorne Terrace",
-          addressLocality: "London",
-          postalCode: "N16 4QF",
-        },
-      ],
-      dateOfBirth: "1984-02-29",
-      nameParts: [
-        { type: "GivenName", value: "Alessandro" },
-        { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
-      ],
-      name: "Alessandro Cholmondeley-Featherstonehaugh",
+      data: {
+        addresses: [
+          {
+            departmentName: "Room 25",
+            organisationName: "Turing House",
+            subBuildingName: "Block 4b",
+            buildingName: "Vital Living",
+            buildingNumber: "1",
+            dependentStreetName: "Circular Square",
+            streetName: "7 O'Reilly Way",
+            doubleDependentAddressLocality: "Oxford Lane",
+            dependentAddressLocality: "University Quarter",
+            addressLocality: "Lancaster",
+            postalCode: "M12 7LU",
+          },
+          {
+            subBuildingName: "Flat 24",
+            buildingName: "Wollatorn House",
+            buildingNumber: "7",
+            streetName: "Batchelor Street",
+            addressLocality: "London",
+            postalCode: "N15 0EY",
+          },
+          {
+            subBuildingName: "Flat 18",
+            buildingName: "The Paper Apartments",
+            buildingNumber: "162",
+            streetName: "Offord Road",
+            addressLocality: "London",
+            postalCode: "N2 1NS",
+          },
+          {
+            buildingNumber: "7",
+            streetName: "Acorne Terrace",
+            addressLocality: "London",
+            postalCode: "N16 4QF",
+          },
+        ],
+        dateOfBirth: "1984-02-29",
+        nameParts: [
+          { type: "GivenName", value: "Alessandro" },
+          { type: "FamilyName", value: "Cholmondeley-Featherstonehaugh" },
+        ],
+        name: "Alessandro Cholmondeley-Featherstonehaugh",
+      },
     });
   });
 });

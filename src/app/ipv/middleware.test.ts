@@ -1,41 +1,42 @@
-const proxyquire = require("proxyquire");
-const { expect } = require("chai");
-const sinon = require("sinon");
-const {
-  APP_STORE_URL_APPLE,
-  APP_STORE_URL_ANDROID,
-  SERVICE_URL,
-} = require("../../lib/config");
-const qrCodeHelper = require("../shared/qrCodeHelper");
-const PHONE_TYPES = require("../../constants/phone-types");
-const {
-  SUPPORTED_COMBO_EVENTS,
-} = require("../../constants/update-details-journeys");
-const {
+import { Response, Request, NextFunction } from "express";
+import { expect } from "chai";
+import sinon from "sinon";
+import { AxiosResponse } from "axios";
+import proxyquire from "proxyquire";
+
+import config from "../../lib/config";
+import qrCodeHelper from "../shared/qrCodeHelper";
+import PHONE_TYPES from "../../constants/phone-types";
+import { SUPPORTED_COMBO_EVENTS } from "../../constants/update-details-journeys";
+import {
   IDENTIFY_DEVICE,
   PROVE_IDENTITY_NO_PHOTO_ID,
-} = require("../../constants/ipv-pages");
+} from "../../constants/ipv-pages";
+import { PostJourneyEventResponse } from "../validators/postJourneyEventResponse";
 
 describe("journey middleware", () => {
-  let req;
-  let res;
-  let next;
-  let CoreBackServiceStub = {};
+  let req: Request;
+  let res: Response;
+  let next: NextFunction;
+
+  const coreBackServiceStub = {
+    postJourneyEvent: sinon.spy(),
+    getProvenIdentityUserDetails: sinon.spy(),
+    postAction: sinon.fake(),
+  };
 
   const configStub = {
     API_BASE_URL: "https://example.org/subpath",
     EXTERNAL_WEBSITE_HOST: "https://callbackaddres.org",
+    APP_STORE_URL_ANDROID:
+      "https://play.google.com/store/apps/details?id=uk.gov.documentchecking",
+    APP_STORE_URL_APPLE:
+      "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
   };
 
-  const sharedCriHelper = proxyquire("../shared/criHelper", {
-    "../../services/coreBackService": CoreBackServiceStub,
+  const middleware: typeof import("./middleware") = proxyquire("./middleware", {
+    "../../services/coreBackService": coreBackServiceStub,
     "../../lib/config": { default: configStub },
-  });
-
-  const middleware = proxyquire("./middleware", {
-    "../../services/coreBackService": CoreBackServiceStub,
-    "../../lib/config": { default: configStub },
-    "../shared/../shared/criHelper": sharedCriHelper,
   });
 
   beforeEach(() => {
@@ -46,7 +47,7 @@ describe("journey middleware", () => {
       render: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
       locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
-    };
+    } as any;
     req = {
       session: {
         ipvSessionId: "ipv-session-id",
@@ -57,10 +58,11 @@ describe("journey middleware", () => {
       params: { pageId: "page-ipv-identity-document-start" },
       csrfToken: sinon.fake(),
       log: { info: sinon.fake(), error: sinon.fake() },
-    };
-    next = sinon.fake();
-    CoreBackServiceStub.postJourneyEvent = sinon.stub();
-    CoreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
+    } as any;
+    next = sinon.fake() as any;
+
+    coreBackServiceStub.postJourneyEvent = sinon.stub();
+    coreBackServiceStub.getProvenIdentityUserDetails = sinon.stub();
   });
 
   context("setRequestPageId", () => {
@@ -87,7 +89,7 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("should have called the network in the correct sequence", async function () {
@@ -105,7 +107,7 @@ describe("journey middleware", () => {
       ];
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -113,13 +115,13 @@ describe("journey middleware", () => {
 
       await middleware.processAction(req, res, "next");
       expect(
-        CoreBackServiceStub.postJourneyEvent.getCall(0),
+        coreBackServiceStub.postJourneyEvent.getCall(0),
       ).to.have.been.calledWith(req, "next");
       expect(
-        CoreBackServiceStub.postJourneyEvent.getCall(1),
+        coreBackServiceStub.postJourneyEvent.getCall(1),
       ).to.have.been.calledWith(req, "next");
       expect(
-        CoreBackServiceStub.postJourneyEvent.getCall(2),
+        coreBackServiceStub.postJourneyEvent.getCall(2),
       ).to.have.been.calledWith(req, "startCri");
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
@@ -130,11 +132,11 @@ describe("journey middleware", () => {
       callBack
         .onFirstCall()
         .returns({ data: { page: "a-page-id", statusCode: 418 } });
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
       await middleware.processAction(req, res, "next");
 
-      expect(CoreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
+      expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
         req,
         "next",
       );
@@ -158,11 +160,11 @@ describe("journey middleware", () => {
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         csrfToken: sinon.fake(),
-      };
+      } as any;
     });
 
     it("should render page case when given valid pageId", async () => {
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
@@ -172,7 +174,7 @@ describe("journey middleware", () => {
     it("should set the response status code from a value in the session if present", async () => {
       req.session.currentPageStatusCode = 418;
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/prove-identity-no-photo-id.njk",
@@ -185,7 +187,7 @@ describe("journey middleware", () => {
       req.params = { pageId: "page-this-is-invalid" };
       req.session.currentPage = "page-this-is-invalid";
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
     });
@@ -193,7 +195,7 @@ describe("journey middleware", () => {
     it("should render unrecoverable timeout error page when given unrecoverable timeout pageId", async () => {
       req.params = { pageId: "pyi-timeout-unrecoverable" };
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/pyi-timeout-unrecoverable.njk",
@@ -203,7 +205,7 @@ describe("journey middleware", () => {
     it("should render attempt recovery error page when current page is not equal to pageId", async () => {
       req.session.currentPage = "page-multiple-doc-check";
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.redirect).to.have.been.calledWith(
         "/ipv/page/pyi-attempt-recovery",
@@ -211,7 +213,14 @@ describe("journey middleware", () => {
     });
 
     it("should raise an error when missing params", async () => {
-      delete req.params;
+      req = {
+        session: {
+          ipvSessionId: "ipv-session-id",
+          ipAddress: "ip-address",
+          featureSet: "feature-set",
+          save: sinon.fake.yields(null),
+        },
+      } as any;
 
       await middleware.handleJourneyPageRequest(req, res, next);
 
@@ -219,9 +228,9 @@ describe("journey middleware", () => {
     });
 
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is null", async () => {
-      req.session.ipvSessionId = null;
+      req.session.ipvSessionId = undefined;
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
@@ -231,7 +240,7 @@ describe("journey middleware", () => {
     it("should render pyi-technical page with 'unrecoverable' context if ipvSessionId is undefined", async () => {
       delete req.session.ipvSessionId;
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
         context: "unrecoverable",
@@ -241,11 +250,11 @@ describe("journey middleware", () => {
 
   context("handling CRI event response", async () => {
     const redirectUrl = "https://someurl.com";
-    let eventResponses = [];
-    let clientId = "test-client-id";
-    let request =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==";
-    let responseType = "code";
+    let eventResponses = [] as { data: PostJourneyEventResponse }[];
+    const clientId = "test-client-id";
+    const request =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw=="; // pragma: allowlist secret
+    const responseType = "code";
 
     beforeEach(() => {
       eventResponses = [
@@ -267,12 +276,12 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
-      eventResponses.forEach((er, index) => {
+      eventResponses.forEach((_, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
       });
     });
@@ -283,8 +292,8 @@ describe("journey middleware", () => {
 
     it("should be redirected to a valid redirectURL", async function () {
       await middleware.processAction(req, res, "next");
-      expect(req.redirectURL.toString()).to.equal(
-        "https://someurl.com/?client_id=test-client-id&request=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRlT2ZCaXJ0aHMiOltdLCJhZGRyZXNzZXMiOltdLCJuYW1lcyI6W10sImFkZHJlc3NIaXN0b3J5IjpbXX0.DwQQOldmOYQ1Lv6OJETzks7xv1fM7VzW0O01H3-uQqQ_rSkCZrd2KwQHHzo0Ddw2K_LreePy-tEr-tiPgi8Yl604n3rwQy6xBat8mb4lTtNnOxsUOYviYQxC5aamsvBAS27G43wFejearXHWzEqhJhIFdGE4zJkgZAKpLGzvOXLvX4NZM4aI4c6jMgpktkvvFey-O0rI5ePh5RU4BjbG_hvByKNlLr7pzIlsS-Q8KuIPawqFJxN2e3xfj1Ogr8zO0hOeDCA5dLDie78sPd8ph0l5LOOcGZskd-WD74TM6XeinVpyTfN7esYBnIZL-p-qULr9CUVIPCMxn-8VTj3SOw==&response_type=code",
+      expect(res.redirect).to.have.been.calledWith(
+        `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
       );
     });
   });
@@ -292,7 +301,7 @@ describe("journey middleware", () => {
   context(
     "handling CRI event response that has missing redirectUrl",
     async () => {
-      let eventResponses = [];
+      let eventResponses = [] as { data: PostJourneyEventResponse }[];
 
       beforeEach(() => {
         eventResponses = [
@@ -316,10 +325,10 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         const callBack = sinon.stub();
-        CoreBackServiceStub.postJourneyEvent = callBack;
+        coreBackServiceStub.postJourneyEvent = callBack;
 
         eventResponses.forEach((er, index) => {
           callBack.onCall(index).returns(eventResponses[index]);
@@ -341,7 +350,7 @@ describe("journey middleware", () => {
     const callBack = sinon.stub();
 
     beforeEach(() => {
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
       callBack.onCall(0).returns({
         data: { client: { redirectUrl: redirectUrl } },
@@ -355,14 +364,14 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("should be redirected to a valid Client URL", async function () {
       req.session.clientOauthSessionId = "fake-client-session";
       await middleware.processAction(req, res, "next");
       expect(res.redirect).to.be.calledWith(`${redirectUrl}`);
-      expect(req.session.clientOauthSessionId).to.be.null;
+      expect(req.session.clientOauthSessionId).to.be.undefined;
     });
   });
 
@@ -379,7 +388,7 @@ describe("journey middleware", () => {
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         headers: { "user-agent": "Not mobile device" },
-      };
+      } as any;
     });
 
     it("should send an appTriage event to core-back and then handle the response", async function () {
@@ -394,7 +403,7 @@ describe("journey middleware", () => {
       ];
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -404,10 +413,10 @@ describe("journey middleware", () => {
       await middleware.processAction(req, res, "next");
 
       expect(
-        CoreBackServiceStub.postJourneyEvent.getCall(0),
+        coreBackServiceStub.postJourneyEvent.getCall(0),
       ).to.have.been.calledWith(req, "next");
       expect(
-        CoreBackServiceStub.postJourneyEvent.getCall(1),
+        coreBackServiceStub.postJourneyEvent.getCall(1),
       ).to.have.been.calledWith(req, "appTriage");
 
       expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
@@ -415,7 +424,7 @@ describe("journey middleware", () => {
   });
 
   context("handling missing callBackUrl Client event response", () => {
-    let eventResponses = [];
+    let eventResponses = [] as { data: any }[];
 
     const authCode = "ABC123";
     const state = "test-state";
@@ -424,7 +433,11 @@ describe("journey middleware", () => {
       eventResponses = [
         {
           data: {
-            client: { redirectUrl: null, authCode: authCode, state: state },
+            client: {
+              redirectUrl: undefined,
+              authCode: authCode,
+              state: state,
+            },
           },
         },
       ];
@@ -441,10 +454,10 @@ describe("journey middleware", () => {
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         params: { pageId: "page-ipv-identity-document-start" },
-      };
+      } as any;
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postJourneyEvent = callBack;
+      coreBackServiceStub.postJourneyEvent = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -474,11 +487,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "end",
@@ -498,11 +511,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "attempt-recovery",
@@ -522,11 +535,11 @@ describe("journey middleware", () => {
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "build-client-oauth-response",
@@ -547,11 +560,11 @@ describe("journey middleware", () => {
           headers: { forwarded: "1.1.1.1" },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "build-client-oauth-response",
@@ -573,7 +586,7 @@ describe("journey middleware", () => {
         },
         params: { pageId: "page-ipv-identity-document-start" },
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
 
       await middleware.handleJourneyActionRequest(req, res, next);
       expect(res.status).to.have.been.calledWith(401);
@@ -586,7 +599,7 @@ describe("journey middleware", () => {
   context("handling page-ipv-reuse journey route", () => {
     const pageId = "page-ipv-reuse";
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async function () {
-      const axiosResponse = {};
+      const axiosResponse = {} as AxiosResponse;
       axiosResponse.status = 200;
       axiosResponse.data = {
         name: "firstName LastName",
@@ -628,7 +641,7 @@ describe("journey middleware", () => {
         ],
       };
 
-      CoreBackServiceStub.getProvenIdentityUserDetails =
+      coreBackServiceStub.getProvenIdentityUserDetails =
         sinon.fake.returns(axiosResponse);
 
       req = {
@@ -642,12 +655,12 @@ describe("journey middleware", () => {
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
-      };
+      } as any;
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(
-        CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
+        coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
       ).to.have.been.calledWith(req);
 
       expect(res.render).to.have.been.calledWith(
@@ -657,7 +670,7 @@ describe("journey middleware", () => {
     });
 
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer with multiple given names", async function () {
-      const axiosResponse = {};
+      const axiosResponse = {} as AxiosResponse;
       axiosResponse.status = 200;
       axiosResponse.data = {
         name: "firstName MiddleName LastName",
@@ -700,7 +713,7 @@ describe("journey middleware", () => {
         ],
       };
 
-      CoreBackServiceStub.getProvenIdentityUserDetails =
+      coreBackServiceStub.getProvenIdentityUserDetails =
         sinon.fake.returns(axiosResponse);
 
       req = {
@@ -714,12 +727,12 @@ describe("journey middleware", () => {
         },
         log: { info: sinon.fake(), error: sinon.fake() },
         i18n: { t: () => "Some label" },
-      };
+      } as any;
 
-      await middleware.handleJourneyPageRequest(req, res);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
       expect(
-        CoreBackServiceStub.getProvenIdentityUserDetails.firstCall,
+        coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
       ).to.have.been.calledWith(req);
 
       expect(res.render).to.have.been.calledWith(
@@ -740,16 +753,14 @@ describe("journey middleware", () => {
 
   context("staticPageMiddleware", () => {
     it("should render static document type page", () => {
-      const req = {};
+      const req = {} as any;
       const res = {
         render: sinon.spy(),
-      };
-      const next = sinon.spy();
-
+      } as any;
       const staticPageMiddleware = middleware.staticPageMiddleware(
         "page-ipv-identity-document-types",
       );
-      staticPageMiddleware(req, res, next);
+      staticPageMiddleware(req, res);
 
       expect(res.render).to.have.been.calledWith(
         "ipv/page/page-ipv-identity-document-types.njk",
@@ -772,11 +783,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "ukPassport",
@@ -796,11 +807,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "drivingLicence",
@@ -825,11 +836,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "end",
@@ -849,7 +860,7 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.redirect).to.have.been.calledWith("contactUrl");
@@ -867,7 +878,7 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.redirect).to.have.been.calledWith("deleteAccount");
@@ -890,11 +901,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "next",
@@ -914,11 +925,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "bankAccount",
@@ -942,7 +953,7 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
@@ -959,6 +970,10 @@ describe("journey middleware", () => {
   context(
     "handleJourneyActionRequest: handling journey action with f2f, dcmaw, end",
     () => {
+      afterEach(() => {
+        sinon.restore();
+      });
+
       it("should postJourneyEvent with f2f", async function () {
         req = {
           id: "1",
@@ -971,16 +986,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
-        await middleware.handleJourneyActionRequest(
-          req,
-          res,
-          next,
-          "page-ipv-identity-document-start",
-        );
+        await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "f2f",
@@ -1000,11 +1010,11 @@ describe("journey middleware", () => {
           },
           log: { info: sinon.fake(), error: sinon.fake() },
           params: { pageId: "page-ipv-identity-document-start" },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(
-          CoreBackServiceStub.postJourneyEvent.firstCall,
+          coreBackServiceStub.postJourneyEvent.firstCall,
         ).to.have.been.calledWith(
           req,
           "dcmaw",
@@ -1028,7 +1038,7 @@ describe("journey middleware", () => {
           },
           params: { pageId: "page-ipv-identity-document-start" },
           log: { info: sinon.fake(), error: sinon.fake() },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
@@ -1056,7 +1066,7 @@ describe("journey middleware", () => {
           },
           params: { pageId: "pyi-suggest-other-options" },
           log: { info: sinon.fake(), error: sinon.fake() },
-        };
+        } as any;
 
         await middleware.handleJourneyActionRequest(req, res, next);
         expect(res.status).to.have.been.calledWith(401);
@@ -1075,9 +1085,9 @@ describe("journey middleware", () => {
       req = {
         query: {},
         session: {},
-      };
-      res = {};
-      next = sinon.stub();
+      } as Request;
+      res = {} as Response;
+      next = sinon.stub() as any;
     });
 
     it("should call next if featureSet is valid", async () => {
@@ -1169,7 +1179,7 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("should render if journey is not defined", async function () {
@@ -1201,13 +1211,14 @@ describe("journey middleware", () => {
         },
         csrfToken: sinon.fake(),
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("sets an iPhone qrCode value for the page", async function () {
       req.method = "GET";
       req.session.context = "iphone";
-      const qrCodeUrl = SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
+      const qrCodeUrl =
+        config.SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1223,7 +1234,7 @@ describe("journey middleware", () => {
       req.method = "GET";
       req.session.context = "android";
       const qrCodeUrl =
-        SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID;
+        config.SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID;
       const expectedQrCodeData =
         await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
 
@@ -1248,7 +1259,7 @@ describe("journey middleware", () => {
         },
         csrfToken: sinon.fake(),
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("sets an Android appDownloadUrl value for the page", async function () {
@@ -1261,7 +1272,7 @@ describe("journey middleware", () => {
         `ipv/page/pyi-triage-mobile-download-app.njk`,
         sinon.match.has(
           "appDownloadUrl",
-          SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID,
+          config.SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.ANDROID,
         ),
       );
     });
@@ -1276,7 +1287,7 @@ describe("journey middleware", () => {
         `ipv/page/pyi-triage-mobile-download-app.njk`,
         sinon.match.has(
           "appDownloadUrl",
-          SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE,
+          config.SERVICE_URL + "/ipv/app-redirect/" + PHONE_TYPES.IPHONE,
         ),
       );
     });
@@ -1291,7 +1302,7 @@ describe("journey middleware", () => {
         session: {
           save: sinon.fake.yields(null),
         },
-      };
+      } as any;
     });
 
     it("redirects to the apple store if the user said they have an iphone", async function () {
@@ -1299,7 +1310,7 @@ describe("journey middleware", () => {
       req.method = "GET";
       await middleware.handleAppStoreRedirect(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_APPLE);
+      expect(res.redirect).to.have.been.calledWith(config.APP_STORE_URL_APPLE);
     });
 
     it("redirects to the android store if the user said they have an android", async function () {
@@ -1307,7 +1318,9 @@ describe("journey middleware", () => {
       req.method = "GET";
       await middleware.handleAppStoreRedirect(req, res, next);
 
-      expect(res.redirect).to.have.been.calledWith(APP_STORE_URL_ANDROID);
+      expect(res.redirect).to.have.been.calledWith(
+        config.APP_STORE_URL_ANDROID,
+      );
     });
 
     it("throws an error for a bad phone type", async function () {
@@ -1320,7 +1333,7 @@ describe("journey middleware", () => {
   });
 
   context("handle unknown backend response", () => {
-    let eventResponses = [];
+    let eventResponses = [] as { data: any }[];
     beforeEach(() => {
       eventResponses = [
         {
@@ -1338,10 +1351,10 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { info: sinon.fake(), error: sinon.fake() },
-      };
+      } as any;
 
       const callBack = sinon.stub();
-      CoreBackServiceStub.postAction = callBack;
+      coreBackServiceStub.postAction = callBack;
 
       eventResponses.forEach((er, index) => {
         callBack.onCall(index).returns(eventResponses[index]);
@@ -1370,7 +1383,7 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { error: sinon.fake() },
-      };
+      } as any;
     });
 
     describe("valid combinations of details to update", () => {
@@ -1529,7 +1542,7 @@ describe("journey middleware", () => {
           save: sinon.fake.yields(null),
         },
         log: { error: sinon.fake() },
-      };
+      } as any;
     });
 
     it("should set journey to next if detailsCorrect is yes", async function () {
@@ -1540,10 +1553,10 @@ describe("journey middleware", () => {
       expect(req.body.journey).to.equal("next");
     });
     it("should set the correct error if detailsCorrect is empty and detailsToUpdate is empty", async function () {
-      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       await middleware.formHandleCoiDetailsCheck(req, res, next);
 
-      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+      expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been
         .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
@@ -1553,22 +1566,19 @@ describe("journey middleware", () => {
           errorState: "radiobox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
-          userDetails: {
-            name: undefined,
-            nameParts: { givenName: undefined, familyName: undefined },
-            dateOfBirth: undefined,
-            addresses: undefined,
-          },
+          userDetails: undefined,
         },
       );
     });
     it("should set the correct error if detailsCorrect is no and detailsToUpdate is empty", async function () {
-      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves(
+        {},
+      );
       req.body.detailsToUpdate = "";
       req.body.detailsCorrect = "no";
       await middleware.formHandleCoiDetailsCheck(req, res, next);
 
-      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.have.been
+      expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been
         .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(
@@ -1578,12 +1588,7 @@ describe("journey middleware", () => {
           errorState: "checkbox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
-          userDetails: {
-            name: undefined,
-            nameParts: { givenName: undefined, familyName: undefined },
-            dateOfBirth: undefined,
-            addresses: undefined,
-          },
+          userDetails: undefined,
         },
       );
     });
@@ -1724,12 +1729,12 @@ describe("journey middleware", () => {
       expect(req.body.journey).to.equal("next");
     });
     it("should not get user details if the page does not require it", async function () {
-      CoreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
       req.session.currentPage = "check-name-date-birth";
       req.session.context = undefined;
       await middleware.formHandleCoiDetailsCheck(req, res, next);
 
-      expect(CoreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
+      expect(coreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
         .called;
       expect(next).to.not.have.been.called;
       expect(res.render).to.have.been.calledWith(

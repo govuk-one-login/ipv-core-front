@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+const IPV_PAGES = Object.freeze({
   CONFIRM_DETAILS: "confirm-your-details",
   IDENTIFY_DEVICE: "identify-device",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
@@ -48,3 +48,5 @@ module.exports = Object.freeze({
   UPDATE_DETAILS: "update-details",
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
 });
+
+export default IPV_PAGES;

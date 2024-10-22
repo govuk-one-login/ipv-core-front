@@ -15,7 +15,7 @@ import {
   getProvenIdentityUserDetails,
 } from "../../services/coreBackService";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
-import PHONE_TYPES from "../../constants/phone-types";
+import { PHONE_TYPES } from "../../constants/device-constants";
 import {
   SUPPORTED_COMBO_EVENTS,
   UNSUPPORTED_COMBO_EVENTS,

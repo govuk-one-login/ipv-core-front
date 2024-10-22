@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import PHONE_TYPES from "../../constants/phone-types";
+import { PHONE_TYPES } from "../../constants/device-constants";
 import { detectAppTriageEvent, sniffPhoneType } from "./deviceSniffingHelper";
-import EVENTS from "../../constants/events";
+import { APP_TRIAGE_EVENTS } from "../../constants/events";
 import {
   HTTP_HEADER_USER_AGENT_NO_PHONE,
   HTTP_HEADER_USER_AGENT_IPHONE,
@@ -20,17 +20,17 @@ describe("User Agent Functions", () => {
       {
         userAgent: HTTP_HEADER_USER_AGENT_NO_PHONE,
         scenario: "unrecognised devices",
-        expectedJourneyEvent: EVENTS.APP_TRIAGE,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
       },
       {
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE,
         scenario: "iOS devices",
-        expectedJourneyEvent: EVENTS.APP_TRIAGE_IPHONE,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_IPHONE,
       },
       {
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
         scenario: "Android devices",
-        expectedJourneyEvent: EVENTS.APP_TRIAGE_ANDROID,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_ANDROID,
       },
     ];
     testCases.forEach(({ userAgent, scenario, expectedJourneyEvent }) => {

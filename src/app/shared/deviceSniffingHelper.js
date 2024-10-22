@@ -1,12 +1,11 @@
-import UAParser from "ua-parser-js";
-import { Request } from "express";
-import PHONE_TYPES from "../../constants/phone-types";
-import OS_TYPES from "../../constants/os-types";
-import EVENTS from "../../constants/events";
+const UAParser = require("ua-parser-js");
+const PHONE_TYPES = require("../../constants/phone-types");
+const OS_TYPES = require("../../constants/os-types");
+const EVENTS = require("../../constants/events");
 
 // The AppTriage event is special in that we want to send a more specialised version if we can detect the current
 // device type as being an Android phone or iPhone.
-export const detectAppTriageEvent = (req: Request): string => {
+function detectAppTriageEvent(req) {
   const detectedPhone = sniffPhoneType(req);
 
   switch (detectedPhone) {
@@ -17,12 +16,9 @@ export const detectAppTriageEvent = (req: Request): string => {
     default:
       return EVENTS.APP_TRIAGE;
   }
-};
+}
 
-export const sniffPhoneType = (
-  req: Request,
-  fallback?: string,
-): string | null => {
+function sniffPhoneType(req, fallback = null) {
   const parser = new UAParser(req.headers["user-agent"]);
 
   switch (parser.getOS()["name"]) {
@@ -31,6 +27,11 @@ export const sniffPhoneType = (
     case OS_TYPES.ANDROID:
       return PHONE_TYPES.ANDROID;
     default:
-      return fallback ?? null;
+      return fallback;
   }
+}
+
+module.exports = {
+  detectAppTriageEvent,
+  sniffPhoneType,
 };

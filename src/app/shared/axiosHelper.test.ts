@@ -25,17 +25,17 @@ const testResponse = {
   status: 200,
 } as AxiosResponse;
 
-beforeEach(() => {
-  sinon.useFakeTimers(300);
-  testLogger.info.resetHistory();
-  testLogger.error.resetHistory();
-});
-
-afterEach(() => {
-  sinon.restore();
-});
-
 describe("axiosHelper", () => {
+  beforeEach(() => {
+    sinon.useFakeTimers(300);
+    testLogger.info.resetHistory();
+    testLogger.error.resetHistory();
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   describe("responseLogger", () => {
     it("should log response details", async () => {
       await axiosResponseLogger(testResponse);

@@ -32,5 +32,3 @@ export const getParameter = async (
 
   return JSON.parse(data.Parameter?.Value);
 };
-
-module.exports = { getParameter };

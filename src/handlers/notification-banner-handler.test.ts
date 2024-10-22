@@ -66,7 +66,7 @@ describe("Notification banner handler", () => {
   });
 
   it("should display banner if current time is between start and end time", async () => {
-    getParameterStub.withArgs(1).resolves({
+    getParameterStub.resolves({
       pageId: "/some-page",
       bannerMessage: "Test banner",
       bannerMessageCy: "Welsh Test banner",

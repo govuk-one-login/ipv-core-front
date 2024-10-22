@@ -24,6 +24,7 @@ services:
       EXTERNAL_WEBSITE_HOST: http://localhost:4601
       CONTACT_URL: https://home.account.gov.uk/contact-gov-uk-one-login
       LANGUAGE_TOGGLE: true
+      notification-banner: '{"pageId":"/dev/template/confirm-your-details/en","bannerMessage":"<h3>Test banner</h3> <p>This is a test banner</p>","bannerMessageCy":"<h3>Welsh Test banner</h3> <p>This is a Welsh test banner</p>","startTime":1729604741710,"endTime":1918907190000}'
     ports:
       - "4601:4601"
       - "5101:9229"

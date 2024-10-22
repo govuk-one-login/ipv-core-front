@@ -10,7 +10,7 @@ export interface UserDetails {
     givenName: string;
     familyName: string;
   };
-  addresses: {
+  addresses?: {
     label: string;
     addressDetailHtml: string;
   }[];

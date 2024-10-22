@@ -1,4 +1,4 @@
-FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd73b2ed091ba339004a75 AS builder
+FROM node:23.0.0-alpine3.19@sha256:144224874a3f67c2b2809f2c7e0f0ea50a9a1235d1b13923ec229b7be6a8d565 AS builder
 WORKDIR /app
 COPY /src ./src
 COPY /locales ./locales
@@ -16,7 +16,7 @@ RUN npm run tsc
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM node:20.12.0-alpine3.19@sha256:ef3f47741e161900ddd07addcaca7e76534a9205e4cd73b2ed091ba339004a75 as final
+FROM node:23.0.0-alpine3.19@sha256:144224874a3f67c2b2809f2c7e0f0ea50a9a1235d1b13923ec229b7be6a8d565 as final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]

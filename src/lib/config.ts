@@ -12,6 +12,7 @@ export default {
   ANDROID_APP_ID: process.env.ANDROID_APP_ID || "uk.gov.documentchecking",
   API_BASE_URL: coreBackApiUrl || process.env.API_BASE_URL,
   API_CRI_CALLBACK: "/cri/callback",
+  API_MOBILE_APP_CALLBACK: "/app/callback",
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",

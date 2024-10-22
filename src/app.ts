@@ -176,6 +176,7 @@ router.use((req, res, next) => {
 
 router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
+router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);

@@ -30,15 +30,23 @@ describe("checkFormRadioButtonSelected middleware", () => {
     res.render = sinon.fake();
   });
 
-  it("should render if journey is not defined", async function () {
+  it("should render form page again with error if no option is selected", async function () {
     const req = { ...testReq, body: { journey: undefined } };
     await checkFormRadioButtonSelected(req, res, next);
 
-    expect(res.render).to.have.been.called;
+    expect(res.render).to.have.been.calledWith(
+      `ipv/page/${req.session.currentPage}.njk`,
+      {
+        pageId: req.session.currentPage,
+        csrfToken: undefined,
+        context: undefined,
+        pageErrorState: true,
+      },
+    );
     expect(next).to.have.not.been.calledOnce;
   });
 
-  it("should not render if journey is defined", async function () {
+  it("should pass to next if an option is selected", async function () {
     const req = { ...testReq, body: { journey: "someJourney" } };
     await checkFormRadioButtonSelected(req, res, next);
 

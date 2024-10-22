@@ -48,103 +48,70 @@ describe("handleJourneyPageRequest", () => {
   });
 
   context("handling page-ipv-reuse journey route", () => {
-    const nameTestCases = [
-      {
-        scenario: "single given name",
-        nameAxiosResponse: {
+    it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async () => {
+      const axiosResponse = {
+        status: 200,
+        data: {
           name: "firstName LastName",
           nameParts: [
             { type: "GivenName", value: "firstName" },
             { type: "FamilyName", value: "LastName" },
           ],
-        },
-        expectedNameUserDetails: {
-          name: "firstName LastName",
-          nameParts: {
-            givenName: "firstName",
-            familyName: "LastName",
-          },
-        },
-      },
-      {
-        scenario: "multiple given name",
-        nameAxiosResponse: {
-          name: "firstName MiddleName LastName",
-          nameParts: [
-            { type: "GivenName", value: "firstName" },
-            { type: "GivenName", value: "MiddleName" },
-            { type: "FamilyName", value: "LastName" },
-          ],
-        },
-        expectedNameUserDetails: {
-          name: "firstName MiddleName LastName",
-          nameParts: {
-            givenName: "firstName MiddleName",
-            familyName: "LastName",
-          },
-        },
-      },
-    ];
-    nameTestCases.forEach(
-      ({ scenario, nameAxiosResponse, expectedNameUserDetails }) => {
-        it(`should call build-proven-user-identity-details endpoint and user details passed into renderer given ${scenario}`, async () => {
-          const axiosResponse = {
-            status: 200,
-            data: {
-              dateOfBirth: "01 11 1973",
-              addresses: [
-                {
-                  organisationName: "My company",
-                  departmentName: "My deparment",
-                  buildingName: "my building",
-                  subBuildingName: "Room 5",
-                  buildingNumber: "1",
-                  dependentStreetName: "My outter street",
-                  streetName: "my inner street",
-                  doubleDependentAddressLocality: "My double dependant town",
-                  dependentAddressLocality: "my dependant town",
-                  addressLocality: "my town",
-                  postalCode: "myCode",
-                },
-              ],
-              ...nameAxiosResponse,
+          dateOfBirth: "01 11 1973",
+          addresses: [
+            {
+              organisationName: "My company",
+              departmentName: "My deparment",
+              buildingName: "my building",
+              subBuildingName: "Room 5",
+              buildingNumber: "1",
+              dependentStreetName: "My outter street",
+              streetName: "my inner street",
+              doubleDependentAddressLocality: "My double dependant town",
+              dependentAddressLocality: "my dependant town",
+              addressLocality: "my town",
+              postalCode: "myCode",
             },
-          } as AxiosResponse;
+          ],
+        },
+      } as AxiosResponse;
 
-          const expectedUserDetail = {
-            dateOfBirth: "01 11 1973",
-            addresses: [
-              {
-                label: "Some label",
-                addressDetailHtml:
-                  "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
-              },
-            ],
-            ...expectedNameUserDetails,
-          };
+      const expectedUserDetail = {
+        name: "firstName LastName",
+        nameParts: {
+          givenName: "firstName",
+          familyName: "LastName",
+        },
+        dateOfBirth: "01 11 1973",
+        addresses: [
+          {
+            label: "Some label",
+            addressDetailHtml:
+              "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
+          },
+        ],
+      };
 
-          coreBackServiceStub.getProvenIdentityUserDetails =
-            sinon.fake.returns(axiosResponse);
+      coreBackServiceStub.getProvenIdentityUserDetails =
+        sinon.fake.returns(axiosResponse);
 
-          const req = {
-            ...testReq,
-            params: { pageId: "page-ipv-reuse" },
-            session: { ...testReq.session, currentPage: "page-ipv-reuse" },
-          };
+      const req = {
+        ...testReq,
+        params: { pageId: "page-ipv-reuse" },
+        session: { ...testReq.session, currentPage: "page-ipv-reuse" },
+      };
 
-          await middleware.handleJourneyPageRequest(req, res, next);
+      await middleware.handleJourneyPageRequest(req, res, next);
 
-          expect(
-            coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
-          ).to.have.been.calledWith(req);
+      expect(
+        coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
+      ).to.have.been.calledWith(req);
 
-          expect(res.render).to.have.been.calledWith(
-            `ipv/page/page-ipv-reuse.njk`,
-            sinon.match.has("userDetails", expectedUserDetail),
-          );
-        });
-      },
-    );
+      expect(res.render).to.have.been.calledWith(
+        `ipv/page/page-ipv-reuse.njk`,
+        sinon.match.has("userDetails", expectedUserDetail),
+      );
+    });
   });
 
   it("should render page case when given valid pageId", async () => {

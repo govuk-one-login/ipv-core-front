@@ -63,7 +63,7 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
-  it("should call next with an error message given redirect url is missinf from CRI event response", async () => {
+  it("should call next with an error message given redirect url is missing from CRI event response", async () => {
     const criEventResponse = {
       data: {
         cri: {
@@ -83,22 +83,21 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
-  ["ukPassport", "drivingLicence", "end", "attempt-recovery"].forEach(
-    (journey) => {
-      it(`should postJourneyEvent when journey is "${journey}"`, async () => {
-        const req = { ...testReq, body: { journey } };
-        await middleware.handleJourneyActionRequest(req, res, next);
-        expect(
-          coreBackServiceStub.postJourneyEvent.firstCall,
-        ).to.have.been.calledWith(req, journey, req.session.currentPage);
-      });
-    },
-  );
+  it(`should postJourneyEvent when given a journey event"`, async () => {
+    const req = { ...testReq, body: { journey: "some-journey-event" } };
+    await middleware.handleJourneyActionRequest(req, res, next);
+    expect(
+      coreBackServiceStub.postJourneyEvent.firstCall,
+    ).to.have.been.calledWith(
+      req,
+      "some-journey-event",
+      req.session.currentPage,
+    );
+  });
 
-  it("should postJourneyEvent with build-client-oauth-response and use ip address from header when not present in session", async function () {
+  it("should postJourneyEvent and use ip address from header when not present in session", async function () {
     const req = {
       ...testReq,
-      body: { journey: "build-client-oauth-response" },
       headers: { forwarded: "1.1.1.1" },
       session: { ...testReq.session, ipAddress: undefined },
     };
@@ -106,17 +105,12 @@ describe("handleJourneyActionRequest", () => {
     await middleware.handleJourneyActionRequest(req, res, next);
     expect(
       coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(
-      req,
-      "build-client-oauth-response",
-      "page-ipv-identity-document-start",
-    );
+    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
   });
 
-  it("should postJourneyEvent with build-client-oauth-response and use ip address from session when present", async function () {
+  it("should postJourneyEvent and use ip address from session when present", async function () {
     const req = {
       ...testReq,
-      body: { journey: "build-client-oauth-response" },
       headers: { forwarded: "1.1.1.1" },
       session: { ...testReq.session, ipAddress: "some-ip-address" },
     };
@@ -124,11 +118,7 @@ describe("handleJourneyActionRequest", () => {
     await middleware.handleJourneyActionRequest(req, res, next);
     expect(
       coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(
-      req,
-      "build-client-oauth-response",
-      "page-ipv-identity-document-start",
-    );
+    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
   });
 
   it("should call redirect given 'contact' event", async function () {

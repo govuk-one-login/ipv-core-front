@@ -55,12 +55,12 @@ describe("Sample Persisted User Details", () => {
 });
 
 describe("Generate User Details", () => {
+  const i18n = {
+    t: (key) => key,
+  };
+
   it("should generate user details correctly", () => {
     const userDetailsResponse = samplePersistedUserDetails;
-
-    const i18n = {
-      t: (key) => key,
-    };
 
     const userDetails = generateUserDetails(userDetailsResponse, i18n);
 
@@ -98,4 +98,84 @@ describe("Generate User Details", () => {
       ],
     });
   });
+
+  const nameTestCases = [
+    {
+      scenario: "single given name",
+      nameAxiosResponse: {
+        name: "firstName LastName",
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
+      },
+      expectedNameUserDetails: {
+        name: "firstName LastName",
+        nameParts: {
+          givenName: "firstName",
+          familyName: "LastName",
+        },
+      },
+    },
+    {
+      scenario: "multiple given name",
+      nameAxiosResponse: {
+        name: "firstName MiddleName LastName",
+        nameParts: [
+          { type: "GivenName", value: "firstName" },
+          { type: "GivenName", value: "MiddleName" },
+          { type: "FamilyName", value: "LastName" },
+        ],
+      },
+      expectedNameUserDetails: {
+        name: "firstName MiddleName LastName",
+        nameParts: {
+          givenName: "firstName MiddleName",
+          familyName: "LastName",
+        },
+      },
+    },
+  ];
+  nameTestCases.forEach(
+    ({ scenario, nameAxiosResponse, expectedNameUserDetails }) => {
+      it(`should return the correct structured user details given ${scenario}`, async () => {
+        const provenUserIdentity = {
+          dateOfBirth: "01 11 1973",
+          addresses: [
+            {
+              organisationName: "My company",
+              departmentName: "My deparment",
+              buildingName: "my building",
+              subBuildingName: "Room 5",
+              buildingNumber: "1",
+              dependentStreetName: "My outter street",
+              streetName: "my inner street",
+              doubleDependentAddressLocality: "My double dependant town",
+              dependentAddressLocality: "my dependant town",
+              addressLocality: "my town",
+              postalCode: "myCode",
+            },
+          ],
+          ...nameAxiosResponse,
+        };
+
+        const expectedUserDetail = {
+          dateOfBirth: "01 11 1973",
+          addresses: [
+            {
+              label:
+                "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
+              addressDetailHtml:
+                "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
+            },
+          ],
+          ...expectedNameUserDetails,
+        };
+
+        const res = generateUserDetails(provenUserIdentity, i18n);
+
+        expect(res).to.deep.equal(expectedUserDetail);
+      });
+    },
+  );
 });

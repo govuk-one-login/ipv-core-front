@@ -88,6 +88,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${AWS::StackName}"
+
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -108,6 +111,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${AWS::StackName}"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -131,6 +136,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${Environment}"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -151,6 +158,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub "PublishedKeysS3BucketName-${Environment}"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -171,6 +180,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub published-did-documents-${Environment}
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -191,6 +202,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
+      PublishedKeysS3BucketName:
+        - Fn::ImportValue: !Sub published-did-documents-${Environment}
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -998,7 +1011,10 @@ Resources:
               - Effect: Allow
                 Action:
                   - "s3:GetObject"
-                Resource: !Sub "arn:aws:s3:::published-did-documents-${Environment}/did.json"
+                Resource: !Sub
+                  - "${BucketName}/did.json"
+                  - BucketName:
+                      !FindInMap [EnvironmentConfiguration, !Ref AWS::AccountId, PublishedKeysS3BucketName]
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"

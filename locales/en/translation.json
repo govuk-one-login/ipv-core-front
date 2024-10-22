@@ -251,7 +251,7 @@
           "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+          "otherWayButtonTextHint": "Go to the service you need to use and look for other ways to prove your identity."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -388,7 +388,7 @@
           "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Go to the service you want to use and look for other ways to prove your identity."
+          "otherWayButtonTextHint": "Go to the service you need to use and look for other ways to prove your identity."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -565,48 +565,38 @@
       "content": {
         "paragraph1": "Based on what you told us, you cannot prove your identity with GOV.UK One Login.",
         "subHeading": "What you can do",
-        "paragraph2": "Continue to the service you were trying to use and look for other ways to prove your identity."
+        "paragraph2": "Go to the service you need to use and look for other ways to prove your identity."
       }
     },
     "pyiTriageSelectSmartphone": {
-      "title": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
-      "header": "Prove your identity with the GOV.UK One Login app and an iPhone or Android phone",
+      "titleDad": "Tell us if you have access to an iPhone or Android phone",
+      "titleMam": "Tell us what smartphone you are using now",
+      "headerDad": "Tell us if you have access to an iPhone or Android phone",
+      "headerMam": "Tell us what smartphone you are using now",
       "content": {
-        "paragraphIntro1": "The GOV.UK One Login app works by matching your face to your photo ID. You’ll be shown how to download and use the app.",
-        "paragraphIntro2": "You can prove your identity this way if you have an iPhone or Android phone with a working camera.",
-        "iphone": {
-          "subHeading": "iPhone",
-          "paragraph": "You can use an iPhone if it:",
-          "conditions": [
-            "is an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
-            "is running iOS13 or higher"
-          ],
-          "infoLabel": "How do I know which iPhone I have?",
-          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
+        "subHeading1": "If your photo ID is a UK photocard driving licence",
+        "paragraph2": "You need an iPhone 6s or newer, or an Android phone.",
+        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
+        "paragraph3": "You need an iPhone 7 or newer, or an Android phone.",
+        "details": {
+          "summaryText": "How do I know which iPhone I have?",
+          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
         },
-        "android": {
-          "subHeading": "Android phone (for example, Samsung or Google Pixel)",
-          "paragraph": "You can use an Android phone if it:",
-          "conditions": [
-            "is running Android version 10 or higher",
-            "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contactless payments"
-          ],
-          "infoLabel": "How do I know which Android I have?",
-          "infoHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
-        },
-        "subHeadingSelectSmartphone": "Do you have one of these smartphones?",
+        "subHeading3Dad": "Do you have access to an iPhone or Android phone?",
+        "subHeading3Mam": "Are you on one of these phones?",
         "formRadioButtons": {
-          "iphoneButtonText": "Yes, I have an iPhone",
-          "androidButtonText": "Yes, I have an Android phone",
-          "neitherButtonText": "No"
+          "iphoneButtonTextDad": "Yes - I have access to an iPhone",
+          "iphoneButtonTextMam": "Yes - I’m on an iPhone",
+          "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
+          "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
+          "neitherButtonTextDad": "No",
+          "neitherButtonTextMam": "No - I’m on a computer, tablet or different phone"
         },
-        "subHeadingAppendix": "If you’re not sure you’ll be able to prove your identity with the app",
-        "paragraphAppendix1": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
-        "paragraphAppendix2": "You can also prove your identity in person at a Post Office.",
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select whether you have an iPhone or Android phone",
-          "errorRadioMessage": "Select whether you have an iPhone or Android phone"
+          "errorSummaryDescriptionText": "Select if you are on an iPhone, Android phone or neither of these phones",
+          "errorRadioMessage": "Select if you are on an iPhone, Android phone or neither of these phones"
         }
       }
     },
@@ -948,11 +938,10 @@
       }
     },
     "pageIpvSuccess": {
-      "title": "Continue to the service you want to use",
-      "header": "Continue to the service you want to use",
+      "title": "Continue to the service you need to use",
+      "header": "Continue to the service you need to use",
       "content": {
-        "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
-        "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
+        "paragraph1": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },
@@ -1132,9 +1121,9 @@
         "circle": "2",
         "heading": "Come back here when you’re done using the app",
         "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
-        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
+        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you need to use.",
         "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
-        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
+        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
       }
     },
     "pyiTriageMobileDownload": {
@@ -1147,7 +1136,7 @@
         "paragraph3": "There will be instructions on what you need to do at each step.",
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"#\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1156,37 +1145,55 @@
         },
         "details3": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/next\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }
       }
     },
     "pyiTriageMobileConfirm": {
-      "title": "Prove your identity with the GOV.UK One Login app",
-      "header": "Prove your identity with the GOV.UK One Login app",
+      "title": "Tell us what smartphone you are using now",
+      "header": "Tell us what smartphone you are using now",
       "content": {
-        "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
-        "paragraph2": "You can prove your identity this way if you have an iPhone or Android phone.",
-        "subHeading": "iPhone",
-        "paragraph3": "You can use an iPhone if it:",
-        "bullet1": "an iPhone 7 or newer - or an iPhone 6s or newer if your photo ID is a driving licence",
-        "bullet2": "has a working camera",
-        "subHeading2": "Android phone (for example, Samsung or Google Pixel)",
-        "paragraph4": "You can use an Android phone if it:",
-        "bullet3": "has a working camera",
-        "bullet4": "has Near Field Communication (NFC) - your phone has NFC if you can use it to make contacless payments",
-        "subHeading3": "If you’re not sure you’ll be able to prove your identity with the app",
-        "paragraph5": "You can still prove your identity online if you have a UK passport or UK driving licence and can answer some security questions.",
-        "paragraph6": "You can also prove your identity in person at a Post Office.",
-        "subHeading4": "What would you like to do?",
+        "paragraph1Android": "It looks like you’re on an Android phone.",
+        "paragraph1Iphone": "It looks like you’re on an iPhone.",
+        "paragraph2": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
+        "subHeading1": "If your photo ID is a UK photocard driving licence",
+        "paragraph3": "You need an iPhone 6s or newer.",
+        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
+        "paragraph4": "You need an iPhone 7 or newer.",
+        "details": {
+          "summaryText": "How do I know which iPhone I have?",
+          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select 'General' then 'About' and look for the 'Model Name'.</p>"
+        },
+        "subHeadingQuestionAndroid": "Are you on an Android phone?",
+        "subHeadingQuestionIphone": "Are you on one of these iPhones?",
         "formRadioButtons": {
-          "proveWithAppButtonText": "Prove your identity with the GOV.UK One Login app",
-          "proveWithAppButtonTextHint": "You’ll be shown how to download and use the app.",
-          "otherWayButtonText": "Prove your identity another way"
+          "yes": "Yes",
+          "no": "No - I’m on a computer, tablet, or different phone"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryDescriptionTextIphone": "Select if you are using a computer or tablet or using an iPhone",
+          "errorSummaryDescriptionTextAndroid": "Select if you are using a computer or tablet or using an Android",
+          "errorRadioMessageIphone": "Select if you are using a computer or tablet or using an iPhone",
+          "errorRadioMessageAndroid": "Select if you are using a computer or tablet or using an Android"
+        }
+      }
+    },
+    "pyiTriageBuffer": {
+      "title": "Are you sure you want to try to prove your identity another way?",
+      "header": "Are you sure you want to try to prove your identity another way?",
+      "content": {
+        "paragraph1": "There are other ways to prove your identity with GOV.UK One Login. The app may be the most suitable way if you have photo ID.",
+        "formRadioButtons": {
+          "heading": "What would you like to do?",
+          "anotherWay": "Try to prove your identity another way",
+          "anotherWayHint": "If you change your mind and want to use the app, you’ll have to start again.",
+          "back": "Go back and use GOV.UK One Login app"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to use to prove your identity",
+          "errorRadioMessage": "Select what you would like to use to prove your identity"
         }
       }
     },

@@ -14,6 +14,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,6 +29,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Setup .npmrc
+        run: |
+          cp .npmrc.template .npmrc && \
+          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
 
       - name: npm build assets, zip and sign
         uses: govuk-one-login/github-actions/govuk/upload-assets@main
@@ -63,3 +69,4 @@ jobs:
           template-file: template.yaml
           role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
+          checkout-repo: false

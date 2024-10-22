@@ -1,9 +1,14 @@
 import { createPersonalDataHeaders } from "@govuk-one-login/frontend-passthrough-headers";
+import {
+  NamePartClass,
+  PostalAddressClass,
+} from "@govuk-one-login/data-vocab/credentials.js";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { Request } from "express";
+import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../lib/config";
-import { Request } from "express";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { Logger } from "pino";
+import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 
@@ -30,6 +35,13 @@ export interface CriCallbackRequest {
   errorDescription?: string;
   redirectUri: string;
   state?: string;
+}
+
+export interface ProvenUserIdentityDetails {
+  name: string;
+  dateOfBirth: string;
+  nameParts: NamePartClass[];
+  addresses: PostalAddressClass[];
 }
 
 export interface MobileAppCallbackRequest {
@@ -61,7 +73,7 @@ export const postJourneyEvent = (
   req: Request,
   event: string,
   currentPage?: string,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   const requestConfig = generateAxiosConfig(
     `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${event}`,
     req,
@@ -122,7 +134,8 @@ export const postMobileAppCallback = (
 
 export const getProvenIdentityUserDetails = (
   req: Request,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<ProvenUserIdentityDetails>> => {
+  // prettier-ignore
   return axiosInstance.get(
     config.API_BUILD_PROVEN_USER_IDENTITY_DETAILS,
     generateAxiosConfig(

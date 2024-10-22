@@ -103,7 +103,7 @@ Breaking this example down:
     ```html
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     ```
-  - `req.csrfToken()` creates the token in the GET route handler
+  - `req.csrfToken(true)` creates the token in the GET route handler (the parameter forces a new token for each request)
   - The result is saved in here
   - And `csrfProtection()` checks it, in the POST route handler.
 

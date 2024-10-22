@@ -27,6 +27,7 @@ import {
   securityHeadersHandler,
   cspHandler,
 } from "./handlers/security-headers-handler";
+import { csrfSynchronisedProtection } from "./lib/csrf";
 
 // Extend request object with our own extensions
 declare global {
@@ -41,11 +42,13 @@ declare global {
 // Extend session object with properties we expect
 declare module "express-session" {
   interface SessionData {
-    ipvSessionId: string;
+    ipvSessionId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
     context?: string;
     featureSet?: string;
+    ipAddress?: string;
+    currentPageStatusCode?: number;
   }
 }
 
@@ -152,6 +155,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use(loggerMiddleware);
+
+// Must be added to the app after the session and logging, and before the routers.
+app.use(csrfSynchronisedProtection);
 
 app.use((req, res, next) => {
   res.set(

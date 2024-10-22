@@ -1432,6 +1432,28 @@ Resources:
               StringEquals:
                 kms:ViaService: !Sub "s3.${AWS::Region}.amazonaws.com"
 
+  SSMParameterStore:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies: 
+        - PolicyName: SSMParameterStore
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource: "arn:aws:ssm:*:*:parameter/*"
+
 ####################################################################
 #                                                                  #
 # Monitoring & Alerts                                              #

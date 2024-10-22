@@ -13,14 +13,7 @@ export const getParameter = async (
   name: string,
 ): Promise<BannerConfig | undefined> => {
   if (process.env.NODE_ENV === "local") {
-    return {
-      pageId: "/dev/template/confirm-your-details/en",
-      bannerMessage: "<h3>Test banner</h3> <p>This is a test banner</p>",
-      bannerMessageCy:
-        "<h3>Welsh Test banner</h3> <p>This is a Welsh test banner</p>",
-      startTime: Date.now(),
-      endTime: Date.now() + 1000 * 60 * 60 * 24,
-    };
+    return JSON.parse(process.env[name] || "{}");
   }
 
   const client = new SSMClient({ region: "eu-west-2" });

@@ -69,3 +69,4 @@ jobs:
           template-file: template.yaml
           role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
+          checkout-repo: false

@@ -1352,6 +1352,13 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "checkMobileAppResult": {
+      "title": "Checking your details",
+      "header": "Checking your details",
+      "content": {
+        "paragraph1Html": "Polling to see your mobile app results."
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
 
     const currentTime = Date.now();
     if (
-      req.originalUrl === data.pageId &&
+      req.path === data.pageId &&
       currentTime >= data.startTime &&
       currentTime <= data.endTime
     ) {

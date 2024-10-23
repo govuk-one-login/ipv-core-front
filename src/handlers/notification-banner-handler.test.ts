@@ -13,7 +13,7 @@ describe("Notification banner handler", () => {
   beforeEach(() => {
     req = {
       session: {},
-      originalUrl: "/some-page",
+      path: "/some-page",
     } as any;
 
     res = {

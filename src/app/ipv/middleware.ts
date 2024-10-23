@@ -14,7 +14,7 @@ import {
   postJourneyEvent,
   getProvenIdentityUserDetails,
 } from "../../services/coreBackService";
-import qrCodeHelper from "../shared/qrCodeHelper";
+import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import PHONE_TYPES from "../../constants/phone-types";
 import {
   SUPPORTED_COMBO_EVENTS,
@@ -22,7 +22,7 @@ import {
   UpdateDetailsOptions,
   UpdateDetailsOptionsWithCancel,
 } from "../../constants/update-details-journeys";
-import appDownloadHelper from "../shared/appDownloadHelper";
+import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import {
   getIpvPageTemplatePath,
   getIpvPagePath,
@@ -407,13 +407,12 @@ export const handleJourneyPageRequest = async (
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-      const qrCodeUrl = appDownloadHelper.getAppStoreRedirectUrl(
+      const qrCodeUrl = getAppStoreRedirectUrl(
         parseContextAsPhoneType(context),
       );
-      renderOptions.qrCode =
-        await qrCodeHelper.generateQrCodeImageData(qrCodeUrl);
+      renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
+      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(
         parseContextAsPhoneType(context),
       );
     } else if (req.session.currentPageStatusCode !== undefined) {

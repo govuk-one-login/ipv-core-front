@@ -1,14 +1,10 @@
-const qrCode = require("qrcode");
+import qrCode from "qrcode";
 
-async function generateQrCodeImageData(url) {
+export const generateQrCodeImageData = async (url: string): Promise<string> => {
   return qrCode.toDataURL(url, {
     type: "image/jpeg",
     margin: 0,
     errorCorrectionLevel: "H",
     version: 10,
   });
-}
-
-module.exports = {
-  generateQrCodeImageData,
 };

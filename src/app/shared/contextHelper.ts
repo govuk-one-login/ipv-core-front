@@ -1,7 +1,7 @@
-const CONTEXTS = require("../../constants/contexts");
-const PHONE_TYPES = require("../../constants/phone-types");
+import CONTEXTS from "../../constants/contexts";
+import PHONE_TYPES from "../../constants/phone-types";
 
-function parseContextAsPhoneType(context) {
+export const parseContextAsPhoneType = (context?: string): string => {
   switch (context) {
     case CONTEXTS.IPHONE:
       return PHONE_TYPES.IPHONE;
@@ -10,8 +10,4 @@ function parseContextAsPhoneType(context) {
     default:
       throw new Error(`Context cannot be parsed as a phone type: ${context}`);
   }
-}
-
-module.exports = {
-  parseContextAsPhoneType,
 };

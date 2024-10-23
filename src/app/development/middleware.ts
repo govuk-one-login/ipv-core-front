@@ -8,8 +8,8 @@ import {
 } from "../shared/reuseHelper";
 import { pageRequiresUserDetails } from "../ipv/middleware";
 import { parseContextAsPhoneType } from "../shared/contextHelper";
-import qrCodeHelper from "../shared/qrCodeHelper";
-import appDownloadHelper from "../shared/appDownloadHelper";
+import { generateQrCodeImageData } from "../shared/qrCodeHelper";
+import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import config from "../../lib/config";
@@ -77,14 +77,14 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-    renderOptions.qrCode = await qrCodeHelper.generateQrCodeImageData(
-      appDownloadHelper.getAppStoreRedirectUrl(
-        parseContextAsPhoneType(context),
+    renderOptions.qrCode = await generateQrCodeImageData(
+      getAppStoreRedirectUrl(
+        parseContextAsPhoneType(context ? (context as string) : undefined),
       ),
     );
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-    renderOptions.appDownloadUrl = appDownloadHelper.getAppStoreRedirectUrl(
-      parseContextAsPhoneType(context),
+    renderOptions.appDownloadUrl = getAppStoreRedirectUrl(
+      parseContextAsPhoneType(context ? (context as string) : undefined),
     );
   }
 

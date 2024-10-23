@@ -1,8 +1,7 @@
-const { expect } = require("chai");
-const {
-  samplePersistedUserDetails,
-  generateUserDetails,
-} = require("./reuseHelper");
+import { expect } from "chai";
+import { samplePersistedUserDetails, generateUserDetails } from "./reuseHelper";
+import { i18n } from "i18next";
+import { NamePartType } from "@govuk-one-login/data-vocab/credentials";
 
 describe("Sample Persisted User Details", () => {
   it("should have the expected structure", () => {
@@ -55,14 +54,14 @@ describe("Sample Persisted User Details", () => {
 });
 
 describe("Generate User Details", () => {
-  const i18n = {
+  const mockI18n = {
     t: (key) => key,
-  };
+  } as i18n;
 
   it("should generate user details correctly", () => {
     const userDetailsResponse = samplePersistedUserDetails;
 
-    const userDetails = generateUserDetails(userDetailsResponse, i18n);
+    const userDetails = generateUserDetails(userDetailsResponse, mockI18n);
 
     expect(userDetails).to.deep.equal({
       name: "Alessandro Cholmondeley-Featherstonehaugh",
@@ -105,8 +104,8 @@ describe("Generate User Details", () => {
       nameAxiosResponse: {
         name: "firstName LastName",
         nameParts: [
-          { type: "GivenName", value: "firstName" },
-          { type: "FamilyName", value: "LastName" },
+          { type: "GivenName" as NamePartType, value: "firstName" },
+          { type: "FamilyName" as NamePartType, value: "LastName" },
         ],
       },
       expectedNameUserDetails: {
@@ -122,9 +121,9 @@ describe("Generate User Details", () => {
       nameAxiosResponse: {
         name: "firstName MiddleName LastName",
         nameParts: [
-          { type: "GivenName", value: "firstName" },
-          { type: "GivenName", value: "MiddleName" },
-          { type: "FamilyName", value: "LastName" },
+          { type: "GivenName" as NamePartType, value: "firstName" },
+          { type: "GivenName" as NamePartType, value: "MiddleName" },
+          { type: "FamilyName" as NamePartType, value: "LastName" },
         ],
       },
       expectedNameUserDetails: {
@@ -172,7 +171,7 @@ describe("Generate User Details", () => {
           ...expectedNameUserDetails,
         };
 
-        const res = generateUserDetails(provenUserIdentity, i18n);
+        const res = generateUserDetails(provenUserIdentity, mockI18n);
 
         expect(res).to.deep.equal(expectedUserDetail);
       });

@@ -49,6 +49,7 @@ Conditions:
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
+  IsStaging: !Equals [ !Ref Environment, "staging" ]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
@@ -998,7 +999,12 @@ Resources:
               - Effect: Allow
                 Action:
                   - "s3:GetObject"
-                Resource: !Sub "arn:aws:s3:::published-did-documents-${Environment}/did.json"
+                Resource: !Sub
+                  - "arn:aws:s3:::${BucketName}/did.json"
+                  - BucketName: !If
+                      - IsStaging
+                      - !Sub "govuk-one-login-spot-published-keys-${Environment}"
+                      - !Sub "published-did-documents-${Environment}"
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
@@ -1120,7 +1126,10 @@ Resources:
       Integration:
         Type: AWS
         IntegrationHttpMethod: GET
-        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Uri: !If
+           - IsStaging
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationResponses:

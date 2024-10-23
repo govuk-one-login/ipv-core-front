@@ -14,6 +14,7 @@ import uid from "uid-safe";
 import criRouter from "./app/credential-issuer/router";
 import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
+import mobileAppRouter from "./app/mobile-app/router";
 import oauthRouter from "./app/oauth2/router";
 import config from "./lib/config";
 import { setLocals } from "./lib/locals";

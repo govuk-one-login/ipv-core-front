@@ -5,6 +5,10 @@ import * as CoreBackService from "../../services/coreBackService";
 import { RequestHandler } from "express";
 
 export const checkMobileAppDetails: RequestHandler = async (req, res, next) => {
+  if (!req.query?.state) {
+    throw new Error("Missing state query param");
+  }
+
   const body: MobileAppCallbackRequest = {
     state: req.query?.state as string,
   };
@@ -17,8 +21,7 @@ export const checkMobileAppDetails: RequestHandler = async (req, res, next) => {
 
     return handleBackendResponse(req, res, apiResponse?.data);
   } catch (error) {
-    error.csrfToken = req.csrfToken();
     transformError(error, "error calling mobile app callback lambda");
     next(error);
   }
-}
+};

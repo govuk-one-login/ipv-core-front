@@ -917,6 +917,18 @@ Resources:
                   - "kms:Decrypt"
                 Resource:
                   - "arn:aws:kms:eu-west-2:216552277552:key/*"
+        - PolicyName: SSMParameterAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:*"
+
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -975,6 +987,17 @@ Resources:
                   - "kms:Decrypt"
                 Resource:
                   - "arn:aws:kms:eu-west-2:216552277552:key/*"
+        - PolicyName: SSMParameterAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -1431,28 +1454,6 @@ Resources:
             Condition:
               StringEquals:
                 kms:ViaService: !Sub "s3.${AWS::Region}.amazonaws.com"
-
-  SSMParameterStore:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: "Allow"
-            Principal:
-              Service: ecs-tasks.amazonaws.com
-            Action: "sts:AssumeRole"
-      Policies: 
-        - PolicyName: SSMParameterStore
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - ssm:GetParameter
-                  - ssm:GetParameters
-                  - ssm:GetParametersByPath
-                Resource: "arn:aws:ssm:*:*:parameter/*"
 
 ####################################################################
 #                                                                  #

@@ -27,3 +27,5 @@ repos:
     - id: checkov
       verbose: true
       args: [--soft-fail]
+
+exclude: ^tsconfig.json$

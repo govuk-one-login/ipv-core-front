@@ -5,9 +5,7 @@ describe("parseContextAsPhoneType", () => {
   const validCases = ["iphone", "android"];
   validCases.forEach((context) => {
     it(`should not throw given context is valid: ${context}`, () => {
-      expect(() => validatePhoneType(context as any)).not.to.throw(
-        `Context cannot be parsed as a phone type: ${context}`,
-      );
+      expect(() => validatePhoneType(context as any)).not.to.throw();
     });
   });
 

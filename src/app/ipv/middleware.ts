@@ -403,16 +403,16 @@ export const handleJourneyPageRequest = async (
       context,
       pageErrorState,
     };
-    const phoneType = context ? (context as string) : undefined;
+
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-      validatePhoneType(phoneType);
-      const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
+      validatePhoneType(context);
+      const qrCodeUrl = getAppStoreRedirectUrl(context);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      validatePhoneType(phoneType);
-      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
+      validatePhoneType(context);
+      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
     } else if (req.session.currentPageStatusCode !== undefined) {
       res.status(req.session.currentPageStatusCode);
     }

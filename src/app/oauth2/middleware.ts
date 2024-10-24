@@ -1,4 +1,3 @@
-import { transformError } from "../shared/loggerHelper";
 import {
   InitialiseSessionRequest,
   postSessionInitialise,
@@ -6,6 +5,7 @@ import {
 import { processAction } from "../ipv/middleware";
 import { RequestHandler } from "express";
 import BadRequestError from "../../errors/bad-request-error";
+import TechnicalError from "../../errors/technical-error";
 
 export const setIpvSessionId: RequestHandler = async (req, res, next) => {
   try {
@@ -29,7 +29,6 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
 
     req.session.ipvSessionId = response?.data?.ipvSessionId;
   } catch (error) {
-    transformError(error, `error handling journey page: ${req.params}`);
     return next(error);
   }
 
@@ -42,9 +41,11 @@ export const handleOAuthJourneyAction: RequestHandler = async (
   next,
 ) => {
   try {
+    if (!req.session.ipvSessionId) {
+      throw new TechnicalError("missing ipvSessionId");
+    }
     await processAction(req, res, "next");
   } catch (error) {
-    transformError(error, "error invoking handleOAuthJourneyAction");
     return next(error);
   }
 };

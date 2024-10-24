@@ -1,25 +1,26 @@
 import { isAxiosError } from "axios";
+import { ErrorRequestHandler } from "express";
 import sanitize from "sanitize-filename";
 import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
-import { ErrorRequestHandler } from "express";
+import { isPageResponse } from "../app/validators/postJourneyEventResponse";
 
 const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
 
-  if (isAxiosError(res.err) && res.err.response?.data?.page) {
-    const pageId = sanitize(res.err.response.data.page);
+  if (isAxiosError(err) && isPageResponse(err.response?.data)) {
+    const pageId = sanitize(err.response.data.page);
 
-    if (res.err?.response?.data?.clientOAuthSessionId) {
+    if (err.response.data.clientOAuthSessionId) {
       req.session.clientOauthSessionId =
-        res.err.response.data.clientOAuthSessionId;
+        err.response.data.clientOAuthSessionId;
     }
     req.session.currentPage = pageId;
 
-    if (res.err.response.status) {
-      res.status(res.err.response.status);
+    if (err.response.data.statusCode) {
+      res.status(err.response.data.statusCode);
     } else {
       res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }
@@ -30,7 +31,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     });
   }
 
-  next(err);
+  return next(err);
 };
 
 export default journeyEventErrorHandler;

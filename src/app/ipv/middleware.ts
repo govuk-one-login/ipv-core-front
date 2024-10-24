@@ -1,12 +1,9 @@
 import sanitize from "sanitize-filename";
 import { Request, Response } from "express";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
-
 import config from "../../lib/config";
-import { logError, transformError } from "../shared/loggerHelper";
 import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
-import { HTTP_STATUS_CODES } from "../../app.constants";
 import fs from "fs";
 import path from "path";
 import { saveSessionAndRedirect } from "../shared/redirectHelper";
@@ -152,10 +149,6 @@ export const handleBackendResponse = async (
 
 const checkJourneyAction = (req: Request): void => {
   if (!req.body?.journey) {
-    const err = new AxiosError("req.body?.journey is missing");
-    err.status = HTTP_STATUS_CODES.BAD_REQUEST;
-    logError(req, err);
-
     throw new BadRequestError("journey parameter is required");
   }
 };
@@ -243,7 +236,6 @@ export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
         throw new TechnicalError("Unrecognised phone type: " + specifiedPhoneType); // TODO: should this be bad request?
     }
   } catch (error) {
-    transformError(error, "Error redirecting to app store");
     return next(error);
   }
 };
@@ -253,14 +245,13 @@ const handleUnexpectedPage = async (
   res: Response,
   pageId: string,
 ): Promise<void> => {
-  logError(
-    req,
-    {
-      pageId: pageId,
-      expectedPage: req.session.currentPage,
+  req.log?.warn({
+    message: {
+      description: "pageId does not match session pageId",
+      pageId,
+      sessionPageId: req.session.currentPage,
     },
-    "page :pageId doesn't match expected session page :expectedPage",
-  );
+  });
 
   req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
 
@@ -372,7 +363,6 @@ export const handleJourneyPageRequest = async (
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
   } catch (error) {
-    transformError(error, `error handling journey page: ${req.params}`);
     return next(error);
   } finally {
     delete req.session.currentPageStatusCode;
@@ -403,7 +393,6 @@ export const handleJourneyActionRequest: RequestHandler = async (
 
     await processAction(req, res, req.body.journey, pageId);
   } catch (error) {
-    transformError(error, `error handling POST request on ${pageId}`);
     return next(error);
   }
 };

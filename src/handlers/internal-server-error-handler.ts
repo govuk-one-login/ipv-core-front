@@ -39,8 +39,12 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   res.status(status);
 
-  if (status === HTTP_STATUS_CODES.UNAUTHORIZED) {
+  if (res.statusCode === HTTP_STATUS_CODES.UNAUTHORIZED) {
     return res.render(getErrorPageTemplatePath(ERROR_PAGES.SESSION_ENDED));
+  }
+
+  if (res.statusCode === HTTP_STATUS_CODES.NOT_FOUND) {
+    return res.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
   }
 
   res.err = err; // Attach error object for the pino response logger

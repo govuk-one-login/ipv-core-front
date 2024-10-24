@@ -103,7 +103,7 @@ export const postSessionInitialise = (
 export const postCriCallback = (
   req: Request,
   body: CriCallbackRequest,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   return axiosInstance.post(
     config.API_CRI_CALLBACK,
     body,

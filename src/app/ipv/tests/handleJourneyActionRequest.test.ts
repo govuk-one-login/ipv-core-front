@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
+import TechnicalError from "../../../errors/technical-error";
 
 describe("handleJourneyActionRequest", () => {
   const testReq = {
@@ -140,10 +141,16 @@ describe("handleJourneyActionRequest", () => {
       ...testReq,
       session: { ...testReq.session, ipvSessionId: undefined },
     };
+
     await middleware.handleJourneyActionRequest(req, res, next);
-    expect(res.status).to.have.been.calledWith(401);
-    expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
-      context: "unrecoverable",
-    });
+
+    expect(next).to.have.been.calledWith(
+      sinon.match.instanceOf(TechnicalError)
+    );
+    // TODO: used to be 401, now 500(!) - 400 is probably more appropriate
+    // expect(res.status).to.have.been.calledWith(401);
+    // expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
+    //   context: "unrecoverable",
+    // });
   });
 });

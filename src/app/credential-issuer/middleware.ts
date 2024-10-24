@@ -1,5 +1,4 @@
 import { handleBackendResponse } from "../ipv/middleware";
-import { transformError } from "../shared/loggerHelper";
 import config from "../../lib/config";
 import {
   CriCallbackRequest,
@@ -46,14 +45,8 @@ export const sendParamsToAPI: RequestHandler = async (req, res, next) => {
 
   try {
     const apiResponse = await postCriCallback(req, body);
-
-    if (apiResponse?.status) {
-      res.status(apiResponse.status);
-    }
-
     return handleBackendResponse(req, res, apiResponse?.data);
   } catch (error) {
-    transformError(error, "error calling validate-callback lambda");
     next(error);
   }
 };
@@ -84,14 +77,8 @@ export const sendParamsToAPIV2: RequestHandler = async (req, res, next) => {
 
   try {
     const apiResponse = await postCriCallback(req, body);
-
-    if (apiResponse?.status) {
-      res.status(apiResponse.status);
-    }
-
     return handleBackendResponse(req, res, apiResponse.data);
   } catch (error) {
-    transformError(error, "error calling validate-callback lambda");
     next(error);
   }
 };

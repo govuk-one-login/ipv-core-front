@@ -11,7 +11,7 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "outDir": "build",
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "types": ["node", "mocha"]
   },
   "include": ["src"]

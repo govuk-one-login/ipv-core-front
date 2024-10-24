@@ -30,7 +30,7 @@ import {
   getErrorPageTemplatePath,
 } from "../../lib/paths";
 import PAGES from "../../constants/ipv-pages";
-import { parseContextAsPhoneType } from "../shared/contextHelper";
+import { validatePhoneType } from "../shared/contextHelper";
 import {
   sniffPhoneType,
   detectAppTriageEvent,
@@ -403,18 +403,16 @@ export const handleJourneyPageRequest = async (
       context,
       pageErrorState,
     };
-
+    const phoneType = context ? (context as string) : undefined;
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-      const qrCodeUrl = getAppStoreRedirectUrl(
-        parseContextAsPhoneType(context),
-      );
+      validatePhoneType(phoneType);
+      const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(
-        parseContextAsPhoneType(context),
-      );
+      validatePhoneType(phoneType);
+      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (req.session.currentPageStatusCode !== undefined) {
       res.status(req.session.currentPageStatusCode);
     }

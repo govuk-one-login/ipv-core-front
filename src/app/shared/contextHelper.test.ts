@@ -1,22 +1,20 @@
 import { expect } from "chai";
-import { parseContextAsPhoneType } from "./contextHelper";
+import { validatePhoneType } from "./contextHelper";
 
 describe("parseContextAsPhoneType", () => {
-  const validCases = [
-    { context: "iphone", expectedContext: "iphone" },
-    { context: "android", expectedContext: "android" },
-  ];
-  validCases.forEach(({ context, expectedContext }) => {
-    it(`should return ${expectedContext} given context ${context}`, () => {
-      const res = parseContextAsPhoneType(context);
-      expect(res).to.equal(expectedContext);
+  const validCases = ["iphone", "android"];
+  validCases.forEach((context) => {
+    it(`should not throw given context is valid: ${context}`, () => {
+      expect(() => validatePhoneType(context as any)).not.to.throw(
+        `Context cannot be parsed as a phone type: ${context}`,
+      );
     });
   });
 
   const errorCases = [null, undefined, "invalid-context"];
   errorCases.forEach((context) => {
     it(`should throw and error given context is ${context}`, () => {
-      expect(() => parseContextAsPhoneType(context as any)).to.throw(
+      expect(() => validatePhoneType(context as any)).to.throw(
         `Context cannot be parsed as a phone type: ${context}`,
       );
     });

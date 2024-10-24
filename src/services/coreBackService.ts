@@ -44,6 +44,10 @@ export interface ProvenUserIdentityDetails {
   addresses: PostalAddressClass[];
 }
 
+export interface MobileAppCallbackRequest {
+  state?: string;
+}
+
 const generateAxiosConfig = (url: string, req: Request): AxiosRequestConfig => {
   const personalDataHeaders = createPersonalDataHeaders(url, req);
   return {
@@ -109,6 +113,20 @@ export const postCriCallback = (
     body,
     generateAxiosConfig(
       `${config.API_BASE_URL}${config.API_CRI_CALLBACK}`,
+      req,
+    ),
+  );
+};
+
+export const postMobileAppCallback = (
+  req: Request,
+  body: MobileAppCallbackRequest,
+): Promise<AxiosResponse> => {
+  return axiosInstance.post(
+    config.API_MOBILE_APP_CALLBACK,
+    body,
+    generateAxiosConfig(
+      `${config.API_BASE_URL}${config.API_MOBILE_APP_CALLBACK}`,
       req,
     ),
   );

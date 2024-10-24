@@ -10,7 +10,7 @@ Updated: 01/08/2024
 
 - Nunjucks files are templates which are rendered by the Express app.
 - The Express handler returns the `res.render(<path to template>, renderOptions)`.
-- Requests are routed in `app/ipv/router.js` with generic route handlers.
+- Requests are routed in `app/ipv/router.ts` with generic route handlers.
 
 #### Hydrating the template
 

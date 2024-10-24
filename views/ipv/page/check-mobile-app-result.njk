@@ -1,0 +1,12 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% set pageTitleKey = 'pages.checkMobileAppResult.title' %}
+{% set googleTagManagerPageId = "checkMobileAppResult" %}
+{% set isPageDynamic = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.checkMobileAppResult.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{'pages.checkMobileAppResult.content.paragraph1' | translateWithContext(context) }}</p>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

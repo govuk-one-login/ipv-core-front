@@ -6,7 +6,7 @@ include:
 exclude:
   - "**/*.test.js"
   - "**/*.test.ts"
-  - "**/*router.js"
+  - "**/*router.ts"
   - "src/assets/*"
   - "src/lib/*"
   - "src/app.ts"

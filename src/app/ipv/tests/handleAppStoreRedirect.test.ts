@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import PHONE_TYPES from "../../../constants/phone-types";
+import { PHONE_TYPES } from "../../../constants/device-constants";
 import config from "../../../lib/config";
 import { handleAppStoreRedirect } from "../middleware";
 

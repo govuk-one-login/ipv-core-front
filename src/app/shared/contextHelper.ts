@@ -1,13 +1,10 @@
-import CONTEXTS from "../../constants/contexts";
-import PHONE_TYPES from "../../constants/phone-types";
+import { PHONE_TYPES } from "../../constants/device-constants";
 
-export const parseContextAsPhoneType = (context?: string): string => {
-  switch (context) {
-    case CONTEXTS.IPHONE:
-      return PHONE_TYPES.IPHONE;
-    case CONTEXTS.ANDROID:
-      return PHONE_TYPES.ANDROID;
-    default:
-      throw new Error(`Context cannot be parsed as a phone type: ${context}`);
+export function validatePhoneType(context?: string): asserts context is string {
+  if (
+    !context ||
+    !([PHONE_TYPES.IPHONE, PHONE_TYPES.ANDROID] as string[]).includes(context)
+  ) {
+    throw new Error(`Context cannot be parsed as a phone type: ${context}`);
   }
-};
+}

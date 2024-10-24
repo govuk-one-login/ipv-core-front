@@ -1,8 +1,7 @@
 import UAParser from "ua-parser-js";
 import { Request } from "express";
-import PHONE_TYPES from "../../constants/phone-types";
-import OS_TYPES from "../../constants/os-types";
-import EVENTS from "../../constants/events";
+import { PHONE_TYPES, OS_TYPES } from "../../constants/device-constants";
+import { APP_TRIAGE_EVENTS } from "../../constants/events";
 
 // The AppTriage event is special in that we want to send a more specialised version if we can detect the current
 // device type as being an Android phone or iPhone.
@@ -11,11 +10,11 @@ export const detectAppTriageEvent = (req: Request): string => {
 
   switch (detectedPhone) {
     case PHONE_TYPES.ANDROID:
-      return EVENTS.APP_TRIAGE_ANDROID;
+      return APP_TRIAGE_EVENTS.APP_TRIAGE_ANDROID;
     case PHONE_TYPES.IPHONE:
-      return EVENTS.APP_TRIAGE_IPHONE;
+      return APP_TRIAGE_EVENTS.APP_TRIAGE_IPHONE;
     default:
-      return EVENTS.APP_TRIAGE;
+      return APP_TRIAGE_EVENTS.APP_TRIAGE;
   }
 };
 

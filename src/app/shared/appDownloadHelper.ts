@@ -1,5 +1,5 @@
 import config from "../../lib/config";
-import PHONE_TYPES from "../../constants/phone-types";
+import { PHONE_TYPES } from "../../constants/device-constants";
 
 export const getAppStoreRedirectUrl = (phoneType: string): string => {
   if (phoneType !== PHONE_TYPES.IPHONE && phoneType !== PHONE_TYPES.ANDROID) {

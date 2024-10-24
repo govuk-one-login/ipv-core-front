@@ -1,10 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
-import {
-  IDENTIFY_DEVICE,
-  PROVE_IDENTITY_NO_PHOTO_ID,
-} from "../../../constants/ipv-pages";
+import IPV_PAGES from "../../../constants/ipv-pages";
 
 describe("processAction", () => {
   const testReq = {
@@ -62,10 +59,10 @@ describe("processAction", () => {
   });
 
   it("should send an appTriage event to core-back and then handle identify-device page response", async function () {
-    const pageId = PROVE_IDENTITY_NO_PHOTO_ID;
+    const pageId = IPV_PAGES.PROVE_IDENTITY_NO_PHOTO_ID;
     const eventResponses = [
       {
-        data: { page: IDENTIFY_DEVICE },
+        data: { page: IPV_PAGES.IDENTIFY_DEVICE },
       },
       {
         data: { page: pageId },

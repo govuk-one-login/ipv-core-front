@@ -1,4 +1,6 @@
-class TechnicalError extends Error {
+import HttpError from "./http-error";
+
+class TechnicalError extends HttpError {
   status = 500;
 
   constructor(message: string, cause?: unknown) {

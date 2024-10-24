@@ -43,6 +43,7 @@ import {
 import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
 import NotFoundError from "../../errors/not-found-error";
+import UnauthorizedError from "../../errors/unauthorized-error";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -285,7 +286,7 @@ const validateSessionAndPage = async (
   pageId: string,
 ): Promise<boolean> => {
   if (!isValidIpvPage(pageId)) {
-    throw new NotFoundError();
+    throw new NotFoundError("Invalid page id");
   }
 
   // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario
@@ -298,7 +299,7 @@ const validateSessionAndPage = async (
   }
 
   if (!req.session?.ipvSessionId) {
-    throw new TechnicalError("ipvSessionId is missing");
+    throw new UnauthorizedError("ipvSessionId is missing");
   }
 
   if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
@@ -322,7 +323,7 @@ export const updateJourneyState: RequestHandler = async (req, res) => {
   if (action && isValidIpvPage(currentPageId)) {
     await processAction(req, res, action, currentPageId);
   } else {
-    throw new NotFoundError();
+    throw new NotFoundError("Invalid page id");
   }
 };
 

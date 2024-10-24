@@ -1,4 +1,6 @@
-class BadRequestError extends Error {
+import HttpError from "./http-error";
+
+class BadRequestError extends HttpError {
   status = 400;
 
   constructor(message: string) {

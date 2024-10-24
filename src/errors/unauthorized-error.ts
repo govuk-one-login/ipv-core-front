@@ -1,7 +1,7 @@
 import HttpError from "./http-error";
 
-class NotFoundError extends HttpError {
-  status = 404;
+class UnauthorizedError extends HttpError {
+  status = 401;
 
   constructor(message: string) {
     super(message);
@@ -9,4 +9,4 @@ class NotFoundError extends HttpError {
   }
 }
 
-export default NotFoundError;
+export default UnauthorizedError;

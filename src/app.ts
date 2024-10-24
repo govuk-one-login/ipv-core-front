@@ -1,6 +1,4 @@
 // Must be imported before any route definitions to correctly patch express
-import "express-async-errors";
-
 import path from "path";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import connect from "connect-dynamodb";

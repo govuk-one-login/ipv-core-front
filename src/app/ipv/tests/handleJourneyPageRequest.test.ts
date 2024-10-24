@@ -3,6 +3,8 @@ import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
 import { AxiosResponse } from "axios";
+import NotFoundError from "../../../errors/not-found-error";
+import TechnicalError from "../../../errors/technical-error";
 
 describe("handleJourneyPageRequest", () => {
   const testReq = {
@@ -15,7 +17,7 @@ describe("handleJourneyPageRequest", () => {
       currentPage: "prove-identity-no-photo-id",
       save: sinon.fake.yields(null),
     },
-    log: { info: sinon.fake(), error: sinon.fake() },
+    log: { info: sinon.fake(), error: sinon.fake(), warn: sinon.fake() },
     csrfToken: sinon.fake(),
     i18n: { t: () => "Some label" },
   } as any;
@@ -148,15 +150,7 @@ describe("handleJourneyPageRequest", () => {
         params: { ...testReq.params, pageId: "invalid-page" },
       },
       scenario: "invalid page id",
-      expectedPageRendered: "errors/page-not-found.njk",
-    },
-    {
-      req: {
-        ...testReq,
-        params: { ...testReq.params, pageId: "pyi-timeout-unrecoverable" },
-      },
-      scenario: "unrecoverable timeout pageId",
-      expectedPageRendered: "ipv/page/pyi-timeout-unrecoverable.njk",
+      expectedError: NotFoundError,
     },
     {
       req: {
@@ -164,8 +158,7 @@ describe("handleJourneyPageRequest", () => {
         session: { ...testReq.session, ipvSessionId: null },
       },
       scenario: "ipvSessionId is null",
-      expectedPageRendered: "ipv/page/pyi-technical.njk",
-      context: "unrecoverable",
+      expectedError: TechnicalError,
     },
     {
       req: {
@@ -173,36 +166,26 @@ describe("handleJourneyPageRequest", () => {
         session: { ...testReq.session, ipvSessionId: undefined },
       },
       scenario: "ipvSessionId is undefined",
-      expectedPageRendered: "ipv/page/pyi-technical.njk",
-      context: "unrecoverable",
+      expectedError: TechnicalError,
     },
   ];
   errorPageScenarios.forEach(
     ({
       req,
       scenario,
-      expectedPageRendered,
-      context,
-    }: {
-      req: any;
-      scenario: string;
-      expectedPageRendered: string;
-      context?: string;
+      expectedError,
     }) => {
-      it(`should render ${expectedPageRendered} with context ${context} when given ${scenario}`, async () => {
+      it(`should throw ${expectedError.name} when given ${scenario}`, async () => {
         await middleware.handleJourneyPageRequest(req, res, next);
 
-        const expectedArgs = [
-          expectedPageRendered,
-          ...(context ? [{ context }] : []),
-        ];
-
-        expect(res.render).to.have.been.calledWith(...expectedArgs);
+        expect(next).to.have.been.calledWith(
+          sinon.match.instanceOf(expectedError),
+        );
       });
     },
   );
 
-  it("should render attempt recovery error page when current page is not equal to pageId", async () => {
+  it("should redirect to attempt recovery page when current page is not equal to pageId", async () => {
     const request = {
       ...testReq,
       session: { ...testReq.session, currentPage: "page-multiple-doc-check" },
@@ -212,6 +195,20 @@ describe("handleJourneyPageRequest", () => {
 
     expect(res.redirect).to.have.been.calledWith(
       "/ipv/page/pyi-attempt-recovery",
+    );
+    expect(request.session.currentPage).to.equal("pyi-attempt-recovery");
+  });
+
+  it("should render timeout unrecoverable even if current page is not equal to pageId", async () => {
+    const request = {
+      ...testReq,
+      params: { ...testReq.params, pageId: "pyi-timeout-unrecoverable" },
+    };
+
+    await middleware.handleJourneyPageRequest(request, res, next);
+
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/pyi-timeout-unrecoverable.njk",
     );
   });
 

@@ -21,26 +21,22 @@ interface RadioOption {
 
 let templateRadioOptions: RadioOption[];
 
-export const allTemplatesGet: RequestHandler = async (req, res, next) => {
-  try {
-    const directoryPath = path.resolve("views/ipv/page");
+export const allTemplatesGet: RequestHandler = async (req, res) => {
+  const directoryPath = path.resolve("views/ipv/page");
 
-    // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
-    if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
-      const templateFiles = await fs.readdir(directoryPath);
-      templateRadioOptions = templateFiles.map((file) => ({
-        text: path.parse(file).name,
-        value: path.parse(file).name,
-      }));
-    }
-
-    res.render(getTemplatePath("development", "all-templates"), {
-      templateRadioOptions: templateRadioOptions,
-      csrfToken: req.csrfToken?.(true),
-    });
-  } catch (error) {
-    return next(error);
+  // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
+  if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
+    const templateFiles = await fs.readdir(directoryPath);
+    templateRadioOptions = templateFiles.map((file) => ({
+      text: path.parse(file).name,
+      value: path.parse(file).name,
+    }));
   }
+
+  res.render(getTemplatePath("development", "all-templates"), {
+    templateRadioOptions: templateRadioOptions,
+    csrfToken: req.csrfToken?.(true),
+  });
 };
 
 export const allTemplatesPost: RequestHandler = async (req, res) => {

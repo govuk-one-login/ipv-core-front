@@ -1,4 +1,4 @@
-import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { expect } from "chai";
 import { NextFunction, Request, Response } from "express";
 import proxyquire from "proxyquire";
@@ -109,55 +109,56 @@ describe("Error handlers", () => {
   });
 
   describe("journeyEventErrorHandler", () => {
-    const axiosResponse: AxiosResponse = {
-      status: undefined,
-    } as any;
-    const axiosStub: AxiosInstance = {} as any;
-
     it("should render page with provided pageId", () => {
-      axiosResponse.data = {
-        page: "pyi-technical",
-        statusCode: 400,
-      };
+      const axiosResponse = {
+        data: {
+          page: "pyi-technical",
+          statusCode: 400,
+        },
+      } as AxiosResponse;
 
       const err = new AxiosError("some error");
       err.response = axiosResponse;
-      axiosStub.post = sinon.fake.throws(err);
 
       journeyEventErrorHandler(err, req, res, next);
 
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+      expect(res.status).to.have.been.calledWith(400);
     });
 
     it("should call next with error when there is no pageId", () => {
-      axiosResponse.data = {
-        statusCode: 400,
-      };
+      const axiosResponse = {
+        data: {
+          statusCode: 400,
+        },
+      } as AxiosResponse;
 
       const err = new AxiosError("some error");
       err.response = axiosResponse;
-      axiosStub.post = sinon.fake.throws(err);
       journeyEventErrorHandler(err, req, res, next);
 
       expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
     });
 
-    it("should render pyi-timeout-recoverable page", () => {
-      axiosResponse.data = {
-        page: "pyi-timeout-recoverable",
-        statusCode: 401,
-        clientOAuthSessionId: "fake-session-id",
-      };
-      res.statusCode = 401;
+    it("should set client OAuth session id", () => {
+      const axiosResponse = {
+        data: {
+          page: "pyi-timeout-recoverable",
+          statusCode: 401,
+          clientOAuthSessionId: "fake-session-id",
+        },
+      } as AxiosResponse;
+
       const err = new AxiosError("timeout recoverable error");
       err.response = axiosResponse;
-      axiosStub.post = sinon.fake.throws(err);
-      journeyEventErrorHandler(err, req, res, next);
-      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
 
+      journeyEventErrorHandler(err, req, res, next);
+
+      expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
       expect(res.render).to.have.been.calledWith(
         "ipv/page/pyi-timeout-recoverable.njk",
       );
+      expect(res.status).to.have.been.calledWith(401);
     });
 
     it("should call next if headers sent", () => {

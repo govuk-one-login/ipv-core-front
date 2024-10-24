@@ -30,25 +30,25 @@ export type PostJourneyEventResponse =
 export const isJourneyResponse = (
   res: PostJourneyEventResponse,
 ): res is JourneyResponse => {
-  return (res as JourneyResponse).journey !== undefined;
+  return (res as JourneyResponse)?.journey !== undefined;
 };
 
 export const isCriResponse = (
   res: PostJourneyEventResponse,
 ): res is CriResponse => {
-  return (res as CriResponse).cri !== undefined;
+  return (res as CriResponse)?.cri !== undefined;
 };
 
 export const isClientResponse = (
   res: PostJourneyEventResponse,
 ): res is ClientResponse => {
-  return (res as ClientResponse).client !== undefined;
+  return (res as ClientResponse)?.client !== undefined;
 };
 
 export const isPageResponse = (
   res: PostJourneyEventResponse,
 ): res is PageResponse => {
-  return (res as PageResponse).page !== undefined;
+  return (res as PageResponse)?.page !== undefined;
 };
 
 export const isValidCriResponse = (criResponse: CriResponse): boolean => {

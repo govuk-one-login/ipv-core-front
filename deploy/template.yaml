@@ -49,7 +49,6 @@ Conditions:
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
-  IsStaging: !Equals [ !Ref Environment, "staging" ]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
@@ -236,7 +235,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202408070900
+    DependsOn: RestApiGwDeployment202410240900
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -1002,7 +1001,7 @@ Resources:
                 Resource: !Sub
                   - "arn:aws:s3:::${BucketName}/did.json"
                   - BucketName: !If
-                      - IsStaging
+                      - IsSubscriptionEnviroment
                       - !Sub "govuk-one-login-spot-published-keys-${Environment}"
                       - !Sub "published-did-documents-${Environment}"
               - Effect: Allow
@@ -1038,7 +1037,7 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202408070900:
+  RestApiGwDeployment202410240900:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
@@ -1127,7 +1126,7 @@ Resources:
         Type: AWS
         IntegrationHttpMethod: GET
         Uri: !If
-           - IsStaging
+           - IsSubscriptionEnviroment
            - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
            - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
@@ -1173,7 +1172,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202408070900
+      DeploymentId: !Ref RestApiGwDeployment202410240900
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn

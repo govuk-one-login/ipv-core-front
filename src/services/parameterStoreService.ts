@@ -9,7 +9,15 @@ interface BannerConfig {
   endTime: string;
 }
 
+const parameterCache: Map<string, { value: JSON; expiration: number }> =
+  new Map();
+
 export const getParameter = async (name: string): Promise<JSON | undefined> => {
+  const cacheDuration = 5 * 60 * 1000; // Cache duration in milliseconds (5 minutes)
+  const cachedParam = parameterCache.get(name);
+  if (cachedParam && cachedParam.expiration > Date.now()) {
+    return cachedParam.value;
+  }
   const client = new SSMClient({ region: "eu-west-2" });
   const data = await client.send(new GetParameterCommand({ Name: name }));
 
@@ -17,7 +25,13 @@ export const getParameter = async (name: string): Promise<JSON | undefined> => {
     return;
   }
 
-  return JSON.parse(data.Parameter?.Value);
+  const parameterValue = JSON.parse(data.Parameter?.Value);
+  parameterCache.set(name, {
+    value: parameterValue,
+    expiration: Date.now() + cacheDuration,
+  });
+
+  return parameterValue;
 };
 
 export const getNotificationBanner = async (): Promise<

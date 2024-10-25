@@ -19,13 +19,13 @@ describe("parameterStoreService", () => {
       sinon.restore();
     });
 
-    it("should return undefined if NODE_ENV is not local and no data is returned from SSM", async () => {
+    it("should return undefined if no data is returned from SSM", async () => {
       sendStub.resolves({ Parameter: { Value: undefined } });
       const result = await getNotificationBanner();
       expect(result).to.be.undefined;
     });
 
-    it("should return parsed data from SSM when NODE_ENV is not local", async () => {
+    it("should return parsed data from SSM", async () => {
       sendStub.resolves({
         Parameter: {
           Value: JSON.stringify({
@@ -49,7 +49,24 @@ describe("parameterStoreService", () => {
       expect(result?.endTime).to.be.a("string");
     });
 
+    it("should return value from cache", async () => {
+      await getNotificationBanner();
+
+      const result = await getNotificationBanner();
+
+      expect(result).to.deep.include({
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+      });
+      expect(result?.startTime).to.be.a("string");
+      expect(result?.endTime).to.be.a("string");
+      expect(ssmClientStub.calledWithMatch({ Name: "notification-banner" })).to
+        .be.false;
+    });
+
     it("should call the SSM client with the correct name", async () => {
+      sinon.useFakeTimers(Date.now() + 1000 * 60 * 60 * 24);
       sendStub.resolves({
         Parameter: {
           Value: JSON.stringify({

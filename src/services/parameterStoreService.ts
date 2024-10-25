@@ -1,6 +1,6 @@
 import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
-interface BannerConfig {
+export interface BannerConfig {
   pageId: string;
   bannerType?: string;
   bannerMessage: string;
@@ -35,9 +35,9 @@ export const getParameter = async (name: string): Promise<JSON | undefined> => {
 };
 
 export const getNotificationBanner = async (): Promise<
-  BannerConfig | undefined
+  BannerConfig[] | undefined
 > => {
   return (await getParameter("notification-banner")) as
-    | BannerConfig
+    | BannerConfig[]
     | undefined;
 };

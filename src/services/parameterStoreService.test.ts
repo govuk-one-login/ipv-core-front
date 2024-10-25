@@ -28,25 +28,25 @@ describe("parameterStoreService", () => {
     it("should return parsed data from SSM", async () => {
       sendStub.resolves({
         Parameter: {
-          Value: JSON.stringify({
-            pageId: "/some-page",
-            bannerMessage: "Test banner",
-            bannerMessageCy: "Welsh Test banner",
-            startTime: new Date(Date.now()).toISOString(),
-            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-          }),
+          Value: JSON.stringify([
+            {
+              pageId: "/some-page",
+              bannerMessage: "Test banner",
+              bannerMessageCy: "Welsh Test banner",
+              startTime: new Date(Date.now()).toISOString(),
+              endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+            },
+          ]),
         },
       });
 
       const result = await getNotificationBanner();
 
-      expect(result).to.deep.include({
+      expect(result![0]).to.deep.include({
         pageId: "/some-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
       });
-      expect(result?.startTime).to.be.a("string");
-      expect(result?.endTime).to.be.a("string");
     });
 
     it("should return value from cache", async () => {
@@ -54,13 +54,25 @@ describe("parameterStoreService", () => {
 
       const result = await getNotificationBanner();
 
-      expect(result).to.deep.include({
+      expect(result![0]).to.deep.include({
         pageId: "/some-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
       });
-      expect(result?.startTime).to.be.a("string");
-      expect(result?.endTime).to.be.a("string");
+      expect(ssmClientStub.calledWithMatch({ Name: "notification-banner" })).to
+        .be.false;
+    });
+
+    it("should return value from cache", async () => {
+      await getNotificationBanner();
+
+      const result = await getNotificationBanner();
+
+      expect(result![0]).to.deep.include({
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+      });
       expect(ssmClientStub.calledWithMatch({ Name: "notification-banner" })).to
         .be.false;
     });

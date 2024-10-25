@@ -31,13 +31,15 @@ describe("Notification banner handler", () => {
 
   it("should use parsed local environment variable when NODE_ENV is local", async () => {
     process.env.NODE_ENV = "local";
-    process.env["NOTIFICATION_BANNER"] = JSON.stringify({
-      pageId: "/some-page",
-      bannerMessage: "Test banner",
-      bannerMessageCy: "Welsh Test banner",
-      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-    });
+    process.env["NOTIFICATION_BANNER"] = JSON.stringify([
+      {
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
 
     await notificationBannerHandler(req, res, next);
 
@@ -54,13 +56,15 @@ describe("Notification banner handler", () => {
   });
 
   it("should not display banner if current time is before start time", async () => {
-    getParameterStub.resolves({
-      pageId: "/some-page",
-      bannerMessage: "Test banner",
-      bannerMessageCy: "Welsh Test banner",
-      startTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
-      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-    });
+    getParameterStub.resolves([
+      {
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
     await notificationBannerHandler(req, res, next);
 
     expect(res.locals.displayBanner).to.be.false;
@@ -68,13 +72,15 @@ describe("Notification banner handler", () => {
   });
 
   it("should not display banner if current time is after end time", async () => {
-    getParameterStub.resolves({
-      pageId: "/some-page",
-      bannerMessage: "Test banner",
-      bannerMessageCy: "Welsh Test banner",
-      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-      endTime: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
-    });
+    getParameterStub.resolves([
+      {
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
     await notificationBannerHandler(req, res, next);
 
     expect(res.locals.displayBanner).to.be.false;
@@ -82,13 +88,15 @@ describe("Notification banner handler", () => {
   });
 
   it("should display banner if current time is between start and end time", async () => {
-    getParameterStub.resolves({
-      pageId: "/some-page",
-      bannerMessage: "Test banner",
-      bannerMessageCy: "Welsh Test banner",
-      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-    });
+    getParameterStub.resolves([
+      {
+        pageId: "/some-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
 
     await notificationBannerHandler(req, res, next);
 

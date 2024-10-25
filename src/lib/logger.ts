@@ -3,7 +3,9 @@ import pino, { Logger } from "pino";
 import pinoHttp from "pino-http";
 import { HANDLED_ERROR } from "../handlers/internal-server-error-handler";
 
-export const redactQueryParams = (url: string | undefined): string | undefined => {
+export const redactQueryParams = (
+  url: string | undefined,
+): string | undefined => {
   if (url) {
     const queryIndex = url.indexOf("?");
     if (queryIndex > -1) {
@@ -11,7 +13,7 @@ export const redactQueryParams = (url: string | undefined): string | undefined =
     }
   }
   return url;
-}
+};
 
 export const logger: Logger = pino({
   name: "di-ipv-core-front",
@@ -33,13 +35,19 @@ export const logger: Logger = pino({
       return {
         statusCode: res.statusCode,
         sessionId: res.locals.sessionId,
-        location: redactQueryParams(res.getHeader("location") as string | undefined),
+        location: redactQueryParams(
+          res.getHeader("location") as string | undefined,
+        ),
       };
     },
   },
 });
 
-const addRequestContext = (req: Request, res: Response, val: object): object => ({
+const addRequestContext = (
+  req: Request,
+  res: Response,
+  val: object,
+): object => ({
   ...val,
   requestId: req.id,
   ipvSessionId: req.session?.ipvSessionId,
@@ -67,7 +75,8 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
   // Define a custom receive message
   customReceivedMessage: (req) => `REQUEST RECEIVED: ${req.method}`,
   customReceivedObject: addRequestContext,
-  customErrorMessage: (req, res) => `REQUEST FAILED WITH STATUS CODE: ${res.statusCode}`,
+  customErrorMessage: (req, res) =>
+    `REQUEST FAILED WITH STATUS CODE: ${res.statusCode}`,
   customErrorObject: (req, res, error, val) => {
     // Ignore errors that have already been handled by the error handler
     if (val.err === HANDLED_ERROR) {
@@ -83,5 +92,6 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
     responseTime: "timeTaken",
   },
   // Define a custom logger level
-  customLogLevel: (req, res, err) => res.statusCode >= 400 || err ? "error" : "info",
+  customLogLevel: (req, res, err) =>
+    res.statusCode >= 400 || err ? "error" : "info",
 });

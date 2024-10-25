@@ -234,7 +234,9 @@ export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
       case PHONE_TYPES.ANDROID:
         return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
       default:
-        throw new TechnicalError("Unrecognised phone type: " + specifiedPhoneType); // TODO: should this be bad request?
+        throw new BadRequestError(
+          "Unrecognised phone type: " + specifiedPhoneType,
+        );
     }
   } catch (error) {
     return next(error);

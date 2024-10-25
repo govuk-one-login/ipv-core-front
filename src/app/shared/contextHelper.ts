@@ -6,6 +6,8 @@ export function validatePhoneType(context?: string): asserts context is string {
     !context ||
     !([PHONE_TYPES.IPHONE, PHONE_TYPES.ANDROID] as string[]).includes(context)
   ) {
-    throw new TechnicalError(`Context cannot be parsed as a phone type: ${context}`);
+    throw new TechnicalError(
+      `Context cannot be parsed as a phone type: ${context}`,
+    );
   }
 }

@@ -131,8 +131,7 @@ describe("oauth middleware", () => {
       await middleware.setIpvSessionId(req, res, next);
 
       expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(BadRequestError)
+        sinon.match.instanceOf(BadRequestError),
       );
     });
 
@@ -142,8 +141,7 @@ describe("oauth middleware", () => {
       await middleware.setIpvSessionId(req, res, next);
 
       expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(BadRequestError)
+        sinon.match.instanceOf(BadRequestError),
       );
     });
   });

@@ -14,8 +14,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const pageId = sanitize(err.response.data.page);
 
     if (err.response.data.clientOAuthSessionId) {
-      req.session.clientOauthSessionId =
-        err.response.data.clientOAuthSessionId;
+      req.session.clientOauthSessionId = err.response.data.clientOAuthSessionId;
     }
     req.session.currentPage = pageId;
 

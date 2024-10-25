@@ -145,7 +145,7 @@ describe("handleJourneyActionRequest", () => {
     await middleware.handleJourneyActionRequest(req, res, next);
 
     expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(UnauthorizedError)
+      sinon.match.instanceOf(UnauthorizedError),
     );
   });
 });

@@ -73,7 +73,7 @@ describe("axiosHelper", () => {
           data: {
             cri: {
               id: "testCri",
-              redirectUrl: "<cri redirect>",
+              redirectUrl: "https://cri?<query>",
             },
           },
           cri: "testCri",
@@ -100,7 +100,7 @@ describe("axiosHelper", () => {
           endpoint: "GET /test-path",
           data: {
             client: {
-              redirectUrl: "<client redirect>",
+              redirectUrl: "https://client?<query>",
             },
           },
           cri: "testCri",

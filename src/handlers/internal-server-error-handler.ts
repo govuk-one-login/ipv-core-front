@@ -6,7 +6,9 @@ import ERROR_PAGES from "../constants/error-pages";
 import { ErrorRequestHandler } from "express";
 import HttpError from "../errors/http-error";
 
-export const HANDLED_ERROR = new Error("Placeholder error for events logged in error handler");
+export const HANDLED_ERROR = new Error(
+  "Placeholder error for events logged in error handler",
+);
 
 const getErrorStatus = (err: unknown): number => {
   if (isAxiosError(err)) {

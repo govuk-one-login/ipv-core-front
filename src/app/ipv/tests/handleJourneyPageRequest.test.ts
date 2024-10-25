@@ -4,7 +4,7 @@ import sinon from "sinon";
 import proxyquire from "proxyquire";
 import { AxiosResponse } from "axios";
 import NotFoundError from "../../../errors/not-found-error";
-import TechnicalError from "../../../errors/technical-error";
+import UnauthorizedError from "../../../errors/unauthorized-error";
 
 describe("handleJourneyPageRequest", () => {
   const testReq = {
@@ -155,35 +155,21 @@ describe("handleJourneyPageRequest", () => {
     {
       req: {
         ...testReq,
-        session: { ...testReq.session, ipvSessionId: null },
-      },
-      scenario: "ipvSessionId is null",
-      expectedError: TechnicalError,
-    },
-    {
-      req: {
-        ...testReq,
         session: { ...testReq.session, ipvSessionId: undefined },
       },
       scenario: "ipvSessionId is undefined",
-      expectedError: TechnicalError,
+      expectedError: UnauthorizedError,
     },
   ];
-  errorPageScenarios.forEach(
-    ({
-      req,
-      scenario,
-      expectedError,
-    }) => {
-      it(`should throw ${expectedError.name} when given ${scenario}`, async () => {
-        await middleware.handleJourneyPageRequest(req, res, next);
+  errorPageScenarios.forEach(({ req, scenario, expectedError }) => {
+    it(`should throw ${expectedError.name} when given ${scenario}`, async () => {
+      await middleware.handleJourneyPageRequest(req, res, next);
 
-        expect(next).to.have.been.calledWith(
-          sinon.match.instanceOf(expectedError),
-        );
-      });
-    },
-  );
+      expect(next).to.have.been.calledWith(
+        sinon.match.instanceOf(expectedError),
+      );
+    });
+  });
 
   it("should redirect to attempt recovery page when current page is not equal to pageId", async () => {
     const request = {

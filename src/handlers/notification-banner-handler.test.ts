@@ -19,7 +19,7 @@ describe("Notification banner handler", () => {
     res = {
       locals: {},
     } as any;
-
+    process.env.NODE_ENV = "production";
     next = sinon.fake() as any;
     getParameterStub = sinon.stub(parameterService, "getParameter");
   });
@@ -27,6 +27,22 @@ describe("Notification banner handler", () => {
   afterEach(() => {
     sinon.restore();
     getParameterStub.restore();
+  });
+
+  it("should use parsed local environment variable when NODE_ENV is local", async () => {
+    process.env.NODE_ENV = "local";
+    process.env["NOTIFICATION_BANNER"] = JSON.stringify({
+      pageId: "/some-page",
+      bannerMessage: "Test banner",
+      bannerMessageCy: "Welsh Test banner",
+      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+    });
+
+    await notificationBannerHandler(req, res, next);
+
+    expect(res.locals.displayBanner).to.be.true;
+    expect(next).to.have.been.calledOnce;
   });
 
   it("should not display banner if no data is returned", async () => {
@@ -42,8 +58,8 @@ describe("Notification banner handler", () => {
       pageId: "/some-page",
       bannerMessage: "Test banner",
       bannerMessageCy: "Welsh Test banner",
-      startTime: Date.now() + 1000 * 60 * 60 * 24,
-      endTime: Date.now() + 1000 * 60 * 60 * 48,
+      startTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
     });
     await notificationBannerHandler(req, res, next);
 
@@ -56,8 +72,8 @@ describe("Notification banner handler", () => {
       pageId: "/some-page",
       bannerMessage: "Test banner",
       bannerMessageCy: "Welsh Test banner",
-      startTime: Date.now() - 1000 * 60 * 60 * 24,
-      endTime: Date.now() - 1000 * 60 * 60 * 12,
+      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      endTime: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
     });
     await notificationBannerHandler(req, res, next);
 
@@ -70,8 +86,8 @@ describe("Notification banner handler", () => {
       pageId: "/some-page",
       bannerMessage: "Test banner",
       bannerMessageCy: "Welsh Test banner",
-      startTime: Date.now() - 1000 * 60 * 60 * 24,
-      endTime: Date.now() + 1000 * 60 * 60 * 24,
+      startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
     });
 
     await notificationBannerHandler(req, res, next);

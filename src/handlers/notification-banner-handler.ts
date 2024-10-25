@@ -1,15 +1,19 @@
 import { RequestHandler } from "express";
-import { getParameter } from "../services/parameterStoreService";
+import { getNotificationBanner } from "../services/parameterStoreService";
+import { transformError } from "../app/shared/loggerHelper";
 
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
-    const data = await getParameter("notification-banner");
     res.locals.displayBanner = false;
+    const data =
+      process.env.NODE_ENV === "local"
+        ? JSON.parse(process.env["NOTIFICATION_BANNER"] ?? "{}")
+        : await getNotificationBanner();
     if (!data) {
       return next();
     }
 
-    const currentTime = Date.now();
+    const currentTime = new Date().toISOString();
     if (
       req.path === data.pageId &&
       currentTime >= data.startTime &&
@@ -22,7 +26,8 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    next(err);
+    transformError(err, "Error getting notification banner");
+    next();
   }
 };
 

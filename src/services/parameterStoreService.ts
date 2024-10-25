@@ -5,17 +5,11 @@ interface BannerConfig {
   bannerType?: string;
   bannerMessage: string;
   bannerMessageCy: string;
-  startTime: number;
-  endTime: number;
+  startTime: string;
+  endTime: string;
 }
 
-export const getParameter = async (
-  name: string,
-): Promise<BannerConfig | undefined> => {
-  if (process.env.NODE_ENV === "local") {
-    return JSON.parse(process.env[name] ?? "{}");
-  }
-
+export const getParameter = async (name: string): Promise<JSON | undefined> => {
   const client = new SSMClient({ region: "eu-west-2" });
   const data = await client.send(new GetParameterCommand({ Name: name }));
 
@@ -24,4 +18,12 @@ export const getParameter = async (
   }
 
   return JSON.parse(data.Parameter?.Value);
+};
+
+export const getNotificationBanner = async (): Promise<
+  BannerConfig | undefined
+> => {
+  return (await getParameter("notification-banner")) as
+    | BannerConfig
+    | undefined;
 };

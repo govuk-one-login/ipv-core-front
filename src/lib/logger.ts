@@ -3,13 +3,23 @@ import pino, { Logger } from "pino";
 import pinoHttp from "pino-http";
 import { HANDLED_ERROR } from "../handlers/internal-server-error-handler";
 
+const sensitiveParams = ["request", "code"];
+
 export const redactQueryParams = (
   url: string | undefined,
 ): string | undefined => {
-  if (url) {
-    const queryIndex = url.indexOf("?");
-    if (queryIndex > -1) {
-      return url.substring(0, queryIndex) + "?<query>";
+  if (url && url.includes("?")) {
+    try {
+      const parsedUrl = new URL(url);
+      for (const param of sensitiveParams) {
+        if (parsedUrl.searchParams.has(param)) {
+          parsedUrl.searchParams.set(param, "hidden");
+        }
+      }
+      return parsedUrl.href;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // ignore
     }
   }
   return url;

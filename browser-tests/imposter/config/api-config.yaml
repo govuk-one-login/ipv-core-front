@@ -33,10 +33,15 @@ resources:
           "ipvSessionId": "${stores.request.testJourney}"
         }
 
+  # This is the first endpoint hit after /session/initialise. For new identity journeys,
+  # this should take us to the page-ipv-identity-document-start screen.
   - method: POST
     path: /journey/next
     requestHeaders:
       content-type: "application/json"
+      ipv-session-id:
+        value: "^.*(reuseJourney|fraudCheckJourney).*$"
+        operator: NotMatches
     queryParams:
       currentPage:
         operator: NotExists
@@ -212,4 +217,92 @@ resources:
       content: |
         {
           "page": "prove-identity-another-type-photo-id"
+        }
+
+  # Journeys where there is an existing identity
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return page-ipv-reuse to mimic the reuse journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-reuse"
+        }
+
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return the confirm-your-details page to mimic the repeat fraud check journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "fraudCheckJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "confirm-your-details"
+        }
+
+  - method: GET
+    path: /user/proven-identity-details
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "KennethDecerqueira"
+        operator: Contains
+    response:
+      statusCode: 200
+      content: |
+        {
+          "name": "Kenneth Decerqueira",
+          "dateOfBirth": "1965-07-08",
+          "nameParts": [
+            { "type": "GivenName", "value": "Kenneth"},
+            { "type": "FamilyName", "value": "Decerqueira"}
+          ],
+          "addresses": [
+            {
+              "addressCountry": "GB",
+              "uprn": 100120012077,
+              "buildingName": "",
+              "streetName": "HADLEY ROAD",
+              "postalCode": "BA2 5AA",
+              "buildingNumber": "8",
+              "addressLocality": "BATH",
+              "validFrom": "1000-01-01",
+              "subBuildingName": ""
+            }
+          ]
+        }
+
+
+  - method: POST
+    path: /journey/update-details
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage: 'page-ipv-reuse'
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "update-details"
         }

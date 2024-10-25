@@ -9,7 +9,7 @@ const domainUrl = process.env.WEBSITE_HOST;
 
 test.describe.parallel("Functional tests", () => {
   test("Handover from orchestration", async ({ page }) => {
-    // Start a session
+    // Start a session for new identity
     await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
     // Check that we are on the start page
@@ -69,6 +69,71 @@ test.describe.parallel("Functional tests", () => {
     const url = page.url();
     expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
+
+  test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({ page }) => {
+    // Start a session with an existing identity
+    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+
+    const reuseIdentityPageHeaderLocator = await page.getByRole('heading', {name: "You have already proved your identity"});
+    await expect(reuseIdentityPageHeaderLocator).toBeVisible();
+
+    const nameLocator = await page.getByText('Kenneth Decerqueira');
+    await expect(nameLocator).toBeVisible();
+
+    const birthDateLocator = await page.getByText('8 July 1965');
+    await expect(birthDateLocator).toBeVisible();
+
+    const addressLocator = await page.getByText('8 Hadley Road')
+    await expect(addressLocator).toBeVisible();
+  })
+
+  test("Successfully gets proven user details from core-back for the confirm-your-details screen", async ({ page }) => {
+    // Start session with existing identity
+    await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
+
+    const confirmDetailsPageHeaderLocator = await page.getByRole('heading', {name: "You need to confirm your details"});
+    await expect(confirmDetailsPageHeaderLocator).toBeVisible();
+
+    const givenNameLocator = await page.getByText('Kenneth');
+    await expect(givenNameLocator).toBeVisible();
+    const familyNameLocator = await page.getByText('Decerqueira');
+    await expect(familyNameLocator).toBeVisible();
+
+    const birthDateLocator = await page.getByText('8 July 1965');
+    await expect(birthDateLocator).toBeVisible();
+
+    const addressLocator = await page.getByText('8 Hadley Road')
+    await expect(addressLocator).toBeVisible();
+  })
+
+  test("Displays error when no options are selected for update on update-details screen", async ({page}) => {
+    // Start session with existing identity
+    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+
+    await page.getByRole('heading', {name: "If your details are wrong"}).click();
+    await page.getByRole('link', {name: "update your details"}).click();
+
+    // Check we are on the update-details page
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/update-details`);
+
+    await page.click("button[id='submitButton']");
+
+    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update, or select 'I do not need to update my details'" });
+    await expect(errorTextLocator).toBeVisible();
+  })
+
+  test("Displays error when details are not up-to-date but no options are selected on confirm-your-details screen", async ({page}) => {
+    // Start session with existing identity
+    await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
+
+    await page.click('input[value="no"]')
+
+    await page.click("button[id='submitButton']");
+
+    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update" });
+    await expect(errorTextLocator).toBeVisible();
+  })
 });
 
 test.describe("iPhone tests", () => {

@@ -290,7 +290,6 @@ resources:
           ]
         }
 
-
   - method: POST
     path: /journey/update-details
     requestHeaders:
@@ -305,4 +304,21 @@ resources:
       content: |
         {
           "page": "update-details"
+        }
+
+  # Hit when core-front sends a journey request to core-back from an update details screen
+  - method: POST
+    path: /journey/given-names-and-address
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage: 'update-details'
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-update-name"
         }

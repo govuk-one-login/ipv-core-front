@@ -134,6 +134,22 @@ test.describe.parallel("Functional tests", () => {
     const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update" });
     await expect(errorTextLocator).toBeVisible();
   })
+
+  test("The selected form options on an update details screen sends the appropriate journey", async ({page}) => {
+    // Start session with existing identity
+    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+
+    await page.getByRole('heading', {name: "If your details are wrong"}).click();
+    await page.getByRole('link', {name: "update your details"}).click();
+
+    await page.click("input[value='givenNames']");
+    await page.click("input[value='address']");
+    await page.click("button[id='submitButton']");
+
+    // Check the appropriate endpoint is called and correct page is redirected to according to mock
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/page-update-name`);
+  })
 });
 
 test.describe("iPhone tests", () => {

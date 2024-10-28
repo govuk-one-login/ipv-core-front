@@ -37,7 +37,7 @@ export const getParameter = async (name: string): Promise<JSON | undefined> => {
 export const getNotificationBanner = async (): Promise<
   BannerConfig[] | undefined
 > => {
-  return (await getParameter("notification-banner")) as
+  return (await getParameter("/core-front/notification-banner")) as
     | BannerConfig[]
     | undefined;
 };

@@ -927,7 +927,7 @@ Resources:
                   - ssm:GetParameters
                   - ssm:GetParametersByPath
                 Resource:
-                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:*"
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:/core-front/*"
 
       PermissionsBoundary: !If
         - UsePermissionsBoundary
@@ -997,7 +997,7 @@ Resources:
                   - ssm:GetParameters
                   - ssm:GetParametersByPath
                 Resource:
-                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:*"
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:/core-front/*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary

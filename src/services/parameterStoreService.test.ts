@@ -59,7 +59,7 @@ describe("parameterStoreService", () => {
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
       });
-      expect(ssmClientStub.calledWithMatch({ Name: "notification-banner" })).to
+      expect(ssmClientStub.calledWithMatch({ Name: "/core-front/notification-banner" })).to
         .be.false;
     });
 
@@ -73,7 +73,7 @@ describe("parameterStoreService", () => {
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
       });
-      expect(ssmClientStub.calledWithMatch({ Name: "notification-banner" })).to
+      expect(ssmClientStub.calledWithMatch({ Name: "/core-front/notification-banner" })).to
         .be.false;
     });
 
@@ -97,7 +97,7 @@ describe("parameterStoreService", () => {
         sinon.match.instanceOf(GetParameterCommand),
       );
       expect(ssmClientStub.args[0][0].input.Name).to.equal(
-        "notification-banner",
+        "/core-front/notification-banner",
       );
     });
   });

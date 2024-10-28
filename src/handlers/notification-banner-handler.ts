@@ -1,22 +1,31 @@
 import { RequestHandler } from "express";
-import {
-  getNotificationBanner,
-  BannerConfig,
-} from "../services/parameterStoreService";
-import { transformError } from "../app/shared/loggerHelper";
+import { getParameter } from "../services/parameterStoreService";
+import { logger } from "../lib/logger";
+export interface BannerConfig {
+  pageId: string;
+  bannerType?: string;
+  bannerMessage: string;
+  bannerMessageCy: string;
+  startTime: string;
+  endTime: string;
+}
 
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
     res.locals.displayBanner = false;
     const bannerConfigs =
       process.env.NODE_ENV === "local"
-        ? JSON.parse(process.env["NOTIFICATION_BANNER"] ?? "{}")
-        : await getNotificationBanner();
+        ? process.env["NOTIFICATION_BANNER"]
+        : await getParameter("/core-front/notification-banner");
+
+    const bannerConfigsParsed: BannerConfig[] = bannerConfigs
+      ? JSON.parse(bannerConfigs)
+      : [];
     if (!bannerConfigs || bannerConfigs.length === 0) {
       return next();
     }
 
-    bannerConfigs.forEach((data: BannerConfig) => {
+    bannerConfigsParsed.forEach((data: BannerConfig) => {
       const currentTime = new Date().toISOString();
       if (
         req.path === data.pageId &&
@@ -30,10 +39,10 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
             ? data.bannerMessage
             : data.bannerMessageCy;
       }
-      next();
     });
+    next();
   } catch (err) {
-    transformError(err, "Error getting notification banner");
+    logger.error(err, "Error getting notification banner");
     next();
   }
 };

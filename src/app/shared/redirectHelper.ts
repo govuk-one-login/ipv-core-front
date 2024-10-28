@@ -1,5 +1,4 @@
-import { Response, Request } from "express";
-import { logError } from "./loggerHelper";
+import { Request, Response } from "express";
 
 export const saveSessionAndRedirect = (
   req: Request,
@@ -9,7 +8,6 @@ export const saveSessionAndRedirect = (
   return new Promise((resolve, reject) => {
     req.session.save((err: Error) => {
       if (err) {
-        logError(req, err, "Error saving session");
         reject(err);
       } else {
         resolve(res.redirect(redirectUrl));

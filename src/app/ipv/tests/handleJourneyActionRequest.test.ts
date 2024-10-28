@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
+import UnauthorizedError from "../../../errors/unauthorized-error";
 
 describe("handleJourneyActionRequest", () => {
   const testReq = {
@@ -140,10 +141,11 @@ describe("handleJourneyActionRequest", () => {
       ...testReq,
       session: { ...testReq.session, ipvSessionId: undefined },
     };
+
     await middleware.handleJourneyActionRequest(req, res, next);
-    expect(res.status).to.have.been.calledWith(401);
-    expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
-      context: "unrecoverable",
-    });
+
+    expect(next).to.have.been.calledWith(
+      sinon.match.instanceOf(UnauthorizedError),
+    );
   });
 });

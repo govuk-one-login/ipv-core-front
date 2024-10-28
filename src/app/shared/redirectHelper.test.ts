@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import { saveSessionAndRedirect } from "./redirectHelper";
 import sinon from "sinon";
+import { saveSessionAndRedirect } from "./redirectHelper";
 
 describe("saveSessionAndRedirect", () => {
-  it("should redirect to given URL", () => {
+  it("should redirect to given URL", async () => {
     const req = {
       session: {
         save: sinon.fake.yields(null),
@@ -13,7 +13,8 @@ describe("saveSessionAndRedirect", () => {
     const res = {
       redirect: sinon.fake(),
     } as any;
-    saveSessionAndRedirect(req, res, "/somewhere");
+
+    await saveSessionAndRedirect(req, res, "/somewhere");
 
     expect(req.session.save).to.have.been.calledOnce;
     expect(res.redirect).to.have.been.calledOnceWith("/somewhere");

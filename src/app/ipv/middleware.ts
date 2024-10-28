@@ -1,12 +1,9 @@
 import sanitize from "sanitize-filename";
 import { Request, Response } from "express";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
-
 import config from "../../lib/config";
-import { logError, transformError } from "../shared/loggerHelper";
 import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
-import { HTTP_STATUS_CODES } from "../../app.constants";
 import fs from "fs";
 import path from "path";
 import { saveSessionAndRedirect } from "../shared/redirectHelper";
@@ -27,7 +24,6 @@ import {
   getIpvPageTemplatePath,
   getIpvPagePath,
   getTemplatePath,
-  getErrorPageTemplatePath,
 } from "../../lib/paths";
 import PAGES from "../../constants/ipv-pages";
 import { validatePhoneType } from "../shared/contextHelper";
@@ -35,7 +31,6 @@ import {
   sniffPhoneType,
   detectAppTriageEvent,
 } from "../shared/deviceSniffingHelper";
-import ERROR_PAGES from "../../constants/error-pages";
 import {
   isClientResponse,
   isCriResponse,
@@ -45,6 +40,10 @@ import {
   isValidCriResponse,
   PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
+import TechnicalError from "../../errors/technical-error";
+import BadRequestError from "../../errors/bad-request-error";
+import NotFoundError from "../../errors/not-found-error";
+import UnauthorizedError from "../../errors/unauthorized-error";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -146,36 +145,12 @@ export const handleBackendResponse = async (
     }
   }
 
-  const message = {
-    description: "Unexpected backend response",
-    data: backendResponse,
-  };
-  req.log.error({ message, level: "ERROR" });
-  throw new Error(message.description);
-};
-
-export const checkForIpvAndOauthSessionId = (
-  req: Request,
-  res: Response,
-): void => {
-  if (!req.session?.ipvSessionId && !req.session?.clientOauthSessionId) {
-    const err = new AxiosError(
-      "req.ipvSessionId and req.clientOauthSessionId are both missing",
-    );
-    err.status = HTTP_STATUS_CODES.UNAUTHORIZED;
-    logError(req, err);
-
-    return renderTechnicalError(req, res);
-  }
+  throw new TechnicalError("Unexpected backend response");
 };
 
 const checkJourneyAction = (req: Request): void => {
   if (!req.body?.journey) {
-    const err = new AxiosError("req.body?.journey is missing");
-    err.status = HTTP_STATUS_CODES.BAD_REQUEST;
-    logError(req, err);
-
-    throw new Error("req.body?.journey is missing");
+    throw new BadRequestError("journey parameter is required");
   }
 };
 
@@ -259,10 +234,11 @@ export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
       case PHONE_TYPES.ANDROID:
         return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
       default:
-        throw new Error("Unrecognised phone type: " + specifiedPhoneType);
+        throw new BadRequestError(
+          "Unrecognised phone type: " + specifiedPhoneType,
+        );
     }
   } catch (error) {
-    transformError(error, "Error redirecting to app store");
     return next(error);
   }
 };
@@ -272,14 +248,13 @@ const handleUnexpectedPage = async (
   res: Response,
   pageId: string,
 ): Promise<void> => {
-  logError(
-    req,
-    {
-      pageId: pageId,
-      expectedPage: req.session.currentPage,
+  req.log?.warn({
+    message: {
+      description: "pageId does not match session pageId",
+      pageId,
+      sessionPageId: req.session.currentPage,
     },
-    "page :pageId doesn't match expected session page :expectedPage",
-  );
+  });
 
   req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
 
@@ -288,19 +263,6 @@ const handleUnexpectedPage = async (
     res,
     getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
   );
-};
-
-const render404 = (response: Response): void => {
-  response.status(HTTP_STATUS_CODES.NOT_FOUND);
-  return response.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
-};
-
-const renderTechnicalError = (request: Request, response: Response): void => {
-  request.session.currentPage = PAGES.PYI_TECHNICAL;
-  response.status(HTTP_STATUS_CODES.UNAUTHORIZED);
-  return response.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-    context: "unrecoverable",
-  });
 };
 
 export const renderAttemptRecoveryPage = async (
@@ -326,8 +288,7 @@ const validateSessionAndPage = async (
   pageId: string,
 ): Promise<boolean> => {
   if (!isValidIpvPage(pageId)) {
-    render404(res);
-    return false;
+    throw new NotFoundError("Invalid page id");
   }
 
   // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario
@@ -340,17 +301,7 @@ const validateSessionAndPage = async (
   }
 
   if (!req.session?.ipvSessionId) {
-    logError(
-      req,
-      {
-        pageId: pageId,
-        expectedPage: req.session?.currentPage,
-      },
-      "req.ipvSessionId is null",
-    );
-
-    renderTechnicalError(req, res);
-    return false;
+    throw new UnauthorizedError("ipvSessionId is missing");
   }
 
   if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
@@ -367,18 +318,14 @@ const validateSessionAndPage = async (
   return true;
 };
 
-export const updateJourneyState: RequestHandler = async (req, res, next) => {
-  try {
-    const currentPageId = req.params.pageId;
-    const action = req.params.action;
+export const updateJourneyState: RequestHandler = async (req, res) => {
+  const currentPageId = req.params.pageId;
+  const action = req.params.action;
 
-    if (action && isValidIpvPage(currentPageId)) {
-      await processAction(req, res, action, currentPageId);
-    } else {
-      return render404(res);
-    }
-  } catch (error) {
-    return next(error);
+  if (action && isValidIpvPage(currentPageId)) {
+    await processAction(req, res, action, currentPageId);
+  } else {
+    throw new NotFoundError("Invalid page id");
   }
 };
 
@@ -419,7 +366,6 @@ export const handleJourneyPageRequest = async (
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
   } catch (error) {
-    transformError(error, `error handling journey page: ${req.params}`);
     return next(error);
   } finally {
     delete req.session.currentPageStatusCode;
@@ -450,7 +396,6 @@ export const handleJourneyActionRequest: RequestHandler = async (
 
     await processAction(req, res, req.body.journey, pageId);
   } catch (error) {
-    transformError(error, `error handling POST request on ${pageId}`);
     return next(error);
   }
 };
@@ -503,7 +448,7 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
     const { context, currentPage } = req?.session || {};
 
     if (!currentPage) {
-      throw new Error("currentPage cannot be empty");
+      throw new TechnicalError("currentPage cannot be empty");
     }
     if (req.body.detailsCorrect === "yes") {
       // user has selected that their details are correct
@@ -540,7 +485,7 @@ export const validateFeatureSet: RequestHandler = async (req, res, next) => {
     const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
 
     if (!isValidFeatureSet) {
-      throw new Error("Invalid feature set ID");
+      throw new BadRequestError("Invalid feature set ID");
     }
 
     req.session.featureSet = featureSet;

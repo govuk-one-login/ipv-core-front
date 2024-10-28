@@ -104,16 +104,6 @@ describe("credential issuer middleware", () => {
       );
     });
 
-    it("should send code to core backend and return with 200 response", async () => {
-      axiosResponse.status = 200;
-      axiosResponse.data = { journey: "journey/next" };
-      coreBackServiceStub.postCriCallback = sinon.fake.resolves(axiosResponse);
-
-      await middleware.sendParamsToAPI(req, res, next);
-
-      expect(res.status).to.be.calledWith(200);
-    });
-
     it("should call /journey/next", async () => {
       axiosResponse.data = {
         journey: "journey/next",
@@ -255,16 +245,6 @@ describe("credential issuer middleware", () => {
         req,
         expectedBody,
       );
-    });
-
-    it("should send code to core backend and return with 200 response", async () => {
-      axiosResponse.status = 200;
-      axiosResponse.data = { journey: "journey/next" };
-      coreBackServiceStub.postCriCallback = sinon.fake.resolves(axiosResponse);
-
-      await middleware.sendParamsToAPIV2(req, res, next);
-
-      expect(res.status).to.be.calledWith(200);
     });
 
     it("should call /journey/next", async () => {

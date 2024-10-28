@@ -1,16 +1,21 @@
 FROM node:20.11.1-alpine3.19@sha256:f4c96a28c0b2d8981664e03f461c2677152cd9a756012ffa8e2c6727427c2bda AS builder
 WORKDIR /app
+
+# Install packages
+COPY package.json ./
+COPY package-lock.json ./
+COPY .npmrc ./
+RUN npm install
+
+# Build assets
+COPY /assets ./assets
+RUN npm run build
+
+# Build code
 COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views
-COPY package.json ./
-COPY package-lock.json ./
 COPY tsconfig.json ./
-
-COPY .npmrc ./
-
-RUN npm install
-RUN npm run build
 RUN npm run tsc
 
 # 'npm install --omit=dev' does not prune test packages which are necessary

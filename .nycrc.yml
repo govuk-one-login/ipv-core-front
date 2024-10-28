@@ -7,7 +7,6 @@ exclude:
   - "**/*.test.js"
   - "**/*.test.ts"
   - "**/*router.js"
-  - "src/assets/*"
   - "src/lib/*"
   - "src/app.ts"
   - "src/app/shared/axiosHelper.js"

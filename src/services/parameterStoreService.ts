@@ -5,7 +5,7 @@ const client = new SSMClient({ region: "eu-west-2" });
 
 const parameterCache: Map<
   string,
-  { value: string | undefined; expiration: number }
+  { value: Promise<string | undefined>; expiration: number }
 > = new Map();
 
 export const getParameter = async (
@@ -16,12 +16,15 @@ export const getParameter = async (
     return cachedParam.value;
   }
 
-  const data = await client.send(new GetParameterCommand({ Name: name }));
+  const parameterPromise = (async () => {
+    const data = await client.send(new GetParameterCommand({ Name: name }));
+    return data.Parameter?.Value;
+  })();
 
   parameterCache.set(name, {
-    value: data.Parameter?.Value,
+    value: parameterPromise,
     expiration: Date.now() + Number(config.SSM_PARAMETER_CACHE_TTL),
   });
 
-  return data.Parameter?.Value;
+  return parameterPromise;
 };

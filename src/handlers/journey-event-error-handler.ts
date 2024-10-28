@@ -4,6 +4,7 @@ import sanitize from "sanitize-filename";
 import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
 import { isPageResponse } from "../app/validators/postJourneyEventResponse";
+import { HANDLED_ERROR } from "../lib/logger";
 
 const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
@@ -23,6 +24,9 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     } else {
       res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }
+
+    // Set this to avoid pino-http generating a new error in the request log
+    res.err = HANDLED_ERROR;
 
     return res.render(getIpvPageTemplatePath(pageId), {
       pageId: pageId,

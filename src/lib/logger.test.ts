@@ -24,6 +24,10 @@ describe("redactQueryParams", () => {
       output:
         "http://example.com/authorize?code=hidden&safe=value&request=hidden",
     },
+    {
+      input: "/authorize?code=secret_code&safe=value&request=long_request",
+      output: "/authorize?code=hidden&safe=value&request=hidden",
+    },
   ].forEach(({ input, output }) => {
     it(`should correctly map ${input}`, () => {
       const actual = redactQueryParams(input);

@@ -52,6 +52,44 @@ resources:
           "page": "page-ipv-identity-document-start"
         }
 
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return page-ipv-reuse to mimic the reuse journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-reuse"
+        }
+
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return the confirm-your-details page to mimic the repeat fraud check journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "fraudCheckJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "confirm-your-details"
+        }
+
   # Journey for page navigation test
   - method: POST
     path: /journey/end
@@ -82,6 +120,21 @@ resources:
         {
           "page": "prove-identity-another-type-photo-id",
           "context": "passport"
+        }
+
+  # Journey for unexpected error from core-back
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testUnexpectedError"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 500
+      content: |
+        {
+          "error": "something-went-wrong"
         }
 
   # Journey for CRI test
@@ -127,18 +180,6 @@ resources:
       content: |
         {
           "page": "page-multiple-doc-check"
-        }
-
-  # Journey that generates an error
-  - method: POST
-    path: /journey/error
-    requestHeaders:
-      content-type: "application/json"
-    response:
-      statusCode: 500
-      content: |
-        {
-          "error": "something-went-wrong"
         }
 
   # CRI callback that redirects to an error
@@ -219,45 +260,8 @@ resources:
           "page": "prove-identity-another-type-photo-id"
         }
 
-  # Journeys where there is an existing identity
-  # After initialising the session, the first endpoint hit is /journey/next which we stub here
-  # to return page-ipv-reuse to mimic the reuse journey
-  - method: POST
-    path: /journey/next
-    requestHeaders:
-      content-type: "application/json"
-      ipv-session-id:
-        value: "reuseJourney"
-        operator: Contains
-    queryParams:
-      currentPage:
-        operator: NotExists
-    response:
-      statusCode: 200
-      content: |
-        {
-          "page": "page-ipv-reuse"
-        }
-
-  # After initialising the session, the first endpoint hit is /journey/next which we stub here
-  # to return the confirm-your-details page to mimic the repeat fraud check journey
-  - method: POST
-    path: /journey/next
-    requestHeaders:
-      content-type: "application/json"
-      ipv-session-id:
-        value: "fraudCheckJourney"
-        operator: Contains
-    queryParams:
-      currentPage:
-        operator: NotExists
-    response:
-      statusCode: 200
-      content: |
-        {
-          "page": "confirm-your-details"
-        }
-
+  # On a page displaying the user's details (e.g. confirm-your-details page), core-front sends a request to the
+  # /user/proven-identity-details endpoint in core-back to get the user's details to be displayed on the page
   - method: GET
     path: /user/proven-identity-details
     requestHeaders:
@@ -290,6 +294,9 @@ resources:
           ]
         }
 
+  # This is hit when the user is on the page-ipv-reuse screen and, after expanding the "If your details are wrong" section,
+  # they click on the "update your details" link which sends a /journey/update-details event to core-back. This then redirects
+  # them to the update-details screen
   - method: POST
     path: /journey/update-details
     requestHeaders:
@@ -306,7 +313,8 @@ resources:
           "page": "update-details"
         }
 
-  # Hit when core-front sends a journey request to core-back from an update details screen
+  # Hit when core-front sends a journey request to core-back from an update details screen and the
+  # selected options to update are givenNames and address
   - method: POST
     path: /journey/given-names-and-address
     requestHeaders:

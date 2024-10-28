@@ -4,10 +4,11 @@ const { getAuthoriseUrlForJourney } = require("./helpers");
 test.describe("Error tests", () => {
   test("Handles an unexpected error from core-back", async ({ page }) => {
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("testError"));
+    await page.goto(getAuthoriseUrlForJourney("testUnexpectedError"));
 
-    // Go to the error
-    await page.goto("/ipv/journey/page-ipv-identity-document-start/error")
+    // Go to the DCMAW CRI
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
 
     // When we come back with an error
     const textLocator = await page.getByText("Sorry, there is a problem");

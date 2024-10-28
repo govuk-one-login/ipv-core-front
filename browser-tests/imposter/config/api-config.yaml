@@ -137,6 +137,18 @@ resources:
           "error": "something-went-wrong"
         }
 
+  # Journey that generates an error
+  - method: POST
+    path: /journey/error
+    requestHeaders:
+      content-type: "application/json"
+    response:
+      statusCode: 500
+      content: |
+        {
+          "error": "something-went-wrong"
+        }
+
   # Journey for CRI test
   # When the user selects the DCMAW option core back sends back the CRI URL to redirect the user to. The CRI then
   # eventually sends the user back to core-front. Here we short circuit that and redirect the user straight to core

@@ -5,10 +5,7 @@ import { getIpvPageTemplatePath, getErrorPageTemplatePath } from "../lib/paths";
 import ERROR_PAGES from "../constants/error-pages";
 import { ErrorRequestHandler } from "express";
 import HttpError from "../errors/http-error";
-
-export const HANDLED_ERROR = new Error(
-  "Placeholder error for events logged in error handler",
-);
+import { HANDLED_ERROR } from "../lib/logger";
 
 const getErrorStatus = (err: unknown): number => {
   if (isAxiosError(err)) {

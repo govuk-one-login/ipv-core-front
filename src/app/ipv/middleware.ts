@@ -44,6 +44,7 @@ import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
 import NotFoundError from "../../errors/not-found-error";
 import UnauthorizedError from "../../errors/unauthorized-error";
+import { HANDLED_ERROR } from "../../lib/logger";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -361,6 +362,8 @@ export const handleJourneyPageRequest = async (
       validatePhoneType(context);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
     } else if (req.session.currentPageStatusCode !== undefined) {
+      // Set this to avoid pino-http generating a new error in the request log
+      res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
     }
 

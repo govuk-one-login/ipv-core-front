@@ -1,22 +1,26 @@
 import { Request, RequestHandler, Response } from "express";
 import pino, { Logger } from "pino";
 import pinoHttp from "pino-http";
-import { HANDLED_ERROR } from "../handlers/internal-server-error-handler";
 
-const sensitiveParams = ["request", "code"];
+export const HANDLED_ERROR = new Error(
+  "Placeholder errors that do not require additional logging",
+);
+
+const SENSITIVE_PARAMS = ["request", "code"];
+const BASE_PLACEHOLDER = "http://placeholder-for-redaction";
 
 export const redactQueryParams = (
   url: string | undefined,
 ): string | undefined => {
   if (url && url.includes("?")) {
     try {
-      const parsedUrl = new URL(url);
-      for (const param of sensitiveParams) {
+      const parsedUrl = new URL(url, BASE_PLACEHOLDER);
+      for (const param of SENSITIVE_PARAMS) {
         if (parsedUrl.searchParams.has(param)) {
           parsedUrl.searchParams.set(param, "hidden");
         }
       }
-      return parsedUrl.href;
+      return parsedUrl.href.replace(BASE_PLACEHOLDER, "");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // ignore

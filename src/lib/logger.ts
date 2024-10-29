@@ -1,6 +1,33 @@
-import { RequestHandler } from "express";
+import { Request, RequestHandler, Response } from "express";
 import pino, { Logger } from "pino";
 import pinoHttp from "pino-http";
+
+export const HANDLED_ERROR = new Error(
+  "Placeholder errors that do not require additional logging",
+);
+
+const SENSITIVE_PARAMS = ["request", "code"];
+const BASE_PLACEHOLDER = "http://placeholder-for-redaction";
+
+export const redactQueryParams = (
+  url: string | undefined,
+): string | undefined => {
+  if (url && url.includes("?")) {
+    try {
+      const parsedUrl = new URL(url, BASE_PLACEHOLDER);
+      for (const param of SENSITIVE_PARAMS) {
+        if (parsedUrl.searchParams.has(param)) {
+          parsedUrl.searchParams.set(param, "hidden");
+        }
+      }
+      return parsedUrl.href.replace(BASE_PLACEHOLDER, "");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // ignore
+    }
+  }
+  return url;
+};
 
 export const logger: Logger = pino({
   name: "di-ipv-core-front",
@@ -12,118 +39,73 @@ export const logger: Logger = pino({
     },
   },
   serializers: {
-    req: (req) => {
+    req: (req: Request) => {
       return {
         method: req.method,
-        url: req.url,
+        url: redactQueryParams(req.url),
       };
     },
-    res: (res) => {
+    res: (res: Response) => {
       return {
-        statusCode: res.err?.response?.status || res?.statusCode,
+        statusCode: res.statusCode,
         sessionId: res.locals.sessionId,
+        location: redactQueryParams(
+          res.getHeader("location") as string | undefined,
+        ),
       };
     },
   },
+});
+
+const addRequestContext = (
+  req: Request,
+  res: Response,
+  val: object,
+): object => ({
+  ...val,
+  requestId: req.id,
+  ipvSessionId: req.session?.ipvSessionId,
+  sessionId: req.session?.id,
+  context: req.session?.context ?? undefined,
 });
 
 export const loggerMiddleware: RequestHandler = pinoHttp({
   // Reuse an existing logger instance
   logger,
   // Define a custom request id function, this will be assigned to req.id
-  genReqId: function (req, res) {
-    if (req.id) return req.id;
-    let id = req.get("x-request-id");
-    if (id) return id;
+  genReqId: (req, res) => {
+    const existingId = req.id ?? req.get("x-request-id");
+    if (existingId) {
+      return existingId;
+    }
+
     // Not securely random, but this is just used for request correlation
-    id = Math.random().toString(36).slice(2);
-    res.header("x-request-id", id);
-    return id;
+    const newId = Math.random().toString(36).slice(2);
+    res.header("x-request-id", newId);
+    return newId;
   },
   // Set to `false` to prevent standard serializers from being wrapped.
   wrapSerializers: false,
   // Define a custom receive message
-  customReceivedMessage: function (req) {
-    return "REQUEST RECEIVED: " + req.method;
-  },
-  customReceivedObject: function (req, res, val) {
-    const commonParams = {
-      requestId: req.id,
-      ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.session?.id,
-    };
-
-    if (req.method === "GET") {
-      return {
-        ...val,
-        ...commonParams,
-        context: req.session?.context,
-      };
-    }
-    return {
-      ...val,
-      ...commonParams,
-    };
-  },
-  customErrorMessage: function (req, res) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    res.statusCode = (res?.err as any)?.response?.status || res?.statusCode;
-    return `REQUEST ERRORED WITH STATUS CODE: ${res.statusCode}`;
-  },
+  customReceivedMessage: (req) => `REQUEST RECEIVED: ${req.method}`,
+  customReceivedObject: addRequestContext,
+  customErrorMessage: (req, res) =>
+    `REQUEST FAILED WITH STATUS CODE: ${res.statusCode}`,
   customErrorObject: (req, res, error, val) => {
-    const customErrorObject = {
-      ...val,
-      requestId: req.id,
-      ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.session?.id,
-      context: req.session?.context,
-    };
-
-    // Remove err.config for readability and to avoid exposing sensitive information
-    if (customErrorObject?.err?.config) {
-      delete customErrorObject.err.config;
+    // Ignore errors that have already been handled by the error handler
+    if (val.err === HANDLED_ERROR) {
+      delete val.err;
     }
 
-    return customErrorObject;
+    return addRequestContext(req, res, val);
   },
-  customSuccessMessage: function (req, res) {
-    if (res.statusCode === 404) {
-      return "RESOURCE NOT FOUND";
-    }
-    return `REQUEST COMPLETED WITH STATUS CODE OF: ${res.statusCode}`;
-  },
-  customSuccessObject: function (req, res, val) {
-    const commonParams = {
-      requestId: req.id,
-      ipvSessionId: req.session?.ipvSessionId,
-      sessionId: req.session?.id,
-    };
-    if (req.method === "GET") {
-      const successObject = {
-        ...val,
-        ...commonParams,
-      };
-
-      if (res.statusCode !== 302) {
-        successObject.context = req.session?.context;
-      }
-
-      return successObject;
-    }
-
-    return {
-      ...val,
-      ...commonParams,
-    };
-  },
+  customSuccessMessage: (req, res) =>
+    `REQUEST ${res.statusCode >= 400 ? "FAILED" : "COMPLETED"} WITH STATUS CODE OF: ${res.statusCode}`,
+  customSuccessObject: addRequestContext,
   customAttributeKeys: {
     responseTime: "timeTaken",
   },
   // Define a custom logger level
-  customLogLevel: function (req, res, err) {
-    if (res.statusCode >= 400 || err) {
-      return "error";
-    }
-    return "info";
-  },
+  customLogLevel: (req, res, err) =>
+    res.statusCode >= 400 || err ? "error" : "info",
 });

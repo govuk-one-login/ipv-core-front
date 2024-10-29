@@ -25,17 +25,17 @@ const testResponse = {
   status: 200,
 } as AxiosResponse;
 
-beforeEach(() => {
-  sinon.useFakeTimers(300);
-  testLogger.info.resetHistory();
-  testLogger.error.resetHistory();
-});
-
-afterEach(() => {
-  sinon.restore();
-});
-
 describe("axiosHelper", () => {
+  beforeEach(() => {
+    sinon.useFakeTimers(300);
+    testLogger.info.resetHistory();
+    testLogger.error.resetHistory();
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   describe("responseLogger", () => {
     it("should log response details", async () => {
       await axiosResponseLogger(testResponse);
@@ -59,7 +59,7 @@ describe("axiosHelper", () => {
         data: {
           cri: {
             id: "testCri",
-            redirectUrl: "https://cri?sensitive=param",
+            redirectUrl: "https://example.com/authorize?request=long_request",
           },
         },
       };
@@ -73,7 +73,7 @@ describe("axiosHelper", () => {
           data: {
             cri: {
               id: "testCri",
-              redirectUrl: "<cri redirect>",
+              redirectUrl: "https://example.com/authorize?request=hidden",
             },
           },
           cri: "testCri",
@@ -87,7 +87,7 @@ describe("axiosHelper", () => {
         ...testResponse,
         data: {
           client: {
-            redirectUrl: "https://client?sensitive=param",
+            redirectUrl: "https://example.com/callback?code=secret_code",
           },
         },
       };
@@ -100,7 +100,7 @@ describe("axiosHelper", () => {
           endpoint: "GET /test-path",
           data: {
             client: {
-              redirectUrl: "<client redirect>",
+              redirectUrl: "https://example.com/callback?code=hidden",
             },
           },
           cri: "testCri",

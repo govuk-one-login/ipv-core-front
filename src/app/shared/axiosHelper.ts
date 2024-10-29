@@ -4,6 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import https from "https";
+import { redactQueryParams } from "../../lib/logger";
 
 // Extend axios definition with logger
 declare module "axios" {
@@ -42,13 +43,13 @@ const sanitiseResponseData = (response: AxiosResponse): object | undefined => {
       if (body.cri?.redirectUrl) {
         body.cri = {
           ...body.cri,
-          redirectUrl: "<cri redirect>",
+          redirectUrl: redactQueryParams(body.cri.redirectUrl),
         };
       }
       if (body.client?.redirectUrl) {
         body.client = {
           ...body.client,
-          redirectUrl: "<client redirect>",
+          redirectUrl: redactQueryParams(body.client.redirectUrl),
         };
       }
       return body;

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { getAppStoreRedirectUrl } from "./appDownloadHelper";
-import PHONE_TYPES from "../../constants/phone-types";
+import { PHONE_TYPES } from "../../constants/device-constants";
 import config from "../../lib/config";
 
 describe("Get app store redirect url", () => {

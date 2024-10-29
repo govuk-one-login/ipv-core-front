@@ -1,10 +1,11 @@
-import { transformError } from "../shared/loggerHelper";
 import {
   InitialiseSessionRequest,
   postSessionInitialise,
 } from "../../services/coreBackService";
-import { checkForIpvAndOauthSessionId, processAction } from "../ipv/middleware";
+import { processAction } from "../ipv/middleware";
 import { RequestHandler } from "express";
+import BadRequestError from "../../errors/bad-request-error";
+import TechnicalError from "../../errors/technical-error";
 
 export const setIpvSessionId: RequestHandler = async (req, res, next) => {
   try {
@@ -18,17 +19,16 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
     } as InitialiseSessionRequest;
 
     if (!authParams.request) {
-      return next(new Error("Request JWT Missing"));
+      throw new BadRequestError("request parameter is required");
     }
     if (!authParams.clientId) {
-      return next(new Error("Client ID Missing"));
+      throw new BadRequestError("clientId parameter is required");
     }
 
     const response = await postSessionInitialise(req, authParams);
 
     req.session.ipvSessionId = response?.data?.ipvSessionId;
   } catch (error) {
-    transformError(error, `error handling journey page: ${req.params}`);
     return next(error);
   }
 
@@ -41,10 +41,11 @@ export const handleOAuthJourneyAction: RequestHandler = async (
   next,
 ) => {
   try {
-    checkForIpvAndOauthSessionId(req, res);
+    if (!req.session.ipvSessionId) {
+      throw new TechnicalError("missing ipvSessionId");
+    }
     await processAction(req, res, "next");
   } catch (error) {
-    transformError(error, "error invoking handleOAuthJourneyAction");
     return next(error);
   }
 };

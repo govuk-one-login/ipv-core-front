@@ -29,6 +29,7 @@ import {
   cspHandler,
 } from "./handlers/security-headers-handler";
 import { csrfSynchronisedProtection } from "./lib/csrf";
+import notificationBannerHandler from "./handlers/notification-banner-handler";
 
 // Extend request object with our own extensions
 declare global {
@@ -146,6 +147,8 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+app.use(notificationBannerHandler);
 
 app.use((req, res, next) => {
   req.log = logger.child({

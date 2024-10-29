@@ -1,30 +1,32 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
+import { ErrorRequestHandler } from "express";
 import sanitize from "sanitize-filename";
 import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
-import { ErrorRequestHandler } from "express";
+import { isPageResponse } from "../app/validators/postJourneyEventResponse";
+import { HANDLED_ERROR } from "../lib/logger";
 
 const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
 
-  res.err = err; // this is required so that the pino logger does not log new error with a different stack trace
+  if (isAxiosError(err) && isPageResponse(err.response?.data)) {
+    const pageId = sanitize(err.response.data.page);
 
-  if (axios.isAxiosError(res.err) && res.err.response?.data?.page) {
-    const pageId = sanitize(res.err.response.data.page);
-
-    if (res.err?.response?.data?.clientOAuthSessionId) {
-      req.session.clientOauthSessionId =
-        res.err.response.data.clientOAuthSessionId;
+    if (err.response.data.clientOAuthSessionId) {
+      req.session.clientOauthSessionId = err.response.data.clientOAuthSessionId;
     }
     req.session.currentPage = pageId;
 
-    if (res.err.status) {
-      res.status(res.err.status);
+    if (err.response.data.statusCode) {
+      res.status(err.response.data.statusCode);
     } else {
       res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
     }
+
+    // Set this to avoid pino-http generating a new error in the request log
+    res.err = HANDLED_ERROR;
 
     return res.render(getIpvPageTemplatePath(pageId), {
       pageId: pageId,
@@ -32,7 +34,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     });
   }
 
-  next(err);
+  return next(err);
 };
 
 export default journeyEventErrorHandler;

@@ -19,7 +19,7 @@ paths:
 
   /user-identity:
     get:
-      description: "Returns a list of Verifiable Credentials representig the users identity"
+      description: "Returns a list of Verifiable Credentials representing the users identity"
       responses:
         200:
           description: "The list of Verifiable Credentials"

@@ -13,6 +13,7 @@ export default {
   API_BASE_URL:
     coreBackApiUrl || process.env.API_BASE_URL || "http://localhost:4502",
   API_CRI_CALLBACK: "/cri/callback",
+  API_MOBILE_APP_CALLBACK: "/app/callback",
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",

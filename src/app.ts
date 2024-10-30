@@ -14,6 +14,7 @@ import uid from "uid-safe";
 import criRouter from "./app/credential-issuer/router";
 import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
+import mobileAppRouter from "./app/mobile-app/router";
 import oauthRouter from "./app/oauth2/router";
 import config from "./lib/config";
 import { setLocals } from "./lib/locals";
@@ -185,6 +186,7 @@ router.use((req, res, next) => {
 
 router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
+router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);

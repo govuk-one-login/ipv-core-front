@@ -1,4 +1,5 @@
 const pagesToTest = {
+  "check-mobile-app-result": [],
   "confirm-your-details": [],
   "delete-handover": [],
   "find-another-way-access-service": [],

@@ -1,6 +1,5 @@
 import { MobileAppCallbackRequest } from "../../services/coreBackService";
 import { handleBackendResponse } from "../ipv/middleware";
-import { transformError } from "../shared/loggerHelper";
 import * as CoreBackService from "../../services/coreBackService";
 import { RequestHandler } from "express";
 
@@ -21,7 +20,6 @@ export const checkMobileAppDetails: RequestHandler = async (req, res, next) => {
 
     return handleBackendResponse(req, res, apiResponse?.data);
   } catch (error) {
-    transformError(error, "error calling mobile app callback lambda");
     next(error);
   }
 };

@@ -15,7 +15,7 @@ interface CriCallbackQuery {
   error_description?: string;
 }
 
-export const sendParamsToAPI: RequestHandler = async (req, res, next) => {
+export const sendParamsToAPI: RequestHandler = async (req, res) => {
   const callbackUrl = new URL(
     "credential-issuer/callback",
     config.EXTERNAL_WEBSITE_HOST,
@@ -43,16 +43,12 @@ export const sendParamsToAPI: RequestHandler = async (req, res, next) => {
     }
   }
 
-  try {
-    const apiResponse = await postCriCallback(req, body);
-    return handleBackendResponse(req, res, apiResponse?.data);
-  } catch (error) {
-    next(error);
-  }
+  const apiResponse = await postCriCallback(req, body);
+  return handleBackendResponse(req, res, apiResponse?.data);
 };
 
 // Temporary - this will replace the above method once all CRI's have been migrated across to use the new endpoint
-export const sendParamsToAPIV2: RequestHandler = async (req, res, next) => {
+export const sendParamsToAPIV2: RequestHandler = async (req, res) => {
   const criId = req.params.criId;
   const callbackUrl = new URL(
     `credential-issuer/callback/${encodeURIComponent(criId)}`,
@@ -75,10 +71,6 @@ export const sendParamsToAPIV2: RequestHandler = async (req, res, next) => {
     }
   }
 
-  try {
-    const apiResponse = await postCriCallback(req, body);
-    return handleBackendResponse(req, res, apiResponse.data);
-  } catch (error) {
-    next(error);
-  }
+  const apiResponse = await postCriCallback(req, body);
+  return handleBackendResponse(req, res, apiResponse.data);
 };

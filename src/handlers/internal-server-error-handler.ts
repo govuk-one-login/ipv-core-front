@@ -1,9 +1,10 @@
 import { HTTP_STATUS_CODES } from "../app.constants";
 import { isAxiosError } from "axios";
+import { ErrorRequestHandler } from "express";
+import { isHttpError } from "http-errors";
 import PAGES from "../constants/ipv-pages";
 import { getIpvPageTemplatePath, getErrorPageTemplatePath } from "../lib/paths";
 import ERROR_PAGES from "../constants/error-pages";
-import { ErrorRequestHandler } from "express";
 import HttpError from "../errors/http-error";
 
 export const HANDLED_ERROR = new Error(
@@ -12,10 +13,15 @@ export const HANDLED_ERROR = new Error(
 
 const getErrorStatus = (err: unknown): number => {
   if (isAxiosError(err)) {
+    // Axios Errors pass through the status from core-back
     if (err.response?.status) {
       return err.response.status;
     }
   } else if (err instanceof HttpError) {
+    // Our HTTP errors return the defined status
+    return err.status;
+  } else if (isHttpError(err)) {
+    // Other HTTP errors return the defined status (used by csrf-sync)
     return err.status;
   }
   return HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR;

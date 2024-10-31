@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "target": "es2022",
-    // For now we specifically compile to commonJS for interop with existing libraries
-    // Once fully transitioned to TS, we can switch to nodenext and output ES modules
-    "module": "commonjs",
+    "module": "node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

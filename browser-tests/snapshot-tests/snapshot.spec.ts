@@ -1,8 +1,10 @@
-const { test, expect } = require("@playwright/test");
-const path = require("path");
-const fs = require("fs");
-const { pagesToTest } = require("../data/pagesAndContexts.js");
-const { iteratePagesAndContexts } = require("../data/pagesAndContexts.js");
+import { test, expect } from "@playwright/test";
+import path from "path";
+import fs from "fs";
+import {
+  iteratePagesAndContexts,
+  pagesToTest,
+} from "../data/pagesAndContexts";
 
 test.describe.parallel("Snapshot tests", () => {
   test.setTimeout(120000);
@@ -36,7 +38,7 @@ test.describe.parallel("Snapshot tests", () => {
 
   test("All templates have snapshot tests", async () => {
     const directoryPath = path.join(__dirname, "/../../views/ipv/page");
-    const missingTemplates = [];
+    const missingTemplates: string[] = [];
 
     fs.readdir(directoryPath, function (err, files) {
       if (err) {

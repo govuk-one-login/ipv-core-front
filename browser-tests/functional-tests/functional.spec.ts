@@ -1,5 +1,5 @@
-const { test, expect } = require("@playwright/test");
-const { getAuthoriseUrlForJourney } = require("./helpers")
+import { test, expect } from "@playwright/test";
+import { getAuthoriseUrlForJourney } from "./helpers";
 
 const domainUrl = process.env.WEBSITE_HOST;
 

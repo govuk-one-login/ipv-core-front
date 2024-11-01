@@ -1,5 +1,7 @@
-const { devices } = require("@playwright/test");
-require("dotenv").config();
+import { devices } from "@playwright/test";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 module.exports = {
   workers: 6,

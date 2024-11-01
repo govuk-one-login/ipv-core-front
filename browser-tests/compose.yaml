@@ -48,7 +48,7 @@ services:
       browser-tests-core-front:
         condition: service_healthy
     volumes:
-      - ./snapshot-tests/snapshot.spec.js-snapshots:/browser-tests/snapshot-tests/snapshot.spec.js-snapshots
+      - ./snapshot-tests/snapshot.spec.ts-snapshots:/browser-tests/snapshot-tests/snapshot.spec.ts-snapshots
       - ./test-results:/browser-tests/test-results
     environment:
       WEBSITE_HOST: http://localhost:4601

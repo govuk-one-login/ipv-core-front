@@ -1153,7 +1153,7 @@
         "button": "Download GOV.UK One Login",
         "details2": {
           "summaryText": "Help downloading the app",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tap the 'Download GOV.UK One Login' button to go to the App Store (for iPhone) or Play Store (for Android).</li><li>Download the GOV.UK One Login app.</li></ol>"
         },
         "details3": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",

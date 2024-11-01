@@ -1109,11 +1109,23 @@
         "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
         "qrCodeAlt": "QR code to download the app",
         "details1": {
-          "summaryText": "How do I scan a QR code?",
+          "summaryText": "How to scan a QR code",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
         },
         "details2": {
-          "summaryText": "What if I cannot scan the QR code?",
+          "summaryText": "How to download the app without a QR code",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details3": {
+          "summaryText": "I am sensitive to flashing colours",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details4": {
+          "summaryText": "Oes angen i mi dynnu fy sbectol?",
+          "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
+        },
+        "details5": {
+          "summaryText": "I'd prefer not to use the app",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
         }
       },
@@ -1144,6 +1156,10 @@
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
         },
         "details3": {
+          "summaryText": "Oes angen i mi dynnu fy sbectol?",
+          "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
+        },
+        "details4": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }

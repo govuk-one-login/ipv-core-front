@@ -1,9 +1,9 @@
-import { expect } from "chai";
 import sinon from "sinon";
 
 import { PHONE_TYPES } from "../../../constants/device-constants";
 import config from "../../../lib/config";
 import { handleAppStoreRedirect } from "../middleware";
+import BadRequestError from "../../../errors/bad-request-error";
 
 describe("handleAppStoreRedirect", () => {
   const testReq = {
@@ -54,8 +54,12 @@ describe("handleAppStoreRedirect", () => {
       params: { ...testReq.params, specifiedPhoneType: "not-a-phone-type" },
       method: "GET",
     };
-    await handleAppStoreRedirect(req, res, next);
 
-    expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+    await expect(
+      (async () => await handleAppStoreRedirect(req, res, next))(),
+    ).to.be.rejectedWith(
+      BadRequestError,
+      "Unrecognised phone type: not-a-phone-type",
+    );
   });
 });

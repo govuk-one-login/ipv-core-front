@@ -94,11 +94,10 @@ describe("oauth middleware", () => {
       coreBackServiceStub.postJourneyEvent = sinon.fake();
       req.session.ipvSessionId = undefined;
 
-      await middleware.handleOAuthJourneyAction(req, res, next);
-
-      expect(next).to.have.been.calledWith(
-        sinon.match.instanceOf(TechnicalError),
-      );
+      await expect(
+        (async () =>
+          await middleware.handleOAuthJourneyAction(req, res, next))(),
+      ).to.be.rejectedWith(TechnicalError, "missing ipvSessionId");
     });
 
     it("should set ipvSessionId in session", async () => {
@@ -128,21 +127,17 @@ describe("oauth middleware", () => {
     it("should throw error if request JWT is missing", async () => {
       req.query.request = undefined;
 
-      await middleware.setIpvSessionId(req, res, next);
-
-      expect(next).to.have.been.calledWith(
-        sinon.match.instanceOf(BadRequestError),
-      );
+      await expect(
+        (async () => await middleware.setIpvSessionId(req, res, next))(),
+      ).to.be.rejectedWith(BadRequestError);
     });
 
     it("should throw error if client id is missing", async () => {
       req.query.client_id = undefined;
 
-      await middleware.setIpvSessionId(req, res, next);
-
-      expect(next).to.have.been.calledWith(
-        sinon.match.instanceOf(BadRequestError),
-      );
+      await expect(
+        (async () => await middleware.setIpvSessionId(req, res, next))(),
+      ).to.be.rejectedWith(BadRequestError, "clientId parameter is required");
     });
   });
 });

@@ -58,10 +58,10 @@ describe("handleJourneyActionRequest", () => {
     coreBackServiceStub.postJourneyEvent = callBack;
     callBack.onCall(0).returns(clientEventResponse);
 
-    await middleware.handleJourneyActionRequest(testReq, res, next);
-    expect(next).to.have.been.calledWith(
-      sinon.match.has("message", "Client Response redirect url is missing"),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+    ).to.be.rejectedWith(Error, "Client Response redirect url is missing");
   });
 
   it("should call next with an error message given redirect url is missing from CRI event response", async () => {
@@ -78,10 +78,10 @@ describe("handleJourneyActionRequest", () => {
     coreBackServiceStub.postJourneyEvent = callBack;
     callBack.onCall(0).returns(criEventResponse);
 
-    await middleware.handleJourneyActionRequest(testReq, res, next);
-    expect(next).to.have.been.calledWith(
-      sinon.match.has("message", "CRI response RedirectUrl is missing"),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+    ).to.be.rejectedWith(Error, "CRI response RedirectUrl is missing");
   });
 
   it(`should postJourneyEvent when given a journey event"`, async () => {
@@ -142,10 +142,9 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipvSessionId: undefined },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-
-    expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(UnauthorizedError),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(req, res, next))(),
+    ).to.be.rejectedWith(UnauthorizedError);
   });
 });

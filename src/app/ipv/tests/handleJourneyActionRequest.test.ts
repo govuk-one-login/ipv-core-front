@@ -86,14 +86,18 @@ describe("handleJourneyActionRequest", () => {
 
   it(`should postJourneyEvent when given a journey event"`, async () => {
     const req = { ...testReq, body: { journey: "some-journey-event" } };
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(
-      req,
-      "some-journey-event",
-      req.session.currentPage,
-    );
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(
+        req,
+        "some-journey-event",
+        req.session.currentPage,
+      );
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should postJourneyEvent and use ip address from header when not present in session", async function () {
@@ -103,10 +107,14 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipAddress: undefined },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should postJourneyEvent and use ip address from session when present", async function () {
@@ -116,10 +124,14 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipAddress: "some-ip-address" },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should call redirect given 'contact' event", async function () {

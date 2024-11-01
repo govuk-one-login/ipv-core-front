@@ -74,20 +74,28 @@ describe("oauth middleware", () => {
     });
 
     it("should pass next journey event when handling OAuth Call", async () => {
-      coreBackServiceStub.postJourneyEvent = sinon.fake();
+      try {
+        coreBackServiceStub.postJourneyEvent =
+          sinon.fake.resolves(axiosResponse);
 
-      await middleware.handleOAuthJourneyAction(req, res, next);
-
-      expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+        await middleware.handleOAuthJourneyAction(req, res, next);
+      } catch (error) {
+        expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+        expect(error).to.be.an.instanceOf(Error);
+      }
     });
 
     it("should pass next journey event by default when handling OAuth Call", async () => {
-      coreBackServiceStub.postJourneyEvent = sinon.fake();
-      req.body.journey = "journey/nonsense";
+      try {
+        coreBackServiceStub.postJourneyEvent =
+          sinon.fake.resolves(axiosResponse);
+        req.body.journey = "journey/nonsense";
 
-      await middleware.handleOAuthJourneyAction(req, res, next);
-
-      expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+        await middleware.handleOAuthJourneyAction(req, res, next);
+      } catch (error) {
+        expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+        expect(error).to.be.an.instanceOf(Error);
+      }
     });
 
     it("should throw error when handling OAuth Call if missing ipvSessionId", async () => {

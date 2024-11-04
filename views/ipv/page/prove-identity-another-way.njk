@@ -1,0 +1,72 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitleKey = 'pages.proveIdentityAnotherWay.title' %}
+{% set googleTagManagerPageId = "proveIdentityAnotherWay" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/prove-identity-another-way/back" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.proveIdentityAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.proveIdentityAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#proveIdentityAnotherWayForm" %}
+
+{% block content %}
+  {# <h1 class="govuk-fieldset__legend--l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.proveIdentityAnotherWay.header' | translate }}</h1> #}
+
+  <form id="proveIdentityAnotherWay" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radioOptions = [
+      {
+        value: "anotherTypePhotoId",
+        id: "radio-anotherTypePhotoId",
+        text: 'pages.proveIdentityAnotherWay.content.formRadioButtons.anotherTypePhotoId' | translate
+      },
+      {
+        value: "postOffice",
+        id: "radio-postOffice",
+        text: 'pages.proveIdentityAnotherWay.content.formRadioButtons.postOffice' | translate,
+        hint: { text: 'pages.proveIdentityAnotherWay.content.formRadioButtons.postOfficeHint' | translate }
+      },
+      {
+        divider: 'pages.proveIdentityAnotherWay.content.formRadioButtons.formSeparator' | translate
+      },
+      {
+        value: "returnToRp",
+        id: "radio-returnToRp",
+        text: 'pages.proveIdentityAnotherWay.content.formRadioButtons.returnToRp' | translate
+      }
+    ] %}
+
+    {% if context === "coiAuthSourceCheck" %}
+      {# Remove postOffice option #}
+      {% set radioOptions = [radioOptions[0]].concat(radioOptions.slice(2)) %}
+    {% endif %}
+
+    {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+            legend: {
+              text: 'pages.proveIdentityAnotherWay.content.header' | translate,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: radioOptions
+        } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

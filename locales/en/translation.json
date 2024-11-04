@@ -1395,6 +1395,24 @@
       "content": {
         "paragraph1": "Polling to see your mobile app results."
       }
+    },
+    "proveIdentityAnotherWay": {
+      "title": "How would you like to prove your identity?",
+      "content": {
+        "header": "How would you like to prove your identity?",
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
+          "errorRadioMessage": "Select how you would like to prove your identity"
+        },
+        "formRadioButtons": {
+          "anotherTypePhotoId": "Use another type of photo ID in the GOV.UK ID Check app",
+          "postOffice": "Go to a Post Office",
+          "postOfficeHint": "You’ll be asked to enter details from your photo ID on GOV.UK first.",
+          "returnToRp": "Go to the service you need to use to find out if there are other ways to access it",
+          "formSeparator": "or"
+        }
+      }
     }
   }
 }

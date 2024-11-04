@@ -19,6 +19,7 @@ const IPV_PAGES = Object.freeze({
     "uk-driving-licence-details-not-correct",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
   PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
+  PROVE_IDENTITY_ANOTHER_WAY: "prove-identity-another-way",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
   PYI_CONFIRM_DELETE_DETAILS: "pyi-confirm-delete-details",

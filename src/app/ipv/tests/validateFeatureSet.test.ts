@@ -54,13 +54,11 @@ describe("validateFeatureSet", () => {
           query: { featureSet },
           session: {},
         } as any;
-        await validateFeatureSet(req, res, next);
 
-        expect(next).to.have.been.calledWith(
-          sinon.match
-            .instanceOf(Error)
-            .and(sinon.match.has("message", "Invalid feature set ID")),
-        );
+        await expect(
+          (async () => await validateFeatureSet(req, res, next))(),
+        ).to.be.rejectedWith(Error, "Invalid feature set ID");
+
         expect(req.session.featureSet).to.be.undefined;
       });
     },

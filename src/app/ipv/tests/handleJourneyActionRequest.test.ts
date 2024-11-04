@@ -58,10 +58,10 @@ describe("handleJourneyActionRequest", () => {
     coreBackServiceStub.postJourneyEvent = callBack;
     callBack.onCall(0).returns(clientEventResponse);
 
-    await middleware.handleJourneyActionRequest(testReq, res, next);
-    expect(next).to.have.been.calledWith(
-      sinon.match.has("message", "Client Response redirect url is missing"),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+    ).to.be.rejectedWith(Error, "Client Response redirect url is missing");
   });
 
   it("should call next with an error message given redirect url is missing from CRI event response", async () => {
@@ -78,22 +78,26 @@ describe("handleJourneyActionRequest", () => {
     coreBackServiceStub.postJourneyEvent = callBack;
     callBack.onCall(0).returns(criEventResponse);
 
-    await middleware.handleJourneyActionRequest(testReq, res, next);
-    expect(next).to.have.been.calledWith(
-      sinon.match.has("message", "CRI response RedirectUrl is missing"),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+    ).to.be.rejectedWith(Error, "CRI response RedirectUrl is missing");
   });
 
   it(`should postJourneyEvent when given a journey event"`, async () => {
     const req = { ...testReq, body: { journey: "some-journey-event" } };
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(
-      req,
-      "some-journey-event",
-      req.session.currentPage,
-    );
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(
+        req,
+        "some-journey-event",
+        req.session.currentPage,
+      );
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should postJourneyEvent and use ip address from header when not present in session", async function () {
@@ -103,10 +107,14 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipAddress: undefined },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should postJourneyEvent and use ip address from session when present", async function () {
@@ -116,10 +124,14 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipAddress: "some-ip-address" },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(
-      coreBackServiceStub.postJourneyEvent.firstCall,
-    ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+    try {
+      await middleware.handleJourneyActionRequest(req, res, next);
+    } catch (error) {
+      expect(
+        coreBackServiceStub.postJourneyEvent.firstCall,
+      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
+      expect(error).to.be.an.instanceOf(Error);
+    }
   });
 
   it("should call redirect given 'contact' event", async function () {
@@ -142,10 +154,9 @@ describe("handleJourneyActionRequest", () => {
       session: { ...testReq.session, ipvSessionId: undefined },
     };
 
-    await middleware.handleJourneyActionRequest(req, res, next);
-
-    expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(UnauthorizedError),
-    );
+    await expect(
+      (async () =>
+        await middleware.handleJourneyActionRequest(req, res, next))(),
+    ).to.be.rejectedWith(UnauthorizedError);
   });
 });

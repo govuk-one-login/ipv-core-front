@@ -123,9 +123,9 @@ describe("credential issuer middleware", () => {
       axiosError.response = axiosResponse;
       coreBackServiceStub.postCriCallback = sinon.fake.throws(axiosError);
 
-      await middleware.sendParamsToAPI(req, res, next);
-
-      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+      await expect(
+        (async () => await middleware.sendParamsToAPI(req, res, next))(),
+      ).to.be.rejectedWith(Error, "api error");
     });
 
     it("should call cri callback when ipvSessionId is missing", async () => {
@@ -205,7 +205,7 @@ describe("credential issuer middleware", () => {
     it("should call axios with correct parameters", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      coreBackServiceStub.postCriCallback = sinon.fake();
+      coreBackServiceStub.postCriCallback = sinon.fake.resolves(axiosResponse);
 
       const expectedBody = {
         authorizationCode: req.query.code,
@@ -225,7 +225,7 @@ describe("credential issuer middleware", () => {
     it("should add error parameters if they exist", async () => {
       req.session.ipvSessionId = "abadcafe";
       req.session.ipAddress = "ip-address";
-      coreBackServiceStub.postCriCallback = sinon.fake();
+      coreBackServiceStub.postCriCallback = sinon.fake.resolves(axiosResponse);
 
       req.query.error = "access_denied";
       req.query.error_description = "Access was denied!";
@@ -266,13 +266,13 @@ describe("credential issuer middleware", () => {
       axiosError.response = axiosResponse;
       coreBackServiceStub.postCriCallback = sinon.fake.throws(axiosError);
 
-      await middleware.sendParamsToAPIV2(req, res, next);
-
-      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+      await expect(
+        (async () => await middleware.sendParamsToAPIV2(req, res, next))(),
+      ).to.be.rejectedWith(Error, "api error");
     });
 
     it("should call cri callback when ipvSessionId is missing", async () => {
-      coreBackServiceStub.postCriCallback = sinon.fake();
+      coreBackServiceStub.postCriCallback = sinon.fake.resolves(axiosResponse);
       req.session.ipvSessionId = undefined;
 
       const expectedBody = {

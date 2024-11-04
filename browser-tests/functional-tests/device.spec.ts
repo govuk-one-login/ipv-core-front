@@ -1,5 +1,5 @@
-const { test, expect } = require("@playwright/test");
-const { getAuthoriseUrlForJourney } = require("./helpers")
+import { test, expect } from "@playwright/test";
+import { getAuthoriseUrlForJourney } from "./helpers";
 
 const HTTP_HEADER_USER_AGENT_ANDROID =
   "Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR6.170623.013) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";

@@ -1,4 +1,4 @@
-const pagesToTest = {
+export const pagesToTest: Record<string, (string | undefined)[]> = {
   "check-mobile-app-result": [],
   "confirm-your-details": [],
   "delete-handover": [],
@@ -57,9 +57,11 @@ const pagesToTest = {
   "update-details-failed": ["repeatFraudCheck",undefined],
   "update-details": [],
   "update-name-date-birth": ["repeatFraudCheck","reuse","rfcAccountDeletion",undefined]
-}
+};
 
-function iteratePagesAndContexts(test) {
+type TestFn = (pageName: string, context: string | undefined, language: string, url: string) => void;
+
+export const iteratePagesAndContexts = (test: TestFn): void => {
   for (const pageName of Object.keys(pagesToTest)) {
     const contexts = pagesToTest[pageName];
     const contextsToTest = contexts.length > 0 ? contexts : [ undefined ];
@@ -74,9 +76,4 @@ function iteratePagesAndContexts(test) {
       }
     }
   }
-}
-
-module.exports = {
-  pagesToTest,
-  iteratePagesAndContexts
-}
+};

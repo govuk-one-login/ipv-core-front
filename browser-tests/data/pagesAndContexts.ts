@@ -56,7 +56,8 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "sorry-could-not-confirm-details": ["deleteDetailsReuse",undefined],
   "update-details-failed": ["repeatFraudCheck",undefined],
   "update-details": [],
-  "update-name-date-birth": ["repeatFraudCheck","reuse","rfcAccountDeletion",undefined]
+  "update-name-date-birth": ["repeatFraudCheck","reuse","rfcAccountDeletion",undefined],
+  "uk-driving-licence-details-not-correct": []
 };
 
 type TestFn = (pageName: string, context: string | undefined, language: string, url: string) => void;

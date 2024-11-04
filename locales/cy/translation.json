@@ -371,6 +371,26 @@
         }
       }
     },
+    "drivingLicenceDetailsNotCorrect": {
+      "title": "If your driving licence details are not correct",
+      "header": "If your driving licence details are not correct",
+      "content": {
+        "paragraph1": "You can scan your UK photocard driving licence in the GOV.UK ID Check app again.",
+        "paragraph2": "Make sure your driving licence does not have any dirt or scratches on the front.",
+        "paragraph3": "When you scan your driving licence, make sure you’re in a well-lit area with no glare or reflection on your licence.",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
+          "continueButtonTextHint": "You’ll need to answer a few questions again before you can open the app",
+          "otherWayButtonText": "Prove your identity another way"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
+          "errorRadioMessage": "Select how you would like to prove your identity"
+        }
+      }
+    },
     "pyiSuggestOtherOptionsNoF2f": {
       "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",

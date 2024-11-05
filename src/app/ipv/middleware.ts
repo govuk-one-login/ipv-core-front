@@ -225,22 +225,18 @@ const isValidIpvPage = (pageId: string): boolean => {
   return allTemplates.includes(pageId);
 };
 
-export const handleAppStoreRedirect: RequestHandler = (req, res, next) => {
+export const handleAppStoreRedirect: RequestHandler = (req, res) => {
   const specifiedPhoneType = sniffPhoneType(req, req.params.specifiedPhoneType);
 
-  try {
-    switch (specifiedPhoneType) {
-      case PHONE_TYPES.IPHONE:
-        return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
-      case PHONE_TYPES.ANDROID:
-        return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
-      default:
-        throw new BadRequestError(
-          "Unrecognised phone type: " + specifiedPhoneType,
-        );
-    }
-  } catch (error) {
-    return next(error);
+  switch (specifiedPhoneType) {
+    case PHONE_TYPES.IPHONE:
+      return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
+    case PHONE_TYPES.ANDROID:
+      return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
+    default:
+      throw new BadRequestError(
+        "Unrecognised phone type: " + specifiedPhoneType,
+      );
   }
 };
 
@@ -375,32 +371,24 @@ export const handleJourneyPageRequest = async (
   }
 };
 
-export const handleJourneyActionRequest: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
   const pageId = req.params.pageId;
 
-  try {
-    // Stop further processing if response has already been handled
-    if (!(await validateSessionAndPage(req, res, pageId))) {
-      return;
-    }
-
-    checkJourneyAction(req);
-    if (req.body?.journey === "contact") {
-      return saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
-    }
-
-    if (req.body?.journey === "deleteAccount") {
-      return saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
-    }
-
-    await processAction(req, res, req.body.journey, pageId);
-  } catch (error) {
-    return next(error);
+  // Stop further processing if response has already been handled
+  if (!(await validateSessionAndPage(req, res, pageId))) {
+    return;
   }
+
+  checkJourneyAction(req);
+  if (req.body?.journey === "contact") {
+    return saveSessionAndRedirect(req, res, res.locals.contactUsUrl);
+  }
+
+  if (req.body?.journey === "deleteAccount") {
+    return saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
+  }
+
+  await processAction(req, res, req.body.journey, pageId);
 };
 
 export const renderFeatureSetPage = async (
@@ -417,15 +405,10 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  try {
-    // If no radio option is selected re-display the form page with an error.
-    if (req.body.journey === undefined) {
-      await handleJourneyPageRequest(req, res, next, true);
-    } else {
-      return next();
-    }
-  } catch (error) {
-    return next(error);
+  if (req.body.journey === undefined) {
+    await handleJourneyPageRequest(req, res, next, true);
+  } else {
+    return next();
   }
 };
 
@@ -434,12 +417,8 @@ export const formHandleUpdateDetailsCheckBox: RequestHandler = async (
   res,
   next,
 ) => {
-  try {
-    req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-    return next();
-  } catch (error) {
-    return next(error);
-  }
+  req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+  return next();
 };
 
 export const formHandleCoiDetailsCheck: RequestHandler = async (
@@ -447,56 +426,48 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
   res,
   next,
 ) => {
-  try {
-    const { context, currentPage } = req?.session || {};
+  const { context, currentPage } = req?.session || {};
 
-    if (!currentPage) {
-      throw new TechnicalError("currentPage cannot be empty");
-    }
-    if (req.body.detailsCorrect === "yes") {
-      // user has selected that their details are correct
-      req.body.journey = "next";
-    } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
-      // user has chosen details to update - so we set the correct journey
-      req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
-    } else if (
-      !req.body.detailsCorrect ||
-      (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
-    ) {
-      // user has not selected yes/no to their details are correct OR
-      // they have selected no but not selected which details to update.
-      const renderOptions: Record<string, unknown> = {
-        errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
-        pageId: currentPage,
-        csrfToken: req.csrfToken?.(true),
-        context: context,
-      };
-      if (pageRequiresUserDetails(currentPage)) {
-        renderOptions.userDetails = await fetchUserDetails(req);
-      }
-      return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
-    }
-    return next();
-  } catch (error) {
-    return next(error);
+  if (!currentPage) {
+    throw new TechnicalError("currentPage cannot be empty");
   }
+  if (req.body.detailsCorrect === "yes") {
+    // user has selected that their details are correct
+    req.body.journey = "next";
+  } else if (req.body.detailsCorrect === "no" && req.body.detailsToUpdate) {
+    // user has chosen details to update - so we set the correct journey
+    req.body.journey = getCoiUpdateDetailsJourney(req.body.detailsToUpdate);
+  } else if (
+    !req.body.detailsCorrect ||
+    (req.body.detailsCorrect === "no" && !req.body.detailsToUpdate)
+  ) {
+    // user has not selected yes/no to their details are correct OR
+    // they have selected no but not selected which details to update.
+    const renderOptions: Record<string, unknown> = {
+      errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
+      pageId: currentPage,
+      csrfToken: req.csrfToken?.(true),
+      context: context,
+    };
+    if (pageRequiresUserDetails(currentPage)) {
+      renderOptions.userDetails = await fetchUserDetails(req);
+    }
+    return res.render(getIpvPageTemplatePath(currentPage), renderOptions);
+  }
+  return next();
 };
 
 export const validateFeatureSet: RequestHandler = async (req, res, next) => {
-  try {
-    const featureSet = req.query.featureSet as string;
-    const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
+  const featureSet = req.query.featureSet as string;
+  const isValidFeatureSet = /^\w{1,32}(,\w{1,32})*$/.test(featureSet);
 
-    if (!isValidFeatureSet) {
-      throw new BadRequestError("Invalid feature set ID");
-    }
-
-    req.session.featureSet = featureSet;
-
-    return next();
-  } catch (error) {
-    return next(error);
+  if (!isValidFeatureSet) {
+    throw new BadRequestError("Invalid feature set ID");
   }
+
+  req.session.featureSet = featureSet;
+
+  return next();
 };
 
 // You can use this handler to set req.params.pageId to mimic the `:pageId` path parameter used in the more generic handlers.

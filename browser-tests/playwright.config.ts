@@ -1,7 +1,9 @@
-const { devices } = require("@playwright/test");
-require("dotenv").config();
+import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
 
-module.exports = {
+dotenv.config();
+
+export default defineConfig({
   workers: 6,
   projects: [
     {
@@ -16,4 +18,4 @@ module.exports = {
     baseURL: process.env?.WEBSITE_HOST || "http://localhost:4601",
     headless: true,
   },
-};
+});

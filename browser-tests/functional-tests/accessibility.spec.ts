@@ -1,6 +1,6 @@
-const { test, expect } = require("@playwright/test");
-const { iteratePagesAndContexts } = require("../data/pagesAndContexts.js");
-const AxeBuilder = require("@axe-core/playwright");
+import { test, expect, Page } from "@playwright/test";
+import { iteratePagesAndContexts } from "../data/pagesAndContexts.js";
+import AxeBuilder from "@axe-core/playwright";
 
 const domainUrl = process.env.WEBSITE_HOST;
 
@@ -36,7 +36,7 @@ test.describe.parallel("Accessibility tests", () => {
   });
 });
 
-const assertNoAccessibilityViolations = async (page) => {
+const assertNoAccessibilityViolations = async (page: Page): Promise<void> => {
   const accessibilityScanResults = await new AxeBuilder({ page })
     .withTags(['wcag21a', 'wcag21aa'])
     .analyze();

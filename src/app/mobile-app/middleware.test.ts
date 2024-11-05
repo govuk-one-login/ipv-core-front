@@ -86,11 +86,10 @@ describe("mobile app middleware", () => {
       axiosError.response = axiosResponse;
       coreBackServiceStub.postMobileAppCallback = sinon.fake.throws(axiosError);
 
-      // Act
-      await middleware.checkMobileAppDetails(req, res, next);
-
-      // Assert
-      expect(next).to.be.calledWith(sinon.match.instanceOf(Error));
+      // Act and Assert
+      await expect(
+        (async () => await middleware.checkMobileAppDetails(req, res, next))(),
+      ).to.be.rejectedWith(AxiosError, "api error");
     });
 
     it("missing state query parameter throws error", async () => {

@@ -1129,11 +1129,23 @@
         "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
         "qrCodeAlt": "QR code to download the app",
         "details1": {
-          "summaryText": "How do I scan a QR code?",
+          "summaryText": "How to scan a QR code",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
         },
         "details2": {
-          "summaryText": "What if I cannot scan the QR code?",
+          "summaryText": "How to download the app without a QR code",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details3": {
+          "summaryText": "I am sensitive to flashing colours",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+        },
+        "details4": {
+          "summaryText": "Do I need to take off my glasses?",
+          "html": "<p>When you scan your face, you can keep your glasses on as long as they’re not tinted.</p><p>If you wear tinted glasses, you’ll need to remove them when you scan your face.</p>"
+        },
+        "details5": {
+          "summaryText": "I'd prefer not to use the app",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
         }
       },
@@ -1161,9 +1173,13 @@
         "button": "Download GOV.UK One Login",
         "details2": {
           "summaryText": "Help downloading the app",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tap the 'Download GOV.UK One Login' button to go to the App Store (for iPhone) or Play Store (for Android).</li><li>Download the GOV.UK One Login app.</li></ol>"
         },
         "details3": {
+          "summaryText": "Do I need to take off my glasses?",
+          "html": "<p>When you scan your face, you can keep your glasses on as long as they’re not tinted.</p><p>If you wear tinted glasses, you’ll need to remove them when you scan your face.</p>"
+        },
+        "details4": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }

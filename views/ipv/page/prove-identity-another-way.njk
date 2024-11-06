@@ -14,8 +14,6 @@
 {% set errorHref = "#proveIdentityAnotherWayForm" %}
 
 {% block content %}
-  {# <h1 class="govuk-fieldset__legend--l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.proveIdentityAnotherWay.header' | translate }}</h1> #}
-
   <form id="proveIdentityAnotherWay" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radioOptions = [

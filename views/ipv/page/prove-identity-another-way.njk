@@ -40,7 +40,7 @@
       }
     ] %}
 
-    {% if context === "coiAuthSourceCheck" %}
+    {% if context === "noF2f" %}
       {# Remove postOffice option #}
       {% set radioOptions = [radioOptions[0]].concat(radioOptions.slice(2)) %}
     {% endif %}

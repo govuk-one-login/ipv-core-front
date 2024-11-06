@@ -66,6 +66,16 @@ test.describe.parallel("Functional tests", () => {
     expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
 
+  test("Client redirect response", async ({ page }) => {
+    await page.goto(getAuthoriseUrlForJourney("testClient"));
+
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`https://example.com/`);
+  });
+
   test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({ page }) => {
     // Start a session with an existing identity
     await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))

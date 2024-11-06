@@ -342,3 +342,23 @@ resources:
         {
           "page": "page-update-name"
         }
+
+  # Journey for client redirect response test
+  # We just want to test the handling of receiving a client response from core-back
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "testClient"
+        operator: Contains
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "client": {
+            "redirectUrl": "https://example.com/"
+          }
+        }

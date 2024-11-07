@@ -53,11 +53,12 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "pyi-triage-select-device": [],
   "pyi-triage-select-smartphone": ["mam", "dad"],
   "reprove-identity-start": [],
-  "sorry-could-not-confirm-details": ["deleteDetailsReuse",undefined],
-  "update-details-failed": ["repeatFraudCheck",undefined],
+  "sorry-could-not-confirm-details": ["deleteDetailsReuse","existingIdentityValid","existingIdentityInvalid",undefined],
+  "update-details-failed": ["repeatFraudCheck","existingIdentityInvalid",undefined],
   "update-details": [],
   "update-name-date-birth": ["repeatFraudCheck","reuse","rfcAccountDeletion",undefined],
-  "uk-driving-licence-details-not-correct": []
+  "uk-driving-licence-details-not-correct": [],
+  "prove-identity-another-way": ["noF2f", undefined],
 };
 
 type TestFn = (pageName: string, context: string | undefined, language: string, url: string) => void;

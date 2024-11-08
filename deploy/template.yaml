@@ -1462,6 +1462,7 @@ Resources:
 ####################################################################
 
   FrontLoadBalancer5xxErrors:
+    # This is monitoring 5XXs originating from the load balancer, and not from the target group
     Type: AWS::CloudWatch::Alarm
     Condition: IsNotDevelopment
     Properties:
@@ -1495,6 +1496,7 @@ Resources:
             Stat: Sum
 
   FrontTargetGroup5xxErrors:
+    # This is monitoring 5XXs originating from the target group, and not from the load balancer
     Type: AWS::CloudWatch::Alarm
     Condition: IsNotDevelopment
     Properties:
@@ -1528,6 +1530,7 @@ Resources:
             Stat: Sum
 
   FrontTargetGroup5xxPercentErrors:
+    # This is used by the canary deployment stack
     Type: AWS::CloudWatch::Alarm
     Condition: UseCanaryDeployment
     Properties:
@@ -1567,6 +1570,60 @@ Resources:
               Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
           Period: 60
           Stat: Sum
+
+  FrontRestApiGateway5XXErrorAlarm:
+    # This is monitoring all 5XXs returned by the frontend REST API gatway.
+    # This will be a combination of load balancer and target group 5XXs.
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FrontRestApiGateway5XXErrorAlarm"
+      AlarmDescription: >
+        Trigger the alarm if errors exceed 10% with a minimum of 50
+        invocations, in 2 out of the last 5 minutes
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: errorThreshold
+          Label: Threshold error percentage
+          ReturnData: true
+          Expression: IF(invocations<50,0,errorPercentage)
+        - Id: invocations
+          Label: Invocations
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Count
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref RestApiGateway
+            Period: 60
+            Stat: Sum
+        - Id: errors
+          Label: Errors
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: 5xx
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref RestApiGateway
+            Period: 60
+            Stat: Sum
+        - Id: errorPercentage
+          Label: errorPercentage
+          ReturnData: false
+          Expression: (errors/invocations) * 100
 
   LambdaInvocationsOutOfSync:
     Type: AWS::CloudWatch::Alarm
@@ -1680,55 +1737,6 @@ Resources:
                   Value: !Sub check-existing-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
-
-  FE5XXErrorAlarm:
-    Condition: IsNotDevelopment
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: !Sub "${AWS::StackName}-FE5XXErrorAlarm"
-      AlarmDescription: Trigger the alarm if errorThreshold exceeds 10% with a minimum of 150 invocations and a minimum of 5 errors in 5 out of the last 5 minutes
-      ActionsEnabled: true
-      OKActions:
-        - !ImportValue alarm-alerts-topic
-      AlarmActions:
-        - !ImportValue alarm-alerts-topic
-      InsufficientDataActions: []
-      EvaluationPeriods: 5
-      DatapointsToAlarm: 5
-      Threshold: 1
-      ComparisonOperator: GreaterThanOrEqualToThreshold
-      TreatMissingData: notBreaching
-      Metrics:
-        - Id: errorThreshold
-          Label: errorThreshold
-          ReturnData: true
-          Expression: IF(invocations<150 || error<5,0,errorPercentage)
-        - Id: invocations
-          ReturnData: false
-          MetricStat:
-            Metric:
-              Namespace: AWS/ApiGateway
-              MetricName: Count
-              Dimensions:
-                - Name: ApiId
-                  Value: !Ref ApiGwHttpEndpoint
-            Period: 60
-            Stat: Sum
-        - Id: error
-          ReturnData: false
-          MetricStat:
-            Metric:
-              Namespace: AWS/ApiGateway
-              MetricName: 5xx
-              Dimensions:
-                - Name: ApiId
-                  Value: !Ref ApiGwHttpEndpoint
-            Period: 60
-            Stat: Sum
-        - Id: errorPercentage
-          Label: errorPercentage
-          ReturnData: false
-          Expression: (error/invocations) * 100
 
   FatalErrorAlarm:
     Condition: IsNotDevelopment

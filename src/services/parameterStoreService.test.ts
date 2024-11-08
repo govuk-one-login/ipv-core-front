@@ -20,12 +20,18 @@ describe("parameterStoreService", () => {
     });
 
     it("should return undefined if no data is returned from SSM", async () => {
+      // Arrange
       sendStub.resolves({ Parameter: { Value: undefined } });
+
+      // Act
       const result = await getParameter("/core-front/test-parameter");
+
+      // Assert
       expect(result).to.be.undefined;
     });
 
     it("should return parsed data from SSM", async () => {
+      // Arrange
       sinon.useFakeTimers(Date.now() + 1000 * 60 * 60 * 24);
       sendStub.resolves({
         Parameter: {
@@ -41,10 +47,12 @@ describe("parameterStoreService", () => {
         },
       });
 
+      // Act
       const result = await getParameter("/core-front/test-parameter");
-      const param = result ? JSON.parse(result) : undefined;
 
-      expect(param[0]).to.deep.include({
+      // Assert
+      const param = result && JSON.parse(result)[0];
+      expect(param).to.deep.include({
         pageId: "/some-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
@@ -56,10 +64,12 @@ describe("parameterStoreService", () => {
     });
 
     it("should return value from cache", async () => {
+      // Act
       const result = await getParameter("/core-front/test-parameter");
-      const param = result ? JSON.parse(result) : undefined;
 
-      expect(param[0]).to.deep.include({
+      // Assert
+      const param = result && JSON.parse(result)[0];
+      expect(param).to.deep.include({
         pageId: "/some-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
@@ -67,7 +77,7 @@ describe("parameterStoreService", () => {
       expect(
         ssmClientStub.calledWithMatch({
           Name: "/core-front/test-parameter",
-        }),
+        } as any),
       ).to.be.false;
     });
   });

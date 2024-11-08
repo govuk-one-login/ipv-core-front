@@ -1,151 +1,159 @@
 import proxyquire from "proxyquire";
 import { expect } from "chai";
 import sinon from "sinon";
-import { NextFunction, Request, Response } from "express";
-import { AxiosResponse } from "axios";
 import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
-
-const coreBackServiceStub = {
-  postJourneyEvent: sinon.fake(),
-  postSessionInitialise: sinon.fake(),
-};
-
-const configStub = {
-  API_BASE_URL: "https://example.org/subpath",
-};
-
-const ipvMiddleware = proxyquire("../ipv/middleware", {
-  "../../services/coreBackService": coreBackServiceStub,
-  "../../lib/config": { default: configStub },
-});
-
-const middleware = proxyquire("./middleware", {
-  "../../services/coreBackService": coreBackServiceStub,
-  "../../lib/config": { default: configStub },
-  "../ipv/middleware": ipvMiddleware,
-});
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../test-utils/mock-express";
 
 describe("oauth middleware", () => {
-  let req: Request;
-  let res: Response;
-  let next: NextFunction;
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest({
+    body: { journey: "journey/next" },
+    query: {
+      response_type: "code",
+      client_id: "s6BhdRkqt3",
+      state: "xyz",
+      redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
+      unusedParam: "not used",
+      request: "test request",
+    },
+    session: {
+      ipvSessionId: "abadcafe",
+    },
+  });
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
-  beforeEach(() => {
-    req = {
-      session: {},
-      log: { info: sinon.fake(), error: sinon.fake() },
-    } as any;
-
-    res = {
-      status: sinon.fake(),
-      redirect: sinon.fake(),
-      send: sinon.fake(),
-      render: sinon.fake(),
-    } as any;
-
-    next = sinon.fake() as any;
+  // Setup stubs
+  const coreBackServiceStub = {
+    postJourneyEvent: sinon.fake(),
+    postSessionInitialise: sinon.fake(),
+  };
+  const configStub = {
+    API_BASE_URL: "https://example.org/subpath",
+  };
+  const ipvMiddleware = proxyquire("../ipv/middleware", {
+    "../../services/coreBackService": coreBackServiceStub,
+    "../../lib/config": { default: configStub },
+  });
+  const middleware = proxyquire("./middleware", {
+    "../../services/coreBackService": coreBackServiceStub,
+    "../../lib/config": { default: configStub },
+    "../ipv/middleware": ipvMiddleware,
   });
 
-  describe("setIpvSessionId", () => {
-    let axiosResponse: AxiosResponse;
+  beforeEach(() => {
+    next.resetHistory();
+    coreBackServiceStub.postJourneyEvent.resetHistory();
+    coreBackServiceStub.postSessionInitialise.resetHistory();
+  });
 
-    beforeEach(() => {
-      req = {
-        log: { info: sinon.fake(), error: sinon.fake() },
-        body: { journey: "journey/next" },
-        query: {
-          response_type: "code",
-          client_id: "s6BhdRkqt3",
-          state: "xyz",
-          redirect_uri: "https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb",
-          unusedParam: "not used",
-          request: "test request",
-        },
-        session: {
-          ipvSessionId: "abadcafe",
-        },
-      } as any;
-      axiosResponse = {
-        data: {
-          ipvSessionId: {},
-        },
-      } as any;
+  it("should pass next journey event when handling OAuth Call", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+
+    // Act
+    await middleware.handleOAuthJourneyAction(req, res, next);
+
+    // Assert
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+  });
+
+  it("should pass next journey event by default when handling OAuth Call", async () => {
+    // Arrange
+    const req = createRequest({
+      body: { journey: "journey/nonsense" },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleOAuthJourneyAction(req, res, next);
+
+    // Assert
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
+  });
+
+  it("should throw error when handling OAuth Call if missing ipvSessionId", async () => {
+    // Arrange
+    const req = createRequest({
+      session: { ipvSessionId: undefined },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleOAuthJourneyAction(req, res, next);
+
+    // Assert
+    expect(next).to.have.been.calledWith(
+      sinon.match.instanceOf(TechnicalError),
+    );
+  });
+
+  it("should set ipvSessionId in session", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postSessionInitialise = sinon.fake.returns({
+      data: { ipvSessionId: "test-ipv-session-id" },
     });
 
-    it("should pass next journey event when handling OAuth Call", async () => {
-      try {
-        coreBackServiceStub.postJourneyEvent =
-          sinon.fake.resolves(axiosResponse);
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
 
-        await middleware.handleOAuthJourneyAction(req, res, next);
-      } catch (error) {
-        expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
-        expect(error).to.be.an.instanceOf(Error);
-      }
+    // Assert
+    expect(req.session.ipvSessionId).to.eq("test-ipv-session-id");
+    expect(next).to.have.been.called;
+  });
+
+  it("should set ipvSessionId as null in session if response contains null", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postSessionInitialise = sinon.fake.returns({
+      data: { ipvSessionId: null },
     });
 
-    it("should pass next journey event by default when handling OAuth Call", async () => {
-      try {
-        coreBackServiceStub.postJourneyEvent =
-          sinon.fake.resolves(axiosResponse);
-        req.body.journey = "journey/nonsense";
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
 
-        await middleware.handleOAuthJourneyAction(req, res, next);
-      } catch (error) {
-        expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
-        expect(error).to.be.an.instanceOf(Error);
-      }
+    // Assert
+    expect(req.session.ipvSessionId).to.eq(null);
+    expect(next).to.have.been.called;
+  });
+
+  it("should throw error if request JWT is missing", async () => {
+    // Arrange
+    const req = createRequest({
+      query: { request: undefined },
     });
+    const res = createResponse();
 
-    it("should throw error when handling OAuth Call if missing ipvSessionId", async () => {
-      coreBackServiceStub.postJourneyEvent = sinon.fake();
-      req.session.ipvSessionId = undefined;
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
 
-      await expect(
-        (async () =>
-          await middleware.handleOAuthJourneyAction(req, res, next))(),
-      ).to.be.rejectedWith(TechnicalError, "missing ipvSessionId");
+    // Assert
+    expect(next).to.have.been.calledWith(
+      sinon.match.instanceOf(BadRequestError),
+    );
+  });
+
+  it("should throw error if client id is missing", async () => {
+    // Arrange
+    const req = createRequest({
+      query: { client_id: undefined },
     });
+    const res = createResponse();
 
-    it("should set ipvSessionId in session", async () => {
-      axiosResponse.data.ipvSessionId = "abadcafe";
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
 
-      coreBackServiceStub.postSessionInitialise =
-        sinon.fake.returns(axiosResponse);
-
-      await middleware.setIpvSessionId(req, res, next);
-
-      expect(req.session.ipvSessionId).to.eq(axiosResponse.data.ipvSessionId);
-      expect(next).to.have.been.called;
-    });
-
-    it("should set ipvSessionId as null in session if response contains null", async () => {
-      axiosResponse.data.ipvSessionId = null;
-
-      coreBackServiceStub.postSessionInitialise =
-        sinon.fake.returns(axiosResponse);
-
-      await middleware.setIpvSessionId(req, res, next);
-
-      expect(req.session.ipvSessionId).to.eq(null);
-      expect(next).to.have.been.called;
-    });
-
-    it("should throw error if request JWT is missing", async () => {
-      req.query.request = undefined;
-
-      await expect(
-        (async () => await middleware.setIpvSessionId(req, res, next))(),
-      ).to.be.rejectedWith(BadRequestError);
-    });
-
-    it("should throw error if client id is missing", async () => {
-      req.query.client_id = undefined;
-
-      await expect(
-        (async () => await middleware.setIpvSessionId(req, res, next))(),
-      ).to.be.rejectedWith(BadRequestError, "clientId parameter is required");
-    });
+    // Assert
+    expect(next).to.have.been.calledWith(
+      sinon.match.instanceOf(BadRequestError),
+    );
   });
 });

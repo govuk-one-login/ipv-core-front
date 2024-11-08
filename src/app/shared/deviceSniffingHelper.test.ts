@@ -7,16 +7,18 @@ import {
   HTTP_HEADER_USER_AGENT_IPHONE,
   HTTP_HEADER_USER_AGENT_ANDROID,
 } from "../../test-utils/constants";
+import { specifyCreateRequest } from "../../test-utils/mock-express";
 
 describe("User Agent Functions", () => {
   describe("detectAppTriageEvent", () => {
-    const testReq = {
+    // Mock handler parameters
+    const createRequest = specifyCreateRequest({
       body: {
         journey: "appTriage",
       },
-    };
+    });
 
-    const testCases = [
+    [
       {
         userAgent: HTTP_HEADER_USER_AGENT_NO_PHONE,
         scenario: "unrecognised devices",
@@ -32,23 +34,28 @@ describe("User Agent Functions", () => {
         scenario: "Android devices",
         expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_ANDROID,
       },
-    ];
-    testCases.forEach(({ userAgent, scenario, expectedJourneyEvent }) => {
-      it(`shuold return ${expectedJourneyEvent} for ${scenario}`, () => {
-        const req = {
-          ...testReq,
+    ].forEach(({ userAgent, scenario, expectedJourneyEvent }) => {
+      it(`should return ${expectedJourneyEvent} for ${scenario}`, () => {
+        // Arrange
+        const req = createRequest({
           headers: {
             "user-agent": userAgent,
           },
-        } as any;
+        });
+
+        // Act
         const journeyEvent = detectAppTriageEvent(req);
+
+        // Assert
         expect(journeyEvent).to.equal(expectedJourneyEvent);
       });
     });
   });
 
   describe("sniffPhoneType", () => {
-    const testCases = [
+    const createRequest = specifyCreateRequest();
+
+    [
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE,
@@ -64,15 +71,19 @@ describe("User Agent Functions", () => {
         userAgent: HTTP_HEADER_USER_AGENT_NO_PHONE,
         expectedPhoneType: "fallback",
       },
-    ];
-    testCases.forEach(({ scenario, userAgent, expectedPhoneType }) => {
+    ].forEach(({ scenario, userAgent, expectedPhoneType }) => {
       it(`should return ${expectedPhoneType} for ${scenario}`, () => {
-        const req = {
+        // Arrange
+        const req = createRequest({
           headers: {
             "user-agent": userAgent,
           },
-        } as any;
+        });
+
+        // Act
         const result = sniffPhoneType(req, "fallback");
+
+        // Assert
         expect(result).to.equal(expectedPhoneType);
       });
     });

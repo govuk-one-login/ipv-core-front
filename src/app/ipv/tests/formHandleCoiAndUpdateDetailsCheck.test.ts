@@ -1,35 +1,20 @@
-import { NextFunction } from "express";
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../../test-utils/mock-express";
 
 describe("handle update details/COI form checkbox", () => {
-  let next: NextFunction;
+  // Mock handler parameters
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
-  const testReq = {
-    body: {},
-    params: { pageId: "update-details" },
-    csrfToken: sinon.fake(),
-    session: {
-      currentPage: "update-details",
-      save: sinon.fake.yields(null),
-    },
-    log: { error: sinon.fake() },
-  } as any;
-
-  const res = {
-    status: sinon.fake(),
-    redirect: sinon.fake(),
-    send: sinon.fake(),
-    render: sinon.fake(),
-    log: { info: sinon.fake(), error: sinon.fake() },
-    locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
-  } as any;
-
+  // Setup stubs
   const coreBackServiceStub = {
-    getProvenIdentityUserDetails: sinon.spy(),
+    getProvenIdentityUserDetails: sinon.stub(),
   };
-
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
@@ -38,11 +23,11 @@ describe("handle update details/COI form checkbox", () => {
   );
 
   beforeEach(() => {
-    next = sinon.fake() as any;
-    res.render = sinon.fake();
+    next.resetHistory();
+    coreBackServiceStub.getProvenIdentityUserDetails.reset();
   });
 
-  const testCases = [
+  const updateDetailsPageTestCases = [
     {
       detailsToUpdate: "address",
       detailsCorrect: "no",
@@ -120,13 +105,31 @@ describe("handle update details/COI form checkbox", () => {
     },
   ];
 
-  context("On the update-details page", () => {
-    testCases.forEach(
+  describe("On the update-details page", () => {
+    const createRequest = specifyCreateRequest({
+      params: { pageId: "update-details" },
+      session: {
+        save: sinon.fake.yields(null),
+        currentPage: "update-details",
+      },
+    });
+
+    updateDetailsPageTestCases.forEach(
       ({ detailsToUpdate, detailsCorrect, expectedJourney }) => {
         it(`should set the journey to ${expectedJourney} if detailsCorrect is ${detailsCorrect} and detailsToUpdate is ${detailsToUpdate}`, async () => {
-          const req = { ...testReq, body: { detailsToUpdate, detailsCorrect } };
+          // Arrange
+          const req = createRequest({
+            body: {
+              detailsToUpdate,
+              detailsCorrect,
+            },
+          });
+          const res = createResponse();
+
+          // Act
           await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
 
+          // Assert
           expect(next).to.have.been.calledOnce;
           expect(req.body.journey).to.equal(expectedJourney);
         });
@@ -134,19 +137,17 @@ describe("handle update details/COI form checkbox", () => {
     );
   });
 
-  context("On the confirm-your-details page", () => {
-    const coiTestReq = {
-      ...testReq,
+  describe("On the confirm-your-details page", () => {
+    const createRequest = specifyCreateRequest({
       params: { pageId: "confirm-your-details" },
       session: {
-        ...testReq.session,
-        context: "coi",
+        save: sinon.fake.yields(null),
         currentPage: "confirm-your-details",
       },
-    };
+    });
 
-    const coiDetailsCombosTestData = [
-      ...testCases,
+    [
+      ...updateDetailsPageTestCases,
       {
         detailsToUpdate: [],
         detailsCorrect: "yes",
@@ -157,9 +158,7 @@ describe("handle update details/COI form checkbox", () => {
         detailsCorrect: "yes",
         expectedJourney: "next",
       },
-    ];
-
-    coiDetailsCombosTestData.forEach(
+    ].forEach(
       ({
         detailsToUpdate,
         detailsCorrect,
@@ -170,12 +169,17 @@ describe("handle update details/COI form checkbox", () => {
         expectedJourney: string;
       }) => {
         it(`should set the journey to ${expectedJourney} if detailsCorrect is ${detailsCorrect} and detailsToUpdate is ${detailsToUpdate}`, async () => {
-          const req = {
-            ...coiTestReq,
+          // Arrange
+          const req = createRequest({
             body: { detailsToUpdate, detailsCorrect },
-          };
+            session: { context: "coi", currentPage: "confirm-your-details" },
+          });
+          const res = createResponse();
+
+          // Act
           await middleware.formHandleCoiDetailsCheck(req, res, next);
 
+          // Assert
           expect(next).to.have.been.calledOnce;
           expect(req.body.journey).to.equal(expectedJourney);
         });
@@ -183,14 +187,18 @@ describe("handle update details/COI form checkbox", () => {
     );
 
     it("should set the correct error state if detailsCorrect is empty and detailsToUpdate is empty", async function () {
-      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
-
-      const req = {
-        ...coiTestReq,
+      // Arrange
+      const req = createRequest({
         body: { detailsToUpdate: "", detailsCorrect: "" },
-      };
+        session: { context: "coi", currentPage: "confirm-your-details" },
+      });
+      const res = createResponse();
+      coreBackServiceStub.getProvenIdentityUserDetails.returns({});
+
+      // Act
       await middleware.formHandleCoiDetailsCheck(req, res, next);
 
+      // Assert
       expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been
         .called;
       expect(next).to.not.have.been.called;
@@ -207,16 +215,18 @@ describe("handle update details/COI form checkbox", () => {
     });
 
     it("should set the correct error state if detailsCorrect is no and detailsToUpdate is empty", async function () {
-      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves(
-        {},
-      );
-
-      const req = {
-        ...coiTestReq,
+      // Arrange
+      const req = createRequest({
         body: { detailsToUpdate: "", detailsCorrect: "no" },
-      };
+        session: { context: "coi", currentPage: "confirm-your-details" },
+      });
+      const res = createResponse();
+      coreBackServiceStub.getProvenIdentityUserDetails.resolves({});
+
+      // Act
       await middleware.formHandleCoiDetailsCheck(req, res, next);
 
+      // Assert
       expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been
         .called;
       expect(next).to.not.have.been.called;
@@ -234,18 +244,21 @@ describe("handle update details/COI form checkbox", () => {
   });
 
   it("should not get user details if the page does not require it", async function () {
-    coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.returns({});
-
-    const req = {
-      ...testReq,
+    // Arrange
+    const req = specifyCreateRequest()({
+      params: { pageId: "update-details" },
       session: {
-        ...testReq.session,
-        currentPage: "check-name-date-birth",
         context: undefined,
+        currentPage: "check-name-date-birth",
+        save: sinon.fake.yields(null),
       },
-    };
+    });
+    const res = createResponse();
+
+    // Act
     await middleware.formHandleCoiDetailsCheck(req, res, next);
 
+    // Assert
     expect(coreBackServiceStub.getProvenIdentityUserDetails).to.not.have.been
       .called;
     expect(next).to.not.have.been.called;

@@ -1,35 +1,40 @@
-import notificationBannerHandler from "./notification-banner-handler";
-import { NextFunction, Request, Response } from "express";
 import { expect } from "chai";
 import sinon from "sinon";
-import * as parameterService from "../services/parameterStoreService";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../test-utils/mock-express";
+import proxyquire from "proxyquire";
 
 describe("Notification banner handler", () => {
-  let req: Request;
-  let res: Response;
-  let next: NextFunction;
-  let getParameterStub: sinon.SinonStub;
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest({
+    path: "/some-page",
+  });
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
+
+  // Setup stubs
+  const parameterServiceStub = {
+    getParameter: sinon.stub(),
+  };
+  const { default: notificationBannerHandler } = proxyquire(
+    "./notification-banner-handler",
+    {
+      "../services/parameterStoreService": parameterServiceStub,
+    },
+  );
 
   beforeEach(() => {
-    req = {
-      session: {},
-      path: "/some-page",
-    } as any;
-
-    res = {
-      locals: {},
-    } as any;
     process.env.NODE_ENV = "production";
-    next = sinon.fake() as any;
-    getParameterStub = sinon.stub(parameterService, "getParameter");
-  });
-
-  afterEach(() => {
-    sinon.restore();
-    getParameterStub.restore();
+    next.resetHistory();
+    parameterServiceStub.getParameter.resetHistory();
   });
 
   it("should use parsed local environment variable when NODE_ENV is local", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
     process.env.NODE_ENV = "local";
     process.env["NOTIFICATION_BANNER"] = JSON.stringify([
       {
@@ -41,22 +46,33 @@ describe("Notification banner handler", () => {
       },
     ]);
 
+    // Act
     await notificationBannerHandler(req, res, next);
 
+    // Assert
     expect(res.locals.displayBanner).to.be.true;
     expect(next).to.have.been.calledOnce;
   });
 
   it("should not display banner if no data is returned", async () => {
-    getParameterStub.resolves(undefined);
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter.resolves(undefined);
+
+    // Act
     await notificationBannerHandler(req, res, next);
 
+    // Assert
     expect(res.locals.displayBanner).to.be.false;
     expect(next).to.have.been.calledOnce;
   });
 
   it("should not display banner if current time is before start time", async () => {
-    getParameterStub.resolves(
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",
@@ -67,14 +83,20 @@ describe("Notification banner handler", () => {
         },
       ]),
     );
+
+    // Act
     await notificationBannerHandler(req, res, next);
 
+    // Assert
     expect(res.locals.displayBanner).to.be.false;
     expect(next).to.have.been.calledOnce;
   });
 
   it("should not display banner if current time is after end time", async () => {
-    getParameterStub.resolves(
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",
@@ -85,14 +107,20 @@ describe("Notification banner handler", () => {
         },
       ]),
     );
+
+    // Act
     await notificationBannerHandler(req, res, next);
 
+    // Assert
     expect(res.locals.displayBanner).to.be.false;
     expect(next).to.have.been.calledOnce;
   });
 
   it("should display banner if current time is between start and end time", async () => {
-    getParameterStub.resolves(
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",
@@ -104,8 +132,10 @@ describe("Notification banner handler", () => {
       ]),
     );
 
+    // Act
     await notificationBannerHandler(req, res, next);
 
+    // Assert
     expect(res.locals.displayBanner).to.be.true;
     expect(next).to.have.been.calledOnce;
   });

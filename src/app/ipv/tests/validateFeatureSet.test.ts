@@ -1,40 +1,52 @@
-import { Response, NextFunction } from "express";
 import { expect } from "chai";
 import sinon from "sinon";
 import { validateFeatureSet } from "../middleware";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../../test-utils/mock-express";
 
 describe("validateFeatureSet", () => {
-  const res = {} as Response;
-  let next: NextFunction;
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest();
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
   beforeEach(() => {
-    next = sinon.stub() as any;
+    next.resetHistory();
   });
 
   it("should call next if featureSet is valid", async () => {
-    const req = {
+    // Arrange
+    const req = createRequest({
       query: { featureSet: "F01" },
-      session: {},
-    } as any;
-    req.query.featureSet = "F01";
+    });
+    const res = createResponse();
+
+    // Act
     await validateFeatureSet(req, res, next);
 
+    // Assert
     expect(req.session.featureSet).to.equal("F01");
     expect(next).to.have.been.calledOnce;
   });
 
   it("should call next if comma separated multiple featureSet is valid", async () => {
-    const req = {
+    // Arrange
+    const req = createRequest({
       query: { featureSet: "F01,D01" },
-      session: {},
-    } as any;
+    });
+    const res = createResponse();
+
+    // Act
     await validateFeatureSet(req, res, next);
 
+    // Assert
     expect(req.session.featureSet).to.equal("F01,D01");
     expect(next).to.have.been.calledOnce;
   });
 
-  const errorTestCases = [
+  [
     {
       scenario: "comma separated featureSet is invalid",
       featureSet: "F01, D01",
@@ -46,21 +58,22 @@ describe("validateFeatureSet", () => {
     { scenario: "empty featureSet is provided", featureSet: "" },
     { scenario: "blank featureSet is provided", featureSet: " " },
     { scenario: "featureSet is invalid", featureSet: "invalid-featureset" },
-  ];
-  errorTestCases.forEach(
-    ({ scenario, featureSet }: { scenario: string; featureSet: string }) => {
-      it(`should throw an error if ${scenario}`, async () => {
-        const req = {
-          query: { featureSet },
-          session: {},
-        } as any;
+  ].forEach(({ scenario, featureSet }) => {
+    it(`should throw an error if ${scenario}`, async () => {
+      // Arrange
+      const req = createRequest({ query: { featureSet } });
+      const res = createResponse();
 
-        await expect(
-          (async () => await validateFeatureSet(req, res, next))(),
-        ).to.be.rejectedWith(Error, "Invalid feature set ID");
+      // Act
+      await validateFeatureSet(req, res, next);
 
-        expect(req.session.featureSet).to.be.undefined;
-      });
-    },
-  );
+      // Assert
+      expect(next).to.have.been.calledWith(
+        sinon.match
+          .instanceOf(Error)
+          .and(sinon.match.has("message", "Invalid feature set ID")),
+      );
+      expect(req.session.featureSet).to.be.undefined;
+    });
+  });
 });

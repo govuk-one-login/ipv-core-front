@@ -88,9 +88,9 @@ app.use(
 
 const healthcheckRouter = express.Router();
 healthcheckRouter.get("/", (req, res) => {
-  logger.info('Healthcheck returning 200 OK.');
+  logger.info("Healthcheck returning 200 OK.");
   res.status(200).send("OK");
-})
+});
 app.use("/healthcheck", healthcheckRouter);
 
 app.use(setLocals);

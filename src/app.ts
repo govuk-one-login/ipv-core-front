@@ -86,12 +86,10 @@ app.use(
   express.static(path.resolve("node_modules/govuk-frontend/govuk/assets")),
 );
 
-const healthcheckRouter = express.Router();
-healthcheckRouter.get("/", (req, res) => {
+app.get("/healthcheck", (req, res) => {
   logger.info("Healthcheck returning 200 OK.");
   res.status(200).send("OK");
 });
-app.use("/healthcheck", healthcheckRouter);
 
 app.use(setLocals);
 app.use(cspHandler);

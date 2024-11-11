@@ -16,7 +16,7 @@ describe("Notification banner handler", () => {
 
   // Setup stubs
   const parameterServiceStub = {
-    getParameter: sinon.stub(),
+    getParameter: sinon.fake(),
   };
   const { default: notificationBannerHandler } = proxyquire(
     "./notification-banner-handler",
@@ -58,7 +58,6 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter.resolves(undefined);
 
     // Act
     await notificationBannerHandler(req, res, next);
@@ -72,7 +71,7 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter.resolves(
+    parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",
@@ -96,7 +95,7 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter.resolves(
+    parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",
@@ -120,7 +119,7 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter.resolves(
+    parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
           pageId: "/some-page",

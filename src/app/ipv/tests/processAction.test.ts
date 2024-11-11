@@ -22,7 +22,7 @@ describe("processAction", () => {
   // Setup stubs
   const coreBackServiceStub = {
     postJourneyEvent: sinon.stub(),
-    postAction: sinon.stub(),
+    postAction: sinon.fake(),
   };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
@@ -40,7 +40,7 @@ describe("processAction", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    coreBackServiceStub.postAction.onFirstCall().returns({
+    coreBackServiceStub.postAction = sinon.fake.yields({
       data: {
         test: "unknown-response",
       },

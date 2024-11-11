@@ -39,7 +39,7 @@ export const specifyCreateRequest =
       session: mergeParams("session"),
       method: params.method || commonParams.method || "GET",
       path: params.path || commonParams.path || "GET",
-      log: { info: sinon.spy(), error: sinon.spy(), warn: sinon.spy() },
+      log: { info: sinon.fake(), error: sinon.fake(), warn: sinon.fake() },
       csrfToken: sinon.fake(),
       i18n: { t: () => "Some label" },
       id: params.id || commonParams.id,

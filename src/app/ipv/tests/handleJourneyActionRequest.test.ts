@@ -24,7 +24,7 @@ describe("handleJourneyActionRequest", () => {
 
   // Setup stubs
   const coreBackServiceStub = {
-    postJourneyEvent: sinon.stub().resolves({
+    postJourneyEvent: sinon.fake.resolves({
       data: {},
     }),
   };
@@ -44,7 +44,7 @@ describe("handleJourneyActionRequest", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    coreBackServiceStub.postJourneyEvent.resolves({
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
       data: {
         client: {
           redirectUrl: undefined,
@@ -64,7 +64,7 @@ describe("handleJourneyActionRequest", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    coreBackServiceStub.postJourneyEvent.resolves({
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
       data: { cri: { id: "someId", redirectUrl: undefined } },
     });
 

@@ -17,7 +17,7 @@ describe("Error handlers", () => {
 
   // Setup stubs
   const axiosStub = {
-    isAxiosError: sinon.stub().returns(false),
+    isAxiosError: sinon.fake.resolves(false),
   };
   const { default: serverErrorHandler } = proxyquire(
     "./internal-server-error-handler",

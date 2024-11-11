@@ -22,7 +22,7 @@ describe("handleJourneyPageRequest", () => {
   const next: any = sinon.fake();
 
   // Setup stubs
-  const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.stub() };
+  const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.fake() };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
@@ -43,7 +43,7 @@ describe("handleJourneyPageRequest", () => {
         session: { currentPage: "page-ipv-reuse" },
       });
       const res = createResponse();
-      coreBackServiceStub.getProvenIdentityUserDetails.returns({
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves({
         status: 200,
         data: {
           name: "firstName LastName",

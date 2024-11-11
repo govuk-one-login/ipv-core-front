@@ -13,7 +13,7 @@ describe("handle update details/COI form checkbox", () => {
 
   // Setup stubs
   const coreBackServiceStub = {
-    getProvenIdentityUserDetails: sinon.stub(),
+    getProvenIdentityUserDetails: sinon.fake.resolves({}),
   };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
@@ -193,7 +193,6 @@ describe("handle update details/COI form checkbox", () => {
         session: { context: "coi", currentPage: "confirm-your-details" },
       });
       const res = createResponse();
-      coreBackServiceStub.getProvenIdentityUserDetails.returns({});
 
       // Act
       await middleware.formHandleCoiDetailsCheck(req, res, next);
@@ -221,7 +220,6 @@ describe("handle update details/COI form checkbox", () => {
         session: { context: "coi", currentPage: "confirm-your-details" },
       });
       const res = createResponse();
-      coreBackServiceStub.getProvenIdentityUserDetails.resolves({});
 
       // Act
       await middleware.formHandleCoiDetailsCheck(req, res, next);

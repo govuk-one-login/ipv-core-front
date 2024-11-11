@@ -30,7 +30,7 @@ describe("mobile app middleware", () => {
     beforeEach(() => {
       middleware = proxyquire("./middleware", {
         "../../services/coreBackService": coreBackServiceStub,
-        "../../lib/config": { default: configStub },
+        "../../config/config": { default: configStub },
         "../ipv/middleware": ipvMiddlewareStub,
       });
 

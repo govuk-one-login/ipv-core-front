@@ -1,5 +1,5 @@
 import { InitOptions } from "i18next";
-import config from "../lib/config";
+import config from "./config";
 
 export const i18nextConfigurationOptions = (path: string): InitOptions => ({
   debug: false,

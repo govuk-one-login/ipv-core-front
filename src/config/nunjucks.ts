@@ -3,7 +3,7 @@ import { Application } from "express";
 import i18next from "i18next";
 import nunjucks, { Environment } from "nunjucks";
 import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
-import config from "../lib/config";
+import config from "./config";
 
 interface FilterContext {
   ctx: {

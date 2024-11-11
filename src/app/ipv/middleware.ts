@@ -2,7 +2,7 @@ import sanitize from "sanitize-filename";
 import { Request, Response } from "express";
 import { AxiosResponse } from "axios";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
-import config from "../../lib/config";
+import config from "../../config/config";
 import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
 import fs from "fs";
 import path from "path";

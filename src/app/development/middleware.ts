@@ -12,7 +12,7 @@ import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
-import config from "../../lib/config";
+import config from "../../config/config";
 
 interface RadioOption {
   text: string;

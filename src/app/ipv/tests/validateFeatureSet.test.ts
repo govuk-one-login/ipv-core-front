@@ -64,14 +64,10 @@ describe("validateFeatureSet", () => {
       const req = createRequest({ query: { featureSet } });
       const res = createResponse();
 
-      // Act
-      await validateFeatureSet(req, res, next);
-
-      // Assert
-      expect(next).to.have.been.calledWith(
-        sinon.match
-          .instanceOf(Error)
-          .and(sinon.match.has("message", "Invalid feature set ID")),
+      // Act & Assert
+      await expect(validateFeatureSet(req, res, next)).to.be.rejectedWith(
+        Error,
+        "Invalid feature set ID",
       );
       expect(req.session.featureSet).to.be.undefined;
     });

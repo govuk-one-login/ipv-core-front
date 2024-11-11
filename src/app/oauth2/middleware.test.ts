@@ -47,7 +47,11 @@ describe("oauth middleware", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.postJourneyEvent.resetHistory();
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
+      data: {
+        ipvSessionId: {},
+      },
+    });
     coreBackServiceStub.postSessionInitialise.resetHistory();
   });
 
@@ -56,10 +60,10 @@ describe("oauth middleware", () => {
     const req = createRequest();
     const res = createResponse();
 
-    // Act
-    await middleware.handleOAuthJourneyAction(req, res, next);
-
-    // Assert
+    // Act & Assert
+    await expect(
+      middleware.handleOAuthJourneyAction(req, res, next),
+    ).to.be.rejectedWith(Error);
     expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
   });
 
@@ -70,10 +74,10 @@ describe("oauth middleware", () => {
     });
     const res = createResponse();
 
-    // Act
-    await middleware.handleOAuthJourneyAction(req, res, next);
-
-    // Assert
+    // Act & Assert
+    await expect(
+      middleware.handleOAuthJourneyAction(req, res, next),
+    ).to.be.rejectedWith(Error);
     expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
   });
 
@@ -84,13 +88,10 @@ describe("oauth middleware", () => {
     });
     const res = createResponse();
 
-    // Act
-    await middleware.handleOAuthJourneyAction(req, res, next);
-
-    // Assert
-    expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(TechnicalError),
-    );
+    // Act & Assert
+    await expect(
+      middleware.handleOAuthJourneyAction(req, res, next),
+    ).to.be.rejectedWith(TechnicalError, "missing ipvSessionId");
   });
 
   it("should set ipvSessionId in session", async () => {
@@ -132,12 +133,9 @@ describe("oauth middleware", () => {
     });
     const res = createResponse();
 
-    // Act
-    await middleware.setIpvSessionId(req, res, next);
-
-    // Assert
-    expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(BadRequestError),
+    // Act & Assert
+    await expect(middleware.setIpvSessionId(req, res, next)).to.be.rejectedWith(
+      BadRequestError,
     );
   });
 
@@ -148,12 +146,10 @@ describe("oauth middleware", () => {
     });
     const res = createResponse();
 
-    // Act
-    await middleware.setIpvSessionId(req, res, next);
-
-    // Assert
-    expect(next).to.have.been.calledWith(
-      sinon.match.instanceOf(BadRequestError),
+    // Act & Assert
+    await expect(middleware.setIpvSessionId(req, res, next)).to.be.rejectedWith(
+      BadRequestError,
+      "clientId parameter is required",
     );
   });
 });

@@ -44,7 +44,7 @@ describe("credential issuer middleware", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.postCriCallback.reset();
+    coreBackServiceStub.postCriCallback.resolves({});
     ipvMiddlewareStub.handleBackendResponse.reset();
   });
 
@@ -139,11 +139,11 @@ describe("credential issuer middleware", () => {
           } as AxiosResponse),
         );
 
-        // Act
-        await middleware[method](req, res, next);
-
-        // Assert
-        expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        // Act & Assert
+        await expect(middleware[method](req, res, next)).to.be.rejectedWith(
+          Error,
+          "api error",
+        );
       });
 
       it("should call core-back when ipvSessionId is missing", async () => {

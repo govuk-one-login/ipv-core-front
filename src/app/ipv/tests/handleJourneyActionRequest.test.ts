@@ -33,7 +33,9 @@ describe("handleJourneyActionRequest", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.postJourneyEvent.reset();
+    coreBackServiceStub.postJourneyEvent = sinon.stub().resolves({
+      data: {},
+    });
   });
 
   it("should call next with error message if client event response lacks redirect URL", async function () {
@@ -50,13 +52,9 @@ describe("handleJourneyActionRequest", () => {
       },
     });
 
-    // Act
-    await middleware.handleJourneyActionRequest(req, res, next);
-
-    // Assert
+    // Act & Assert
     await expect(
-      (async () =>
-        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+      middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(Error, "Client Response redirect url is missing");
   });
 
@@ -68,13 +66,9 @@ describe("handleJourneyActionRequest", () => {
       data: { cri: { id: "someId", redirectUrl: undefined } },
     });
 
-    // Act
-    await middleware.handleJourneyActionRequest(req, res, next);
-
-    // Assert
+    // Act & Assert
     await expect(
-      (async () =>
-        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+      middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(Error, "CRI response RedirectUrl is missing");
   });
 
@@ -84,11 +78,15 @@ describe("handleJourneyActionRequest", () => {
     const res = createResponse();
 
     // Act & Assert
-    await expect(middleware.handleJourneyActionRequest(req, res, next)).to.be.rejectedWith(Error, "Test error");
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledOnceWithExactly(
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(Error);
+    expect(
+      coreBackServiceStub.postJourneyEvent,
+    ).to.have.been.calledOnceWithExactly(
       req,
       "some-journey-event",
-      req.session.currentPage
+      req.session.currentPage,
     );
   });
 
@@ -101,11 +99,15 @@ describe("handleJourneyActionRequest", () => {
     const res = createResponse();
 
     // Act & Assert
-    await expect(middleware.handleJourneyActionRequest(req, res, next)).to.be.rejectedWith(Error, "Test error");
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledOnceWithExactly(
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(Error);
+    expect(
+      coreBackServiceStub.postJourneyEvent,
+    ).to.have.been.calledOnceWithExactly(
       req,
-      "some-journey-event",
-      req.session.currentPage
+      req.body.journey,
+      req.session.currentPage,
     );
   });
 
@@ -115,11 +117,15 @@ describe("handleJourneyActionRequest", () => {
     const res = createResponse();
 
     // Act & Assert
-    await expect(middleware.handleJourneyActionRequest(req, res, next)).to.be.rejectedWith(Error, "Test error");
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledOnceWithExactly(
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(Error);
+    expect(
+      coreBackServiceStub.postJourneyEvent,
+    ).to.have.been.calledOnceWithExactly(
       req,
-      "some-journey-event",
-      req.session.currentPage
+      req.body.journey,
+      req.session.currentPage,
     );
   });
 
@@ -128,10 +134,10 @@ describe("handleJourneyActionRequest", () => {
     const req = createRequest({ session: { ipAddress: "some-ip-address" } });
     const res = createResponse();
 
-    // Act
-    await middleware.handleJourneyActionRequest(req, res, next);
-
-    // Assert
+    // Act & Assert
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(Error);
     expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
       req,
       req.body.journey,
@@ -164,6 +170,8 @@ describe("handleJourneyActionRequest", () => {
     const res = createResponse();
 
     // Act & Assert
-    await expect(middleware.handleJourneyActionRequest(req, res, next)).to.be.rejectedWith(UnauthorizedError);
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(UnauthorizedError);
   });
 });

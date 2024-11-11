@@ -23,7 +23,11 @@ describe("handleJourneyActionRequest", () => {
   const next: any = sinon.fake();
 
   // Setup stubs
-  const coreBackServiceStub = { postJourneyEvent: sinon.stub() };
+  const coreBackServiceStub = {
+    postJourneyEvent: sinon.stub().resolves({
+      data: {},
+    }),
+  };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
@@ -33,9 +37,7 @@ describe("handleJourneyActionRequest", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.postJourneyEvent = sinon.stub().resolves({
-      data: {},
-    });
+    coreBackServiceStub.postJourneyEvent.resetHistory();
   });
 
   it("should call next with error message if client event response lacks redirect URL", async function () {

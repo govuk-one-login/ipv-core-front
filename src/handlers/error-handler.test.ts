@@ -28,7 +28,7 @@ describe("Error handlers", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    axiosStub.isAxiosError.reset();
+    axiosStub.isAxiosError.resetHistory();
   });
 
   describe("pageNotFoundHandler", () => {

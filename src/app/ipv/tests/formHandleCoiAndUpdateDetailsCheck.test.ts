@@ -24,7 +24,7 @@ describe("handle update details/COI form checkbox", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.getProvenIdentityUserDetails.reset();
+    coreBackServiceStub.getProvenIdentityUserDetails.resetHistory();
   });
 
   const updateDetailsPageTestCases = [

@@ -45,7 +45,7 @@ describe("credential issuer middleware", () => {
   beforeEach(() => {
     next.resetHistory();
     coreBackServiceStub.postCriCallback.resolves({});
-    ipvMiddlewareStub.handleBackendResponse.reset();
+    ipvMiddlewareStub.handleBackendResponse.resetHistory();
   });
 
   (

@@ -32,7 +32,7 @@ describe("handleJourneyPageRequest", () => {
 
   beforeEach(() => {
     next.resetHistory();
-    coreBackServiceStub.getProvenIdentityUserDetails.reset();
+    coreBackServiceStub.getProvenIdentityUserDetails.resetHistory();
   });
 
   context("handling page-ipv-reuse journey route", () => {

@@ -32,8 +32,8 @@ describe("processAction", () => {
   );
 
   beforeEach(() => {
-    coreBackServiceStub.postJourneyEvent.reset();
-    coreBackServiceStub.postAction.reset();
+    coreBackServiceStub.postJourneyEvent.resetHistory();
+    coreBackServiceStub.postAction.resetHistory();
   });
 
   it("should throw an error when receiving an unexpected backend response", async function () {

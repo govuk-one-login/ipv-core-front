@@ -9,6 +9,7 @@ import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import i18nextMiddleware from "i18next-http-middleware";
 import uid from "uid-safe";
+import { frontendVitalSignsInit } from "@govuk-one-login/frontend-vital-signs";
 import criRouter from "./app/credential-issuer/router";
 import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
@@ -209,6 +210,10 @@ const server = app
   .on("error", (error) => {
     logger.error(`Unable to start server because of ${error.message}`);
   });
+
+frontendVitalSignsInit(server, {
+  staticPaths: [/^\/assets\/.*/, /^\/public\/.*/],
+});
 
 // AWS recommends the keep-alive duration of the target is longer than the idle timeout value of the load balancer (default 60s)
 // to prevent possible 502 errors where the target connection has already been closed

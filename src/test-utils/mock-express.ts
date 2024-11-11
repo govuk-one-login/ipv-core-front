@@ -37,13 +37,13 @@ export const specifyCreateRequest =
       query: mergeParams("query"),
       headers: mergeParams("headers"),
       session: mergeParams("session"),
-      method: params.method || commonParams.method || "GET",
-      path: params.path || commonParams.path || "GET",
+      method: params.method ?? commonParams.method ?? "GET",
+      path: params.path ?? commonParams.path ?? "GET",
       log: { info: sinon.fake(), error: sinon.fake(), warn: sinon.fake() },
       csrfToken: sinon.fake(),
       i18n: { t: () => "Some label" },
-      id: params.id || commonParams.id,
-      ip: params.ip || commonParams.ip,
+      id: params.id ?? commonParams.id,
+      ip: params.ip ?? commonParams.ip,
       cookies: mergeParams("cookies"),
     } as unknown as Request;
   };

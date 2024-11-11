@@ -29,7 +29,7 @@ describe("credential issuer middleware", () => {
     beforeEach(() => {
       middleware = proxyquire("./middleware", {
         "../../services/coreBackService": coreBackServiceStub,
-        "../../lib/config": { default: configStub },
+        "../../config/config": { default: configStub },
         "../ipv/middleware": ipvMiddlewareStub,
       });
 
@@ -172,7 +172,7 @@ describe("credential issuer middleware", () => {
     beforeEach(() => {
       middleware = proxyquire("./middleware", {
         "../../services/coreBackService": coreBackServiceStub,
-        "../../lib/config": { default: configStub },
+        "../../config/config": { default: configStub },
         "../ipv/middleware": ipvMiddlewareStub,
       });
 

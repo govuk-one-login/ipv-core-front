@@ -1,18 +1,18 @@
 import { Request, RequestHandler, Response } from "express";
 import pino, { Logger } from "pino";
-import pinoHttp from "pino-http";
+import pinoHttp, { ReqId } from "pino-http";
 
 export const HANDLED_ERROR = new Error(
   "Placeholder errors that do not require additional logging",
 );
 
 const SENSITIVE_PARAMS = ["request", "code"];
-const BASE_PLACEHOLDER = "http://placeholder-for-redaction";
+const BASE_PLACEHOLDER = "https://placeholder-for-redaction";
 
 export const redactQueryParams = (
   url: string | undefined,
 ): string | undefined => {
-  if (url && url.includes("?")) {
+  if (url?.includes("?")) {
     try {
       const parsedUrl = new URL(url, BASE_PLACEHOLDER);
       for (const param of SENSITIVE_PARAMS) {
@@ -31,7 +31,7 @@ export const redactQueryParams = (
 
 export const logger: Logger = pino({
   name: "di-ipv-core-front",
-  level: process.env.LOGS_LEVEL || "debug",
+  level: process.env.LOGS_LEVEL ?? "debug",
   messageKey: "message", // rename default msg property to message,
   formatters: {
     level(label) {
@@ -57,6 +57,18 @@ export const logger: Logger = pino({
   },
 });
 
+export const generateRequestId = (req: Request, res: Response): ReqId => {
+  const existingId = req.id ?? req.get("x-request-id");
+  if (existingId) {
+    return existingId;
+  }
+
+  // Not securely random, but this is just used for request correlation
+  const newId = Math.random().toString(36).slice(2);
+  res.header("x-request-id", newId);
+  return newId;
+};
+
 const addRequestContext = (
   req: Request,
   res: Response,
@@ -73,17 +85,7 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
   // Reuse an existing logger instance
   logger,
   // Define a custom request id function, this will be assigned to req.id
-  genReqId: (req, res) => {
-    const existingId = req.id ?? req.get("x-request-id");
-    if (existingId) {
-      return existingId;
-    }
-
-    // Not securely random, but this is just used for request correlation
-    const newId = Math.random().toString(36).slice(2);
-    res.header("x-request-id", newId);
-    return newId;
-  },
+  genReqId: generateRequestId,
   // Set to `false` to prevent standard serializers from being wrapped.
   wrapSerializers: false,
   // Define a custom receive message

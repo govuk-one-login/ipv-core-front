@@ -1,4 +1,4 @@
-import config from "../../lib/config";
+import config from "../../config/config";
 import { PHONE_TYPES } from "../../constants/device-constants";
 import TechnicalError from "../../errors/technical-error";
 

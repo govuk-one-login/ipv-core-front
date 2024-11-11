@@ -14,7 +14,7 @@ import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
 import mobileAppRouter from "./app/mobile-app/router";
 import oauthRouter from "./app/oauth2/router";
-import config from "./lib/config";
+import config from "./config/config";
 import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";

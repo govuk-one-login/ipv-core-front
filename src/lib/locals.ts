@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import config from "./config";
+import config from "../config/config";
 import { generateNonce } from "./strings";
 
 export const setLocals: RequestHandler = async (req, res, next) => {
@@ -11,6 +11,7 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.dynatraceRumUrl = config.DT_RUM_URL;
   res.locals.analyticsCookieDomain = config.GTM_ANALYTICS_COOKIE_DOMAIN;
   res.locals.logoutUrl = config.LOGOUT_URL;
+  res.locals.deleteAccountUrl = config.DELETE_ACCOUNT_URL;
 
   const contactUsUrl = new URL(config.CONTACT_URL);
   contactUsUrl.searchParams.set(
@@ -18,8 +19,6 @@ export const setLocals: RequestHandler = async (req, res, next) => {
     `${config.SERVICE_URL}${req.originalUrl}`,
   );
   res.locals.contactUsUrl = contactUsUrl.href;
-
-  res.locals.deleteAccountUrl = config.DELETE_ACCOUNT_URL;
 
   // Patch the status code setter to make it available in locals as well
   const setStatusCode = res.status;

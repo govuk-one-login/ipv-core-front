@@ -1,5 +1,5 @@
 import { handleBackendResponse } from "../ipv/middleware";
-import config from "../../lib/config";
+import config from "../../config/config";
 import {
   CriCallbackRequest,
   postCriCallback,

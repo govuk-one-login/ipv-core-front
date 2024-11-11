@@ -7,7 +7,7 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
-import config from "../lib/config";
+import config from "../config/config";
 import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);

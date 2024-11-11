@@ -1,16 +1,11 @@
 all: true
 check-coverage: true
 include:
-  - "src/**/*.js"
   - "src/**/*.ts"
 exclude:
-  - "**/*.test.js"
   - "**/*.test.ts"
   - "**/*router.ts"
-  - "**/*router.js"
-  - "src/lib/*"
   - "src/app.ts"
-  - "src/app/shared/axiosHelper.js"
   - "src/config/*"
 report-dir: coverage
 statements: 80

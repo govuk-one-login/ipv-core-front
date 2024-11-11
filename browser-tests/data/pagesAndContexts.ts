@@ -3,6 +3,7 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "confirm-your-details": [],
   "delete-handover": [],
   "find-another-way-access-service": [],
+  "live-in-uk": [],
   "no-photo-id-abandon-find-another-way": [],
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-security-questions-find-another-way": ["dropout", undefined],

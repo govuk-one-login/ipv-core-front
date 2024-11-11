@@ -79,7 +79,7 @@ const protectConfig: ProtectionConfig = {
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
   errorPropagationMode: false,
-  logging: "info"
+  logging: "info",
 };
 const overloadProtection = protect("express", protectConfig);
 app.use(overloadProtection);

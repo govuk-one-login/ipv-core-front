@@ -86,6 +86,11 @@ app.use(
   express.static(path.resolve("node_modules/govuk-frontend/govuk/assets")),
 );
 
+app.get("/healthcheck", (req, res) => {
+  logger.info("Healthcheck returning 200 OK.");
+  res.status(200).send("OK");
+});
+
 app.use(setLocals);
 app.use(cspHandler);
 app.set("view engine", configureNunjucks(app, APP_VIEWS));
@@ -189,10 +194,6 @@ router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }
-
-router.get("/healthcheck", (req, res) => {
-  res.status(200).send("OK");
-});
 
 app.use(router);
 

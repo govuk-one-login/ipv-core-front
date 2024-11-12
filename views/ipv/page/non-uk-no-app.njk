@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.nonUkNoApp.title' %}
+{% set googleTagManagerPageId = "nonUkNoApp" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.nonUkNoApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.nonUkNoApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#nonUkNoAppForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkNoApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.nonUkNoApp.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.nonUkNoApp.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet" role="list">
+    <li>{{ 'pages.nonUkNoApp.content.list1' | translate }}</li>
+    <li>{{ 'pages.nonUkNoApp.content.list2' | translate }}</li>
+  </ul>
+
+  <form id="nonUkNoAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.nonUkNoApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "end",
+          text: 'pages.nonUkNoApp.content.formRadioButtons.otherWayButtonText' | translate
+        },
+        {
+          value: "next",
+          text: 'pages.nonUkNoApp.content.formRadioButtons.restartButtonText' | translate,
+          hint: { text: 'pages.nonUkNoApp.content.formRadioButtons.restartButtonHintText' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.nonUkNoApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

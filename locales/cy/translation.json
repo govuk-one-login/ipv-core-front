@@ -1429,6 +1429,27 @@
           "errorRadioMessage": "Select yes if you live in the UK, the Channel Islands or the Isle of Man"
         }
       }
+    },
+    "nonUkNoApp": {
+      "title": "You cannot prove your identity with GOV.UK One Login",
+      "header": "You cannot prove your identity with GOV.UK One Login",
+      "content": {
+        "paragraph1": "If you do not live in the UK, you can only prove your identity with a GOV.UK app. ",
+        "paragraph2": "To do this you need a:",
+        "list1": "passport with a biometric chip",
+        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to access it",
+          "restartButtonText": "Try again to prove your identity with GOV.UK One Login",
+          "restartButtonHintText": "You need to use a GOV.UK app"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
     }
   }
 }

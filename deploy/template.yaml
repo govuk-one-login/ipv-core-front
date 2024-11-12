@@ -857,7 +857,7 @@ Resources:
           HealthCheck:
             Command:
               - "CMD-SHELL"
-              - "curl -f <http://localhost:8080/healthcheck> || exit 1"
+              - "curl -f http://localhost:8080/healthcheck || exit 1"
             Interval: 5
             Retries: 10
             Timeout: 2

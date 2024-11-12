@@ -18,9 +18,9 @@
     "copy-images": "copyfiles -u 2 assets/images/** dist/public/images",
     "lint": "prettier --check src && eslint src/",
     "lint-fix": "prettier --write src && eslint --fix src/",
-    "test": "mocha --require ts-node/register",
+    "test": "mocha",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
-    "test:watch": "mocha --require ts-node/register --watch",
+    "test:watch": "mocha --watch",
     "tsc": "tsc"
   },
   "repository": {

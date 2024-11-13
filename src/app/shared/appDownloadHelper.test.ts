@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { getAppStoreRedirectUrl } from "./appDownloadHelper";
 import { PHONE_TYPES } from "../../constants/device-constants";
-import config from "../../lib/config";
+import config from "../../config/config";
 
 describe("Get app store redirect url", () => {
   it("should get iphone redirect url", () => {

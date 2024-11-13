@@ -1,6 +1,6 @@
 import sinon from "sinon";
 import { PHONE_TYPES } from "../../../constants/device-constants";
-import config from "../../../lib/config";
+import config from "../../../config/config";
 import { handleAppStoreRedirect } from "../middleware";
 import {
   specifyCreateRequest,

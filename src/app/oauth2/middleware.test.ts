@@ -37,11 +37,11 @@ describe("oauth middleware", () => {
   };
   const ipvMiddleware = proxyquire("../ipv/middleware", {
     "../../services/coreBackService": coreBackServiceStub,
-    "../../lib/config": { default: configStub },
+    "../../config/config": { default: configStub },
   });
   const middleware = proxyquire("./middleware", {
     "../../services/coreBackService": coreBackServiceStub,
-    "../../lib/config": { default: configStub },
+    "../../config/config": { default: configStub },
     "../ipv/middleware": ipvMiddleware,
   });
 

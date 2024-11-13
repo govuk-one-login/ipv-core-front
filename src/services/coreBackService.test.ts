@@ -41,7 +41,7 @@ describe("CoreBackService", () => {
   const coreBackService: typeof import("./coreBackService") = proxyquire(
     "./coreBackService",
     {
-      "../lib/config": { default: configStub },
+      "../config/config": { default: configStub },
       "../app/shared/axiosHelper": {
         createAxiosInstance: () => axiosInstanceStub,
       },

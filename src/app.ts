@@ -14,7 +14,7 @@ import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
 import mobileAppRouter from "./app/mobile-app/router";
 import oauthRouter from "./app/oauth2/router";
-import config from "./lib/config";
+import config from "./config/config";
 import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
@@ -85,6 +85,11 @@ app.use(
   "/assets",
   express.static(path.resolve("node_modules/govuk-frontend/govuk/assets")),
 );
+
+app.get("/healthcheck", (req, res) => {
+  logger.info("Healthcheck returning 200 OK.");
+  res.status(200).send("OK");
+});
 
 app.use(setLocals);
 app.use(cspHandler);
@@ -189,10 +194,6 @@ router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }
-
-router.get("/healthcheck", (req, res) => {
-  res.status(200).send("OK");
-});
 
 app.use(router);
 

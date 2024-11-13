@@ -38,7 +38,7 @@ describe("credential issuer middleware", () => {
   const ipvMiddlewareStub = { handleBackendResponse: sinon.stub() };
   const middleware = proxyquire("./middleware", {
     "../../services/coreBackService": coreBackServiceStub,
-    "../../lib/config": { default: configStub },
+    "../../config/config": { default: configStub },
     "../ipv/middleware": ipvMiddlewareStub,
   });
 

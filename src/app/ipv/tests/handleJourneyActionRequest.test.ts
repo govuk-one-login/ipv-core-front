@@ -113,40 +113,6 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
-  it("should postJourneyEvent and use ip address from session when present", async function () {
-    // Arrange
-    const req = createRequest({ session: { ipAddress: "some-ip-address" } });
-    const res = createResponse();
-
-    // Act & Assert
-    await expect(
-      middleware.handleJourneyActionRequest(req, res, next),
-    ).to.be.rejectedWith(Error);
-    expect(
-      coreBackServiceStub.postJourneyEvent,
-    ).to.have.been.calledOnceWithExactly(
-      req,
-      req.body.journey,
-      req.session.currentPage,
-    );
-  });
-
-  it("should use session IP if present", async function () {
-    // Arrange
-    const req = createRequest({ session: { ipAddress: "some-ip-address" } });
-    const res = createResponse();
-
-    // Act & Assert
-    await expect(
-      middleware.handleJourneyActionRequest(req, res, next),
-    ).to.be.rejectedWith(Error);
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
-      req,
-      req.body.journey,
-      req.session.currentPage,
-    );
-  });
-
   const redirectTests = [
     { journey: "contact", expectedRedirect: "contactUrl" },
     { journey: "deleteAccount", expectedRedirect: "deleteAccount" },

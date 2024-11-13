@@ -77,7 +77,7 @@ describe("parameterStoreService", () => {
       expect(
         ssmClientStub.calledWithMatch({
           Name: "/core-front/test-parameter",
-        } as any),
+        }),
       ).to.be.false;
     });
   });

@@ -15,17 +15,17 @@ interface CreateRequestParams {
 }
 
 export const specifyCreateRequest =
-  (commonParams: CreateRequestParams = {}) =>
+  (defaultParams: CreateRequestParams = {}) =>
   (params: CreateRequestParams = {}): Request => {
     function mergeParams<
       T extends "body" | "params" | "query" | "headers" | "session" | "cookies",
     >(attribute: T): CreateRequestParams[T] {
       if (!Object.hasOwn(params, attribute)) {
-        return commonParams[attribute] ?? {};
+        return defaultParams[attribute] ?? {};
       }
       return (
         params[attribute] && {
-          ...(commonParams[attribute] ?? {}),
+          ...(defaultParams[attribute] ?? {}),
           ...params[attribute],
         }
       );
@@ -37,13 +37,13 @@ export const specifyCreateRequest =
       query: mergeParams("query"),
       headers: mergeParams("headers"),
       session: mergeParams("session"),
-      method: params.method ?? commonParams.method ?? "GET",
-      path: params.path ?? commonParams.path ?? "GET",
+      method: params.method ?? defaultParams.method ?? "GET",
+      path: params.path ?? defaultParams.path ?? "GET",
       log: { info: sinon.fake(), error: sinon.fake(), warn: sinon.fake() },
       csrfToken: sinon.fake(),
       i18n: { t: () => "Some label" },
-      id: params.id ?? commonParams.id,
-      ip: params.ip ?? commonParams.ip,
+      id: params.id ?? defaultParams.id,
+      ip: params.ip ?? defaultParams.ip,
       cookies: mergeParams("cookies"),
     } as unknown as Request;
   };

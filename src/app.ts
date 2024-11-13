@@ -215,4 +215,11 @@ const server = app
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
 server.keepAliveTimeout = 65000;
 
+process.on("SIGTERM", () => {
+  logger.debug("SIGTERM signal received: closing HTTP server");
+  server.close(() => {
+    logger.debug("HTTP server closed");
+  });
+});
+
 export default app;

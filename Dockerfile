@@ -43,10 +43,6 @@ COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs /
 ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV PORT 8080
-
-HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
-  CMD curl -f http://localhost:8080/healthcheck || exit 1
-
 EXPOSE 8080
 
 ENTRYPOINT ["tini", "--"]

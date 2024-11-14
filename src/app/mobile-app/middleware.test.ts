@@ -58,7 +58,7 @@ describe("mobile app middleware", () => {
       } as any;
     });
 
-    it("callback returns next event", async () => {
+    it("should process the response from postMobileAppCallback", async () => {
       // Arrange
       axiosResponse.status = 200;
       axiosResponse.data = { journey: "journey/next" };
@@ -79,7 +79,26 @@ describe("mobile app middleware", () => {
       expect(res.status).to.be.calledWith(200);
     });
 
-    it("failed callback is propagated", async () => {
+    it("should add clientOAuthSessionId to the session if core-back provides a value", async () => {
+      // Arrange
+      axiosResponse.status = 200;
+      axiosResponse.data = {
+        journey: "journey/next",
+        clientOAuthSessionId: "testClientOAuthSessionId",
+      };
+      coreBackServiceStub.postMobileAppCallback =
+        sinon.fake.resolves(axiosResponse);
+
+      // Act
+      await middleware.checkMobileAppDetails(req, res, next);
+
+      // Assert
+      expect(req.session.clientOauthSessionId).to.equal(
+        "testClientOAuthSessionId",
+      );
+    });
+
+    it("should propagate and error from calling core-back", async () => {
       // Arrange
       const axiosError = new AxiosError("api error");
       axiosResponse.status = 404;
@@ -92,7 +111,7 @@ describe("mobile app middleware", () => {
       ).to.be.rejectedWith(AxiosError, "api error");
     });
 
-    it("missing state query parameter throws error", async () => {
+    it("should throw and error if the state query parameter is missing", async () => {
       // Arrange
       req.query = {};
 

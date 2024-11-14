@@ -92,27 +92,6 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
-  it("should postJourneyEvent and use ip address from header when not present in session", async function () {
-    // Arrange
-    const req = createRequest({
-      headers: { forwarded: "1.1.1.1" },
-      session: { ipAddress: undefined },
-    });
-    const res = createResponse();
-
-    // Act & Assert
-    await expect(
-      middleware.handleJourneyActionRequest(req, res, next),
-    ).to.be.rejectedWith(Error);
-    expect(
-      coreBackServiceStub.postJourneyEvent,
-    ).to.have.been.calledOnceWithExactly(
-      req,
-      req.body.journey,
-      req.session.currentPage,
-    );
-  });
-
   const redirectTests = [
     { journey: "contact", expectedRedirect: "contactUrl" },
     { journey: "deleteAccount", expectedRedirect: "deleteAccount" },

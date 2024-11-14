@@ -2,10 +2,14 @@ import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
 import UnauthorizedError from "../../../errors/unauthorized-error";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../../test-utils/mock-express";
 
 describe("handleJourneyActionRequest", () => {
-  const testReq = {
-    id: "1",
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest({
     body: { journey: "next" },
     session: {
       ipvSessionId: "ipv-session-id",
@@ -13,25 +17,17 @@ describe("handleJourneyActionRequest", () => {
       currentPage: "page-ipv-identity-document-start",
       save: sinon.fake.yields(null),
     },
-    log: { info: sinon.fake(), error: sinon.fake() },
     params: { pageId: "page-ipv-identity-document-start" },
-  } as any;
+  });
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
-  const res = {
-    status: sinon.fake(),
-    redirect: sinon.fake(),
-    send: sinon.fake(),
-    render: sinon.fake(),
-    log: { info: sinon.fake(), error: sinon.fake() },
-    locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
-  } as any;
-
-  const next = sinon.fake();
-
+  // Setup stubs
   const coreBackServiceStub = {
-    postJourneyEvent: sinon.stub(),
+    postJourneyEvent: sinon.fake.resolves({
+      data: {},
+    }),
   };
-
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
@@ -39,12 +35,16 @@ describe("handleJourneyActionRequest", () => {
     },
   );
 
-  afterEach(() => {
-    coreBackServiceStub.postJourneyEvent = sinon.stub();
+  beforeEach(() => {
+    next.resetHistory();
+    coreBackServiceStub.postJourneyEvent.resetHistory();
   });
 
-  it("should call next with error message given redirect url is missing from client event response", async function () {
-    const clientEventResponse = {
+  it("should call next with error message if client event response lacks redirect URL", async function () {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
       data: {
         client: {
           redirectUrl: undefined,
@@ -52,111 +52,73 @@ describe("handleJourneyActionRequest", () => {
           state: "test-state",
         },
       },
-    };
+    });
 
-    const callBack = sinon.stub();
-    coreBackServiceStub.postJourneyEvent = callBack;
-    callBack.onCall(0).returns(clientEventResponse);
-
+    // Act & Assert
     await expect(
-      (async () =>
-        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+      middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(Error, "Client Response redirect url is missing");
   });
 
-  it("should call next with an error message given redirect url is missing from CRI event response", async () => {
-    const criEventResponse = {
-      data: {
-        cri: {
-          id: "someId",
-          redirectUrl: undefined,
-        },
-      },
-    };
+  it("should call next with error message if CRI event response lacks redirect URL", async function () {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
+      data: { cri: { id: "someId", redirectUrl: undefined } },
+    });
 
-    const callBack = sinon.stub();
-    coreBackServiceStub.postJourneyEvent = callBack;
-    callBack.onCall(0).returns(criEventResponse);
-
+    // Act & Assert
     await expect(
-      (async () =>
-        await middleware.handleJourneyActionRequest(testReq, res, next))(),
+      middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(Error, "CRI response RedirectUrl is missing");
   });
 
   it(`should postJourneyEvent when given a journey event"`, async () => {
-    const req = { ...testReq, body: { journey: "some-journey-event" } };
-    try {
-      await middleware.handleJourneyActionRequest(req, res, next);
-    } catch (error) {
-      expect(
-        coreBackServiceStub.postJourneyEvent.firstCall,
-      ).to.have.been.calledWith(
-        req,
-        "some-journey-event",
-        req.session.currentPage,
-      );
-      expect(error).to.be.an.instanceOf(Error);
-    }
-  });
+    // Arrange
+    const req = createRequest({ body: { journey: "some-journey-event" } });
+    const res = createResponse();
 
-  it("should postJourneyEvent and use ip address from header when not present in session", async function () {
-    const req = {
-      ...testReq,
-      headers: { forwarded: "1.1.1.1" },
-      session: { ...testReq.session, ipAddress: undefined },
-    };
-
-    try {
-      await middleware.handleJourneyActionRequest(req, res, next);
-    } catch (error) {
-      expect(
-        coreBackServiceStub.postJourneyEvent.firstCall,
-      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
-      expect(error).to.be.an.instanceOf(Error);
-    }
-  });
-
-  it("should postJourneyEvent and use ip address from session when present", async function () {
-    const req = {
-      ...testReq,
-      headers: { forwarded: "1.1.1.1" },
-      session: { ...testReq.session, ipAddress: "some-ip-address" },
-    };
-
-    try {
-      await middleware.handleJourneyActionRequest(req, res, next);
-    } catch (error) {
-      expect(
-        coreBackServiceStub.postJourneyEvent.firstCall,
-      ).to.have.been.calledWith(req, req.body.journey, req.session.currentPage);
-      expect(error).to.be.an.instanceOf(Error);
-    }
-  });
-
-  it("should call redirect given 'contact' event", async function () {
-    const req = { ...testReq, body: { journey: "contact" } };
-
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(res.redirect).to.have.been.calledWith("contactUrl");
-  });
-
-  it("should call redirect given 'deleteAccount' event", async function () {
-    const req = { ...testReq, body: { journey: "deleteAccount" } };
-
-    await middleware.handleJourneyActionRequest(req, res, next);
-    expect(res.redirect).to.have.been.calledWith("deleteAccount");
-  });
-
-  it("should render the technical unrecoverable page given missing ipvSessionId from request", async () => {
-    const req = {
-      ...testReq,
-      session: { ...testReq.session, ipvSessionId: undefined },
-    };
-
+    // Act & Assert
     await expect(
-      (async () =>
-        await middleware.handleJourneyActionRequest(req, res, next))(),
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith(Error);
+    expect(
+      coreBackServiceStub.postJourneyEvent,
+    ).to.have.been.calledOnceWithExactly(
+      req,
+      "some-journey-event",
+      req.session.currentPage,
+    );
+  });
+
+  const redirectTests = [
+    { journey: "contact", expectedRedirect: "contactUrl" },
+    { journey: "deleteAccount", expectedRedirect: "deleteAccount" },
+  ];
+
+  redirectTests.forEach(({ journey, expectedRedirect }) => {
+    it(`should redirect to ${expectedRedirect} for journey ${journey}`, async function () {
+      // Arrange
+      const req = createRequest({ body: { journey } });
+      const res = createResponse();
+
+      // Act
+      await middleware.handleJourneyActionRequest(req, res, next);
+
+      // Assert
+      expect(res.redirect).to.have.been.calledWith(expectedRedirect);
+    });
+  });
+
+  it("should render technical error page if ipvSessionId is missing", async () => {
+    // Arrange
+    const req = createRequest({ session: { ipvSessionId: undefined } });
+    const res = createResponse();
+
+    // Act & Assert
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(UnauthorizedError);
   });
 });

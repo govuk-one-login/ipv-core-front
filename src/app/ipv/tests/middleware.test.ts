@@ -6,39 +6,37 @@ import {
   setRequestPageId,
   staticPageMiddleware,
 } from "../middleware";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../../test-utils/mock-express";
 
 describe("journey middleware", () => {
-  const res = {
-    status: sinon.fake(),
-    redirect: sinon.fake(),
-    send: sinon.fake(),
-    render: sinon.fake(),
-    log: { info: sinon.fake(), error: sinon.fake() },
-    locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
-  } as any;
-
-  const testReq = {
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest({
+    params: { pageId: "page-ipv-identity-document-start" },
     session: {
       ipvSessionId: "ipv-session-id",
       ipAddress: "ip-address",
       featureSet: "feature-set",
       save: sinon.fake.yields(null),
     },
-    params: { pageId: "page-ipv-identity-document-start" },
-    csrfToken: sinon.fake(),
-    log: { info: sinon.fake(), error: sinon.fake() },
-  } as any;
-
-  const next = sinon.fake() as any;
+  });
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
   context("setRequestPageId", () => {
     it("should return a handler that sets the page ID on a request", async function () {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
       const newPageId = "new-page-id";
       const handler = setRequestPageId(newPageId);
 
-      const req = { ...testReq };
+      // Act
       await handler(req, res, next);
 
+      // Assert
       expect(req.params.pageId).to.equal(newPageId);
       expect(next).to.have.been.called;
     });
@@ -46,7 +44,14 @@ describe("journey middleware", () => {
 
   context("renderAttemptRecoveryPage", () => {
     it("should render attempt recovery page", () => {
-      renderAttemptRecoveryPage(testReq, res);
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+
+      // Act
+      renderAttemptRecoveryPage(req, res);
+
+      // Assert
       expect(res.render).to.have.been.calledWith(
         "ipv/page/pyi-attempt-recovery.njk",
       );
@@ -55,15 +60,15 @@ describe("journey middleware", () => {
 
   context("staticPageMiddleware", () => {
     it("should render static document type page", () => {
-      const req = {} as any;
-      const res = {
-        render: sinon.spy(),
-      } as any;
-
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
       const handler = staticPageMiddleware("page-ipv-identity-document-types");
 
+      // Act
       handler(req, res);
 
+      // Assert
       expect(res.render).to.have.been.calledWith(
         "ipv/page/page-ipv-identity-document-types.njk",
       );
@@ -72,7 +77,14 @@ describe("journey middleware", () => {
 
   context("renderFeatureSetPage", () => {
     it("should render featureSet page", () => {
-      renderFeatureSetPage(testReq, res);
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+
+      // Act
+      renderFeatureSetPage(req, res);
+
+      // Assert
       expect(res.render).to.have.been.calledWith("ipv/page-featureset.njk");
     });
   });

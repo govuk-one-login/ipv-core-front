@@ -31,7 +31,10 @@ describe("redactQueryParams", () => {
     },
   ].forEach(({ input, output }) => {
     it(`should correctly map ${input}`, () => {
+      // Act
       const actual = redactQueryParams(input);
+
+      // Assert
       expect(actual).to.equal(output);
     });
   });

@@ -38,8 +38,10 @@ describe("axiosHelper", () => {
 
   describe("responseLogger", () => {
     it("should log response details", async () => {
+      // Act
       await axiosResponseLogger(testResponse);
 
+      // Assert
       expect(testLogger.info).has.been.calledWith({
         message: {
           description: "API request completed",
@@ -54,6 +56,7 @@ describe("axiosHelper", () => {
     });
 
     it("should not log cri redirect details", async () => {
+      // Arrange
       const response = {
         ...testResponse,
         data: {
@@ -64,8 +67,10 @@ describe("axiosHelper", () => {
         },
       };
 
+      // Act
       await axiosResponseLogger(response);
 
+      // Assert
       expect(testLogger.info).has.been.calledWith({
         message: {
           description: "API request completed",
@@ -83,6 +88,7 @@ describe("axiosHelper", () => {
     });
 
     it("should not log client redirect details", async () => {
+      // Arrange
       const response = {
         ...testResponse,
         data: {
@@ -92,8 +98,10 @@ describe("axiosHelper", () => {
         },
       };
 
+      // Act
       await axiosResponseLogger(response);
 
+      // Assert
       expect(testLogger.info).has.been.calledWith({
         message: {
           description: "API request completed",
@@ -112,6 +120,7 @@ describe("axiosHelper", () => {
 
   describe("errorLogger", () => {
     it("should log error with response details with an error response", async () => {
+      // Arrange
       const errorResponse = {
         ...testResponse,
         status: 500,
@@ -125,8 +134,10 @@ describe("axiosHelper", () => {
         errorResponse,
       );
 
+      // Act
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
+      // Assert
       expect(testLogger.error).has.been.calledWith({
         message: {
           description: "API request failed",
@@ -141,6 +152,7 @@ describe("axiosHelper", () => {
     });
 
     it("should log error with endpoint details with a request error", async () => {
+      // Arrange
       const error = new AxiosError(
         "test error",
         "ERR",
@@ -148,6 +160,7 @@ describe("axiosHelper", () => {
         testRequest,
       );
 
+      // Act & Assert
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
       expect(testLogger.error).has.been.calledWith({
@@ -160,8 +173,10 @@ describe("axiosHelper", () => {
     });
 
     it("should log error with internal axios error", async () => {
+      // Arrange
       const error = new AxiosError("test error", "ERR", testRequest as any);
 
+      // Act & Assert
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
       expect(testLogger.error).has.been.calledWith({
@@ -173,10 +188,13 @@ describe("axiosHelper", () => {
     });
 
     it("should pass on any non-axios error", async () => {
+      // Arrange
       const error = new Error("test error");
 
+      // Act
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
+      // Assert
       expect(testLogger.error).to.have.not.been.called;
     });
   });

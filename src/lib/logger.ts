@@ -31,7 +31,7 @@ export const redactQueryParams = (
 
 export const logger: Logger = pino({
   name: "di-ipv-core-front",
-  level: process.env.LOGS_LEVEL ?? "debug",
+  level: process.env.LOGS_LEVEL ?? "info",
   messageKey: "message", // rename default msg property to message,
   formatters: {
     level(label) {

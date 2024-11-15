@@ -72,9 +72,9 @@ export const iteratePagesAndContexts = (test: TestFn): void => {
 
     for (const context of contextsToTest) {
       for (const language of [ "en", "cy" ]) {
-        let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}`
+        let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}?pageErrorState=true`
         if (context !== undefined) {
-          url += `?context=${context}`;
+          url += `&context=${context}`;
         }
         test(pageName, context, language, url);
       }

@@ -43,10 +43,19 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
   const templateId = req.body.template;
   const language = req.body.language;
   const context = req.body.context;
+  const hasErrorState = req.body.hasErrorState;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
-  if (context) {
-    redirectUrl += `?context=${encodeURIComponent(context)}`;
+  if (context || hasErrorState) {
+    const queryParams: [string, string][] = [];
+    if (context) {
+      queryParams.push(["context", encodeURIComponent(context)]);
+    }
+    if (hasErrorState) {
+      queryParams.push(["pageErrorState", "true"]);
+    }
+    redirectUrl +=
+      "?" + queryParams.map(([key, value]) => `${key}=${value}`).join("&");
   }
 
   return res.redirect(redirectUrl);
@@ -64,6 +73,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     csrfToken: req.csrfToken?.(true),
     context,
     errorState: req.query.errorState,
+    pageErrorState: req.query.pageErrorState,
   };
 
   if (pageRequiresUserDetails(templateId)) {

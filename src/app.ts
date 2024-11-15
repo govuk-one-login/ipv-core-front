@@ -29,6 +29,7 @@ import {
 } from "./handlers/security-headers-handler";
 import { csrfSynchronisedProtection } from "./lib/csrf";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
+import protect, { ProtectionConfig } from "overload-protection";
 
 // Extend request object with our own extensions
 declare global {
@@ -70,6 +71,19 @@ const sessionStore: SessionStore | undefined =
     : undefined;
 
 const app = express();
+
+const protectConfig: ProtectionConfig = {
+  production: process.env.NODE_ENV === "production",
+  clientRetrySecs: 1,
+  sampleInterval: 5,
+  maxEventLoopDelay: 400,
+  maxHeapUsedBytes: 0,
+  maxRssBytes: 0,
+  errorPropagationMode: false,
+  logging: "error",
+};
+const overloadProtection = protect("express", protectConfig);
+app.use(overloadProtection);
 
 app.enable("trust proxy");
 app.use(function (req, res, next) {

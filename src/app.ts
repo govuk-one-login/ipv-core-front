@@ -88,7 +88,7 @@ app.use(
 );
 
 app.get("/healthcheck", (req, res) => {
-  logger.info("Healthcheck returning 200 OK.");
+  logger.debug("Healthcheck returning 200 OK.");
   res.status(200).send("OK");
 });
 

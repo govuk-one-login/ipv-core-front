@@ -81,6 +81,7 @@ describe("mobile app middleware", () => {
 
     it("should add clientOAuthSessionId to the session if core-back provides a value", async () => {
       // Arrange
+      req.session.ipvSessionId = undefined;
       axiosResponse.status = 200;
       axiosResponse.data = {
         journey: "journey/next",

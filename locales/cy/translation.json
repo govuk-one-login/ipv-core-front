@@ -369,22 +369,22 @@
       }
     },
     "drivingLicenceDetailsNotCorrect": {
-      "title": "If your driving licence details are not correct",
-      "header": "If your driving licence details are not correct",
+      "title": "Os nad yw manylion eich trwydded yrru yn gywir",
+      "header": "Os nad yw manylion eich trwydded yrru yn gywir",
       "content": {
-        "paragraph1": "You can scan your UK photocard driving licence in the GOV.UK ID Check app again.",
-        "paragraph2": "Make sure your driving licence does not have any dirt or scratches on the front.",
-        "paragraph3": "When you scan your driving licence, make sure you’re in a well-lit area with no glare or reflection on your licence.",
-        "subHeading": "What would you like to do?",
+        "paragraph1": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check.",
+        "paragraph2": "Gwnewch yn siŵr nad oes gan eich trwydded yrru unrhyw faw na chrafiadau ar y blaen.",
+        "paragraph3": "Pan fyddwch yn sganio'ch trwydded yrru, gwnewch yn siŵr eich bod mewn ardal sydd wedi'i goleuo'n dda heb unrhyw dywyniad nag adlewyrchiad ar eich trwydded.",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
-          "continueButtonTextHint": "You’ll need to answer a few questions again before you can open the app",
-          "otherWayButtonText": "Prove your identity another way"
+          "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check",
+          "continueButtonTextHint": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch agor yr ap",
+          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
-          "errorRadioMessage": "Select how you would like to prove your identity"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut hoffech chi brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch sut hoffech chi brofi eich hunaniaeth"
         }
       }
     },
@@ -1394,20 +1394,20 @@
       }
     },
     "proveIdentityAnotherWay": {
-      "title": "TODO: How would you like to prove your identity?",
+      "title": "Sut hoffech chi brofi eich hunaniaeth?",
       "content": {
-        "header": "TODO: How would you like to prove your identity?",
+        "header": "Sut hoffech chi brofi eich hunaniaeth?",
         "formErrorMessage": {
-          "errorSummaryTitleText": "TODO: There is a problem",
-          "errorSummaryDescriptionText": "TODO: Select how you would like to prove your identity",
-          "errorRadioMessage": "TODO: Select how you would like to prove your identity"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut hoffech chi brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch sut hoffech chi brofi eich hunaniaeth"
         },
         "formRadioButtons": {
-          "anotherTypePhotoId": "TODO: Use another type of photo ID in the GOV.UK ID Check app",
-          "postOffice": "TODO: Go to a Post Office",
-          "postOfficeHint": "TODO: You’ll be asked to enter details from your photo ID on GOV.UK first.",
-          "returnToRp": "TODO: Go to the service you need to use to find out if there are other ways to access it",
-          "formSeparator": "TODO: or"
+          "anotherTypePhotoId": "Defnyddio math arall o ID gyda llun yn yr ap GOV.UK ID Check",
+          "postOffice": "Ewch i Swyddfa’r Post",
+          "postOfficeHint": "Gofynnir i chi roi manylion o'ch ID gyda llun ar GOV.UK yn gyntaf.",
+          "returnToRp": "Ewch i'r gwasanaeth rydych angen ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "formSeparator": "neu"
         }
       }
     },

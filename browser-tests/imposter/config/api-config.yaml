@@ -105,6 +105,21 @@ resources:
           "page": "page-ipv-identity-postoffice-start"
         }
 
+  # Journey for page not found test
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testPageNotFound"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "not-a-page"
+        }
+
   # Journey for context test
   # We just want to test context so this journey does not match what core-back actually does
   - method: POST

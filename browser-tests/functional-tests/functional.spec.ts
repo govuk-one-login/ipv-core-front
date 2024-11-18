@@ -40,6 +40,32 @@ test.describe.parallel("Functional tests", () => {
     );
   });
 
+  test("Missing session id", async ({ page }) => {
+    // Start a session
+    await page.goto("/ipv/page/page-ipv-identity-document-start");
+
+    // Check the page heading for session ended page
+    const pageHeading = await page.locator("h1").textContent();
+    expect(pageHeading).toBe(
+      "Session expired",
+    );
+  });
+
+  test("Page not found", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testPageNotFound"));
+
+    // Continue to next page
+    await page.click("input[type='radio'][value='end']");
+    await page.click("button[id='submitButton']");
+
+    // Check the page heading for not found page
+    const pageHeading = await page.locator("h1").textContent();
+    expect(pageHeading).toBe(
+      "Page not found",
+    );
+  });
+
   test("Context is used to display page", async ({ page }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testContext"));

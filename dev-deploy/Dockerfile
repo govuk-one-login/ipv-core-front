@@ -25,7 +25,7 @@ FROM node:20.11.1-alpine3.19@sha256:f4c96a28c0b2d8981664e03f461c2677152cd9a75601
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "add", "--no-cache", "tini"]
+RUN ["apk", "add", "--no-cache", "tini", "curl"]
 USER appuser:appgroup
 
 WORKDIR /app
@@ -39,6 +39,10 @@ COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
 ENV PORT=8080
+
+HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
+  CMD curl -f http://localhost:8080/healthcheck || exit 1
+
 EXPOSE 8080
 
 ENTRYPOINT ["tini", "--"]

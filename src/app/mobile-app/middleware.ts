@@ -17,5 +17,14 @@ export const checkMobileAppDetails: RequestHandler = async (req, res) => {
     res.status(apiResponse.status);
   }
 
+  // If we don't have a clientOAuthSessionId in our session then we're dealing with a cross browser callback and core back will give us a clientOAuthSessionId to use instead.
+  if (
+    !req.session.ipvSessionId &&
+    !req.session.clientOauthSessionId &&
+    apiResponse.data.clientOAuthSessionId
+  ) {
+    req.session.clientOauthSessionId = apiResponse.data.clientOAuthSessionId;
+  }
+
   return handleBackendResponse(req, res, apiResponse?.data);
 };

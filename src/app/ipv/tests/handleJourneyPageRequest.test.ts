@@ -1,41 +1,28 @@
-import { NextFunction } from "express";
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
-import { AxiosResponse } from "axios";
+import { HttpStatusCode } from "axios";
 import NotFoundError from "../../../errors/not-found-error";
 import UnauthorizedError from "../../../errors/unauthorized-error";
+import {
+  specifyCreateRequest,
+  specifyCreateResponse,
+} from "../../../test-utils/mock-express";
 
 describe("handleJourneyPageRequest", () => {
-  const testReq = {
-    id: "1",
-    url: "/ipv/page",
-    params: { pageId: "prove-identity-no-photo-id" },
+  // Mock handler parameters
+  const createRequest = specifyCreateRequest({
     session: {
       ipvSessionId: "ipv-session-id",
       ipAddress: "ip-address",
-      currentPage: "prove-identity-no-photo-id",
       save: sinon.fake.yields(null),
     },
-    log: { info: sinon.fake(), error: sinon.fake(), warn: sinon.fake() },
-    csrfToken: sinon.fake(),
-    i18n: { t: () => "Some label" },
-  } as any;
+  });
+  const createResponse = specifyCreateResponse();
+  const next: any = sinon.fake();
 
-  const res = {
-    status: sinon.fake(),
-    redirect: sinon.fake(),
-    send: sinon.fake(),
-    render: sinon.fake(),
-    log: { info: sinon.fake(), error: sinon.fake() },
-    locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
-  } as any;
-  let next: NextFunction;
-
-  const coreBackServiceStub = {
-    getProvenIdentityUserDetails: sinon.spy(),
-  };
-
+  // Setup stubs
+  const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.fake() };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
@@ -44,14 +31,19 @@ describe("handleJourneyPageRequest", () => {
   );
 
   beforeEach(() => {
-    res.render = sinon.fake();
-    next = sinon.fake() as any;
-    coreBackServiceStub.getProvenIdentityUserDetails = sinon.spy();
+    next.resetHistory();
+    coreBackServiceStub.getProvenIdentityUserDetails.resetHistory();
   });
 
   context("handling page-ipv-reuse journey route", () => {
     it("should call build-proven-user-identity-details endpoint and user details passed into renderer", async () => {
-      const axiosResponse = {
+      // Arrange
+      const req = createRequest({
+        params: { pageId: "page-ipv-reuse" },
+        session: { currentPage: "page-ipv-reuse" },
+      });
+      const res = createResponse();
+      coreBackServiceStub.getProvenIdentityUserDetails = sinon.fake.resolves({
         status: 200,
         data: {
           name: "firstName LastName",
@@ -76,95 +68,100 @@ describe("handleJourneyPageRequest", () => {
             },
           ],
         },
-      } as AxiosResponse;
+      });
 
-      const expectedUserDetail = {
-        name: "firstName LastName",
-        nameParts: {
-          givenName: "firstName",
-          familyName: "LastName",
-        },
-        dateOfBirth: "01 11 1973",
-        addresses: [
-          {
-            label: "Some label",
-            addressDetailHtml:
-              "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
-          },
-        ],
-      };
-
-      coreBackServiceStub.getProvenIdentityUserDetails =
-        sinon.fake.returns(axiosResponse);
-
-      const req = {
-        ...testReq,
-        params: { pageId: "page-ipv-reuse" },
-        session: { ...testReq.session, currentPage: "page-ipv-reuse" },
-      };
-
+      // Act
       await middleware.handleJourneyPageRequest(req, res, next);
 
+      // Assert
       expect(
         coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
       ).to.have.been.calledWith(req);
-
       expect(res.render).to.have.been.calledWith(
         `ipv/page/page-ipv-reuse.njk`,
-        sinon.match.has("userDetails", expectedUserDetail),
+        sinon.match.has("userDetails", {
+          name: "firstName LastName",
+          nameParts: {
+            givenName: "firstName",
+            familyName: "LastName",
+          },
+          dateOfBirth: "01 11 1973",
+          addresses: [
+            {
+              label: "Some label",
+              addressDetailHtml:
+                "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
+            },
+          ],
+        }),
       );
     });
   });
 
   it("should render page case when given valid pageId", async () => {
-    const req = {
-      ...testReq,
-      params: { ...testReq.params, pageId: "prove-identity-no-photo-id" },
-    };
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "prove-identity-no-photo-id" },
+      session: { currentPage: "prove-identity-no-photo-id" },
+    });
+    const res = createResponse();
+
+    // Act
     await middleware.handleJourneyPageRequest(req, res, next);
 
+    // Assert
     expect(res.render).to.have.been.calledWith(
       "ipv/page/prove-identity-no-photo-id.njk",
     );
   });
 
   it("should set the response status code from a value in the session if present", async () => {
-    const request = {
-      ...testReq,
-      session: { ...testReq.session, currentPageStatusCode: 418 },
-    };
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "prove-identity-no-photo-id" },
+      session: {
+        currentPage: "prove-identity-no-photo-id",
+        currentPageStatusCode: HttpStatusCode.ImATeapot,
+      },
+    });
+    const res = createResponse();
 
-    await middleware.handleJourneyPageRequest(request, res, next);
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
 
+    // Assert
     expect(res.render).to.have.been.calledWith(
       "ipv/page/prove-identity-no-photo-id.njk",
     );
-    expect(res.status).to.have.been.calledWith(418);
-    expect(testReq.session.currentPageStatusCode).to.equal(undefined);
+    expect(res.status).to.have.been.calledWith(HttpStatusCode.ImATeapot);
+    expect(req.session.currentPageStatusCode).to.equal(undefined);
   });
 
-  const errorPageScenarios = [
+  [
     {
-      req: {
-        ...testReq,
-        params: { ...testReq.params, pageId: "invalid-page" },
-      },
+      req: createRequest({
+        params: { pageId: "invalid-page" },
+      }),
       scenario: "invalid page id",
       expectedError: NotFoundError,
     },
     {
-      req: {
-        ...testReq,
-        session: { ...testReq.session, ipvSessionId: undefined },
-      },
+      req: createRequest({
+        params: { pageId: "prove-identity-no-photo-id" },
+        session: { ipvSessionId: undefined },
+      }),
       scenario: "ipvSessionId is undefined",
       expectedError: UnauthorizedError,
     },
-  ];
-  errorPageScenarios.forEach(({ req, scenario, expectedError }) => {
+  ].forEach(({ req, scenario, expectedError }) => {
     it(`should throw ${expectedError.name} when given ${scenario}`, async () => {
+      // Arrange
+      const res = createResponse();
+
+      // Act
       await middleware.handleJourneyPageRequest(req, res, next);
 
+      // Assert
       expect(next).to.have.been.calledWith(
         sinon.match.instanceOf(expectedError),
       );
@@ -172,36 +169,50 @@ describe("handleJourneyPageRequest", () => {
   });
 
   it("should redirect to attempt recovery page when current page is not equal to pageId", async () => {
-    const request = {
-      ...testReq,
-      session: { ...testReq.session, currentPage: "page-multiple-doc-check" },
-    };
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "prove-identity-no-photo-id" },
+      session: { currentPage: "page-multiple-doc-check" },
+    });
+    const res = createResponse();
 
-    await middleware.handleJourneyPageRequest(request, res, next);
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
 
+    // Assert
     expect(res.redirect).to.have.been.calledWith(
       "/ipv/page/pyi-attempt-recovery",
     );
-    expect(request.session.currentPage).to.equal("pyi-attempt-recovery");
+    expect(req.session.currentPage).to.equal("pyi-attempt-recovery");
   });
 
   it("should render timeout unrecoverable even if current page is not equal to pageId", async () => {
-    const request = {
-      ...testReq,
-      params: { ...testReq.params, pageId: "pyi-timeout-unrecoverable" },
-    };
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "pyi-timeout-unrecoverable" },
+    });
+    const res = createResponse();
 
-    await middleware.handleJourneyPageRequest(request, res, next);
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
 
+    // Assert
     expect(res.render).to.have.been.calledWith(
       "ipv/page/pyi-timeout-unrecoverable.njk",
     );
   });
 
   it("should raise an error when missing params", async () => {
-    const req = { ...testReq, params: undefined } as any;
+    // Arrange
+    const req = createRequest({
+      params: undefined,
+    });
+    const res = createResponse();
+
+    // Act
     await middleware.handleJourneyPageRequest(req, res, next);
 
+    // Assert
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
   });
 });

@@ -133,14 +133,17 @@
     },
     "pyiNoMatch": {
       "title": "Sorry, we cannot confirm your identity",
+      "titleRepeatFraudCheck": "Sorry, we could not confirm your details",
       "header": "Sorry, we cannot confirm your identity",
+      "headerRepeatFraudCheck": "Sorry, we could not confirm your details",
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
         "paragraph1Nino": "We could not find a match for your National Insurance number when we checked your details with HMRC.",
         "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
         "subHeading": "What you can do",
-        "paragraph3": "You can go back to the service you were trying to use to find out if there are other ways to access it."
+        "paragraph3": "Continue to the service you were trying to use to find out if there are other ways to prove your identity.",
+        "paragraph3RepeatFraudCheck": "Continue to the service you were trying to use to find out if there are other ways to access it."
       }
     },
     "sorryCouldNotConfirmDetails": {

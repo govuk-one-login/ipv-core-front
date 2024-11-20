@@ -377,7 +377,7 @@
       "content": {
         "paragraph1": "You can scan your UK photocard driving licence in the GOV.UK ID Check app again.",
         "paragraph2": "Make sure your driving licence does not have any dirt or scratches on the front.",
-        "paragraph3": "When you scan your driving licence, make sure you’re in a well-lit area with no glare or reflection on your licence.",
+        "paragraph3": "When you scan your driving licence, make sure it’s well-lit and has no glare or reflections.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
@@ -386,8 +386,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you would like to prove your identity",
-          "errorRadioMessage": "Select how you would like to prove your identity"
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

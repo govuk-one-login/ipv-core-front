@@ -386,8 +386,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch sut hoffech chi brofi eich hunaniaeth",
-          "errorRadioMessage": "Dewiswch sut hoffech chi brofi eich hunaniaeth"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

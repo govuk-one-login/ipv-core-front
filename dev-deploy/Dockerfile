@@ -38,6 +38,7 @@ COPY --chown=appuser:appgroup --from=builder /app/views ./views
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
+ENV DT_HOST_ID="CORE-FRONT-`openssl rand -base64 12`"
 ENV PORT=8080
 
 HEALTHCHECK --interval=5s --timeout=2s --retries=10 \

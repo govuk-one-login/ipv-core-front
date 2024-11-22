@@ -1120,42 +1120,42 @@
       }
     },
     "pyiTriageDesktopDownload": {
-      "title": "How to prove your identity with the GOV.UK One Login app",
-      "header": "How to prove your identity with the GOV.UK One Login app",
-      "section1": {
-        "circle": "1",
-        "heading": "Download and open the GOV.UK One Login app",
-        "paragraph1": "To download the app, scan the QR code below with your camera. If you already have the app installed, open it now.",
-        "paragraph2": "Sign in to the app, then follow the steps to prove your identity.",
+      "title": "Use the GOV.UK One Login app to prove your identity",
+      "header": "Use the GOV.UK One Login app to prove your identity",
+      "content": {
+        "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
+        "paragraph2": "First you will need to download, open and use the app. Then you will come back to this page to finish proving your identity.",
+        "subHeading1": "1. Download the GOV.UK One Login app",
+        "paragraph3": "Scan the QR code with your smartphone to download the GOV.UK One Login app.",
+        "warningText": "The app uses a face scan with flashing colours",
+        "warningTextFallback": "Warning",
         "qrCodeAlt": "QR code to download the app",
+        "subHeading2": "Help using the GOV.UK One Login app",
         "details1": {
           "summaryText": "How to scan a QR code",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Open the camera app on your phone.</li><li>Position your camera over the QR code.</li><li>Wait until the QR code is recognised by your camera and a link appears on your screen.</li><li>Position your camera over the QR code.</li><li>Tap the link to go to the App Store (for iPhone) or Play Store (for Android).</li><li>Download the GOV.UK One Login app.</li></ol>"
         },
         "details2": {
           "summaryText": "How to download the app without a QR code",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Keep this page open.</li><li>On your phone, open the App Store (for iPhone) or Play Store (for Android).</li><li>Search for the ‘GOV.UK One Login’ app.</li><li>Download the GOV.UK One Login app.</li></ol>"
         },
         "details3": {
           "summaryText": "I am sensitive to flashing colours",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "details4": {
-          "summaryText": "Oes angen i mi dynnu fy sbectol?",
-          "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
+          "summaryText": "Do I need to take off my glasses?",
+          "html": "<p>When you scan your face, you can keep your glasses on as long as they’re not tinted.</p><p>If you wear tinted glasses, you’ll need to remove them when you scan your face.</p>"
         },
         "details5": {
-          "summaryText": "I'd prefer not to use the app",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur non quam eget viverra. Duis enim velit, dignissim a feugiat id, ultricies a tortor."
-        }
-      },
-      "section2": {
-        "circle": "2",
-        "heading": "Come back here when you’re done using the app",
-        "paragraph1": "Keep this window open while using the GOV.UK One Login app.",
-        "paragraph2": "You will finish proving your identity here. Then you can continue to the government service you want to use.",
-        "paragraph3": "If you are done using the app and this window did not update, you can also <a class=\"govuk-link\" href=\"{{currentUrl}}\">refresh the page</a>.",
-        "inset": "<p>Prefer to not use an app? You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p><p>For additional help, <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{contactUsUrl}}\">contact the GOV.UK One Login support team</a>.</p>"
+          "summaryText": "I’d prefer not to use the app",
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+        },
+        "subHeading3": "2. Open the GOV.UK One Login app",
+        "paragraph4": "Follow the instructions in the app to prove your identity. Keep this page open while you do this.",
+        "subHeading4": "3. Finish proving your identity here",
+        "paragraph5": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
+        "paragraph6": "Then you can continue to the government service you want to use."
       }
     },
     "pyiTriageMobileDownload": {

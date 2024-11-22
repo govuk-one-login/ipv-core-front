@@ -38,7 +38,6 @@ COPY --chown=appuser:appgroup --from=builder /app/views ./views
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 
-ENV DT_HOST_ID="CORE-FRONT-`openssl rand -base64 12`"
 ENV PORT=8080
 
 HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
@@ -46,4 +45,4 @@ HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=$DT_HOST_ID && tini npm start"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]

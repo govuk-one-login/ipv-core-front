@@ -42,8 +42,7 @@ COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
 COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
 ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
-ENV DT_HOST_ID="CORE-FRONT-`openssl rand -base64 12`"
 ENV PORT 8080
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=$DT_HOST_ID && tini npm start"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]

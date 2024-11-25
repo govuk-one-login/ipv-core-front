@@ -1017,25 +1017,24 @@
       "title": "Prove your identity at a Post Office with one of the following types of photo ID",
       "header": "Prove your identity at a Post Office with one of the following types of photo ID",
       "content": {
-        "paragraph1": "Based on what you told us, you cannot prove your identity online.",
-        "paragraph2": "If you have any of the following types of photo ID, you can prove your identity at a Post Office instead.",
+        "paragraph1": "If you have any of the following types of photo ID, you can prove your identity at a Post Office.",
         "subHeading": "European Union (EU) photocard driving licence",
-        "paragraph3": "You can use an EU driving licence if:",
+        "paragraph2": "You can use an EU driving licence if:",
         "euDrivingLicenceRequirements": [
           "it is a plastic photocard, not a paper or handwritten licence",
           "it has not expired",
           "the address on it is the same as your current address (if it has an address)"
         ],
         "subHeading2": "Non-UK passport",
-        "paragraph4": "You can use a non-UK passport as long as it has not expired.",
+        "paragraph3": "You can use a non-UK passport as long as it has not expired.",
         "subHeading3": "National identity card from a European Economic Area country",
-        "paragraph5": "You can use a national identity card from a European Economic Area (EEA) country if:",
+        "paragraph4": "You can use a national identity card from a European Economic Area (EEA) country if:",
         "eeaNationalIdentityCardRequirements": [
           "it is a plastic photocard, not a paper or handwritten card",
           "it has not expired",
           "the address on it is the same as your current address (if it has an address)"
         ],
-        "paragraph6": "The EEA includes EU countries, Norway, Iceland and Liechtenstein.",
+        "paragraph5": "The EEA includes EU countries, Norway, Iceland and Liechtenstein.",
         "subHeading4": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",

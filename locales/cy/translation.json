@@ -1415,39 +1415,39 @@
       }
     },
     "liveInUk": {
-      "title": "Do you live in the UK, the Channel Islands or the Isle of Man?",
-      "header": "Do you live in the UK, the Channel Islands or the Isle of Man?",
+      "title": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
+      "header": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
       "content": {
-        "hint": "How you can prove your identity depends on where you live.",
+        "hint": "Mae sut y gallwch brofi eich hunaniaeth yn dibynnu ar ble rydych yn byw.",
         "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No"
+          "yes": "Ydw",
+          "no": "Na"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you live in the UK, the Channel Islands or the Isle of Man",
-          "errorRadioMessage": "Select yes if you live in the UK, the Channel Islands or the Isle of Man"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw",
+          "errorRadioMessage": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw"
         }
       }
     },
     "nonUkNoApp": {
-      "title": "You cannot prove your identity with GOV.UK One Login",
-      "header": "You cannot prove your identity with GOV.UK One Login",
+      "title": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
+      "header": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "content": {
-        "paragraph1": "If you do not live in the UK, you can only prove your identity with a GOV.UK app. ",
-        "paragraph2": "To do this you need a:",
-        "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK. ",
+        "paragraph2": "I wneud hyn, rydych angen:",
+        "list1": "pasbort gyda sglodyn biometrig",
+        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to access it",
-          "restartButtonText": "Try again to prove your identity with GOV.UK One Login",
-          "restartButtonHintText": "You need to use a GOV.UK app"
+          "otherWayButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
+          "restartButtonText": "Ceisio eto i brofi eich hunaniaeth gyda GOV.UK One Login",
+          "restartButtonHintText": "Mae angen i chi ddefnyddio ap GOV.UK "
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
         }
       }
     }

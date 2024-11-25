@@ -45,6 +45,4 @@ HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
 
 EXPOSE 8080
 
-ENTRYPOINT ["tini", "--"]
-
-CMD ["npm", "start"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]

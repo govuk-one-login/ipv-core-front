@@ -45,6 +45,4 @@ ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 ENV PORT 8080
 EXPOSE 8080
 
-ENTRYPOINT ["tini", "--"]
-
-CMD ["npm", "start"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]

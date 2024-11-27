@@ -1048,6 +1048,18 @@ Resources:
           MetricNamespace: !Sub "${AWS::StackName}/LogMessages"
           MetricName: "ECSFatalerror-message"
 
+  FrontendVitalsMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsEventLoopDelay-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "EventLoopDelay-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.eventLoopDelay'
+          Unit: Milliseconds
+
   #
   # REST API Gateway
   #

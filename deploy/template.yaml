@@ -1048,7 +1048,7 @@ Resources:
           MetricNamespace: !Sub "${AWS::StackName}/LogMessages"
           MetricName: "ECSFatalerror-message"
 
-  FrontendVitalsMetricFilter:
+  FrontendVitalsMetricEventLoopDelayFilter:
     Type: AWS::Logs::MetricFilter
     Properties:
       FilterName: !Sub "FrontendVitalsEventLoopDelay-${AWS::StackName}"
@@ -1058,6 +1058,30 @@ Resources:
         - MetricName: !Sub "EventLoopDelay-${AWS::StackName}"
           MetricNamespace: FrontendVitals
           MetricValue: '$.eventLoopDelay'
+          Unit: Milliseconds
+
+  FrontendVitalsMetricMaxConcurrentConnectionsFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsMaxConcurrentConnections-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "MaxConcurrentConnections-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.maxConcurrentConnections'
+          Unit: Count
+
+  FrontendVitalsMetricEventLoopUtilizationFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsEventLoopUtilization-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "EventLoopUtilization-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.eventLoopUtilization.utilization'
           Unit: Milliseconds
 
   #

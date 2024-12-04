@@ -1,7 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/browser-tests"
     schedule:
       interval: daily
       time: "03:00"
@@ -9,13 +11,13 @@ updates:
     labels:
     - dependabot
     ignore:
-      - dependency-name: "node"
-        versions: ["17.x","18.x","20.x"]
       - dependency-name: "*"
         update-types: [ "version-update:semver-patch" ]
+      - dependency-name: "@govuk-one-login/data-vocab" # ignore until data-vocab is published to public npm registry, or we add token here
+    open-pull-requests-limit: 10
     commit-message:
       prefix: BAU
-  - package-ecosystem: docker
+  - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: daily

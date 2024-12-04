@@ -25,9 +25,6 @@ updates:
     target-branch: main
     labels:
     - dependabot
-    ignore:
-      - dependency-name: "node"
-        versions: [ ">=22.x" ]
     commit-message:
       prefix: BAU
   - package-ecosystem: "github-actions"

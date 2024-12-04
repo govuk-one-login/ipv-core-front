@@ -93,7 +93,7 @@
     "express": "5.0.1",
     "express-session": "1.18.1",
     "govuk-frontend": "4.8.0",
-    "i18next": "23.16.8",
+    "i18next": "24.0.5",
     "i18next-fs-backend": "2.6.0",
     "i18next-http-middleware": "3.7.0",
     "nunjucks": "3.2.4",

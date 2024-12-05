@@ -1104,11 +1104,9 @@
           "trwydded yrru cerdyn-llun yn y DU (llawn neu dros dro)",
           "pasbort y DU",
           "pasbort o’r tu allan i’r DU",
-          "trwydded breswylio biometrig y DU (BRP)",
           "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
           "cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)"
         ],
-        "insetText": "Ni allwch brofi eich hunaniaeth mewn Swyddfa Bost gyda thrwydded Gweithwyr Ffiniol (FWP) na cherdyn preswylio biometrig y DU (BRC), a elwir hefyd yn gerdyn preswylio yn y DU.",
         "subHeading2": "Oes gennych chi ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa’r Post?",
         "formRadioButtons": {
           "yes": "Oes",

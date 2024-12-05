@@ -1104,11 +1104,9 @@
           "a UK photocard driving licence (full or provisional)",
           "a UK passport",
           "a non-UK passport",
-          "a UK biometric residence permit (BRP)",
           "a European Union (EU) photocard driving licence",
           "a national identity card from a European Economic Area (EEA) country"
         ],
-        "insetText": "You cannot prove your identity at a Post Office with a Frontier Worker permit (FWP) or a UK biometric residence card (BRC), also called a UK residence card.",
         "subHeading2": "Do you have photo ID you can use at a Post Office?",
         "formRadioButtons": {
           "yes": "Yes",

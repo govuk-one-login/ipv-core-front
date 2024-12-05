@@ -1076,12 +1076,15 @@
         ],
         "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
-        "subHeading4": "Trwydded breswylio biometrig y DU (BRP)",
-        "paragraph6": "Gallwch ddefnyddio trwydded breswyl biometrig  y DU (BRP) sydd heb ddod i ben. Efallai y bydd gennych BRP os oes gennych fisa am fwy na 6 mis neu ganiatâd amhenodol i aros.",
-        "subHeading5": "Cerdyn preswylio biometrig y DU (BRC)",
-        "paragraph7": "Gallwch ddefnyddio BRC sydd heb ddod i ben. Efallai y bydd gennych BRC os ydych yn y DU fel aelod o deulu dinesydd o wlad Ardal Economaidd Ewropeaidd (AEE).",
-        "subHeading6": "Trwydded Gweithiwr Ffiniol y DU (FWP)",
-        "paragraph8": "Gallwch ddefnyddio FWP sydd heb ddod i ben. Efallai y bydd gennych FWP os ydych yn gweithio yn y DU ond yn byw mewn gwlad arall."
+        "subHeading4": "Trwydded neu gerdyn breswylio biometrig y DU",
+        "paragraph6": "Gall hyn fod yn:",
+        "cardOrPermits": [
+          "trwydded breswylio biometrig (BRP)",
+          "cerdyn preswylio biometrig (BRC)",
+          "trwydded Gweithwyr Ffiniol (FWP)"
+        ],
+        "paragraph7": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
+        "insetText": "<h3 class='govuk-heading-s'>Er enghraifft</h3>os daeth eich BRP i ben ar 31 Hydref 2024, gallwch ei ddefnyddio i brofi eich hunaniaeth tan 30 Ebrill 2026."
       }
     },
     "pyiPostOffice": {

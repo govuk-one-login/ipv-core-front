@@ -780,7 +780,7 @@
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select yes if you want to delete your details and prove your identity again",
-          "errorRadioMessage": "details and prove your identity again details and prove your identity again"
+          "errorRadioMessage": "Select yes if you want to delete your details and prove your identity again"
         }
       }
     },

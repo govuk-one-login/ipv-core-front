@@ -972,8 +972,8 @@
         "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
         "paragraph1": "You can use one of the following types of photo ID:",
-        "insetText": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
-        "paragraph3": "Your photo ID must not have expired.",
+        "insetText": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
+        "paragraph3": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
         "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",
         "subHeading1": "Do you have any of these types of photo ID?",
         "formRadioButtons": {

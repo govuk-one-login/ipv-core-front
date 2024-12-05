@@ -1338,7 +1338,7 @@
           "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
           "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
           "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
+          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o'r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE) neu gerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE). Bydd hyn yn cymryd mwy o amser.",
           "divisor": "neu",
           "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },

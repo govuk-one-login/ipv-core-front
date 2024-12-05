@@ -4,6 +4,8 @@
 {% set pageTitleKey = 'pages.proveIdentityNoPhotoId.title' | translateWithContext(context) %}
 {% set googleTagManagerPageId = "proveIdentityNoPhotoId" %}
 
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/prove-identity-no-photo-id/back" %}
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translateWithContext(context) %}
@@ -36,6 +38,7 @@
   <form id="proveIdentityNoPhotoIdOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
+      classes: "govuk-radios--inline",
       idPrefix: "journey",
       name: "journey",
       fieldset: {

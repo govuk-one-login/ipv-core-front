@@ -5,7 +5,8 @@
       "start": "Dechrau",
       "next": "Parhau",
       "cancel": "Canslo",
-      "govUkHomepage": " Ewch i hafan GOV.UK"
+      "govUkHomepage": " Ewch i hafan GOV.UK",
+      "continueToService": "Parhau i’r gwasanaeth"
     },
     "govuk": {
       "backLink": "Yn ôl",

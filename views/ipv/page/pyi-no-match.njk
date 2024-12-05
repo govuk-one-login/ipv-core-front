@@ -14,7 +14,7 @@
   <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translateWithContextOrFallback(context) }}</p>
 
-  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
 
   {% include "components/contact-us-link.njk" %}
 {% endblock %}

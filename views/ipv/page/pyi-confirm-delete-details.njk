@@ -36,7 +36,7 @@
     %}
 
     {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorMessage' | translate } %}
+      {% set errorMessageObject = { 'text': 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorRadioMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 

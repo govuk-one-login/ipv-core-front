@@ -1373,8 +1373,8 @@
       }
     },
     "updateDetailsFailed": {
-      "title": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID check",
-      "header": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID check",
+      "title": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID Check",
+      "header": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK ID Check",
       "content": {
         "paragraph1": "Gallwch barhau i ddefnyddio’r gwasanaeth os yw'ch manylion allan o ddyddiad.",
         "paragraph1ExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio'ch GOV.UK One Login i gael mynediad at y gwasanaeth.",

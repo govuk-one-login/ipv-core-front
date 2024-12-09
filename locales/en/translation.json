@@ -356,7 +356,7 @@
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
-          "radioButtonAppText": "Prove your identity with the GOV.UK ID check app",
+          "radioButtonAppText": "Prove your identity with the GOV.UK ID Check app",
           "radioButtonAppTextHint": "You’ll be shown how to download and use the app.",
           "radioButtonPoText": "Prove your identity at a Post Office",
           "radioButtonPoTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first.",
@@ -1373,8 +1373,8 @@
       }
     },
     "updateDetailsFailed": {
-      "title": "You were not able to update your details with the GOV.UK ID check app",
-      "header": "You were not able to update your details with the GOV.UK ID check app",
+      "title": "You were not able to update your details with the GOV.UK ID Check app",
+      "header": "You were not able to update your details with the GOV.UK ID Check app",
       "content": {
         "paragraph1": "You can still use the service if your details are out of date.",
         "paragraph1ExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",

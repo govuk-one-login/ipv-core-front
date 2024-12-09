@@ -53,6 +53,7 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "pyi-triage-mobile-confirm": ["android", "iphone"],
   "pyi-triage-mobile-download-app": ["android", "iphone"],
   "pyi-triage-select-device": [],
+  "pyi-triage-another-way": [],
   "pyi-triage-select-smartphone": ["mam", "dad"],
   "reprove-identity-start": [],
   "sorry-could-not-confirm-details": ["deleteDetailsReuse","existingIdentityValid","existingIdentityInvalid",undefined],

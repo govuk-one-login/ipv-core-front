@@ -1373,8 +1373,8 @@
       }
     },
     "updateDetailsFailed": {
-      "title": "You were not able to update your details with the GOV.UK ID check app",
-      "header": "You were not able to update your details with the GOV.UK ID check app",
+      "title": "You were not able to update your details with the GOV.UK ID Check app",
+      "header": "You were not able to update your details with the GOV.UK ID Check app",
       "content": {
         "paragraph1": "You can still use the service if your details are out of date.",
         "paragraph1ExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",

@@ -15,7 +15,7 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "page-ipv-identity-postoffice-start": ["lastChoice", undefined],
   "page-ipv-pending": ["f2f-delete-details", undefined],
   "page-ipv-reuse": [],
-  "page-ipv-success": ["repeatFraudCheck", undefined],
+  "page-ipv-success": ["repeatFraudCheck", "updateIdentity", undefined],
   "page-multiple-doc-check": ["nino",undefined],
   "page-pre-dwp-kbv-transition": [],
   "page-pre-experian-kbv-transition": [],

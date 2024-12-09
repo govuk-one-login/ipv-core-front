@@ -5,7 +5,8 @@
       "start": "Start",
       "next": "Continue",
       "cancel": "Cancel",
-      "govUkHomepage": "Go to the GOV.UK homepage"
+      "govUkHomepage": "Go to the GOV.UK homepage",
+      "continueToService": "Continue to the service"
     },
     "govuk": {
       "backLink": "Back",

@@ -961,6 +961,7 @@
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you want to use.",
         "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
+        "paragraph1UpdateIdentity": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },

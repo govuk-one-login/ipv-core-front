@@ -1,0 +1,47 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.pyiTriageAnotherWay.title' %}
+{% set googleTagManagerPageId = "pyiTriageAnotherWay" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiTriageAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiTriageAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiTriageAnotherWay" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageAnotherWay.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageAnotherWay.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">
+    {{ 'pages.pyiTriageAnotherWay.content.subHeading1' | translate }}
+  </h2>
+
+  <form id="pyiTriageAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "returnToRp",
+          text: 'pages.pyiTriageAnotherWay.content.formRadioButtons.continuieToServiceButtonText' | translate
+        },
+        {
+          value: "smartphone",
+          text: 'pages.pyiTriageAnotherWay.content.formRadioButtons.appSmartphoneButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiTriageAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

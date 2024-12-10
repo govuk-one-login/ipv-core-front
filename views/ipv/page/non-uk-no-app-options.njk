@@ -1,0 +1,47 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.nonUkNoAppOptions.title' %}
+{% set googleTagManagerPageId = "nonUkNoAppOptions" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.nonUkNoAppOptions.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.nonUkNoAppOptions.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#nonUkNoAppOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkNoAppOptions.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.nonUkNoAppOptions.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">
+    {{ 'pages.nonUkNoAppOptions.content.subHeading1' | translate }}
+  </h2>
+
+  <form id="nonUkNoAppOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "returnToRp",
+          text: 'pages.nonUkNoAppOptions.content.formRadioButtons.continueToServiceButtonText' | translate
+        },
+        {
+          value: "back",
+          text: 'pages.nonUkNoAppOptions.content.formRadioButtons.appSmartphoneButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.nonUkNoAppOptions.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

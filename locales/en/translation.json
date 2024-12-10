@@ -459,6 +459,23 @@
         }
       }
     },
+    "nonUkNoAppOptions": {
+      "title": "You need to use the GOV.UK One Login app to prove your identity",
+      "header": "You need to use the GOV.UK One Login app to prove your identity",
+      "content": {
+        "paragraph1": "If you do not live in the UK, you can only use the app and a smartphone to prove your identity with GOV.UK One Login.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "continueToServiceButtonText": "Go to the service you were trying to use to look for other ways to access it",
+          "appSmartphoneButtonText": "Use the app and a smartphone to prove your identity"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",

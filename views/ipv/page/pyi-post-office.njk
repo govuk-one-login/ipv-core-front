@@ -1,7 +1,6 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% set pageTitleKey = 'pages.pyiPostOffice.title' %}
 {% set googleTagManagerPageId = "pyiPostOffice" %}
 
@@ -33,9 +32,6 @@
       </ul>
     </li>
   </ul>
-  {{ govukInsetText({
-    text: 'pages.pyiPostOffice.content.insetText' | translate
-  }) }}
 
   <form id="pyiPostOfficeForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

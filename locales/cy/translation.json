@@ -294,6 +294,7 @@
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph2": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+        "paragraph3": "Gallwch ddefnyddio:",
         "detailsList": [
           "trwydded yrru cerdyn-llun y DU",
           "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
@@ -304,6 +305,7 @@
           "cerdyn preswylio biometrig y DU (BRC)",
           "trwydded Gweithiwr Ffiniol y DU (FWP)"
         ],
+        "paragraph4": "Gallwch ond defnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda'r ap GOV.UK ID Check.",
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "radioButton1Text": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
@@ -1452,7 +1454,7 @@
       "title": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "header": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "content": {
-        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK. ",
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK.",
         "paragraph2": "I wneud hyn, rydych angen:",
         "list1": "pasbort gyda sglodyn biometrig",
         "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",

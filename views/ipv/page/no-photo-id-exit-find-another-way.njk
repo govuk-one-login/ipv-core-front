@@ -21,12 +21,13 @@
   <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph2' | translate }}</p>
 
   {% set photoIdList %}
+    <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph3' | translate }}</p>
     <ul class="govuk-list govuk-list--bullet">
       {% for listItem in 'pages.noPhotoIdExitFindAnotherWay.content.detailsList' | translate({ returnObjects: true }) %}
         <li>{{ listItem }}</li>
       {% endfor %}
     </ul>
-    <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph3' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph4' | translate }}</p>
   {% endset %}
 
   {{ govukDetails({

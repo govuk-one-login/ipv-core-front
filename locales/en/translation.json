@@ -111,7 +111,7 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-      "paragraph2": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app.",
+      "paragraph2": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app only.",
       "paragraph3": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
@@ -294,6 +294,7 @@
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
+        "paragraph3": "You can use a:",
         "detailsList": [
           "UK photocard driving licence",
           "European Union (EU) photocard driving licence",
@@ -304,7 +305,7 @@
           "UK biometric residence card (BRC)",
           "UK Frontier Worker permit (FWP)"
         ],
-        "paragraph3": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app.",
+        "paragraph4": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app only.",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",

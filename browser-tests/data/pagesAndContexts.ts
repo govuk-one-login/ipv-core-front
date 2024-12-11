@@ -8,6 +8,7 @@ export const pagesToTest: Record<string, (string | undefined)[]> = {
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-security-questions-find-another-way": ["dropout", undefined],
   "non-uk-no-app-options": [],
+  "non-uk-app-intro": [],
   "non-uk-no-app": [],
   "non-uk-no-passport": [],
   "non-uk-passport": [],

@@ -11,7 +11,7 @@ services:
     container_name: browser-tests-core-front
     build:
       context: ..
-      dockerfile: dev-deploy/Dockerfile
+      dockerfile: dev-deploy/local.Dockerfile
     depends_on:
       browser-tests-core-back-imposter:
         condition: service_healthy

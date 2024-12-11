@@ -1,0 +1,66 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% set pageTitleKey = 'pages.pageIpvIdentityDocumentStart.title' %}
+{% set googleTagManagerPageId = "pageIpvIdentityDocumentStart" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#identityDocumentStartPageOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityDocumentStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet ">
+    {% for listItem in 'general.shared.suitableAppPhotoIds' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate }}</p>
+  {{ govukInsetText({
+    html: 'pages.pageIpvIdentityDocumentStart.content.insetText' | translate
+  }) }}
+
+  <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      classes: "govuk-radios--inline",
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pageIpvIdentityDocumentStart.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      hint: {
+        text: 'pages.pageIpvIdentityDocumentStart.content.hint' | translate
+      },
+      items: [
+        {
+          value: "appTriage",
+          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pageIpvIdentityDocumentStart.content.formRadioButtons.no' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageIpvIdentityDocumentStart.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

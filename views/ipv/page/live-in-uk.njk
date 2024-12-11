@@ -1,0 +1,46 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.liveInUk.title' %}
+{% set googleTagManagerPageId = "liveInUk" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.liveInUk.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.liveInUk.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#liveInUkForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.liveInUk.header' | translate }}</h1>
+
+  <form id="liveInUkForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      hint: {
+        text: 'pages.liveInUk.content.hint' | translate
+      },
+      items: [
+        {
+          value: "uk",
+          text: 'pages.liveInUk.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "international",
+          text: 'pages.liveInUk.content.formRadioButtons.no' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.liveInUk.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

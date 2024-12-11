@@ -1,0 +1,25 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pyiTechnical.title' %}
+{% set googleTagManagerPageId = "pyiTechnical" %}
+{% set isPageDynamic = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTechnical.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiTechnical.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiTechnical.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiTechnical.content.paragraph2' | translateWithContext(context) }}</p>
+
+  {% if context === "unrecoverable" %}
+    {{ govukButton({
+      "text": 'general.shared.govUKHomepageButtonText' | translate,
+      "type": "Submit",
+      "href": 'general.shared.govUKHomepageButtonHref' | translate
+    }) }}
+  {% else %}
+    {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+  {% endif %}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

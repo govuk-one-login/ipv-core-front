@@ -1,0 +1,26 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% set pageTitleKey = 'pages.pyiF2fDeleteDetails.title' %}
+{% set customButtonLabel = 'pages.pyiF2fDeleteDetails.content.submitButtonText' | translate %}
+{% set googleTagManagerPageId = "pyiF2fDeleteDetails" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiF2fDeleteDetails.header' | translate }}</h1>
+
+  <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph2' | translate | safe }}</p>
+
+  {{ govukInsetText({
+    text: 'pages.pyiF2fDeleteDetails.content.insetText' | translate
+  }) }}
+
+  <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph3' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, customButtonLabel ) }}
+
+  <p class="govuk-body">{{ 'pages.pyiF2fDeleteDetails.content.paragraph4LinkText' | translate | safe }}</p>
+{% endblock %}

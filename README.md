@@ -1,6 +1,7 @@
 # ipv-core-front
 
-This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system. The IPV Core frontend is the first user-facing screen in the identity proving journey.
+This repository contains the source code for the frontend user interface of the GOV.UK One Login Identity Proofing and Verification (IPV) system.
+The IPV Core frontend is the first user-facing screen in the identity proving journey.
 
 ## Related repositories
 
@@ -18,6 +19,7 @@ This guide explains how to:
 * [clone the repo and install the dependencies](#cloning-and-installing-ipv-core-front)
 * [run ipv-core-front locally](#running-ipv-core-front-locally)
 * [use pre-commit to verify your commits](#using-pre-commit-to-verify-your-commits)
+* [creating a new page](views/README.md)
 
 ## Cloning and installing ipv-core-front
 
@@ -27,7 +29,9 @@ This guide explains how to:
 https://github.com/govuk-one-login/ipv-core-front.git
 ```
 1. Change into the `ipv-core-front` folder.
-1. Run the following command to install the project dependencies:
+2. [Create a GitHub personal access token][create-pat] with package:read scope
+3. Copy `.npmrc.template` to `.npmrc` and replace `TOKEN_WITH_READ_PACKAGE_PERMISSION` with your personal access token
+4. Run the following command to install the project dependencies:
 
 ```bash
 npm install
@@ -44,17 +48,17 @@ This project uses the following environment variables:
 | `ENABLE_PREVIEW`        | Turns on the `dev/all-templates` route to preview individual pages. | `development`  |
 | `EXTERNAL_WEBSITE_HOST` | Sets the default host used by the application.                  | `http://localhost:8080` |
 | `NODE_ENV`              | Specifies the environment where the application will run, for example `local`.                                             | -                |
-| `PORT`                  | Default port to run the web server on.                            | `3000`           |
+| `PORT`                  | Default port to run the web server on.                            | `4501`           |
 | `SESSION_SECRET`        | The secret key used for encrypting and decrypting session data.                                                        | -                |
 | `LANGUAGE_TOGGLE`        | Active Language Toggle into all pages                                                        | `false`                |
 
 ## Running ipv-core-front locally
 
-To run ipv-core-front locally:
+To run ipv-core-front locally in isolation:
 
 1. Create a `.env` file based on [`.env.sample`](https://github.com/govuk-one-login/ipv-core-front/blob/main/.env.sample).
 1. Run `npm run build`.
-1. In your code editor, use a run configuration that starts [`src/app.js`](https://github.com/govuk-one-login/ipv-core-front/blob/main/src/app.js). Alternatively, you can run `npm run start-dev`.
+1. In your code editor, use a run configuration that starts [`src/app.ts`](https://github.com/govuk-one-login/ipv-core-front/blob/main/src/app.ts). Alternatively, you can run `npm run start-dev`.
 1. To get live style updates, run `npm run watch-sass`.
 
 Run `npm run build` again if changes are made to:
@@ -62,9 +66,10 @@ Run `npm run build` again if changes are made to:
 * translations
 * images
 
-### Configuring core-back to work with a local core-front
+### Running ipv-core-front locally with core-back and orch-stub
 
-You can run a containerised version of ipv-core-front locally with core-back and the CRI stubs by using the [local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
+You can run a complete IPV Core setup by using the
+[local-running setup in core-back](https://github.com/govuk-one-login/ipv-core-back/tree/main/local-running).
 
 ### Analytics
 https://www.npmjs.com/package/@govuk-one-login/frontend-analytics

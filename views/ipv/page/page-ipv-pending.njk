@@ -1,0 +1,30 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleKey = 'pages.pageIpvPending.title' %}
+{% set googleTagManagerPageId = "pageIpvPending" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageIpvPending.header' | translate }}</h1>
+
+  <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph2' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph4' | translate }}</p>
+
+  {% if context == "f2f-delete-details" %}
+    <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading2' | translate }}</h2>
+    <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph5' | translate | safe }}</p>
+    <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph6' | translate }}</p>
+  {% endif %}
+
+  <h2 class="govuk-heading-m">{{'pages.pageIpvPending.content.subHeading3' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pageIpvPending.content.paragraph7' | translate }}</p>
+  <ul class="govuk-list  govuk-list--bullet">
+    {% for listItem in 'pages.pageIpvPending.content.reasonsToContact' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

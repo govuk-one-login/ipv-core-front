@@ -1,0 +1,104 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+
+{% set pageTitleKey = 'pages.pyiTriageDesktopDownload.title' %}
+{% set googleTagManagerPageId = "pyiTriageDesktopDownload" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
+      {{ 'pages.pyiTriageDesktopDownload.header' | translate }}
+  </h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph2' | translate }}</p>
+
+  <h2 class="govuk-heading-m" id="header" data-page="{{ googleTagManagerPageId }}">
+      {{ 'pages.pyiTriageDesktopDownload.content.subHeading1' | translate }}
+  </h2>
+
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph3' | translate }}</p>
+
+  {{ govukWarningText({
+    text: 'pages.pyiTriageDesktopDownload.content.warningText' | translate,
+    iconFallbackText: 'pages.pyiTriageDesktopDownload.content.warningTextFallback' | translate
+  }) }}
+
+  <p class="govuk-body">
+    <img
+      src='{{ qrCode }}'
+      alt="{{ 'pages.pyiTriageDesktopDownload.content.qrCodeAlt' | translate }}"
+    />
+  </p>
+
+  <h3 class="govuk-heading-s">
+    {{ 'pages.pyiTriageDesktopDownload.content.subHeading2' | translate }}
+  </h3>
+
+  {% set details1 %}
+    <ol class="govuk-list govuk-list--number">
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list6' | translate }}</li>
+    </ol>
+  {% endset %}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
+      html: details1
+  }) }}
+
+  {% set details2 %}
+    <ol class="govuk-list govuk-list--number">
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list1' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list2' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list3' | translate }}</li>
+      <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list4' | translate }}</li>
+    </ol>
+  {% endset %}
+
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageDesktopDownload.content.details2.summaryText' | translate,
+      html: details2
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageDesktopDownload.content.details3.summaryText' | translate,
+      html: 'pages.pyiTriageDesktopDownload.content.details3.html' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageDesktopDownload.content.details4.summaryText' | translate,
+      html: 'pages.pyiTriageDesktopDownload.content.details4.html' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageDesktopDownload.content.details5.summaryText' | translate,
+      html: 'pages.pyiTriageDesktopDownload.content.details5.html' | translate
+  }) }}
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <h2 class="govuk-heading-m" id="header" data-page="{{ googleTagManagerPageId }}">
+      {{ 'pages.pyiTriageDesktopDownload.content.subHeading3' | translate }}
+  </h2>
+
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <h2 class="govuk-heading-m" id="header" data-page="{{ googleTagManagerPageId }}">
+    {{ 'pages.pyiTriageDesktopDownload.content.subHeading4' | translate }}
+  </h2>
+
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph5' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph6' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

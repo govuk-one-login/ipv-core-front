@@ -1,0 +1,21 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'error.pageNotFound.title' %}
+{% set googleTagManagerPageId = "errors.pageNotFound" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{'error.pageNotFound.header' | translate }}</h1>
+  <p class="govuk-body">{{'error.pageNotFound.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'error.pageNotFound.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'error.pageNotFound.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{'error.pageNotFound.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{'error.pageNotFound.content.paragraph4' | translate }}</p>
+
+  {{ govukButton({
+    "text": 'general.shared.govUKHomepageButtonText' | translate,
+    "type": "Submit",
+    "href": 'general.shared.govUKHomepageButtonHref' | translate
+  }) }}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.pyiEscape.title' %}
+{% set googleTagManagerPageId = "pyiEscape" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiEscape.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiEscape.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiEscapeForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiEscape.header' | translate }}</h1>
+
+  <form id="pyiEscapeForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiEscape.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "end",
+          text: 'pages.pyiEscape.content.formRadioButtons.otherWayButtonText' | translate
+        },
+        {
+          value: "next",
+          text: 'pages.pyiEscape.content.formRadioButtons.restartButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiEscape.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

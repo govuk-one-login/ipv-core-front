@@ -1,0 +1,379 @@
+plugin: openapi
+specFile: ./core-back-api.yaml
+
+pickFirstIfNoneMatch: false
+
+resources:
+  - method: GET
+    path: /healthcheck
+    response:
+      statusCode: 200
+      content: |
+        {
+          "success": "true"
+        }
+
+  # First couple of requests to transfer from orchestration to core back.
+  # We return the state from the request as the ipvSessionId so that it can be used to pick which responses to send to
+  # later requests.
+  - method: POST
+    path: /session/initialise
+    requestHeaders:
+      content-type: "application/json"
+    # Capture the state value here so we can use it in the response to key later responses
+    capture:
+      testJourney:
+        jsonPath: $.state
+        store: request
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "ipvSessionId": "${stores.request.testJourney}"
+        }
+
+  # This is the first endpoint hit after /session/initialise. For new identity journeys,
+  # this should take us to the page-ipv-identity-document-start screen.
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "^.*(reuseJourney|fraudCheckJourney).*$"
+        operator: NotMatches
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-document-start"
+        }
+
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return page-ipv-reuse to mimic the reuse journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-reuse"
+        }
+
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here
+  # to return the confirm-your-details page to mimic the repeat fraud check journey
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "fraudCheckJourney"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "confirm-your-details"
+        }
+
+  # Journey for page navigation test
+  - method: POST
+    path: /journey/end
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testPageNavigation"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-ipv-identity-postoffice-start"
+        }
+
+  # Journey for page not found test
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testPageNotFound"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "not-a-page"
+        }
+
+  # Journey for context test
+  # We just want to test context so this journey does not match what core-back actually does
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testContext"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id",
+          "context": "passport"
+        }
+
+  # Journey for unexpected error from core-back
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testUnexpectedError"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 500
+      content: |
+        {
+          "error": "something-went-wrong"
+        }
+
+  # Journey that generates an error
+  - method: POST
+    path: /journey/error
+    requestHeaders:
+      content-type: "application/json"
+    response:
+      statusCode: 500
+      content: |
+        {
+          "error": "something-went-wrong"
+        }
+
+  # Journey for CRI test
+  # When the user selects the DCMAW option core back sends back the CRI URL to redirect the user to. The CRI then
+  # eventually sends the user back to core-front. Here we short circuit that and redirect the user straight to core
+  # front so there's no need to set up a fake CRI too.
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "testCri"
+        operator: Contains
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      template: true
+      content: |
+        {
+          "cri": {
+            "redirectUrl": "http://localhost:4601/credential-issuer/callback/fakeDcmaw?state=${context.request.headers.ipv-session-id}&code=dummyAuthCode",
+            "id": "fakeDcmaw"
+          }
+        }
+
+  # When core front receives a callback from a CRI it sends the details to core-back. Here we pretend that we got
+  # access_denied back the DCMAW cri and send the use to page-multiple-doc-check
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      allOf:
+      - jsonPath: $.authorizationCode
+        value: "dummyAuthCode"
+      - jsonPath: $.credentialIssuerId
+        value: "fakeDcmaw"
+      - jsonPath: $.redirectUri
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
+      - jsonPath: $.state
+        value: "testCri"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
+        }
+
+  # CRI callback that redirects to an error
+  - method: POST
+    path: /cri/callback
+    requestBody:
+      allOf:
+      - jsonPath: $.authorizationCode
+        value: "dummyAuthCode"
+      - jsonPath: $.credentialIssuerId
+        value: "fakeDcmaw"
+      - jsonPath: $.redirectUri
+        value: "http://localhost:4601/credential-issuer/callback/fakeDcmaw"
+      - jsonPath: $.state
+        value: "testCriError"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "journey": "error"
+        }
+
+  # Journeys for identify-device test
+  # We just want to test the handling of identify-device so this journey does not match what core-back actually does
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceIphone"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "identify-device"
+        }
+
+  - method: POST
+    path: /journey/appTriageIphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceIphone"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }
+
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceAndroid"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "identify-device"
+        }
+
+  - method: POST
+    path: /journey/appTriageAndroid
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceAndroid"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "prove-identity-another-type-photo-id"
+        }
+
+  # On a page displaying the user's details (e.g. confirm-your-details page), core-front sends a request to the
+  # /user/proven-identity-details endpoint in core-back to get the user's details to be displayed on the page
+  - method: GET
+    path: /user/proven-identity-details
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "KennethDecerqueira"
+        operator: Contains
+    response:
+      statusCode: 200
+      content: |
+        {
+          "name": "Kenneth Decerqueira",
+          "dateOfBirth": "1965-07-08",
+          "nameParts": [
+            { "type": "GivenName", "value": "Kenneth"},
+            { "type": "FamilyName", "value": "Decerqueira"}
+          ],
+          "addresses": [
+            {
+              "addressCountry": "GB",
+              "uprn": 100120012077,
+              "buildingName": "",
+              "streetName": "HADLEY ROAD",
+              "postalCode": "BA2 5AA",
+              "buildingNumber": "8",
+              "addressLocality": "BATH",
+              "validFrom": "1000-01-01",
+              "subBuildingName": ""
+            }
+          ]
+        }
+
+  # This is hit when the user is on the page-ipv-reuse screen and, after expanding the "If your details are wrong" section,
+  # they click on the "update your details" link which sends a /journey/update-details event to core-back. This then redirects
+  # them to the update-details screen
+  - method: POST
+    path: /journey/update-details
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage: 'page-ipv-reuse'
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "update-details"
+        }
+
+  # Hit when core-front sends a journey request to core-back from an update details screen and the
+  # selected options to update are givenNames and address
+  - method: POST
+    path: /journey/given-names-and-address
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "reuseJourney"
+        operator: Contains
+    queryParams:
+      currentPage: 'update-details'
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-update-name"
+        }
+
+  # Journey for client redirect response test
+  # We just want to test the handling of receiving a client response from core-back
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "testClient"
+        operator: Contains
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "client": {
+            "redirectUrl": "https://example.com/"
+          }
+        }

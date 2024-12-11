@@ -1,0 +1,4 @@
+save-exact=true
+engine-strict=true
+@govuk-one-login:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=TOKEN_WITH_READ_PACKAGE_PERMISSION

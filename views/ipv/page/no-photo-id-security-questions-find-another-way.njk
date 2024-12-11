@@ -1,0 +1,84 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.title' %}
+{% set googleTagManagerPageId = "noPhotoIdSecurityQuestionsFindAnotherWay" %}
+{% set isPageDynamic = true %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#noPhotoIdSecurityQuestionsFindAnotherWayForm" %}
+
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
+{% endset %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithContext(context) }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.detailsLabel' | translate,
+    html: photoIdHtml,
+    id: 'typesOfPhotoIdDetails'
+  }) }}
+
+  <form id="noPhotoIdSecurityQuestionsFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% set radioOptions =
+      [
+        {
+          value: "appTriage",
+          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppText' | translate,
+          hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonAppTextHint' | translate }
+        },
+        {
+          value: "f2f",
+          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoText' | translate,
+          hint: { text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonPoTextHint' | translate }
+        },
+        {
+          divider: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.radioButtonBackToRpText' | translate
+        }
+      ]
+    %}
+
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading3' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: radioOptions
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% set pageTitleKey = 'pages.updateNameDateBirth.title' %}
+{% set googleTagManagerPageId = "updateNameDateBirth" %}
+{% set isPageDynamic = false %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.updateNameDateBirth.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#updateNameDateBirthActionForm" %}
+
+{% if context === 'reuse' %}
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/update-name-date-birth/back" %}
+{% endif %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+        xmlns="http://www.w3.org/1999/html">{{ 'pages.updateNameDateBirth.header' | translateWithContextOrFallback(context) }}</h1>
+
+    <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph1' | translateWithContextOrFallback(context) }}</p>
+
+    {% if context === 'reuse' %}
+        <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph2' | translate }}</p>
+    {% endif %}
+
+    {% if context === "repeatFraudCheck" or context === 'rfcAccountDeletion' %}
+    {{ govukWarningText({
+        text: 'pages.updateNameDateBirth.content.warningText' | translate,
+        iconFallbackText: 'pages.updateNameDateBirth.content.warningTextFallback' | translate
+        }) }}
+    {% endif %}
+
+    {% if context === 'reuse' or context === 'rfcAccountDeletion' %}
+        <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph3' | translate }}</p>
+    {% endif %}
+
+    <form id="updateNameDateBirthActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set yesButtonConfig = {
+            withHint: {
+                value: "continue",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translateWithContextOrFallback(context),
+                hint: {
+                    text: 'pages.updateNameDateBirth.content.formRadioButtons.yesHint' | translateWithContextOrFallback(context)
+                }
+            },
+            withoutHint: {
+                value: "contact",
+                text: 'pages.updateNameDateBirth.content.formRadioButtons.yes' | translate
+            }
+        } %}
+
+        {% set radiosConfig = {
+            idPrefix: "journey",
+            name: "journey",
+            fieldset: {
+                legend: {
+                    text: 'pages.updateNameDateBirth.content.radioButtonHeading' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                    yesButtonConfig["withHint"] if context === "reuse" or context === "rfcAccountDeletion" else yesButtonConfig["withoutHint"],
+                    {
+                        value: "end",
+                        text: 'pages.updateNameDateBirth.content.formRadioButtons.no' | translateWithContextOrFallback(context),
+                        hint: {
+                            text: 'pages.updateNameDateBirth.content.formRadioButtons.noHint' | translateWithContextOrFallback(context)
+                        }
+                    }
+                ]
+        }
+        %}
+
+        {% if errorState %}
+        {% set errorMessageObject = { 'text': 'pages.updateNameDateBirth.content.formErrorMessage.errorRadioMessage' | translate } %}
+        {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+        {% endif %}
+
+        {{ govukRadios(radiosConfig) }}
+        {{ govukButton({
+          id: "submitButton",
+          text: 'general.buttons.next' | translate
+        }) }}
+    </form>
+{% endblock %}

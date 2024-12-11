@@ -1,0 +1,78 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set pageTitleKey = 'pages.noPhotoIdExitFindAnotherWay.title' %}
+{% set googleTagManagerPageId = "noPhotoIdExitFindAnotherWay" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.noPhotoIdExitFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.noPhotoIdExitFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#noPhotoIdExitFindAnotherWayForm" %}
+
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
+{% endset %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdExitFindAnotherWay.header' | translate }}</h1>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdExitFindAnotherWay.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph1' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdExitFindAnotherWay.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdExitFindAnotherWay.content.paragraph2' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.noPhotoIdExitFindAnotherWay.content.detailsLabel' | translate,
+    html: photoIdHtml,
+    id: 'typesOfPhotoIdDetails'
+  }) }}
+
+  <form id="noPhotoIdExitFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radioOptions = [
+        {
+          value: "end",
+          text: 'pages.noPhotoIdExitFindAnotherWay.content.formRadioButtons.radioButton1Text' | translate
+        },
+        {
+          value: "next",
+          text: 'pages.noPhotoIdExitFindAnotherWay.content.formRadioButtons.radioButton2Text' | translate
+        },
+        {
+          divider: 'pages.noPhotoIdExitFindAnotherWay.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "bankAccount",
+          text: 'pages.noPhotoIdExitFindAnotherWay.content.formRadioButtons.radioButton3Text' | translate
+        }
+      ] %}
+
+    {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+            legend: {
+              text: 'pages.noPhotoIdExitFindAnotherWay.content.subHeading3' | translate,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: radioOptions
+        } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.noPhotoIdExitFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

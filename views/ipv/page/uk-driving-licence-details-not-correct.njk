@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.drivingLicenceDetailsNotCorrect.title' %}
+{% set googleTagManagerPageId = "drivingLicenceDetailsNotCorrect" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.drivingLicenceDetailsNotCorrect.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.drivingLicenceDetailsNotCorrect.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#drivingLicenceDetailsNotCorrectActionForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrect.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph3' | translate }}</p>
+
+  {%
+    set radioItems = [
+      {
+          value: "next",
+          text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translate,
+          hint: { text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonTextHint' | translate }
+      },
+      {
+          value: "end",
+          text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.otherWayButtonText' | translate
+      }]
+  %}
+
+  <form id="drivingLicenceDetailsNotCorrectActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+              legend: {
+                  text: 'pages.drivingLicenceDetailsNotCorrect.content.subHeading' | translate,
+                  classes: "govuk-fieldset__legend--m"
+              }
+          },
+          items: radioItems
+      }
+      %}
+
+      {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.drivingLicenceDetailsNotCorrect.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+      {% endif %}
+
+      {{ govukRadios(radiosConfig) }}
+      {{ govukButton({
+          id: "submitButton",
+          text: 'general.buttons.next' | translate
+        }) }}
+  </form>
+{% endblock %}

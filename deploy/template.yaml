@@ -80,10 +80,12 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
@@ -98,10 +100,12 @@ Mappings:
       nodeOldSpaceLimit: "384"
       nodeEnv: "development"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.dev.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
@@ -114,16 +118,17 @@ Mappings:
       #fargateCPUsize: "2048"
       #fargateRAMsize: "4096"
       #nodeOldSpaceLimit: "3792"
-      #desiredTaskCount: 2
       fargateCPUsize: "1024"
       fargateRAMsize: "2048"
       nodeOldSpaceLimit: "1896"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.build.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
@@ -138,10 +143,12 @@ Mappings:
       nodeOldSpaceLimit: "256"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.staging.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.staging.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
@@ -156,10 +163,12 @@ Mappings:
       nodeOldSpaceLimit: "768"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 1
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.integration.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.integration.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
@@ -174,10 +183,12 @@ Mappings:
       nodeOldSpaceLimit: "1792"
       nodeEnv: "production"
       languageToggle: true
-      desiredTaskCount: 2
       ga4Disabled: false
       uaDisabled: false
+      dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
+      deleteAccountUrl: "https://home.account.gov.uk/enter-password?type=deleteAccount"
+      logoutUrl: "https://oidc.account.gov.uk/logout"
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
@@ -196,16 +207,16 @@ Resources:
       DomainName: !If
         - IsDev01
         - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+        - !Sub "${Environment}.02.dev.identity.account.gov.uk"
       DomainValidationOptions:
         - DomainName: !If
             - IsDev01
             - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-            - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+            - !Sub "${Environment}.02.dev.identity.account.gov.uk"
           HostedZoneId: !If
             - IsDev01
             - !ImportValue Dev01IdentityHostedZoneId
-            - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
+            - !ImportValue Dev02IdentityHostedZoneId
       ValidationMethod: DNS
 
   # api domain entries / mapping (intentionally V2 as needs to be that way for prod)
@@ -216,7 +227,7 @@ Resources:
       DomainName: !If
         - IsDev01
         - !Sub "${Environment}.01.dev.identity.account.gov.uk"
-        - !If [IsDev02, !Sub "${Environment}.02.dev.identity.account.gov.uk", !Ref AWS::NoValue]
+        - !Sub "${Environment}.02.dev.identity.account.gov.uk"
       DomainNameConfigurations:
         - CertificateArn: !Ref DevSSLCert
           EndpointType: REGIONAL
@@ -225,7 +236,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202405141531
+    DependsOn: RestApiGwDeployment202410240900
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -242,7 +253,7 @@ Resources:
       HostedZoneId: !If
           - IsDev01
           - !ImportValue Dev01IdentityHostedZoneId
-          - !If [IsDev02, !ImportValue Dev02IdentityHostedZoneId, DevIdentityHostedZoneId]
+          - !ImportValue Dev02IdentityHostedZoneId
       AliasTarget:
         DNSName: !GetAtt DevApiDomain.RegionalDomainName
         HostedZoneId: !GetAtt DevApiDomain.RegionalHostedZoneId
@@ -322,6 +333,11 @@ Resources:
   AccessLogsBucket:
     Type: AWS::S3::Bucket
     #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W3045 # Using a legacy access control setup for now
     Properties:
       BucketName: !If
         - IsDevelopment # existing bucket names exist in the current dev env
@@ -468,6 +484,7 @@ Resources:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP
       HealthCheckPath: /healthcheck
+      # Timeout and interval are non default after lots of tweaking to improve scaleup speed and reduce crashes
       HealthCheckTimeoutSeconds: 14
       HealthCheckIntervalSeconds: 15
       HealthyThresholdCount: 2
@@ -479,8 +496,10 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${VpcStackName}-VpcId
       TargetGroupAttributes:
+        # AWS suggests setting this higher than the idle timeout of the load balancer (default 60s) to prevent possible 504 errors
+        # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
-          Value: 30
+          Value: 65
 
 
 
@@ -521,10 +540,6 @@ Resources:
           - UseCanaryDeployment
           - CODE_DEPLOY
           - ECS
-      DesiredCount: !FindInMap
-        - EnvironmentConfiguration
-        - !Ref AWS::AccountId
-        - desiredTaskCount
       EnableECSManagedTags: false
       HealthCheckGracePeriodSeconds: 45
       LaunchType: FARGATE
@@ -551,7 +566,7 @@ Resources:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
       MaxCapacity: 60
-      MinCapacity: 2
+      MinCapacity: 4
       ResourceId: !Join
         - '/'
         - - "service"
@@ -596,17 +611,29 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 120
-        MinAdjustmentMagnitude: 5
+        Cooldown: 30 # The policy will continue to respond to additional alarm breaches,
+                     # even while a scaling activity is in progress. This means Application
+                     # Auto Scaling will evaluate all alarm breaches as they occur.
+                     # A cooldown period is used to protect against over-scaling due to
+                     # multiple alarm breaches occurring in rapid succession.
+        MinAdjustmentMagnitude: 3
         StepAdjustments:
-          - MetricIntervalLowerBound: 20
-            MetricIntervalUpperBound: 30
-            ScalingAdjustment: 200
-          - MetricIntervalLowerBound: 30
-            MetricIntervalUpperBound: 35
-            ScalingAdjustment: 300
-          - MetricIntervalLowerBound: 35
-            ScalingAdjustment: 500
+          - MetricIntervalUpperBound: 20 # 80%
+            ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
+                                   # with <80% utilisation
+          - MetricIntervalLowerBound: 20 # 80%
+            MetricIntervalUpperBound: 30 # 90%
+            ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
+                                   # with 80-90% utilisation
+          - MetricIntervalLowerBound: 30 # 90%
+            MetricIntervalUpperBound: 35 # 95%
+            ScalingAdjustment: 300 # Scale by 300% of containers if the metric is breached
+                                   # with 90-95% utilisation
+          - MetricIntervalLowerBound: 35 # 95%
+            ScalingAdjustment: 500 # Scale by 500% of containers if the metric is breached
+                                   # with >95% utilisation
+                                   # Note: CPU can scale greater than 100% in a burst mode
+                                   # on Fargate, so leave the upper bound open
 
   CoreFrontStepScaleInPolicy:
     DependsOn: CoreFrontAutoScalingTarget
@@ -623,10 +650,15 @@ Resources:
       ServiceNamespace: ecs
       StepScalingPolicyConfiguration:
         AdjustmentType: PercentChangeInCapacity
-        Cooldown: 420
+        Cooldown: 420 # The policy will continue to respond to additional alarm breaches,
+                      # even while a scaling activity is in progress. This means Application
+                      # Auto Scaling will evaluate all alarm breaches as they occur.
+                      # A cooldown period is used to protect against under-scaling due to
+                      # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
-          - MetricIntervalUpperBound: -40
-            ScalingAdjustment: -50
+          - MetricIntervalUpperBound: -40 # 20%
+            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
+                                   # with <20% utilisation
 
   CoreFrontStepScaleOutAlarm:
     DependsOn: CoreFrontAutoScalingTarget
@@ -637,14 +669,14 @@ Resources:
         - !Ref CoreFrontStepScaleOutPolicy
       AlarmDescription: "CoreFrontClusterOver60PercentCPU"
       ComparisonOperator: "GreaterThanThreshold"
-      DatapointsToAlarm: "2"
+      DatapointsToAlarm: "1"
       Dimensions:
         - Name: ClusterName
           Value: !Ref CoreFrontCluster
         - Name: ServiceName
           Value: !GetAtt CoreFrontService.Name
       Unit: "Percent"
-      EvaluationPeriods: "2"
+      EvaluationPeriods: "1"
       MetricName: "CPUUtilization"
       Namespace: "AWS/ECS"
       Statistic: "Average"
@@ -780,16 +812,31 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - uaDisabled
+            - Name: DT_RUM_URL
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - dtRumUrl
             - Name: CONTACT_URL
               Value: !FindInMap
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - contactUrl
+            - Name: DELETE_ACCOUNT_URL
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - deleteAccountUrl
             - Name: TEMPLATE_CACHING
               Value: !FindInMap
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - templateCaching
+            - Name: LOGOUT_URL
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - logoutUrl
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join
@@ -874,6 +921,18 @@ Resources:
                   - "kms:Decrypt"
                 Resource:
                   - "arn:aws:kms:eu-west-2:216552277552:key/*"
+        - PolicyName: SSMParameterAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/core-front*"
+
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -932,6 +991,17 @@ Resources:
                   - "kms:Decrypt"
                 Resource:
                   - "arn:aws:kms:eu-west-2:216552277552:key/*"
+        - PolicyName: SSMParameterAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource:
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/core-front*"
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
@@ -955,7 +1025,12 @@ Resources:
               - Effect: Allow
                 Action:
                   - "s3:GetObject"
-                Resource: !Sub "arn:aws:s3:::published-did-documents-${Environment}/did.json"
+                Resource: !Sub
+                  - "arn:aws:s3:::${BucketName}/did.json"
+                  - BucketName: !If
+                      - IsSubscriptionEnviroment
+                      - !Sub "govuk-one-login-spot-published-keys-${Environment}"
+                      - !Sub "published-did-documents-${Environment}"
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
@@ -964,6 +1039,53 @@ Resources:
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary
         - !Ref AWS::NoValue
+
+  ECSFatalErrorMetricFilter:
+    Condition: IsNotDevelopment
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref ECSAccessLogsGroup
+      FilterPattern: '{ $.level = "FATAL" || $.message = "Unhandled Exception:*" }'
+      MetricTransformations:
+        - MetricValue: "1"
+          MetricNamespace: !Sub "${AWS::StackName}/LogMessages"
+          MetricName: "ECSFatalerror-message"
+
+  FrontendVitalsMetricEventLoopDelayFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsEventLoopDelay-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "EventLoopDelay-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.eventLoopDelay'
+          Unit: Milliseconds
+
+  FrontendVitalsMetricMaxConcurrentConnectionsFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsMaxConcurrentConnections-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "MaxConcurrentConnections-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.maxConcurrentConnections'
+          Unit: Count
+
+  FrontendVitalsMetricEventLoopUtilizationFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterName: !Sub "FrontendVitalsEventLoopUtilization-${AWS::StackName}"
+      FilterPattern: '{ $.name = "@govuk-one-login/frontend-vital-signs" }'
+      LogGroupName: !Sub "/aws/ecs/${AWS::StackName}-CoreFront-ECS"
+      MetricTransformations:
+        - MetricName: !Sub "EventLoopUtilization-${AWS::StackName}"
+          MetricNamespace: FrontendVitals
+          MetricValue: '$.eventLoopUtilization.utilization'
+          Unit: Milliseconds
 
   #
   # REST API Gateway
@@ -978,7 +1100,7 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202405141531:
+  RestApiGwDeployment202410240900:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
@@ -1001,6 +1123,7 @@ Resources:
       RequestParameters:
         method.request.path.proxy: false
         method.request.header.x-forwarded-for: false
+        method.request.header.host: false
       Integration:
         Type: HTTP_PROXY
         ConnectionType: VPC_LINK
@@ -1011,6 +1134,7 @@ Resources:
         RequestParameters:
           integration.request.path.proxy: "method.request.path.proxy"
           integration.request.header.x-forwarded-for: "method.request.header.x-forwarded-for"
+          integration.request.header.x-forwarded-host: "method.request.header.host"
         IntegrationHttpMethod: ANY
         PassthroughBehavior: WHEN_NO_MATCH
         Uri: !Sub
@@ -1064,7 +1188,10 @@ Resources:
       Integration:
         Type: AWS
         IntegrationHttpMethod: GET
-        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Uri: !If
+           - IsSubscriptionEnviroment
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationResponses:
@@ -1081,18 +1208,23 @@ Resources:
                     "message": "Not Found"
                 }
 
-  ApiGatewayAccessLogGroup:
+  RestApiGatewayAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
+      LogGroupName: !If
+        - IsDevelopment
+        - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
+        - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
       RetentionInDays: 30
-      Tags:
-        - Key: Name
-          Value: ApiGatewayAccessLogGroup
-        - Key: Service
-          Value: IPV Core
-        - Key: Source
-          Value: alphagov/di-ipv-core-front/deploy/template.yaml
+
+  RestApiGatewayAccessLogsGroupSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: IsSubscriptionEnviroment
+    Properties:
+      DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
+      FilterPattern: ""
+      LogGroupName: !Ref RestApiGatewayAccessLogsGroup
 
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
@@ -1103,10 +1235,10 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202405141531
+      DeploymentId: !Ref RestApiGwDeployment202410240900
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
-        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+        DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn
         Format: >-
           {
           "requestId":"$context.requestId",
@@ -1263,6 +1395,18 @@ Resources:
       FilterPattern: ""
       LogGroupName: !Ref APIGWAccessLogsGroup
 
+  APIGWFatalErrorMetricFilter:
+    Condition: IsNotDevelopment
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref APIGWAccessLogsGroup
+      FilterPattern: '{ $.level = "FATAL" || $.message = "Unhandled Exception:*" }'
+      MetricTransformations:
+        -
+          MetricValue: "1"
+          MetricNamespace: !Sub "${AWS::StackName}/LogMessages"
+          MetricName: "APIGWFatalerror-message"
+
   CoreFrontSessionsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -1351,7 +1495,14 @@ Resources:
               StringEquals:
                 kms:ViaService: !Sub "s3.${AWS::Region}.amazonaws.com"
 
+####################################################################
+#                                                                  #
+# Monitoring & Alerts                                              #
+#                                                                  #
+####################################################################
+
   FrontLoadBalancer5xxErrors:
+    # This is monitoring 5XXs originating from the load balancer, and not from the target group
     Type: AWS::CloudWatch::Alarm
     Condition: IsNotDevelopment
     Properties:
@@ -1385,6 +1536,7 @@ Resources:
             Stat: Sum
 
   FrontTargetGroup5xxErrors:
+    # This is monitoring 5XXs originating from the target group, and not from the load balancer
     Type: AWS::CloudWatch::Alarm
     Condition: IsNotDevelopment
     Properties:
@@ -1394,7 +1546,7 @@ Resources:
         - !ImportValue sns-topics-AlarmTopic
       OKActions:
         - !ImportValue sns-topics-AlarmTopic
-      InsufficientDataActions: [ ]
+      InsufficientDataActions: []
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
       Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorLimit ]
@@ -1418,6 +1570,7 @@ Resources:
             Stat: Sum
 
   FrontTargetGroup5xxPercentErrors:
+    # This is used by the canary deployment stack
     Type: AWS::CloudWatch::Alarm
     Condition: UseCanaryDeployment
     Properties:
@@ -1457,6 +1610,60 @@ Resources:
               Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
           Period: 60
           Stat: Sum
+
+  FrontRestApiGateway5XXErrorAlarm:
+    # This is monitoring all 5XXs returned by the frontend REST API gatway.
+    # This will be a combination of load balancer and target group 5XXs.
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FrontRestApiGateway5XXErrorAlarm"
+      AlarmDescription: >
+        Trigger the alarm if errors exceed 10% with a minimum of 50
+        invocations, in 2 out of the last 5 minutes
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: errorThreshold
+          Label: Threshold error percentage
+          ReturnData: true
+          Expression: IF(invocations<50,0,errorPercentage)
+        - Id: invocations
+          Label: Invocations
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Count
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref RestApiGateway
+            Period: 60
+            Stat: Sum
+        - Id: errors
+          Label: Errors
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: 5xx
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref RestApiGateway
+            Period: 60
+            Stat: Sum
+        - Id: errorPercentage
+          Label: errorPercentage
+          ReturnData: false
+          Expression: (errors/invocations) * 100
 
   LambdaInvocationsOutOfSync:
     Type: AWS::CloudWatch::Alarm
@@ -1570,6 +1777,182 @@ Resources:
                   Value: !Sub check-existing-identity-${Environment}
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lambdaInvokeCompareWindow ]
             Stat: Sum
+
+  FatalErrorAlarm:
+    Condition: IsNotDevelopment
+    DependsOn:
+      - "ECSFatalErrorMetricFilter"
+      - "APIGWFatalErrorMetricFilter"
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FatalErrorAlarm"
+      AlarmDescription: "Trigger an alarm when Fatal Error occurs"
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      InsufficientDataActions: []
+      MetricName: FatalErrorMessage
+      Namespace: !Sub "${AWS::StackName}/LogMessages"
+      Statistic: Sum
+      Dimensions: []
+      Period: 60
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+
+  FELatencyAlarmP95:
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FELatencyAlarmP95"
+      AlarmDescription: Trigger the alarm if less than 95% of requests has a latency of less than 1 second with a minimum of 25 invocations in 2 out of the last 5 minutes
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      InsufficientDataActions: []
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 2
+      Threshold: 1000
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: latencyThreshold
+          Label: latencyThreshold
+          ReturnData: true
+          Expression: IF(invocations<25,0,latency95Percentile)
+        - Id: invocations
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Count
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: Sum
+        - Id: latency95Percentile
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Latency
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: p95
+
+  FELatencyAlarmP99:
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FELatencyAlarmP99"
+      AlarmDescription: Trigger the alarm if less than 99% of requests has a latency of less than 2.5 second with a minimum of 150 invocations in 2 out of the last 5 minutes
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue alarm-alerts-topic
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      InsufficientDataActions: []
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 2
+      Threshold: 2500
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: latencyThreshold
+          Label: latencyThreshold
+          ReturnData: true
+          Expression: IF(invocations<150,0,latency99Percentile)
+        - Id: invocations
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Count
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: Sum
+        - Id: latency99Percentile
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Latency
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: p99
+
+  FELowContainerTaskCountAlarm:
+    Condition: IsProduction
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FELowContainerTaskCountAlarm"
+      AlarmDescription: Trigger a warning if the running container task count drops below 2
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      InsufficientDataActions: []
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 1
+      ComparisonOperator: LessThanOrEqualToThreshold
+      TreatMissingData: breaching
+      Metrics:
+        - Id: containerTaskCount
+          ReturnData: true
+          MetricStat:
+            Metric:
+              Namespace: ECS/ContainerInsights
+              MetricName: RunningTaskCount
+              Dimensions:
+                - Name: ClusterName
+                  Value: !Ref CoreFrontCluster
+                - Name: ServiceName
+                  Value: !GetAtt CoreFrontService.Name
+            Period: 60
+            Stat: Minimum
+
+  FELowContainerTaskCountCriticalAlarm:
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FELowContainerTaskCountCriticalAlarm"
+      AlarmDescription: Trigger a critical alert if the running container task count drops below 1
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue alarm-alerts-topic
+      InsufficientDataActions: []
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 0
+      ComparisonOperator: LessThanOrEqualToThreshold
+      TreatMissingData: breaching
+      Metrics:
+        - Id: containerTaskCount
+          ReturnData: true
+          MetricStat:
+            Metric:
+              Namespace: ECS/ContainerInsights
+              MetricName: RunningTaskCount
+              Dimensions:
+                - Name: ClusterName
+                  Value: !Ref CoreFrontCluster
+                - Name: ServiceName
+                  Value: !GetAtt CoreFrontService.Name
+            Period: 60
+            Stat: Maximum
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

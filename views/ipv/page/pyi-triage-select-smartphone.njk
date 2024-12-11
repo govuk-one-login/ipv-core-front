@@ -1,0 +1,66 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set pageTitleKey = 'pages.pyiTriageSelectSmartphone.title' | translateWithContext(context) %}
+
+{% set googleTagManagerPageId = "pyiTriageSelectSmartphone" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiTriageSelectSmartphoneOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.subHeading1' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph2' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.pyiTriageSelectSmartphone.content.details.summaryText' | translate,
+    html: 'pages.pyiTriageSelectSmartphone.content.details.html' | translate
+  }) }}
+
+  <form id="pyiTriageSelectSmartphoneOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiTriageSelectSmartphone.content.subHeading3' | translateWithContext(context),
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "iphone",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.iphoneButtonText' | translateWithContext(context)
+        },
+        {
+          value: "android",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.androidButtonText' | translateWithContext(context)
+        },
+        {
+          value: "neither",
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.neitherButtonText' | translateWithContext(context)
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiTriageSelectSmartphone.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

@@ -23,6 +23,8 @@ jobs:
         extra_args: "detect-secrets --all-files"
   run-tests:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +32,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.11.1
+      - name: Setup .npmrc
+        run: |
+          cp .npmrc.template .npmrc && \
+          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:
@@ -51,3 +57,30 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE} || exit 1
           docker build -t "core-front-build:test" .
+  browser-tests:
+    name: Run browser tests
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+    defaults:
+      run:
+        shell: bash
+        working-directory: browser-tests
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v4
+      - name: Setup .npmrc
+        run: |
+          cp ../.npmrc.template ../.npmrc && \
+          sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ ../.npmrc
+      - name: Run browser tests
+        run: docker compose up --exit-code-from browser-tests-tests
+      - name: Upload test artifacts
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-results
+          path: ./browser-tests/test-results/
+      - name: Stop Docker
+        if: ${{ always() }}
+        run: docker compose down

@@ -1,0 +1,44 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.pyiTriageMobileDownload.title' %}
+{% set googleTagManagerPageId = "pyiTriageMobileDownload" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
+      {{ 'pages.pyiTriageMobileDownload.header' | translate }}
+  </h1>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">
+    {{ 'pages.pyiTriageMobileDownload.content.subHeading1' | translate }}
+  </h2>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details1.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details1.html' | translate
+  }) }}
+
+  {{ govukButton({
+    href: appDownloadUrl,
+    text: 'pages.pyiTriageMobileDownload.content.button' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details2.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details2.html' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details3.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details3.html' | translate
+  }) }}
+
+  {{ govukDetails({
+      summaryText: 'pages.pyiTriageMobileDownload.content.details4.summaryText' | translate,
+      html: 'pages.pyiTriageMobileDownload.content.details4.html' | translate
+  }) }}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

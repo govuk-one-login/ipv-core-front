@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: "IPV Core External + Internal"
+  description: "The external api presented by IPV Core Back for use by non IPV Core services and the internal api presented by IPV Core Back for use by IPV Core Front. (Copied from the core-back project)"
+  version: "1.0.0"
+
+paths:
+  # External methods
+  /token:
+    post:
+      description: "Exchange an authorization code for an access token"
+      responses:
+        200:
+          description: "The access token"
+          content:
+            application/json:
+              schema:
+                type: "object"
+
+  /user-identity:
+    get:
+      description: "Returns a list of Verifiable Credentials representing the users identity"
+      responses:
+        200:
+          description: "The list of Verifiable Credentials"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  type: "object"
+        403:
+          description: "403 Response"
+          content: {}
+
+  /reverification:
+    get:
+      description: "Returns a success or failure response based on the results of the reverification journey"
+      responses:
+        200:
+          description: "Reverification success or failure response"
+          content:
+            application/json:
+              schema:
+                type: "object"
+        403:
+          description: "403 Response"
+          content: {}
+
+  /.well-known/jwks.json:
+    get:
+      description: "returns JWKS Json"
+      responses:
+        200:
+          description: "The list of public keys"
+          content:
+            application/json:
+              schema:
+                type: "object"
+        500:
+          description: 500 response
+          content: {}
+
+  /healthcheck:
+    get:
+      description: "returns a 200 for Route53 health checks to use"
+      responses:
+        200:
+          description: "A healthcheck response"
+          content:
+            application/json:
+              schema:
+                type: "object"
+
+  # Internal methods
+  /session/initialise:
+    post:
+      description: "Creates a new ipv core-back session"
+      responses:
+        200:
+          description: "The ipv sessionId"
+          content:
+            application/json:
+              schema:
+                type: "object"
+
+  /cri/callback:
+    post:
+      description: |
+        Called when a user comes back to core on the frontend's callback endpoint, after visiting a CRI. Triggers a step
+        function that orchestrates lambdas for validating the oauth callback, retrieving the access token, and fetching
+        the credential.
+      responses:
+        200:
+          description: "Returns a journey or error response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/journeyType"
+
+  /app/callback:
+    post:
+      description: |
+        Called when a user comes back to core on the frontend's callback endpoint, after attempting to prove their
+        identity on the mobile app. Triggers checks and state transition through the journey map.
+      responses:
+        200:
+          description: "Returns a journey or error response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/journeyType"
+
+  /journey/{journeyStep}:
+    post:
+      description: Called when the user selects a journey event. Triggers an express step function
+      responses:
+        200:
+          description: "Returns either a redirect journey eventResponse or a page eventResponse "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/journeyType"
+
+  /user/proven-identity-details:
+    get:
+      description: "Called when core front needs to display information about a users proven identity"
+      responses:
+        200:
+          description: "User identity response"
+          content:
+            application/json:
+              schema:
+                type: "object"
+
+components:
+  schemas:
+    journeyType:
+      type: object
+      properties:
+        page:
+          type: string
+          description: pageId of page to be displayed
+        journey:
+          type: string
+          description: journeyId of an journey to take
+        cri:
+          type: object
+          description: redirect to a cri (credential issuer)
+          required: [ "id", "authorizeUrl", "request" ]
+          properties:
+            id:
+              type: string
+            authorizeUrl:
+              type: string
+            request:
+              type: string
+        client:
+          type: object
+          description: redirect to the oauth client, ending the session.
+          required: [ "callbackUrl" ]
+          properties:
+            callbackUrl:
+              type: string
+      oneOf:
+        - required: [ "page" ]
+        - required: [ "client" ]
+        - required: [ "cri" ]
+        - required: [ "journey" ]

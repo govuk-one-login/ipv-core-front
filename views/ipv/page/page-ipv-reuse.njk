@@ -1,0 +1,66 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.pageIpvReuse.title' %}
+{% set googleTagManagerPageId = "pageIpvReuse" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header"
+        data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvReuse.header' | translate }}</h1>
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
+
+    <h2 class="govuk-heading-m">{{ 'pages.pageIpvReuse.content.subHeading' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph3' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph4' | translate }}</p>
+
+    <h3 class="govuk-heading-s">{{ 'pages.pageIpvReuse.content.subHeading2' | translate }}</h3>
+
+    {% set rows = [
+        {
+            key: {
+                text: 'pages.pageIpvReuse.content.userDetailsInformation.fullName' | translate
+            },
+            value: {
+                text: userDetails.name
+            }
+        },
+        {
+            key:
+            {
+                text: userDetails.addresses[0].label
+            },
+            value:
+            {
+                text: userDetails.addresses[0].addressDetailHtml | safe
+            }
+        },
+        {
+            key: {
+                text: 'pages.pageIpvReuse.content.userDetailsInformation.dateOfBirth' | translate
+            },
+            value: {
+                text: userDetails.dateOfBirth | GDSDate
+            }
+        }
+    ] %}
+
+    {{ govukSummaryList({
+        rows: rows
+    }) }}
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <h3 class="govuk-!-margin-0 govuk-!-font-size-19 govuk-!-font-weight-regular govuk-details__summary-text">
+          {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translate }}
+        </h3>
+      </summary>
+      <div class="govuk-details__text">
+        {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
+      </div>
+    </details>
+
+    {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+{% endblock %}

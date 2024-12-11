@@ -1,0 +1,14 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.reproveIdentityStart.title' %}
+{% set googleTagManagerPageId = "reproveIdentityStart" %}
+{% set isPageDynamic = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{ 'pages.reproveIdentityStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.reproveIdentityStart.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.reproveIdentityStart.content.paragraph2' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+{% endblock %}

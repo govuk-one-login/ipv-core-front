@@ -1,0 +1,101 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set pageTitleKey = 'pages.noPhotoIdAbandonFindAnotherWay.title' %}
+{% set googleTagManagerPageId = "noPhotoIdAbandonFindAnotherWay" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.noPhotoIdAbandonFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.noPhotoIdAbandonFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#noPhotoIdAbandonFindAnotherWayForm" %}
+
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
+{% endset %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdAbandonFindAnotherWay.header' | translate }}</h1>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.paragraph1' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.paragraph2' | translate }}</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    {% for listItem in 'pages.noPhotoIdAbandonFindAnotherWay.content.list' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+
+  <p class="govuk-body">{{ 'pages.noPhotoIdAbandonFindAnotherWay.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.noPhotoIdAbandonFindAnotherWay.content.detailsLabel' | translate,
+    html: photoIdHtml,
+    id: 'typesOfPhotoIdDetails'
+  }) }}
+
+  <form id="noPhotoIdAbandonFindAnotherWay" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radioOptions = [
+        {
+          value: "mobileApp",
+          id: "radio-app",
+          text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonApp' | translate,
+          hint: { text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonAppHint' | translate }
+        },
+        {
+          value: "passport",
+          id: "radio-passport",
+          text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPassport' | translate
+        },
+        {
+          value: "drivingLicence",
+          id: "radio-drivingLicence",
+          text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonDrivingLicence' | translate
+        },
+        {
+          value: "postOffice",
+          id: "radio-postOffice",
+          text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPostOffice' | translate,
+          hint: { text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPostOfficeHint' | translate }
+        },
+        {
+          divider: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.separateOptionsInForm' | translate
+        },
+        {
+          value: "relyingParty",
+          id: "radio-relyingParty",
+          text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonRp' | translate
+        }
+      ] %}
+
+    {% set radiosConfig = {
+          idPrefix: "journey",
+          name: "journey",
+          fieldset: {
+            legend: {
+              text: 'pages.noPhotoIdAbandonFindAnotherWay.content.subHeading3' | translate,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: radioOptions
+        } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.noPhotoIdAbandonFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.proveIdentityAnotherTypePhotoId.title' %}
+{% set googleTagManagerPageId = "proveIdentityAnotherTypePhotoId" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.proveIdentityAnotherTypePhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.proveIdentityAnotherTypePhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#proveIdentityAnotherTypePhotoIdForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityAnotherTypePhotoId.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph' | translate }}</p>
+  <form id="proveIdentityAnotherTypePhotoIdForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "otherPhotoId",
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonText' | translateWithContext(context),
+          hint: {text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonTextHint' | translateWithContext(context)}
+        },
+        {
+          value: "f2f",
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.otherPhotoIdButtonText' | translate,
+          hint: {text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.otherPhotoIdButtonTextHint' | translate}
+        },
+        {
+          divider: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.divisor' | translate
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.returnToRpButtonText' | translate        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityAnotherTypePhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

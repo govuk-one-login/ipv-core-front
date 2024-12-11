@@ -67,6 +67,9 @@ typings/
 .env
 .env.test
 
+# npmrc file containing access token
+.npmrc
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
@@ -105,3 +108,9 @@ dist
 
 # Ignore template written by dev-deploy tool
 deploy/core-front-*.yaml
+
+# TSC output
+build
+
+# Browser test results
+browser-tests/test-results/

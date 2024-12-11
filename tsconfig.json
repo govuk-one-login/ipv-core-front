@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es2022",
+    // For now we specifically compile to commonJS for interop with existing libraries
+    // Once fully transitioned to TS, we can switch to nodenext and output ES modules
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "outDir": "build",
+    "inlineSourceMap": true,
+    "types": ["node", "mocha"]
+  },
+  "include": ["src"]
+}

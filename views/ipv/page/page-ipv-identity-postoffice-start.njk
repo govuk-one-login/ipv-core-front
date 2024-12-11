@@ -1,0 +1,78 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% set pageTitleKey = 'pages.pageIpvIdentityPostofficeStart.title' %}
+{% set googleTagManagerPageId = "pageIpvIdentityPostofficeStart" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/page-ipv-identity-postoffice-start/back" %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#identityPostofficeStartPageOptionsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityPostofficeStart.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph1' | translate }}</p>
+
+  <ul class="govuk-list" role="list">
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph2' | translate }}</p>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for listItem in 'pages.pageIpvIdentityPostofficeStart.content.euDrivingLicenceRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading2' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph3' | translate }}</p></li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityPostofficeStart.content.subHeading3' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph4' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        {% for listItem in 'pages.pageIpvIdentityPostofficeStart.content.eeaNationalIdentityCardRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityPostofficeStart.content.paragraph5' | translate }}</p>
+    </li>
+  </ul>
+
+  <form id="identityPostofficeStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pageIpvIdentityPostofficeStart.content.subHeading4' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.yes' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.pageIpvIdentityPostofficeStart.content.formRadioButtons.no' | translateWithContext(context)
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pageIpvIdentityPostofficeStart.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

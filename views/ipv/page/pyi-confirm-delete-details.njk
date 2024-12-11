@@ -1,0 +1,49 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pyiConfirmDeleteDetails.title' %}
+{% set googleTagManagerPageId = "pyiConfirmDeleteDetails" %}
+{% set isPageDynamic = true %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiConfirmDeleteDetailsActionForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
+      xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiConfirmDeleteDetails.header' | translateWithContext(context) }}</h1>
+  {% if context !== "f2f" %}
+    <p class="govuk-body">{{ 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate }}</p>
+  {% endif %}
+
+  <form id="pyiConfirmDeleteDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {% set radiosConfig = {
+        idPrefix: "journey",
+        name: "journey",
+        items: [
+                {
+                  value: "next",
+                  text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.yes' | translate
+                },
+                {
+                  value: "end",
+                  text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.no' | translateWithContext(context)
+                }
+              ]
+      }
+    %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiConfirmDeleteDetails.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

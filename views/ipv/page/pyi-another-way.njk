@@ -1,0 +1,16 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% set pageTitleKey = 'pages.pyiAnotherWay.title' %}
+{% set googleTagManagerPageId = "pyiAnotherWay" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiAnotherWay.header' | translate }}</h1>
+  <p class="govuk-body">{{'pages.pyiAnotherWay.content.paragraph1' | translate }}</p>
+  <h2 class="govuk-heading-m">{{'pages.pyiAnotherWay.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{'pages.pyiAnotherWay.content.paragraph2' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

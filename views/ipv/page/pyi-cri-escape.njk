@@ -1,0 +1,65 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.pyiCriEscape.title' %}
+{% set googleTagManagerPageId = "pyiCriEscape" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.pyiCriEscape.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#pyiCriEscapeForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiCriEscape.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph1' | translate | safe }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.pyiCriEscape.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph2' | translate | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph3' | translate | safe }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for listItem in 'pages.pyiCriEscape.content.requirements' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
+  <p class="govuk-body">{{ 'pages.pyiCriEscape.content.paragraph4' | translate | safe }}</p>
+
+  <form id="pyiCriEscapeForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiCriEscape.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "appTriage",
+          text: 'pages.pyiCriEscape.content.formRadioButtons.continueAppButtonText' | translate,
+          hint: {text: 'pages.pyiCriEscape.content.formRadioButtons.continueAppButtonTextHint' | translate}
+
+        },
+        {
+          value: "f2f",
+          text: 'pages.pyiCriEscape.content.formRadioButtons.continuePostOfficeButtonText' | translate,
+          hint: { text: 'pages.pyiCriEscape.content.formRadioButtons.continuePostOfficeButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.pyiCriEscape.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

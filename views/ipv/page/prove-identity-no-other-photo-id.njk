@@ -1,0 +1,51 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.proveIdentityNoOtherPhotoId.title' %}
+{% set googleTagManagerPageId = "proveIdentityNoOtherPhotoId" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.proveIdentityNoOtherPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.proveIdentityNoOtherPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#proveIdentityNoOtherPhotoIdForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoOtherPhotoId.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.proveIdentityNoOtherPhotoId.content.paragraph' | translate }}</p>
+  <form id="proveIdentityNoOtherPhotoIdForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.proveIdentityNoOtherPhotoId.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "back",
+          text: 'pages.proveIdentityNoOtherPhotoId.content.formRadioButtons.backButtonText' | translateWithContext(context)
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.proveIdentityNoOtherPhotoId.content.formRadioButtons.returnToRpButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoOtherPhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

@@ -1483,7 +1483,7 @@
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
-          "backButtonText": "Use a passport with a biometric chip to prove your identity"
+          "nextButtonText": "Use a passport with a biometric chip to prove your identity"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

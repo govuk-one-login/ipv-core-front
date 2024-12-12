@@ -9,6 +9,7 @@
 {% set errorTitle = 'pages.nonUkNoPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.nonUkNoPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#nonUkNoPassportForm" %}
+{% set showBack = true %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkNoPassport.header' | translate }}</h1>
@@ -32,7 +33,7 @@
         },
         {
           value: "back",
-          text: 'pages.nonUkNoPassport.content.formRadioButtons.backButtonText' | translate
+          text: 'pages.nonUkNoPassport.content.formRadioButtons.nextButtonText' | translate
         }
       ]
     } %}

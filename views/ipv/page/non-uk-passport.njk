@@ -1,0 +1,50 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.nonUkPassport.title' %}
+{% set googleTagManagerPageId = "nonUkPassport" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.nonUkPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.nonUkPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#nonUkPassportForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkPassport.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.nonUkPassport.content.paragraph1' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.nonUkPassport.content.details.summaryText' | translate,
+    html: 'pages.nonUkPassport.content.details.html' | translate
+  }) }}
+
+  <form id="nonUkPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "next",
+          text: 'pages.nonUkPassport.content.formRadioButtons.yesButtonText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.nonUkPassport.content.formRadioButtons.noButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.nonUkPassport.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

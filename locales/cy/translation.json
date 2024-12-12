@@ -1465,30 +1465,30 @@
           "html": "<p>To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.</p><picture><source srcset=\"/public/images/passport-icon.svg\"/><img width=\"174\" height=\"121\" loading=\"lazy\" src=\"/public/images/passport-icon-1x.png\" srcset=\"/public/images/passport-icon-2x.png 2x\" alt=\"The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.\" /></picture>"
         },
         "formRadioButtons": {
-          "yesButtonText": "Yes",
-          "noButtonText": "No"
+          "nextButtonText": "Yes",
+          "abandonButtonText": "No"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select if your passport has a symbol on the cover",
+          "errorRadioMessage": "Select if your passport has a symbol on the cover"
+        }
+      }
+    },
+    "nonUkNoPassport": {
+      "title": "You need to use a passport with a biometric chip to prove your identity",
+      "header": "You need to use a passport with a biometric chip to prove your identity",
+      "content": {
+        "paragraph1": "If you do not live in the UK, you can only prove your identity with GOV.UK One Login using a passport with a biometric chip.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
+          "useAppButtonText": "Use a passport with a biometric chip to prove your identity"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
-        }
-      },
-      "nonUkNoPassport": {
-        "title": "You need to use a passport with a biometric chip to prove your identity",
-        "header": "You need to use a passport with a biometric chip to prove your identity",
-        "content": {
-          "paragraph1": "If you do not live in the UK, you can only prove your identity with GOV.UK One Login using a passport with a biometric chip.",
-          "subHeading1": "What would you like to do?",
-          "formRadioButtons": {
-            "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
-            "nextButtonText": "Use a passport with a biometric chip to prove your identity"
-          },
-          "formErrorMessage": {
-            "errorSummaryTitleText": "There is a problem",
-            "errorSummaryDescriptionText": "Select what you would like to do",
-            "errorRadioMessage": "Select what you would like to do"
-          }
         }
       }
     }

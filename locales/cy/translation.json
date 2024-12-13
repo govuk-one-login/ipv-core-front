@@ -1462,7 +1462,7 @@
         "paragraph1": "You will need a passport with a biometric chip to prove your identity with GOV.UK One Login.",
         "details": {
           "summaryText": "How do I check if my passport has a biometric chip?",
-          "html": "<p>To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.</p><picture><source srcset=\"/public/images/passport-icon.svg\"/><img width=\"174\" height=\"121\" loading=\"lazy\" src=\"/public/images/passport-icon-1x.png\" srcset=\"/public/images/passport-icon-2x.png 2x\" alt=\"The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.\" /></picture>"
+          "paragraph1": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover."
         },
         "formRadioButtons": {
           "nextButtonText": "Yes",

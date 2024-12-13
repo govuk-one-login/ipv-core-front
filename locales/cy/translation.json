@@ -1454,6 +1454,27 @@
         }
       }
     },
+    "nonUkAppIntro": {
+      "title": "You need to prove your identity using a GOV.UK app",
+      "header": "You need to prove your identity using a GOV.UK app",
+      "content": {
+        "paragraph1": "You’ll need a:",
+        "list1": "passport with a biometric chip",
+        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "useAppButtonTextHint": "You’ll be told how to download and use the app",
+          "returnToServiceButtonText": "Go to the service you were trying to use",
+          "returnToServiceButtonTextHint": "Look for other ways to access the service if you cannot use the app."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "nonUkNoApp": {
       "title": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "header": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",

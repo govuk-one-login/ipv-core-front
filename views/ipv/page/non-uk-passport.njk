@@ -1,0 +1,63 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.nonUkPassport.title' %}
+{% set googleTagManagerPageId = "nonUkPassport" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.nonUkPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.nonUkPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#nonUkPassportForm" %}
+{% set showBack = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkPassport.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.nonUkPassport.content.paragraph1' | translate }}</p>
+
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        {{ 'pages.nonUkPassport.content.details.summaryText' | translate }}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      {{ 'pages.nonUkPassport.content.details.paragraph1' | translate }}
+    </div>
+    <div class="govuk-details__text">
+      <picture>
+        <source srcset="/public/images/passport-icon.svg"/>
+        <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle." />
+      </picture>
+    </div>
+  </details>
+
+  <form id="nonUkPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      items: [
+        {
+          value: "next",
+          text: 'pages.nonUkPassport.content.formRadioButtons.nextButtonText' | translate
+        },
+        {
+          value: "abandon",
+          text: 'pages.nonUkPassport.content.formRadioButtons.abandonButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.nonUkPassport.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

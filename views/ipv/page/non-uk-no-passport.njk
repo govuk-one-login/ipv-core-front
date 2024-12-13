@@ -1,0 +1,52 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.nonUkNoPassport.title' %}
+{% set googleTagManagerPageId = "nonUkNoPassport" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.nonUkNoPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.nonUkNoPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#nonUkNoPassportForm" %}
+{% set showBack = true %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkNoPassport.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.nonUkNoPassport.content.paragraph1' | translate }}</p>
+
+  <form id="nonUkNoPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.nonUkNoPassport.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "returnToRp",
+          text: 'pages.nonUkNoPassport.content.formRadioButtons.returnToRpButtonText' | translate
+        },
+        {
+          value: "useApp",
+          text: 'pages.nonUkNoPassport.content.formRadioButtons.useAppButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.nonUkNoPassport.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

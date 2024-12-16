@@ -10,6 +10,26 @@
   <form id="pageSelectForm" action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
+    {% set pageRadioOptionsConfig = [] %}
+    {% for page in templateRadioOptions %}
+      {% set conditional = {
+        html: govukRadios({idPrefix: "pageContext",
+        name: "pageContext",
+        classes: "govuk-radios--small",
+        fieldset: {
+            legend: {
+            text: 'Choose a context:',
+            classes: "govuk-fieldset__legend--s"
+            }
+        },
+        items: templateContextRadioOptions[page]})} if templateContextRadioOptions[page] else undefined %}
+      {% set pageRadioOptionsConfig = (pageRadioOptionsConfig.push({
+        text: page,
+        value: page,
+        conditional: conditional
+        }), pageRadioOptionsConfig) %}
+    {% endfor %}
+
     {{ govukRadios({
       name: "template",
       fieldset: {
@@ -18,7 +38,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: templateRadioOptions
+      items: pageRadioOptionsConfig
     }) }}
 
     {{ govukRadios({
@@ -50,15 +70,6 @@
           value: "true"
         }
       ]
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Context (optional)",
-        classes: "govuk-label--m"
-      },
-      id: "context",
-      name: "context"
     }) }}
 
     {{ govukButton({

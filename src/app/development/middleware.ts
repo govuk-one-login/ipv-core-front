@@ -13,13 +13,15 @@ import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import config from "../../config/config";
+import {pagesToTest} from "../../../browser-tests/data/pagesAndContexts";
 
 interface RadioOption {
   text: string;
   value: string;
 }
 
-let templateRadioOptions: RadioOption[];
+let templateRadioOptions: string[];
+let templateContextRadioOptions: Record<keyof typeof pagesToTest, RadioOption[]> = {};
 
 export const allTemplatesGet: RequestHandler = async (req, res) => {
   const directoryPath = path.resolve("views/ipv/page");
@@ -27,14 +29,22 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
   if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
     const templateFiles = await fs.readdir(directoryPath);
-    templateRadioOptions = templateFiles.map((file) => ({
-      text: path.parse(file).name,
-      value: path.parse(file).name,
-    }));
+    templateRadioOptions = templateFiles.map((file) => path.parse(file).name);
+  }
+
+  // Get all contexts for all pages and map to radio option objects
+  for (const page in pagesToTest) {
+    if (pagesToTest[page].length > 0 ) {
+      templateContextRadioOptions[page] = pagesToTest[page].map(context => ({
+        text: context || "No context",
+        value: context || ""
+      }))
+    }
   }
 
   res.render(getTemplatePath("development", "all-templates"), {
     templateRadioOptions: templateRadioOptions,
+    templateContextRadioOptions: templateContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
   });
 };
@@ -42,7 +52,7 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
 export const allTemplatesPost: RequestHandler = async (req, res) => {
   const templateId = req.body.template;
   const language = req.body.language;
-  const context = req.body.context;
+  const context = req.body.pageContext;
   const hasErrorState = req.body.hasErrorState;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;

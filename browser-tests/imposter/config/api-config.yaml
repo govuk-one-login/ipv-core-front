@@ -316,7 +316,8 @@ resources:
               "buildingNumber": "8",
               "addressLocality": "BATH",
               "validFrom": "1000-01-01",
-              "subBuildingName": ""
+              "subBuildingName": "",
+              "addressRegion": ""
             }
           ]
         }

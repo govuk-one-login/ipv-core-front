@@ -65,6 +65,7 @@ describe("handleJourneyPageRequest", () => {
               dependentAddressLocality: "my dependant town",
               addressLocality: "my town",
               postalCode: "myCode",
+              addressRegion: "myRegion",
             },
           ],
         },
@@ -90,7 +91,7 @@ describe("handleJourneyPageRequest", () => {
             {
               label: "Some label",
               addressDetailHtml:
-                "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town<br>myCode",
+                "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town myRegion<br>myCode",
             },
           ],
         }),

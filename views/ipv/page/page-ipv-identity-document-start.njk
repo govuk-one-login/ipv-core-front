@@ -20,10 +20,10 @@
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate }}</p>
   {{ govukInsetText({
     html: 'pages.pageIpvIdentityDocumentStart.content.insetText' | translate
   }) }}
+  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate | safe }}</p>
 
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

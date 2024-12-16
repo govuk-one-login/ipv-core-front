@@ -111,14 +111,14 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "Ar gyfer yr ap Welcome to GOV.UK  ID Check, gallwch ddefnyddio:",
-      "paragraph2": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
+      "paragraph2": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
+      "paragraph3": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
       "postOfficeDocumentList": [
         "trwydded yrru cerdyn-llun y DU",
         "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
         "pasbort y DU",
         "pasbort o’r tu allan i’r DU",
-        "Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)",
-        "Trwydded breswylio biometrig y DU (BRP)"
+        "Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)"
       ]
     }
   },
@@ -294,6 +294,18 @@
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph2": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+        "paragraph3": "Gallwch ddefnyddio:",
+        "detailsList": [
+          "trwydded yrru cerdyn-llun y DU",
+          "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
+          "pasbort y DU",
+          "pasbort o’r tu allan i’r DU",
+          "Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)",
+          "trwydded breswylio biometrig y DU (BRP)",
+          "cerdyn preswylio biometrig y DU (BRC)",
+          "trwydded Gweithiwr Ffiniol y DU (FWP)"
+        ],
+        "paragraph4": "Gallwch ond defnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda'r ap GOV.UK ID Check.",
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "radioButton1Text": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
@@ -1060,8 +1072,8 @@
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
         "paragraph1": "Gallwch ddefnyddio un o’r mathau canlynol o ID gyda llun:",
-        "insetText": "Darganfyddwch fwy am y gwahanol fathau o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ID gyda llun rydym yn ei dderbyn (agor mewn tab newydd)</a>",
-        "paragraph3": "Ni ddylai eich ID gyda llun fod wedi dod i ben.",
+        "insetText": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
+        "paragraph3": "Darganfyddwch fwy am y gwahanol fathau o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ID gyda llun rydym yn ei dderbyn (agor mewn tab newydd)</a>",
         "hint": "Bydd angen i chi gael eich ID gyda llun yn barod. Ni allwch ddefnyddio copi digidol neu lungopi.",
         "subHeading1": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
@@ -1093,12 +1105,15 @@
         ],
         "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
-        "subHeading4": "Trwydded breswylio biometrig y DU (BRP)",
-        "paragraph6": "Gallwch ddefnyddio trwydded breswyl biometrig  y DU (BRP) sydd heb ddod i ben. Efallai y bydd gennych BRP os oes gennych fisa am fwy na 6 mis neu ganiatâd amhenodol i aros.",
-        "subHeading5": "Cerdyn preswylio biometrig y DU (BRC)",
-        "paragraph7": "Gallwch ddefnyddio BRC sydd heb ddod i ben. Efallai y bydd gennych BRC os ydych yn y DU fel aelod o deulu dinesydd o wlad Ardal Economaidd Ewropeaidd (AEE).",
-        "subHeading6": "Trwydded Gweithiwr Ffiniol y DU (FWP)",
-        "paragraph8": "Gallwch ddefnyddio FWP sydd heb ddod i ben. Efallai y bydd gennych FWP os ydych yn gweithio yn y DU ond yn byw mewn gwlad arall."
+        "subHeading4": "Trwydded neu gerdyn breswylio biometrig y DU",
+        "paragraph6": "Gall hyn fod yn:",
+        "cardOrPermits": [
+          "trwydded breswylio biometrig (BRP)",
+          "cerdyn preswylio biometrig (BRC)",
+          "trwydded Gweithwyr Ffiniol (FWP)"
+        ],
+        "paragraph7": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
+        "insetText": "<h3 class='govuk-heading-s'>Er enghraifft</h3>os daeth eich BRP i ben ar 31 Hydref 2024, gallwch ei ddefnyddio i brofi eich hunaniaeth tan 30 Ebrill 2026."
       }
     },
     "pyiPostOffice": {
@@ -1118,11 +1133,9 @@
           "trwydded yrru cerdyn-llun yn y DU (llawn neu dros dro)",
           "pasbort y DU",
           "pasbort o’r tu allan i’r DU",
-          "trwydded breswylio biometrig y DU (BRP)",
           "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
           "cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)"
         ],
-        "insetText": "Ni allwch brofi eich hunaniaeth mewn Swyddfa Bost gyda thrwydded Gweithwyr Ffiniol (FWP) na cherdyn preswylio biometrig y DU (BRC), a elwir hefyd yn gerdyn preswylio yn y DU.",
         "subHeading2": "Oes gennych chi ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa’r Post?",
         "formRadioButtons": {
           "yes": "Oes",
@@ -1354,7 +1367,7 @@
           "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
           "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
           "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE), cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE), neu drwydded breswylio biometrig (BRP). Bydd hyn yn cymryd mwy o amser.",
+          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o'r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE) neu gerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE). Bydd hyn yn cymryd mwy o amser.",
           "divisor": "neu",
           "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
@@ -1479,7 +1492,7 @@
       "title": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "header": "Ni allwch brofi eich hunaniaeth gyda GOV.UK One Login",
       "content": {
-        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK. ",
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK.",
         "paragraph2": "I wneud hyn, rydych angen:",
         "list1": "pasbort gyda sglodyn biometrig",
         "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",

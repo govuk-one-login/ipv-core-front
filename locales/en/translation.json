@@ -111,14 +111,14 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK ID Check app, you can use a:",
-      "paragraph2": "At a Post Office, you can use a:",
+      "paragraph2": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app only.",
+      "paragraph3": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
         "European Union (EU) photocard driving licence",
         "UK passport",
         "non-UK passport",
-        "National identity card from a European Economic Area (EEA) country",
-        "UK biometric residence permit (BRP)"
+        "National identity card from a European Economic Area (EEA) country"
       ]
     }
   },
@@ -294,6 +294,18 @@
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
+        "paragraph3": "You can use a:",
+        "detailsList": [
+          "UK photocard driving licence",
+          "European Union (EU) photocard driving licence",
+          "UK passport",
+          "non-UK passport",
+          "National identity card from a European Economic Area (EEA) country",
+          "UK biometric residence permit (BRP)",
+          "UK biometric residence card (BRC)",
+          "UK Frontier Worker permit (FWP)"
+        ],
+        "paragraph4": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK ID Check app only.",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
@@ -989,8 +1001,8 @@
         "paragraph": "This will help us find the best way for you to prove your identity.",
         "subHeading": "UK photocard driving licence",
         "paragraph1": "You can use one of the following types of photo ID:",
-        "insetText": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
-        "paragraph3": "Your photo ID must not have expired.",
+        "insetText": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
+        "paragraph3": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
         "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",
         "subHeading1": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
@@ -1022,12 +1034,15 @@
         ],
         "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
         "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
-        "subHeading4": "UK biometric residence permit (BRP)",
-        "paragraph6": "You can use a UK biometric resident permit (BRP) that has not expired. You might have a BRP if you have a visa for longer than 6 months or indefinite leave to remain.",
-        "subHeading5": "UK biometric residence card (BRC)",
-        "paragraph7": "You can use a BRC that has not expired. You might have a BRC if you’re in the UK as a family member of a citizen from a European Economic Area (EEA) country.",
-        "subHeading6": "UK Frontier Worker permit (FWP)",
-        "paragraph8": "You can use an FWP that has not expired. You might have an FWP if you work in the UK but live in another country."
+        "subHeading4": "UK biometric residence permit or card",
+        "paragraph6": "This can be a:",
+        "cardOrPermits": [
+          "biometric residence permit (BRP)",
+          "biometric residence card (BRC)",
+          "Frontier Worker permit (FWP)"
+        ],
+        "paragraph7": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
+        "insetText": "<h3 class='govuk-heading-s'>Example</h3>If your BRP expired on 31 October 2024, you can use it to prove your identity until 30 April 2026."
       }
     },
     "pageIpvIdentityPostofficeStart": {
@@ -1118,11 +1133,9 @@
           "a UK photocard driving licence (full or provisional)",
           "a UK passport",
           "a non-UK passport",
-          "a UK biometric residence permit (BRP)",
           "a European Union (EU) photocard driving licence",
           "a national identity card from a European Economic Area (EEA) country"
         ],
-        "insetText": "You cannot prove your identity at a Post Office with a Frontier Worker permit (FWP) or a UK biometric residence card (BRC), also called a UK residence card.",
         "subHeading2": "Do you have photo ID you can use at a Post Office?",
         "formRadioButtons": {
           "yes": "Yes",
@@ -1354,7 +1367,7 @@
           "backButtonTextHintDrivingLicence": "You can prove your identity by entering your UK passport details and answering security questions.",
           "backButtonTextHintPassport": "You can prove your identity by entering your UK photocard driving licence details and answering security questions.",
           "otherPhotoIdButtonText": "Try using another type of photo ID",
-          "otherPhotoIdButtonTextHint": "You may be able to prove your identity another way if you have a non-UK passport, a European Union (EU) photocard driving licence, a national identity card from a European Economic Area (EEA) country, or a biometric residence permit (BRP). This will take longer.",
+          "otherPhotoIdButtonTextHint": "You may be able to prove your identity another way if you have a non-UK passport, a European Union (EU) photocard driving licence, or a national identity card from a European Economic Area (EEA) country. This will take longer.",
           "divisor": "or",
           "returnToRpButtonText": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },

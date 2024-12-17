@@ -36,7 +36,13 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   }
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
-  for (const page in pagesAndContexts) {
+  for (const page of templates) {
+    if (!pagesAndContexts[page]) {
+      throw new Error(
+        `Page ${page} does not exist in the template and context mapping.`,
+      );
+    }
+
     templatesWithContextRadioOptions[page] = pagesAndContexts[page].map(
       (context) => ({
         text: context || "No context",
@@ -51,13 +57,14 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   });
 };
 
-export const checkRequiredOptionsAreSelected: RequestHandler = async (
+export const checkRequiredOptionsAreSelected: RequestHandler = (
   req,
   res,
   next,
 ) => {
   if (
     req.body.template === undefined ||
+    Object.keys(templatesWithContextRadioOptions).length === 0 ||
     (templatesWithContextRadioOptions[req.body.template].length > 0 &&
       req.body.pageContext === undefined)
   ) {

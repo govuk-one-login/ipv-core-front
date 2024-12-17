@@ -13,7 +13,7 @@ import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import config from "../../config/config";
-import { pagesToTest } from "../../../browser-tests/data/pagesAndContexts";
+import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
 
 interface RadioOption {
   text: string;
@@ -22,7 +22,7 @@ interface RadioOption {
 
 let templates: string[];
 const templatesWithContextRadioOptions: Record<
-  keyof typeof pagesToTest,
+  keyof typeof pagesAndContexts,
   RadioOption[]
 > = {};
 
@@ -36,8 +36,8 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   }
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
-  for (const page in pagesToTest) {
-    templatesWithContextRadioOptions[page] = pagesToTest[page].map(
+  for (const page in pagesAndContexts) {
+    templatesWithContextRadioOptions[page] = pagesAndContexts[page].map(
       (context) => ({
         text: context || "No context",
         value: context || "",

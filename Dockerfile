@@ -12,7 +12,6 @@ COPY /assets ./assets
 RUN npm run build
 
 # Build code
-COPY /browser-tests/data ./browser-tests/data
 COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views

@@ -13,7 +13,7 @@ import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import config from "../../config/config";
-import {pagesToTest} from "../../../browser-tests/data/pagesAndContexts";
+import { pagesToTest } from "../../../browser-tests/data/pagesAndContexts";
 
 interface RadioOption {
   text: string;
@@ -21,7 +21,10 @@ interface RadioOption {
 }
 
 let templateRadioOptions: string[];
-let templateContextRadioOptions: Record<keyof typeof pagesToTest, RadioOption[]> = {};
+const templateContextRadioOptions: Record<
+  keyof typeof pagesToTest,
+  RadioOption[]
+> = {};
 
 export const allTemplatesGet: RequestHandler = async (req, res) => {
   const directoryPath = path.resolve("views/ipv/page");
@@ -34,11 +37,11 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
 
   // Get all contexts for all pages and map to radio option objects
   for (const page in pagesToTest) {
-    if (pagesToTest[page].length > 0 ) {
-      templateContextRadioOptions[page] = pagesToTest[page].map(context => ({
+    if (pagesToTest[page].length > 0) {
+      templateContextRadioOptions[page] = pagesToTest[page].map((context) => ({
         text: context || "No context",
-        value: context || ""
-      }))
+        value: context || "",
+      }));
     }
   }
 
@@ -54,7 +57,11 @@ export const checkRequiredOptionsAreSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  if (req.body.template === undefined || (templateContextRadioOptions[req.body.template] && req.body.pageContext === undefined)) {
+  if (
+    req.body.template === undefined ||
+    (templateContextRadioOptions[req.body.template] &&
+      req.body.pageContext === undefined)
+  ) {
     res.locals.allTemplatesPageError = true;
   }
   return next();
@@ -66,7 +73,7 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
       templateRadioOptions: templateRadioOptions,
       templateContextRadioOptions: templateContextRadioOptions,
       csrfToken: req.csrfToken?.(true),
-      errorState: true
+      errorState: true,
     });
   }
 

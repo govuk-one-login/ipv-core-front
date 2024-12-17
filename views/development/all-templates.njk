@@ -14,8 +14,8 @@
   <form id="pageSelectForm" action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
-    {% set pageRadioOptionsConfig = [] %}
-    {% for page in templateRadioOptions %}
+    {% set templateRadioConfig = [] %}
+    {% for page, contexts in templatesWithContextRadioOptions %}
       {% set conditional = {
         html: govukRadios({idPrefix: "pageContext",
         name: "pageContext",
@@ -26,12 +26,12 @@
             classes: "govuk-fieldset__legend--s"
             }
         },
-        items: templateContextRadioOptions[page]})} if templateContextRadioOptions[page] else undefined %}
-      {% set pageRadioOptionsConfig = (pageRadioOptionsConfig.push({
-        text: page,
-        value: page,
-        conditional: conditional
-        }), pageRadioOptionsConfig) %}
+        items: contexts})} if contexts|length else undefined %}
+      {% set templateRadioConfig = (templateRadioConfig.push({
+          text: page,
+          value: page,
+          conditional: conditional
+        }), templateRadioConfig) %}
     {% endfor %}
 
     {{ govukRadios({
@@ -42,7 +42,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: pageRadioOptionsConfig
+      items: templateRadioConfig
     }) }}
 
     {{ govukRadios({

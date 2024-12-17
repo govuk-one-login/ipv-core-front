@@ -20,8 +20,8 @@ interface RadioOption {
   value: string;
 }
 
-let templateRadioOptions: string[];
-const templateContextRadioOptions: Record<
+let templates: string[];
+const templatesWithContextRadioOptions: Record<
   keyof typeof pagesToTest,
   RadioOption[]
 > = {};
@@ -30,24 +30,21 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   const directoryPath = path.resolve("views/ipv/page");
 
   // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
-  if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
+  if (!config.TEMPLATE_CACHING || !templates) {
     const templateFiles = await fs.readdir(directoryPath);
-    templateRadioOptions = templateFiles.map((file) => path.parse(file).name);
+    templates = templateFiles.map((file) => path.parse(file).name);
   }
 
-  // Get all contexts for all pages and map to radio option objects
+  // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
   for (const page in pagesToTest) {
-    if (pagesToTest[page].length > 0) {
-      templateContextRadioOptions[page] = pagesToTest[page].map((context) => ({
-        text: context || "No context",
-        value: context || "",
-      }));
-    }
+    templatesWithContextRadioOptions[page] = pagesToTest[page].map((context) => ({
+      text: context || "No context",
+      value: context || "",
+    }));
   }
 
   res.render(getTemplatePath("development", "all-templates"), {
-    templateRadioOptions: templateRadioOptions,
-    templateContextRadioOptions: templateContextRadioOptions,
+    templatesWithContextRadioOptions: templatesWithContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
   });
 };
@@ -59,7 +56,7 @@ export const checkRequiredOptionsAreSelected: RequestHandler = async (
 ) => {
   if (
     req.body.template === undefined ||
-    (templateContextRadioOptions[req.body.template] &&
+    (templatesWithContextRadioOptions[req.body.template].length > 0 &&
       req.body.pageContext === undefined)
   ) {
     res.locals.allTemplatesPageError = true;
@@ -70,8 +67,7 @@ export const checkRequiredOptionsAreSelected: RequestHandler = async (
 export const allTemplatesPost: RequestHandler = async (req, res) => {
   if (res.locals.allTemplatesPageError) {
     return res.render(getTemplatePath("development", "all-templates"), {
-      templateRadioOptions: templateRadioOptions,
-      templateContextRadioOptions: templateContextRadioOptions,
+      templatesWithContextRadioOptions: templatesWithContextRadioOptions,
       csrfToken: req.csrfToken?.(true),
       errorState: true,
     });

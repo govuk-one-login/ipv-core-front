@@ -37,10 +37,12 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
   for (const page in pagesToTest) {
-    templatesWithContextRadioOptions[page] = pagesToTest[page].map((context) => ({
-      text: context || "No context",
-      value: context || "",
-    }));
+    templatesWithContextRadioOptions[page] = pagesToTest[page].map(
+      (context) => ({
+        text: context || "No context",
+        value: context || "",
+      }),
+    );
   }
 
   res.render(getTemplatePath("development", "all-templates"), {

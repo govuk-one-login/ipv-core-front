@@ -49,7 +49,27 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   });
 };
 
+export const checkRequiredOptionsAreSelected: RequestHandler = async (
+  req,
+  res,
+  next,
+) => {
+  if (req.body.template === undefined || (templateContextRadioOptions[req.body.template] && req.body.pageContext === undefined)) {
+    res.locals.allTemplatesPageError = true;
+  }
+  return next();
+};
+
 export const allTemplatesPost: RequestHandler = async (req, res) => {
+  if (res.locals.allTemplatesPageError) {
+    return res.render(getTemplatePath("development", "all-templates"), {
+      templateRadioOptions: templateRadioOptions,
+      templateContextRadioOptions: templateContextRadioOptions,
+      csrfToken: req.csrfToken?.(true),
+      errorState: true
+    });
+  }
+
   const templateId = req.body.template;
   const language = req.body.language;
   const context = req.body.pageContext;

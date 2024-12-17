@@ -6,6 +6,10 @@
 {% extends "shared/base.njk" %}
 {% set pageTitleKey = "All templates" %}
 
+{% if errorState %}
+    {% set errorText = 'Select a page and a context if appropriate.' %}
+{% endif %}
+
 {% block content %}
   <form id="pageSelectForm" action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

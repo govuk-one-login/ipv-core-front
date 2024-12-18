@@ -49,6 +49,9 @@ const extractAddressFields = (
   if (address.addressLocality) {
     localityNames.push(address.addressLocality);
   }
+  if (address.addressRegion) {
+    localityNames.push(address.addressRegion);
+  }
   return { buildingNames, streetNames, localityNames };
 };
 

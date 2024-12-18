@@ -43,6 +43,7 @@ export const samplePersistedUserDetails = {
       dependentAddressLocality: "University Quarter",
       addressLocality: "Lancaster",
       postalCode: "M12 7LU",
+      addressRegion: "Lancashire",
     },
     // example addresses
     {

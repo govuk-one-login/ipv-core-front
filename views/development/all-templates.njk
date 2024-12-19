@@ -6,9 +6,40 @@
 {% extends "shared/base.njk" %}
 {% set pageTitleKey = "All templates" %}
 
+{% if errorState %}
+    {% set errorText = 'Select a page and a context if appropriate.' %}
+{% endif %}
+
 {% block content %}
   <form id="pageSelectForm" action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% set templateRadioConfig = [] %}
+    {% for page, contexts in templatesWithContextRadioOptions %}
+      {% set contextRadioId = ['pageContext', page] | join %}
+      {% set conditional = {
+        html: govukRadios({
+          idPrefix: contextRadioId,
+          name: 'pageContext',
+          classes: "govuk-radios--small",
+          fieldset: {
+            legend: {
+              text: 'Choose a context:',
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: contexts })
+      } if contexts | length else undefined %}
+
+      {% set templateRadioConfig = (
+          templateRadioConfig.push({
+            text: page,
+            value: page,
+            conditional: conditional
+          }),
+          templateRadioConfig ) %}
+
+    {% endfor %}
 
     {{ govukRadios({
       name: "template",
@@ -18,7 +49,7 @@
           classes: "govuk-fieldset__legend--m"
         }
       },
-      items: templateRadioOptions
+      items: templateRadioConfig
     }) }}
 
     {{ govukRadios({
@@ -50,15 +81,6 @@
           value: "true"
         }
       ]
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Context (optional)",
-        classes: "govuk-label--m"
-      },
-      id: "context",
-      name: "context"
     }) }}
 
     {{ govukButton({

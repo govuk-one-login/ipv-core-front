@@ -49,21 +49,10 @@ describe("allTemplatesGet", () => {
       },
     );
   });
-
-  it("should throw if template does not have a template-context mapping", async () => {
-    // Arrange
-    fsReadDirStub.readdir.resolves(["non-mapped-template.njk"]);
-
-    // Act/Assert
-    await expect(middleware.allTemplatesGet(req, res)).to.be.rejectedWith(
-      Error,
-      "Page non-mapped-template does not exist in the template and context mapping.",
-    );
-  });
 });
 
-describe("checkRequiredOptionsAreSelected", () => {
-  const next: any = sinon.fake();
+describe("allTemplatesPost", () => {
+  const res = createResponse();
 
   [
     {
@@ -71,84 +60,37 @@ describe("checkRequiredOptionsAreSelected", () => {
       req: createRequest({ body: { template: undefined } }),
     },
     {
-      testCase: "a template is chosen but a context is not",
+      testCase:
+        "a template is chosen but a context is not if there are context options",
       req: createRequest({
         body: { template: "another-template", pageContext: undefined },
       }),
     },
   ].forEach(({ testCase, req }) => {
-    it(`should set error state to true when ${testCase}`, async () => {
-      // Arrange
-      const res = createResponse();
-      // This will set the cached values for the template-context mapping and the template names
-      await middleware.allTemplatesGet(req, res);
-
+    it(`should render the all-templates page when ${testCase}`, async () => {
       // Act
-      middleware.checkRequiredOptionsAreSelected(req, res, next);
+      middleware.allTemplatesPost(req, res);
 
       // Assert
-      expect(res.locals.allTemplatesPageError).to.be.true;
-      expect(next).to.have.been.called;
-    });
-  });
-
-  it("should not set the error state when template and context have been selected", async () => {
-    // Arrange
-    const res = createResponse();
-    const req = createRequest({
-      body: { template: "another-template", pageContext: "context" },
-    });
-
-    // This will set the cached values for the template-context mapping and the template names
-    await middleware.allTemplatesGet(req, res);
-
-    // Act
-    middleware.checkRequiredOptionsAreSelected(req, res, next);
-
-    // Assert
-    expect(res.locals.allTemplatesPageError).to.equal(undefined);
-    expect(next).to.have.been.called;
-  });
-});
-
-describe("allTemplatesPost", () => {
-  const res = createResponse();
-
-  beforeEach(async () => {
-    // This will set the cached values for the template-context mapping and the template names
-    const req = createRequest();
-    await middleware.allTemplatesGet(req, res);
-  });
-
-  it("should render the all-templates page when error state has been set", async () => {
-    // Arrange
-    const req = createRequest();
-    const res = createResponse({
-      locals: { allTemplatesPageError: true },
-    });
-
-    // Act
-    await middleware.allTemplatesPost(req, res);
-
-    // Assert
-    expect(res.render).to.have.been.calledWith(
-      "development/all-templates.njk",
-      {
-        templatesWithContextRadioOptions: {
-          "some-template": [],
-          "another-template": [
-            { text: "context", value: "context" },
-            { text: "No context", value: "" },
-          ],
+      expect(res.render).to.have.been.calledWith(
+        "development/all-templates.njk",
+        {
+          templatesWithContextRadioOptions: {
+            "some-template": [],
+            "another-template": [
+              { text: "context", value: "context" },
+              { text: "No context", value: "" },
+            ],
+          },
+          csrfToken: undefined,
+          errorState: true,
         },
-        csrfToken: undefined,
-        errorState: true,
-      },
-    );
-    expect(res.redirect).to.not.be.called;
+      );
+      expect(res.redirect).to.not.be.called;
+    });
   });
 
-  it("should redirect to the correct url if no error is set", async () => {
+  it("should redirect to the correct url if template and context have been chosen", async () => {
     // Arrange
     const req = createRequest({
       body: {
@@ -167,6 +109,27 @@ describe("allTemplatesPost", () => {
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledWith(
       "/dev/template/another-template/en?context=context",
+    );
+  });
+
+  it("should redirect to the correct url if template is chosen with no available contexts", async () => {
+    // Arrange
+    const req = createRequest({
+      body: {
+        template: "some-template",
+        language: "en",
+        hasErrorState: false,
+      },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.allTemplatesPost(req, res);
+
+    // Assert
+    expect(res.render).to.not.have.been.called;
+    expect(res.redirect).to.have.been.calledWith(
+      "/dev/template/some-template/en",
     );
   });
 });

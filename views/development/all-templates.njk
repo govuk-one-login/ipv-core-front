@@ -16,22 +16,29 @@
 
     {% set templateRadioConfig = [] %}
     {% for page, contexts in templatesWithContextRadioOptions %}
+      {% set contextRadioId = ['pageContext', page] | join %}
       {% set conditional = {
-        html: govukRadios({idPrefix: "pageContext",
-        name: "pageContext",
-        classes: "govuk-radios--small",
-        fieldset: {
+        html: govukRadios({
+          idPrefix: contextRadioId,
+          name: 'pageContext',
+          classes: "govuk-radios--small",
+          fieldset: {
             legend: {
-            text: 'Choose a context:',
-            classes: "govuk-fieldset__legend--s"
+              text: 'Choose a context:',
+              classes: "govuk-fieldset__legend--s"
             }
-        },
-        items: contexts})} if contexts|length else undefined %}
-      {% set templateRadioConfig = (templateRadioConfig.push({
-          text: page,
-          value: page,
-          conditional: conditional
-        }), templateRadioConfig) %}
+          },
+          items: contexts })
+      } if contexts | length else undefined %}
+
+      {% set templateRadioConfig = (
+          templateRadioConfig.push({
+            text: page,
+            value: page,
+            conditional: conditional
+          }),
+          templateRadioConfig ) %}
+
     {% endfor %}
 
     {{ govukRadios({

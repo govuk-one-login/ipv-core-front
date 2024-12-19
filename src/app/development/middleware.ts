@@ -1,5 +1,3 @@
-import fs from "fs/promises";
-import path from "path";
 import { RequestHandler } from "express";
 import sanitize from "sanitize-filename";
 import {
@@ -12,7 +10,6 @@ import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
-import config from "../../config/config";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
 
 interface RadioOption {
@@ -20,36 +17,8 @@ interface RadioOption {
   value: string;
 }
 
-let templates: string[];
-const templatesWithContextRadioOptions: Record<
-  keyof typeof pagesAndContexts,
-  RadioOption[]
-> = {};
-
 export const allTemplatesGet: RequestHandler = async (req, res) => {
-  const directoryPath = path.resolve("views/ipv/page");
-
-  // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
-  if (!config.TEMPLATE_CACHING || !templates) {
-    const templateFiles = await fs.readdir(directoryPath);
-    templates = templateFiles.map((file) => path.parse(file).name);
-  }
-
-  // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
-  for (const page of templates) {
-    if (!pagesAndContexts[page]) {
-      throw new Error(
-        `Page ${page} does not exist in the template and context mapping.`,
-      );
-    }
-
-    templatesWithContextRadioOptions[page] = pagesAndContexts[page].map(
-      (context) => ({
-        text: context || "No context",
-        value: context || "",
-      }),
-    );
-  }
+  const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
 
   res.render(getTemplatePath("development", "all-templates"), {
     templatesWithContextRadioOptions: templatesWithContextRadioOptions,
@@ -57,24 +26,36 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   });
 };
 
-export const checkRequiredOptionsAreSelected: RequestHandler = (
-  req,
-  res,
-  next,
-) => {
-  if (
-    req.body.template === undefined ||
-    Object.keys(templatesWithContextRadioOptions).length === 0 ||
-    (templatesWithContextRadioOptions[req.body.template].length > 0 &&
-      req.body.pageContext === undefined)
-  ) {
-    res.locals.allTemplatesPageError = true;
+const getMappedPageContextRadioOptions = (): Record<
+  keyof typeof pagesAndContexts,
+  RadioOption[]
+> => {
+  const templatesWithContextRadioOptions: Record<
+    keyof typeof pagesAndContexts,
+    RadioOption[]
+  > = {};
+
+  // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
+  for (const [page, contexts] of Object.entries(pagesAndContexts)) {
+    templatesWithContextRadioOptions[page] = contexts.map((context) => ({
+      text: context ?? "No context",
+      value: context ?? "",
+    }));
   }
-  return next();
+
+  return templatesWithContextRadioOptions;
 };
 
 export const allTemplatesPost: RequestHandler = async (req, res) => {
-  if (res.locals.allTemplatesPageError) {
+  const context = req.body.pageContext;
+  const templateId = req.body.template;
+
+  if (
+    templateId === undefined ||
+    (pagesAndContexts[req.body.template].length > 0 && context === undefined)
+  ) {
+    const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
+
     return res.render(getTemplatePath("development", "all-templates"), {
       templatesWithContextRadioOptions: templatesWithContextRadioOptions,
       csrfToken: req.csrfToken?.(true),
@@ -82,9 +63,7 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
     });
   }
 
-  const templateId = req.body.template;
   const language = req.body.language;
-  const context = req.body.pageContext;
   const hasErrorState = req.body.hasErrorState;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;

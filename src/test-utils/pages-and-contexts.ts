@@ -12,7 +12,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "non-uk-no-app": [],
   "non-uk-no-passport": [],
   "non-uk-passport": [],
-  "page-dcmaw-success": ["coiNoAddress"],
+  "page-dcmaw-success": ["coiNoAddress", undefined],
   "page-face-to-face-handoff": [],
   "page-ipv-identity-document-start": [],
   "page-ipv-identity-document-types": [],

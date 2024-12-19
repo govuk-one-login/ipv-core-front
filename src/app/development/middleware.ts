@@ -1,5 +1,3 @@
-import fs from "fs/promises";
-import path from "path";
 import { RequestHandler } from "express";
 import sanitize from "sanitize-filename";
 import {
@@ -12,37 +10,60 @@ import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
-import config from "../../config/config";
+import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
 
 interface RadioOption {
   text: string;
   value: string;
 }
 
-let templateRadioOptions: RadioOption[];
-
 export const allTemplatesGet: RequestHandler = async (req, res) => {
-  const directoryPath = path.resolve("views/ipv/page");
-
-  // Load available templates and convert into radio option objects for the GOV.UK Design System nunjucks template
-  if (!config.TEMPLATE_CACHING || !templateRadioOptions) {
-    const templateFiles = await fs.readdir(directoryPath);
-    templateRadioOptions = templateFiles.map((file) => ({
-      text: path.parse(file).name,
-      value: path.parse(file).name,
-    }));
-  }
+  const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
 
   res.render(getTemplatePath("development", "all-templates"), {
-    templateRadioOptions: templateRadioOptions,
+    templatesWithContextRadioOptions: templatesWithContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
   });
 };
 
+const getMappedPageContextRadioOptions = (): Record<
+  keyof typeof pagesAndContexts,
+  RadioOption[]
+> => {
+  const templatesWithContextRadioOptions: Record<
+    keyof typeof pagesAndContexts,
+    RadioOption[]
+  > = {};
+
+  // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
+  for (const [page, contexts] of Object.entries(pagesAndContexts)) {
+    templatesWithContextRadioOptions[page] = contexts.map((context) => ({
+      text: context ?? "No context",
+      value: context ?? "",
+    }));
+  }
+
+  return templatesWithContextRadioOptions;
+};
+
 export const allTemplatesPost: RequestHandler = async (req, res) => {
+  const context = req.body.pageContext;
   const templateId = req.body.template;
+
+  if (
+    templateId === undefined ||
+    (pagesAndContexts[req.body.template].length > 0 && context === undefined)
+  ) {
+    const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
+
+    return res.render(getTemplatePath("development", "all-templates"), {
+      templatesWithContextRadioOptions: templatesWithContextRadioOptions,
+      csrfToken: req.csrfToken?.(true),
+      errorState: true,
+    });
+  }
+
   const language = req.body.language;
-  const context = req.body.context;
   const hasErrorState = req.body.hasErrorState;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;

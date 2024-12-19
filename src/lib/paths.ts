@@ -16,3 +16,8 @@ export function getTemplatePath(...pathComponents: string[]): string {
   const pageId = pathComponents.splice(-1, 1);
   return path.join(...pathComponents, `${pageId}.njk`);
 }
+
+export function getHtmlPath(...pathComponents: string[]): string {
+    const pageId = pathComponents.splice(-1, 1);
+    return path.join(...pathComponents, `${pageId}.html`);
+}

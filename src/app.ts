@@ -76,10 +76,10 @@ const protectConfig: ProtectionConfig = {
   production: process.env.NODE_ENV === "production",
   clientRetrySecs: 1,
   sampleInterval: 5,
-  maxEventLoopDelay: 400,
+  maxEventLoopDelay: 1,
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
-  errorPropagationMode: false,
+  errorPropagationMode: true,
   logging: "error",
 };
 const overloadProtection = protect("express", protectConfig);

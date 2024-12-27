@@ -1566,6 +1566,71 @@ Resources:
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 
+  FrontLoadBalancer503LoadBalancerError:
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: "FrontLoadBalancer503Alarm"
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: []
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e503
+          Label: Sum-of-503-Errors
+          Expression: SUM(METRICS())
+        - Id: m503
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: "AWS/ApplicationELB"
+              MetricName: "HTTPCode_ELB_503_Count"
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+            Period: 60
+            Stat: Sum
+
+  FrontLoadBalancer503TargetGroupError:
+    Condition: IsNotDevelopment
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: "FrontTargetGroup503Alarm"
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue sns-topics-AlarmTopic
+      OKActions:
+        - !ImportValue sns-topics-AlarmTopic
+      InsufficientDataActions: []
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e503
+          Label: Sum-of-503-Errors
+          ReturnData: true
+          Expression: SUM(METRICS())
+        - Id: m503
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: HTTPCode_Target_5XX_Count
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+            Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
+            Stat: Sum
+
   FrontTargetGroup5xxPercentErrors:
     # This is used by the canary deployment stack
     Type: AWS::CloudWatch::Alarm
@@ -1950,38 +2015,6 @@ Resources:
                   Value: !GetAtt CoreFrontService.Name
             Period: 60
             Stat: Maximum
-
-  FrontLoadBalancer503Alarm:
-    Condition: IsNotDevelopment
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      AlarmName: "FrontLoadBalancer503Alarm"
-      ActionsEnabled: true
-      AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
-      OKActions:
-        - !ImportValue sns-topics-AlarmTopic
-      InsufficientDataActions: []
-      EvaluationPeriods: 2
-      DatapointsToAlarm: 2
-      Threshold: 1
-      ComparisonOperator: GreaterThanOrEqualToThreshold
-      TreatMissingData: notBreaching
-      Metrics:
-        - Id: e503
-          Label: Sum-of-503-Errors
-          Expression: SUM(METRICS())
-        - Id: m503
-          ReturnData: false
-          MetricStat:
-            Metric:
-              Namespace: "AWS/ApplicationELB"
-              MetricName: "HTTPCode_ELB_503_Count"
-              Dimensions:
-                - Name: LoadBalancer
-                  Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
-            Period: 60
-            Stat: Sum
 
   ECSBlueGreenDeploymentStack:
     Type: AWS::CloudFormation::Stack

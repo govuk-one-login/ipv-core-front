@@ -1468,23 +1468,23 @@
       }
     },
     "nonUkAppIntro": {
-      "title": "You need to prove your identity using a GOV.UK app",
-      "header": "You need to prove your identity using a GOV.UK app",
+      "title": "Mae angen i chi brofi eich hunaniaeth gan ddefnyddio ap GOV.UK",
+      "header": "Mae angen i chi brofi eich hunaniaeth gan ddefnyddio ap GOV.UK",
       "content": {
-        "paragraph1": "You’ll need a:",
-        "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "Byddwch angen:",
+        "list1": "pasbort gyda sglodyn biometrig",
+        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useAppButtonText": "Prove your identity with the GOV.UK ID Check app",
-          "useAppButtonTextHint": "You’ll be told how to download and use the app",
-          "returnToServiceButtonText": "Go to the service you were trying to use",
-          "returnToServiceButtonTextHint": "Look for other ways to access the service if you cannot use the app."
+          "useAppButtonText": "Profi eich hunaniaeth gyda'r ap GOV.UK  ID Check",
+          "useAppButtonTextHint": "Byddwch yn cael gwybod sut i lawrlwytho a defnyddio'r ap",
+          "returnToServiceButtonText": "Mynd i'r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToServiceButtonTextHint": "Chwilio am ffyrdd eraill o gael mynediad i'r gwasanaeth os na allwch ddefnyddio'r ap."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

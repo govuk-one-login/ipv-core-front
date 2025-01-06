@@ -3,7 +3,7 @@ import path from "path";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import connect from "connect-dynamodb";
 import cookieParser from "cookie-parser";
-import express from "express";
+import express, { NextFunction } from "express";
 import session, { Store as SessionStore } from "express-session";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
@@ -30,6 +30,7 @@ import {
 import { csrfSynchronisedProtection } from "./lib/csrf";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
 import protect, { ProtectionConfig } from "overload-protection";
+import { Request, Response } from "express";
 
 // Extend request object with our own extensions
 declare global {
@@ -209,7 +210,12 @@ router.use("/credential-issuer", criRouter);
 router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
-  router.use("/dev", devRouter);
+  router.use("/dev", (req: Request, res: Response, next: NextFunction) => {
+    res.set({
+      'Content-Security-Policy': 'frame-ancestors https://govuk-one-login.github.io/ipv-core-back http://localhost:3000'
+    })
+    next();
+  }, devRouter);
 }
 
 app.use(router);

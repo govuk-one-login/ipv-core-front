@@ -211,9 +211,9 @@ router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", (req: Request, res: Response, next: NextFunction) => {
-    res.set({
-      'Content-Security-Policy': 'frame-ancestors https://govuk-one-login.github.io/ipv-core-back http://localhost:3000'
-    })
+    res.setHeader(
+      'Content-Security-Policy', 'frame-ancestors https://govuk-one-login.github.io/ipv-core-back http://localhost:3000'
+    )
     next();
   }, devRouter);
 }

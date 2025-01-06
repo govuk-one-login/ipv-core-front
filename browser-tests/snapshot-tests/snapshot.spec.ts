@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 import {
-  iteratePagesAndContexts,
-  pagesToTest,
+  iteratePagesAndContexts
 } from "../data/pagesAndContexts";
+import { pagesAndContexts } from "../../src/test-utils/pages-and-contexts";
 
 test.describe.parallel("Snapshot tests", () => {
   test.setTimeout(120000);
@@ -45,7 +45,7 @@ test.describe.parallel("Snapshot tests", () => {
         throw err;
       }
 
-      const testedTemplates = Object.keys(pagesToTest);
+      const testedTemplates = Object.keys(pagesAndContexts);
 
       for (const file of files) {
         const templateName = path.parse(file).name;

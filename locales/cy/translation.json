@@ -1476,10 +1476,10 @@
         "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useAppButtonText": "Profi eich hunaniaeth gyda'r ap GOV.UK  ID Check",
-          "useAppButtonTextHint": "Byddwch yn cael gwybod sut i lawrlwytho a defnyddio'r ap",
-          "returnToServiceButtonText": "Mynd i'r gwasanaeth rydych yn ceisio ei ddefnyddio",
-          "returnToServiceButtonTextHint": "Chwilio am ffyrdd eraill o gael mynediad i'r gwasanaeth os na allwch ddefnyddio'r ap."
+          "useAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK  ID Check",
+          "useAppButtonTextHint": "Byddwch yn cael gwybod sut i lawrlwytho a defnyddio’r ap",
+          "returnToServiceButtonText": "Mynd i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToServiceButtonTextHint": "Chwilio am ffyrdd eraill o gael mynediad i’r gwasanaeth os na allwch ddefnyddio’r ap."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

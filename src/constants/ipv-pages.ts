@@ -18,6 +18,8 @@ const IPV_PAGES = Object.freeze({
   PAGE_DRIVING_LICENCE_DETAILS_NOT_CORRECT:
     "uk-driving-licence-details-not-correct",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
+  PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
+  "photo-id-security-questions-find-another-way",
   PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
   PROVE_IDENTITY_ANOTHER_WAY: "prove-identity-another-way",
   PYI_ANOTHER_WAY: "pyi-another-way",
@@ -25,8 +27,6 @@ const IPV_PAGES = Object.freeze({
   PYI_CONFIRM_DELETE_DETAILS: "pyi-confirm-delete-details",
   PYI_CONTINUE_WITH_DRIVING_LICENCE: "pyi-continue-with-driving-licence",
   PYI_CONTINUE_WITH_PASSPORT: "pyi-continue-with-passport",
-  PYI_CRI_ESCAPE: "pyi-cri-escape",
-  PYI_CRI_ESCAPE_NO_F2F: "pyi-cri-escape-no-f2f",
   PYI_DETAILS_DELETED: "pyi-details-deleted",
   PYI_DRIVING_LICENCE_NO_MATCH: "pyi-driving-licence-no-match",
   PYI_DRIVING_LICENCE_NO_MATCH_ANOTHER_WAY:
@@ -39,8 +39,6 @@ const IPV_PAGES = Object.freeze({
   PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",
   PYI_PASSPORT_NO_MATCH_ANOTHER_WAY: "pyi-passport-no-match-another-way",
   PYI_POST_OFFICE: "pyi-post-office",
-  PYI_SUGGEST_OTHER_OPTIONS: "pyi-suggest-other-options",
-  PYI_SUGGEST_OTHER_OPTIONS_NO_F2F: "pyi-suggest-other-options-no-f2f",
   PYI_TECHNICAL: "pyi-technical",
   PYI_TIMEOUT_RECOVERABLE: "pyi-timeout-recoverable",
   PYI_TIMEOUT_UNRECOVERABLE: "pyi-timeout-unrecoverable",

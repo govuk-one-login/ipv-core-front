@@ -205,73 +205,18 @@
         }
       }
     },
-    "pyiCriEscape": {
+    "photoIdSecurityQuestionsFindAnotherWay": {
       "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "titleDropout": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "headerDropout": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "content": {
         "paragraph1": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
-        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
-        "requirements": [
-          "iPhone 7 neu uwch",
-          "ffôn Android (er enghraifft, Samsung neu Google Pixel)"
-        ],
-        "paragraph4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
-        "subHeading2": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
-          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
-          "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
-          "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "pyiCriEscapeNoF2f": {
-      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "content": {
-        "paragraph1": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
-        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
-        "requirements": [
-          "iPhone 7 neu uwch",
-          "ffôn Android (er enghraifft, Samsung neu Google Pixel)"
-        ],
-        "subHeading2": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
-          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
-          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "pyiSuggestOtherOptions": {
-      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
-      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
-      "content": {
-        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
-        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
-        "requirements": [
-          "iPhone 7 neu uwch",
-          "ffôn Android (er enghraifft, Samsung neu Google Pixel)"
-        ],
-        "paragraph4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
-        "subHeading2": "Beth hoffech chi ei wneud?",
+        "paragraph1Dropout": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "paragraph2": "You can prove your identity using the GOV.UK ID Check app or at a Post Office instead.",
+        "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
+        "subHeading1": "How would you like to prove your identity?",
         "formRadioButtons": {
           "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
@@ -393,32 +338,6 @@
           "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check",
           "continueButtonTextHint": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch agor yr ap",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
-        }
-      }
-    },
-    "pyiSuggestOtherOptionsNoF2f": {
-      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
-      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
-      "content": {
-        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Yn seiliedig ar beth rydych wedi’i ddweud wrthym, mae gennych chi lun ID y gallwch ei ddefnyddio i brofi pwy ydych chi.",
-        "paragraph3": "Gallwch wneud hyn gyda’r ap GOV.UK ID Check os oes gennych:",
-        "requirements": [
-          "iPhone 7 neu uwch",
-          "ffôn Android (er enghraifft, Samsung neu Google Pixel)"
-        ],
-        "subHeading2": "Beth hoffech chi ei wneud?",
-        "formRadioButtons": {
-          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
-          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
-          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

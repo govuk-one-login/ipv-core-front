@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.46.0-jammy AS playwright
+FROM mcr.microsoft.com/playwright:v1.49.1-jammy AS playwright
 
 WORKDIR /browser-tests
 

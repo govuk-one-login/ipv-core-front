@@ -6,7 +6,7 @@ import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
 import config from "./config";
 import { logger } from "../lib/logger";
 import { getIpvPageTemplatePath } from "../lib/paths";
-import { pagesAndContexts } from "../test-utils/pages-and-contexts";
+import { pagesAndContexts } from "./pages-and-contexts";
 
 interface FilterContext {
   ctx: {

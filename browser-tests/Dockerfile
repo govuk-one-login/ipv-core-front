@@ -12,6 +12,6 @@ COPY ./browser-tests/snapshot-tests ./snapshot-tests
 COPY ./browser-tests/playwright.config.ts ./
 COPY ./browser-tests/tsconfig.json ./
 COPY ../views/ipv/page ../views/ipv/page
-COPY ../src/test-utils/pages-and-contexts.ts ../src/test-utils/pages-and-contexts.ts
+COPY ../src/config/pages-and-contexts.ts ../src/config/pages-and-contexts.ts
 
 CMD ["npm run test"]

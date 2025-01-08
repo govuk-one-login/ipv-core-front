@@ -1,4 +1,4 @@
-import {pagesAndContexts} from "../../src/test-utils/pages-and-contexts";
+import {pagesAndContexts} from "../../src/config/pages-and-contexts";
 
 type TestFn = (pageName: string, context: string | undefined, language: string, url: string) => void;
 

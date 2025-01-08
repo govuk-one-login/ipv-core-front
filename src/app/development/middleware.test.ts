@@ -17,7 +17,7 @@ const pagesAndContextsStub = {
   },
 };
 const middleware = proxyquire("./middleware", {
-  "../../test-utils/pages-and-contexts": pagesAndContextsStub,
+  "../../config/pages-and-contexts": pagesAndContextsStub,
   "fs/promises": fsReadDirStub,
 });
 

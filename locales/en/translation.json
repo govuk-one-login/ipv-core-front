@@ -1545,6 +1545,13 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "weMatchedYouToYourOneLogin": {
+      "title": "We’ve matched you to your GOV.UK One Login",
+      "header": "We’ve matched you to your GOV.UK One Login",
+      "content": {
+        "paragraph": "You can now set up a new way to get security codes."
+      }
     }
   }
 }

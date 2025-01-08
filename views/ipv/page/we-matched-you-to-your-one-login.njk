@@ -1,0 +1,14 @@
+{% extends "shared/base.njk" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+
+{% set pageTitleKey = 'pages.weMatchedYouToYourOneLogin.title' %}
+{% set googleTagManagerPageId = "weMatchedYouToYourOneLogin" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.weMatchedYouToYourOneLogin.header' | translate }}</h1>
+
+  <p class="govuk-body">{{ 'pages.weMatchedYouToYourOneLogin.content.paragraph' | translate }}</p>
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+
+{% endblock %}

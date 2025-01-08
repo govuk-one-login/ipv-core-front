@@ -694,14 +694,19 @@
       "title": "Ateb cwestiynau diogelwch",
       "header": "Ateb cwestiynau diogelwch",
       "content": {
-        "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt. Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph2": "Bydd y cwestiynau’n ymwneud â phethau fel eich contract ffôn symudol, cyfrif banc, ac unrhyw gardiau credyd, benthyciadau neu forgeisi sydd gennych.",
-        "paragraph3": "Ni fyddwn yn cadw eich atebion."
+        "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt.",
+        "paragraph2": "Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "subHeading1": "What the questions are about",
+        "paragraph3": "The questions will be about your financial history, such as your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.",
+        "paragraph4": "We will not keep your answers or share them with any other organisation.",
+        "subHeading2": "Before you start",
+        "paragraph5": "You will find the questions easier to answer if you have information about your financial history to hand."
       },
-      "warningTextContent": "Ceisiwch ateb y cwestiynau hyn mor gywir ag y gallwch. Ni fyddwch yn gallu newid eich atebion os gwnewch gamgymeriad.",
+      "warningTextContent": "Do not guess the answer if you do not know it. You cannot change your answers and you cannot skip any questions.",
       "warningTextFallback": "Rhybudd",
       "summaryText": "Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi",
-      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>"
+      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>",
+      "buttonText": "Start answering questions"
     },
     "pageF2fHandoff": {
       "title": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",

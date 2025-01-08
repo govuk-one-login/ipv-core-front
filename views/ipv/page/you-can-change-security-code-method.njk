@@ -1,6 +1,6 @@
 {% extends "shared/base.njk" %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
 
 {% set pageTitleKey = 'pages.youCanChangeSecurityCodeMethod.title' %}
 {% set googleTagManagerPageId = "youCanChangeSecurityCodeMethod" %}
@@ -19,10 +19,7 @@
     {% endfor %}
   </ol>
 
-  {{ govukButton({
-    id: "submitButton",
-    text: 'general.buttons.next' | translate
-  }) }}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
   {{ govukDetails({
     summaryText: 'pages.youCanChangeSecurityCodeMethod.content.details.label' | translate,

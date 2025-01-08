@@ -1562,7 +1562,7 @@
         ],
         "details": {
           "label": "I need to access GOV.UK One Login another way",
-          "content": "You will not be able to change how you get security codes, but you may be able to use the method you already have set up. <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Check what you can do.</a>"
+          "content": "You will not be able to change how you get security codes, but you may be able to use the method you already have set up. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Check what you can do.</a>"
         }
       }
     }

@@ -1562,7 +1562,7 @@
         ],
         "details": {
           "label": "Rwyf angen mynediad i GOV.UK One Login mewn ffordd arall",
-          "content": "Ni fyddwch yn gallu newid sut rydych yn cael codau diogelwch, ond efallai y byddwch yn gallu defnyddio'r dull rydych eisoes wedi'i sefydlu. <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Gwiriwch beth allwch chi ei wneud.</a>"
+          "content": "Ni fyddwch yn gallu newid sut rydych yn cael codau diogelwch, ond efallai y byddwch yn gallu defnyddio'r dull rydych eisoes wedi'i sefydlu. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Gwiriwch beth allwch chi ei wneud.</a>"
         }
       }
     }

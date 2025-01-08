@@ -10,7 +10,7 @@ import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
-import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
+import { pagesAndContexts } from "../../config/pages-and-contexts";
 
 interface RadioOption {
   text: string;

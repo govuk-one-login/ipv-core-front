@@ -4,7 +4,7 @@ import fs from "fs";
 import {
   iteratePagesAndContexts
 } from "../data/pagesAndContexts";
-import { pagesAndContexts } from "../../src/test-utils/pages-and-contexts";
+import { pagesAndContexts } from "../../src/config/pages-and-contexts";
 
 test.describe.parallel("Snapshot tests", () => {
   test.setTimeout(120000);

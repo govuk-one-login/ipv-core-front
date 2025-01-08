@@ -19,7 +19,7 @@ import config from "./config/config";
 import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
-import { configureNunjucks } from "./config/nunjucks";
+import { configureNunjucks, preloadTemplates } from "./config/nunjucks";
 import serverErrorHandler from "./handlers/internal-server-error-handler";
 import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
 import pageNotFoundHandler from "./handlers/page-not-found-handler";
@@ -110,7 +110,9 @@ app.get("/healthcheck", (req, res) => {
 
 app.use(setLocals);
 app.use(cspHandler);
-app.set("view engine", configureNunjucks(app, APP_VIEWS));
+
+const nunjucksEnv = configureNunjucks(app, APP_VIEWS);
+app.set("view engine", nunjucksEnv);
 
 i18next
   .use(Backend)
@@ -120,6 +122,8 @@ i18next
   );
 
 app.use(i18nextMiddleware.handle(i18next));
+
+preloadTemplates(nunjucksEnv); // Must come after nunjucks and i18n
 
 app.use(cookieParser());
 

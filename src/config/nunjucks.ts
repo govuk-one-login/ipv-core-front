@@ -4,6 +4,9 @@ import i18next from "i18next";
 import nunjucks, { Environment } from "nunjucks";
 import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
 import config from "./config";
+import { logger } from "../lib/logger";
+import { getIpvPageTemplatePath } from "../lib/paths";
+import { pagesAndContexts } from "./pages-and-contexts";
 
 interface FilterContext {
   ctx: {
@@ -84,4 +87,22 @@ export const configureNunjucks = (
   // Required by the language toggle component
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   return nunjucksEnv;
+};
+
+// Usually nunjucks will load templates on-demand (and are then cached indefinitely).
+// However, this can trigger overload-protection as it's a synchronous blocking call.
+// By pre-rendering each template once, we can force all the templates to be loaded at startup.
+export const preloadTemplates = (nunjucksEnv: Environment): void => {
+  if (config.TEMPLATE_CACHING) {
+    logger.info("Preloading templates");
+    const dummyContext = {
+      i18n: {
+        language: "en",
+      },
+    };
+
+    Object.keys(pagesAndContexts).forEach((pageId) => {
+      nunjucksEnv.render(getIpvPageTemplatePath(pageId), dummyContext);
+    });
+  }
 };

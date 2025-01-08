@@ -26,6 +26,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "page-update-name": ["repeatFraudCheck", undefined],
   "page-different-security-questions": [],
   "personal-independence-payment": [],
+  "photo-id-security-questions-find-another-way": ["dropout", undefined],
   "prove-identity-another-type-photo-id": ["drivingLicence", "passport"],
   "prove-identity-no-other-photo-id": ["drivingLicence", "passport"],
   "prove-identity-no-photo-id": ["nino", undefined],

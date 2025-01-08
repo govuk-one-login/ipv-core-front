@@ -79,4 +79,5 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   ],
   "uk-driving-licence-details-not-correct": [],
   "prove-identity-another-way": ["noF2f", undefined],
+  "you-can-change-security-code-method": [],
 };

@@ -50,6 +50,7 @@ const IPV_PAGES = Object.freeze({
   PYI_TRIAGE_SELECT_SMARTPHONE: "pyi-triage-select-smartphone",
   UPDATE_DETAILS: "update-details",
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
+  YOU_CAN_CHANGE_SECURITY_CODE_METHOD: "you-can-change-security-code-method",
 });
 
 export default IPV_PAGES;

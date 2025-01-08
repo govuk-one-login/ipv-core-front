@@ -1,0 +1,32 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set pageTitleKey = 'pages.youCanChangeSecurityCodeMethod.title' %}
+{% set googleTagManagerPageId = "youCanChangeSecurityCodeMethod" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.youCanChangeSecurityCodeMethod.header' | translate }}</h1>
+
+  <p class="govuk-body">{{ 'pages.youCanChangeSecurityCodeMethod.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.youCanChangeSecurityCodeMethod.content.paragraph2' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.youCanChangeSecurityCodeMethod.content.subHeading' | translate }}</h2>
+
+  <ol class="govuk-list govuk-list--number govuk-list--spaced">
+    {% for listItem in 'pages.youCanChangeSecurityCodeMethod.content.list' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ol>
+
+  {{ govukButton({
+    id: "submitButton",
+    text: 'general.buttons.next' | translate
+  }) }}
+
+  {{ govukDetails({
+    summaryText: 'pages.youCanChangeSecurityCodeMethod.content.details.label' | translate,
+    html: 'pages.youCanChangeSecurityCodeMethod.content.details.content' | translate | safe
+  }) }}
+
+{% endblock %}

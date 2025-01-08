@@ -1545,6 +1545,26 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "youCanChangeSecurityCodeMethod": {
+      "title": "You can change how you get security codes",
+      "header": "You can change how you get security codes",
+      "content": {
+        "paragraph1": "We need to check your identity before you change how you get security codes. This is to keep your information safe.",
+        "paragraph2": "You'll need a smartphone and photo ID to prove your identity.",
+        "subHeading": "What you need to do",
+        "list": [
+          "Answer some questions about your photo ID and the device you're on. This is to make sure you can use the GOV.UK ID Check app.",
+          "We'll tell you how to download and use the app to prove your identity with your photo ID.",
+          "We'll check your photo ID matches your GOV.UK One Login.",
+          "Choose how you want to get security codes. You can have codes sent to a mobile phone number or get them from an authenticator app.",
+          "Continue to the service you need to use."
+        ],
+        "details": {
+          "label": "I need to access GOV.UK One Login another way",
+          "content": "You will not be able to change how you get security codes, but you may be able to use the method you already have set up. <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.example.com\">Check what you can do.</a>"
+        }
+      }
     }
   }
 }

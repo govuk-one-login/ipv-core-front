@@ -80,4 +80,5 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "uk-driving-licence-details-not-correct": [],
   "prove-identity-another-way": ["noF2f", undefined],
   "we-matched-you-to-your-one-login": [],
+  "you-can-change-security-code-method": [],
 };

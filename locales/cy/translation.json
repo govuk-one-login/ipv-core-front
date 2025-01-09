@@ -1545,6 +1545,26 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "youCanChangeSecurityCodeMethod": {
+      "title": "Gallwch newid sut rydych yn cael codau diogelwch",
+      "header": "Gallwch newid sut rydych yn cael codau diogelwch",
+      "content": {
+        "paragraph1": "Mae angen i ni wirio'ch hunaniaeth cyn i chi newid sut rydych yn cael codau diogelwch. Mae hyn er mwyn cadw'ch gwybodaeth yn ddiogel.",
+        "paragraph2": "Byddwch angen ffôn clyfar a ID gyda llun i brofi eich hunaniaeth.",
+        "subHeading": "Beth sydd angen i chi ei wneud",
+        "list": [
+          "Atebwch ychydig o gwestiynau am eich ID gyda llun a'r ddyfais rydych yn ei defnyddio. Mae hyn er mwyn sicrhau y gallwch ddefnyddio'r ap GOV.UK ID Check.",
+          "Byddwn yn dweud wrthych sut i lawrlwytho a defnyddio'r ap i brofi eich hunaniaeth gyda'ch ID gyda llun.",
+          "Byddwn yn gwirio bod eich ID gyda llun yn cyfateb i'ch GOV.UK One Login.",
+          "Dewiswch sut rydych am gael codau diogelwch. Gallwch gael codau wedi'u hanfon at rif ffôn symudol neu eu cael o ap dilysu.",
+          "Parhau i'r gwasanaeth rydych angen ei ddefnyddio."
+        ],
+        "details": {
+          "label": "Rwyf angen mynediad i GOV.UK One Login mewn ffordd arall",
+          "content": "Ni fyddwch yn gallu newid sut rydych yn cael codau diogelwch, ond efallai y byddwch yn gallu defnyddio'r dull rydych eisoes wedi'i sefydlu. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Gwiriwch beth allwch chi ei wneud.</a>"
+        }
+      }
     }
   }
 }

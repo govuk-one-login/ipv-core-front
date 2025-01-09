@@ -1546,6 +1546,13 @@
         }
       }
     },
+    "weMatchedYouToYourOneLogin": {
+      "title": "Rydym wedi eich paru â'ch GOV.UK One Login",
+      "header": "Rydym wedi eich paru â'ch GOV.UK One Login",
+      "content": {
+        "paragraph": "Gallwch nawr sefydlu ffordd newydd o gael codau diogelwch."
+      }
+    },
     "youCanChangeSecurityCodeMethod": {
       "title": "Gallwch newid sut rydych yn cael codau diogelwch",
       "header": "Gallwch newid sut rydych yn cael codau diogelwch",

@@ -10,13 +10,18 @@
 {% set errorHref = "#liveInUkForm" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.liveInUk.header' | translate }}</h1>
-
   <form id="liveInUkForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.liveInUk.header' | translate,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
       hint: {
         text: 'pages.liveInUk.content.hint' | translate
       },

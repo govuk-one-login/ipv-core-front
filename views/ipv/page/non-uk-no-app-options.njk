@@ -12,15 +12,18 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.nonUkNoAppOptions.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.nonUkNoAppOptions.content.paragraph1' | translate }}</p>
-  <h2 class="govuk-heading-m">
-    {{ 'pages.nonUkNoAppOptions.content.subHeading1' | translate }}
-  </h2>
 
   <form id="nonUkNoAppOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.nonUkNoAppOptions.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: [
         {
           value: "returnToRp",

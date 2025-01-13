@@ -77,7 +77,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -94,7 +93,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -111,7 +109,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -128,7 +125,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -145,7 +141,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -162,7 +157,6 @@ Mappings:
       tg500ErrorLimit: 50
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false

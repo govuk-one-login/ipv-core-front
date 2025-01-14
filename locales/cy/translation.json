@@ -1521,8 +1521,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select if your passport has a symbol on the cover",
-          "errorRadioMessage": "Select if your passport has a symbol on the cover"
+          "errorSummaryDescriptionText": "Select yes if you have a passport with a biometric chip",
+          "errorRadioMessage": "Select yes if you have a passport with a biometric chip"
         }
       }
     },

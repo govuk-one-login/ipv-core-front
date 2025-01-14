@@ -62,6 +62,9 @@ Conditions:
   UseCanaryDeployment: !Or
     - !Condition IsNotDevelopment
     - !Equals [ !Ref Environment, dev-canary ]
+  IsPerformanceSensitive: !Or
+    - !Not [ !Condition IsDevelopment ]
+    - !Equals [ !Ref Environment, "dev-perf" ]
 
 # The AWS Account Id is used in the following mapping section because we have
 # multiple developer environments and it is undesirable to have to keep this
@@ -74,10 +77,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "384"
-      nodeEnv: "development"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -94,10 +93,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "384"
-      nodeEnv: "development"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -114,13 +109,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      #fargateCPUsize: "2048"
-      #fargateRAMsize: "4096"
-      #nodeOldSpaceLimit: "3792"
-      fargateCPUsize: "1024"
-      fargateRAMsize: "2048"
-      nodeOldSpaceLimit: "1896"
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -137,10 +125,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "256"
-      fargateRAMsize: "512"
-      nodeOldSpaceLimit: "256"
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -157,10 +141,6 @@ Mappings:
       tg500ErrorLimit: 10
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "512"
-      fargateRAMsize: "1024"
-      nodeOldSpaceLimit: "768"
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -177,10 +157,6 @@ Mappings:
       tg500ErrorLimit: 50
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
-      fargateCPUsize: "1024"
-      fargateRAMsize: "2048"
-      nodeOldSpaceLimit: "1792"
-      nodeEnv: "production"
       languageToggle: true
       ga4Disabled: false
       uaDisabled: false
@@ -786,9 +762,9 @@ Resources:
               Value: !Join
                 - ''
                 - - '--max-old-space-size='
-                  - !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeOldSpaceLimit ]
+                  - !If [ IsPerformanceSensitive, 1792, 384 ]
             - Name: NODE_ENV
-              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, nodeEnv ]
+              Value: "production"
             - Name: RUM_APPLICATION_ID
               Value: !If [ IsNotDevelopment,
                   Fn::ImportValue: !Sub "AppMonitorId-${Environment}",
@@ -861,9 +837,9 @@ Resources:
               awslogs-group: !Ref ECSAccessLogsGroup
               awslogs-region: !Sub ${AWS::Region}
               awslogs-stream-prefix: !Sub core-front-${Environment}
-      Cpu: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, fargateCPUsize ]
+      Cpu: !If [ IsPerformanceSensitive, 1024, 256 ]
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-      Memory: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, fargateRAMsize ]
+      Memory: !If [ IsPerformanceSensitive, 2048, 512 ]
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE

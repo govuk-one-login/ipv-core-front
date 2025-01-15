@@ -3,7 +3,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% set pageTitleKey = 'pages.photoIdSecurityQuestionsFindAnotherWay.title' | translateWithContext(context) %}
-{% set googleTagManagerPageId = "photoIdSecurityQuestionsFindAnotherWay" %}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
@@ -16,7 +15,7 @@
 {% endset %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
+  <h1 class="govuk-heading-l" id="header">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
   <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithContext(context) }}</p>
   <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>
 

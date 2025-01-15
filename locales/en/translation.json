@@ -286,13 +286,13 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Find another way to prove your identity",
-      "titleDropout": "Sorry, you’ll need to prove your identity another way",
-      "header": "Find another way to prove your identity",
-      "headerDropout": "Sorry, you’ll need to prove your identity another way",
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "titleDropout": "Find another way to prove your identity",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "headerDropout": "Find another way to prove your identity",
       "content": {
-        "paragraph1": "We were not able to complete your identity check using security questions.",
-        "paragraph1Dropout": "This is because you did not answer some of the security questions correctly.",
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
         "paragraph2": "You can prove your identity using the GOV.UK ID Check app or at a Post Office instead.",
         "detailsLabel": "Types of photo ID you can use",
         "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",

@@ -286,13 +286,13 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "titleDropout": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
-      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "headerDropout": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "paragraph1Dropout": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "paragraph2": "Gallwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa'r Post yn lle hynny.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
         "detailsParagraph": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",

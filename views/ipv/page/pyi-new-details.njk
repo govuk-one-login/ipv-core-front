@@ -42,13 +42,17 @@
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph4' | translate}}</p>
   <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph5' | translate}}</p>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pyiNewDetails.content.subHeading2' | translate }}</h2>
-
   <form id="pyiNewDetailsActionForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.pyiNewDetails.content.subHeading2' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: [
                 {
                   value: "next",
@@ -63,7 +67,7 @@
     %}
 
     {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.pyiNewDetails.content.formErrorMessage.errorMessage' | translate } %}
+      {% set errorMessageObject = { 'text': 'pages.pyiNewDetails.content.formErrorMessage.errorRadioMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 

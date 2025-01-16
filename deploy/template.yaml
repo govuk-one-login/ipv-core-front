@@ -1025,6 +1025,7 @@ Resources:
           MetricName: "ECSFatalerror-message"
 
   FrontendVitalsMetricEventLoopDelayFilter:
+    DependsOn: ECSAccessLogsGroup
     Type: AWS::Logs::MetricFilter
     Properties:
       FilterName: !Sub "FrontendVitalsEventLoopDelay-${AWS::StackName}"

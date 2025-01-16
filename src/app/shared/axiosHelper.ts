@@ -4,7 +4,6 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import https from "https";
-import { redactQueryParams } from "../../lib/logger";
 
 // Extend axios definition with logger
 declare module "axios" {
@@ -35,39 +34,12 @@ const extractCredentialIssuerId = (
   return undefined;
 };
 
-// Client/CRI redirect URLs may contain sensitive data, and we shouldn't log them
-const sanitiseResponseData = (response: AxiosResponse): object | undefined => {
-  try {
-    if (typeof response.data === "object") {
-      const body = { ...response.data };
-      if (body.cri?.redirectUrl) {
-        body.cri = {
-          ...body.cri,
-          redirectUrl: redactQueryParams(body.cri.redirectUrl),
-        };
-      }
-      if (body.client?.redirectUrl) {
-        body.client = {
-          ...body.client,
-          redirectUrl: redactQueryParams(body.client.redirectUrl),
-        };
-      }
-      return body;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    // Ignore
-  }
-  return undefined;
-};
-
 const buildRequestLog = (
   response: AxiosResponse,
   description: string,
 ): RequestLog => ({
   description,
   endpoint: `${response.request?.method} ${response.request?.path}`,
-  data: sanitiseResponseData(response),
   cri: extractCredentialIssuerId(response),
   duration: response.config.startTime && Date.now() - response.config.startTime,
 });

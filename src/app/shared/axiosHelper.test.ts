@@ -46,71 +46,6 @@ describe("axiosHelper", () => {
         message: {
           description: "API request completed",
           endpoint: "GET /test-path",
-          data: {
-            page: "testPage",
-          },
-          cri: "testCri",
-          duration: 200,
-        },
-      });
-    });
-
-    it("should not log cri redirect details", async () => {
-      // Arrange
-      const response = {
-        ...testResponse,
-        data: {
-          cri: {
-            id: "testCri",
-            redirectUrl: "https://example.com/authorize?request=long_request",
-          },
-        },
-      };
-
-      // Act
-      await axiosResponseLogger(response);
-
-      // Assert
-      expect(testLogger.info).has.been.calledWith({
-        message: {
-          description: "API request completed",
-          endpoint: "GET /test-path",
-          data: {
-            cri: {
-              id: "testCri",
-              redirectUrl: "https://example.com/authorize?request=hidden",
-            },
-          },
-          cri: "testCri",
-          duration: 200,
-        },
-      });
-    });
-
-    it("should not log client redirect details", async () => {
-      // Arrange
-      const response = {
-        ...testResponse,
-        data: {
-          client: {
-            redirectUrl: "https://example.com/callback?code=secret_code",
-          },
-        },
-      };
-
-      // Act
-      await axiosResponseLogger(response);
-
-      // Assert
-      expect(testLogger.info).has.been.calledWith({
-        message: {
-          description: "API request completed",
-          endpoint: "GET /test-path",
-          data: {
-            client: {
-              redirectUrl: "https://example.com/callback?code=hidden",
-            },
-          },
           cri: "testCri",
           duration: 200,
         },
@@ -142,7 +77,6 @@ describe("axiosHelper", () => {
         message: {
           description: "API request failed",
           endpoint: "GET /test-path",
-          data: { page: "testPage" },
           cri: "testCri",
           duration: 200,
           errorMessage: "test error",

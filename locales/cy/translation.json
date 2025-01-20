@@ -623,7 +623,7 @@
           "TODO: Select the 'Link GOV.UK ID Check' button to continue."
         ],
         "h3GoBackToTheService": "TODO: Go back to the service you're trying to use",
-        "paragraph3": "TODO: If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/page/pyi-timeout-recoverable\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
+        "paragraph3": "TODO: If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
         "h3IfYouNeedHelp": "TODO: If you need help",
         "paragraph4": "TODO: You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a>."
       }

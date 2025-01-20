@@ -285,6 +285,31 @@
         }
       }
     },
+    "photoIdSecurityQuestionsFindAnotherWay": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "titleDropout": "Find another way to prove your identity",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "headerDropout": "Find another way to prove your identity",
+      "content": {
+        "paragraph1": "This is because you did not answer some of the security questions correctly.",
+        "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
+        "paragraph2": "You can prove your identity using the GOV.UK ID Check app or at a Post Office instead.",
+        "detailsLabel": "Types of photo ID you can use",
+        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
+        "subHeading1": "How would you like to prove your identity?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Prove your identity with the GOV.UK ID Check app",
+          "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
+          "continuePostOfficeButtonText": "Prove your identity at a Post Office",
+          "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "noPhotoIdExitFindAnotherWay": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",
@@ -361,13 +386,15 @@
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
         "subHeading": "If you do not have photo ID",
-        "paragraph2": "You can try proving your identity with the service you need to use. They may take other types of ID.",
+        "paragraph2": "You can go to the service you need to use and see what you can do if you cannot prove your identity with GOV.UK One Login.",
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK ID Check app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
+        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Go to the service you need to use and look for other ways to prove your identity",
+          "radioButtonBackToRpText": "Go the service you need to use",
+          "radioButtonBackToRpTextHint": "See what you can do if you cannot prove your identity with GOV.UK One Login",
           "radioButtonAppText": "Prove your identity with the GOV.UK ID Check app",
           "radioButtonAppTextHint": "You’ll be shown how to download and use the app.",
           "radioButtonPoText": "Prove your identity at a Post Office",
@@ -712,14 +739,19 @@
       "title": "Answer security questions",
       "header": "Answer security questions",
       "content": {
-        "paragraph1": "We’ll ask you some security questions that only you should know the answers to. This will help us stop anyone else who might have your details from pretending to be you.",
-        "paragraph2": "The questions will be about things like your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.",
-        "paragraph3": "We will not keep your answers."
+        "paragraph1": "We’ll ask you some security questions that only you should know the answers to.",
+        "paragraph2": "This will help us stop anyone else who might have your details from pretending to be you.",
+        "subHeading1": "What the questions are about",
+        "paragraph3": "The questions will be about your financial history, such as your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.",
+        "paragraph4": "We will not keep your answers or share them with any other organisation.",
+        "subHeading2": "Before you start",
+        "paragraph5": "You will find the questions easier to answer if you have information about your financial history to hand."
       },
-      "warningTextContent": "Try to answer these questions as accurately as you can. You will not be able to change your answers if you make a mistake.",
+      "warningTextContent": "Do not guess the answer if you do not know it. You cannot change your answers and you cannot skip any questions.",
       "warningTextFallback": "Warning",
       "summaryText": "How we know what questions to ask you",
-      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>"
+      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>",
+      "buttonText": "Start answering questions"
     },
     "pageF2fHandoff": {
       "title": "Go to the Post Office within 10 days to finish proving your identity",

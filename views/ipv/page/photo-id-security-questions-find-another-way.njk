@@ -1,0 +1,67 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.photoIdSecurityQuestionsFindAnotherWay.title' | translateWithContext(context) %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#photoIdSecurityQuestionsFindAnotherWayForm" %}
+
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
+  <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.detailsParagraph' | translate }}</p>
+{% endset %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
+  <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.detailsLabel' | translate,
+    html: photoIdHtml,
+    id: 'typesOfPhotoIdDetails'
+  }) }}
+
+  <form id="photoIdSecurityQuestionsFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "appTriage",
+          text: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.continueAppButtonText' | translate,
+          hint: {text: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.continueAppButtonTextHint' | translate}
+
+        },
+        {
+          value: "f2f",
+          text: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.continuePostOfficeButtonText' | translate,
+          hint: { text: 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formRadioButtons.continuePostOfficeButtonTextHint' | translate }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

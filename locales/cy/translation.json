@@ -285,6 +285,31 @@
         }
       }
     },
+    "photoIdSecurityQuestionsFindAnotherWay": {
+      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
+      "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
+        "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
+        "paragraph2": "Gallwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa'r Post yn lle hynny.",
+        "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+        "detailsParagraph": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+        "subHeading1": "Sut hoffech chi brofi eich hunaniaeth?",
+        "formRadioButtons": {
+          "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
+          "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
+          "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "noPhotoIdExitFindAnotherWay": {
       "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
@@ -353,21 +378,23 @@
       }
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
+      "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae'n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
+      "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "subHeading": "Os nad oes gennych ID gyda llun",
-        "paragraph2": "Gallwch geisio profi eich hunaniaeth gyda’r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
+        "paragraph2": "Gallwch fynd i’r gwasanaeth rydych angen ei ddefnyddio a gweld beth allwch chi ei wneud os na allwch brofi eichhunaniaeth gyda GOV.UK One Login.",
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK ID Check neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
+        "detailsParagraph": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
         "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "radioButtonBackToRpText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi eich hunaniaeth",
+          "radioButtonBackToRpText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio",
+          "radioButtonBackToRpTextHint": "Gweld beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda GOV.UK One Login",
           "radioButtonAppText": "Profi eich hunaniaeth gyda’r ap GOV.UK ID Check",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio'r ap.",
           "radioButtonPoText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
@@ -669,14 +696,19 @@
       "title": "Ateb cwestiynau diogelwch",
       "header": "Ateb cwestiynau diogelwch",
       "content": {
-        "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt. Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph2": "Bydd y cwestiynau’n ymwneud â phethau fel eich contract ffôn symudol, cyfrif banc, ac unrhyw gardiau credyd, benthyciadau neu forgeisi sydd gennych.",
-        "paragraph3": "Ni fyddwn yn cadw eich atebion."
+        "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt.",
+        "paragraph2": "Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "subHeading1": "Am beth mae’r cwestiynau",
+        "paragraph3": "Bydd y cwestiynau yn ymwneud â’ch hanes ariannol, fel eich contract ffôn symudol, cyfrif banc, ac unrhyw gardiau credyd, benthyciadau neu forgeisi sydd gennych.",
+        "paragraph4": "Ni fyddwn yn cadw eich atebion nac yn eu rhannu ag unrhyw sefydliad arall.",
+        "subHeading2": "Cyn i chi ddechraut",
+        "paragraph5": "Fe welwch y cwestiynau yn haws i’w hateb os oes gennych wybodaeth am eich hanes ariannol wrth law."
       },
-      "warningTextContent": "Ceisiwch ateb y cwestiynau hyn mor gywir ag y gallwch. Ni fyddwch yn gallu newid eich atebion os gwnewch gamgymeriad.",
+      "warningTextContent": "Peidiwch â dyfalu’r ateb os nad ydych yn ei wybod. Ni allwch newid eich atebion ac ni allwch hepgor unrhyw gwestiynau.",
       "warningTextFallback": "Rhybudd",
       "summaryText": "Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi",
-      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>"
+      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p>Byddwn ond yn gofyn cwestiynau i chi am wybodaeth sydd gan Experian eisoes.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>",
+      "buttonText": "Dechrau ateb cwestiynau"
     },
     "pageF2fHandoff": {
       "title": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",

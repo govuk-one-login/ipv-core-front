@@ -35,8 +35,6 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "pyi-confirm-delete-details": ["f2f", undefined],
   "pyi-continue-with-driving-licence": [],
   "pyi-continue-with-passport": [],
-  "pyi-cri-escape-no-f2f": [],
-  "pyi-cri-escape": [],
   "pyi-details-deleted": ["f2f", undefined],
   "pyi-driving-licence-no-match-another-way": [],
   "pyi-driving-licence-no-match": [],

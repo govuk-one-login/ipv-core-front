@@ -27,8 +27,6 @@ const IPV_PAGES = Object.freeze({
   PYI_CONFIRM_DELETE_DETAILS: "pyi-confirm-delete-details",
   PYI_CONTINUE_WITH_DRIVING_LICENCE: "pyi-continue-with-driving-licence",
   PYI_CONTINUE_WITH_PASSPORT: "pyi-continue-with-passport",
-  PYI_CRI_ESCAPE: "pyi-cri-escape",
-  PYI_CRI_ESCAPE_NO_F2F: "pyi-cri-escape-no-f2f",
   PYI_DETAILS_DELETED: "pyi-details-deleted",
   PYI_DRIVING_LICENCE_NO_MATCH: "pyi-driving-licence-no-match",
   PYI_DRIVING_LICENCE_NO_MATCH_ANOTHER_WAY:

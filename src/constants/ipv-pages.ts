@@ -39,8 +39,6 @@ const IPV_PAGES = Object.freeze({
   PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",
   PYI_PASSPORT_NO_MATCH_ANOTHER_WAY: "pyi-passport-no-match-another-way",
   PYI_POST_OFFICE: "pyi-post-office",
-  PYI_SUGGEST_OTHER_OPTIONS: "pyi-suggest-other-options",
-  PYI_SUGGEST_OTHER_OPTIONS_NO_F2F: "pyi-suggest-other-options-no-f2f",
   PYI_TECHNICAL: "pyi-technical",
   PYI_TIMEOUT_RECOVERABLE: "pyi-timeout-recoverable",
   PYI_TIMEOUT_UNRECOVERABLE: "pyi-timeout-unrecoverable",

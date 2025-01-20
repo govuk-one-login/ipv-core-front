@@ -46,8 +46,6 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "pyi-passport-no-match-another-way": [],
   "pyi-passport-no-match": [],
   "pyi-post-office": [],
-  "pyi-suggest-other-options-no-f2f": [],
-  "pyi-suggest-other-options": [],
   "pyi-technical": [],
   "pyi-timeout-recoverable": [],
   "pyi-timeout-unrecoverable": [],

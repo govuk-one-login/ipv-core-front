@@ -14,7 +14,7 @@
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph2' | translate }}</p>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }}</h2>
+  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }} {{ postOfficeVisitByDate | DateDayAndMonth}}</h2>
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for listItem in 'pages.pageF2fHandoff.content.whatToBringToPostOffice' | translate({ returnObjects: true }) %}

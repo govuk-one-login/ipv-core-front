@@ -20,7 +20,6 @@ interface RadioOption {
 
 export const allTemplatesGet: RequestHandler = async (req, res) => {
   const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
-
   res.render(getTemplatePath("development", "all-templates"), {
     templatesWithContextRadioOptions: templatesWithContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
@@ -121,6 +120,10 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
+  } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
+    renderOptions.postOfficeVisitByDate = new Date().setDate(
+      new Date().getDate() + 15,
+    );
   }
 
   return res.render(

@@ -131,6 +131,11 @@
   white-space: nowrap;
 }
 
+// Default to pictures not being inline
+picture {
+  display: block;
+}
+
 // Temporarily overwrite the tag component styling to match pre-v5 appearance.
 // This ensures a cohesive phase banner across One Login applications during the transition.
 .govuk-tag {

@@ -1443,8 +1443,7 @@
       "title": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "header": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "content": {
-        "paragraph1": "Bydd angen pasbort gyda sglodyn biometrig i brofi eich hunaniaeth gyda GOV.UK One Login.",
-        "paragraph2": "I wirio a oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
+        "paragraph1": "I wirio a oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
         "passportImageAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
         "formRadioButtons": {
           "nextButtonText": "Oes",

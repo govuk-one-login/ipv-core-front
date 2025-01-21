@@ -1436,36 +1436,37 @@
       }
     },
     "nonUkPassport": {
-      "title": "Do you have a passport with a biometric chip?",
-      "header": "Do you have a passport with a biometric chip?",
+      "title": "Oes gennych chi basbort gyda sglodyn biometrig?",
+      "header": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "content": {
-        "paragraph1": "You will need a passport with a biometric chip to prove your identity with GOV.UK One Login.",
-        "paragraph2": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
+        "paragraph1": "Bydd angen pasbort gyda sglodyn biometrig i brofi eich hunaniaeth gyda Welcome to GOV.UK One Login.",
+        "paragraph2": "I wirio a oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
+        "passportImageAltText": "Clawr blaen pasbort gyda'r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
         "formRadioButtons": {
-          "nextButtonText": "Yes",
-          "abandonButtonText": "No"
+          "nextButtonText": "Oes",
+          "abandonButtonText": "Na"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you have a passport with a biometric chip",
-          "errorRadioMessage": "Select yes if you have a passport with a biometric chip"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych chi basbort gyda sglodyn biometrig",
+          "errorRadioMessage": "Dewiswch oes os oes gennych chi basbort gyda sglodyn biometrig"
         }
       }
     },
     "nonUkNoPassport": {
-      "title": "You need to use a passport with a biometric chip to prove your identity",
-      "header": "You need to use a passport with a biometric chip to prove your identity",
+      "title": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "If you do not live in the UK, you can only prove your identity with GOV.UK One Login using a passport with a biometric chip.",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap Welcome to GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
-          "useAppButtonText": "Use a passport with a biometric chip to prove your identity"
+          "returnToRpButtonText": "Mynd i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
+          "useAppButtonText": "Defnyddio pasbort gyda sglodyn biometrig i brofi pwy ydych chi"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

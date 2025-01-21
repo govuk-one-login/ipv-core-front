@@ -110,7 +110,7 @@
       "linkText": "Cysylltwch â’r tîm GOV.UK One Login (agor mewn tab newydd)"
     },
     "typesOfPhotoId": {
-      "paragraph1": "Ar gyfer yr ap Welcome to GOV.UK  ID Check, gallwch ddefnyddio:",
+      "paragraph1": "Ar gyfer yr ap GOV.UK  ID Check, gallwch ddefnyddio:",
       "paragraph2": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
       "paragraph3": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
       "postOfficeDocumentList": [
@@ -274,19 +274,19 @@
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph2": "Os oes gennych ID gyda llun, gallwch brofi eich hunaniaeth ar-lein drwy:",
         "list": [
-          "ddefnyddio’r ap Welcome to GOV.UK  ID Check ",
+          "ddefnyddio’r ap GOV.UK  ID Check ",
           "rhoi’r manylion o'ch pasbort y DU neu drwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch"
         ],
         "paragraph3": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post.",
-        "detailsLabel": "Mathau o ID gyda llun y gallwch eu defnyddio gyda’r ap Welcome to GOV.UK  ID Check ac mewn Swyddfa’r Post",
+        "detailsLabel": "Mathau o ID gyda llun y gallwch eu defnyddio gyda’r ap GOV.UK  ID Check ac mewn Swyddfa’r Post",
         "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "radioButtonApp": "Defnyddio’r ap Welcome to GOV.UK  ID Check ",
+          "radioButtonApp": "Defnyddio’r ap GOV.UK  ID Check ",
           "radioButtonAppHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "radioButtonPassport": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch",
           "radioButtonDrivingLicence": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU ac atebwch gwestiynau diogelwch.",
           "radioButtonPostOffice": "Ewch i Swyddfa’r Post",
-          "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar Welcome to GOV.UK  yn gyntaf",
+          "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK  yn gyntaf",
           "separateOptionsInForm": "neu",
           "radioButtonRp": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi"
         },
@@ -1439,7 +1439,7 @@
       "title": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "header": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "content": {
-        "paragraph1": "Bydd angen pasbort gyda sglodyn biometrig i brofi eich hunaniaeth gyda Welcome to GOV.UK One Login.",
+        "paragraph1": "Bydd angen pasbort gyda sglodyn biometrig i brofi eich hunaniaeth gyda GOV.UK One Login.",
         "paragraph2": "I wirio a oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
         "passportImageAltText": "Clawr blaen pasbort gyda'r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
         "formRadioButtons": {
@@ -1457,7 +1457,7 @@
       "title": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap Welcome to GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "returnToRpButtonText": "Mynd i'r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",

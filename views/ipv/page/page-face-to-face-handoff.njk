@@ -9,12 +9,19 @@
 
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageF2fHandoff.header' | translate }}</h1>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading1' | translate }}</h2>
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.firstCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading1' | translate }}</h2>
+  </div>
 
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph2' | translate }}</p>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }} {{ postOfficeVisitByDate | DateDayAndMonth}}</h2>
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.secondCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }} {{ postOfficeVisitByDate | DateDayAndMonth}}</h2>
+  </div>
+
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for listItem in 'pages.pageF2fHandoff.content.whatToBringToPostOffice' | translate({ returnObjects: true }) %}
@@ -35,7 +42,12 @@
     summaryText: 'pages.pageF2fHandoff.content.detailsTitle' | translate,
     text: 'pages.pageF2fHandoff.content.detailsContent' | translate({ url: contactUsUrl }) | safe
   }) }}
-  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading3' | translate }}</h2>
+
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.thirdCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading3' | translate }}</h2>
+  </div>
+
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph6' | translate }}</p>
   <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading4' | translate }}</h2>
   {% include "components/contact-us-link.njk" %}

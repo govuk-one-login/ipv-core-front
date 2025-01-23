@@ -112,6 +112,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
   const phoneType = context ? (context as string) : undefined;
+  /* istanbul ignore else  */
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.qrCode = await generateQrCodeImageData(
@@ -121,8 +122,12 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
   } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
+    let today = new Date();
+    if (process.env.NODE_ENV === "local") {
+      today = new Date("2025-01-01");
+    }
     renderOptions.postOfficeVisitByDate = new Date().setDate(
-      new Date().getDate() + 15,
+      today.getDate() + 15,
     );
   }
 

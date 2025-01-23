@@ -609,33 +609,33 @@
       "buttonText": "Dechrau ateb cwestiynau"
     },
     "pageF2fHandoff": {
-      "title": "Finish proving your identity at a Post Office",
-      "header": "Finish proving your identity at a Post Office",
+      "title": "Gorffen profi eich hunaniaeth mewn Swyddfa'r Post",
+      "header": "Gorffen profi eich hunaniaeth mewn Swyddfa'r Post",
       "content": {
         "firstCircle": "1",
-        "subHeading1": "Get your Post Office customer letter",
-        "paragraph1": "You’ve been sent a confirmation email with a link to download your customer letter.",
-        "paragraph2": "If you’ve asked us to, we’ll also send customer letter to you by post. It can take up to 6 working days for your letter to arrive.",
+        "subHeading1": "Cael eich llythyr cwsmer Swyddfa’r Post",
+        "paragraph1": "Anfonwyd e-bost cadarnhau atoch gyda dolen i lawrlwytho eich llythyr cwsmer.",
+        "paragraph2": "Os ydych wedi gofyn i ni, byddwn hefyd yn anfon eich llythyr cwsmer atoch drwy'r post. Gall gymryd hyd at 6 diwrnod gwaith i'ch llythyr gyrraedd.",
         "secondCircle": "2",
-        "subHeading2": "Go to a Post Office by",
-        "paragraph3": "When you go to a Post Office, you must take:",
+        "subHeading2": "Ewch i Swyddfa’r Post erbyn",
+        "paragraph3": "Pan fyddwch yn mynd i Swyddfa'r Post, mae'n rhaid i chi fynd ar canlynol:",
         "whatToBringToPostOffice": [
-          "your Post Office customer letter",
-          "the photo ID shown on your customer letter"
+          "eich llythyr cwsmer Swyddfa'r Post",
+          "yr ID gyda llun a ddangosir ar eich llythyr cwsmer"
         ],
-        "paragraph4": "A member of Post Office staff will:",
+        "paragraph4": "Bydd aelod o staff Swyddfa'r Post yn:",
         "whatHappensAtPostOffice": [
-          "check your customer letter",
-          "scan your photo ID",
-          "take a photo of you"
+          "gwirio eich llythyr cwsmer",
+          "sganio eich ID gyda llun",
+          "tynnu llun ohonoch chi"
         ],
-        "paragraph5": "If you do not go to a Post Office by the date shown on your customer letter, you’ll need to start proving your identity again.",
-        "detailsTitle": "Which Post Office should I go to?",
-        "detailsContent": "<p>Your Post Office customer letter shows which Post Office you chose to go to. </p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/branch-finder\">go to a different Post Office as long as it offers in-branch verification (opens in new tab)</a>.</p> <p>You do not need to contact the GOV.UK One Login team if you want to go to a different Post Office.</p>",
+        "paragraph5": "Os na fyddwch yn mynd i Swyddfa'r Post erbyn y dyddiad sydd i’w weld ar eich llythyr cwsmer, bydd angen i chi ddechrau profi eich hunaniaeth eto.",
+        "detailsTitle": "Pa Swyddfa'r Post ddylwn i fynd iddi?",
+        "detailsContent": "<p>Mae eich llythyr cwsmer yn dangos pa Swyddfa'r Post y gwnaethoch ddewis mynd iddi. </p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/branch-finder\">fynd i Swyddfa’r Post gwahanol cyn belled â'i bod yn cynnig gwiriad mewn cangen (agor mewn tab newydd)</a>.</p> <p>Nid oes angen i chi gysylltu â thîm GOV.UK One Login os ydych am fynd i Swyddfa’r Post gwahanol.</p>",
         "thirdCircle": "3",
-        "subHeading3": "Wait for your result",
-        "paragraph6": "You’ll get an email from GOV.UK One Login about the result of your identity check – usually within a day of going to the Post Office.",
-        "subHeading4": "If you need help"
+        "subHeading3": "Arhoswch am eich canlyniad",
+        "paragraph6": "Byddwch yn cael e-bost gan GOV.UK One Login am ganlyniad eich gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa'r Post.",
+        "subHeading4": "Os ydych angen help"
       }
     },
     "pageDcmawSuccess": {

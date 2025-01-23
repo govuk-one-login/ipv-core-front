@@ -610,22 +610,22 @@
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
         "signedOutReasons": [
-          "TODO: you’re using more than one browser (for example Chrome, Safari) to access the service",
-          "TODO: you started using a service from a link in an app (such as Facebook or Instagram)",
-          "TODO: you signed in more than an hour ago",
-          "TODO: you signed out while you were using another service"
+          "rydych yn defnyddio mwy nag un porwr (er enghraifft Chrome, Safari) i gael mynediad i'r gwasanaeth",
+          "rydych wedi dechrau defnyddio gwasanaeth o ddolen mewn ap (fel Facebook neu Instagram)",
+          "rydych chi wedi mewngofnodi fwy nag awr yn ôl",
+          "rydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall"
         ],
-        "h2": "TODO: What you can do",
-        "h3GoBackToTheApp": "TODO: Go back to the app or browser you started in",
-        "paragraph2": "TODO: If you started using a service from a link in another app or browser:",
+        "h2": "Beth allwch chi ei wneud",
+        "h3GoBackToTheApp": "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau ynddo",
+        "paragraph2": "Os gwnaethoch ddechrau defnyddio gwasanaeth o ddolen mewn ap neu borwr arall:",
         "possibleActions": [
-          "TODO: Go back to the app or browser you started in.",
-          "TODO: Select the 'Link GOV.UK ID Check' button to continue."
+          "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau ynddo.",
+          "Dewiswch y botwm 'Cysylltu GOV.UK ID Check' i barhau."
         ],
-        "h3GoBackToTheService": "TODO: Go back to the service you're trying to use",
-        "paragraph3": "TODO: If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
-        "h3IfYouNeedHelp": "TODO: If you need help",
-        "paragraph4": "TODO: You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a>."
+        "h3GoBackToTheService": "Ewch yn ôl i'r gwasanaeth rydych chi'n ceisio ei ddefnyddio",
+        "paragraph3": "Os gwnaethoch fewngofnodi fwy nag awr yn ôl, neu os gwnaethoch allgofnodi tra'ch bod yn defnyddio gwasanaeth arall, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">ewch yn ôl i'r gwasanaeth roeddech yn ceisio ei ddefnyddio</a> a dechrau eto.",
+        "h3IfYouNeedHelp": "Os ydych angen help",
+        "paragraph4": "Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">gysylltu â thîm GOV.UK One Login (agor mewn tab newydd)</a>."
       }
     },
     "pyiTimeoutUnrecoverable": {

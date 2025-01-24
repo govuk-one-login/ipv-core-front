@@ -93,7 +93,7 @@
     "dotenv": "16.4.5",
     "express": "5.0.1",
     "express-session": "1.18.1",
-    "govuk-frontend": "4.9.0",
+    "govuk-frontend": "5.7.0",
     "i18next": "23.16.8",
     "i18next-fs-backend": "2.6.0",
     "i18next-http-middleware": "3.7.0",

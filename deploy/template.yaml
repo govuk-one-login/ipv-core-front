@@ -1038,6 +1038,7 @@ Resources:
           Unit: Milliseconds
 
   FrontendVitalsMetricMaxConcurrentConnectionsFilter:
+    DependsOn: ECSAccessLogsGroup
     Type: AWS::Logs::MetricFilter
     Properties:
       FilterName: !Sub "FrontendVitalsMaxConcurrentConnections-${AWS::StackName}"
@@ -1050,6 +1051,7 @@ Resources:
           Unit: Count
 
   FrontendVitalsMetricEventLoopUtilizationFilter:
+    DependsOn: ECSAccessLogsGroup
     Type: AWS::Logs::MetricFilter
     Properties:
       FilterName: !Sub "FrontendVitalsEventLoopUtilization-${AWS::StackName}"

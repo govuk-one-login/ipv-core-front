@@ -359,7 +359,7 @@ export const handleJourneyPageRequest = async (
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
       renderOptions.postOfficeVisitByDate = new Date().setDate(
-        new Date().getDate() + 15,
+        new Date().getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
       );
     } else if (req.session.currentPageStatusCode !== undefined) {
       // Set this to avoid pino-http generating a new error in the request log

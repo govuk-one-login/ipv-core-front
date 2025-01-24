@@ -12,6 +12,7 @@ import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
 import path from "path";
+import config from "../../config/config";
 
 interface RadioOption {
   text: string;
@@ -122,12 +123,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
   } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
-    let today = new Date();
-    if (process.env.NODE_ENV === "local") {
-      today = new Date("2025-01-01");
-    }
     renderOptions.postOfficeVisitByDate = new Date().setDate(
-      today.getDate() + 15,
+      new Date("2025-01-01").getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
     );
   }
 

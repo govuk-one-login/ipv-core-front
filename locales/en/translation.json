@@ -574,18 +574,22 @@
       "content": {
         "paragraph1": "This could be because:",
         "signedOutReasons": [
+          "you’re using more than one browser (for example Chrome, Safari) to access the service",
+          "you started using a service from a link in an app (such as Facebook or Instagram)",
           "you signed in more than an hour ago",
-          "you signed out while you were using another service",
-          "more than one browser (for example Chrome, Safari) was used",
-          "you started your application from a link in an app (such as Facebook or Instagram)"
+          "you signed out while you were using another service"
         ],
-        "subHeading": "What you can do",
-        "paragraph2": "If you started your journey from a link in another app or browser:",
+        "h2": "What you can do",
+        "h3GoBackToTheApp": "Go back to the app or browser you started in",
+        "paragraph2": "If you started using a service from a link in another app or browser:",
         "possibleActions": [
-          "Go back to the app or browser you started your journey from.",
-          "Select the 'Link GOV.UK ID Check' button to continue your application."
+          "Go back to the app or browser you started in.",
+          "Select the 'Link GOV.UK ID Check' button to continue."
         ],
-        "paragraph3": "If you signed in more than an hour ago, or you signed out while you were using another service, continue to the service you were trying to use and start again."
+        "h3GoBackToTheService": "Go back to the service you're trying to use",
+        "paragraph3": "If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
+        "h3IfYouNeedHelp": "If you need help",
+        "paragraph4": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a>."
       }
     },
     "pyiTimeoutUnrecoverable": {

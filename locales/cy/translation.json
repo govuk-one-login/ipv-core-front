@@ -531,18 +531,22 @@
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
         "signedOutReasons": [
-          "rydych wedi mewngofnodi fwy nag awr yn ôl",
-          "fe wnaethoch allgofnodi tra roeddech yn defnyddio gwasanaeth arall",
-          "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)",
-          "rydych wedi cychwyn eich cais o ddolen mewn ap (fel Facebook neu Instagram)"
+          "rydych yn defnyddio mwy nag un porwr (er enghraifft Chrome, Safari) i gael mynediad i'r gwasanaeth",
+          "rydych wedi dechrau defnyddio gwasanaeth o ddolen mewn ap (fel Facebook neu Instagram)",
+          "rydych chi wedi mewngofnodi fwy nag awr yn ôl",
+          "rydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall"
         ],
-        "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Os ydych wedi ddechrau eich taith o ddolen mewn ap neu borwr arall:",
+        "h2": "Beth allwch chi ei wneud",
+        "h3GoBackToTheApp": "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau ynddo",
+        "paragraph2": "Os gwnaethoch ddechrau defnyddio gwasanaeth o ddolen mewn ap neu borwr arall:",
         "possibleActions": [
-          "Ewch yn ôl i’r ap neu'r porwr y gwnaethoch ddechrau eich taith.",
-          "Dewiswch y botwm 'Link GOV.UK ID Check' i barhau â’ch cais."
+          "Ewch yn ôl i'r ap neu'r porwr y gwnaethoch ddechrau ynddo.",
+          "Dewiswch y botwm 'Cysylltu GOV.UK ID Check' i barhau."
         ],
-        "paragraph3": "Os ydych wedi mewngofnodi fwy nag awr yn ôl, neu os ydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall, parhewch â'r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto."
+        "h3GoBackToTheService": "Ewch yn ôl i'r gwasanaeth rydych chi'n ceisio ei ddefnyddio",
+        "paragraph3": "Os gwnaethoch fewngofnodi fwy nag awr yn ôl, neu os gwnaethoch allgofnodi tra'ch bod yn defnyddio gwasanaeth arall, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">ewch yn ôl i'r gwasanaeth roeddech yn ceisio ei ddefnyddio</a> a dechrau eto.",
+        "h3IfYouNeedHelp": "Os ydych angen help",
+        "paragraph4": "Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">gysylltu â thîm GOV.UK One Login (agor mewn tab newydd)</a>."
       }
     },
     "pyiTimeoutUnrecoverable": {

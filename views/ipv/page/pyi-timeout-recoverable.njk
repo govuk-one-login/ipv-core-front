@@ -1,5 +1,4 @@
 {% extends "shared/base.njk" %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pyiTimeoutRecoverable.title' %}
 {% set googleTagManagerPageId = "pyiTimeoutRecoverable" %}
 
@@ -11,22 +10,16 @@
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
-  <h2 class="govuk-heading-m">{{'pages.pyiTimeoutRecoverable.content.subHeading' | translate }}</h2>
+  <h2 class="govuk-heading-m">{{'pages.pyiTimeoutRecoverable.content.h2' | translate }}</h2>
+  <h3 class="govuk-heading-s">{{'pages.pyiTimeoutRecoverable.content.h3GoBackToTheApp' | translate }}</h3>
   <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph2' | translate }}</p>
   <ol class="govuk-list govuk-list--number">
     {% for listItem in 'pages.pyiTimeoutRecoverable.content.possibleActions' | translate({ returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ol>
-  <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph3' | translate }}</p>
-  <form id="timeoutRecoverableForm" action="/ipv/page/pyi-timeout-recoverable" method="POST">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="journey" value="build-client-oauth-response">
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.continueToService' | translate
-    }) }}
-  </form>
-
-  {% include "components/contact-us-link.njk" %}
+  <h3 class="govuk-heading-s">{{'pages.pyiTimeoutRecoverable.content.h3GoBackToTheService' | translate }}</h3>
+  <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph3' | translate | safe }}</p>
+  <h3 class="govuk-heading-s">{{'pages.pyiTimeoutRecoverable.content.h3IfYouNeedHelp' | translate }}</h3>
+  <p class="govuk-body">{{'pages.pyiTimeoutRecoverable.content.paragraph4' | translate({ url: contactUsUrl }) | safe }}</p>
 {% endblock %}

@@ -116,6 +116,34 @@ describe("axiosHelper", () => {
         },
       });
     });
+
+    it("should not log anything for proven-identity-details endpoint", async () => {
+      // Arrange
+      const response = {
+        ...testResponse,
+        config: {
+          ...testResponse.config,
+          url: "/user/proven-identity-details",
+        },
+        data: {
+          name: "John Doe",
+        },
+      };
+
+      // Act
+      await axiosResponseLogger(response);
+
+      // Assert
+      expect(testLogger.info).has.been.calledWith({
+        message: {
+          description: "API request completed",
+          endpoint: "GET /test-path",
+          data: undefined,
+          cri: "testCri",
+          duration: 200,
+        },
+      });
+    });
   });
 
   describe("errorLogger", () => {
@@ -125,7 +153,6 @@ describe("axiosHelper", () => {
         ...testResponse,
         status: 500,
       };
-
       const error = new AxiosError(
         "test error",
         "ERR",
@@ -162,7 +189,6 @@ describe("axiosHelper", () => {
 
       // Act & Assert
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
-
       expect(testLogger.error).has.been.calledWith({
         message: {
           description: "Error occurred making request to API",
@@ -178,7 +204,6 @@ describe("axiosHelper", () => {
 
       // Act & Assert
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
-
       expect(testLogger.error).has.been.calledWith({
         message: {
           description: "Something went wrong setting up an API request",

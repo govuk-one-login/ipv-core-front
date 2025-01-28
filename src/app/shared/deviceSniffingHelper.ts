@@ -1,4 +1,4 @@
-import UAParser from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 import { Request } from "express";
 import { PHONE_TYPES, OS_TYPES } from "../../constants/device-constants";
 import { APP_TRIAGE_EVENTS } from "../../constants/events";

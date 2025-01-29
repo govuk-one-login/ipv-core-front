@@ -2,6 +2,7 @@ import sinon from "sinon";
 import { expect } from "chai";
 import { axiosErrorLogger, axiosResponseLogger } from "./axiosHelper";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import API_URLS from "../../constants/api-constants";
 
 const testLogger = {
   info: sinon.fake(),
@@ -13,6 +14,7 @@ const testRequest = {
   path: "/test-path",
   data: JSON.stringify({ credentialIssuerId: "testCri" }),
   startTime: 100,
+  url: API_URLS.API_JOURNEY_EVENT,
   logger: testLogger as any,
 } as AxiosRequestConfig;
 
@@ -37,7 +39,7 @@ describe("axiosHelper", () => {
   });
 
   describe("responseLogger", () => {
-    it("should log response details", async () => {
+    it("should log response details for allowed endpoints", async () => {
       // Act
       await axiosResponseLogger(testResponse);
 
@@ -55,7 +57,32 @@ describe("axiosHelper", () => {
       });
     });
 
-    it("should not log cri redirect details", async () => {
+    it("should not log response data for disallowed endpoints", async () => {
+      // Arrange
+      const response = {
+        ...testResponse,
+        config: {
+          ...testResponse.config,
+          url: "/user/proven-identity-details",
+        },
+      };
+
+      // Act
+      await axiosResponseLogger(response);
+
+      // Assert
+      expect(testLogger.info).has.been.calledWith({
+        message: {
+          description: "API request completed",
+          endpoint: "GET /test-path",
+          data: undefined,
+          cri: "testCri",
+          duration: 200,
+        },
+      });
+    });
+
+    it("should redact cri redirect details for allowed endpoints", async () => {
       // Arrange
       const response = {
         ...testResponse,
@@ -87,7 +114,7 @@ describe("axiosHelper", () => {
       });
     });
 
-    it("should not log client redirect details", async () => {
+    it("should redact client redirect details for allowed endpoints", async () => {
       // Arrange
       const response = {
         ...testResponse,
@@ -116,43 +143,16 @@ describe("axiosHelper", () => {
         },
       });
     });
-
-    it("should not log anything for proven-identity-details endpoint", async () => {
-      // Arrange
-      const response = {
-        ...testResponse,
-        config: {
-          ...testResponse.config,
-          url: "/user/proven-identity-details",
-        },
-        data: {
-          name: "John Doe",
-        },
-      };
-
-      // Act
-      await axiosResponseLogger(response);
-
-      // Assert
-      expect(testLogger.info).has.been.calledWith({
-        message: {
-          description: "API request completed",
-          endpoint: "GET /test-path",
-          data: undefined,
-          cri: "testCri",
-          duration: 200,
-        },
-      });
-    });
   });
 
   describe("errorLogger", () => {
-    it("should log error with response details with an error response", async () => {
+    it("should log error with response details for allowed endpoints", async () => {
       // Arrange
       const errorResponse = {
         ...testResponse,
         status: 500,
       };
+
       const error = new AxiosError(
         "test error",
         "ERR",
@@ -178,7 +178,43 @@ describe("axiosHelper", () => {
       });
     });
 
-    it("should log error with endpoint details with a request error", async () => {
+    it("should not log response data for disallowed endpoints in error responses", async () => {
+      // Arrange
+      const errorResponse = {
+        ...testResponse,
+        config: {
+          ...testResponse.config,
+          url: "/user/proven-identity-details",
+        },
+        status: 500,
+      };
+
+      const error = new AxiosError(
+        "test error",
+        "ERR",
+        testRequest as any,
+        testRequest,
+        errorResponse,
+      );
+
+      // Act
+      await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
+
+      // Assert
+      expect(testLogger.error).has.been.calledWith({
+        message: {
+          description: "API request failed",
+          endpoint: "GET /test-path",
+          data: undefined,
+          cri: "testCri",
+          duration: 200,
+          errorMessage: "test error",
+          errorStatus: 500,
+        },
+      });
+    });
+
+    it("should log error with endpoint details for request errors", async () => {
       // Arrange
       const error = new AxiosError(
         "test error",

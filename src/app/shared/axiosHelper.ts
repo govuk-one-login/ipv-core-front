@@ -1,3 +1,4 @@
+import API_URLS from "../../constants/api-constants";
 import axios, {
   AxiosInstance,
   AxiosResponse,
@@ -12,6 +13,7 @@ declare module "axios" {
     startTime?: number;
   }
 }
+
 interface RequestLog {
   description: string;
   endpoint: string;
@@ -19,6 +21,13 @@ interface RequestLog {
   cri?: string;
   duration?: number;
 }
+
+// Helper function to determine if an endpoint is in the allow list
+const isEndpointAllowedForDataLogging = (url: string): boolean => {
+  return Object.values(API_URLS).some((allowedUrl) => url.includes(allowedUrl));
+};
+
+// Extract credentialIssuerId for logging
 const extractCredentialIssuerId = (
   response: AxiosResponse,
 ): string | undefined => {
@@ -28,23 +37,24 @@ const extractCredentialIssuerId = (
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    // Ignore
+    // Ignore parsing errors
   }
   return undefined;
 };
 
+// Sanitise response data based on endpoint allow list
 const sanitiseResponseData = (response: AxiosResponse): object | undefined => {
   try {
     if (typeof response.data === "object") {
       const body = { ...response.data };
 
       const endpoint = response.config?.url ?? "";
-      if (endpoint.includes("proven-identity-details")) {
-        // Completely  data logging for this endpoint
+      // Only allow data logging for endpoints explicitly in the allow list
+      if (!isEndpointAllowedForDataLogging(endpoint)) {
         return undefined;
       }
 
-      // Sanitize redirect URLs for other endpoints
+      // Sanitize redirect URLs for allowed endpoints
       if (body.cri?.redirectUrl) {
         body.cri = {
           ...body.cri,
@@ -66,6 +76,7 @@ const sanitiseResponseData = (response: AxiosResponse): object | undefined => {
   return undefined;
 };
 
+// Build the request log
 const buildRequestLog = (
   response: AxiosResponse,
   description: string,
@@ -80,12 +91,16 @@ const buildRequestLog = (
       response.config.startTime && Date.now() - response.config.startTime,
   };
 };
+
+// Log the start time for requests
 const axiosRequestTimer = async (
   requestConfig: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> => {
   requestConfig.startTime = Date.now();
   return requestConfig;
 };
+
+// Log responses
 export const axiosResponseLogger = async (
   response: AxiosResponse,
 ): Promise<AxiosResponse> => {
@@ -97,6 +112,8 @@ export const axiosResponseLogger = async (
   }
   return response;
 };
+
+// Log errors
 export const axiosErrorLogger = async (error: unknown): Promise<void> => {
   if (axios.isAxiosError(error) && error.config?.logger) {
     const logger = error.config.logger;
@@ -127,6 +144,8 @@ export const axiosErrorLogger = async (error: unknown): Promise<void> => {
   }
   return Promise.reject(error);
 };
+
+// Create an Axios instance with interceptors
 export const createAxiosInstance = (baseUrl: string): AxiosInstance => {
   const instance = axios.create({
     baseURL: baseUrl,

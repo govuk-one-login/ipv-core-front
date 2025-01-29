@@ -1,4 +1,4 @@
-import API_URLS from "../../constants/api-constants";
+import API_URLS from "../../config/config";
 import axios, {
   AxiosInstance,
   AxiosResponse,
@@ -22,9 +22,18 @@ interface RequestLog {
   duration?: number;
 }
 
+const ALLOWED_ENDPOINTS: string[] = [
+  API_URLS.API_CRI_CALLBACK,
+  API_URLS.API_MOBILE_APP_CALLBACK,
+  API_URLS.API_JOURNEY_EVENT,
+  API_URLS.API_SESSION_INITIALISE,
+];
+
 // Helper function to determine if an endpoint is in the allow list
 const isEndpointAllowedForDataLogging = (url: string): boolean => {
-  return Object.values(API_URLS).some((allowedUrl) => url.includes(allowedUrl));
+  return Object.values(ALLOWED_ENDPOINTS).some((allowedUrl) =>
+    url.includes(allowedUrl),
+  );
 };
 
 // Extract credentialIssuerId for logging

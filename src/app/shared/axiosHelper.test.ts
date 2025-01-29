@@ -2,7 +2,7 @@ import sinon from "sinon";
 import { expect } from "chai";
 import { axiosErrorLogger, axiosResponseLogger } from "./axiosHelper";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import API_URLS from "../../constants/api-constants";
+import API_URLS from "../../config/config";
 
 const testLogger = {
   info: sinon.fake(),

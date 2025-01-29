@@ -13,6 +13,10 @@ export interface PageResponse {
   clientOAuthSessionId?: string;
 }
 
+export interface EventResponse {
+  eventName: string;
+}
+
 export interface JourneyResponse {
   journey: string;
 }
@@ -25,7 +29,8 @@ export type PostJourneyEventResponse =
   | JourneyResponse
   | PageResponse
   | CriResponse
-  | ClientResponse;
+  | ClientResponse
+  | EventResponse;
 
 export const isJourneyResponse = (
   res: PostJourneyEventResponse,
@@ -43,6 +48,12 @@ export const isClientResponse = (
   res: PostJourneyEventResponse,
 ): res is ClientResponse => {
   return (res as ClientResponse)?.client !== undefined;
+};
+
+export const isEventResponse = (
+  res: PostJourneyEventResponse,
+): res is EventResponse => {
+  return (res as EventResponse)?.eventName !== undefined;
 };
 
 export const isPageResponse = (

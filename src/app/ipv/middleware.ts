@@ -34,6 +34,7 @@ import {
 import {
   isClientResponse,
   isCriResponse,
+  isEventResponse,
   isJourneyResponse,
   isPageResponse,
   isValidClientResponse,
@@ -127,23 +128,24 @@ export const handleBackendResponse = async (
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
+  // New response type for handling events
+  if (isEventResponse(backendResponse)) {
+    // Detect fucntion might be moved to a core-back as a parameter callback
+    // something like const event = backendResponse.callback(req)
+    const event = detectAppTriageEvent(req);
+    return await processAction(req, res, event, backendResponse.eventName);
+  }
+
   if (isPageResponse(backendResponse)) {
     req.session.currentPage = backendResponse.page;
     req.session.context = backendResponse?.context;
     req.session.currentPageStatusCode = backendResponse?.statusCode;
 
-    // Special case handling for "identify-device". This is used by core-back to signal that we need to
-    // check the user's device and send back the relevant "appTriage" event.
-    if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
-      const event = detectAppTriageEvent(req);
-      return await processAction(req, res, event, backendResponse.page);
-    } else {
-      return saveSessionAndRedirect(
-        req,
-        res,
-        getIpvPagePath(req.session.currentPage),
-      );
-    }
+    return saveSessionAndRedirect(
+      req,
+      res,
+      getIpvPagePath(req.session.currentPage),
+    );
   }
 
   throw new TechnicalError("Unexpected backend response");

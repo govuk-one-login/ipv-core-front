@@ -61,7 +61,7 @@ describe("processAction", () => {
     const pageId = IPV_PAGES.PROVE_IDENTITY_NO_PHOTO_ID;
     [
       {
-        data: { page: IPV_PAGES.IDENTIFY_DEVICE },
+        data: { eventName: IPV_PAGES.IDENTIFY_DEVICE },
       },
       {
         data: { page: pageId },

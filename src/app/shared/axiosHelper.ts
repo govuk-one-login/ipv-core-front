@@ -22,7 +22,7 @@ interface RequestLog {
   duration?: number;
 }
 
-const ALLOWED_ENDPOINTS: string[] = [
+const ALLOWED_RESPONSE_DATA_LOGGING_ENDPOINTS: string[] = [
   API_URLS.API_CRI_CALLBACK,
   API_URLS.API_MOBILE_APP_CALLBACK,
   API_URLS.API_JOURNEY_EVENT,
@@ -31,8 +31,8 @@ const ALLOWED_ENDPOINTS: string[] = [
 
 // Helper function to determine if an endpoint is in the allow list
 const isEndpointAllowedForDataLogging = (url: string): boolean => {
-  return Object.values(ALLOWED_ENDPOINTS).some((allowedUrl) =>
-    url.includes(allowedUrl),
+  return Object.values(ALLOWED_RESPONSE_DATA_LOGGING_ENDPOINTS).some(
+    (allowedUrl) => url.includes(allowedUrl),
   );
 };
 

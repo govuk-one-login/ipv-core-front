@@ -28,6 +28,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "personal-independence-payment": [],
   "photo-id-security-questions-find-another-way": ["dropout", undefined],
   "prove-identity-another-type-photo-id": ["drivingLicence", "passport"],
+  "prove-identity-another-way": ["noF2f", undefined],
   "prove-identity-no-other-photo-id": ["drivingLicence", "passport"],
   "prove-identity-no-photo-id": ["nino", undefined],
   "pyi-another-way": [],
@@ -75,7 +76,6 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     undefined,
   ],
   "uk-driving-licence-details-not-correct": [],
-  "prove-identity-another-way": ["noF2f", undefined],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
 };

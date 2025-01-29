@@ -16,7 +16,7 @@
       "warning": "Warning",
       "signOut": "Sign out",
       "phaseBanner": {
-        "tag": "beta",
+        "tag": "Beta",
         "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">feedback (opens in new tab)</a>  will help us to improve it."
       }
     },

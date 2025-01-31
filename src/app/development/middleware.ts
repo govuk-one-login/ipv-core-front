@@ -28,7 +28,11 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
 };
 
 export const serviceUnavailableGet: RequestHandler = async (req, res) => {
-  res.sendFile(path.resolve("views/errors/service-unavailable-s3/service-unavailable.html"));
+  res.sendFile(
+    path.resolve(
+      "views/errors/service-unavailable-s3/service-unavailable.html",
+    ),
+  );
 };
 
 const getMappedPageContextRadioOptions = (): Record<

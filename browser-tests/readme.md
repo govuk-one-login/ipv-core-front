@@ -8,6 +8,7 @@ The snapshot tests only call the dev template display URL so don't use imposter.
 This will run the tests in the same way as in the build pipeline
 - Build the docker containers `docker compose build`
 - Run the tests `docker compose up --exit-code-from browser-tests-tests`
+- If you get test failures you may need to disconnect from the VPN and try again
 
 ## Functional tests
 

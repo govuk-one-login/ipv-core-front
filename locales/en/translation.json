@@ -495,7 +495,7 @@
         "checkboxes": {
           "heading": "Which details do you need to update?",
           "hint": "Select all that apply.",
-          "errorMessage": "Select which details you need to update, or select 'I do not need to update my details'",
+          "errorMessage": "Select which details you need to update, or select ‘I do not need to update my details’",
           "checkbox1": "Given names",
           "checkbox1Hint": "This is your first name and middle names",
           "checkbox2": "Last name",
@@ -506,8 +506,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select which details you need to update, or select 'I do not need to update my details'",
-          "errorCheckboxMessage": "Select which details you need to update, or select 'I do not need to update my details'"
+          "errorSummaryDescriptionText": "Select which details you need to update, or select ‘I do not need to update my details’",
+          "errorCheckboxMessage": "Select which details you need to update, or select ‘I do not need to update my details’"
         }
       }
     },
@@ -584,9 +584,9 @@
         "paragraph2": "If you started using a service from a link in another app or browser:",
         "possibleActions": [
           "Go back to the app or browser you started in.",
-          "Select the 'Link GOV.UK ID Check' button to continue."
+          "Select the ‘Link GOV.UK ID Check’ button to continue."
         ],
-        "h3GoBackToTheService": "Go back to the service you're trying to use",
+        "h3GoBackToTheService": "Go back to the service you’re trying to use",
         "paragraph3": "If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
         "h3IfYouNeedHelp": "If you need help",
         "paragraph4": "You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">contact the GOV.UK One Login team (opens in new tab)</a>."
@@ -972,7 +972,7 @@
           "Frontier Worker permit (FWP)"
         ],
         "paragraph7": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
-        "insetText": "<h3 class='govuk-heading-s'>Example</h3>If your BRP expired on 31 October 2024, you can use it to prove your identity until 30 April 2026."
+        "insetText": "<h3 class=\"govuk-heading-s\">Example</h3>If your BRP expired on 31 October 2024, you can use it to prove your identity until 30 April 2026."
       }
     },
     "pageIpvIdentityPostofficeStart": {
@@ -1140,7 +1140,7 @@
         "button": "Download GOV.UK One Login",
         "details2": {
           "summaryText": "Help downloading the app",
-          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tap the 'Download GOV.UK One Login' button to go to the App Store (for iPhone) or Play Store (for Android).</li><li>Download the GOV.UK One Login app.</li></ol>"
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tap the ‘Download GOV.UK One Login’ button to go to the App Store (for iPhone) or Play Store (for Android).</li><li>Download the GOV.UK One Login app.</li></ol>"
         },
         "details3": {
           "summaryText": "Do I need to take off my glasses?",
@@ -1165,7 +1165,7 @@
         "paragraph4": "You need an iPhone 7 or newer.",
         "details": {
           "summaryText": "How do I know which iPhone I have?",
-          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select 'General' then 'About' and look for the 'Model Name'.</p>"
+          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
         },
         "subHeadingQuestionAndroid": "Are you on an Android phone?",
         "subHeadingQuestionIphone": "Are you on one of these iPhones?",
@@ -1256,7 +1256,7 @@
         "paragraph7": "You may also need the letter from the DWP saying that you were awarded PIP.",
         "details": {
           "summaryText": "How we use your details",
-          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you'd like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a></p>"
+          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a></p>"
         },
         "paragraph8LinkText": "I need to prove my identity another way"
       }
@@ -1486,12 +1486,12 @@
       "header": "You can change how you get security codes",
       "content": {
         "paragraph1": "We need to check your identity before you change how you get security codes. This is to keep your information safe.",
-        "paragraph2": "You'll need a smartphone and photo ID to prove your identity.",
+        "paragraph2": "You’ll need a smartphone and photo ID to prove your identity.",
         "subHeading": "What you need to do",
         "list": [
-          "Answer some questions about your photo ID and the device you're on. This is to make sure you can use the GOV.UK ID Check app.",
-          "We'll tell you how to download and use the app to prove your identity with your photo ID.",
-          "We'll check your photo ID matches your GOV.UK One Login.",
+          "Answer some questions about your photo ID and the device you’re on. This is to make sure you can use the GOV.UK ID Check app.",
+          "We’ll tell you how to download and use the app to prove your identity with your photo ID.",
+          "We’ll check your photo ID matches your GOV.UK One Login.",
           "Choose how you want to get security codes. You can have codes sent to a mobile phone number or get them from an authenticator app.",
           "Continue to the service you need to use."
         ],

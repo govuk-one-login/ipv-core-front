@@ -1,46 +1,54 @@
 {% extends "shared/base.njk" %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set pageTitleKey = 'pages.pageF2fHandoff.title' %}
 {% set googleTagManagerPageId = "pageF2fHandoff" %}
 
 {% block content %}
-  {{ govukPanel({
-    titleText: 'pages.pageF2fHandoff.panelText' | translate,
-    classes:"di-f2f-panel govuk-!-margin-bottom-7"
-  }) }}
+
+  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pageF2fHandoff.header' | translate }}</h1>
+
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.firstCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading1' | translate }}</h2>
+  </div>
 
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph2' | translate }}</p>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading1' | translate }}</h2>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.paragraph3' | translate }}</p>
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.secondCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }} {{ postOfficeVisitByDate | DateDayAndMonth}}</h2>
+  </div>
+
+  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph3' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
     {% for listItem in 'pages.pageF2fHandoff.content.whatToBringToPostOffice' | translate({ returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
 
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph4' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph5' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph6' | translate }} <a href="{{ 'pages.pageF2fHandoff.content.paragraph6LinkHref' | translate }}" class="govuk-link" rel="noreferrer noopener" target="_blank">{{ 'pages.pageF2fHandoff.content.paragraph6LinkText' | translate }}</a>.</p>
-  {{ govukInsetText({
-    text: 'pages.pageF2fHandoff.content.insetText' | translate
-  }) }}
-
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading3' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph7' | translate }}</p>
-
-  <h2 class="govuk-heading-m govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{ 'pages.pageF2fHandoff.content.subHeading4' | translate }}</h2>
-
-  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph8' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% for listItem in 'pages.pageF2fHandoff.content.reasonsToContactUs' | translate({ returnObjects: true }) %}
+    {% for listItem in 'pages.pageF2fHandoff.content.whatHappensAtPostOffice' | translate({ returnObjects: true }) %}
       <li>{{ listItem }}</li>
     {% endfor %}
   </ul>
 
+  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph5' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.pageF2fHandoff.content.detailsTitle' | translate,
+    text: 'pages.pageF2fHandoff.content.detailsContent' | translate({ url: contactUsUrl }) | safe
+  }) }}
+
+  <div>
+    <p class="circle">{{ 'pages.pageF2fHandoff.content.thirdCircle' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading3' | translate }}</h2>
+  </div>
+
+  <p class="govuk-body">{{ 'pages.pageF2fHandoff.content.paragraph6' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.pageF2fHandoff.content.subHeading4' | translate }}</h2>
   {% include "components/contact-us-link.njk" %}
 {% endblock %}

@@ -339,6 +339,7 @@
         "formRadioButtons": {
           "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
           "continueButtonTextHint": "You’ll need to answer a few questions again before you can open the app",
+          "continueButtonTextHintStrategicApp": "",
           "otherWayButtonText": "Prove your identity another way"
         },
         "formErrorMessage": {

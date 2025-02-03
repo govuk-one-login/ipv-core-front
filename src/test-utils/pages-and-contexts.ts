@@ -75,7 +75,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     "rfcAccountDeletion",
     undefined,
   ],
-  "uk-driving-licence-details-not-correct": [],
+  "uk-driving-licence-details-not-correct": ["strategicApp", undefined],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
 };

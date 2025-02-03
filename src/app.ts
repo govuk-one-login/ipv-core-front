@@ -58,7 +58,7 @@ const DynamoDBStore = connect(session);
 
 const APP_VIEWS = [
   path.resolve("views/"),
-  path.resolve("node_modules/govuk-frontend/"),
+  path.resolve("node_modules/govuk-frontend/dist/"),
   path.resolve("node_modules/@govuk-one-login/"),
 ];
 
@@ -100,7 +100,7 @@ app.use(securityHeadersHandler);
 app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
   "/assets",
-  express.static(path.resolve("node_modules/govuk-frontend/govuk/assets")),
+  express.static(path.resolve("node_modules/govuk-frontend/dist/govuk/assets")),
 );
 
 app.get("/healthcheck", (req, res) => {

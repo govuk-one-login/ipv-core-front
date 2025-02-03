@@ -16,7 +16,7 @@
       "warning": "Rhybudd",
       "signOut": "Allgofnodi",
       "phaseBanner": {
-        "tag": "beta",
+        "tag": "Beta",
         "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
       }
     },

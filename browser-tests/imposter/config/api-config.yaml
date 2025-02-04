@@ -235,9 +235,7 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id:
-        value: "^(testIdentifyDeviceIphone|strategicAppTriage).*$"
-        operator: Matches
+      ipv-session-id: "testIdentifyDeviceIphone"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -278,12 +276,12 @@ resources:
         }
 
   - method: POST
-    path: /journey/appTriageIphone
+    path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "strategicAppTriageIphone"
     queryParams:
-      currentPage: "identify-device"
+      currentPage: "page-ipv-identity-document-start"
     response:
       statusCode: 200
       content: |
@@ -293,12 +291,12 @@ resources:
         }
 
   - method: POST
-    path: /journey/appTriageAndroid
+    path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "strategicAppTriageAndroid"
     queryParams:
-      currentPage: "identify-device"
+      currentPage: "page-ipv-identity-document-start"
     response:
       statusCode: 200
       content: |

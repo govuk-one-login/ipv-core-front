@@ -29,10 +29,8 @@ test.describe("iPhone tests", () => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("strategicAppTriageIphone"));
 
-    // On the document start page, after selecting continue, core-back will
-    // return identify-device which will resolve to a /journey/appTriageIphone
-    // event as an iphone is detected. We skip the iphone confirmation page
-    // and go straight to the mobile download page for testing purposes.
+    // On the document start page, after selecting continue, we skip the iphone
+    // confirmation page and go straight to the mobile download page for testing purposes.
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
@@ -86,10 +84,8 @@ test.describe("Android tests", () => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("strategicAppTriageAndroid"));
 
-    // On the document start page, after selecting continue, core-back will
-    // return identify-device which will resolve to a /journey/appTriageIphone
-    // event as an iphone is detected. We skip the iphone confirmation page
-    // and go straight to the mobile download page for testing purposes.
+    // On the document start page, after selecting continue, we skip the android
+    // confirmation page and go straight to the mobile download page for testing purposes.
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 

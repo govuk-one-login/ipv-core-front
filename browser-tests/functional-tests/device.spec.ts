@@ -40,7 +40,7 @@ test.describe("iPhone tests", () => {
     await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
     const response = await responsePromise;
 
-    expect(response.headers()['location']).toMatch(/^.*apps.apple.com\/gb\/app\/gov-uk-id-check.*$/);
+    expect(response.headers()['location']).toMatch(/^.*apps\.apple\.com\/gb\/app\/gov-uk-id-check.*$/);
   })
 
   test("Should redirect to apple store despite the user selecting android", async ({page}) => {
@@ -59,7 +59,7 @@ test.describe("iPhone tests", () => {
     await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
     const response = await responsePromise;
 
-    expect(response.headers()['location']).toMatch(/^.*apps.apple.com\/gb\/app\/gov-uk-id-check.*$/);
+    expect(response.headers()['location']).toMatch(/^.*apps\.apple\.com\/gb\/app\/gov-uk-id-check.*$/);
   })
 });
 

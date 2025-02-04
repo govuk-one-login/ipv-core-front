@@ -24,6 +24,45 @@ test.describe("iPhone tests", () => {
     const url = page.url();
     expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
   });
+
+  test("Selecting the download link redirects the browser to the apple app store", async ({page}) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("strategicAppTriageIphone"));
+
+    // On the document start page, after selecting continue, core-back will
+    // return identify-device which will resolve to a /journey/appTriageIphone
+    // event as an iphone is detected. We skip the iphone confirmation page
+    // and go straight to the mobile download page for testing purposes.
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    // On mobile download app page with "iphone" context
+    // Start waiting for redirect response before clicking button
+    const responsePromise = page.waitForResponse(response => response.status() == 301);
+    await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
+    const response = await responsePromise;
+
+    expect(response.headers()['location']).toMatch(/^.*apps.apple.com\/gb\/app\/gov-uk-id-check.*$/);
+  })
+
+  test("Should redirect to apple store despite the user selecting android", async ({page}) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("userSelectsDifferentDeviceIphone"));
+
+    // On the document start page, after selecting continue, we go straight to
+    // pyi-triage-mobile-download-app with android context to simulate a user choosing
+    // the android option despite having an iphone
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    // On mobile download app page with "iphone" context
+    // Start waiting for redirect response before clicking button
+    const responsePromise = page.waitForResponse(response => response.status() == 301);
+    await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
+    const response = await responsePromise;
+
+    expect(response.headers()['location']).toMatch(/^.*apps.apple.com\/gb\/app\/gov-uk-id-check.*$/);
+  })
 });
 
 test.describe("Android tests", () => {
@@ -42,4 +81,37 @@ test.describe("Android tests", () => {
     const url = page.url();
     expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
   });
+
+  test("Selecting the download link redirects the browser to the google play store", async ({page}) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("strategicAppTriageAndroid"));
+
+    // On the document start page, after selecting continue, core-back will
+    // return identify-device which will resolve to a /journey/appTriageIphone
+    // event as an iphone is detected. We skip the iphone confirmation page
+    // and go straight to the mobile download page for testing purposes.
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    // On mobile download app page with "iphone" context
+    await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
+
+    expect(page.url()).toMatch(/^.*play\.google\.com\/store\/apps\/details\?id=uk\.gov\.documentchecking$/);
+  })
+
+  test("Should redirect to google play store despite the user selecting iphone", async ({page}) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("userSelectsDifferentDeviceAndroid"));
+
+    // On the document start page, after selecting continue, we go straight to
+    // pyi-triage-mobile-download-app with iphone context to simulate a user choosing
+    // the iphone option despite having an android
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    // On mobile download app page with "iphone" context
+    await page.getByRole('button', {name: "Download GOV.UK One Login"}).click();
+
+    expect(page.url()).toMatch(/^.*play\.google\.com\/store\/apps\/details\?id=uk\.gov\.documentchecking$/);
+  })
 });

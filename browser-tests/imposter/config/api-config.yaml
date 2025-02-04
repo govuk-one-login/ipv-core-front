@@ -235,7 +235,9 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "testIdentifyDeviceIphone"
+      ipv-session-id:
+        value: "^(testIdentifyDeviceIphone|strategicAppTriage).*$"
+        operator: Matches
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -243,6 +245,66 @@ resources:
       content: |
         {
           "page": "identify-device"
+        }
+
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "userSelectsDifferentDeviceIphone"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-mobile-download-app",
+          "context": "android"
+        }
+
+  - method: POST
+    path: /journey/appTriage
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "userSelectsDifferentDeviceAndroid"
+    queryParams:
+      currentPage: "page-ipv-identity-document-start"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-mobile-download-app",
+          "context": "iphone"
+        }
+
+  - method: POST
+    path: /journey/appTriageIphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "strategicAppTriageIphone"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-mobile-download-app",
+          "context": "iphone"
+        }
+
+  - method: POST
+    path: /journey/appTriageAndroid
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "strategicAppTriageAndroid"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-mobile-download-app",
+          "context": "android"
         }
 
   - method: POST

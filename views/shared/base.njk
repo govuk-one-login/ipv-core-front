@@ -79,7 +79,7 @@
                 href: hrefBack
             }) }}
         {% endif %}
-        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
             <div class="govuk-grid-row">
                 {% if displayBanner %}
                     {{ govukNotificationBanner({

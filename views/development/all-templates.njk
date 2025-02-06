@@ -2,89 +2,69 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% extends "shared/base.njk" %}
 {% set pageTitleKey = "All templates" %}
+{% set rowClasses = "govuk-grid-column-full" %} 
 
 {% if errorState %}
     {% set errorText = 'Select a page and a context if appropriate.' %}
 {% endif %}
 
 {% block content %}
-  <form id="pageSelectForm" action="/dev/all-templates" method="POST">
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Template</th>
+      <th scope="col" class="govuk-table__header">Context</th>
+      <th scope="col" class="govuk-table__header">Error State</th>
+      <th scope="col" class="govuk-table__header">Submit</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+  
+  {% for page, contexts in templatesWithContextRadioOptions %}
+  <form action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <input type="hidden" name="template" value="{{ page }}">
 
-    {% set templateRadioConfig = [] %}
-    {% for page, contexts in templatesWithContextRadioOptions %}
-      {% set contextRadioId = ['pageContext', page] | join %}
-      {% set conditional = {
-        html: govukRadios({
-          idPrefix: contextRadioId,
-          name: 'pageContext',
-          classes: "govuk-radios--small",
-          fieldset: {
-            legend: {
-              text: 'Choose a context:',
-              classes: "govuk-fieldset__legend--s"
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">
+        {{ page }}
+      </th>
+      <td class="govuk-table__cell">
+        {% if contexts | length %}
+          {{ govukSelect({
+            name: "pageContext",
+            selected: contexts[0].value, 
+            items: contexts
+          }) }}
+        {% else %}
+          <span class="govuk-body">No context</span>
+        {% endif %}
+      </td>
+      <td class="govuk-table__cell">
+        {{ govukCheckboxes({
+          name: "hasErrorState",
+          items: [
+            {
+              text: "Error",
+              value: "true"
             }
-          },
-          items: contexts })
-      } if contexts | length else undefined %}
-
-      {% set templateRadioConfig = (
-          templateRadioConfig.push({
-            text: page,
-            value: page,
-            conditional: conditional
-          }),
-          templateRadioConfig ) %}
-
-    {% endfor %}
-
-    {{ govukRadios({
-      name: "template",
-      fieldset: {
-        legend: {
-          text: "Select a Page",
-          classes: "govuk-fieldset__legend--m"
-        }
-      },
-      items: templateRadioConfig
-    }) }}
-
-    {{ govukRadios({
-      name: "language",
-      fieldset: {
-        legend: {
-          text: "Select a Language",
-          classes: "govuk-fieldset__legend--m"
-        }
-      },
-      items: [
-        {
-          value: "en",
-          text: "English",
-          checked: true
-        },
-        {
-          value: "cy",
-          text: "Welsh"
-        }
-      ]
-    }) }}
-
-    {{ govukCheckboxes({
-      name: "hasErrorState",
-      items: [
-        {
-          text: "Error state",
-          value: "true"
-        }
-      ]
-    }) }}
-
-    {{ govukButton({
-      text: "Go"
-    }) }}
+          ]
+        }) }}
+      </td>
+      <td class="govuk-table__cell">
+        <div style="display: flex; gap: 10px;">
+          <button name="language" value="en" class="govuk-button">En</button>
+          <button name="language" value="cy" class="govuk-button">Cy</button>
+        </div>
+      </td>
+    </tr>
   </form>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

@@ -36,13 +36,13 @@
       </th>
       <td class="govuk-table__cell">
         {% if contexts | length %}
-            {{ govukSelect({
-              name: "pageContext",
-              selected: contexts[0].value, 
-              items: contexts
-            }) }}
+          {{ govukSelect({
+            name: "pageContext",
+            selected: contexts[0].value, 
+            items: contexts
+          }) }}
         {% else %}
-            <span class="govuk-body">No context</span>
+          <span class="govuk-body">No context</span>
         {% endif %}
       </td>
       <td class="govuk-table__cell">
@@ -59,7 +59,7 @@
       <td class="govuk-table__cell">
         <div style="display: flex; gap: 10px;">
           <button name="language" value="en" class="govuk-button">En</button>
-          <button name="language" value="cy" class="govuk-button govuk-button--secondary">Cy</button>
+          <button name="language" value="cy" class="govuk-button">Cy</button>
         </div>
       </td>
     </tr>

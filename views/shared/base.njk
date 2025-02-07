@@ -144,8 +144,10 @@
 
 {% block bodyEnd %}
     {% block scripts %}{% endblock %}
-    <script type="module" nonce='{{ cspNonce }}' src="/public/javascripts/application.js">
-        import { initAll } from 'govuk-frontend'
+    <script nonce='{{ cspNonce }}' src="/public/javascripts/application.js"></script>
+    <script type="module" nonce='{{ cspNonce }}' src="/public/javascripts/govuk-frontend.min.js"></script>
+    <script type="module" nonce='{{ cspNonce }}'>
+        import { initAll } from '/public/javascripts/govuk-frontend.min.js'
         initAll()
     </script>
     <script nonce='{{ cspNonce }}'>

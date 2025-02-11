@@ -151,7 +151,7 @@ test.describe.parallel("Functional tests", () => {
 
     await page.click("button[id='submitButton']");
 
-    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update, or select 'I do not need to update my details'" });
+    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update" });
     await expect(errorTextLocator).toBeVisible();
   })
 

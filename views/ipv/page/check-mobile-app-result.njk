@@ -7,6 +7,11 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.checkMobileAppResult.header' | translateWithContext(context) }}</h1>
   <p class="govuk-body">{{'pages.checkMobileAppResult.content.paragraph1' | translateWithContext(context) }}</p>
+  <div id="spinner-container">spinner</div>
 
   {% include "components/contact-us-link.njk" %}
+{% endblock %}
+
+{% block scripts %}
+    <script nonce='{{ cspNonce }}' defer type="text/javascript" src="/public/javascripts/spinner-app.js"></script>
 {% endblock %}

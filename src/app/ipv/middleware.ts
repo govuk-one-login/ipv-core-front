@@ -357,10 +357,6 @@ export const handleJourneyPageRequest = async (
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
       validatePhoneType(context);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
-    } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
-      renderOptions.postOfficeVisitByDate = new Date().setDate(
-        new Date().getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
-      );
     } else if (req.session.currentPageStatusCode !== undefined) {
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;

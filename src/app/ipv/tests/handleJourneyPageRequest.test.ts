@@ -8,7 +8,6 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../../test-utils/mock-express";
-import IPV_PAGES from "../../../constants/ipv-pages";
 
 describe("handleJourneyPageRequest", () => {
   // Mock handler parameters
@@ -114,30 +113,6 @@ describe("handleJourneyPageRequest", () => {
     // Assert
     expect(res.render).to.have.been.calledWith(
       "ipv/page/prove-identity-no-photo-id.njk",
-    );
-  });
-
-  it("should render page with render options when given valid pageId", async () => {
-    // Arrange
-    const req = createRequest({
-      params: { pageId: IPV_PAGES.PAGE_FACE_TO_FACE_HANDOFF },
-      session: { currentPage: IPV_PAGES.PAGE_FACE_TO_FACE_HANDOFF },
-    });
-    const res = createResponse();
-
-    // Act
-    await middleware.handleJourneyPageRequest(req, res, next);
-
-    // Assert
-    expect(res.render).to.have.been.calledWith(
-      "ipv/page/page-face-to-face-handoff.njk",
-      {
-        pageId: "page-face-to-face-handoff",
-        csrfToken: undefined,
-        context: undefined,
-        pageErrorState: undefined,
-        postOfficeVisitByDate: sinon.match.number,
-      },
     );
   });
 

@@ -609,33 +609,32 @@
       "buttonText": "Dechrau ateb cwestiynau"
     },
     "pageF2fHandoff": {
-      "title": "Gorffen profi eich hunaniaeth mewn Swyddfa’r Post",
-      "header": "Gorffen profi eich hunaniaeth mewn Swyddfa’r Post",
+      "title": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",
+      "panelText": "Ewch i Swyddfa’r Post o fewn 10 diwrnod i orffen profi eich hunaniaeth",
       "content": {
-        "firstCircle": "1",
-        "subHeading1": "Cael eich llythyr cwsmer Swyddfa’r Post",
-        "paragraph1": "Anfonwyd e-bost cadarnhau atoch gyda dolen i lawrlwytho eich llythyr cwsmer.",
-        "paragraph2": "Os ydych wedi gofyn i ni, byddwn hefyd yn anfon eich llythyr cwsmer atoch drwy’r post. Gall gymryd hyd at 6 diwrnod gwaith i’ch llythyr gyrraedd.",
-        "secondCircle": "2",
-        "subHeading2": "Ewch i Swyddfa’r Post erbyn",
-        "paragraph3": "Pan fyddwch yn mynd i Swyddfa’r Post, mae’n rhaid i chi fynd ar canlynol:",
+        "paragraph1": "Anfonwyd e-bost cadarnhau atoch gyda dolen i lawrlwytho eich llythyr cwsmer Swyddfa’r Post.",
+        "paragraph2": "I orffen profi eich hunaniaeth, mae angen i chi fynd i Swyddfa’r Post o’ch dewis o fewn y 10 diwrnod nesaf.",
+        "subHeading1": "Beth sydd angen i chi fynd gyda chi i Swyddfa’r Post",
+        "paragraph3": "Pan fyddwch yn mynd i Swyddfa’r Post, gwnewch yn siwr eich bod yn mynd â’ch:",
         "whatToBringToPostOffice": [
-          "eich llythyr cwsmer Swyddfa’r Post",
-          "yr ID gyda llun a ddangosir ar eich llythyr cwsmer"
+          "ID gyda llun a ddewiswyd",
+          "Llythyr cwsmer Swyddfa’r Post (gallwch lawrlwytho eich llythyr o’ch e-bost cadarnhau)"
         ],
-        "paragraph4": "Bydd aelod o staff Swyddfa’r Post yn:",
-        "whatHappensAtPostOffice": [
-          "gwirio eich llythyr cwsmer",
-          "sganio eich ID gyda llun",
-          "tynnu llun ohonoch chi"
-        ],
-        "paragraph5": "Os na fyddwch yn mynd i Swyddfa’r Post erbyn y dyddiad sydd i’w weld ar eich llythyr cwsmer, bydd angen i chi ddechrau profi eich hunaniaeth eto.",
-        "detailsTitle": "Pa Swyddfa’r Post ddylwn i fynd iddi?",
-        "detailsContent": "<p>Mae eich llythyr cwsmer yn dangos pa Swyddfa’r Post y gwnaethoch ddewis mynd iddi. </p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/identity/in-branch-verification-service#bfSearchLabel\">fynd i Swyddfa’r Post gwahanol cyn belled â’i bod yn cynnig gwiriad mewn cangen (agor mewn tab newydd)</a>.</p> <p>Nid oes angen i chi gysylltu â thîm GOV.UK One Login os ydych am fynd i Swyddfa’r Post gwahanol.</p>",
-        "thirdCircle": "3",
-        "subHeading3": "Arhoswch am eich canlyniad",
-        "paragraph6": "Byddwch yn cael e-bost gan GOV.UK One Login am ganlyniad eich gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
-        "subHeading4": "Os ydych angen help"
+        "subHeading2": "Yn y Swyddfa Bost",
+        "paragraph4": "Bydd angen i chi ddangos eich llythyr cwsmer Swyddfa’r Post ar eich ffôn neu dabled, neu fynd â chopi wedi’i argraffu gyda chi.",
+        "paragraph5": "Bydd aelod o staff Swyddfa’r Post yn sganio’ch ID gyda llun ac yn tynnu llun ohonoch chi.",
+        "paragraph6": "Fe welwch fanylion eich Swyddfa’r Post dewisol yn eich llythyr cwsmer. Ond gallwch",
+        "paragraph6LinkText": "fynd i unrhyw Swyddfa’r Post sy’n cynnig dilysu mewn canghennau (agor mewn tab newydd)",
+        "paragraph6LinkHref": "https://www.postoffice.co.uk/identity/in-branch-verification-service#bf-full-width",
+        "insetText": "Os na fyddwch yn mynd i Swyddfa’r Post o fewn y 10 diwrnod nesaf, bydd angen i chi ddechrau profi eich hunaniaeth eto.",
+        "subHeading3": "Ar ôl i chi fynd i Swyddfa’r Post",
+        "paragraph7": "Fe gewch e-bost am ganlyniad eich gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "subHeading4": "Os ydych angen help",
+        "paragraph8": "Cysylltwch â ni os:",
+        "reasonsToContactUs": [
+          "ydych angen help i orffen profi eich hunaniaeth gyda Swyddfa’r Post",
+          "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall"
+        ]
       }
     },
     "pageDcmawSuccess": {

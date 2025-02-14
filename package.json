@@ -73,7 +73,7 @@
     "typescript": "5.7.2",
     "typescript-eslint": "8.24.0",
     "uglify-js": "latest",
-    "webpack": "5.97.1"
+    "webpack": "5.98.0"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.744.0",

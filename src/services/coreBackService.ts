@@ -144,3 +144,10 @@ export const getProvenIdentityUserDetails = (
     ),
   );
 };
+
+export const getDcMawPoll = (req: Request): Promise<AxiosResponse> => {
+  return axiosInstance.get(
+    config.API_DCMAW_POLL,
+    generateAxiosConfig(`${config.API_BASE_URL}${config.API_DCMAW_POLL}`, req),
+  );
+};

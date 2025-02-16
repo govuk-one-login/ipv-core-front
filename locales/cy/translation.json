@@ -1358,10 +1358,22 @@
       }
     },
     "checkMobileAppResult": {
-      "title": "Checking your details",
-      "header": "Checking your details",
+      "title": "We're checking your details",
       "content": {
-        "paragraph1": "Polling to see your mobile app results."
+        "paragraph1": "Polling to see your mobile app results.",
+        "spinner": {
+          "initial": {
+            "heading": "We're checking your details",
+            "spinnerStateText": "Wait to be returned to the service",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "You can now continue to the service"
+          },
+          "longWait": {
+            "spinnerStateText": "We’re still trying to return you to the service"
+          }
+        }
       }
     },
     "proveIdentityAnotherWay": {

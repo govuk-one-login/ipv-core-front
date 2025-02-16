@@ -1,5 +1,13 @@
 import { Request, Response } from "express";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
+import { getDcMawPoll } from "../../services/coreBackService";
+
+enum IdentityProcessingStatus {
+  COMPLETED = "COMPLETED",
+  ERROR = "ERROR",
+  PROCESSING = "PROCESSING",
+  INTERVENTION = "INTERVENTION",
+}
 
 export const proveIdentityStatusCallbackGet: RequestHandler = async (
   req: Request,
@@ -8,16 +16,14 @@ export const proveIdentityStatusCallbackGet: RequestHandler = async (
 ) => {
   try {
     // Immediately send "PROCESSING" status
-    res.status(200).json({ status: "PROCESSING" });
+    const dcmaw = await getDcMawPoll(req);
 
-    // Wait for 1 minute (60000 milliseconds)
-    setTimeout(() => {
-      // Send "COMPLETED" status after 1 minute
-      res.status(200).json({ status: "COMPLETED" });
-    }, 60000);
+    if (!dcmaw) {
+      res.status(200).json({ status: IdentityProcessingStatus.PROCESSING });
+    }
+    res.status(200).json({ status: IdentityProcessingStatus.COMPLETED });
   } catch {
-    res.status(500).json({ status: "ERROR" });
+    res.status(500).json({ status: IdentityProcessingStatus.ERROR });
   }
-
   next();
 };

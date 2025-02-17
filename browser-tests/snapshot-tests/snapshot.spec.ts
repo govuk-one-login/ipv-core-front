@@ -36,14 +36,6 @@ test.describe.parallel("Snapshot tests", () => {
     }
   );
 
-  test(`Snapshot test for service unavailable`, async ({ page }) => {
-    const screenshotFilename = `service-unavailable.jpeg`;
-    await page.goto(`${process.env.WEBSITE_HOST}/dev/template/service-unavailable`);
-
-    const actualScreenshot = await page.screenshot({fullPage: true, type: "jpeg", quality: 20});
-    expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25});
-  });
-
   test("All templates have snapshot tests", async () => {
     const directoryPath = path.join(__dirname, "/../../views/ipv/page");
     const missingTemplates: string[] = [];

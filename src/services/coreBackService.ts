@@ -3,7 +3,7 @@ import {
   NamePartClass,
   PostalAddressClass,
 } from "@govuk-one-login/data-vocab/credentials.js";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
 import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
@@ -145,9 +145,20 @@ export const getProvenIdentityUserDetails = (
   );
 };
 
-export const getDcMawPoll = (req: Request): Promise<AxiosResponse> => {
-  return axiosInstance.get(
-    config.API_DCMAW_POLL,
-    generateAxiosConfig(`${config.API_BASE_URL}${config.API_DCMAW_POLL}`, req),
-  );
+export const getDcMawPoll = async (req: Request): Promise<boolean> => {
+  try {
+    await axiosInstance.get(
+      config.API_DCMAW_POLL,
+      generateAxiosConfig(
+        `${config.API_BASE_URL}${config.API_DCMAW_POLL}`,
+        req,
+      ),
+    );
+    return true;
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 404) {
+      return false;
+    }
+    throw error;
+  }
 };

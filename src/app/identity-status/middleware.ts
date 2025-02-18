@@ -15,15 +15,14 @@ export const proveIdentityStatusCallbackGet: RequestHandler = async (
   next: NextFunction,
 ) => {
   try {
-    // Immediately send "PROCESSING" status
     const dcmaw = await getDcMawPoll(req);
-
     if (!dcmaw) {
       res.status(200).json({ status: IdentityProcessingStatus.PROCESSING });
     }
     res.status(200).json({ status: IdentityProcessingStatus.COMPLETED });
-  } catch {
+  } catch (error) {
     res.status(500).json({ status: IdentityProcessingStatus.ERROR });
+    next(error);
   }
   next();
 };

@@ -1364,14 +1364,29 @@
         "spinner": {
           "initial": {
             "heading": "We're checking your details",
-            "spinnerStateText": "Wait to be returned to the service",
+            "spinnerStateText": "This may take a few minutes.",
             "spinnerState": "pending"
           },
           "complete": {
             "spinnerState": "You can now continue to the service"
           },
           "longWait": {
-            "spinnerStateText": "We’re still trying to return you to the service"
+            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+          },
+          "error": {
+            "heading": "Sorry, there is a problem",
+            "messageText": "We cannot prove your identity right now.",
+            "whatYouCanDo": {
+              "heading": "What you can do",
+              "message": {
+                "text1": "Go back to the service you were trying to use and start again. You can look for service using your search engine or find it from the GOV.UK homepage.",
+                "link": {
+                  "href": "",
+                  "text": ""
+                },
+                "text2": ""
+              }
+            }
           }
         }
       }

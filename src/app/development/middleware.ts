@@ -11,7 +11,6 @@ import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
-import path from "path";
 
 interface RadioOption {
   text: string;
@@ -25,14 +24,6 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
     templatesWithContextRadioOptions: templatesWithContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
   });
-};
-
-export const serviceUnavailableGet: RequestHandler = async (req, res) => {
-  res.sendFile(
-    path.resolve(
-      "views/errors/service-unavailable-s3/service-unavailable.html",
-    ),
-  );
 };
 
 const getMappedPageContextRadioOptions = (): Record<

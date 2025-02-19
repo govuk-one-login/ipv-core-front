@@ -5,7 +5,7 @@
 {% set isPageDynamic = false %}
 
 {% block content %}
-  <form action="/ipv-callback" method="post" novalidate="novalidate">
+  <form action="/ipv/page/{{ pageId }}" method="post" novalidate="novalidate">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
     <div id="spinner-container"
           data-initial-heading="{{ 'pages.checkMobileAppResult.content.spinner.initial.heading' | translate }}{{ serviceName }}"

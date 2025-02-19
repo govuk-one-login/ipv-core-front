@@ -147,6 +147,11 @@ export const getProvenIdentityUserDetails = (
 
 export const getDcMawPoll = async (req: Request): Promise<boolean> => {
   try {
+    // Temp code to test the polling
+    // const now = new Date();
+    // const seconds = now.getSeconds();
+    // return seconds % 10 === 0;
+
     await axiosInstance.get(
       config.API_DCMAW_POLL,
       generateAxiosConfig(

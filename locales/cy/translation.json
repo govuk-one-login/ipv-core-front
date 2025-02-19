@@ -1358,20 +1358,26 @@
       }
     },
     "checkMobileAppResult": {
-      "title": "We're checking your details",
+      "title": "Rydym yn gwirio eich manylion",
       "content": {
         "paragraph1": "Polling to see your mobile app results.",
+        "htmlOnlyVersion": {
+          "header": "Rydym yn gwirio eich manylion",
+          "paragraph": "Gallwch geisio parhau.",
+          "paragraph2": "Os ydym yn dal i wirio'ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
+          "button": "Parhau"
+        },
         "spinner": {
           "initial": {
-            "heading": "We're checking your details",
-            "spinnerStateText": "This may take a few minutes.",
+            "heading": "Rydym yn gwirio eich manylion",
+            "spinnerStateText": "Gall hyn gymryd ychydig o funudau.",
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerState": "You can now continue to the service"
+            "spinnerState": "Gallwch nawr barhau."
           },
           "longWait": {
-            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+            "spinnerStateText": "ydym yn dal i wirio'ch manylion. Peidiwch â chau nac adnewyddu'r dudalen hon."
           },
           "error": {
             "heading": "Sorry, there is a problem",

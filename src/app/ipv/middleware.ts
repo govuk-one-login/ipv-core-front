@@ -362,6 +362,9 @@ export const handleJourneyPageRequest = async (
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
+    } else if (pageId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT) {
+      renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
+      renderOptions.msBeforeAbort = config.SPINNER_REQUEST_TIMEOUT;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);

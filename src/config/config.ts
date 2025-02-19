@@ -48,4 +48,6 @@ export default {
     process.env.DELETE_ACCOUNT_URL ??
     "https://home.build.account.gov.uk/enter-password?type=deleteAccount",
   SSM_PARAMETER_CACHE_TTL: process.env.SSM_PARAMETER_CACHE_TTL ?? "300000", // Cache duration in milliseconds (5 minutes)
+  SPINNER_REQUEST_TIMEOUT: process.env.SPINNER_REQUEST_TIMEOUT || 600000,
+  SPINNER_REQUEST_INTERVAL: process.env.SPINNER_REQUEST_INTERVAL || 3000,
 };

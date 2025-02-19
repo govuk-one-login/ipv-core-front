@@ -37,7 +37,9 @@ describe("CoreBackService", () => {
     API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/proven-identity",
     API_SESSION_INITIALISE: "/session-initialise",
     API_JOURNEY_EVENT: "/journey",
+    API_DCMAW_POLL: "/app/check-vc-receipt",
   };
+  const isAxiosErrorStub = sinon.stub();
   const coreBackService: typeof import("./coreBackService") = proxyquire(
     "./coreBackService",
     {
@@ -46,6 +48,7 @@ describe("CoreBackService", () => {
         createAxiosInstance: () => axiosInstanceStub,
       },
       "@govuk-one-login/frontend-passthrough-headers": passthroughHeaders,
+      axios: { isAxiosError: isAxiosErrorStub },
     },
   );
 
@@ -161,5 +164,62 @@ describe("CoreBackService", () => {
         }),
       },
     );
+  });
+
+  it("should getDcMawPoll to retrieve user identity details", async () => {
+    // Arrange
+    const req = createRequest();
+
+    // Act
+    const response = await coreBackService.getDcMawPoll(req);
+
+    // Assert
+    expect(axiosInstanceStub.get).to.have.been.calledWithMatch(
+      "/app/check-vc-receipt",
+      {
+        headers: sinon.match({
+          "content-type": "application/json",
+          "x-request-id": "test_request_id",
+          "ip-address": "127.0.0.2",
+          language: "en",
+          "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.2",
+        }),
+      },
+    );
+    expect(response).to.equal(true);
+  });
+
+  it("should return false if getDcMawPoll receives a 404 status", async () => {
+    // Arrange
+    const req = createRequest();
+    const error = { response: { status: 404 } };
+    axiosInstanceStub.get = sinon.stub();
+    axiosInstanceStub.get.rejects(error);
+    isAxiosErrorStub.returns(true);
+
+    // Act
+    const response = await coreBackService.getDcMawPoll(req);
+
+    // Assert
+    expect(response).to.equal(false);
+  });
+
+  it("should throw an error if getDcMawPoll receives a non-404 error status", async () => {
+    // Arrange
+    const req = createRequest();
+    const error = { response: { status: 500 } };
+    axiosInstanceStub.get.rejects(error);
+
+    // Act & Assert
+    try {
+      await coreBackService.getDcMawPoll(req);
+      throw new Error("Expected getDcMawPoll to throw an error");
+    } catch (err) {
+      expect(err).to.equal(error);
+    }
   });
 });

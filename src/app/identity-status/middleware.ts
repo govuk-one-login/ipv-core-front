@@ -24,5 +24,4 @@ export const proveIdentityStatusCallbackGet: RequestHandler = async (
     res.status(500).json({ status: IdentityProcessingStatus.ERROR });
     next(error);
   }
-  next();
 };

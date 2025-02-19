@@ -1364,7 +1364,7 @@
         "htmlOnlyVersion": {
           "header": "Rydym yn gwirio eich manylion",
           "paragraph": "Gallwch geisio parhau.",
-          "paragraph2": "Os ydym yn dal i wirio'ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
+          "paragraph2": "Os ydym yn dal i wirio’ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
           "button": "Parhau"
         },
         "spinner": {
@@ -1377,7 +1377,7 @@
             "spinnerState": "Gallwch nawr barhau."
           },
           "longWait": {
-            "spinnerStateText": "ydym yn dal i wirio'ch manylion. Peidiwch â chau nac adnewyddu'r dudalen hon."
+            "spinnerStateText": "ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
           "error": {
             "heading": "Sorry, there is a problem",

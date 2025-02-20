@@ -114,8 +114,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
   } else if (templateId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT) {
-    renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
-    renderOptions.msBeforeAbort = config.SPINNER_REQUEST_TIMEOUT;
+    renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+    renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
   }
 
   return res.render(

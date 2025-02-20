@@ -37,7 +37,7 @@ describe("CoreBackService", () => {
     API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/proven-identity",
     API_SESSION_INITIALISE: "/session-initialise",
     API_JOURNEY_EVENT: "/journey",
-    API_DCMAW_POLL: "/app/check-vc-receipt",
+    API_CHECK_MOBILE_APP_VC_RECEIPT: "/app/check-vc-receipt",
   };
   const isAxiosErrorStub = sinon.stub();
   const coreBackService: typeof import("./coreBackService") = proxyquire(
@@ -166,12 +166,14 @@ describe("CoreBackService", () => {
     );
   });
 
-  it("should getDcMawPoll to retrieve user identity details", async () => {
+  it("should appVcReceived to retrieve user identity details", async () => {
     // Arrange
+    axiosInstanceStub.get = sinon.stub();
+    axiosInstanceStub.get.resolves({ status: 200 });
     const req = createRequest();
 
     // Act
-    const response = await coreBackService.getDcMawPoll(req);
+    const response = await coreBackService.appVcReceived(req);
 
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWithMatch(
@@ -193,7 +195,7 @@ describe("CoreBackService", () => {
     expect(response).to.equal(true);
   });
 
-  it("should return false if getDcMawPoll receives a 404 status", async () => {
+  it("should return false if appVcReceived receives a 404 status", async () => {
     // Arrange
     const req = createRequest();
     const error = { response: { status: 404 } };
@@ -202,13 +204,13 @@ describe("CoreBackService", () => {
     isAxiosErrorStub.returns(true);
 
     // Act
-    const response = await coreBackService.getDcMawPoll(req);
+    const response = await coreBackService.appVcReceived(req);
 
     // Assert
     expect(response).to.equal(false);
   });
 
-  it("should throw an error if getDcMawPoll receives a non-404 error status", async () => {
+  it("should throw an error if appVcReceived receives a non-404 error status", async () => {
     // Arrange
     const req = createRequest();
     const error = { response: { status: 500 } };
@@ -216,8 +218,8 @@ describe("CoreBackService", () => {
 
     // Act & Assert
     try {
-      await coreBackService.getDcMawPoll(req);
-      throw new Error("Expected getDcMawPoll to throw an error");
+      await coreBackService.appVcReceived(req);
+      throw new Error("Expected appVcReceived to throw an error");
     } catch (err) {
       expect(err).to.equal(error);
     }

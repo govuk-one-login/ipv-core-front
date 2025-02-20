@@ -1360,7 +1360,6 @@
     "checkMobileAppResult": {
       "title": "Rydym yn gwirio eich manylion",
       "content": {
-        "paragraph1": "Polling to see your mobile app results.",
         "htmlOnlyVersion": {
           "header": "Rydym yn gwirio eich manylion",
           "paragraph": "Gallwch geisio parhau.",
@@ -1380,12 +1379,12 @@
             "spinnerStateText": "ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
           "error": {
-            "heading": "Sorry, there is a problem",
-            "messageText": "We cannot prove your identity right now.",
+            "heading": "Mae’n ddrwg gennym, mae problem",
+            "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
             "whatYouCanDo": {
-              "heading": "What you can do",
+              "heading": "Beth allwch chi ei wneud",
               "message": {
-                "text1": "Go back to the service you were trying to use and start again. You can look for service using your search engine or find it from the GOV.UK homepage.",
+                "text1": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK.",
                 "link": {
                   "href": "",
                   "text": ""

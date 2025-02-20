@@ -145,21 +145,22 @@ export const getProvenIdentityUserDetails = (
   );
 };
 
-export const getDcMawPoll = async (req: Request): Promise<boolean> => {
+export const appVcReceived = async (req: Request): Promise<boolean> => {
   try {
     // Added for the browser tests
     if (config.ENABLE_PREVIEW) {
       return true;
     }
 
-    await axiosInstance.get(
-      config.API_DCMAW_POLL,
+    const response = await axiosInstance.get(
+      config.API_CHECK_MOBILE_APP_VC_RECEIPT,
       generateAxiosConfig(
-        `${config.API_BASE_URL}${config.API_DCMAW_POLL}`,
+        `${config.API_BASE_URL}${config.API_CHECK_MOBILE_APP_VC_RECEIPT}`,
         req,
       ),
     );
-    return true;
+
+    return response.status === 200;
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
       return false;

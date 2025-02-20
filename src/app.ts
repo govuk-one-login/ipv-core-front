@@ -14,7 +14,7 @@ import criRouter from "./app/credential-issuer/router";
 import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
 import mobileAppRouter from "./app/mobile-app/router";
-import idenityStatusRouter from "./app/identity-status/router";
+import vcReceiptStatusRouter from "./app/vc-receipt-status/router";
 import oauthRouter from "./app/oauth2/router";
 import config from "./config/config";
 import { setLocals } from "./lib/locals";
@@ -209,7 +209,7 @@ router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
 router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
-router.use("/", idenityStatusRouter);
+router.use("/", vcReceiptStatusRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }

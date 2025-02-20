@@ -1,14 +1,14 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import { Request, Response } from "express";
-import { proveIdentityStatusCallbackGet } from "./middleware";
+import { getAppVcReceiptStatus } from "./middleware";
 import * as coreBackService from "../../services/coreBackService";
 
-describe("proveIdentityStatusCallbackGet", () => {
+describe("getAppVcReceiptStatus", () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: any;
-  let getDcMawPollStub: sinon.SinonStub;
+  let appVcReceivedStub: sinon.SinonStub;
 
   beforeEach(() => {
     req = {};
@@ -17,38 +17,38 @@ describe("proveIdentityStatusCallbackGet", () => {
       json: sinon.stub(),
     };
     next = sinon.stub();
-    getDcMawPollStub = sinon.stub(coreBackService, "getDcMawPoll");
+    appVcReceivedStub = sinon.stub(coreBackService, "appVcReceived");
   });
 
   afterEach(() => {
     sinon.restore();
   });
 
-  it("should return PROCESSING status if getDcMawPoll returns false", async () => {
-    getDcMawPollStub.resolves(false);
+  it("should return PROCESSING status if appVcReceived returns false", async () => {
+    appVcReceivedStub.resolves(false);
 
-    await proveIdentityStatusCallbackGet(req as Request, res as Response, next);
+    await getAppVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({ status: "PROCESSING" });
     expect(next).to.not.have.been.called;
   });
 
-  it("should return COMPLETED status if getDcMawPoll returns true", async () => {
-    getDcMawPollStub.resolves(true);
+  it("should return COMPLETED status if appVcReceived returns true", async () => {
+    appVcReceivedStub.resolves(true);
 
-    await proveIdentityStatusCallbackGet(req as Request, res as Response, next);
+    await getAppVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({ status: "COMPLETED" });
     expect(next).to.not.have.been.called;
   });
 
-  it("should return ERROR status if getDcMawPoll throws an error", async () => {
+  it("should return ERROR status if appVcReceived throws an error", async () => {
     const error = new Error("Test error");
-    getDcMawPollStub.rejects(error);
+    appVcReceivedStub.rejects(error);
 
-    await proveIdentityStatusCallbackGet(req as Request, res as Response, next);
+    await getAppVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(500);
     expect(res.json).to.have.been.calledWith({ status: "ERROR" });

@@ -363,8 +363,8 @@ export const handleJourneyPageRequest = async (
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
     } else if (pageId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT) {
-      renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
-      renderOptions.msBeforeAbort = config.SPINNER_REQUEST_TIMEOUT;
+      renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+      renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);

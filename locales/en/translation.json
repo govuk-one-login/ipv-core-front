@@ -1360,7 +1360,6 @@
     "checkMobileAppResult": {
       "title": "We’re checking your details",
       "content": {
-        "paragraph1": "Polling to see your mobile app results.",
         "htmlOnlyVersion": {
           "header": "We are checking your details",
           "paragraph": "You can try to continue.",

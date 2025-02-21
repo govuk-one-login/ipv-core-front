@@ -87,7 +87,7 @@ export const processAction = async (
   action: string,
   currentPageId = "",
 ): Promise<void> => {
-  const backendResponse = (await journeyApi(action, req, currentPageId)).data;
+  const backendResponse = await journeyApi(action, req, currentPageId);
 
   return await handleBackendResponse(req, res, backendResponse);
 };

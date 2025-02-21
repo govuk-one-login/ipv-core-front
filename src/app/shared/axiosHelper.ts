@@ -52,16 +52,18 @@ const extractCredentialIssuerId = (
 };
 
 // Sanitise response data based on endpoint allow list
-const sanitiseResponseData = (response: AxiosResponse): object | undefined => {
+export const sanitiseResponseData = (
+  response: AxiosResponse,
+): object | undefined => {
+  // Only allow data logging for endpoints explicitly in the allow list
+  const endpoint = response.config?.url ?? "";
+  if (!isEndpointAllowedForDataLogging(endpoint)) {
+    return undefined;
+  }
+
   try {
     if (typeof response.data === "object") {
       const body = { ...response.data };
-
-      const endpoint = response.config?.url ?? "";
-      // Only allow data logging for endpoints explicitly in the allow list
-      if (!isEndpointAllowedForDataLogging(endpoint)) {
-        return undefined;
-      }
 
       // Sanitize redirect URLs for allowed endpoints
       if (body.cri?.redirectUrl) {

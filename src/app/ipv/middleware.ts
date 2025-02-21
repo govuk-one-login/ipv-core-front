@@ -45,6 +45,7 @@ import BadRequestError from "../../errors/bad-request-error";
 import NotFoundError from "../../errors/not-found-error";
 import UnauthorizedError from "../../errors/unauthorized-error";
 import { HANDLED_ERROR } from "../../lib/logger";
+import { sanitiseResponseData } from "../shared/axiosHelper";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -94,22 +95,20 @@ export const processAction = async (
 export const handleBackendResponse = async (
   req: Request,
   res: Response,
-  backendResponse: PostJourneyEventResponse,
+  backendResponse: AxiosResponse<PostJourneyEventResponse>,
 ): Promise<void> => {
-  if (isJourneyResponse(backendResponse)) {
-    return await processAction(req, res, backendResponse.journey);
+  const data = backendResponse.data;
+  if (isJourneyResponse(data)) {
+    return await processAction(req, res, data.journey);
   }
 
-  if (isCriResponse(backendResponse) && isValidCriResponse(backendResponse)) {
-    req.session.currentPage = backendResponse.cri.id;
-    const redirectUrl = backendResponse.cri.redirectUrl;
+  if (isCriResponse(data) && isValidCriResponse(data)) {
+    req.session.currentPage = data.cri.id;
+    const redirectUrl = data.cri.redirectUrl;
     return res.redirect(redirectUrl);
   }
 
-  if (
-    isClientResponse(backendResponse) &&
-    isValidClientResponse(backendResponse)
-  ) {
+  if (isClientResponse(data) && isValidClientResponse(data)) {
     req.session.currentPage = "orchestrator";
 
     const message = {
@@ -123,20 +122,20 @@ export const handleBackendResponse = async (
     }
 
     req.session.ipvSessionId = undefined;
-    const { redirectUrl } = backendResponse.client;
+    const { redirectUrl } = data.client;
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
-  if (isPageResponse(backendResponse)) {
-    req.session.currentPage = backendResponse.page;
-    req.session.context = backendResponse?.context;
-    req.session.currentPageStatusCode = backendResponse?.statusCode;
+  if (isPageResponse(data)) {
+    req.session.currentPage = data.page;
+    req.session.context = data?.context;
+    req.session.currentPageStatusCode = data?.statusCode;
 
     // Special case handling for "identify-device". This is used by core-back to signal that we need to
     // check the user's device and send back the relevant "appTriage" event.
-    if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
+    if (data.page === PAGES.IDENTIFY_DEVICE) {
       const event = detectAppTriageEvent(req);
-      return await processAction(req, res, event, backendResponse.page);
+      return await processAction(req, res, event, data.page);
     } else {
       return saveSessionAndRedirect(
         req,
@@ -146,7 +145,9 @@ export const handleBackendResponse = async (
     }
   }
 
-  throw new TechnicalError("Unexpected backend response");
+  throw new TechnicalError(
+    `Unrecognised response type received from core-back: ${sanitiseResponseData(backendResponse)}`,
+  );
 };
 
 const checkJourneyAction = (req: Request): void => {

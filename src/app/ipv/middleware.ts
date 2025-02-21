@@ -146,7 +146,7 @@ export const handleBackendResponse = async (
   }
 
   throw new TechnicalError(
-    `Unrecognised response type received from core-back: ${sanitiseResponseData(backendResponse)}`,
+    `Unrecognised response type received from core-back: ${JSON.stringify(sanitiseResponseData(backendResponse))}`,
   );
 };
 

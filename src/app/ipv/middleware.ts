@@ -383,6 +383,11 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
     return;
   }
 
+  // Special case handling for "check-mobile-app-result" page
+  if (pageId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT && req.session.journey) {
+    req.body.journey = req.session.journey;
+  }
+
   checkJourneyAction(req);
   if (req.body?.journey === "contact") {
     return saveSessionAndRedirect(req, res, res.locals.contactUsUrl);

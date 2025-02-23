@@ -52,6 +52,7 @@ declare module "express-session" {
     featureSet?: string;
     ipAddress?: string;
     currentPageStatusCode?: number;
+    journey?: string;
   }
 }
 

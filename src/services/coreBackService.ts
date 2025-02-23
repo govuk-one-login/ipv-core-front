@@ -8,7 +8,10 @@ import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../config/config";
-import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
+import {
+  isJourneyResponse,
+  PostJourneyEventResponse,
+} from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 
@@ -159,6 +162,10 @@ export const appVcReceived = async (req: Request): Promise<boolean> => {
         req,
       ),
     );
+
+    if (isJourneyResponse(response.data)) {
+      req.session.journey = response.data.journey;
+    }
 
     return response.status === 200;
   } catch (error) {

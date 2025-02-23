@@ -166,10 +166,13 @@ describe("CoreBackService", () => {
     );
   });
 
-  it("should appVcReceived to retrieve user identity details", async () => {
+  it("appVcReceived should retrieve user identity details and save journey to session", async () => {
     // Arrange
     axiosInstanceStub.get = sinon.stub();
-    axiosInstanceStub.get.resolves({ status: 200 });
+    axiosInstanceStub.get.resolves({
+      status: 200,
+      data: { journey: "journey/next" },
+    });
     const req = createRequest();
 
     // Act
@@ -193,9 +196,10 @@ describe("CoreBackService", () => {
       },
     );
     expect(response).to.equal(true);
+    expect(req.session.journey).to.equal("journey/next");
   });
 
-  it("should return false if appVcReceived receives a 404 status", async () => {
+  it("appVcReceived should return false if receives a 404 status", async () => {
     // Arrange
     const req = createRequest();
     const error = { response: { status: 404 } };
@@ -210,7 +214,7 @@ describe("CoreBackService", () => {
     expect(response).to.equal(false);
   });
 
-  it("should throw an error if appVcReceived receives a non-404 error status", async () => {
+  it("appVcReceived should throw an error when receives a non-404 error status", async () => {
     // Arrange
     const req = createRequest();
     const error = { response: { status: 500 } };

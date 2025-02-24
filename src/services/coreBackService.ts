@@ -3,15 +3,12 @@ import {
   NamePartClass,
   PostalAddressClass,
 } from "@govuk-one-login/data-vocab/credentials.js";
-import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../config/config";
-import {
-  isJourneyResponse,
-  PostJourneyEventResponse,
-} from "../app/validators/postJourneyEventResponse";
+import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 
@@ -148,30 +145,12 @@ export const getProvenIdentityUserDetails = (
   );
 };
 
-export const appVcReceived = async (req: Request): Promise<boolean> => {
-  try {
-    // Added for the browser tests
-    if (config.ENABLE_PREVIEW) {
-      return true;
-    }
-
-    const response = await axiosInstance.get(
-      config.API_CHECK_MOBILE_APP_VC_RECEIPT,
-      generateAxiosConfig(
-        `${config.API_BASE_URL}${config.API_CHECK_MOBILE_APP_VC_RECEIPT}`,
-        req,
-      ),
-    );
-
-    if (isJourneyResponse(response.data)) {
-      req.session.journey = response.data.journey;
-    }
-
-    return response.status === 200;
-  } catch (error) {
-    if (isAxiosError(error) && error.response?.status === 404) {
-      return false;
-    }
-    throw error;
-  }
+export const appVcReceived = async (req: Request): Promise<AxiosResponse> => {
+  return axiosInstance.get(
+    config.API_CHECK_MOBILE_APP_VC_RECEIPT,
+    generateAxiosConfig(
+      `${config.API_BASE_URL}${config.API_CHECK_MOBILE_APP_VC_RECEIPT}`,
+      req,
+    ),
+  );
 };

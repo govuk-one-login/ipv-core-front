@@ -176,7 +176,7 @@ describe("CoreBackService", () => {
     const req = createRequest();
 
     // Act
-    const response = await coreBackService.appVcReceived(req);
+    await coreBackService.appVcReceived(req);
 
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWithMatch(
@@ -195,37 +195,5 @@ describe("CoreBackService", () => {
         }),
       },
     );
-    expect(response).to.equal(true);
-    expect(req.session.journey).to.equal("journey/next");
-  });
-
-  it("appVcReceived should return false if receives a 404 status", async () => {
-    // Arrange
-    const req = createRequest();
-    const error = { response: { status: 404 } };
-    axiosInstanceStub.get = sinon.stub();
-    axiosInstanceStub.get.rejects(error);
-    isAxiosErrorStub.returns(true);
-
-    // Act
-    const response = await coreBackService.appVcReceived(req);
-
-    // Assert
-    expect(response).to.equal(false);
-  });
-
-  it("appVcReceived should throw an error when receives a non-404 error status", async () => {
-    // Arrange
-    const req = createRequest();
-    const error = { response: { status: 500 } };
-    axiosInstanceStub.get.rejects(error);
-
-    // Act & Assert
-    try {
-      await coreBackService.appVcReceived(req);
-      throw new Error("Expected appVcReceived to throw an error");
-    } catch (err) {
-      expect(err).to.equal(error);
-    }
   });
 });

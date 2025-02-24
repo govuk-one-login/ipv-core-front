@@ -1075,6 +1075,9 @@ Resources:
       EndpointConfiguration:
         Types:
           - REGIONAL
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
 
   RestApiGwDeployment202410240900:
     DependsOn:

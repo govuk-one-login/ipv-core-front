@@ -10,6 +10,9 @@
 {% set errorText = 'pages.pyiTriageMobileConfirm.content.formErrorMessage.errorSummaryDescriptionText' | translateWithContext(context) %}
 {% set errorHref = "#pyiTriageMobileConfirmForm" %}
 
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/pyi-triage-mobile-confirm/back" %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageMobileConfirm.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiTriageMobileConfirm.content.paragraph1' | translateWithContext(context) }}</p>

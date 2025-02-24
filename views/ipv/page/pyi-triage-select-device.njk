@@ -9,6 +9,9 @@
 {% set errorText = 'pages.pyiTriageSelectDevice.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#pyiTriageSelectDeviceForm" %}
 
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/pyi-triage-select-device/back" %}
+
 {% block content %}
   <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

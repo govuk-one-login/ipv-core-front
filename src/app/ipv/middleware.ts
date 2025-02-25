@@ -414,7 +414,10 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  if (req.body.journey === undefined) {
+  if (
+    req.body.journey === undefined &&
+    req.params.pageId !== PAGES.CHECK_MOBILE_APP_RESULT
+  ) {
     await handleJourneyPageRequest(req, res, next, true);
   } else {
     return next();

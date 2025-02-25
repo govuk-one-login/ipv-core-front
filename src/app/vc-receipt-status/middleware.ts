@@ -19,7 +19,7 @@ export const getAppVcReceiptStatus: RequestHandler = async (
 ) => {
   try {
     // For browser tests
-    if (config.ENABLE_PREVIEW) {
+    if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
       res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
       return;
     }

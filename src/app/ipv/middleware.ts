@@ -362,7 +362,7 @@ export const handleJourneyPageRequest = async (
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
-    } else if (pageId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT) {
+    } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
       renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     }
@@ -384,7 +384,7 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
   }
 
   // Special case handling for "check-mobile-app-result" page
-  if (pageId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT && req.session.journey) {
+  if (pageId === PAGES.CHECK_MOBILE_APP_RESULT && req.session.journey) {
     req.body.journey = req.session.journey;
   }
 

@@ -113,7 +113,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
-  } else if (templateId === PAGES.PAGE_CHECK_MOBILE_APP_RESULT) {
+  } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
     renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
     renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
   }

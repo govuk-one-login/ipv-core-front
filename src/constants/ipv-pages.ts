@@ -1,4 +1,5 @@
 const IPV_PAGES = Object.freeze({
+  CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
   CONFIRM_DETAILS: "confirm-your-details",
   IDENTIFY_DEVICE: "identify-device",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
@@ -50,7 +51,6 @@ const IPV_PAGES = Object.freeze({
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
   WE_MATCHED_YOU_TO_YOUR_ONE_LOGIN: "we-matched-you-to-your-one-login",
   YOU_CAN_CHANGE_SECURITY_CODE_METHOD: "you-can-change-security-code-method",
-  PAGE_CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
 });
 
 export default IPV_PAGES;

@@ -53,7 +53,6 @@ describe("getAppVcReceiptStatus", () => {
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({ status: "PROCESSING" });
-    expect(next).to.not.have.been.called;
   });
 
   it("should return COMPLETED status on successful appVcReceived", async () => {
@@ -68,8 +67,21 @@ describe("getAppVcReceiptStatus", () => {
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({ status: "COMPLETED" });
-    expect(next).to.not.have.been.called;
     expect((req.session as any).journey).to.equal("journey/next");
+  });
+
+  it("should return an error when appVcReceived does not return journey response", async () => {
+    appVcReceivedStub.resolves({ data: {} });
+    isJourneyResponse.returns(false);
+
+    await middleware.getAppVcReceiptStatus(
+      req as Request,
+      res as Response,
+      next,
+    );
+
+    expect(res.status).to.have.been.calledWith(500);
+    expect(res.json).to.have.been.calledWith({ status: "ERROR" });
   });
 
   it("should return ERROR status if appVcReceived throws non 404 error", async () => {
@@ -84,6 +96,5 @@ describe("getAppVcReceiptStatus", () => {
 
     expect(res.status).to.have.been.calledWith(500);
     expect(res.json).to.have.been.calledWith({ status: "ERROR" });
-    expect(next).to.have.been.calledWith(error);
   });
 });

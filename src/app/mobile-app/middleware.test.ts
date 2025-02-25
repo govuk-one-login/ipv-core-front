@@ -74,7 +74,7 @@ describe("mobile app middleware", () => {
         { state: req.query.state },
       );
       expect(
-        ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.journey,
+        ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.data.journey,
       ).to.equal("journey/next");
       expect(res.status).to.be.calledWith(200);
     });

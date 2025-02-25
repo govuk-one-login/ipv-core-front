@@ -125,7 +125,7 @@ describe("credential issuer middleware", () => {
 
         // Assert
         expect(
-          ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.journey,
+          ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.data.journey,
         ).to.equal("journey/next");
       });
 

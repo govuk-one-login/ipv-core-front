@@ -92,6 +92,29 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
+  it("should not set req.body.journey if pageId is not PAGE_CHECK_MOBILE_APP_RESULT", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "check-mobile-app-result" },
+      session: {
+        currentPage: "check-mobile-app-result",
+        journey: "mobile-app-journey-event",
+      },
+      body: { journey: undefined },
+    });
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
+      data: { cri: { id: "someId", redirectUrl: "https://example.test" } },
+    });
+
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyActionRequest(req, res, next);
+
+    // Assert
+    expect(req.body.journey).to.equal("mobile-app-journey-event");
+  });
+
   const redirectTests = [
     { journey: "contact", expectedRedirect: "contactUrl" },
     { journey: "deleteAccount", expectedRedirect: "deleteAccount" },

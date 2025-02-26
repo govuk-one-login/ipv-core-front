@@ -362,6 +362,9 @@ export const handleJourneyPageRequest = async (
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
+    } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
+      renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+      renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
@@ -378,6 +381,11 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
   // Stop further processing if response has already been handled
   if (!(await validateSessionAndPage(req, res, pageId))) {
     return;
+  }
+
+  // Special case handling for "check-mobile-app-result" page
+  if (pageId === PAGES.CHECK_MOBILE_APP_RESULT && req.session.journey) {
+    req.body.journey = req.session.journey;
   }
 
   checkJourneyAction(req);
@@ -406,7 +414,10 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  if (req.body.journey === undefined) {
+  if (
+    req.body.journey === undefined &&
+    req.params.pageId !== PAGES.CHECK_MOBILE_APP_RESULT
+  ) {
     await handleJourneyPageRequest(req, res, next, true);
   } else {
     return next();

@@ -1358,10 +1358,42 @@
       }
     },
     "checkMobileAppResult": {
-      "title": "Checking your details",
-      "header": "Checking your details",
+      "title": "Rydym yn gwirio eich manylion",
       "content": {
-        "paragraph1": "Polling to see your mobile app results."
+        "htmlOnlyVersion": {
+          "header": "Rydym yn gwirio eich manylion",
+          "paragraph": "Gallwch geisio parhau.",
+          "paragraph2": "Os ydym yn dal i wirio’ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
+          "button": "Parhau"
+        },
+        "spinner": {
+          "initial": {
+            "heading": "Rydym yn gwirio eich manylion",
+            "spinnerStateText": "Gall hyn gymryd ychydig o funudau.",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "Gallwch nawr barhau."
+          },
+          "longWait": {
+            "spinnerStateText": "ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
+          },
+          "error": {
+            "heading": "Mae’n ddrwg gennym, mae problem",
+            "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+            "whatYouCanDo": {
+              "heading": "Beth allwch chi ei wneud",
+              "message": {
+                "text1": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK.",
+                "link": {
+                  "href": "",
+                  "text": ""
+                },
+                "text2": ""
+              }
+            }
+          }
+        }
       }
     },
     "proveIdentityAnotherWay": {

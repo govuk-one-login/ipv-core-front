@@ -116,6 +116,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
     renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
     renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
+    renderOptions.msBeforeInformingOfLongWait =
+      config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
   }
 
   return res.render(

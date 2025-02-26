@@ -365,6 +365,8 @@ export const handleJourneyPageRequest = async (
     } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
       renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
+      renderOptions.msBeforeInformingOfLongWait =
+        config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);

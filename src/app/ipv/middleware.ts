@@ -46,6 +46,7 @@ import NotFoundError from "../../errors/not-found-error";
 import UnauthorizedError from "../../errors/unauthorized-error";
 import { HANDLED_ERROR } from "../../lib/logger";
 import { sanitiseResponseData } from "../shared/axiosHelper";
+import { getAppVcReceipt } from "../vc-receipt-status/middleware";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -421,6 +422,17 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
     req.params.pageId !== PAGES.CHECK_MOBILE_APP_RESULT
   ) {
     await handleJourneyPageRequest(req, res, next, true);
+  } else if (
+    req.body.journey === undefined &&
+    req.params.pageId === PAGES.CHECK_MOBILE_APP_RESULT
+  ) {
+    // Special case scnario for check-mobile-app-result page to handle non JS browsers
+    const status = await getAppVcReceipt(req);
+    if (status === "PROCESSING") {
+      await handleJourneyPageRequest(req, res, next, true);
+    } else {
+      return next();
+    }
   } else {
     return next();
   }

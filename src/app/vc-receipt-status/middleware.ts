@@ -13,33 +13,43 @@ enum AppVcReceiptStatus {
   INTERVENTION = "INTERVENTION",
 }
 
-export const getAppVcReceiptStatus: RequestHandler = async (
+export const getAppVcReceipt = async (
   req: Request,
-  res: Response,
-) => {
+): Promise<AppVcReceiptStatus> => {
   try {
-    // For browser tests
-    if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
-      res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
-      return;
-    }
-
     const appVcResponse = await appVcReceived(req);
     if (!isJourneyResponse(appVcResponse.data)) {
       throw new Error(
         "Journey response expected from successful check app vc receipt response.",
       );
     }
-
     req.session.journey = appVcResponse.data.journey;
-    res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
-    return;
+
+    return AppVcReceiptStatus.COMPLETED;
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
-      res.status(200).json({ status: AppVcReceiptStatus.PROCESSING });
-      return;
+      return AppVcReceiptStatus.PROCESSING;
     }
     logger.error(error, "Error getting app vc receipt status");
-    res.status(500).json({ status: AppVcReceiptStatus.ERROR });
+    return AppVcReceiptStatus.ERROR;
   }
+};
+
+export const getAppVcReceiptStatus: RequestHandler = async (
+  req: Request,
+  res: Response,
+) => {
+  if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
+    res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
+    return;
+  }
+
+  const status = await getAppVcReceipt(req);
+  if (status === AppVcReceiptStatus.ERROR) {
+    res.status(500).json({ status });
+    return;
+  }
+
+  res.status(200).json({ status });
+  return;
 };

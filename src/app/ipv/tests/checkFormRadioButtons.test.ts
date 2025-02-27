@@ -5,7 +5,6 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../../test-utils/mock-express";
-import * as vcReceiptStatusMiddleware from "../../vc-receipt-status/middleware";
 
 describe("checkFormRadioButtonSelected middleware", () => {
   // Mock handler parameters
@@ -19,10 +18,6 @@ describe("checkFormRadioButtonSelected middleware", () => {
   });
   const createResponse = specifyCreateResponse();
   const next: any = sinon.fake();
-  const getAppVcReceiptStub: sinon.SinonStub = sinon.stub(
-    vcReceiptStatusMiddleware,
-    "getAppVcReceipt",
-  );
 
   beforeEach(() => {
     next.resetHistory();
@@ -60,60 +55,5 @@ describe("checkFormRadioButtonSelected middleware", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.been.calledOnce;
-  });
-
-  it("should call next if status is completed", async () => {
-    // Arrange
-    const req = createRequest({
-      body: { journey: undefined },
-      params: { pageId: "check-mobile-app-result" },
-    });
-    const res = createResponse();
-    getAppVcReceiptStub.resolves("COMPLETED");
-
-    // Act
-    await checkFormRadioButtonSelected(req, res, next);
-
-    // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
-    expect(res.render).to.not.have.been.called;
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should call render page again if status is PROCESSING", async () => {
-    // Arrange
-    const req = createRequest({
-      body: { journey: undefined },
-      params: { pageId: "check-mobile-app-result" },
-    });
-    const res = createResponse();
-    getAppVcReceiptStub.resolves("PROCESSING");
-
-    // Act
-    await checkFormRadioButtonSelected(req, res, next);
-
-    // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
-    expect(next).to.have.not.been.calledOnce;
-  });
-
-  it("should throw error if status is ERROR", async () => {
-    // Arrange
-    const req = createRequest({
-      body: { journey: undefined },
-      params: { pageId: "check-mobile-app-result" },
-    });
-    const res = createResponse();
-    getAppVcReceiptStub.resolves("ERROR");
-
-    // Act & Assert
-    await expect(
-      (async () => await checkFormRadioButtonSelected(req, res, next))(),
-    ).to.be.rejectedWith(Error, "Failed to get VC response status");
-
-    // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
-    expect(res.render).to.not.have.been.called;
-    expect(next).to.have.not.been.calledOnce;
   });
 });

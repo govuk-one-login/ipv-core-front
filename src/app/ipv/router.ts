@@ -14,6 +14,7 @@ import {
   formHandleUpdateDetailsCheckBox,
   formHandleCoiDetailsCheck,
   checkFormRadioButtonSelected,
+  checkVcReceiptStatus,
   handleAppStoreRedirect,
   setRequestPageId,
 } from "./middleware";
@@ -55,6 +56,14 @@ router.post(
   setRequestPageId(IPV_PAGES.CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
   checkFormRadioButtonSelected,
+  handleJourneyActionRequest,
+);
+
+// Special case to handle mobile app check receipt status, non javascript browser
+router.post(
+  getPagePath(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
+  parseForm,
+  checkVcReceiptStatus,
   handleJourneyActionRequest,
 );
 

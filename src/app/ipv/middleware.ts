@@ -420,24 +420,19 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  if (
-    req.body.journey === undefined &&
-    req.params.pageId !== PAGES.CHECK_MOBILE_APP_RESULT
-  ) {
+  if (req.body.journey === undefined) {
     await handleJourneyPageRequest(req, res, next, true);
-  } else if (
-    req.body.journey === undefined &&
-    req.params.pageId === PAGES.CHECK_MOBILE_APP_RESULT
-  ) {
-    // Special case scnario for check-mobile-app-result page to handle non JS browsers
-    const status = await getAppVcReceipt(req);
-    if (status === AppVcReceiptStatus.PROCESSING) {
-      await handleJourneyPageRequest(req, res, next, true);
-    } else if (status === AppVcReceiptStatus.ERROR) {
-      throw new Error("Failed to get VC response status");
-    } else {
-      return next();
-    }
+  } else {
+    return next();
+  }
+};
+
+export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
+  const status = await getAppVcReceipt(req);
+  if (status === AppVcReceiptStatus.PROCESSING) {
+    await handleJourneyPageRequest(req, res, next, true);
+  } else if (status === AppVcReceiptStatus.ERROR) {
+    throw new Error("Failed to get VC response status");
   } else {
     return next();
   }

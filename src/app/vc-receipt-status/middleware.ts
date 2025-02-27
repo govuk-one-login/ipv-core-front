@@ -51,5 +51,4 @@ export const getAppVcReceiptStatus: RequestHandler = async (
   }
 
   res.status(200).json({ status });
-  return;
 };

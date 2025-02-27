@@ -6,7 +6,7 @@ import { isAxiosError } from "axios";
 import config from "../../config/config";
 import { logger } from "../../lib/logger";
 
-enum AppVcReceiptStatus {
+export enum AppVcReceiptStatus {
   COMPLETED = "COMPLETED",
   ERROR = "ERROR",
   PROCESSING = "PROCESSING",

@@ -1,0 +1,29 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleKey = "Sorry, there is a problem" %}
+{% set googleTagManagerPageId = "Sorry, there is a problem" %}
+
+{% block bodyStart %}{% endblock %}
+
+{% block head %}
+  <style>This will be replaced in the build script.</style>
+{% endblock %}
+
+{% block content %}
+  <div role="region" lang="en">
+    <h1 class="govuk-heading-l">Sorry, there is a problem</h1>
+    <p class="govuk-body">GOV.UK One Login is unavailable right now.</p>
+    <h2 class="govuk-heading-m">What you can do</h2>
+    <p class="govuk-body">Try refreshing this page. If you still see this message, try again later.</p>
+    <p class="govuk-body">You can also go back to the service you were trying to use. You can find it using a search engine or from the <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk\">GOV.UK homepage</a>.</p>
+  </div>
+
+  <div role="region" lang="cy">
+    <h1 class="govuk-heading-l">Mae'n ddrwg gennym, mae problem</h1>
+    <p class="govuk-body">Nid yw GOV.UK One Login ar gael ar hyn o bryd.</p>
+    <h2 class="govuk-heading-m">Beth allwch chi ei wneud</h2>
+    <p class="govuk-body">Ceisiwch adnewyddu'r dudalen hon. Os ydych yn dal i weld y neges hon, ceisiwch eto yn nes ymlaen.</p>
+    <p class="govuk-body">Gallwch hefyd fynd yn ôl at y gwasanaeth yr oeddech yn ceisio ei ddefnyddio. Gallwch ddod o hyd iddo gan ddefnyddio peiriant chwilio neu o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk\">hafan GOV.UK</a>.</p>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %} {% endblock %}

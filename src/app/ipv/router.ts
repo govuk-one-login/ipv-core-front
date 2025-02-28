@@ -63,6 +63,7 @@ router.post(
 router.post(
   getPagePath(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
   parseForm,
+  setRequestPageId(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
   checkVcReceiptStatus,
   handleJourneyActionRequest,
 );

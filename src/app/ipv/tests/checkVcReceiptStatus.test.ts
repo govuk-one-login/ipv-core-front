@@ -20,9 +20,9 @@ describe("checkVcReceiptStatus middleware", () => {
   });
   const createResponse = specifyCreateResponse();
   const next: any = sinon.fake();
-  const getAppVcReceiptStub: sinon.SinonStub = sinon.stub(
+  const getAppVcReceiptStatusStub: sinon.SinonStub = sinon.stub(
     vcReceiptStatusMiddleware,
-    "getAppVcReceipt",
+    "getAppVcReceiptStatus",
   );
 
   beforeEach(() => {
@@ -33,13 +33,13 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStub.resolves("COMPLETED");
+    getAppVcReceiptStatusStub.resolves("COMPLETED");
 
     // Act
     await checkVcReceiptStatus(req, res, next);
 
     // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
+    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.been.calledOnce;
   });
@@ -48,13 +48,13 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStub.resolves("PROCESSING");
+    getAppVcReceiptStatusStub.resolves("PROCESSING");
 
     // Act
     await checkVcReceiptStatus(req, res, next);
 
     // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
+    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
     expect(res.render).to.have.been.called;
     expect(next).to.have.not.been.calledOnce;
   });
@@ -63,7 +63,7 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStub.resolves("ERROR");
+    getAppVcReceiptStatusStub.resolves("ERROR");
 
     // Act & Assert
     await expect(
@@ -71,7 +71,7 @@ describe("checkVcReceiptStatus middleware", () => {
     ).to.be.rejectedWith(Error, "Failed to get VC response status");
 
     // Assert
-    expect(getAppVcReceiptStub).to.have.been.calledWith(req);
+    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.not.been.calledOnce;
   });

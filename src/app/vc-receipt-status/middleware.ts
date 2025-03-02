@@ -13,10 +13,17 @@ export enum AppVcReceiptStatus {
   INTERVENTION = "INTERVENTION",
 }
 
-export const getAppVcReceipt = async (
+export const getAppVcReceiptStatus = async (
   req: Request,
 ): Promise<AppVcReceiptStatus> => {
   try {
+    // If we already have the processed journey in the session, return it.
+    if (
+      req.session?.journey &&
+      req.session.journey !== AppVcReceiptStatus.PROCESSING
+    ) {
+      return req.session.journey as AppVcReceiptStatus;
+    }
     const appVcResponse = await appVcReceived(req);
     if (!isJourneyResponse(appVcResponse.data)) {
       throw new Error(
@@ -35,20 +42,19 @@ export const getAppVcReceipt = async (
   }
 };
 
-export const getAppVcReceiptStatus: RequestHandler = async (
-  req: Request,
-  res: Response,
-) => {
-  if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
-    res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
-    return;
-  }
+export const getAppVcReceiptStatusAndStoreJourneyResponse: RequestHandler =
+  async (req: Request, res: Response) => {
+    // For browser tests, we want to return a completed status
+    if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
+      res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
+      return;
+    }
 
-  const status = await getAppVcReceipt(req);
-  if (status === AppVcReceiptStatus.ERROR) {
-    res.status(500).json({ status });
-    return;
-  }
+    const status = await getAppVcReceiptStatus(req);
+    if (status === AppVcReceiptStatus.ERROR) {
+      res.status(500).json({ status });
+      return;
+    }
 
-  res.status(200).json({ status });
-};
+    res.status(200).json({ status });
+  };

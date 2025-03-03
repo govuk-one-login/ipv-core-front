@@ -46,6 +46,10 @@ import NotFoundError from "../../errors/not-found-error";
 import UnauthorizedError from "../../errors/unauthorized-error";
 import { HANDLED_ERROR } from "../../lib/logger";
 import { sanitiseResponseData } from "../shared/axiosHelper";
+import {
+  AppVcReceiptStatus,
+  getAppVcReceiptStatusAndStoreJourneyResponse,
+} from "../vc-receipt-status/middleware";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -416,12 +420,20 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   res,
   next,
 ) => {
-  if (
-    req.body.journey === undefined &&
-    req.params.pageId !== PAGES.CHECK_MOBILE_APP_RESULT
-  ) {
+  if (req.body.journey === undefined) {
     await handleJourneyPageRequest(req, res, next, true);
   } else {
+    return next();
+  }
+};
+
+export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
+  const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
+  if (status === AppVcReceiptStatus.PROCESSING) {
+    await handleJourneyPageRequest(req, res, next, true);
+  } else if (status === AppVcReceiptStatus.ERROR) {
+    throw new Error("Failed to get VC response status");
+  } else if (status === AppVcReceiptStatus.COMPLETED) {
     return next();
   }
 };

@@ -60,6 +60,7 @@ const APP_VIEWS = [
   path.resolve("views/"),
   path.resolve("node_modules/govuk-frontend/dist/"),
   path.resolve("node_modules/@govuk-one-login/"),
+  path.resolve("dist/public/html/")
 ];
 
 const sessionStore: SessionStore | undefined =
@@ -79,7 +80,7 @@ const protectConfig: ProtectionConfig = {
   maxEventLoopDelay: 400,
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
-  errorPropagationMode: false,
+  errorPropagationMode: true,
   logging: (msg) => {
     logger.error(msg);
   },

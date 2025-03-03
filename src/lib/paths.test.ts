@@ -1,5 +1,6 @@
 import {
   getErrorPageTemplatePath,
+  getHtmlPath,
   getIpvPagePath,
   getIpvPageTemplatePath,
 } from "./paths";
@@ -24,4 +25,10 @@ describe("paths helper", () => {
 
     expect(templatePath).to.equal("errors/test-page.njk");
   });
+
+  it("builds a html path", () => {
+    const templatePath = getHtmlPath("errors", TEST_PAGE_ID);
+
+    expect(templatePath).to.equal("errors/test-page.html");
+  })
 });

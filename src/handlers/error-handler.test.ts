@@ -8,6 +8,7 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../test-utils/mock-express";
+import ServiceUnavailable from "../errors/service-unavailable-error";
 
 describe("Error handlers", () => {
   // Mock handler parameters
@@ -147,8 +148,8 @@ describe("Error handlers", () => {
     it("should render a service-unavailable page when status is 503", () => {
       // Arrange
       const req = createRequest();
-      const res = createResponse({ statusCode: 503 });
-      const err = new Error("Server experiencing heavy load");
+      const res = createResponse();
+      const err = new ServiceUnavailable("Server overload");
 
       // Act
       serverErrorHandler(err, req, res, next);
@@ -160,7 +161,7 @@ describe("Error handlers", () => {
       expect(res.render).to.have.been.calledWith("service-unavailable.html");
     });
 
-    it("should render a service-unavailable page when status is 503", () => {
+    it("should render page-not-found when status is 404", () => {
       // Arrange
       const req = createRequest();
       const res = createResponse({ statusCode: 404 });

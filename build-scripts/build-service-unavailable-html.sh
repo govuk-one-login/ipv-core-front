@@ -7,9 +7,6 @@ cssFilePath=$2 # path to compiled css file
 echo "Building service-unavailable html file at $htmlFilePath..."
 ts-node ./build-scripts/build-service-unavailable-html.ts $htmlFilePath
 
-echo "Extracting css from $cssFilePath..."
-styling=$(grep -o '.*' $cssFilePath)
-
 # Create copy of css file
 # The css needs to stay in a file as extracting it into an env variable results in "Arguments too long" errors
 cp $cssFilePath tempStyle.css

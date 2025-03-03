@@ -20,11 +20,11 @@ interface FilterContext {
 
 export const configureNunjucks = (
   nunjucksOptions: ConfigureOptions = {},
-  appViews: string[] = VIEWS
+  appViews: string[] = VIEWS,
 ): Environment => {
   const nunjucksEnv = nunjucks.configure(appViews, {
     autoescape: true,
-    ...nunjucksOptions
+    ...nunjucksOptions,
   });
 
   nunjucksEnv.addFilter(
@@ -88,4 +88,4 @@ export const configureNunjucks = (
   // Required by the language toggle component
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   return nunjucksEnv;
-}
+};

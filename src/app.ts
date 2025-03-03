@@ -58,9 +58,7 @@ declare module "express-session" {
 
 const DynamoDBStore = connect(session);
 
-const APP_VIEWS = [...VIEWS,
-  path.resolve("dist/public/html/")
-];
+const APP_VIEWS = [...VIEWS, path.resolve("dist/public/html/")];
 
 const sessionStore: SessionStore | undefined =
   process.env.NODE_ENV !== "local"
@@ -76,7 +74,7 @@ const protectConfig: ProtectionConfig = {
   production: process.env.NODE_ENV === "production",
   clientRetrySecs: 1,
   sampleInterval: 5,
-  maxEventLoopDelay: 0,
+  maxEventLoopDelay: 1,
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
   errorPropagationMode: true,
@@ -110,7 +108,13 @@ app.get("/healthcheck", (req, res) => {
 
 app.use(setLocals);
 app.use(cspHandler);
-app.set("view engine", configureNunjucks({express: app, noCache: !config.TEMPLATE_CACHING}, APP_VIEWS));
+app.set(
+  "view engine",
+  configureNunjucks(
+    { express: app, noCache: !config.TEMPLATE_CACHING },
+    APP_VIEWS,
+  ),
+);
 
 i18next
   .use(Backend)

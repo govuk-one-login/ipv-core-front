@@ -30,5 +30,5 @@ describe("paths helper", () => {
     const templatePath = getHtmlPath("errors", TEST_PAGE_ID);
 
     expect(templatePath).to.equal("errors/test-page.html");
-  })
+  });
 });

@@ -3,7 +3,11 @@ import { isAxiosError } from "axios";
 import { ErrorRequestHandler } from "express";
 import { isHttpError } from "http-errors";
 import PAGES from "../constants/ipv-pages";
-import { getIpvPageTemplatePath, getErrorPageTemplatePath, getHtmlPath } from "../lib/paths";
+import {
+  getIpvPageTemplatePath,
+  getErrorPageTemplatePath,
+  getHtmlPath,
+} from "../lib/paths";
 import ERROR_PAGES from "../constants/error-pages";
 import HttpError from "../errors/http-error";
 import { HANDLED_ERROR } from "../lib/logger";

@@ -81,30 +81,4 @@ describe("vc receipt status middleware tests", () => {
     expect(res.status).to.have.been.calledWith(500);
     expect(res.json).to.have.been.calledWith({ status: "ERROR" });
   });
-
-  it("getAppVcReceiptStatusAndStoreJourneyResponse should return session response if journey in session exists", async () => {
-    if (req.session) req.session.journey = "COMPLETED";
-    const status =
-      await middleware.getAppVcReceiptStatusAndStoreJourneyResponse(
-        req as Request,
-      );
-
-    expect(appVcReceivedStub).to.not.have.been.called;
-
-    expect(status).to.equal("COMPLETED");
-  });
-
-  it("getAppVcReceiptStatusAndStoreJourneyResponse should call API if session journey is not present", async () => {
-    if (req.session) req.session.journey = undefined;
-    appVcReceivedStub.resolves({ data: { journey: "journey/next" } });
-    isJourneyResponse.returns(true);
-
-    const status =
-      await middleware.getAppVcReceiptStatusAndStoreJourneyResponse(
-        req as Request,
-      );
-
-    expect(appVcReceivedStub).to.have.been.calledOnce;
-    expect(status).to.equal("COMPLETED");
-  });
 });

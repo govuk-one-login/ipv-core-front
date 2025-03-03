@@ -17,10 +17,6 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
   req: Request,
 ): Promise<AppVcReceiptStatus> => {
   try {
-    // If we already have the processed journey in the session, return it.
-    if (req.session?.journey) {
-      return AppVcReceiptStatus.COMPLETED;
-    }
     const appVcResponse = await appVcReceived(req);
     if (!isJourneyResponse(appVcResponse.data)) {
       throw new Error(

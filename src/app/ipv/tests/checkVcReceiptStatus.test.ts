@@ -20,10 +20,11 @@ describe("checkVcReceiptStatus middleware", () => {
   });
   const createResponse = specifyCreateResponse();
   const next: any = sinon.fake();
-  const getAppVcReceiptStatusStub: sinon.SinonStub = sinon.stub(
-    vcReceiptStatusMiddleware,
-    "getAppVcReceiptStatus",
-  );
+  const getAppVcReceiptStatusAndStoreJourneyResponseStub: sinon.SinonStub =
+    sinon.stub(
+      vcReceiptStatusMiddleware,
+      "getAppVcReceiptStatusAndStoreJourneyResponse",
+    );
 
   beforeEach(() => {
     next.resetHistory();
@@ -33,13 +34,15 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStatusStub.resolves("COMPLETED");
+    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("COMPLETED");
 
     // Act
     await checkVcReceiptStatus(req, res, next);
 
     // Assert
-    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
+    expect(
+      getAppVcReceiptStatusAndStoreJourneyResponseStub,
+    ).to.have.been.calledWith(req);
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.been.calledOnce;
   });
@@ -48,13 +51,15 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStatusStub.resolves("PROCESSING");
+    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("PROCESSING");
 
     // Act
     await checkVcReceiptStatus(req, res, next);
 
     // Assert
-    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
+    expect(
+      getAppVcReceiptStatusAndStoreJourneyResponseStub,
+    ).to.have.been.calledWith(req);
     expect(res.render).to.have.been.called;
     expect(next).to.have.not.been.calledOnce;
   });
@@ -63,7 +68,7 @@ describe("checkVcReceiptStatus middleware", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStatusStub.resolves("ERROR");
+    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("ERROR");
 
     // Act & Assert
     await expect(
@@ -71,7 +76,9 @@ describe("checkVcReceiptStatus middleware", () => {
     ).to.be.rejectedWith(Error, "Failed to get VC response status");
 
     // Assert
-    expect(getAppVcReceiptStatusStub).to.have.been.calledWith(req);
+    expect(
+      getAppVcReceiptStatusAndStoreJourneyResponseStub,
+    ).to.have.been.calledWith(req);
     expect(res.render).to.not.have.been.called;
     expect(next).to.have.not.been.calledOnce;
   });

@@ -13,7 +13,7 @@ export enum AppVcReceiptStatus {
   INTERVENTION = "INTERVENTION",
 }
 
-export const getAppVcReceiptStatus = async (
+export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
   req: Request,
 ): Promise<AppVcReceiptStatus> => {
   try {
@@ -42,19 +42,21 @@ export const getAppVcReceiptStatus = async (
   }
 };
 
-export const getAppVcReceiptStatusAndStoreJourneyResponse: RequestHandler =
-  async (req: Request, res: Response) => {
-    // For browser tests, we want to return a completed status
-    if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
-      res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
-      return;
-    }
+export const pollVcReceiptStatus: RequestHandler = async (
+  req: Request,
+  res: Response,
+) => {
+  // For browser tests, we want to return a completed status
+  if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
+    res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
+    return;
+  }
 
-    const status = await getAppVcReceiptStatus(req);
-    if (status === AppVcReceiptStatus.ERROR) {
-      res.status(500).json({ status });
-      return;
-    }
+  const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
+  if (status === AppVcReceiptStatus.ERROR) {
+    res.status(500).json({ status });
+    return;
+  }
 
-    res.status(200).json({ status });
-  };
+  res.status(200).json({ status });
+};

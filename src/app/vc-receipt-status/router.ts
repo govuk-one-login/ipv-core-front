@@ -1,11 +1,8 @@
 import express from "express";
-import { getAppVcReceiptStatusAndStoreJourneyResponse } from "./middleware";
+import { pollVcReceiptStatus } from "./middleware";
 
 const router = express.Router();
 
-router.get(
-  "/app-vc-receipt-status",
-  getAppVcReceiptStatusAndStoreJourneyResponse,
-);
+router.get("/app-vc-receipt-status", pollVcReceiptStatus);
 
 export default router;

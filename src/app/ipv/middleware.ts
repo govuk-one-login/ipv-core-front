@@ -48,7 +48,7 @@ import { HANDLED_ERROR } from "../../lib/logger";
 import { sanitiseResponseData } from "../shared/axiosHelper";
 import {
   AppVcReceiptStatus,
-  getAppVcReceiptStatus,
+  getAppVcReceiptStatusAndStoreJourneyResponse,
 } from "../vc-receipt-status/middleware";
 
 const directoryPath = path.resolve("views/ipv/page");
@@ -428,7 +428,7 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
 };
 
 export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
-  const status = await getAppVcReceiptStatus(req);
+  const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
   if (status === AppVcReceiptStatus.PROCESSING) {
     await handleJourneyPageRequest(req, res, next, true);
   } else if (status === AppVcReceiptStatus.ERROR) {

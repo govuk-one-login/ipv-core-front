@@ -143,6 +143,35 @@ describe("Error handlers", () => {
       // Assert
       expect(req.log.error).to.be.have.been.calledOnce;
     });
+
+    it("should render a service-unavailable page when status is 503", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse({ statusCode: 503 });
+      const err = new Error("Server experiencing heavy load");
+
+      // Act
+      serverErrorHandler(err, req, res, next);
+
+      // Assert
+      expect(res.status).to.have.been.calledOnceWith(
+        HttpStatusCode.ServiceUnavailable,
+      );
+      expect(res.render).to.have.been.calledWith("service-unavailable.html");
+    });
+
+    it("should render a service-unavailable page when status is 503", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse({ statusCode: 404 });
+      const err = new Error("Page not found");
+
+      // Act
+      serverErrorHandler(err, req, res, next);
+
+      // Assert
+      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
+    });
   });
 
   describe("journeyEventErrorHandler", () => {

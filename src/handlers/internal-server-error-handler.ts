@@ -34,6 +34,7 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   if (res.statusCode === HTTP_STATUS_CODES.SERVICE_UNAVAILABLE) {
+    res.status(HTTP_STATUS_CODES.SERVICE_UNAVAILABLE);
     return res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
   }
 

@@ -144,3 +144,13 @@ export const getProvenIdentityUserDetails = (
     ),
   );
 };
+
+export const appVcReceived = async (req: Request): Promise<AxiosResponse> => {
+  return axiosInstance.get(
+    config.API_CHECK_MOBILE_APP_VC_RECEIPT,
+    generateAxiosConfig(
+      `${config.API_BASE_URL}${config.API_CHECK_MOBILE_APP_VC_RECEIPT}`,
+      req,
+    ),
+  );
+};

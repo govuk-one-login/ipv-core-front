@@ -45,6 +45,11 @@ import BadRequestError from "../../errors/bad-request-error";
 import NotFoundError from "../../errors/not-found-error";
 import UnauthorizedError from "../../errors/unauthorized-error";
 import { HANDLED_ERROR } from "../../lib/logger";
+import { sanitiseResponseData } from "../shared/axiosHelper";
+import {
+  AppVcReceiptStatus,
+  getAppVcReceiptStatusAndStoreJourneyResponse,
+} from "../vc-receipt-status/middleware";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -86,7 +91,7 @@ export const processAction = async (
   action: string,
   currentPageId = "",
 ): Promise<void> => {
-  const backendResponse = (await journeyApi(action, req, currentPageId)).data;
+  const backendResponse = await journeyApi(action, req, currentPageId);
 
   return await handleBackendResponse(req, res, backendResponse);
 };
@@ -94,22 +99,20 @@ export const processAction = async (
 export const handleBackendResponse = async (
   req: Request,
   res: Response,
-  backendResponse: PostJourneyEventResponse,
+  backendResponse: AxiosResponse<PostJourneyEventResponse>,
 ): Promise<void> => {
-  if (isJourneyResponse(backendResponse)) {
-    return await processAction(req, res, backendResponse.journey);
+  const data = backendResponse.data;
+  if (isJourneyResponse(data)) {
+    return await processAction(req, res, data.journey);
   }
 
-  if (isCriResponse(backendResponse) && isValidCriResponse(backendResponse)) {
-    req.session.currentPage = backendResponse.cri.id;
-    const redirectUrl = backendResponse.cri.redirectUrl;
+  if (isCriResponse(data) && isValidCriResponse(data)) {
+    req.session.currentPage = data.cri.id;
+    const redirectUrl = data.cri.redirectUrl;
     return res.redirect(redirectUrl);
   }
 
-  if (
-    isClientResponse(backendResponse) &&
-    isValidClientResponse(backendResponse)
-  ) {
+  if (isClientResponse(data) && isValidClientResponse(data)) {
     req.session.currentPage = "orchestrator";
 
     const message = {
@@ -123,20 +126,20 @@ export const handleBackendResponse = async (
     }
 
     req.session.ipvSessionId = undefined;
-    const { redirectUrl } = backendResponse.client;
+    const { redirectUrl } = data.client;
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
-  if (isPageResponse(backendResponse)) {
-    req.session.currentPage = backendResponse.page;
-    req.session.context = backendResponse?.context;
-    req.session.currentPageStatusCode = backendResponse?.statusCode;
+  if (isPageResponse(data)) {
+    req.session.currentPage = data.page;
+    req.session.context = data?.context;
+    req.session.currentPageStatusCode = data?.statusCode;
 
     // Special case handling for "identify-device". This is used by core-back to signal that we need to
     // check the user's device and send back the relevant "appTriage" event.
-    if (backendResponse.page === PAGES.IDENTIFY_DEVICE) {
+    if (data.page === PAGES.IDENTIFY_DEVICE) {
       const event = detectAppTriageEvent(req);
-      return await processAction(req, res, event, backendResponse.page);
+      return await processAction(req, res, event, data.page);
     } else {
       return saveSessionAndRedirect(
         req,
@@ -146,7 +149,9 @@ export const handleBackendResponse = async (
     }
   }
 
-  throw new TechnicalError("Unexpected backend response");
+  throw new TechnicalError(
+    `Unrecognised response type received from core-back: ${JSON.stringify(sanitiseResponseData(backendResponse))}`,
+  );
 };
 
 const checkJourneyAction = (req: Request): void => {
@@ -361,6 +366,11 @@ export const handleJourneyPageRequest = async (
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
+    } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
+      renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+      renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
+      renderOptions.msBeforeInformingOfLongWait =
+        config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
@@ -377,6 +387,11 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
   // Stop further processing if response has already been handled
   if (!(await validateSessionAndPage(req, res, pageId))) {
     return;
+  }
+
+  // Special case handling for "check-mobile-app-result" page
+  if (pageId === PAGES.CHECK_MOBILE_APP_RESULT && req.session.journey) {
+    req.body.journey = req.session.journey;
   }
 
   checkJourneyAction(req);
@@ -408,6 +423,17 @@ export const checkFormRadioButtonSelected: RequestHandler = async (
   if (req.body.journey === undefined) {
     await handleJourneyPageRequest(req, res, next, true);
   } else {
+    return next();
+  }
+};
+
+export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
+  const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
+  if (status === AppVcReceiptStatus.PROCESSING) {
+    await handleJourneyPageRequest(req, res, next, true);
+  } else if (status === AppVcReceiptStatus.ERROR) {
+    throw new Error("Failed to get VC response status");
+  } else if (status === AppVcReceiptStatus.COMPLETED) {
     return next();
   }
 };

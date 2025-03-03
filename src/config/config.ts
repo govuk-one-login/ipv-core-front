@@ -17,6 +17,7 @@ export default {
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
+  API_CHECK_MOBILE_APP_VC_RECEIPT: "/app/check-vc-receipt",
   APP_STORE_URL_ANDROID:
     process.env.APP_STORE_URL_ANDROID ??
     "https://play.google.com/store/apps/details?id=uk.gov.documentchecking",
@@ -47,4 +48,10 @@ export default {
     process.env.DELETE_ACCOUNT_URL ??
     "https://home.build.account.gov.uk/enter-password?type=deleteAccount",
   SSM_PARAMETER_CACHE_TTL: process.env.SSM_PARAMETER_CACHE_TTL ?? "300000", // Cache duration in milliseconds (5 minutes)
+  MAM_SPINNER_REQUEST_TIMEOUT:
+    process.env.MAM_SPINNER_REQUEST_TIMEOUT || 600000,
+  MAM_SPINNER_REQUEST_INTERVAL:
+    process.env.MAM_SPINNER_REQUEST_INTERVAL || 3000,
+  MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL:
+    process.env.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL || 60000,
 };

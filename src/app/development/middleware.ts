@@ -11,6 +11,7 @@ import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
+import config from "../../config/config";
 
 interface RadioOption {
   text: string;
@@ -112,6 +113,11 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
+  } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
+    renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+    renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
+    renderOptions.msBeforeInformingOfLongWait =
+      config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
   }
 
   return res.render(

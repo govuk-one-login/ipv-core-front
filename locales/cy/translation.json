@@ -339,6 +339,7 @@
         "formRadioButtons": {
           "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check",
           "continueButtonTextHint": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch agor yr ap",
+          "continueButtonTextHintStrategicApp": "",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
@@ -1262,8 +1263,8 @@
       }
     },
     "personalIndependencePayment": {
-      "title": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
-      "header": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
+      "title": "Dywedwch wrthym os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
+      "header": "Dywedwch wrthym os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
       "content": {
         "paragraph": "Os ydych yn cael PIP, byddwn yn gofyn cwestiynau diogelwch i chi am eich taliadau.",
         "paragraph2": "Os nad ydych yn cael PIP neu os byddai’n well gennych beidio â dweud, yna bydd angen i chi brofi eich hunaniaeth mewn ffordd arall.",
@@ -1272,6 +1273,7 @@
           "summaryText": "Beth yw PIP?",
           "text": "Mae PIP yn fudd-dal a delir i rai pobl sydd â chyflwr iechyd neu anabledd hirdymor."
         },
+        "subHeading": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na",
@@ -1280,8 +1282,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
-          "errorRadioMessage": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)"
+          "errorSummaryDescriptionText": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud",
+          "errorRadioMessage": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud"
         }
       }
     },
@@ -1357,10 +1359,42 @@
       }
     },
     "checkMobileAppResult": {
-      "title": "Checking your details",
-      "header": "Checking your details",
+      "title": "Rydym yn gwirio eich manylion",
       "content": {
-        "paragraph1": "Polling to see your mobile app results."
+        "htmlOnlyVersion": {
+          "header": "Rydym yn gwirio eich manylion",
+          "paragraph": "Gallwch geisio parhau.",
+          "paragraph2": "Os ydym yn dal i wirio’ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
+          "button": "Parhau"
+        },
+        "spinner": {
+          "initial": {
+            "heading": "Rydym yn gwirio eich manylion",
+            "spinnerStateText": "Gall hyn gymryd ychydig o funudau.",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "Gallwch nawr barhau."
+          },
+          "longWait": {
+            "spinnerStateText": "ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
+          },
+          "error": {
+            "heading": "Mae’n ddrwg gennym, mae problem",
+            "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+            "whatYouCanDo": {
+              "heading": "Beth allwch chi ei wneud",
+              "message": {
+                "text1": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK.",
+                "link": {
+                  "href": "",
+                  "text": ""
+                },
+                "text2": ""
+              }
+            }
+          }
+        }
       }
     },
     "proveIdentityAnotherWay": {
@@ -1443,9 +1477,8 @@
       "title": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "header": "Oes gennych chi basbort gyda sglodyn biometrig?",
       "content": {
-        "paragraph1": "Bydd angen pasbort gyda sglodyn biometrig i brofi eich hunaniaeth gyda GOV.UK One Login.",
-        "paragraph2": "I wirio a oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
-        "passportImageAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
+        "hintText": "Mae gan eich pasbort sglodyn biometrig os yw’r clawr blaen yn dangos symbol hirsgwar gyda chylch yn y canol.",
+        "passportImageAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
         "formRadioButtons": {
           "nextButtonText": "Oes",
           "abandonButtonText": "Na"

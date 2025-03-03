@@ -26,5 +26,5 @@ export const checkMobileAppDetails: RequestHandler = async (req, res) => {
     req.session.clientOauthSessionId = apiResponse.data.clientOAuthSessionId;
   }
 
-  return handleBackendResponse(req, res, apiResponse?.data);
+  return handleBackendResponse(req, res, apiResponse);
 };

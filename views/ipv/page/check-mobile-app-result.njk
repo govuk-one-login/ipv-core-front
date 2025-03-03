@@ -5,8 +5,44 @@
 {% set isPageDynamic = false %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.checkMobileAppResult.header' | translateWithContext(context) }}</h1>
-  <p class="govuk-body">{{'pages.checkMobileAppResult.content.paragraph1' | translateWithContext(context) }}</p>
+  <form action="/ipv/page/{{ pageId }}" method="post" novalidate="novalidate">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <div id="spinner-container"
+          data-initial-heading="{{ 'pages.checkMobileAppResult.content.spinner.initial.heading' | translate }}{{ serviceName }}"
+          data-initial-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerStateText' | translate }}"
+          data-initial-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerState' | translate }}"
+          data-error-heading="{{ 'pages.checkMobileAppResult.content.spinner.error.heading' | translate }}"
+          data-error-messageText="{{ 'pages.checkMobileAppResult.content.spinner.error.messageText' | translate }}"
+          data-error-whatYouCanDo-heading="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.heading' | translate }}"
+          data-error-whatYouCanDo-message-text1="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.text1' | translate }}"
+          data-error-whatYouCanDo-message-link-href="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.link.href' | translate }}"
+          data-error-whatYouCanDo-message-link-text="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.link.text' | translate }}"
+          data-error-whatYouCanDo-message-text2="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.text2' | translate }}"
+          data-complete-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.complete.spinnerState' | translate }}"
+          data-longWait-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.longWait.spinnerStateText' | translate }}"
+          data-api-url="/app-vc-receipt-status"
+          data-ms-between-requests="{{msBetweenRequests}}"
+          data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
+          data-ms-before-abort="{{msBeforeAbort}}"
+    >
+        <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="more-detail">
+                    {{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.header' | translate }}
+                </label>
+            </h1>
+            <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph' | translate }}</p>
+            <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph2' | translate }}</p>
+            <button type="submit" class="govuk-button">
+                {{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.button' | translate }}
+            </button>
+        </div>
+      </div>
+  </form>
 
   {% include "components/contact-us-link.njk" %}
+{% endblock %}
+
+{% block scripts %}
+    <script nonce='{{ cspNonce }}' defer type="text/javascript" src="/public/javascripts/spinner-app.js"></script>
 {% endblock %}

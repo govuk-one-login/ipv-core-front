@@ -339,6 +339,7 @@
         "formRadioButtons": {
           "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
           "continueButtonTextHint": "You’ll need to answer a few questions again before you can open the app",
+          "continueButtonTextHintStrategicApp": "",
           "otherWayButtonText": "Prove your identity another way"
         },
         "formErrorMessage": {
@@ -1262,8 +1263,8 @@
       }
     },
     "personalIndependencePayment": {
-      "title": "Do you get Personal Independence Payment (PIP)?",
-      "header": "Do you get Personal Independence Payment (PIP)?",
+      "title": "Tell us if you get Personal Independence Payment (PIP)",
+      "header": "Tell us if you get Personal Independence Payment (PIP)",
       "content": {
         "paragraph": "If you get PIP then we’ll ask you security questions about your payments.",
         "paragraph2": "If you do not get PIP or would prefer not to say then you’ll need to prove your identity another way.",
@@ -1272,6 +1273,7 @@
           "summaryText": "What is PIP?",
           "text": "PIP is a benefit paid to some people who have a long-term health condition or disability."
         },
+        "subHeading": "Do you get Personal Independence Payment (PIP)?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No",
@@ -1280,8 +1282,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you get Personal Independence Payment (PIP)",
-          "errorRadioMessage": "Select yes if you get Personal Independence Payment (PIP)"
+          "errorSummaryDescriptionText": "Select if you get Personal Independence Payment (PIP) or would prefer not to say",
+          "errorRadioMessage": "Select if you get Personal Independence Payment (PIP) or would prefer not to say"
         }
       }
     },
@@ -1357,10 +1359,42 @@
       }
     },
     "checkMobileAppResult": {
-      "title": "Checking your details",
-      "header": "Checking your details",
+      "title": "We’re checking your details",
       "content": {
-        "paragraph1": "Polling to see your mobile app results."
+        "htmlOnlyVersion": {
+          "header": "We are checking your details",
+          "paragraph": "You can try to continue.",
+          "paragraph2": "If we’re still checking your details, you might need to try again.",
+          "button": "Continue"
+        },
+        "spinner": {
+          "initial": {
+            "heading": "We’re checking your details",
+            "spinnerStateText": "This may take a few minutes.",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "You can now continue."
+          },
+          "longWait": {
+            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+          },
+          "error": {
+            "heading": "Sorry, there is a problem",
+            "messageText": "We cannot prove your identity right now.",
+            "whatYouCanDo": {
+              "heading": "What you can do",
+              "message": {
+                "text1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
+                "link": {
+                  "href": "",
+                  "text": ""
+                },
+                "text2": ""
+              }
+            }
+          }
+        }
       }
     },
     "proveIdentityAnotherWay": {
@@ -1443,9 +1477,8 @@
       "title": "Do you have a passport with a biometric chip?",
       "header": "Do you have a passport with a biometric chip?",
       "content": {
-        "paragraph1": "You will need a passport with a biometric chip to prove your identity with GOV.UK One Login.",
-        "paragraph2": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "passportImageAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
+        "hintText": "Your passport has a biometric chip if the front cover shows a rectangular symbol with a circle in the middle.",
+        "passportImageAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "formRadioButtons": {
           "nextButtonText": "Yes",
           "abandonButtonText": "No"

@@ -1263,8 +1263,8 @@
       }
     },
     "personalIndependencePayment": {
-      "title": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
-      "header": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
+      "title": "Dywedwch wrthym os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
+      "header": "Dywedwch wrthym os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
       "content": {
         "paragraph": "Os ydych yn cael PIP, byddwn yn gofyn cwestiynau diogelwch i chi am eich taliadau.",
         "paragraph2": "Os nad ydych yn cael PIP neu os byddai’n well gennych beidio â dweud, yna bydd angen i chi brofi eich hunaniaeth mewn ffordd arall.",
@@ -1273,6 +1273,7 @@
           "summaryText": "Beth yw PIP?",
           "text": "Mae PIP yn fudd-dal a delir i rai pobl sydd â chyflwr iechyd neu anabledd hirdymor."
         },
+        "subHeading": "Ydych chi’n cael Taliad Annibyniaeth Personol (PIP)?",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na",
@@ -1281,8 +1282,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)",
-          "errorRadioMessage": "Dewiswch ydw os ydych yn cael Taliad Annibyniaeth Personol (PIP)"
+          "errorSummaryDescriptionText": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud",
+          "errorRadioMessage": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud"
         }
       }
     },

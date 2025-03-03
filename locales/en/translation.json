@@ -1263,8 +1263,8 @@
       }
     },
     "personalIndependencePayment": {
-      "title": "Do you get Personal Independence Payment (PIP)?",
-      "header": "Do you get Personal Independence Payment (PIP)?",
+      "title": "Tell us if you get Personal Independence Payment (PIP)",
+      "header": "Tell us if you get Personal Independence Payment (PIP)",
       "content": {
         "paragraph": "If you get PIP then we’ll ask you security questions about your payments.",
         "paragraph2": "If you do not get PIP or would prefer not to say then you’ll need to prove your identity another way.",
@@ -1273,6 +1273,7 @@
           "summaryText": "What is PIP?",
           "text": "PIP is a benefit paid to some people who have a long-term health condition or disability."
         },
+        "subHeading": "Do you get Personal Independence Payment (PIP)?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No",
@@ -1281,8 +1282,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you get Personal Independence Payment (PIP)",
-          "errorRadioMessage": "Select yes if you get Personal Independence Payment (PIP)"
+          "errorSummaryDescriptionText": "Select if you get Personal Independence Payment (PIP) or would prefer not to say",
+          "errorRadioMessage": "Select if you get Personal Independence Payment (PIP) or would prefer not to say"
         }
       }
     },

@@ -26,6 +26,12 @@
     {% set radiosConfig = {
       idPrefix: "journey",
       name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.personalIndependencePayment.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
       items: [
         {
           value: "next",

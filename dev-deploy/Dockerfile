@@ -18,7 +18,6 @@ RUN chmod +x ./build-scripts/build-service-unavailable-html.sh
 COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views
-COPY /shared ./shared
 COPY tsconfig.json ./
 RUN npm run tsc
 RUN npm run build

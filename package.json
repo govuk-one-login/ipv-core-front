@@ -8,7 +8,7 @@
     "npm": "10.x"
   },
   "scripts": {
-    "start": "node --enable-source-maps build/src/app.js",
+    "start": "node --enable-source-maps build/app.js",
     "start-dev": "ts-node src/app.ts | pino-pretty",
     "dev": "nodemon --exec \"node --inspect=0.0.0.0:9228 --require ts-node/register src/app.ts\" --ext js,ts,json",
     "build": "npm run build-js && npm run build-sass && npm run copy-images && npm run build-service-unavailable",

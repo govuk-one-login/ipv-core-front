@@ -1,9 +1,14 @@
 import addLanguageParam from "@govuk-one-login/frontend-language-toggle";
-import { Application } from "express";
 import i18next from "i18next";
-import nunjucks, { Environment } from "nunjucks";
+import nunjucks, { Environment, ConfigureOptions } from "nunjucks";
+import path from "path";
 import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
-import config from "./config";
+
+export const VIEWS = [
+  path.resolve("views/"),
+  path.resolve("node_modules/govuk-frontend/dist/"),
+  path.resolve("node_modules/@govuk-one-login/"),
+];
 
 interface FilterContext {
   ctx: {
@@ -14,13 +19,12 @@ interface FilterContext {
 }
 
 export const configureNunjucks = (
-  app: Application,
-  viewPaths: string[],
+  nunjucksOptions: ConfigureOptions = {},
+  appViews: string[] = VIEWS
 ): Environment => {
-  const nunjucksEnv = nunjucks.configure(viewPaths, {
+  const nunjucksEnv = nunjucks.configure(appViews, {
     autoescape: true,
-    express: app,
-    noCache: !config.TEMPLATE_CACHING,
+    ...nunjucksOptions
   });
 
   nunjucksEnv.addFilter(
@@ -84,4 +88,4 @@ export const configureNunjucks = (
   // Required by the language toggle component
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   return nunjucksEnv;
-};
+}

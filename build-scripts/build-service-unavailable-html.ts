@@ -1,6 +1,6 @@
 import fs from "fs";
 import i18next from "i18next";
-import {configureNunjucks} from "../shared/config/nunjucks";
+import {configureNunjucks} from "../src/config/nunjucks";
 
 const buildServiceUnavailableHtml = (outputFile: string) => {
   const enJson = JSON.parse(fs.readFileSync("./locales/en/translation.json", 'utf-8'))

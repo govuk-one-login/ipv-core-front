@@ -20,7 +20,6 @@ interface RadioOption {
 
 export const allTemplatesGet: RequestHandler = async (req, res) => {
   const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
-
   res.render(getTemplatePath("development", "all-templates"), {
     templatesWithContextRadioOptions: templatesWithContextRadioOptions,
     csrfToken: req.csrfToken?.(true),
@@ -105,6 +104,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
   const phoneType = context ? (context as string) : undefined;
+  /* istanbul ignore else  */
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.qrCode = await generateQrCodeImageData(
@@ -118,6 +118,10 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     renderOptions.msBeforeInformingOfLongWait =
       config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+  } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
+    renderOptions.postOfficeVisitByDate = new Date().setDate(
+      new Date("2025-01-01").getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
+    );
   }
 
   return res.render(

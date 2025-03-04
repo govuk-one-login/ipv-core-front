@@ -15,7 +15,6 @@ import {
   getTemplatePath,
 } from "../../lib/paths";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
-import path from "path";
 import ERROR_PAGES from "../../constants/error-pages";
 
 interface RadioOption {
@@ -127,9 +126,5 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
 };
 
 export const serviceUnavailableGet: RequestHandler = (req, res) => {
-  res.sendFile(
-    path.resolve(
-      `dist/public/html/${getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE)}`,
-    ),
-  );
+  res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
 };

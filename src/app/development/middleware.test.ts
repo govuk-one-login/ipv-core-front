@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import proxyquire from "proxyquire";
-import path from "path";
 import {
   specifyCreateRequest,
   specifyCreateResponse,
@@ -144,7 +143,5 @@ it("should render service-unavailable page", async () => {
   await middleware.serviceUnavailableGet(req, res);
 
   // Assert
-  expect(res.sendFile).to.have.been.calledWith(
-    path.resolve("dist/public/html/service-unavailable.html"),
-  );
+  expect(res.render).to.have.been.calledWith("service-unavailable.html");
 });

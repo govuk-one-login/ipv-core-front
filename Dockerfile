@@ -9,6 +9,7 @@ RUN npm install
 
 # Get assets
 COPY /assets ./assets
+RUN npm run build
 
 # Get build scripts
 COPY /build-scripts ./build-scripts
@@ -19,7 +20,7 @@ COPY /locales ./locales
 COPY /views ./views
 COPY tsconfig.json ./
 RUN npm run tsc
-RUN npm run build
+RUN npm run build-service-unavailable
 
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev

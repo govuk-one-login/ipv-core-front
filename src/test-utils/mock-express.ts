@@ -62,6 +62,7 @@ export const specifyCreateResponse =
       redirect: sinon.fake(),
       send: sinon.fake(),
       render: sinon.fake(),
+      sendFile: sinon.fake(),
       locals: { contactUsUrl: "contactUrl", deleteAccountUrl: "deleteAccount" },
       log: { info: sinon.fake(), error: sinon.fake() },
       set: sinon.fake(),

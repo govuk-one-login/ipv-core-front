@@ -57,6 +57,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "pyi-triage-select-device": [],
   "pyi-triage-select-smartphone": ["mam", "dad"],
   "reprove-identity-start": [],
+  "service-unavailable": [],
   "sorry-could-not-confirm-details": [
     "deleteDetailsReuse",
     "existingIdentityValid",

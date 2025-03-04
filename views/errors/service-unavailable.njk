@@ -1,0 +1,29 @@
+{% extends "shared/base.njk" %}
+{% set pageTitleKey = "Sorry, there is a problem" %}
+{% set googleTagManagerPageId = "Sorry, there is a problem" %}
+
+{% block bodyStart %}{% endblock %}
+
+{% block head %}
+  <style>{{ applicationCss | safe }}</style>
+{% endblock %}
+
+{% block content %}
+  <div role="region" lang="en">
+    <h1 class="govuk-heading-l">{{'error.serviceUnavailable.headerEn' | translate }}</h1>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph1En' | translate }}</p>
+    <h2 class="govuk-heading-m">{{'error.serviceUnavailable.content.subHeadingEn' | translate }}</h2>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph2En' | translate }}</p>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph3En' | translate | safe }}</p>
+  </div>
+
+  <div role="region" lang="cy">
+    <h1 class="govuk-heading-l">{{'error.serviceUnavailable.headerCy' | translate }}</h1>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph1Cy' | translate }}</p>
+    <h2 class="govuk-heading-m">{{'error.serviceUnavailable.content.subHeadingCy' | translate }}</h2>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph2Cy' | translate }}</p>
+    <p class="govuk-body">{{'error.serviceUnavailable.content.paragraph3Cy' | translate | safe }}</p>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %} {% endblock %}

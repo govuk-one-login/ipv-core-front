@@ -7,16 +7,20 @@ COPY package-lock.json ./
 COPY .npmrc ./
 RUN npm install
 
-# Build assets
+# Get assets
 COPY /assets ./assets
 RUN npm run build
 
-# Build code
+# Get build scripts
+COPY /build-scripts ./build-scripts
+
+# Compile TS and build code
 COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views
 COPY tsconfig.json ./
 RUN npm run tsc
+RUN npm run build-service-unavailable
 
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev

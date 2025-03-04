@@ -1075,9 +1075,6 @@ Resources:
       EndpointConfiguration:
         Types:
           - REGIONAL
-      Tags:
-        - Key: FMSRegionalPolicy
-          Value: false
 
   RestApiGwDeployment202502241200:
     DependsOn:
@@ -1233,6 +1230,9 @@ Resources:
           }
       CacheClusterEnabled: false
       TracingEnabled: true
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
 
   #
   # Rest api gateway vpc link

@@ -1,10 +1,11 @@
-import fs from "fs";
+import {readFile, writeFile} from "fs/promises";
 import i18next from "i18next";
 import {configureNunjucks} from "../src/config/nunjucks";
 
-const buildServiceUnavailableHtml = (outputFile: string) => {
-  const enJson = JSON.parse(fs.readFileSync("./locales/en/translation.json", 'utf-8'))
-  const cyJson = JSON.parse(fs.readFileSync("./locales/cy/translation.json", 'utf-8'))
+const buildServiceUnavailableHtml = async (outputFile: string) => {
+  const enJson = JSON.parse(await readFile("./locales/en/translation.json", 'utf-8'));
+  const cyJson = JSON.parse(await readFile("./locales/cy/translation.json", 'utf-8'));
+  const applicationCss = await readFile("./dist/public/stylesheets/application.css");
 
   i18next.init({
     resources: {
@@ -26,12 +27,20 @@ const buildServiceUnavailableHtml = (outputFile: string) => {
     i18n: {
       language: "en"
     },
-    showLanguageToggle: false
+    showLanguageToggle: false,
+    applicationCss
   }
 
   const renderedHtml = nunjucksEnv.render("errors/service-unavailable.njk", renderOptions);
-  fs.writeFile(outputFile, renderedHtml, (err) => { if (err) {throw err;}});
+  await writeFile(outputFile, renderedHtml);
 }
 
-const htmlDestPath = process.argv[2];
-buildServiceUnavailableHtml(htmlDestPath);
+( async() => {
+  try {
+    const htmlDestPath = process.argv[2];
+    await buildServiceUnavailableHtml(htmlDestPath);
+  } catch (e) {
+    console.log("Error creating service-unavailable html");
+    throw e;
+  }
+})();

@@ -12,7 +12,6 @@ COPY /assets ./assets
 
 # Get build scripts
 COPY /build-scripts ./build-scripts
-RUN chmod +x ./build-scripts/build-service-unavailable-html.sh
 
 # Compile TS and build code
 COPY /src ./src

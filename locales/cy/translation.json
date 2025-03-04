@@ -103,6 +103,21 @@
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
       }
+    },
+    "serviceUnavailable": {
+      "title": "Sorry, there is a problem",
+      "headerEn": "Sorry, there is a problem",
+      "headerCy": "Mae’n ddrwg gennym, mae problem",
+      "content": {
+        "paragraph1En": "GOV.UK One Login is unavailable right now.",
+        "subHeadingEn": "What you can do",
+        "paragraph2En": "Try refreshing this page. If you still see this message, try again later.",
+        "paragraph3En": "You can also go back to the service you were trying to use. You can find it using a search engine or from the <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk\">GOV.UK homepage</a>.",
+        "paragraph1Cy": "Nid yw GOV.UK One Login ar gael ar hyn o bryd.",
+        "subHeadingCy": "Beth allwch chi ei wneud",
+        "paragraph2Cy": "Ceisiwch adnewyddu’r dudalen hon. Os ydych yn dal i weld y neges hon, ceisiwch eto yn nes ymlaen.",
+        "paragraph3Cy": "Gallwch hefyd fynd yn ôl at y gwasanaeth yr oeddech yn ceisio ei ddefnyddio. Gallwch ddod o hyd iddo gan ddefnyddio peiriant chwilio neu o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk\">hafan GOV.UK</a>."
+      }
     }
   },
   "components": {

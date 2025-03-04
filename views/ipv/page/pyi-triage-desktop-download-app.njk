@@ -89,6 +89,19 @@
 
   <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
 
+  <div id="spinner-container"
+      data-initial-heading="{{ 'pages.checkMobileAppResult.content.spinner.initial.heading' | translate }}{{ serviceName }}"
+      data-initial-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerStateText' | translate }}"
+      data-initial-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerState' | translate }}"
+      data-error-heading="{{ 'pages.checkMobileAppResult.content.spinner.error.heading' | translate }}"
+      data-complete-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.complete.spinnerState' | translate }}"
+      data-longWait-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.longWait.spinnerStateText' | translate }}"
+      data-api-url="/app-vc-receipt-status"
+      data-ms-between-requests="{{msBetweenRequests}}"
+      data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
+      data-ms-before-abort="{{msBeforeAbort}}"
+    ></div>
+
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
   <h2 class="govuk-heading-m">
@@ -98,7 +111,11 @@
   <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph5' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph6' | translate }}</p>
 
-  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate) }}
 
   {% include "components/contact-us-link.njk" %}
+{% endblock %}
+
+{% block scripts %}
+    <script nonce='{{ cspNonce }}' defer type="text/javascript" src="/public/javascripts/application.js"></script>
 {% endblock %}

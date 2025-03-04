@@ -36,6 +36,8 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // Overload protection will propagate the 503 through the err object
   if (err.statusCode === HTTP_STATUS_CODES.SERVICE_UNAVAILABLE) {
     res.status(HTTP_STATUS_CODES.SERVICE_UNAVAILABLE);
+    // Using res.render instead of res.sendFile as res.sendFile does not cache the
+    // file in memory and will pull from disk each time
     return res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
   }
 

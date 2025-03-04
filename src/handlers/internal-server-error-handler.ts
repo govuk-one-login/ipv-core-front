@@ -34,7 +34,7 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   }
 
   // Overload protection will propagate the 503 through the err object
-  if (err.status === HTTP_STATUS_CODES.SERVICE_UNAVAILABLE) {
+  if (err.statusCode === HTTP_STATUS_CODES.SERVICE_UNAVAILABLE) {
     res.status(HTTP_STATUS_CODES.SERVICE_UNAVAILABLE);
     return res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
   }

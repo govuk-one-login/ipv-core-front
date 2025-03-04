@@ -68,6 +68,15 @@ router.post(
   handleJourneyActionRequest,
 );
 
+// Special case to handle desktop download app check receipt status, non javascript browser
+router.post(
+  getPagePath(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
+  parseForm,
+  setRequestPageId(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
+  checkVcReceiptStatus,
+  handleJourneyActionRequest,
+);
+
 router.post(
   getPagePath(":pageId"),
   parseForm,

@@ -35,6 +35,17 @@ export const configureNunjucks = (
     },
   );
 
+  nunjucksEnv.addFilter(
+    "translateWithoutEscape",
+    function (this: FilterContext, key, options) {
+      const translate = i18next.getFixedT(this.ctx.i18n.language);
+      return translate(key, {
+        ...options,
+        interpolation: { escapeValue: false },
+      });
+    },
+  );
+
   nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
     const translate = i18next.getFixedT("en");
     return translate(key, options);

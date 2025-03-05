@@ -1,7 +1,8 @@
 import {readFile, writeFile} from "fs/promises";
 import i18next from "i18next";
 import {configureNunjucks} from "../src/config/nunjucks";
-import config from "../src/config/config";
+
+const PROD_CONTACT_US_URL = "https://home.account.gov.uk/contact-gov-uk-one-login";
 
 const buildServiceUnavailableHtml = async (outputFile: string) => {
   const enJson = JSON.parse(await readFile("./locales/en/translation.json", 'utf-8'));
@@ -24,7 +25,7 @@ const buildServiceUnavailableHtml = async (outputFile: string) => {
   const renderOptions: Record<string, unknown> = {
     cache: true,
     currentLanguage: "en",
-    contactUsUrl: config.CONTACT_URL,
+    contactUsUrl: PROD_CONTACT_US_URL,
     language: "en",
     i18n: {
       language: "en"

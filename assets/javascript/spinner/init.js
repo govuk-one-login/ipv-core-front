@@ -32,7 +32,7 @@ class Spinner {
     this.state.done = true;
     this.state.error = true;
 
-    window.location.href = "/dev/template/pyi-technical/en"
+    window.location.href = "/ipv/page/pyi-technical"
   };
 
   reflectLongWait() {

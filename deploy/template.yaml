@@ -211,7 +211,7 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202410240900
+    DependsOn: RestApiGwDeployment202502241200
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -1076,7 +1076,7 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202410240900:
+  RestApiGwDeployment202502241200:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
@@ -1211,7 +1211,7 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202410240900
+      DeploymentId: !Ref RestApiGwDeployment202502241200
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn
@@ -1230,6 +1230,9 @@ Resources:
           }
       CacheClusterEnabled: false
       TracingEnabled: true
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
 
   #
   # Rest api gateway vpc link

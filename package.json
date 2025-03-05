@@ -70,7 +70,7 @@
     "sinon-chai": "3.7.0",
     "terser-webpack-plugin": "5.3.10",
     "ts-node": "10.9.2",
-    "typescript": "5.7.2",
+    "typescript": "5.8.2",
     "typescript-eslint": "8.26.0",
     "uglify-js": "latest",
     "webpack": "5.98.0"

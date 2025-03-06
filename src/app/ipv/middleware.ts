@@ -397,8 +397,12 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
     return;
   }
 
-  // Special case handling for "check-mobile-app-result" page
-  if (pageId === PAGES.CHECK_MOBILE_APP_RESULT && req.session.journey) {
+  // Special case handling for strategic app journey
+  if (
+    (pageId === PAGES.CHECK_MOBILE_APP_RESULT ||
+      pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) &&
+    req.session.journey
+  ) {
     req.body.journey = req.session.journey;
   }
 

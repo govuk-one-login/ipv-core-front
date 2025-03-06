@@ -5,7 +5,7 @@ class Spinner {
   state;
   timers;
   config = {
-    apiUrl: "/prove-identity-status",
+    apiUrl: "/app-vc-receipt-status",
     msBeforeInformingOfLongWait: 5000,
     msBeforeAbort: 25000,
     msBetweenRequests: 1000,
@@ -19,17 +19,13 @@ class Spinner {
   reflectCompletion = () => {
     this.state.spinnerState = "spinner__ready";
     this.state.spinnerStateText = this.content.complete.spinnerState;
-    this.state.buttonDisabled = false;
     this.state.done = true;
-    const button = document.getElementById("submitButton");
-    button.removeAttribute("disabled");
   };
 
   reflectError = () => {
     this.state.heading = this.content.error.heading;
     this.state.messageText = this.content.error.messageText;
     this.state.spinnerState = "spinner__failed";
-    this.state.done = true;
     this.state.error = true;
 
     window.location.href = "/ipv/page/pyi-technical"
@@ -145,12 +141,10 @@ class Spinner {
 
   convert = (node) => {
     const el = document.createElement(node.nodeName);
-    const button = document.getElementById("submitButton");
     if (node.text) el.textContent = node.text;
     if (node.innerHTML) el.innerHTML = node.innerHTML;
     if (node.id) el.id = node.id;
     if (node.classes) el.classList.add(...node.classes);
-    if (node.buttonDisabled) button.setAttribute("disabled", node.buttonDisabled);
     return el;
   };
 
@@ -173,23 +167,24 @@ class Spinner {
     }
 
     if (this.state.done) {
+      const button = document.getElementById("submitButton");
+      button.removeAttribute("disabled");
       clearInterval(this.timers.updateDomTimer);
     }
   };
 
-  async requestIDProcessingStatus() {
+  async requestAppVcReceiptStatus() {
     try {
       const response = await fetch(this.config.apiUrl);
-
       const data = await response.json();
 
-      if (data.status === "COMPLETED" || data.status === "INTERVENTION") {
+      if (data.status === "COMPLETED") {
         this.reflectCompletion();
       } else if (data.status === "ERROR") {
         this.reflectError();
       } else if (this.notInErrorOrDoneState()) {
         setTimeout(async () => {
-          await this.requestIDProcessingStatus();
+          await this.requestAppVcReceiptStatus();
         }, this.config.msBetweenRequests);
       }
     } catch (e) {
@@ -202,7 +197,7 @@ class Spinner {
 
     this.updateDom();
 
-    this.requestIDProcessingStatus().then(() => {
+    this.requestAppVcReceiptStatus().then(() => {
       this.updateDom();
     });
   }

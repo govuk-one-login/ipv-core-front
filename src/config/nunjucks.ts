@@ -35,6 +35,12 @@ export const configureNunjucks = (
     },
   );
 
+  // This filter is only used for the phase banner and shouldn't be used for other cases. This is because,
+  // when building the static service-unavailable page during the build process, the contactUsUrl is escaped when
+  // passed to the i18n's translate function. This isn't the case in the app as i18n is initialised differently,
+  // leading to different config. However, as the phase banner is used in the app and for the service-unavailable
+  // page to keep it up-to-date with changes, this filter is used in the phase banner to allow the contactUsUrl to
+  // be used for both cases.
   nunjucksEnv.addFilter(
     "translateWithoutEscape",
     function (this: FilterContext, key, options) {

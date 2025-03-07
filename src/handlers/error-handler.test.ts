@@ -8,6 +8,7 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../test-utils/mock-express";
+import ServiceUnavailable from "../errors/service-unavailable-error";
 
 describe("Error handlers", () => {
   // Mock handler parameters
@@ -142,6 +143,35 @@ describe("Error handlers", () => {
 
       // Assert
       expect(req.log.error).to.be.have.been.calledOnce;
+    });
+
+    it("should render a service-unavailable page when status is 503", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+      const err = new ServiceUnavailable("Server overload");
+
+      // Act
+      serverErrorHandler(err, req, res, next);
+
+      // Assert
+      expect(res.status).to.have.been.calledOnceWith(
+        HttpStatusCode.ServiceUnavailable,
+      );
+      expect(res.render).to.have.been.calledWith("service-unavailable.html");
+    });
+
+    it("should render page-not-found when status is 404", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse({ statusCode: 404 });
+      const err = new Error("Page not found");
+
+      // Act
+      serverErrorHandler(err, req, res, next);
+
+      // Assert
+      expect(res.render).to.have.been.calledWith("errors/page-not-found.njk");
     });
   });
 

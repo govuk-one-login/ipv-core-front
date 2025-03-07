@@ -20,7 +20,6 @@ import config from "./config/config";
 import { setLocals } from "./lib/locals";
 import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
-import { configureNunjucks } from "./config/nunjucks";
 import serverErrorHandler from "./handlers/internal-server-error-handler";
 import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
 import pageNotFoundHandler from "./handlers/page-not-found-handler";
@@ -31,6 +30,7 @@ import {
 import { csrfSynchronisedProtection } from "./lib/csrf";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
 import protect, { ProtectionConfig } from "overload-protection";
+import { configureNunjucks, VIEWS } from "./config/nunjucks";
 
 // Extend request object with our own extensions
 declare global {
@@ -58,11 +58,7 @@ declare module "express-session" {
 
 const DynamoDBStore = connect(session);
 
-const APP_VIEWS = [
-  path.resolve("views/"),
-  path.resolve("node_modules/govuk-frontend/dist/"),
-  path.resolve("node_modules/@govuk-one-login/"),
-];
+const APP_VIEWS = [...VIEWS, path.resolve("dist/public/html/")];
 
 const sessionStore: SessionStore | undefined =
   process.env.NODE_ENV !== "local"
@@ -81,7 +77,7 @@ const protectConfig: ProtectionConfig = {
   maxEventLoopDelay: 400,
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
-  errorPropagationMode: false,
+  errorPropagationMode: true,
   logging: (msg) => {
     logger.error(msg);
   },
@@ -112,7 +108,13 @@ app.get("/healthcheck", (req, res) => {
 
 app.use(setLocals);
 app.use(cspHandler);
-app.set("view engine", configureNunjucks(app, APP_VIEWS));
+app.set(
+  "view engine",
+  configureNunjucks(
+    { express: app, noCache: !config.TEMPLATE_CACHING },
+    APP_VIEWS,
+  ),
+);
 
 i18next
   .use(Backend)

@@ -3,7 +3,11 @@ import { isAxiosError } from "axios";
 import { ErrorRequestHandler } from "express";
 import { isHttpError } from "http-errors";
 import PAGES from "../constants/ipv-pages";
-import { getIpvPageTemplatePath, getErrorPageTemplatePath } from "../lib/paths";
+import {
+  getIpvPageTemplatePath,
+  getErrorPageTemplatePath,
+  getHtmlPath,
+} from "../lib/paths";
 import ERROR_PAGES from "../constants/error-pages";
 import HttpError from "../errors/http-error";
 import { HANDLED_ERROR } from "../lib/logger";
@@ -29,12 +33,20 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return next(err);
   }
 
+  // Overload protection will propagate the 503 through the err object
+  if (err.statusCode === HTTP_STATUS_CODES.SERVICE_UNAVAILABLE) {
+    res.status(HTTP_STATUS_CODES.SERVICE_UNAVAILABLE);
+    // Using res.render instead of res.sendFile as res.sendFile does not cache the
+    // file in memory and will pull from disk each time
+    return res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
+  }
+
   const status = getErrorStatus(err);
 
   req.log?.error({
     message: {
       description: err?.constructor?.name ?? "Unknown error",
-      errorMessage: err?.message ?? "Unkown error",
+      errorMessage: err?.message ?? "Unknown error",
       errorStack: err?.stack,
     },
   });

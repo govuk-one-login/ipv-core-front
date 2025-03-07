@@ -133,3 +133,15 @@ describe("allTemplatesPost", () => {
     );
   });
 });
+
+it("should render service-unavailable page", async () => {
+  // Arrange
+  const req = createRequest();
+  const res = createResponse();
+
+  // Act
+  await middleware.serviceUnavailableGet(req, res);
+
+  // Assert
+  expect(res.render).to.have.been.calledWith("service-unavailable.html");
+});

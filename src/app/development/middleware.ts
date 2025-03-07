@@ -9,8 +9,13 @@ import { validatePhoneType } from "../shared/contextHelper";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
-import { getIpvPageTemplatePath, getTemplatePath } from "../../lib/paths";
+import {
+  getHtmlPath,
+  getIpvPageTemplatePath,
+  getTemplatePath,
+} from "../../lib/paths";
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
+import ERROR_PAGES from "../../constants/error-pages";
 import config from "../../config/config";
 
 interface RadioOption {
@@ -128,4 +133,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     getIpvPageTemplatePath(sanitize(templateId)),
     renderOptions,
   );
+};
+
+export const serviceUnavailableGet: RequestHandler = (req, res) => {
+  res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
 };

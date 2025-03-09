@@ -111,6 +111,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const phoneType = context ? (context as string) : undefined;
   /* istanbul ignore else  */
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
+    renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     validatePhoneType(phoneType);
     renderOptions.qrCode = await generateQrCodeImageData(
       getAppStoreRedirectUrl(phoneType),
@@ -119,10 +120,10 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
-    renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
+    renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
     renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     renderOptions.msBeforeInformingOfLongWait =
-      config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+      config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
   } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
     renderOptions.postOfficeVisitByDate = new Date().setDate(
       new Date("2025-01-01").getDate() + config.POST_OFFICE_VISIT_BY_DAYS,

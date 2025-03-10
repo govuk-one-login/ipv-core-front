@@ -393,21 +393,21 @@
     },
     "pyiTriageSelectSmartphone": {
       "titleDad": "Dywedwch wrthym a oes gennych fynediad i iPhone neu ffôn Android",
-      "titleMam": "Dywedwch wrthym pa ffôn clyfar rydych chi'n ei ddefnyddio nawr",
+      "titleMam": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
       "headerDad": "Dywedwch wrthym a oes gennych fynediad i iPhone neu ffôn Android",
-      "headerMam": "Dywedwch wrthym pa ffôn clyfar rydych chi'n ei ddefnyddio nawr",
+      "headerMam": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
       "content": {
-        "paragraph1": "I brofi pwy ydych chi gyda'r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy'n gweithio.",
+        "paragraph1": "I brofi pwy ydych chi gydar ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera syn gweithio.",
         "subHeading1": "Os yw eich ID gyda llun yn drwydded yrru cerdyn-llun y DU",
         "paragraph2": "Rydych angen iPhone 6s neu fwy newydd, neu ffôn Android.",
         "subHeading2": "Os yw eich ID gyda llun yn basport, BRP, BRC neu FWP",
         "paragraph3": "Rydych angen iPhone 7 neu fwy newydd, neu ffôn Android.",
         "details": {
-          "summaryText": "Sut ydw i'n gwybod pa iPhone sydd gen i?",
-          "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynu'ch iPhone ar ôl 2016, mae'n debyg bod gennych iPhone 7 neu fwy newydd.</p><p>I wirio pa iPhone sydd gennych, ewch i'ch gosodiadau ffôn. Dewiswch ‘General’ yna ‘About’ a chwiliwch am ‘Model Name’.</p>"
+          "summaryText": "Sut ydw i’n gwybod pa iPhone sydd gen i?",
+          "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynu’ch iPhone ar ôl 2016, mae’n debyg bod gennych iPhone 7 neu fwy newydd.</p><p>I wirio pa iPhone sydd gennych, ewch i’ch gosodiadau ffôn. Dewiswch ‘General’ yna ‘About’ a chwiliwch am ‘Model Name’.</p>"
         },
         "subHeading3Dad": "Oes gennych chi fynediad i iPhone neu ffôn Android?",
-        "subHeading3Mam": "Ydych chi ar un o'r ffonau hyn?",
+        "subHeading3Mam": "Ydych chi ar un o’r ffonau hyn?",
         "formRadioButtons": {
           "iphoneButtonTextDad": "Ydw - mae gen i fynediad i iPhone",
           "iphoneButtonTextMam": "Ydw - rydw i ar iPhone",
@@ -418,8 +418,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch os ydych ar iPhone, ffôn Android neu ddim un o'r ffonau hyn",
-          "errorRadioMessage": "Dewiswch os ydych ar iPhone, ffôn Android neu ddim un o'r ffonau hyn"
+          "errorSummaryDescriptionText": "Dewiswch os ydych ar iPhone, ffôn Android neu ddim un o’r ffonau hyn",
+          "errorRadioMessage": "Dewiswch os ydych ar iPhone, ffôn Android neu ddim un o’r ffonau hyn"
         }
       }
     },
@@ -427,7 +427,7 @@
       "title": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
       "header": "Ydych chi ar gyfrifiadur neu dabled ar hyn o bryd?",
       "content": {
-        "hint": "Bydd angen i chi ddefnyddio ffôn clyfar i brofi pwy ydych chi os ydych yn defnyddio'r ap GOV.UK One Login.",
+        "hint": "Bydd angen i chi ddefnyddio ffôn clyfar i brofi pwy ydych chi os ydych yn defnyddio’r ap GOV.UK One Login.",
         "formRadioButtons": {
           "onComputerOrTabletButtonText": "Ydw - rydw i ar gyfrifiadur neu dabled",
           "onComputerOrTabletHint": "Byddwn yn dweud wrthych pryd i newid dyfeisiau. Ni fydd angen i chi ddechrau eto.",
@@ -441,14 +441,14 @@
       }
     },
     "nonUkNoAppOptions": {
-      "title": "Mae angen i chi ddefnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
-      "header": "Mae angen i chi ddefnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
       "content": {
-        "paragraph1": "Os nad ydych chi'n byw yn y DU, gallwch ond defnyddio'r ap a ffôn clyfar i brofi pwy ydych chi gyda GOV.UK One Login.",
+        "paragraph1": "Os nad ydych chi’n byw yn y DU, gallwch ond defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi gyda GOV.UK One Login.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueToServiceButtonText": "Mynd i'r gwasanaeth roeddech chi'n ceisio ei ddefnyddio i chwilio am ffyrdd eraill o'i gyrchu",
-          "appSmartphoneButtonText": "Defnyddio'r ap a ffôn clyfar i brofi pwy ydych chi"
+          "continueToServiceButtonText": "Mynd i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio i chwilio am ffyrdd eraill o’i gyrchu",
+          "appSmartphoneButtonText": "Defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1096,119 +1096,119 @@
       }
     },
     "pyiTriageDesktopDownload": {
-      "title": "Defnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
-      "header": "Defnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
+      "title": "Defnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "header": "Defnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
       "content": {
-        "paragraph1": "Mae'r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â'ch ID gyda llun.",
-        "paragraph2": "Yn gyntaf bydd angen i chi lawrlwytho, agor a defnyddio'r ap. Yna byddwch chi'n dod yn ôl i'r dudalen hon i orffen profi pwy ydych chi.",
+        "paragraph1": "Mae’r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â’ch ID gyda llun.",
+        "paragraph2": "Yn gyntaf bydd angen i chi lawrlwytho, agor a defnyddio’r ap. Yna byddwch chi’n dod yn ôl i’r dudalen hon i orffen profi pwy ydych chi.",
         "subHeading1": "1. Lawrlwythwch yr ap GOV.UK One Login",
-        "paragraph3": "Sganiwch y cod QR gyda'ch ffôn clyfar i lawrlwytho'r ap GOV.UK One Login.",
-        "warningText": "Mae'r ap yn defnyddio sgan wyneb gyda lliwiau sy'n fflachio",
+        "paragraph3": "Sganiwch y cod QR gyda’ch ffôn clyfar i lawrlwytho’r ap GOV.UK One Login.",
+        "warningText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
         "warningTextFallback": "Rhybudd",
-        "qrCodeAlt": "Cod QR i lawrlwytho'r ap",
-        "subHeading2": "Help i ddefnyddio'r ap GOV.UK One Login",
+        "qrCodeAlt": "Cod QR i lawrlwytho’r ap",
+        "subHeading2": "Help i ddefnyddio’r ap GOV.UK One Login",
         "details1": {
           "summaryText": "Sut i sganio cod QR",
           "list1": "Agorwch yr ap camera ar eich ffôn.",
           "list2": "Gosodwch eich camera dros y cod QR.",
           "list3": "Arhoswch nes bod y cod QR yn cael ei gydnabod gan eich camera ac mae dolen yn ymddangos ar eich sgrin.",
           "list4": "Gosodwch eich camera dros y cod QR.",
-          "list5": "Tapiwch y ddolen i fynd i'r App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).",
+          "list5": "Tapiwch y ddolen i fynd i’r App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).",
           "list6": "Lawrlwythwch yr ap GOV.UK One Login."
         },
         "details2": {
-          "summaryText": "Sut i lawrlwytho'r ap heb god QR",
+          "summaryText": "Sut i lawrlwytho’r ap heb god QR",
           "list1": "Cadwch y dudalen hon ar agor.",
           "list2": "Ar eich ffôn, agorwch yr App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).",
-          "list3": "Chwilio am yr ap 'GOV.UK One Login'.",
+          "list3": "Chwilio am yr ap ’GOV.UK One Login’.",
           "list4": "Lawrlwythwch yr ap GOV.UK One Login."
         },
         "details3": {
-          "summaryText": "Rwy'n sensitif i liwiau sy'n fflachio",
-          "html": "<p>Mae'r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae'n defnyddio gwahanol liwiau sy'n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy'n fflachio</a>.</p>"
+          "summaryText": "Rwy’n sensitif i liwiau sy’n fflachio",
+          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
         },
         "details4": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",
           "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
         },
         "details5": {
-          "summaryText": "Byddai'n well gen i beidio defnyddio'r ap",
-          "html": "<p>Os byddai'n well gennych beidio â defnyddio'r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
+          "summaryText": "Byddai’n well gen i beidio defnyddio’r ap",
+          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
         "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
         "subHeading4": "3. Gorffennwch brofi pwy ydych chi yma",
-        "paragraph5": "Os ydym yn llwyddo i baru'ch wyneb â'ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
+        "paragraph5": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
         "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio."
       }
     },
     "pyiTriageMobileDownload": {
-      "title": "Defnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
-      "header": "Defnyddio'r ap GOV.UK One Login i brofi pwy ydych chi",
+      "title": "Defnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "header": "Defnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
       "content": {
-        "paragraph1": "Os yw'r ap wedi cael ei osod gennych yn barod, agorwch ef nawr.",
-        "subHeading1": "Beth i'w ddisgwyl",
-        "paragraph2": "Mae'r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â'ch ID gyda llun.",
+        "paragraph1": "Os yw’r ap wedi cael ei osod gennych yn barod, agorwch ef nawr.",
+        "subHeading1": "Beth i’w ddisgwyl",
+        "paragraph2": "Mae’r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â’ch ID gyda llun.",
         "paragraph3": "Bydd cyfarwyddiadau ar beth sydd angen i chi ei wneud ar bob cam.",
         "details1": {
-          "summaryText": "Mae'r ap yn defnyddio sgan wyneb gyda lliwiau sy'n fflachio",
-          "html": "<p>Mae'r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae'n defnyddio gwahanol liwiau sy'n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy'n fflachio</a>.</p>"
+          "summaryText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
+          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
         },
         "button": "Lawrlwytho GOV.UK One Login",
         "details2": {
-          "summaryText": "Help i lawrlwytho'r ap",
-          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tapiwch y botwm 'Lawrlwytho GOV.UK One Login' i fynd i'r App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).</li><li>Lawrlwythwch yr ap GOV.UK One Login.</li></ol>"
+          "summaryText": "Help i lawrlwytho’r ap",
+          "html": "<ol class=\"govuk-list govuk-list--number\"><li>Tapiwch y botwm Lawrlwytho GOV.UK One Login i fynd ir App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).</li><li>Lawrlwythwch yr ap GOV.UK One Login.</li></ol>"
         },
         "details3": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",
           "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
         },
         "details4": {
-          "summaryText": "Byddai'n well gennyf beidio defnyddio'r ap",
-          "html": "<p>Os byddai'n well gennych beidio â defnyddio'r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
+          "summaryText": "Byddain well gennyf beidio defnyddior ap",
+          "html": "<p>Os byddain well gennych beidio â defnyddior ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         }
       }
     },
     "pyiTriageMobileConfirm": {
-      "title": "Dywedwch wrthym pa ffôn clyfar rydych chi'n ei ddefnyddio nawr",
-      "header": "Dywedwch wrthym pa ffôn clyfar rydych chi'n ei ddefnyddio nawr",
+      "title": "Dywedwch wrthym pa ffôn clyfar rydych chin ei ddefnyddio nawr",
+      "header": "Dywedwch wrthym pa ffôn clyfar rydych chin ei ddefnyddio nawr",
       "content": {
-        "paragraph1Android": "Mae'n edrych fel eich bod ar ffôn Android.",
-        "paragraph1Iphone": "Mae'n edrych fel eich bod ar iPhone.",
-        "paragraph2": "I brofi pwy ydych chi gyda'r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy'n gweithio.",
+        "paragraph1Android": "Maen edrych fel eich bod ar ffôn Android.",
+        "paragraph1Iphone": "Maen edrych fel eich bod ar iPhone.",
+        "paragraph2": "I brofi pwy ydych chi gydar ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera syn gweithio.",
         "subHeading1": "Os yw eich ID gyda llun yn drwydded yrru cerdyn-llun y DU",
         "paragraph3": "Rydych angen iPhone 6s neu fwy newydd.",
         "subHeading2": "Os yw eich ID gyda llun yn basport, BRP, BRC neu FWP",
         "paragraph4": "Rydych angen iPhone 7 neu fwy newydd.",
         "details": {
-          "summaryText": "Sut ydw i'n gwybod pa iPhone sydd gen i?",
-          "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynu'ch iPhone ar ôl 2016, mae'n debyg bod gennych iPhone 7 neu fwy newydd. < / p><p>I wirio pa iPhone sydd gennych, ewch i'ch gosodiadau ffôn. Dewiswch 'General' yna 'About' ac edrychwch am y 'Model Name'.</p>"
+          "summaryText": "Sut ydw in gwybod pa iPhone sydd gen i?",
+          "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynuch iPhone ar ôl 2016, maen debyg bod gennych iPhone 7 neu fwy newydd. < / p><p>I wirio pa iPhone sydd gennych, ewch ich gosodiadau ffôn. Dewiswch General yna About ac edrychwch am y Model Name.</p>"
         },
         "subHeadingQuestionAndroid": "Ydych chi ar ffôn Android?",
-        "subHeadingQuestionIphone": "Ydych chi ar un o'r iPhones hyn?",
+        "subHeadingQuestionIphone": "Ydych chi ar un or iPhones hyn?",
         "formRadioButtons": {
           "yes": "Ydw",
           "no": "Na - rydw i ar gyfrifiadur, tabled, neu ffôn gwahanol"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionTextIphone": "Dewiswch os ydych chi'n defnyddio cyfrifiadur neu dabled neu'n defnyddio iPhone",
-          "errorSummaryDescriptionTextAndroid": "Dewiswch os ydych chi'n defnyddio cyfrifiadur neu dabled neu'n defnyddio Android",
-          "errorRadioMessageIphone": "Dewiswch os ydych chi'n defnyddio cyfrifiadur neu dabled neu'n defnyddio iPhone",
-          "errorRadioMessageAndroid": "Dewiswch os ydych chi'n defnyddio cyfrifiadur neu dabled neu'n defnyddio Android"
+          "errorSummaryDescriptionTextIphone": "Dewiswch os ydych chin defnyddio cyfrifiadur neu dabled neun defnyddio iPhone",
+          "errorSummaryDescriptionTextAndroid": "Dewiswch os ydych chin defnyddio cyfrifiadur neu dabled neun defnyddio Android",
+          "errorRadioMessageIphone": "Dewiswch os ydych chin defnyddio cyfrifiadur neu dabled neun defnyddio iPhone",
+          "errorRadioMessageAndroid": "Dewiswch os ydych chin defnyddio cyfrifiadur neu dabled neun defnyddio Android"
         }
       }
     },
     "pyiTriageBuffer": {
-      "title": "Ydych chi'n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
-      "header": "Ydych chi'n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
+      "title": "Ydych chin siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
+      "header": "Ydych chin siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
       "content": {
-        "paragraph1": "Mae yna ffyrdd eraill o brofi pwy ydych chi gyda GOV.UK One Login. Efallai mai'r ap yw'r ffordd fwyaf addas os oes gennych ID gyda llun.",
+        "paragraph1": "Mae yna ffyrdd eraill o brofi pwy ydych chi gyda GOV.UK One Login. Efallai mair ap ywr ffordd fwyaf addas os oes gennych ID gyda llun.",
         "formRadioButtons": {
           "heading": "Beth hoffech chi ei wneud?",
           "anotherWay": "Ceisio profi pwy ydych chi mewn ffordd arall",
-          "anotherWayHint": "Os ydych yn newid eich meddwl ac eisiau defnyddio'r ap, bydd yn rhaid i chi ddechrau eto.",
-          "back": "Mynd yn ôl a defnyddio'r ap GOV.UK One Login"
+          "anotherWayHint": "Os ydych yn newid eich meddwl ac eisiau defnyddior ap, bydd yn rhaid i chi ddechrau eto.",
+          "back": "Mynd yn ôl a defnyddior ap GOV.UK One Login"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

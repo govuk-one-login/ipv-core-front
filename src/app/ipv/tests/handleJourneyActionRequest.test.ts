@@ -92,7 +92,30 @@ describe("handleJourneyActionRequest", () => {
     );
   });
 
-  it("should not set req.body.journey if pageId is not PAGE_CHECK_MOBILE_APP_RESULT", async () => {
+  it("should use session journey if pageId is PAGE_CHECK_MOBILE_APP_RESULT", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "pyi-triage-desktop-download-app" },
+      session: {
+        currentPage: "pyi-triage-desktop-download-app",
+        journey: "journey/next",
+      },
+      body: { journey: "pyi-triage-desktop-download-app" },
+    });
+    coreBackServiceStub.postJourneyEvent = sinon.fake.resolves({
+      data: { cri: { id: "someId", redirectUrl: "https://example.test" } },
+    });
+
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyActionRequest(req, res, next);
+
+    // Assert
+    expect(req.body.journey).to.equal("journey/next");
+  });
+
+  it("should use session journey instead of req.body.journey if pageId is PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
     const req = createRequest({
       params: { pageId: "check-mobile-app-result" },

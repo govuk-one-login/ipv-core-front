@@ -12,10 +12,6 @@ class Spinner {
     msBetweenDomUpdate: 2000,
   };
 
-  notInErrorOrDoneState = () => {
-    return !(this.state.done || this.state.error);
-  };
-
   reflectCompletion = () => {
     this.state.spinnerState = "spinner__ready";
     this.state.spinnerStateText = this.content.complete.spinnerState;
@@ -142,7 +138,6 @@ class Spinner {
   convert = (node) => {
     const el = document.createElement(node.nodeName);
     if (node.text) el.textContent = node.text;
-    if (node.innerHTML) el.innerHTML = node.innerHTML;
     if (node.id) el.id = node.id;
     if (node.classes) el.classList.add(...node.classes);
     return el;
@@ -182,10 +177,12 @@ class Spinner {
         this.reflectCompletion();
       } else if (data.status === "ERROR") {
         this.reflectError();
-      } else if (this.notInErrorOrDoneState()) {
+      } else if (data.status === "PROCESSING") {
         setTimeout(async () => {
           await this.requestAppVcReceiptStatus();
         }, this.config.msBetweenRequests);
+      } else {
+        throw new Error(`Unsupported status ${data.status}`);
       }
     } catch (e) {
       this.reflectError();

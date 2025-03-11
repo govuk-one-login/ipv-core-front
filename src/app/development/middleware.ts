@@ -116,6 +116,10 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     renderOptions.qrCode = await generateQrCodeImageData(
       getAppStoreRedirectUrl(phoneType),
     );
+    renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
+    renderOptions.msBeforeInformingOfLongWait =
+      config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+    renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);

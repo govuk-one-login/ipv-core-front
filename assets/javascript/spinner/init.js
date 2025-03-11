@@ -9,7 +9,6 @@ class Spinner {
     msBeforeInformingOfLongWait: 5000,
     msBeforeAbort: 25000,
     msBetweenRequests: 1000,
-    msBetweenDomUpdate: 2000,
   };
 
   reflectCompletion = () => {
@@ -19,18 +18,11 @@ class Spinner {
   };
 
   reflectError = () => {
-    this.state.heading = this.content.error.heading;
-    this.state.messageText = this.content.error.messageText;
-    this.state.spinnerState = "spinner__failed";
-    this.state.error = true;
-
     window.location.href = "/ipv/page/pyi-technical"
   };
 
   reflectLongWait() {
-    if (this.state.spinnerState !== "ready") {
-      this.state.spinnerStateText = this.content.longWait.spinnerStateText;
-    }
+    this.state.spinnerStateText = this.content.longWait.spinnerStateText;
   }
 
   initialiseTimers = () => {
@@ -38,11 +30,6 @@ class Spinner {
       this.timers.informUserWhereWaitIsLong = setTimeout(() => {
         this.reflectLongWait();
       }, this.config.msBeforeInformingOfLongWait);
-
-      this.timers.updateDomTimer = setInterval(
-        this.updateDom,
-        this.config.msBetweenDomUpdate,
-      );
 
       this.timers.abortUnresponsiveRequest = setTimeout(() => {
         this.reflectError();
@@ -74,10 +61,6 @@ class Spinner {
           spinnerStateText: element.dataset.initialSpinnerstatetext,
           spinnerState: element.dataset.initialSpinnerstate,
         },
-        error: {
-          heading: element.dataset.errorHeading,
-          messageText: element.dataset.errorMessagetext,
-        },
         complete: {
           spinnerState: element.dataset.completeSpinnerstate,
         },
@@ -96,9 +79,6 @@ class Spinner {
         msBetweenRequests:
           parseInt(element.dataset.msBetweenRequests) ||
           this.config.msBetweenRequests,
-        msBetweenDomUpdate:
-          parseInt(element.dataset.msBetweenDomUpdate) ||
-          this.config.msBetweenDomUpdate,
       };
 
       this.domRequirementsMet = true;
@@ -107,31 +87,25 @@ class Spinner {
     }
   }
 
-  createVirtualDom = () => {
-    const domInitialState = [
-      {
-        nodeName: "div",
-        id: "spinner",
-        classes: [
-          "spinner",
-          "spinner__pending",
-          "centre",
-          this.state.spinnerState,
-        ],
-      },
-      {
-        nodeName: "p",
-        text: this.state.spinnerStateText,
-        classes: ["centre", "spinner-state-text", "govuk-body"],
-      },
-    ];
+  createVirtualDom = () => [
+    {
+      nodeName: "div",
+      id: "spinner",
+      classes: [
+        "spinner",
+        "spinner__pending",
+        "centre",
+        this.state.spinnerState,
+      ],
+    },
+    {
+      nodeName: "p",
+      text: this.state.spinnerStateText,
+      classes: ["centre", "spinner-state-text", "govuk-body"],
+    },
+  ]
 
-    const domErrorState = [];
-
-    return this.state.error ? domErrorState : domInitialState;
-  }
-
-  vDomHasChanged = (currentVDom, nextVDom) => {
+  ifSpinnerStateChanged = (currentVDom, nextVDom) => {
     return JSON.stringify(currentVDom) !== JSON.stringify(nextVDom);
   };
 
@@ -144,7 +118,7 @@ class Spinner {
   };
 
   updateDom = () => {
-    const vDomChanged = this.vDomHasChanged(
+    const vDomChanged = this.ifSpinnerStateChanged(
       this.state.virtualDom,
       this.createVirtualDom(),
     );
@@ -155,10 +129,6 @@ class Spinner {
       this.state.virtualDom = this.createVirtualDom();
       const elements = this.state.virtualDom.map(this.convert);
       container.replaceChildren(...elements);
-    }
-
-    if (this.state.error) {
-      container.classList.add("spinner-container__error");
     }
 
     if (this.state.done) {
@@ -186,17 +156,15 @@ class Spinner {
       }
     } catch (e) {
       this.reflectError();
+    } finally {
+      this.updateDom();
     }
   }
 
   init = () => {
     this.initialiseTimers();
-
     this.updateDom();
-
-    this.requestAppVcReceiptStatus().then(() => {
-      this.updateDom();
-    });
+    this.requestAppVcReceiptStatus();
   }
 
   constructor(domContainer) {

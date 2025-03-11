@@ -176,8 +176,8 @@ describe("handleJourneyPageRequest", () => {
         pageErrorState: undefined,
         qrCode: "QR_CODE_DATA",
         msBetweenRequests: 3000,
-        msBeforeAbort: 2400000,
         msBeforeInformingOfLongWait: 60000,
+        msBeforeAbort: 2400000,
       },
     );
   });

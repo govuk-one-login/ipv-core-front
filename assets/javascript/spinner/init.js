@@ -33,7 +33,7 @@ class Spinner {
     }
   }
 
-  initialiseTimers() {
+  initialiseTimers = () => {
     if (this.domRequirementsMet) {
       this.timers.informUserWhereWaitIsLong = setTimeout(() => {
         this.reflectLongWait();
@@ -50,7 +50,7 @@ class Spinner {
     }
   }
 
-  initialiseState() {
+  initialiseState = () => {
     if (this.domRequirementsMet) {
       this.state = {
         heading: this.content.initial.heading,
@@ -66,7 +66,7 @@ class Spinner {
     }
   }
 
-  initialiseContent(element) {
+  initialiseContent = (element) => {
     try {
       this.content = {
         initial: {
@@ -107,7 +107,7 @@ class Spinner {
     }
   }
 
-  createVirtualDom() {
+  createVirtualDom = () => {
     const domInitialState = [
       {
         nodeName: "div",
@@ -168,7 +168,7 @@ class Spinner {
     }
   };
 
-  async requestAppVcReceiptStatus() {
+  requestAppVcReceiptStatus = async () => {
     try {
       const response = await fetch(this.config.apiUrl);
       const data = await response.json();
@@ -189,7 +189,7 @@ class Spinner {
     }
   }
 
-  init() {
+  init = () => {
     this.initialiseTimers();
 
     this.updateDom();

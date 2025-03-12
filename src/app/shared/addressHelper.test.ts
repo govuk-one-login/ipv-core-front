@@ -18,7 +18,6 @@ describe("Address Helper", () => {
         addressLocality: "my town",
         postalCode: "myCode",
         addressRegion: "myRegion",
-        addressCountry: "myCountry",
       };
 
       // Act
@@ -26,7 +25,7 @@ describe("Address Helper", () => {
 
       // Assert
       expect(output).to.equal(
-        "My department, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode<br>myCountry",
+        "My department, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
       );
     });
 
@@ -45,7 +44,6 @@ describe("Address Helper", () => {
         addressLocality: "my town",
         postalCode: "myCode",
         addressRegion: "myRegion",
-        addressCountry: "myCountry",
       };
 
       // Act
@@ -53,7 +51,7 @@ describe("Address Helper", () => {
 
       // Assert
       expect(output).to.equal(
-        "My department, My company, Room 5, my building<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode<br>myCountry",
+        "My department, My company, Room 5, my building<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
       );
     });
   });

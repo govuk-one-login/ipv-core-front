@@ -70,7 +70,6 @@ export const generateHTMLofAddress = (address: PostalAddressClass): string => {
   if (fullLocality) html += `${fullLocality}<br>`;
   if (address.addressRegion) html += `${address.addressRegion}<br>`;
   html += `${address.postalCode}`;
-  if (address.addressCountry) html += `<br>${address.addressCountry}`;
 
   return html;
 };

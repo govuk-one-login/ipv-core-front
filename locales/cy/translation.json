@@ -397,7 +397,7 @@
       "headerDad": "Dywedwch wrthym a oes gennych fynediad i iPhone neu ffôn Android",
       "headerMam": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
       "content": {
-        "paragraph1": "I brofi pwy ydych chi gyda’r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy'n gweithio.",
+        "paragraph1": "I brofi pwy ydych chi gyda’r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy’n gweithio.",
         "subHeading1": "Os yw eich ID gyda llun yn drwydded yrru cerdyn-llun y DU",
         "paragraph2": "Rydych angen iPhone 6s neu fwy newydd, neu ffôn Android.",
         "subHeading2": "Os yw eich ID gyda llun yn basport, BRP, BRC neu FWP",
@@ -1200,15 +1200,15 @@
       }
     },
     "pyiTriageBuffer": {
-      "title": "Ydych chi'n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
-      "header": "Ydych chi'n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
+      "title": "Ydych chi’n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
+      "header": "Ydych chi’n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
       "content": {
-        "paragraph1": "Mae yna ffyrdd eraill o brofi pwy ydych chi gyda GOV.UK One Login. Efallai mai'r ap yw'r ffordd fwyaf addas os oes gennych ID gyda llun.",
+        "paragraph1": "Mae yna ffyrdd eraill o brofi pwy ydych chi gyda GOV.UK One Login. Efallai mai’r ap yw’r ffordd fwyaf addas os oes gennych ID gyda llun.",
         "formRadioButtons": {
           "heading": "Beth hoffech chi ei wneud?",
           "anotherWay": "Ceisio profi pwy ydych chi mewn ffordd arall",
-          "anotherWayHint": "Os ydych yn newid eich meddwl ac eisiau defnyddio'r ap, bydd yn rhaid i chi ddechrau eto.",
-          "back": "Mynd yn ôl a defnyddio'r ap GOV.UK One Login"
+          "anotherWayHint": "Os ydych yn newid eich meddwl ac eisiau defnyddio’r ap, bydd yn rhaid i chi ddechrau eto.",
+          "back": "Mynd yn ôl a defnyddio’r ap GOV.UK One Login"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

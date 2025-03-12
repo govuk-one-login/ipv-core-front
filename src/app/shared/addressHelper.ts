@@ -49,6 +49,9 @@ const extractAddressFields = (
   if (address.addressLocality) {
     localityNames.push(address.addressLocality);
   }
+  if (address.addressRegion) {
+    localityNames.push(address.addressRegion);
+  }
   return { buildingNames, streetNames, localityNames };
 };
 
@@ -58,18 +61,19 @@ export const generateHTMLofAddress = (address: PostalAddressClass): string => {
 
   const fullBuildingName = buildingNames.join(", ");
   let fullStreetName;
-  if (streetNames.length > 0) {
-    fullStreetName = streetNames.join(", ");
+  if (streetNames) {
+    fullStreetName = streetNames.join(" ");
   }
 
-  const fullLocality = localityNames.join(", ");
+  const fullLocality = localityNames.join(" ");
 
-  let html = "";
-  if (fullBuildingName) html += `${fullBuildingName}<br>`;
-  if (fullStreetName) html += `${fullStreetName}<br>`;
-  if (fullLocality) html += `${fullLocality}<br>`;
-  if (address.addressRegion) html += `${address.addressRegion}<br>`;
-  html += `${address.postalCode}`;
-
-  return html;
+  if (fullStreetName) {
+    if (fullBuildingName) {
+      return `${fullBuildingName}<br>${fullStreetName}<br>${fullLocality}<br>${address.postalCode}`;
+    } else {
+      return `${fullStreetName}<br>${fullLocality}<br>${address.postalCode}`;
+    }
+  } else {
+    return `${fullBuildingName}<br>${fullLocality}<br>${address.postalCode}`;
+  }
 };

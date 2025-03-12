@@ -115,7 +115,7 @@ test.describe.parallel("Functional tests", () => {
     const birthDateLocator = await page.getByText('8 July 1965');
     await expect(birthDateLocator).toBeVisible();
 
-    const addressLocator = await page.getByText('8 Hadley Road')
+    const addressLocator = await page.getByText('8, Hadley Road')
     await expect(addressLocator).toBeVisible();
   })
 
@@ -134,7 +134,7 @@ test.describe.parallel("Functional tests", () => {
     const birthDateLocator = await page.getByText('8 July 1965');
     await expect(birthDateLocator).toBeVisible();
 
-    const addressLocator = await page.getByText('8 Hadley Road')
+    const addressLocator = await page.getByText('8, Hadley Road')
     await expect(addressLocator).toBeVisible();
   })
 

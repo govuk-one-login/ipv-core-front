@@ -18,8 +18,8 @@ describe("Sample Persisted User Details", () => {
           doubleDependentAddressLocality: "Oxford Lane",
           dependentAddressLocality: "University Quarter",
           addressLocality: "Lancaster",
-          addressRegion: "Lancashire",
           postalCode: "M12 7LU",
+          addressRegion: "Lancashire",
         },
         {
           subBuildingName: "Flat 24",
@@ -79,24 +79,24 @@ describe("Generate User Details", () => {
           label:
             "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
           addressDetailHtml:
-            "Room 25, Turing House, Block 4b, Vital Living<br>1, Circular Square, 7 O'Reilly Way<br>Oxford Lane, University Quarter, Lancaster<br>Lancashire<br>M12 7LU",
+            "Room 25, Turing House, Block 4b, Vital Living<br>1 Circular Square 7 O'Reilly Way<br>Oxford Lane University Quarter Lancaster Lancashire<br>M12 7LU",
         },
         {
           label:
             "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 1",
           addressDetailHtml:
-            "Flat 24, Wollatorn House<br>7, Batchelor Street<br>London<br>N15 0EY",
+            "Flat 24, Wollatorn House<br>7 Batchelor Street<br>London<br>N15 0EY",
         },
         {
           label:
             "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 2",
           addressDetailHtml:
-            "Flat 18, The Paper Apartments<br>162, Offord Road<br>London<br>N2 1NS",
+            "Flat 18, The Paper Apartments<br>162 Offord Road<br>London<br>N2 1NS",
         },
         {
           label:
             "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 3",
-          addressDetailHtml: "7, Acorne Terrace<br>London<br>N16 4QF",
+          addressDetailHtml: "7 Acorne Terrace<br>London<br>N16 4QF",
         },
       ],
     });
@@ -173,7 +173,7 @@ describe("Generate User Details", () => {
             label:
               "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
             addressDetailHtml:
-              "My deparment, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
+              "My deparment, My company, Room 5, my building<br>1 My outter street my inner street<br>My double dependant town my dependant town my town myRegion<br>myCode",
           },
         ],
         ...expectedNameUserDetails,

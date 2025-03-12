@@ -12,18 +12,17 @@ class Spinner {
   };
 
   reflectCompletion = () => {
-    this.state.spinnerState = "spinner__ready";
-    this.state.spinnerStateText = this.content.complete.spinnerState;
+    this.state.spinnerState = "complete";
     this.state.done = true;
   };
 
   reflectError = () => {
-    window.location.href = "/ipv/page/pyi-technical"
+    window.location.href = "/ipv/page/pyi-technical";
   };
 
-  reflectLongWait() {
-    this.state.spinnerStateText = this.content.longWait.spinnerStateText;
-  }
+  reflectLongWait = () => {
+    this.state.spinnerState = "longWait";
+  };
 
   initialiseTimers = () => {
     if (this.domRequirementsMet) {
@@ -35,14 +34,12 @@ class Spinner {
         this.reflectError();
       }, this.config.msBeforeAbort);
     }
-  }
+  };
 
   initialiseState = () => {
     if (this.domRequirementsMet) {
       this.state = {
-        heading: this.content.initial.heading,
-        spinnerStateText: this.content.initial.spinnerStateText,
-        spinnerState: this.content.initial.spinnerState,
+        spinnerState: "pending",
         done: false,
         error: false,
         virtualDom: [],
@@ -51,21 +48,22 @@ class Spinner {
       button.setAttribute("disabled", true);
       this.timers = {};
     }
-  }
+  };
 
   initialiseContent = (element) => {
     try {
       this.content = {
-        initial: {
-          heading: element.dataset.initialHeading,
-          spinnerStateText: element.dataset.initialSpinnerstatetext,
-          spinnerState: element.dataset.initialSpinnerstate,
+        pending: {
+          text: element.dataset.initialSpinnerstatetext,
+          className: element.dataset.initialSpinnerstate,
         },
         complete: {
-          spinnerState: element.dataset.completeSpinnerstate,
+          text: element.dataset.completeSpinnerstatetext || "",
+          className: element.dataset.completeSpinnerstate,
         },
         longWait: {
-          spinnerStateText: element.dataset.longwaitSpinnerstatetext,
+          text: element.dataset.longwaitSpinnerstatetext,
+          className: "spinner__long-wait",
         },
       };
 
@@ -85,25 +83,24 @@ class Spinner {
     } catch (e) {
       this.domRequirementsMet = false;
     }
-  }
+  };
 
-  createVirtualDom = () => [
-    {
-      nodeName: "div",
-      id: "spinner",
-      classes: [
-        "spinner",
-        "spinner__pending",
-        "centre",
-        this.state.spinnerState,
-      ],
-    },
-    {
-      nodeName: "p",
-      text: this.state.spinnerStateText,
-      classes: ["centre", "spinner-state-text", "govuk-body"],
-    },
-  ]
+  createVirtualDom = () => {
+    const stateContent = this.content[this.state.spinnerState];
+    const className = stateContent.className || "";
+    return [
+      {
+        nodeName: "div",
+        id: "spinner",
+        classes: ["spinner", "centre", className],
+      },
+      {
+        nodeName: "p",
+        text: stateContent.text || "",
+        classes: ["centre", "spinner-state-text", "govuk-body"],
+      },
+    ];
+  };
 
   ifSpinnerStateChanged = (currentVDom, nextVDom) => {
     return JSON.stringify(currentVDom) !== JSON.stringify(nextVDom);
@@ -120,12 +117,11 @@ class Spinner {
   updateDom = () => {
     const vDomChanged = this.ifSpinnerStateChanged(
       this.state.virtualDom,
-      this.createVirtualDom(),
+      this.createVirtualDom()
     );
-    const container = document.getElementById("spinner-container");
+    const container = document.getElementById("dad-spinner-container");
 
     if (vDomChanged) {
-      document.title = this.state.heading;
       this.state.virtualDom = this.createVirtualDom();
       const elements = this.state.virtualDom.map(this.convert);
       container.replaceChildren(...elements);
@@ -159,13 +155,13 @@ class Spinner {
     } finally {
       this.updateDom();
     }
-  }
+  };
 
   init = () => {
     this.initialiseTimers();
     this.updateDom();
     this.requestAppVcReceiptStatus();
-  }
+  };
 
   constructor(domContainer) {
     this.container = domContainer;
@@ -174,7 +170,7 @@ class Spinner {
   }
 }
 
-const element = document.getElementById("spinner-container");
+const element = document.getElementById("dad-spinner-container");
 if (element) {
   const spinner = new Spinner(element);
   spinner.init();

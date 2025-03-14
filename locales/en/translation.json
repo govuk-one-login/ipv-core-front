@@ -221,9 +221,9 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Sorry, you’ll need to prove your identity another way",
+      "title": "Sorry, we cannot prove your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "header": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, we cannot prove your identity this way",
       "headerDropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
@@ -313,9 +313,9 @@
       }
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Sorry, we cannot confirm your identity this way",
+      "title": "Sorry, we cannot prove your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "header": "Sorry, we cannot confirm your identity this way",
+      "header": "Sorry, we cannot prove your identity this way",
       "headerDropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",

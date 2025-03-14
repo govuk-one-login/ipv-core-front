@@ -359,6 +359,10 @@ export const handleJourneyPageRequest = async (
       validatePhoneType(context);
       const qrCodeUrl = getAppStoreRedirectUrl(context);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
+      renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
+      renderOptions.msBeforeInformingOfLongWait =
+        config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+      renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
       validatePhoneType(context);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
@@ -371,10 +375,10 @@ export const handleJourneyPageRequest = async (
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
     } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
-      renderOptions.msBetweenRequests = config.MAM_SPINNER_REQUEST_INTERVAL;
-      renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
+      renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeInformingOfLongWait =
-        config.MAM_SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+        config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
+      renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     }
 
     return res.render(getIpvPageTemplatePath(sanitize(pageId)), renderOptions);
@@ -393,8 +397,12 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
     return;
   }
 
-  // Special case handling for "check-mobile-app-result" page
-  if (pageId === PAGES.CHECK_MOBILE_APP_RESULT && req.session.journey) {
+  // Special case handling for strategic app journey
+  if (
+    (pageId === PAGES.CHECK_MOBILE_APP_RESULT ||
+      pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) &&
+    req.session.journey
+  ) {
     req.body.journey = req.session.journey;
   }
 

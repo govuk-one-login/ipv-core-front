@@ -24,10 +24,20 @@ describe("handleJourneyPageRequest", () => {
 
   // Setup stubs
   const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.fake() };
+  const contextHelperStub = { validatePhoneType: sinon.fake() };
+  const appDownloadHelperStub = {
+    getAppStoreRedirectUrl: sinon.fake.resolves("https://example.com"),
+  };
+  const qrCodeHelperStub = {
+    generateQrCodeImageData: sinon.fake.resolves("QR_CODE_DATA"),
+  };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
     {
       "../../services/coreBackService": coreBackServiceStub,
+      "../shared/contextHelper": contextHelperStub,
+      "../shared/appDownloadHelper": appDownloadHelperStub,
+      "../shared/qrCodeHelper": qrCodeHelperStub,
     },
   );
 
@@ -137,6 +147,37 @@ describe("handleJourneyPageRequest", () => {
         context: undefined,
         pageErrorState: undefined,
         postOfficeVisitByDate: sinon.match.number,
+      },
+    );
+  });
+
+  it("should render pyi-triage-desktop-download-app page with render options when given valid pageId", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP },
+      session: { currentPage: IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
+
+    // Assert
+    expect(contextHelperStub.validatePhoneType).to.have.been.calledOnce;
+    expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
+      .calledOnce;
+    expect(qrCodeHelperStub.generateQrCodeImageData).to.have.been.calledOnce;
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/pyi-triage-desktop-download-app.njk",
+      {
+        pageId: "pyi-triage-desktop-download-app",
+        csrfToken: undefined,
+        context: undefined,
+        pageErrorState: undefined,
+        qrCode: "QR_CODE_DATA",
+        msBetweenRequests: 3000,
+        msBeforeInformingOfLongWait: 60000,
+        msBeforeAbort: 2400000,
       },
     );
   });

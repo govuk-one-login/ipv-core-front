@@ -2,7 +2,7 @@ class Spinner {
   container;
   content;
   domRequirementsMet;
-  state;
+  spinnerState;
   timers;
   config = {
     apiUrl: "/app-vc-receipt-status",
@@ -12,8 +12,7 @@ class Spinner {
   };
 
   reflectCompletion = () => {
-    this.state.spinnerState = "complete";
-    this.state.done = true;
+    this.spinnerState = "complete";
   };
 
   reflectError = () => {
@@ -21,7 +20,7 @@ class Spinner {
   };
 
   reflectLongWait = () => {
-    this.state.spinnerState = "longWait";
+    this.spinnerState = "longWait";
   };
 
   initialiseTimers = () => {
@@ -38,12 +37,7 @@ class Spinner {
 
   initialiseState = () => {
     if (this.domRequirementsMet) {
-      this.state = {
-        spinnerState: "pending",
-        done: false,
-        error: false,
-        virtualDom: [],
-      };
+      this.spinnerState = "pending";
       const button = document.getElementById("submitButton");
       button.setAttribute("disabled", true);
       this.timers = {};
@@ -86,17 +80,16 @@ class Spinner {
   };
 
   createVirtualDom = () => {
-    const stateContent = this.content[this.state.spinnerState];
-    const className = stateContent.className || "";
+    const stateContent = this.content[this.spinnerState];
     return [
       {
         nodeName: "div",
         id: "spinner",
-        classes: ["spinner", "centre", className],
+        classes: ["spinner", "centre", stateContent.className ?? ""],
       },
       {
         nodeName: "p",
-        text: stateContent.text || "",
+        text: stateContent.text ?? "",
         classes: ["centre", "spinner-state-text", "govuk-body"],
       },
     ];
@@ -115,22 +108,21 @@ class Spinner {
   };
 
   updateDom = () => {
-    const vDomChanged = this.ifSpinnerStateChanged(
-      this.state.virtualDom,
-      this.createVirtualDom()
-    );
-    const container = document.getElementById("dad-spinner-container");
+    const spinnerStateChanged = this.displayedSpinnerState !== this.spinnerState;
+    this.container = document.getElementById("dad-spinner-container");
 
-    if (vDomChanged) {
-      this.state.virtualDom = this.createVirtualDom();
-      const elements = this.state.virtualDom.map(this.convert);
-      container.replaceChildren(...elements);
+    if (spinnerStateChanged) {
+      const elements = this
+        .createVirtualDom(this.spinnerState)
+        .map(this.convert);
+      this.container
+        .replaceChildren(...elements);
+      this.displayedSpinnerState = this.spinnerState;
     }
 
-    if (this.state.done) {
+    if (this.spinnerState === "complete") {
       const button = document.getElementById("submitButton");
       button.removeAttribute("disabled");
-      clearInterval(this.timers.updateDomTimer);
     }
   };
 

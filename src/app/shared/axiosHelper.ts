@@ -129,9 +129,9 @@ export const axiosErrorLogger = async (error: unknown): Promise<void> => {
   if (axios.isAxiosError(error) && error.config?.logger) {
     const logger = error.config.logger;
     if (error.response) {
-      logger.error({
+      logger.warn({
         message: {
-          ...buildRequestLog(error.response, "API request failed"),
+          ...buildRequestLog(error.response, "API returned error response"),
           errorMessage: error.message,
           errorStatus: error.response.status,
         },

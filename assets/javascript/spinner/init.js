@@ -3,7 +3,8 @@ class Spinner {
   content;
   domRequirementsMet;
   spinnerState;
-  timers;
+  timers = {};
+  button;
   config = {
     apiUrl: "/app-vc-receipt-status",
     msBeforeInformingOfLongWait: 5000,
@@ -38,9 +39,7 @@ class Spinner {
   initialiseState = () => {
     if (this.domRequirementsMet) {
       this.spinnerState = "pending";
-      const button = document.getElementById("submitButton");
-      button.setAttribute("disabled", true);
-      this.timers = {};
+      this.button.setAttribute("disabled", true);
     }
   };
 
@@ -95,10 +94,6 @@ class Spinner {
     ];
   };
 
-  ifSpinnerStateChanged = (currentVDom, nextVDom) => {
-    return JSON.stringify(currentVDom) !== JSON.stringify(nextVDom);
-  };
-
   convert = (node) => {
     const el = document.createElement(node.nodeName);
     if (node.text) el.textContent = node.text;
@@ -109,8 +104,6 @@ class Spinner {
 
   updateDom = () => {
     const spinnerStateChanged = this.displayedSpinnerState !== this.spinnerState;
-    this.container = document.getElementById("dad-spinner-container");
-
     if (spinnerStateChanged) {
       const elements = this
         .createVirtualDom(this.spinnerState)
@@ -121,8 +114,7 @@ class Spinner {
     }
 
     if (this.spinnerState === "complete") {
-      const button = document.getElementById("submitButton");
-      button.removeAttribute("disabled");
+      this.button.removeAttribute("disabled");
     }
   };
 
@@ -157,6 +149,7 @@ class Spinner {
 
   constructor(domContainer) {
     this.container = domContainer;
+    this.button = document.getElementById("submitButton");
     this.initialiseContent(this.container);
     this.initialiseState();
   }

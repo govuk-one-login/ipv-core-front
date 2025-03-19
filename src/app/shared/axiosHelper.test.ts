@@ -6,6 +6,7 @@ import API_URLS from "../../config/config";
 
 const testLogger = {
   info: sinon.fake(),
+  warn: sinon.fake(),
   error: sinon.fake(),
 };
 
@@ -165,9 +166,9 @@ describe("axiosHelper", () => {
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
       // Assert
-      expect(testLogger.error).has.been.calledWith({
+      expect(testLogger.warn).has.been.calledWith({
         message: {
-          description: "API request failed",
+          description: "API returned error response",
           endpoint: "GET /test-path",
           data: { page: "testPage" },
           cri: "testCri",
@@ -201,9 +202,9 @@ describe("axiosHelper", () => {
       await expect(axiosErrorLogger(error)).to.be.rejectedWith(error);
 
       // Assert
-      expect(testLogger.error).has.been.calledWith({
+      expect(testLogger.warn).has.been.calledWith({
         message: {
-          description: "API request failed",
+          description: "API returned error response",
           endpoint: "GET /test-path",
           data: undefined,
           cri: "testCri",

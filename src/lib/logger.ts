@@ -108,6 +108,5 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
     responseTime: "timeTaken",
   },
   // Define a custom logger level
-  customLogLevel: (req, res, err) =>
-    res.statusCode >= 400 || err ? "error" : "info",
+  customLogLevel: () => "info",
 });

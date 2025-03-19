@@ -1,5 +1,5 @@
 import { HTTP_STATUS_CODES } from "../app.constants";
-import { isAxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 import { ErrorRequestHandler } from "express";
 import { isHttpError } from "http-errors";
 import PAGES from "../constants/ipv-pages";
@@ -11,6 +11,7 @@ import {
 import ERROR_PAGES from "../constants/error-pages";
 import HttpError from "../errors/http-error";
 import { HANDLED_ERROR } from "../lib/logger";
+import UnauthorizedError from "../errors/unauthorized-error";
 
 const getErrorStatus = (err: unknown): number => {
   if (isAxiosError(err)) {
@@ -43,13 +44,30 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   const status = getErrorStatus(err);
 
-  req.log?.error({
-    message: {
-      description: err?.constructor?.name ?? "Unknown error",
-      errorMessage: err?.message ?? "Unknown error",
-      errorStack: err?.stack,
-    },
-  });
+  switch (err?.constructor?.name) {
+    case UnauthorizedError.constructor.name: {
+      req.log?.warn({
+        message: {
+          description: UnauthorizedError.constructor.name,
+          errorMessage: err?.message ?? "Unknown error",
+          errorStack: err?.stack,
+        },
+      });
+      break;
+    }
+    case AxiosError.constructor.name: {
+      break;
+    }
+    default: {
+      req.log?.error({
+        message: {
+          description: err?.constructor?.name ?? "Unknown error",
+          errorMessage: err?.message ?? "Unknown error",
+          errorStack: err?.stack,
+        },
+      });
+    }
+  }
 
   res.status(status);
 

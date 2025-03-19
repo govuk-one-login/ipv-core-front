@@ -102,6 +102,7 @@ export const handleBackendResponse = async (
   backendResponse: AxiosResponse<PostJourneyEventResponse>,
 ): Promise<void> => {
   const data = backendResponse.data;
+
   if (isJourneyResponse(data)) {
     return await processAction(req, res, data.journey);
   }

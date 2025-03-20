@@ -44,29 +44,22 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   const status = getErrorStatus(err);
 
-  switch (err?.constructor?.name) {
-    case UnauthorizedError.constructor.name: {
-      req.log?.warn({
-        message: {
-          description: UnauthorizedError.constructor.name,
-          errorMessage: err?.message ?? "Unknown error",
-          errorStack: err?.stack,
-        },
-      });
-      break;
-    }
-    case AxiosError.constructor.name: {
-      break;
-    }
-    default: {
-      req.log?.error({
-        message: {
-          description: err?.constructor?.name ?? "Unknown error",
-          errorMessage: err?.message ?? "Unknown error",
-          errorStack: err?.stack,
-        },
-      });
-    }
+  if (err instanceof UnauthorizedError) {
+    req.log?.warn({
+      message: {
+        description: UnauthorizedError.constructor.name,
+        errorMessage: err?.message ?? "Unknown error",
+        errorStack: err?.stack,
+      },
+    });
+  } else if (!(err instanceof AxiosError)) {
+    req.log?.error({
+      message: {
+        description: err?.constructor?.name ?? "Unknown error",
+        errorMessage: err?.message ?? "Unknown error",
+        errorStack: err?.stack,
+      },
+    });
   }
 
   res.status(status);

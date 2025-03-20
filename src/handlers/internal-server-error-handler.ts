@@ -52,7 +52,7 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         errorStack: err?.stack,
       },
     });
-  } else if (!err instanceof AxiosError) {
+  } else if ((!err) instanceof AxiosError) {
     req.log?.error({
       message: {
         description: err?.constructor?.name ?? "Unknown error",

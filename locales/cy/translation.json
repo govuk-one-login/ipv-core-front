@@ -221,9 +221,9 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
@@ -313,9 +313,9 @@
       }
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",

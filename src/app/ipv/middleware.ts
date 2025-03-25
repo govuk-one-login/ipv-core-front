@@ -307,9 +307,14 @@ const validateSessionAndPage = async (
     throw new UnauthorizedError("ipvSessionId is missing");
   }
 
-  if (pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE) {
-    req.session.currentPage = PAGES.PYI_TIMEOUT_UNRECOVERABLE;
-    res.render(getIpvPageTemplatePath(req.session.currentPage));
+  // To handle techincal error page JS redirection for DAD page
+  if (
+    pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE ||
+    (pageId === PAGES.PYI_TECHNICAL &&
+      req.session.currentPage === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP)
+  ) {
+    req.session.currentPage = pageId;
+    res.render(getIpvPageTemplatePath(pageId));
     return false;
   }
 

@@ -269,6 +269,23 @@ describe("handleJourneyPageRequest", () => {
     );
   });
 
+  it("should render techical page if current page is desktop triage page and pageId is techical page", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: "pyi-technical" },
+      session: {
+        currentPage: "pyi-triage-desktop-download-app",
+      },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
+
+    // Assert
+    expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+  });
+
   it("should raise an error when missing params", async () => {
     // Arrange
     const req = createRequest({

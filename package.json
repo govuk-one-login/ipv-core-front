@@ -86,7 +86,7 @@
     "@govuk-one-login/frontend-vital-signs": "0.1.2",
     "@govuk-one-login/spinner": "1.1.0",
     "axios": "1.8.2",
-    "body-parser": "2.1.0",
+    "body-parser": "2.2.0",
     "cfenv": "1.2.4",
     "connect-dynamodb": "3.0.5",
     "cookie-parser": "1.4.7",

@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   dockerBuildAndPush:
@@ -11,6 +12,7 @@ jobs:
     timeout-minutes: 15
     env:
       AWS_REGION: eu-west-2
+      ENVIRONMENT: ${{ github.event_name == 'workflow_dispatch' && 'dev01' || 'build' }}
     permissions:
       id-token: write
       contents: read
@@ -62,11 +64,11 @@ jobs:
       - name: Deploy SAM app to ECR
         uses: govuk-one-login/devplatform-upload-action-ecr@v1.3.0
         with:
-          artifact-bucket-name: ${{ secrets.ARTIFACT_BUCKET_NAME }}
-          container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY }}
+          artifact-bucket-name: ${{ env.ENVIRONMENT == 'build' && secrets.ARTIFACT_BUCKET_NAME || secrets.ARTIFACT_BUCKET_NAME_DEV }}
+          container-sign-kms-key-arn: ${{ env.ENVIRONMENT == 'build' && secrets.CONTAINER_SIGN_KMS_KEY || secrets.CONTAINER_SIGN_KMS_KEY_DEV }}
           working-directory: ./deploy
           docker-build-path: .
           template-file: template.yaml
-          role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
-          ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
+          role-to-assume-arn: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
+          ecr-repo-name: ${{ env.ENVIRONMENT == 'build' && secrets.ECR_REPOSITORY || secrets.ECR_REPOSITORY_DEV }}
           checkout-repo: false

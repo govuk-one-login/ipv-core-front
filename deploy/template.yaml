@@ -1251,6 +1251,7 @@ Resources:
   NetworkLoadBalancer:
     Condition: IsDevelopment
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    DependsOn: AccessLogsBucket
     Properties:
       Scheme: internal
       Type: network

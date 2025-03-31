@@ -22,12 +22,6 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: Set up AWS creds #push assets to S3
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.UPLOAD_ASSETS_GH_ACTIONS_ROLE_ARN }}
-          aws-region: eu-west-2
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -37,17 +31,10 @@ jobs:
           cp .npmrc.template .npmrc && \
           sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
 
-      - name: npm build assets, zip and sign
-        uses: govuk-one-login/github-actions/govuk/upload-assets@main
-        with:
-          signing-key-arn: ${{ secrets.UPLOAD_ASSETS_ZIP_SIGNING_KEY }}
-          stack-name: 'core-front'
-          destination-bucket-name: ${{ secrets.UPLOAD_ASSETS_ARTIFACT_SOURCE_BUCKET_NAME }}
-
       - name: Set up AWS creds #push to ECR and  do sam deploy
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          role-to-assume: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           aws-region: eu-west-2
 
       - name: Login to Amazon ECR

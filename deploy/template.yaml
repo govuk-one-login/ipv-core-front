@@ -1300,7 +1300,9 @@ Resources:
       TargetType: ip
       Targets:
         - Id: 10.8.100.100
-      HealthCheckEnabled: false
+      HealthCheckEnabled: true
+      HealthCheckProtocol: TCP
+      HealthCheckPort: traffic-port
       VpcId:
         Fn::ImportValue:
           !Sub "${VpcStackName}-VpcId"

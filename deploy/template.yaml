@@ -1289,7 +1289,9 @@ Resources:
       Protocol: TCP
 
   NetworkLoadBalancerTargetGroup:
-    DependsOn: PrivateLoadBalancerListener
+    DependsOn:
+      - PrivateLoadBalancer
+      - PrivateLoadBalancerListener
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       Name: !Sub "${AWS::StackName}-NLBTarGrp"

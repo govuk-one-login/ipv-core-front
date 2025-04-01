@@ -30,6 +30,7 @@ import { validatePhoneType } from "../shared/contextHelper";
 import {
   sniffPhoneType,
   detectAppTriageEvent,
+  OsType,
 } from "../shared/deviceSniffingHelper";
 import {
   isClientResponse,
@@ -232,16 +233,17 @@ const isValidIpvPage = (pageId: string): boolean => {
 };
 
 export const handleAppStoreRedirect: RequestHandler = (req, res) => {
-  const specifiedPhoneType = sniffPhoneType(req, req.params.specifiedPhoneType);
+  const fallbackPhoneType: OsType = { name: req.params.specifiedPhoneType };
+  const specifiedPhoneType = sniffPhoneType(req, fallbackPhoneType);
 
-  switch (specifiedPhoneType) {
+  switch (specifiedPhoneType?.name) {
     case PHONE_TYPES.IPHONE:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
     case PHONE_TYPES.ANDROID:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
     default:
       throw new BadRequestError(
-        "Unrecognised phone type: " + specifiedPhoneType,
+        "Unrecognised phone type: " + specifiedPhoneType?.name,
       );
   }
 };

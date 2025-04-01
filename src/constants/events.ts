@@ -1,5 +1,6 @@
 export const APP_TRIAGE_EVENTS = Object.freeze({
   APP_TRIAGE: "appTriage",
-  APP_TRIAGE_ANDROID: "appTriageAndroid",
-  APP_TRIAGE_IPHONE: "appTriageIphone",
+  MOBILE_DOWNLOAD_IPHONE: "mobileDownloadIphone",
+  MOBILE_DOWNLOAD_ANDROID: "mobileDownloadAndroid",
+  APP_TRIAGE_SMARTPHONE: "appTriageSmartphone",
 });

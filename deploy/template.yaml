@@ -1243,6 +1243,7 @@ Resources:
     Condition: IsDevelopment
     DependsOn:
       - NetworkLoadBalancer
+      - PrivateLoadBalancer
       - NetworkLoadBalancerTargetGroup
     Type: AWS::ApiGateway::VpcLink
     Properties:

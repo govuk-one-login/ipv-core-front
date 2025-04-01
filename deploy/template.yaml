@@ -336,6 +336,7 @@ Resources:
 
   SpotKeysS3Bucket:
     Type: AWS::S3::Bucket
+    DependsOn: AccessLogsBucket
     Properties:
       BucketName: !Sub published-did-documents-${Environment}
       BucketEncryption:
@@ -382,6 +383,7 @@ Resources:
 
   CoreFrontAccessLogsBucketPolicy:
     Type: AWS::S3::BucketPolicy
+    DependsOn: AccessLogsBucket
     Properties:
       Bucket: !Ref AccessLogsBucket
       PolicyDocument:
@@ -419,6 +421,7 @@ Resources:
   # Private Application Load Balancer
   PrivateLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    DependsOn: AccessLogsBucket
     Properties:
       Scheme: internal
       SecurityGroups:
@@ -455,6 +458,7 @@ Resources:
 
   PrivateLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    DependsOn: AccessLogsBucket
     Properties:
       HealthCheckEnabled: TRUE
       HealthCheckProtocol: HTTP

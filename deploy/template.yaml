@@ -1300,8 +1300,7 @@ Resources:
       TargetType: alb
       Targets:
         - Id: !Ref PrivateLoadBalancer
-      HealthCheckEnabled: true
-      HealthCheckPath: '/healthcheck'
+      HealthCheckEnabled: false
       VpcId:
         Fn::ImportValue:
           !Sub "${VpcStackName}-VpcId"

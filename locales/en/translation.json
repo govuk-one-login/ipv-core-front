@@ -1169,36 +1169,6 @@
         }
       }
     },
-    "pyiTriageMobileConfirm": {
-      "title": "Tell us what smartphone you are using now",
-      "header": "Tell us what smartphone you are using now",
-      "content": {
-        "paragraph1Android": "It looks like you’re on an Android phone.",
-        "paragraph1Iphone": "It looks like you’re on an iPhone.",
-        "paragraph2": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
-        "subHeading1": "If your photo ID is a UK photocard driving licence",
-        "paragraph3": "You need an iPhone 6s or newer.",
-        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
-        "paragraph4": "You need an iPhone 7 or newer.",
-        "details": {
-          "summaryText": "How do I know which iPhone I have?",
-          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
-        },
-        "subHeadingQuestionAndroid": "Are you on an Android phone?",
-        "subHeadingQuestionIphone": "Are you on one of these iPhones?",
-        "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No - I’m on a computer, tablet, or different phone"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionTextIphone": "Select if you are using a computer or tablet or using an iPhone",
-          "errorSummaryDescriptionTextAndroid": "Select if you are using a computer or tablet or using an Android",
-          "errorRadioMessageIphone": "Select if you are using a computer or tablet or using an iPhone",
-          "errorRadioMessageAndroid": "Select if you are using a computer or tablet or using an Android"
-        }
-      }
-    },
     "pyiTriageBuffer": {
       "title": "Are you sure you want to try to prove your identity another way?",
       "header": "Are you sure you want to try to prove your identity another way?",

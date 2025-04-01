@@ -1169,36 +1169,6 @@
         }
       }
     },
-    "pyiTriageMobileConfirm": {
-      "title": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
-      "header": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
-      "content": {
-        "paragraph1Android": "Mae’n edrych fel eich bod ar ffôn Android.",
-        "paragraph1Iphone": "Mae’n edrych fel eich bod ar iPhone.",
-        "paragraph2": "I brofi pwy ydych chi gyda’r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy’n gweithio.",
-        "subHeading1": "Os yw eich ID gyda llun yn drwydded yrru cerdyn-llun y DU",
-        "paragraph3": "Rydych angen iPhone 6s neu fwy newydd.",
-        "subHeading2": "Os yw eich ID gyda llun yn basport, BRP, BRC neu FWP",
-        "paragraph4": "Rydych angen iPhone 7 neu fwy newydd.",
-        "details": {
-          "summaryText": "Sut ydw i’n gwybod pa iPhone sydd gen i?",
-          "html": "<p>Rhyddhawyd, yr iPhone 7 yn 2016. Os gwnaethoch brynu’ch iPhone ar ôl 2016, mae’n debyg bod gennych iPhone 7 neu fwy newydd. < / p><p>I wirio pa iPhone sydd gennych, ewch i’ch gosodiadau ffôn. Dewiswch ’General’ yna ’About’ ac edrychwch am y ’Model Name’.</p>"
-        },
-        "subHeadingQuestionAndroid": "Ydych chi ar ffôn Android?",
-        "subHeadingQuestionIphone": "Ydych chi ar un o’r iPhones hyn?",
-        "formRadioButtons": {
-          "yes": "Ydw",
-          "no": "Na - rydw i ar gyfrifiadur, tabled, neu ffôn gwahanol"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionTextIphone": "Dewiswch os ydych chi’n defnyddio cyfrifiadur neu dabled neu’n defnyddio iPhone",
-          "errorSummaryDescriptionTextAndroid": "Dewiswch os ydych chi’n defnyddio cyfrifiadur neu dabled neu’n defnyddio Android",
-          "errorRadioMessageIphone": "Dewiswch os ydych chi’n defnyddio cyfrifiadur neu dabled neu’n defnyddio iPhone",
-          "errorRadioMessageAndroid": "Dewiswch os ydych chi’n defnyddio cyfrifiadur neu dabled neu’n defnyddio Android"
-        }
-      }
-    },
     "pyiTriageBuffer": {
       "title": "Ydych chi’n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",
       "header": "Ydych chi’n siŵr eich bod am geisio profi pwy ydych chi mewn ffordd arall?",

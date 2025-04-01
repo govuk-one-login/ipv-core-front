@@ -1299,9 +1299,8 @@ Resources:
       Protocol: TCP
       TargetType: ip
       Targets:
-        - Id: 10.0.1.10
-      HealthCheckEnabled: true
-      HealthCheckPath: '/healthcheck'
+        - Id: 10.8.100.100
+      HealthCheckEnabled: false
       VpcId:
         Fn::ImportValue:
           !Sub "${VpcStackName}-VpcId"

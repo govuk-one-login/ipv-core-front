@@ -1297,9 +1297,9 @@ Resources:
       Name: !Sub "${AWS::StackName}-NLBTarGrp"
       Port: 80
       Protocol: TCP
+      TargetType: ip
       Targets:
-        - Id: !Ref PrivateLoadBalancer
-      TargetType: alb
+        - Id: 10.0.1.10
       HealthCheckEnabled: true
       HealthCheckPath: '/healthcheck'
       VpcId:

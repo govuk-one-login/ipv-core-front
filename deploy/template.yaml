@@ -414,83 +414,6 @@ Resources:
               NumericLessThan:
                 "s3:TlsVersion": "1.2"
 
-  # Private Application Load Balancer
-  PrivateLoadBalancer:
-    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
-    Properties:
-      Scheme: internal
-      SecurityGroups:
-        - !GetAtt PrivateLoadBalancerSG.GroupId
-      Subnets:
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdA
-        - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
-      Type: application
-      #checkov:skip=CKV_AWS_91:ALB access logging is disabled in developer environments to make them easier to manage.
-      LoadBalancerAttributes:
-        - Key: routing.http.drop_invalid_header_fields.enabled
-          Value: true
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.enabled
-            Value: true
-          - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.bucket
-            Value: !Ref AccessLogsBucket
-          - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: access_logs.s3.prefix
-            Value: !Sub core-front-${Environment}
-          - !Ref AWS::NoValue
-        - !If
-          - IsNotDevelopment
-          - Key: deletion_protection.enabled
-            Value: true
-          - !Ref AWS::NoValue
-    DependsOn:
-      - CoreFrontAccessLogsBucketPolicy
-      - AccessLogsBucket
-
-  PrivateLoadBalancerListenerTargetGroupECS:
-    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
-    DependsOn: AccessLogsBucket
-    Properties:
-      HealthCheckEnabled: TRUE
-      HealthCheckProtocol: HTTP
-      HealthCheckPath: /healthcheck
-      # Timeout and interval are non default after lots of tweaking to improve scaleup speed and reduce crashes
-      HealthCheckTimeoutSeconds: 14
-      HealthCheckIntervalSeconds: 15
-      HealthyThresholdCount: 2
-      Matcher:
-        HttpCode: 200
-      Port: 80
-      Protocol: HTTP
-      TargetType: ip
-      VpcId:
-        Fn::ImportValue: !Sub ${VpcStackName}-VpcId
-      TargetGroupAttributes:
-        # AWS suggests setting this higher than the idle timeout of the load balancer (default 60s) to prevent possible 504 errors
-        # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
-        - Key: deregistration_delay.timeout_seconds
-          Value: 65
-
-
-
-  PrivateLoadBalancerListener:
-    Type: "AWS::ElasticLoadBalancingV2::Listener"
-    Properties:
-      # checkov:skip=CKV_AWS_2:Certificate generation must be resolved before the listener can use HTTPS.
-      # checkov:skip=CKV_AWS_103:The load balancer cannot use TLS v1.2 until HTTPS is enabled
-      DefaultActions:
-        - TargetGroupArn: !Ref PrivateLoadBalancerListenerTargetGroupECS
-          Type: forward
-      LoadBalancerArn: !Ref PrivateLoadBalancer
-      Port: 80
-      Protocol: HTTP
-
   # ECS cluster, service and task definition
   CoreFrontCluster:
     Type: "AWS::ECS::Cluster"
@@ -1238,22 +1161,21 @@ Resources:
   #
   # Rest api gateway vpc link
   #
-  DummyNetworkLoadBalancerArn:
-    Condition: IsDevelopment
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /dummy/nlb/arn
-      Type: String
-      Value: arn:aws:elasticloadbalancing:eu-west-2:130355686670:listener/net/core-f-Netwo-jjOaMP1RB0eV/59f60fbda5fae92f/17f3658ab043a744
-
   ApiGatewayVpcLink:
     Condition: IsDevelopment
+    DependsOn:
+      - NetworkLoadBalancer
+      - NetworkLoadBalancerListener
+      - NetworkLoadBalancerTargetGroup
+      - PrivateLoadBalancer
+      - PrivateLoadBalancerListener
+      - PrivateLoadBalancerListenerTargetGroupECS
     Type: AWS::ApiGateway::VpcLink
     Properties:
-      Description: Dummy bootstrap VPC Link
+      Description: Link from REST API Gateway to NetworkLoadBalancer
       Name: !Sub "${AWS::StackName}-ApiVpcLink"
       TargetArns:
-        - !Ref DummyNetworkLoadBalancerArn
+        - !Ref NetworkLoadBalancer
 
   NetworkLoadBalancer:
     Condition: IsDevelopment
@@ -1378,8 +1300,6 @@ Resources:
         # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
         - Key: deregistration_delay.timeout_seconds
           Value: 65
-
-
 
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"

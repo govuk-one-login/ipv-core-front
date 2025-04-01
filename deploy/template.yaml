@@ -1244,7 +1244,7 @@ Resources:
     Properties:
       Name: /dummy/nlb/arn
       Type: String
-      Value: arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/net/dummy-nlb/1234567890abcdef
+      Value: arn:aws:elasticloadbalancing:eu-west-2:130355686670:listener/net/core-f-Netwo-jjOaMP1RB0eV/59f60fbda5fae92f/17f3658ab043a744
 
   ApiGatewayVpcLink:
     Condition: IsDevelopment

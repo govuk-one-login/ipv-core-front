@@ -4,8 +4,9 @@ import { detectAppTriageEvent, sniffPhoneType } from "./deviceSniffingHelper";
 import { APP_TRIAGE_EVENTS } from "../../constants/events";
 import {
   HTTP_HEADER_USER_AGENT_NO_PHONE,
-  HTTP_HEADER_USER_AGENT_IPHONE,
+  HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID,
+  HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
 } from "../../test-utils/constants";
 import { specifyCreateRequest } from "../../test-utils/mock-express";
 
@@ -25,14 +26,19 @@ describe("User Agent Functions", () => {
         expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
       },
       {
-        userAgent: HTTP_HEADER_USER_AGENT_IPHONE,
-        scenario: "iOS devices",
-        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_IPHONE,
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
+        scenario: "iOS devices with valid version",
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_IPHONE,
+      },
+      {
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
+        scenario: "iOS devices with invalid version",
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE,
       },
       {
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
         scenario: "Android devices",
-        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_ANDROID,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_ANDROID,
       },
     ].forEach(({ userAgent, scenario, expectedJourneyEvent }) => {
       it(`should return ${expectedJourneyEvent} for ${scenario}`, () => {
@@ -58,21 +64,26 @@ describe("User Agent Functions", () => {
     [
       {
         scenario: "iOS user agents",
-        userAgent: HTTP_HEADER_USER_AGENT_IPHONE,
-        expectedPhoneType: PHONE_TYPES.IPHONE,
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
+        expectedOs: { name: PHONE_TYPES.IPHONE, version: 10.3 },
+      },
+      {
+        scenario: "iOS user agents",
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
+        expectedOs: { name: PHONE_TYPES.IPHONE, version: 14.3 },
       },
       {
         scenario: "Android user agents",
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
-        expectedPhoneType: PHONE_TYPES.ANDROID,
+        expectedOs: { name: PHONE_TYPES.ANDROID, version: 8 },
       },
       {
         scenario: "OS not iOS or Android",
         userAgent: HTTP_HEADER_USER_AGENT_NO_PHONE,
-        expectedPhoneType: "fallback",
+        expectedOs: { name: "fallback" },
       },
-    ].forEach(({ scenario, userAgent, expectedPhoneType }) => {
-      it(`should return ${expectedPhoneType} for ${scenario}`, () => {
+    ].forEach(({ scenario, userAgent, expectedOs }) => {
+      it(`should return ${expectedOs.name} and ${expectedOs.version} for ${scenario}`, () => {
         // Arrange
         const req = createRequest({
           headers: {
@@ -81,10 +92,10 @@ describe("User Agent Functions", () => {
         });
 
         // Act
-        const result = sniffPhoneType(req, "fallback");
+        const result = sniffPhoneType(req, { name: "fallback" });
 
         // Assert
-        expect(result).to.equal(expectedPhoneType);
+        expect(result).to.deep.equal(expectedOs);
       });
     });
   });

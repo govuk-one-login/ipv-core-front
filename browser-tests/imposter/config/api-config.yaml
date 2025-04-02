@@ -318,7 +318,8 @@ resources:
       statusCode: 200
       content: |
         {
-          "page": "prove-identity-another-type-photo-id"
+          "page": "pyi-triage-mobile-download-app",
+          "context": "iphone"
         }
 
   - method: POST
@@ -360,7 +361,7 @@ resources:
       statusCode: 200
       content: |
         {
-          "page": "prove-identity-another-type-photo-id"
+          "page": "confirm-your-details"
         }
 
   # On a page displaying the user's details (e.g. confirm-your-details page), core-front sends a request to the

@@ -7,6 +7,8 @@ import {
   HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID,
   HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
+  HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
+  HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
 } from "../../test-utils/constants";
 import { specifyCreateRequest } from "../../test-utils/mock-express";
 
@@ -36,9 +38,19 @@ describe("User Agent Functions", () => {
         expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE,
       },
       {
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
+        scenario: "iOS devices with no version",
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
+      },
+      {
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
         scenario: "Android devices",
         expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_ANDROID,
+      },
+      {
+        userAgent: HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
+        scenario: "Android devices with no version",
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
       },
     ].forEach(({ userAgent, scenario, expectedJourneyEvent }) => {
       it(`should return ${expectedJourneyEvent} for ${scenario}`, () => {

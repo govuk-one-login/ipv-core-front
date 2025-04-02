@@ -19,10 +19,13 @@ export const detectAppTriageEvent = (req: Request): string => {
 
   switch (detectedPhone?.name) {
     case PHONE_TYPES.ANDROID:
+      if (!detectedPhone?.version) {
+        return APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE;
+      }
       return APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_ANDROID;
     case PHONE_TYPES.IPHONE:
       if (
-        detectedPhone?.version &&
+        !detectedPhone?.version ||
         detectedPhone.version < MINIMUM_IOS_VERSION
       ) {
         return APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE;

@@ -19,12 +19,12 @@ test.describe("iPhone tests - valid version", () => {
 
     // Have core-back return an identify-device page response
     // Core front should convert that page to a mobileDownloadIphone event which core back will then respond to with
-    // a prove-identity-another-type-photo-id page response
+    // a pyi-triage-mobile-download-app page response
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+    expect(url).toBe(`${domainUrl}/ipv/page/pyi-triage-mobile-download-app`);
   });
 
   test("Selecting the download link redirects the browser to the apple app store", async ({page}) => {
@@ -92,12 +92,12 @@ test.describe("Android tests", () => {
 
     // Have core-back return an identify-device page response
     // Core front should convert that page to an mobileDownloadAndroid event which core back will then respond to with
-    // a prove-identity-another-type-photo-id page response
+    // a confirm-your-details page response
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+    expect(url).toBe(`${domainUrl}/ipv/page/confirm-your-details`);
   });
 
   test("Selecting the download link redirects the browser to the google play store", async ({page}) => {

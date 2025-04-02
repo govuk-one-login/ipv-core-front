@@ -9,4 +9,4 @@ export const HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION =
 export const HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/14.0 Mobile/14E277 Safari/602.1";
 export const HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION =
-  "Mozilla/5.0 (iPhone; CPU iPhone OS like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/14.0 Mobile/14E277 Safari/602.1";
+  "Mozilla/5.0 (iPhone; CPU iPhone OS X like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/14.0 Mobile/14E277 Safari/602.1";

@@ -40,7 +40,7 @@ describe("User Agent Functions", () => {
       {
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
         scenario: "iOS devices with no version",
-        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE,
       },
       {
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
@@ -50,7 +50,7 @@ describe("User Agent Functions", () => {
       {
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
         scenario: "Android devices with no version",
-        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE,
       },
     ].forEach(({ userAgent, scenario, expectedJourneyEvent }) => {
       it(`should return ${expectedJourneyEvent} for ${scenario}`, () => {

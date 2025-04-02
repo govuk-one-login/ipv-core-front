@@ -129,8 +129,9 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     renderOptions.msBeforeInformingOfLongWait =
       config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
   } else if (templateId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
-    renderOptions.postOfficeVisitByDate = new Date().setDate(
-      new Date("2025-01-01").getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
+    const defaultDate = new Date("2025-04-01");
+    renderOptions.postOfficeVisitByDate = defaultDate.setDate(
+      defaultDate.getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
     );
   }
 

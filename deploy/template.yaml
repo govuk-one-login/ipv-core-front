@@ -314,10 +314,6 @@ Resources:
           ignore_checks:
             - W3045 # Using a legacy access control setup for now
     Properties:
-      BucketName: !If
-        - IsDevelopment # existing bucket names exist in the current dev env
-        - !Sub ipv-core-access-logs-${Environment}
-        - !Sub ipv-core-${Environment}-access-logs
       AccessControl: LogDeliveryWrite
       VersioningConfiguration:
         Status: "Enabled"

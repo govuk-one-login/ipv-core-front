@@ -1,6 +1,6 @@
 export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "check-mobile-app-result": [],
-  "confirm-your-details": [],
+  "confirm-your-details": ["test", undefined],
   "delete-handover": [],
   "find-another-way-access-service": [],
   "live-in-uk": [],

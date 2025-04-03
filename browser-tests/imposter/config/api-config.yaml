@@ -235,7 +235,9 @@ resources:
     path: /journey/appTriage
     requestHeaders:
       content-type: "application/json"
-      ipv-session-id: "testIdentifyDeviceIphone"
+      ipv-session-id:
+        value: "testIdentifyDeviceIphone"
+        operator: "Contains"
     queryParams:
       currentPage: "page-ipv-identity-document-start"
     response:
@@ -306,10 +308,25 @@ resources:
         }
 
   - method: POST
-    path: /journey/appTriageIphone
+    path: /journey/mobileDownloadIphone
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "testIdentifyDeviceIphone"
+    queryParams:
+      currentPage: "identify-device"
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-mobile-download-app",
+          "context": "iphone"
+        }
+
+  - method: POST
+    path: /journey/appTriageSmartphone
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id: "testIdentifyDeviceIphoneInvalidVersion"
     queryParams:
       currentPage: "identify-device"
     response:
@@ -334,7 +351,7 @@ resources:
         }
 
   - method: POST
-    path: /journey/appTriageAndroid
+    path: /journey/mobileDownloadAndroid
     requestHeaders:
       content-type: "application/json"
       ipv-session-id: "testIdentifyDeviceAndroid"
@@ -344,7 +361,7 @@ resources:
       statusCode: 200
       content: |
         {
-          "page": "prove-identity-another-type-photo-id"
+          "page": "confirm-your-details"
         }
 
   # On a page displaying the user's details (e.g. confirm-your-details page), core-front sends a request to the

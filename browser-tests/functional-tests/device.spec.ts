@@ -3,26 +3,28 @@ import { getAuthoriseUrlForJourney } from "./helpers";
 
 const HTTP_HEADER_USER_AGENT_ANDROID =
   "Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR6.170623.013) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
-const HTTP_HEADER_USER_AGENT_IPHONE =
+const HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/14.0 Mobile/14E277 Safari/602.1";
+  const HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E277 Safari/602.1";
 
 const domainUrl = process.env.WEBSITE_HOST;
 
-test.describe("iPhone tests", () => {
-  test.use({ userAgent: HTTP_HEADER_USER_AGENT_IPHONE });
+test.describe("iPhone tests - valid version", () => {
+  test.use({ userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION });
 
   test("Handling identify-device", async ({ page }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceIphone"));
 
     // Have core-back return an identify-device page response
-    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
-    // a prove-identity-another-type-photo-id page response
+    // Core front should convert that page to a mobileDownloadIphone event which core back will then respond to with
+    // a pyi-triage-mobile-download-app page response
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+    expect(url).toBe(`${domainUrl}/ipv/page/pyi-triage-mobile-download-app`);
   });
 
   test("Selecting the download link redirects the browser to the apple app store", async ({page}) => {
@@ -63,6 +65,24 @@ test.describe("iPhone tests", () => {
   })
 });
 
+test.describe("Iphone tests - invalid version", () => {
+  test.use({userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION});
+
+  test("Handling identify-device", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceIphoneInvalidVersion"));
+
+    // Have core-back return an identify-device page response
+    // Core front should convert that page to an appTriageSmartphone event which core back will then respond to with
+    // a prove-identity-another-type-photo-id page response
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
+
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+  });
+})
+
 test.describe("Android tests", () => {
   test.use({ userAgent: HTTP_HEADER_USER_AGENT_ANDROID });
 
@@ -71,13 +91,13 @@ test.describe("Android tests", () => {
     await page.goto(getAuthoriseUrlForJourney("testIdentifyDeviceAndroid"));
 
     // Have core-back return an identify-device page response
-    // Core front should convert that page to an appTriageIphone event which core back will then respond to with
-    // a prove-identity-another-type-photo-id page response
+    // Core front should convert that page to an mobileDownloadAndroid event which core back will then respond to with
+    // a confirm-your-details page response
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/prove-identity-another-type-photo-id`);
+    expect(url).toBe(`${domainUrl}/ipv/page/confirm-your-details`);
   });
 
   test("Selecting the download link redirects the browser to the google play store", async ({page}) => {

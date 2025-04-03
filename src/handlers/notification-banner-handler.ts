@@ -3,6 +3,7 @@ import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 export interface BannerConfig {
   pageId: string;
+  context?: string;
   bannerType?: string;
   bannerMessage: string;
   bannerMessageCy: string;
@@ -33,6 +34,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
         currentTime <= data.endTime
       ) {
         res.locals.displayBanner = true;
+        res.locals.bannerContext = data.context;
         res.locals.bannerType = data.bannerType;
         res.locals.bannerMessage =
           req.i18n.language === "en"

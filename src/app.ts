@@ -162,6 +162,7 @@ app.use(
 app.use((req, res, next) => {
   if (req.i18n) {
     res.locals.showLanguageToggle = config.LANGUAGE_TOGGLE_ENABLED;
+    res.locals.useDeviceIntelligence = config.USE_DEVICE_INTELLIGENCE;
     res.locals.currentLanguage = req.i18n.language;
 
     // currentUrl is required by the language toggle component

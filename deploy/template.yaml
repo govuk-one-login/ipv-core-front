@@ -78,6 +78,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -94,6 +95,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -110,6 +112,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -126,6 +129,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"
@@ -142,6 +146,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
@@ -158,6 +163,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
+      useDeviceIntelligence: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
@@ -754,6 +760,8 @@ Resources:
               Value: "no-secret"
             - Name: LANGUAGE_TOGGLE
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, languageToggle ]
+            - Name: USE_DEVICE_INTELLIGENCE
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, useDeviceIntelligence ]
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''

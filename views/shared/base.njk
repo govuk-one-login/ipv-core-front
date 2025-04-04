@@ -150,6 +150,13 @@
         import { initAll } from '/public/javascripts/govuk-frontend.min.js'
         initAll()
     </script>
+    {% if useDeviceIntelligence %}
+    <script type="module" nonce='{{ cspNonce }}' src="/public/javascripts/fingerprint.js"></script>
+    <script type="module" nonce='{{ cspNonce }}'>
+        import { setFingerprintCookie } from "/public/javascripts/fingerprint.js";
+        setFingerprintCookie('localhost')
+    </script>
+    {% endif %}
     <script nonce='{{ cspNonce }}'>
 
         window.DI = window.DI || {};

@@ -31,6 +31,7 @@ const buildServiceUnavailableHtml = async (outputFile: string) => {
       language: "en"
     },
     showLanguageToggle: false,
+    useDeviceIntelligence: false,
     applicationCss
   }
 

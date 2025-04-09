@@ -44,7 +44,7 @@ describe("Notification banner handler", () => {
           bannerMessageCy: "Welsh Test banner",
           startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
           endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-        }
+        },
       ]),
     );
 
@@ -70,7 +70,7 @@ describe("Notification banner handler", () => {
           bannerMessageCy: "Welsh Test banner",
           startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
           endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-        }
+        },
       ]),
     );
 

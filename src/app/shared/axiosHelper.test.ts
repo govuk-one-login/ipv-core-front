@@ -1,7 +1,16 @@
 import sinon from "sinon";
 import { expect } from "chai";
-import { axiosErrorLogger, axiosResponseLogger } from "./axiosHelper";
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import {
+  axiosErrorLogger,
+  axiosResponseLogger,
+  axiosRequestTimer,
+} from "./axiosHelper";
+import {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import API_URLS from "../../config/config";
 
 const testLogger = {
@@ -144,6 +153,36 @@ describe("axiosHelper", () => {
         },
       });
     });
+
+    it("should not extract credentialIssuerId if config.data is invalid", async () => {
+      const response = {
+        ...testResponse,
+        config: { ...testResponse.config, data: "not-valid-json}" },
+      };
+
+      await axiosResponseLogger(response);
+
+      expect(testLogger.info).to.have.been.calledWithMatch({
+        message: {
+          cri: undefined,
+        },
+      });
+    });
+
+    it("should return undefined if response data is not an object", async () => {
+      const response = {
+        ...testResponse,
+        data: "not-an-object",
+      };
+
+      await axiosResponseLogger(response);
+
+      expect(testLogger.info).to.have.been.calledWithMatch({
+        message: {
+          data: undefined,
+        },
+      });
+    });
   });
 
   describe("errorLogger", () => {
@@ -258,6 +297,18 @@ describe("axiosHelper", () => {
 
       // Assert
       expect(testLogger.error).to.have.not.been.called;
+    });
+  });
+
+  describe("axiosRequestTimer", () => {
+    it("should attach startTime to request config", async () => {
+      const requestConfig = {
+        headers: {},
+      } as InternalAxiosRequestConfig;
+
+      const result = await axiosRequestTimer(requestConfig);
+
+      expect(result.startTime).to.equal(300);
     });
   });
 });

@@ -9,6 +9,12 @@ import {
   specifyCreateResponse,
 } from "../test-utils/mock-express";
 import ServiceUnavailable from "../errors/service-unavailable-error";
+import { HTTP_STATUS_CODES } from "../app.constants";
+import UnauthorizedError from "../errors/unauthorized-error";
+import { getErrorStatus } from "./internal-server-error-handler";
+import createHttpError from "http-errors";
+
+import HttpError from "../errors/http-error";
 
 describe("Error handlers", () => {
   // Mock handler parameters
@@ -64,6 +70,84 @@ describe("Error handlers", () => {
   });
 
   describe("serverErrorHandler", () => {
+    class TestHttpError extends HttpError {
+      status = 418;
+      constructor(message: string = "Test HTTP error") {
+        super(message);
+      }
+    }
+
+    it("should return status from a generic http-errors instance", () => {
+      // Arrange
+      const err = createHttpError(401, "Unauthorized via http-errors");
+
+      // Act
+      const status = getErrorStatus(err);
+
+      // Assert
+      expect(status).to.equal(401);
+    });
+
+    it("should return status from instance of HttpError subclass", () => {
+      // Arrange
+      const err = new TestHttpError();
+
+      // Act
+      const status = getErrorStatus(err);
+
+      // Assert
+      expect(status).to.equal(418);
+    });
+
+    it("should set status from Axios error response", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+
+      const axiosError = {
+        isAxiosError: true,
+        response: { status: HttpStatusCode.BadGateway },
+        message: "Bad Gateway",
+        stack: "stack-trace",
+      };
+
+      // Act
+      serverErrorHandler(axiosError, req, res, next);
+
+      // Assert
+      expect(res.status).to.have.been.calledOnceWith(HttpStatusCode.BadGateway);
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
+        context: "unrecoverable",
+      });
+    });
+
+    it("should log a warning when UnauthorizedError is thrown", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+      const err = new UnauthorizedError("Unauthorized access");
+
+      const logStub = {
+        warn: sinon.stub(),
+        error: sinon.stub(),
+        info: sinon.stub(),
+        fatal: sinon.stub(),
+      };
+      req.log = logStub as any;
+
+      // Act
+      serverErrorHandler(err, req, res, () => {});
+
+      // Assert
+      expect(logStub.warn).to.have.been.calledOnceWith({
+        message: {
+          description: UnauthorizedError.constructor.name,
+          errorMessage: "Unauthorized access",
+          errorStack: err.stack,
+        },
+      });
+    });
+
     it("should render pyi-unrecoverable view when csrf token is invalid", () => {
       // Arrange
       const req = createRequest();
@@ -199,6 +283,33 @@ describe("Error handlers", () => {
       // Assert
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
       expect(res.status).to.have.been.calledWith(HttpStatusCode.BadRequest);
+    });
+
+    it("should set status to INTERNAL_SERVER_ERROR when no statusCode in the error response", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+      const err = new AxiosError(
+        "some error",
+        undefined,
+        undefined,
+        undefined,
+        {
+          data: {
+            page: "pyi-technical",
+            // No statusCode provided
+          },
+        } as AxiosResponse,
+      );
+
+      // Act
+      journeyEventErrorHandler(err, req, res, next);
+
+      // Assert
+      expect(res.status).to.have.been.calledOnceWith(
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
+      );
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
 
     it("should call next with error when there is no pageId", () => {

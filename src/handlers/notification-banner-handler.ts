@@ -31,15 +31,16 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       if (
         req.path === data.pageId &&
         currentTime >= data.startTime &&
-        currentTime <= data.endTime
+        currentTime <= data.endTime &&
+        ((!req.session.context && !data.context) ||
+          req.session.context === data.context)
       ) {
         res.locals.displayBanner = true;
-        res.locals.bannerContext = data.context;
         res.locals.bannerType = data.bannerType;
         res.locals.bannerMessage =
-          req.i18n.language === "en"
-            ? data.bannerMessage
-            : data.bannerMessageCy;
+          req.i18n.language === "cy"
+            ? data.bannerMessageCy
+            : data.bannerMessage;
       }
     });
     next();

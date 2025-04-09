@@ -81,7 +81,7 @@
         {% endif %}
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
             <div class="govuk-grid-row">
-                {% if (displayBanner) and (bannerContext == context) %}
+                {% if (displayBanner) %}
                     {{ govukNotificationBanner({
                         html: bannerMessage,
                         type: bannerType

@@ -81,6 +81,31 @@ describe("oauth middleware", () => {
     expect(coreBackServiceStub.postJourneyEvent).to.have.been.called;
   });
 
+  it("should throw TechnicalError with cause stack when processAction fails", async () => {
+    // Arrange
+    const cause = new Error("Some lower-level failure");
+    const req = createRequest({
+      session: { ipvSessionId: "valid-session-id" },
+    });
+    const res = createResponse();
+
+    ipvMiddleware.processAction = async () => {
+      throw new TechnicalError("Processing failed", cause);
+    };
+
+    // Act & Assert
+    await expect(middleware.handleOAuthJourneyAction(req, res, next))
+      .to.be.rejectedWith(TechnicalError, "Processing failed")
+      .and.eventually.satisfy((err: any) => {
+        expect(err.stack).to.include("Processing failed");
+        expect(err.stack).to.include(
+          "caused by: Error: Some lower-level failure",
+        );
+        expect(err.stack).to.include(cause.stack!);
+        return true;
+      });
+  });
+
   it("should throw error when handling OAuth Call if missing ipvSessionId", async () => {
     // Arrange
     const req = createRequest({

@@ -241,6 +241,7 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
     expect(res.render).to.have.been.calledWith(
       "ipv/page/some-user-page.njk",
       sinon.match({
@@ -256,40 +257,5 @@ describe("templatesDisplayGet", () => {
     // Cleanup
     pageRequiresUserDetailsStub.restore();
     generateUserDetailsStub.restore();
-  });
-
-  it("should render the template with sanitized path and render options", async () => {
-    // Arrange
-    const req = createRequest({
-      params: {
-        templateId: "some-template",
-        language: "en",
-      },
-      query: {},
-    });
-
-    req.i18n = {
-      changeLanguage: sinon.stub().resolves(),
-    } as unknown as I18nType;
-
-    req.csrfToken = sinon.stub().returns(undefined);
-
-    const res = createResponse();
-
-    // Act
-    await middleware.templatesDisplayGet(req, res);
-
-    // Assert
-    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
-    expect(res.render).to.have.been.calledWith(
-      "ipv/page/some-template.njk",
-      sinon.match({
-        templateId: "some-template",
-        csrfToken: undefined,
-        context: undefined,
-        errorState: undefined,
-        pageErrorState: undefined,
-      }),
-    );
   });
 });

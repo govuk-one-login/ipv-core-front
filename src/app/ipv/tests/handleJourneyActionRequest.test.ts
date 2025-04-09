@@ -40,6 +40,38 @@ describe("handleJourneyActionRequest", () => {
     coreBackServiceStub.postJourneyEvent.resetHistory();
   });
 
+  it("should return early when validateSessionAndPage returns false (unexpected page)", async () => {
+    // Arrange
+    const req = createRequest({
+      session: {
+        ipvSessionId: "ipv-session-id",
+        currentPage: "some-other-page-id",
+      },
+      params: { pageId: "page-ipv-identity-document-start" },
+      body: { journey: "next" },
+    });
+    const res = createResponse();
+
+    const saveSessionAndRedirectSpy = sinon.spy();
+    res.render = sinon.fake();
+    const middlewareWithSpies = proxyquire("../middleware", {
+      "../../services/coreBackService": coreBackServiceStub,
+      "../shared/redirectHelper": {
+        saveSessionAndRedirect: saveSessionAndRedirectSpy,
+      },
+    });
+
+    // Act
+    await middlewareWithSpies.handleJourneyActionRequest(req, res, next);
+
+    // Assert
+    expect(saveSessionAndRedirectSpy.calledOnce).to.be.true;
+    expect(
+      coreBackServiceStub.postJourneyEvent.called,
+      "should not call postJourneyEvent",
+    ).to.be.false;
+  });
+
   it("should call next with error message if client event response lacks redirect URL", async function () {
     // Arrange
     const req = createRequest();
@@ -58,6 +90,32 @@ describe("handleJourneyActionRequest", () => {
     await expect(
       middleware.handleJourneyActionRequest(req, res, next),
     ).to.be.rejectedWith(Error, "Client Response redirect url is missing");
+  });
+
+  it("should throw BadRequestError if journey is missing from request body", async () => {
+    const req = createRequest({
+      params: { pageId: "page-ipv-identity-document-start" },
+      session: {
+        ipvSessionId: "ipv-session-id",
+        currentPage: "page-ipv-identity-document-start",
+        journey: undefined,
+      },
+      body: undefined,
+    });
+
+    const res = createResponse();
+
+    // Important: prevent postJourneyEvent from being called at all
+    coreBackServiceStub.postJourneyEvent = sinon.fake.throws(
+      new Error("postJourneyEvent should not have been called"),
+    );
+
+    // Act & Assert
+    await expect(
+      middleware.handleJourneyActionRequest(req, res, next),
+    ).to.be.rejectedWith("journey parameter is required");
+
+    expect(coreBackServiceStub.postJourneyEvent.called).to.be.false;
   });
 
   it("should call next with error message if CRI event response lacks redirect URL", async function () {

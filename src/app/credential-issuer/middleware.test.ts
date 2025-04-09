@@ -176,7 +176,7 @@ describe("credential issuer middleware", () => {
         query: { id: null },
       });
       const res = createResponse();
-  
+
       // Act & Assert
       await expect(
         middleware.sendParamsToAPI(req, res, next),

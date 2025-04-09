@@ -98,11 +98,10 @@ test.describe.parallel("Functional tests", () => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
 
-    // Navigate other page
+    // The device intelligence cookie is set in client-side JS. If we check the cookies immediately after loading the first page the cookie won't be present, so we navigate to the next page before testing to ensure that Playwright picks up the cookie
     await page.click("input[type='radio'][value='end']");
     await page.click("button[id='submitButton']");
 
-    
     // Check for cookie
     const cookies = await page.context().cookies();
     const expectedCookies = cookies.find((cookie: { name: string; }) => cookie.name === cookieName);

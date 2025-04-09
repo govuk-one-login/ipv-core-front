@@ -93,15 +93,20 @@ test.describe.parallel("Functional tests", () => {
   });
 
   test("Device intelligence cookie", async ({ page }) => {
-    const expectedCookie = 'di-device-intelligence';
+    const cookieName = 'di-device-intelligence';
 
     // Start a session
-    await page.goto(getAuthoriseUrlForJourney("testCri"));
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
+
+    // Navigate other page
+    await page.click("input[type='radio'][value='end']");
+    await page.click("button[id='submitButton']");
+
     
     // Check for cookie
     const cookies = await page.context().cookies();
-    const expectedCookies = cookies.find((cookie: { name: string; }) => cookie.name === expectedCookie);
-    expect(expectedCookies).toBeDefined();
+    const expectedCookies = cookies.find((cookie: { name: string; }) => cookie.name === cookieName);
+    expect(expectedCookies).toBeTruthy();
   });
 
   test("Client redirect response", async ({ page }) => {

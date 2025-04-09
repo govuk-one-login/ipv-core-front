@@ -92,6 +92,22 @@ test.describe.parallel("Functional tests", () => {
     expect(url).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
   });
 
+  test("Device intelligence cookie", async ({ page }) => {
+    const cookieName = 'di-device-intelligence';
+
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
+
+    // The device intelligence cookie is set in client-side JS. If we check the cookies immediately after loading the first page the cookie won't be present, so we navigate to the next page before testing to ensure that Playwright picks up the cookie
+    await page.click("input[type='radio'][value='end']");
+    await page.click("button[id='submitButton']");
+
+    // Check for cookie
+    const cookies = await page.context().cookies();
+    const expectedCookies = cookies.find((cookie: { name: string; }) => cookie.name === cookieName);
+    expect(expectedCookies).toBeTruthy();
+  });
+
   test("Client redirect response", async ({ page }) => {
     await page.goto(getAuthoriseUrlForJourney("testClient"));
 
@@ -106,7 +122,7 @@ test.describe.parallel("Functional tests", () => {
     // Start a session with an existing identity
     await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
 
-    const reuseIdentityPageHeaderLocator = await page.getByRole('heading', {name: "You have already proved your identity"});
+    const reuseIdentityPageHeaderLocator = await page.getByRole('heading', { name: "You have already proved your identity" });
     await expect(reuseIdentityPageHeaderLocator).toBeVisible();
 
     const nameLocator = await page.getByText('Kenneth Decerqueira');
@@ -123,7 +139,7 @@ test.describe.parallel("Functional tests", () => {
     // Start session with existing identity
     await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
 
-    const confirmDetailsPageHeaderLocator = await page.getByRole('heading', {name: "You need to confirm your details"});
+    const confirmDetailsPageHeaderLocator = await page.getByRole('heading', { name: "You need to confirm your details" });
     await expect(confirmDetailsPageHeaderLocator).toBeVisible();
 
     const givenNameLocator = await page.getByText('Kenneth');
@@ -138,12 +154,12 @@ test.describe.parallel("Functional tests", () => {
     await expect(addressLocator).toBeVisible();
   })
 
-  test("Displays error when no options are selected for update on update-details screen", async ({page}) => {
+  test("Displays error when no options are selected for update on update-details screen", async ({ page }) => {
     // Start session with existing identity
     await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
 
-    await page.getByRole('heading', {name: "If your details are wrong"}).click();
-    await page.getByRole('link', {name: "update your details"}).click();
+    await page.getByRole('heading', { name: "If your details are wrong" }).click();
+    await page.getByRole('link', { name: "update your details" }).click();
 
     // Check we are on the update-details page
     const url = page.url();
@@ -155,7 +171,7 @@ test.describe.parallel("Functional tests", () => {
     await expect(errorTextLocator).toBeVisible();
   })
 
-  test("Displays error when details are not up-to-date but no options are selected on confirm-your-details screen", async ({page}) => {
+  test("Displays error when details are not up-to-date but no options are selected on confirm-your-details screen", async ({ page }) => {
     // Start session with existing identity
     await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
 
@@ -167,12 +183,12 @@ test.describe.parallel("Functional tests", () => {
     await expect(errorTextLocator).toBeVisible();
   })
 
-  test("The selected form options on an update details screen sends the appropriate journey", async ({page}) => {
+  test("The selected form options on an update details screen sends the appropriate journey", async ({ page }) => {
     // Start session with existing identity
     await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
 
-    await page.getByRole('heading', {name: "If your details are wrong"}).click();
-    await page.getByRole('link', {name: "update your details"}).click();
+    await page.getByRole('heading', { name: "If your details are wrong" }).click();
+    await page.getByRole('link', { name: "update your details" }).click();
 
     await page.click("input[value='givenNames']");
     await page.click("input[value='address']");

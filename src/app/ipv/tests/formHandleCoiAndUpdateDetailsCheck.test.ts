@@ -5,6 +5,8 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../../test-utils/mock-express";
+import { SUPPORTED_COMBO_EVENTS } from "../../../constants/update-details-journeys";
+import TechnicalError from "../../../errors/technical-error";
 
 describe("handle update details/COI form checkbox", () => {
   // Mock handler parameters
@@ -112,6 +114,42 @@ describe("handle update details/COI form checkbox", () => {
         save: sinon.fake.yields(null),
         currentPage: "update-details",
       },
+    });
+
+    it("should not set journey if detailsToUpdate is invalid", async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          detailsToUpdate: ["cancel", "address"],
+          detailsCorrect: "no",
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.be.undefined;
+    });
+
+    it("should set journey to cancel if only 'cancel' is selected", async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          detailsToUpdate: [SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL],
+          detailsCorrect: "no",
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL);
     });
 
     updateDetailsPageTestCases.forEach(
@@ -239,6 +277,21 @@ describe("handle update details/COI form checkbox", () => {
         },
       );
     });
+  });
+
+  it("should throw TechnicalError when currentPage is empty in formHandleCoiDetailsCheck", async function () {
+    // Arrange
+    const req = specifyCreateRequest({
+      body: { detailsCorrect: "no", detailsToUpdate: "address" },
+      session: { currentPage: "" },
+    })();
+    const res = createResponse();
+    const next: any = sinon.fake();
+
+    // Act & Assert
+    await expect(
+      middleware.formHandleCoiDetailsCheck(req, res, next),
+    ).to.be.rejectedWith(TechnicalError, "currentPage cannot be empty");
   });
 
   it("should not get user details if the page does not require it", async function () {

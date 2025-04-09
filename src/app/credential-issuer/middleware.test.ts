@@ -6,6 +6,7 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../test-utils/mock-express";
+import BadRequestError from "../../errors/bad-request-error";
 
 describe("credential issuer middleware", () => {
   // Mock handler parameters
@@ -165,6 +166,21 @@ describe("credential issuer middleware", () => {
           },
         );
       });
+    });
+  });
+
+  describe("sendParamsToAPI specific validation", () => {
+    it("should throw BadRequestError if id is missing in query", async () => {
+      // Arrange
+      const req = createRequest({
+        query: { id: null },
+      });
+      const res = createResponse();
+  
+      // Act & Assert
+      await expect(
+        middleware.sendParamsToAPI(req, res, next),
+      ).to.be.rejectedWith(BadRequestError, "id parameter is required");
     });
   });
 });

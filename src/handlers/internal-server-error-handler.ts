@@ -13,7 +13,7 @@ import HttpError from "../errors/http-error";
 import { HANDLED_ERROR } from "../lib/logger";
 import UnauthorizedError from "../errors/unauthorized-error";
 
-const getErrorStatus = (err: unknown): number => {
+export const getErrorStatus = (err: unknown): number => {
   if (isAxiosError(err)) {
     // Axios Errors pass through the status from core-back
     if (err.response?.status) {

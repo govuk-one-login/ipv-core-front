@@ -249,4 +249,19 @@ describe("Notification banner handler", () => {
     expect(res.locals.bannerMessage).to.equal("Test banner");
     expect(next).to.have.been.calledOnce;
   });
+
+  it("should continue if the config is invalid", async () => {
+    // Arrange
+    const req = createRequest();
+    req.session.context = "matchingContext";
+    const res = createResponse();
+    parameterServiceStub.getParameter = sinon.fake.resolves("not JSON");
+
+    // Act
+    await notificationBannerHandler(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.false;
+    expect(next).to.have.been.calledOnce;
+  });
 });

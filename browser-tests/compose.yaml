@@ -26,7 +26,8 @@ services:
       LANGUAGE_TOGGLE: true
       USE_DEVICE_INTELLIGENCE: true
       SERVICE_URL: http://localhost:4601
-      NOTIFICATION_BANNER: '[{"pageId":"/dev/template/confirm-your-details/en","bannerMessage":"<h3>Test banner</h3> <p>This is a test banner</p>","bannerMessageCy":"<h3>Welsh Test banner</h3> <p>This is a Welsh test banner</p>","startTime":"2024-10-25T06:14:40.162Z","endTime":"2030-10-25T06:14:40.162Z", "context": "test"}]'
+# Note that due to how snapshot tests work the pageIds here include the language so the banners only appear in one language version of the snapshot. We also can't test banner contexts in snapshot tests as the all-templates page shortcuts a lot of stuff.
+      NOTIFICATION_BANNER: '[{"pageId":"/dev/template/live-in-uk/en","bannerMessage":"<h3>Test banner</h3> <p>This is a test banner</p>","bannerMessageCy":"Not seen","startTime":"2024-10-25T06:14:40.162Z","endTime":"2030-10-25T06:14:40.162Z"}]'
     ports:
       - "4601:4601"
       - "5101:9229"

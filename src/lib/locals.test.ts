@@ -12,6 +12,7 @@ const configStub = {
   GTM_ANALYTICS_COOKIE_DOMAIN: "https://example.com/analytics",
   GTM_ID: "test-ua-id",
   GTM_ID_GA4: "test-ga4-id",
+  SERVICE_DOMAIN: "localhost",
   GA4_DISABLED: "true",
   UA_DISABLED: "false",
 };
@@ -43,6 +44,7 @@ describe("locals helper", () => {
       isGa4Disabled: "true",
       isUaDisabled: "false",
       logoutUrl: "https://example.com/logout",
+      serviceDomain: "localhost",
       uaContainerId: "test-ua-id",
     });
 

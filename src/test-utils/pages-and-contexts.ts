@@ -43,6 +43,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "pyi-f2f-delete-details": [],
   "pyi-f2f-technical": [],
   "pyi-new-details": [],
+  "pyi-nino-no-match-another-way": [],
   "pyi-no-match": ["bankAccount", "nino", undefined],
   "pyi-passport-no-match-another-way": [],
   "pyi-passport-no-match": [],

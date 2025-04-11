@@ -245,6 +245,39 @@
         }
       }
     },
+    "ninoNoMatchAnotherWay": {
+      "title": "Sorry, you’ll need to prove your identity another way",
+      "header": "Sorry, you’ll need to prove your identity another way",
+      "content": {
+        "paragraph1": "We could not find a match for the National Insurance number you gave us when we checked your details with HMRC.",
+        "subHeading": "Os nad oes gennych ID gyda llun",
+        "paragraph2": "You can go back to the service you need to use. There may be other ways to access it.",
+        "subHeading2": "Os oes gennych ID gyda llun",
+        "paragraph3": "Os oes gennych ID gyda llun, gallwch brofi eich hunaniaeth ar-lein drwy:",
+        "list": [
+          "ddefnyddio’r ap GOV.UK  ID Check ",
+          "rhoi’r manylion o’ch pasbort y DU neu drwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch"
+        ],
+        "paragraph4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post.",
+        "detailsLabel": "Mathau o ID gyda llun y gallwch eu defnyddio gyda’r ap GOV.UK  ID Check ac mewn Swyddfa’r Post",
+        "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
+        "formRadioButtons": {
+          "radioButtonApp": "Defnyddio’r ap GOV.UK  ID Check ",
+          "radioButtonAppHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "radioButtonPassport": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch",
+          "radioButtonDrivingLicence": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU ac atebwch gwestiynau diogelwch.",
+          "radioButtonPostOffice": "Ewch i Swyddfa’r Post",
+          "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK  yn gyntaf",
+          "separateOptionsInForm": "neu",
+          "radioButtonRp": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch sut hoffech chi brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch sut hoffech chi brofi eich hunaniaeth"
+        }
+      }
+    },
     "noPhotoIdExitFindAnotherWay": {
       "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",

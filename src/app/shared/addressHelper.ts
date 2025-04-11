@@ -2,6 +2,7 @@
 // updated Jul 2023 to remove blank lines in content
 
 import { PostalAddressClass } from "@govuk-one-login/data-vocab/credentials";
+import countryMap from "../../data/countryMap";
 
 const extractAddressFields = (
   address: PostalAddressClass,
@@ -57,11 +58,7 @@ export const generateHTMLofAddress = (address: PostalAddressClass): string => {
     extractAddressFields(address);
 
   const fullBuildingName = buildingNames.join(", ");
-  let fullStreetName;
-  if (streetNames.length > 0) {
-    fullStreetName = streetNames.join(", ");
-  }
-
+  const fullStreetName = streetNames.length > 0 ? streetNames.join(", ") : "";
   const fullLocality = localityNames.join(", ");
 
   let html = "";
@@ -70,6 +67,13 @@ export const generateHTMLofAddress = (address: PostalAddressClass): string => {
   if (fullLocality) html += `${fullLocality}<br>`;
   if (address.addressRegion) html += `${address.addressRegion}<br>`;
   html += `${address.postalCode}`;
+
+  const countryName = address.addressCountry
+    ? countryMap[address.addressCountry]
+    : undefined;
+  if (countryName && address.addressCountry !== "GB") {
+    html += `<br>${countryName}`;
+  }
 
   return html;
 };

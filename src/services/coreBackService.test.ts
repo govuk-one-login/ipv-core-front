@@ -4,6 +4,7 @@ import proxyquire from "proxyquire";
 import {
   CriCallbackRequest,
   InitialiseSessionRequest,
+  MobileAppCallbackRequest,
 } from "./coreBackService";
 import { specifyCreateRequest } from "../test-utils/mock-express";
 
@@ -33,6 +34,7 @@ describe("CoreBackService", () => {
   } as any;
   const configStub = {
     API_CRI_CALLBACK: "/cri/callback",
+    API_MOBILE_APP_CALLBACK: "/app/callback",
     API_BASE_URL: "https://example.net",
     API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/proven-identity",
     API_SESSION_INITIALISE: "/session-initialise",
@@ -61,16 +63,18 @@ describe("CoreBackService", () => {
   it("should postJourneyEvent with correct parameters and headers", async () => {
     // Arrange
     const req = createRequest();
+    const currentPage = "page-123";
     const event = "test_event";
 
     // Act
-    await coreBackService.postJourneyEvent(req, event);
+    await coreBackService.postJourneyEvent(req, event, currentPage);
 
     // Assert
     expect(axiosInstanceStub.post).to.have.been.calledWithMatch(
       "/journey/test_event",
       {},
       {
+        params: { currentPage },
         headers: sinon.match({
           "content-type": "application/json",
           "x-request-id": "test_request_id",
@@ -181,6 +185,34 @@ describe("CoreBackService", () => {
     // Assert
     expect(axiosInstanceStub.get).to.have.been.calledWithMatch(
       "/app/check-vc-receipt",
+      {
+        headers: sinon.match({
+          "content-type": "application/json",
+          "x-request-id": "test_request_id",
+          "ip-address": "127.0.0.2",
+          language: "en",
+          "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.2",
+        }),
+      },
+    );
+  });
+
+  it("should postMobileAppCallback with correct parameters and headers", async () => {
+    // Arrange
+    const req = createRequest();
+    const body = {} as MobileAppCallbackRequest;
+
+    // Act
+    await coreBackService.postMobileAppCallback(req, body);
+
+    // Assert
+    expect(axiosInstanceStub.post).to.have.been.calledWithMatch(
+      "/app/callback",
+      body,
       {
         headers: sinon.match({
           "content-type": "application/json",

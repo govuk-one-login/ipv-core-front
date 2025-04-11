@@ -104,7 +104,7 @@ const buildRequestLog = (
 };
 
 // Log the start time for requests
-const axiosRequestTimer = async (
+export const axiosRequestTimer = async (
   requestConfig: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> => {
   requestConfig.startTime = Date.now();

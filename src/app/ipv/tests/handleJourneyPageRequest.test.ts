@@ -26,7 +26,7 @@ describe("handleJourneyPageRequest", () => {
   const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.fake() };
   const contextHelperStub = { validatePhoneType: sinon.fake() };
   const appDownloadHelperStub = {
-    getAppStoreRedirectUrl: sinon.fake.resolves("https://example.com"),
+    getAppStoreRedirectUrl: sinon.fake.returns("https://example.com"),
   };
   const qrCodeHelperStub = {
     generateQrCodeImageData: sinon.fake.resolves("QR_CODE_DATA"),
@@ -44,6 +44,9 @@ describe("handleJourneyPageRequest", () => {
   beforeEach(() => {
     next.resetHistory();
     coreBackServiceStub.getProvenIdentityUserDetails.resetHistory();
+    contextHelperStub.validatePhoneType.resetHistory();
+    appDownloadHelperStub.getAppStoreRedirectUrl.resetHistory();
+    qrCodeHelperStub.generateQrCodeImageData.resetHistory();
   });
 
   context("handling page-ipv-reuse journey route", () => {
@@ -124,6 +127,27 @@ describe("handleJourneyPageRequest", () => {
     // Assert
     expect(res.render).to.have.been.calledWith(
       "ipv/page/prove-identity-no-photo-id.njk",
+    );
+  });
+
+  it("should return true and set currentPage if clientOauthSessionId exists and pageId is pyi-timeout-recoverable", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: IPV_PAGES.PYI_TIMEOUT_RECOVERABLE },
+      session: {
+        clientOauthSessionId: "some-client-session",
+        currentPage: "some-other-page",
+      },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
+
+    // Assert
+    expect(req.session.currentPage).to.equal(IPV_PAGES.PYI_TIMEOUT_RECOVERABLE);
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/pyi-timeout-recoverable.njk",
     );
   });
 
@@ -298,5 +322,35 @@ describe("handleJourneyPageRequest", () => {
 
     // Assert
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+  });
+
+  it("should render pyi-triage-mobile-download-app page with render options when given valid pageId", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: IPV_PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP },
+      session: {
+        currentPage: IPV_PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP,
+        context: { os: "ANDROID" },
+      },
+    });
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
+
+    // Assert
+    expect(contextHelperStub.validatePhoneType).to.have.been.calledOnce;
+    expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
+      .calledOnce;
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/pyi-triage-mobile-download-app.njk",
+      {
+        pageId: "pyi-triage-mobile-download-app",
+        csrfToken: undefined,
+        context: { os: "ANDROID" },
+        pageErrorState: undefined,
+        appDownloadUrl: "https://example.com",
+      },
+    );
   });
 });

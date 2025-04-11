@@ -5,6 +5,17 @@ import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../test-utils/mock-express";
+import type { i18n as I18nType } from "i18next";
+import * as ipvMiddleware from "../ipv/middleware";
+import * as userHelper from "../shared/reuseHelper";
+import {
+  generateUserDetails,
+  samplePersistedUserDetails,
+} from "../shared/reuseHelper";
+import PAGES from "../../constants/ipv-pages";
+import * as contextHelper from "../shared/contextHelper";
+import * as qrCodeHelper from "../shared/qrCodeHelper";
+import * as appDownloadHelper from "../shared/appDownloadHelper";
 
 const createResponse = specifyCreateResponse();
 const createRequest = specifyCreateRequest();
@@ -90,14 +101,14 @@ describe("allTemplatesPost", () => {
     });
   });
 
-  it("should redirect to the correct url if template and context have been chosen", async () => {
+  it("should redirect to the correct url if template, context and error state have been chosen", async () => {
     // Arrange
     const req = createRequest({
       body: {
         template: "another-template",
         language: "en",
         pageContext: "context",
-        hasErrorState: false,
+        hasErrorState: true,
       },
     });
     const res = createResponse();
@@ -108,7 +119,7 @@ describe("allTemplatesPost", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledWith(
-      "/dev/template/another-template/en?context=context",
+      "/dev/template/another-template/en?context=context&pageErrorState=true",
     );
   });
 
@@ -144,4 +155,107 @@ it("should render service-unavailable page", async () => {
 
   // Assert
   expect(res.render).to.have.been.calledWith("service-unavailable.html");
+});
+
+describe("templatesDisplayGet", () => {
+  it("should validate phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
+    // Arrange
+    const phoneType = "ios";
+    const req = createRequest({
+      params: {
+        templateId: PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP,
+        language: "en",
+      },
+      query: {
+        context: phoneType,
+      },
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+    } as unknown as I18nType;
+    req.csrfToken = sinon.stub().returns(undefined);
+
+    const res = createResponse();
+
+    const validatePhoneTypeStub = sinon.stub(
+      contextHelper,
+      "validatePhoneType",
+    );
+    const generateQrCodeStub = sinon
+      .stub(qrCodeHelper, "generateQrCodeImageData")
+      .resolves("mockedQrCode");
+    const getAppStoreRedirectUrlStub = sinon
+      .stub(appDownloadHelper, "getAppStoreRedirectUrl")
+      .returns("mockedAppStoreUrl");
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(validatePhoneTypeStub).to.have.been.calledWith(phoneType);
+    expect(getAppStoreRedirectUrlStub).to.have.been.calledWith(phoneType);
+    expect(generateQrCodeStub).to.have.been.calledWith("mockedAppStoreUrl");
+
+    expect(res.render).to.have.been.calledWithMatch(
+      sinon.match.string,
+      sinon.match.has("qrCode", "mockedQrCode"),
+    );
+
+    // Cleanup
+    validatePhoneTypeStub.restore();
+    generateQrCodeStub.restore();
+    getAppStoreRedirectUrlStub.restore();
+  });
+
+  it("should add userDetails to render options if pageRequiresUserDetails returns true", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        templateId: "some-user-page",
+        language: "en",
+      },
+      query: {},
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+      t: sinon.stub().callsFake((key) => key),
+    } as unknown as I18nType;
+
+    req.csrfToken = sinon.stub().returns(undefined);
+
+    const res = createResponse();
+    const userDetailsStub = generateUserDetails(
+      samplePersistedUserDetails,
+      req.i18n,
+    );
+    const pageRequiresUserDetailsStub = sinon
+      .stub(ipvMiddleware, "pageRequiresUserDetails")
+      .returns(true);
+    const generateUserDetailsStub = sinon
+      .stub(userHelper, "generateUserDetails")
+      .returns(userDetailsStub);
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/some-user-page.njk",
+      sinon.match({
+        templateId: "some-user-page",
+        csrfToken: undefined,
+        userDetails: userDetailsStub,
+        context: undefined,
+        errorState: undefined,
+        pageErrorState: undefined,
+      }),
+    );
+
+    // Cleanup
+    pageRequiresUserDetailsStub.restore();
+    generateUserDetailsStub.restore();
+  });
 });

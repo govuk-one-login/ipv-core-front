@@ -4,6 +4,7 @@ import proxyquire from "proxyquire";
 import { Request, Response } from "express";
 import * as coreBackService from "../../services/coreBackService";
 import * as postJourneyEventResponse from "../validators/postJourneyEventResponse";
+import config from "../../config/config";
 
 const isAxiosErrorStub = sinon.stub().returns(true);
 proxyquire("./middleware", {
@@ -80,5 +81,15 @@ describe("vc receipt status middleware tests", () => {
 
     expect(res.status).to.have.been.calledWith(500);
     expect(res.json).to.have.been.calledWith({ status: "ERROR" });
+  });
+
+  it("pollVcReceiptStatus should return COMPLETED status when ENABLE_PREVIEW is true and NODE_ENV is local", async () => {
+    process.env.NODE_ENV = "local";
+    config.ENABLE_PREVIEW = true;
+
+    await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ status: "COMPLETED" });
   });
 });

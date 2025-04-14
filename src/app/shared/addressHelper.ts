@@ -50,6 +50,7 @@ const extractAddressFields = (
   if (address.addressLocality) {
     localityNames.push(address.addressLocality);
   }
+
   return { buildingNames, streetNames, localityNames };
 };
 
@@ -68,10 +69,11 @@ export const generateHTMLofAddress = (address: PostalAddressClass): string => {
   if (address.addressRegion) html += `${address.addressRegion}<br>`;
   html += `${address.postalCode}`;
 
-  const countryName = address.addressCountry
-    ? countryMap[address.addressCountry]
-    : undefined;
-  if (countryName && address.addressCountry !== "GB") {
+  const countryName =
+    address.addressCountry && address.addressCountry !== "GB"
+      ? countryMap[address.addressCountry]
+      : undefined;
+  if (countryName) {
     html += `<br>${countryName}`;
   }
 

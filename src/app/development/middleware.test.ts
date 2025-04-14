@@ -258,4 +258,40 @@ describe("templatesDisplayGet", () => {
     pageRequiresUserDetailsStub.restore();
     generateUserDetailsStub.restore();
   });
+
+  it("should render error page template with csrf token if templateId is in errorTemplates", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        templateId: "session-ended",
+        language: "en",
+      },
+      query: {},
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+    } as unknown as I18nType;
+
+    const csrfTokenStub = sinon.stub().returns("test-token");
+    req.csrfToken = csrfTokenStub;
+
+    const res = createResponse();
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
+    expect(res.render).to.have.been.calledWith(
+      "errors/session-ended.njk",
+      sinon.match({
+        csrfToken: "test-token",
+        templateId: "session-ended",
+        context: undefined,
+        errorState: undefined,
+        pageErrorState: undefined,
+      }),
+    );
+  });
 });

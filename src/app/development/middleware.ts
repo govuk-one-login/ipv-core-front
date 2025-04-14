@@ -10,6 +10,7 @@ import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
 import {
+  getErrorPageTemplatePath,
   getHtmlPath,
   getIpvPageTemplatePath,
   getTemplatePath,
@@ -91,6 +92,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const templateId = req.params.templateId;
   const language = req.params.language;
   const context = req.query.context;
+
   await req.i18n.changeLanguage(language);
   res.locals.currentLanguage = language;
 
@@ -102,14 +104,25 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     pageErrorState: req.query.pageErrorState,
   };
 
+  const errorTemplates = new Set<string>(
+    Object.values(ERROR_PAGES).filter(
+      (p) => p !== ERROR_PAGES.SERVICE_UNAVAILABLE,
+    ),
+  );
+
+  if (errorTemplates.has(templateId)) {
+    return res.render(getErrorPageTemplatePath(templateId), renderOptions);
+  }
+
   if (pageRequiresUserDetails(templateId)) {
     renderOptions.userDetails = generateUserDetails(
       samplePersistedUserDetails,
       req.i18n,
     );
   }
+
   const phoneType = context ? (context as string) : undefined;
-  /* istanbul ignore else  */
+
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     validatePhoneType(phoneType);

@@ -177,6 +177,9 @@ Mappings:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
       s3: "pl-7ca54015"
+  Constants:
+    Urls:
+      pagerDutyRunbook: "https://team-manual.account.gov.uk/teams/IPV-Core-team/Supporting-IPV-Core/pager-duty-runbooks/"
 
 Resources:
 
@@ -1490,6 +1493,9 @@ Resources:
     Condition: IsNotDevelopment
     Properties:
       AlarmName: FrontLoadBalancer5xxAlarm
+      AlarmDescription: !Sub
+        - 'The Elastic Load Balancer (ELB) in front of core-front has returned 2 or more 500 errors in a 5 minute period, for 2 periods in a row. See runbook: ${RunbookUrl}'
+        - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
         - !ImportValue sns-topics-AlarmTopic
@@ -1524,6 +1530,9 @@ Resources:
     Condition: IsNotDevelopment
     Properties:
       AlarmName: FrontTargetGroup5xxAlarm
+      AlarmDescription: !Sub
+        - 'The targets of the ELB in front of core-front have returned a 500 error more than 50 times in a 5 minute period, for 2 periods in a row. See runbook: ${RunbookUrl}'
+        - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
         - !ImportValue sns-topics-AlarmTopic
@@ -1601,9 +1610,9 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub "${AWS::StackName}-FrontRestApiGateway5XXErrorAlarm"
-      AlarmDescription: >
-        Trigger the alarm if errors exceed 10% with a minimum of 50
-        invocations, in 2 out of the last 5 minutes
+      AlarmDescription: !Sub
+        - 'Trigger the alarm if errors exceed 10% with a minimum of 50 invocations, in 2 out of the last 5 minutes. See runbook: ${RunbookUrl}'
+        - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       OKActions:
         - !ImportValue sns-topics-AlarmTopic

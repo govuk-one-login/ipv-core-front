@@ -20,6 +20,7 @@ describe("Sample Persisted User Details", () => {
           addressLocality: "Lancaster",
           addressRegion: "Lancashire",
           postalCode: "M12 7LU",
+          addressCountry: "IT",
         },
         {
           subBuildingName: "Flat 24",
@@ -79,7 +80,7 @@ describe("Generate User Details", () => {
           label:
             "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
           addressDetailHtml:
-            "Room 25, Turing House, Block 4b, Vital Living<br>1, Circular Square, 7 O'Reilly Way<br>Oxford Lane, University Quarter, Lancaster<br>Lancashire<br>M12 7LU",
+            "Room 25, Turing House, Block 4b, Vital Living<br>1, Circular Square, 7 O'Reilly Way<br>Oxford Lane, University Quarter, Lancaster<br>Lancashire<br>M12 7LU<br>Italy",
         },
         {
           label:
@@ -157,6 +158,7 @@ describe("Generate User Details", () => {
             addressLocality: "my town",
             postalCode: "myCode",
             addressRegion: "myRegion",
+            addressCountry: "IT",
           },
         ],
         ...nameAxiosResponse,
@@ -173,7 +175,7 @@ describe("Generate User Details", () => {
             label:
               "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
             addressDetailHtml:
-              "My deparment, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
+              "My deparment, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode<br>Italy",
           },
         ],
         ...expectedNameUserDetails,

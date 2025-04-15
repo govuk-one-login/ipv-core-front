@@ -44,7 +44,6 @@ export const samplePersistedUserDetails = {
       addressLocality: "Lancaster",
       addressRegion: "Lancashire",
       postalCode: "M12 7LU",
-      addressCountry: "IT",
     },
     // example addresses
     {

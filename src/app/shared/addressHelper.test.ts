@@ -18,7 +18,6 @@ describe("Address Helper", () => {
         addressLocality: "my town",
         postalCode: "myCode",
         addressRegion: "myRegion",
-        addressCountry: "IT",
       };
 
       // Act
@@ -26,7 +25,7 @@ describe("Address Helper", () => {
 
       // Assert
       expect(output).to.equal(
-        "My department, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode<br>Italy",
+        "My department, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
       );
     });
 
@@ -45,7 +44,6 @@ describe("Address Helper", () => {
         addressLocality: "my town",
         postalCode: "myCode",
         addressRegion: "myRegion",
-        addressCountry: "IT",
       };
 
       // Act
@@ -53,34 +51,7 @@ describe("Address Helper", () => {
 
       // Assert
       expect(output).to.equal(
-        "My department, My company, Room 5, my building<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode<br>Italy",
-      );
-    });
-
-    it("should generate HTML but not display non-international address country", () => {
-      // Arrange
-      const address = {
-        organisationName: "My company",
-        departmentName: "My department",
-        buildingName: "my building",
-        subBuildingName: "Room 5",
-        buildingNumber: "1",
-        dependentStreetName: "My outter street",
-        streetName: "my inner street",
-        doubleDependentAddressLocality: "My double dependant town",
-        dependentAddressLocality: "my dependant town",
-        addressLocality: "my town",
-        postalCode: "myCode",
-        addressRegion: "myRegion",
-        addressCountry: "GB",
-      };
-
-      // Act
-      const output = generateHTMLofAddress(address);
-
-      // Assert
-      expect(output).to.equal(
-        "My department, My company, Room 5, my building<br>1, My outter street, my inner street<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
+        "My department, My company, Room 5, my building<br>My double dependant town, my dependant town, my town<br>myRegion<br>myCode",
       );
     });
   });

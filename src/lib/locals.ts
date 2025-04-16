@@ -6,8 +6,8 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.uaContainerId = config.GTM_ID;
   res.locals.ga4ContainerId = config.GTM_ID_GA4;
   res.locals.cspNonce = await generateNonce();
-  res.locals.isGa4Disabled = config.GA4_DISABLED;
-  res.locals.isUaDisabled = config.UA_DISABLED;
+  res.locals.isGa4Enabled = config.GA4_DISABLED === "false";
+  res.locals.isUaEnabled = config.UA_DISABLED === "false";
   res.locals.dynatraceRumUrl = config.DT_RUM_URL;
   res.locals.analyticsCookieDomain = config.GTM_ANALYTICS_COOKIE_DOMAIN;
   res.locals.logoutUrl = config.LOGOUT_URL;

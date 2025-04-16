@@ -104,13 +104,12 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     pageErrorState: req.query.pageErrorState,
   };
 
-  const errorTemplates = new Set<string>(
-    Object.values(ERROR_PAGES).filter(
-      (p) => p !== ERROR_PAGES.SERVICE_UNAVAILABLE,
-    ),
-  );
+  const errorTemplates = new Set<string>(Object.values(ERROR_PAGES));
 
   if (errorTemplates.has(templateId)) {
+    if (templateId === ERROR_PAGES.SERVICE_UNAVAILABLE) {
+      return res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
+    }
     return res.render(getErrorPageTemplatePath(templateId), renderOptions);
   }
 
@@ -152,8 +151,4 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     getIpvPageTemplatePath(sanitize(templateId)),
     renderOptions,
   );
-};
-
-export const serviceUnavailableGet: RequestHandler = (req, res) => {
-  res.render(getHtmlPath(ERROR_PAGES.SERVICE_UNAVAILABLE));
 };

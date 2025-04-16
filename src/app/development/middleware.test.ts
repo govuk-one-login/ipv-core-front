@@ -145,18 +145,6 @@ describe("allTemplatesPost", () => {
   });
 });
 
-it("should render service-unavailable page", async () => {
-  // Arrange
-  const req = createRequest();
-  const res = createResponse();
-
-  // Act
-  await middleware.serviceUnavailableGet(req, res);
-
-  // Assert
-  expect(res.render).to.have.been.calledWith("service-unavailable.html");
-});
-
 describe("templatesDisplayGet", () => {
   it("should validate phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
@@ -259,7 +247,7 @@ describe("templatesDisplayGet", () => {
     generateUserDetailsStub.restore();
   });
 
-  it("should render error page template with csrf token if templateId is in errorTemplates", async () => {
+  it("should render error page template if templateId is in errorTemplates", async () => {
     // Arrange
     const req = createRequest({
       params: {
@@ -293,5 +281,29 @@ describe("templatesDisplayGet", () => {
         pageErrorState: undefined,
       }),
     );
+  });
+
+  it("should render service-unavailable page using getHtmlPath if templateId is service-unavailable", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        templateId: "service-unavailable",
+        language: "en",
+      },
+      query: {},
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+    } as unknown as I18nType;
+
+    const res = createResponse();
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
+    expect(res.render).to.have.been.calledWith("service-unavailable.html");
   });
 });

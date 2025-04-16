@@ -145,18 +145,6 @@ describe("allTemplatesPost", () => {
   });
 });
 
-it("should render service-unavailable page", async () => {
-  // Arrange
-  const req = createRequest();
-  const res = createResponse();
-
-  // Act
-  await middleware.serviceUnavailableGet(req, res);
-
-  // Assert
-  expect(res.render).to.have.been.calledWith("service-unavailable.html");
-});
-
 describe("templatesDisplayGet", () => {
   it("should validate phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
@@ -257,5 +245,65 @@ describe("templatesDisplayGet", () => {
     // Cleanup
     pageRequiresUserDetailsStub.restore();
     generateUserDetailsStub.restore();
+  });
+
+  it("should render error page template if templateId is in errorTemplates", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        templateId: "session-ended",
+        language: "en",
+      },
+      query: {},
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+    } as unknown as I18nType;
+
+    const csrfTokenStub = sinon.stub().returns("test-token");
+    req.csrfToken = csrfTokenStub;
+
+    const res = createResponse();
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
+    expect(res.render).to.have.been.calledWith(
+      "errors/session-ended.njk",
+      sinon.match({
+        csrfToken: "test-token",
+        templateId: "session-ended",
+        context: undefined,
+        errorState: undefined,
+        pageErrorState: undefined,
+      }),
+    );
+  });
+
+  it("should render service-unavailable page using getHtmlPath if templateId is service-unavailable", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        templateId: "service-unavailable",
+        language: "en",
+      },
+      query: {},
+    });
+
+    req.i18n = {
+      changeLanguage: sinon.stub().resolves(),
+    } as unknown as I18nType;
+
+    const res = createResponse();
+
+    // Act
+    await middleware.templatesDisplayGet(req, res);
+
+    // Assert
+    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
+    expect(res.render).to.have.been.calledWith("service-unavailable.html");
   });
 });

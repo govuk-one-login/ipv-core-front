@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { RequestHandler } from "express-serve-static-core";
 import { appVcReceived } from "../../services/coreBackService";
 import { isJourneyResponse } from "../validators/postJourneyEventResponse";
@@ -35,17 +35,19 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
   }
 };
 
-export const pollVcReceiptStatus: RequestHandler = async (
-  req: Request,
-  res: Response,
-) => {
+export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
+  const isPreview = config.ENABLE_PREVIEW && req.query.preview === "true";
+  const isSnapshot = req.query.snapshotTest === "true" && process.env.NODE_ENV === "local";
+
   // For snapshot tests, we want to return a completed status
-  if (
-    config.ENABLE_PREVIEW &&
-    process.env.NODE_ENV === "local" &&
-    !req.session.ipvSessionId
-  ) {
+  if (isSnapshot) {
     res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
+    return;
+  }
+
+  // For dev/all-templates view, we want to return a processing status
+  if (isPreview ) {
+    res.status(200).json({ status: AppVcReceiptStatus.PROCESSING });
     return;
   }
 

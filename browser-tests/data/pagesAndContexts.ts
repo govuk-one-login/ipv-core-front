@@ -9,7 +9,7 @@ export const iteratePagesAndContexts = (test: TestFn): void => {
 
     for (const context of contextsToTest) {
       for (const language of [ "en", "cy" ]) {
-        let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}?pageErrorState=true`
+        let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}?pageErrorState=true&snapshotTest=true`;
         if (context !== undefined) {
           url += `&context=${context}`;
         }

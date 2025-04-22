@@ -199,6 +199,7 @@ describe("handleJourneyPageRequest", () => {
         csrfToken: undefined,
         context: undefined,
         pageErrorState: undefined,
+        apiUrl: "/app-vc-receipt-status",
         qrCode: "QR_CODE_DATA",
         msBetweenRequests: 3000,
         msBeforeInformingOfLongWait: 60000,

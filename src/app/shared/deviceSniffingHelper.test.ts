@@ -77,12 +77,12 @@ describe("User Agent Functions", () => {
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 10.3 },
+        expectedOs: { name: PHONE_TYPES.IPHONE, version: 14.3 },
       },
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 14.3 },
+        expectedOs: { name: PHONE_TYPES.IPHONE, version: 15.1 },
       },
       {
         scenario: "Android user agents",

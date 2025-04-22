@@ -8,4 +8,4 @@ export const OS_TYPES = Object.freeze({
   ANDROID: "Android",
 });
 
-export const MINIMUM_IOS_VERSION = 14;
+export const MINIMUM_IOS_VERSION = 15;

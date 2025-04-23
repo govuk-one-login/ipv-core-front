@@ -39,8 +39,8 @@ export const pollVcReceiptStatus: RequestHandler = async (
   req: Request,
   res: Response,
 ) => {
-  // For browser tests, we want to return a completed status
-  if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local") {
+  // For snapshot tests, we want to return a completed status
+  if (config.ENABLE_PREVIEW && process.env.NODE_ENV === "local" && !req.session.ipvSessionId) {
     res.status(200).json({ status: AppVcReceiptStatus.COMPLETED });
     return;
   }

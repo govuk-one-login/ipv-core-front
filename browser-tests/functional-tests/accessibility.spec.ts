@@ -26,14 +26,14 @@ test.describe.parallel("Accessibility tests", () => {
     }
   );
 
-  (["radio", "checkbox"]).forEach((errorState) => {
-    ["en", "cy"].forEach((language) => {
+  ["radio", "checkbox"].forEach((errorState) =>
+    ["en", "cy"].forEach((language) =>
       test(`Accessibility check for ${errorState} error state in ${language}`, async ({ page }) => {
         await page.goto(`${domainUrl}/dev/template/confirm-your-details/${language}?errorState=${errorState}`);
         await assertNoAccessibilityViolations(page);
-      });
-    })
-  });
+      })
+    )
+  );
 });
 
 const assertNoAccessibilityViolations = async (page: Page): Promise<void> => {

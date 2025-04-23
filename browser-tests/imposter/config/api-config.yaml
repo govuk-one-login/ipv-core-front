@@ -40,7 +40,7 @@ resources:
     requestHeaders:
       content-type: "application/json"
       ipv-session-id:
-        value: "^.*(reuseJourney|fraudCheckJourney).*$"
+        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt).*$"
         operator: NotMatches
     queryParams:
       currentPage:
@@ -454,4 +454,165 @@ resources:
           "client": {
             "redirectUrl": "https://example.com/"
           }
+        }
+
+  # Check Strategic App VC receipt
+  # These mock to test frontend logic dealing with polling & navigation
+
+  # MAM
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "checkVcReceiptMam"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "check-mobile-app-result"
+        }
+
+  # DAD
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "checkVcReceiptDad"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-desktop-download-app",
+          "context": "iphone"
+        }
+
+  # Poll - 200 - success
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "Success"
+        operator: Contains
+    response:
+      statusCode: 200
+      content: |
+        {
+          "journey": "next"
+        }
+
+  # Poll - 200 - abandon
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "Abandon"
+        operator: Contains
+    response:
+      statusCode: 200
+      content: |
+        {
+          "journey": "abandon"
+        }
+
+  # Poll - 200 - error
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "Error"
+        operator: Contains
+    response:
+      statusCode: 200
+      content: |
+        {
+          "journey": "error"
+        }
+
+  # Poll - 404 (poll again)
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "Pending"
+        operator: Contains
+    response:
+      statusCode: 404
+
+  # Poll - 500 (failure)
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "Failure"
+        operator: Contains
+    response:
+      statusCode: 500
+
+  # Resulting journey - success
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "checkVcReceipt"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: Exists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-dcmaw-success"
+        }
+
+  # Resulting journey - abandonment
+  - method: POST
+    path: /journey/abandon
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "checkVcReceipt"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: Exists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
+        }
+
+  # Resulting journey - error
+  - method: POST
+    path: /journey/error
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "checkVcReceipt"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: Exists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-technical"
         }

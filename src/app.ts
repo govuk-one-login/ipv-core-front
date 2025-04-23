@@ -233,9 +233,11 @@ const server = app
     logger.error(`Unable to start server because of ${error.message}`);
   });
 
-frontendVitalSignsInit(server, {
-  staticPaths: [/^\/assets\/.*/, /^\/public\/.*/],
-});
+if (process.env.NODE_ENV !== "local") {
+  frontendVitalSignsInit(server, {
+    staticPaths: [/^\/assets\/.*/, /^\/public\/.*/],
+  });
+}
 
 // AWS recommends the keep-alive duration of the target is longer than the idle timeout value of the load balancer (default 60s)
 // to prevent possible 502 errors where the target connection has already been closed

@@ -14,17 +14,27 @@ export interface BannerConfig {
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
     res.locals.displayBanner = false;
-    const bannerConfigs =
+    const bannerConfigs1 =
       process.env.NODE_ENV === "local"
         ? process.env["NOTIFICATION_BANNER"]
         : await getParameter("/core-front/notification-banner");
+    const bannerConfigs2 =
+      process.env.NODE_ENV === "local"
+        ? process.env["NOTIFICATION_BANNER_2"]
+        : await getParameter("/core-front/notification-banner2");
 
-    const bannerConfigsParsed: BannerConfig[] = bannerConfigs
-      ? JSON.parse(bannerConfigs)
-      : [];
-    if (!bannerConfigs || bannerConfigs.length === 0) {
+    if ((!bannerConfigs1 || bannerConfigs1.length === 0) && (!bannerConfigs2 || bannerConfigs2.length === 0)) {
       return next();
     }
+
+    const bannerConfigs1Parsed: BannerConfig[] = bannerConfigs1
+      ? JSON.parse(bannerConfigs1)
+      : [];
+    const bannerConfigs2Parsed: BannerConfig[] = bannerConfigs2
+      ? JSON.parse(bannerConfigs2)
+      : [];
+
+    const bannerConfigsParsed: BannerConfig[] = bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
 
     bannerConfigsParsed.forEach((data: BannerConfig) => {
       const currentTime = new Date().toISOString();

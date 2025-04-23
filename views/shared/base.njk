@@ -81,14 +81,14 @@
         {% endif %}
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content"{% if currentLanguage %} lang="{{ currentLanguage }}"{% endif %}>
             <div class="govuk-grid-row">
-                {% if (displayBanner) %}
-                    {{ govukNotificationBanner({
-                        html: bannerMessage,
-                        type: bannerType
-                    }) }}
-                {% endif %}
                 <div class="govuk-grid-column-two-thirds {{ rowClasses }}">
-                   {% if errorState %}
+                    {% if (displayBanner) %}
+                        {{ govukNotificationBanner({
+                            html: bannerMessage,
+                            type: bannerType
+                        }) }}
+                    {% endif %}
+                    {% if errorState %}
                         {{ govukErrorSummary({
                             titleText: errorTitle | default('Error Summary'),
                             errorList: [

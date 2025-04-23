@@ -93,6 +93,7 @@ describe("vc receipt status middleware tests", () => {
       },
     };
     config.ENABLE_PREVIEW = true;
+    process.env.NODE_ENV = "local";
 
     await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
 

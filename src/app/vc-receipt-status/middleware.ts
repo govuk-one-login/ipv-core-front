@@ -37,7 +37,8 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
 
 export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
   const isPreview = config.ENABLE_PREVIEW && req.query.preview === "true";
-  const isSnapshot = req.query.snapshotTest === "true" && process.env.NODE_ENV === "local";
+  const isSnapshot =
+    req.query.snapshotTest === "true" && process.env.NODE_ENV === "local";
 
   // For snapshot tests, we want to return a completed status
   if (isSnapshot) {
@@ -46,7 +47,7 @@ export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
   }
 
   // For dev/all-templates view, we want to return a processing status
-  if (isPreview ) {
+  if (isPreview) {
     res.status(200).json({ status: AppVcReceiptStatus.PROCESSING });
     return;
   }

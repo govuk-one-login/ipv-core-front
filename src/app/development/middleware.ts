@@ -126,9 +126,12 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const isSnapshotTest = req.query.snapshotTest === "true";
   const apiUrlParams = new URLSearchParams();
 
-  if (config.ENABLE_PREVIEW) {
+  const isDevTemplateRoute = req.path.startsWith(config.DEV_TEMPLATES);
+
+  if (isDevTemplateRoute && config.ENABLE_PREVIEW) {
     apiUrlParams.set("preview", "true");
   }
+
   if (isSnapshotTest) {
     apiUrlParams.set("snapshotTest", "true");
   }

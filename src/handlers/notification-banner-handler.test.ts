@@ -89,30 +89,29 @@ describe("Notification banner handler", () => {
     req.i18n.language = "en";
     const res = createResponse();
     parameterServiceStub.getParameter = sinon.fake((paramName: string) => {
-        if (paramName === "/core-front/notification-banner") {
-          return JSON.stringify([
-            {
-              pageId: "/some-other-page",
-              bannerMessage: "Test banner",
-              bannerMessageCy: "Welsh Test banner",
-              startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-              endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-            },
-          ])
-        }
-        if (paramName === "/core-front/notification-banner2") {
-          return JSON.stringify([
-            {
-              pageId: "/some-page",
-              bannerMessage: "Test banner 2",
-              bannerMessageCy: "Welsh Test banner 2",
-              startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-              endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
-            },
-          ])
-        }
+      if (paramName === "/core-front/notification-banner") {
+        return JSON.stringify([
+          {
+            pageId: "/some-other-page",
+            bannerMessage: "Test banner",
+            bannerMessageCy: "Welsh Test banner",
+            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          },
+        ]);
       }
-    );
+      if (paramName === "/core-front/notification-banner2") {
+        return JSON.stringify([
+          {
+            pageId: "/some-page",
+            bannerMessage: "Test banner 2",
+            bannerMessageCy: "Welsh Test banner 2",
+            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          },
+        ]);
+      }
+    });
 
     // Act
     await notificationBannerHandler(req, res, next);

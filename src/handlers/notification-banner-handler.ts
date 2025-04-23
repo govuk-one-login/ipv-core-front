@@ -23,7 +23,10 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
         ? process.env["NOTIFICATION_BANNER_2"]
         : await getParameter("/core-front/notification-banner2");
 
-    if ((!bannerConfigs1 || bannerConfigs1.length === 0) && (!bannerConfigs2 || bannerConfigs2.length === 0)) {
+    if (
+      (!bannerConfigs1 || bannerConfigs1.length === 0) &&
+      (!bannerConfigs2 || bannerConfigs2.length === 0)
+    ) {
       return next();
     }
 
@@ -34,7 +37,8 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       ? JSON.parse(bannerConfigs2)
       : [];
 
-    const bannerConfigsParsed: BannerConfig[] = bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
+    const bannerConfigsParsed: BannerConfig[] =
+      bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
 
     bannerConfigsParsed.forEach((data: BannerConfig) => {
       const currentTime = new Date().toISOString();

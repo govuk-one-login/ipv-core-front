@@ -364,7 +364,7 @@ export const handleJourneyPageRequest = async (
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
-      renderOptions.apiUrl = "/app-vc-receipt-status";
+      renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
       validatePhoneType(context);
       const qrCodeUrl = getAppStoreRedirectUrl(context);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
@@ -384,7 +384,7 @@ export const handleJourneyPageRequest = async (
       res.err = HANDLED_ERROR;
       res.status(req.session.currentPageStatusCode);
     } else if (pageId === PAGES.CHECK_MOBILE_APP_RESULT) {
-      renderOptions.apiUrl = "/app-vc-receipt-status";
+      renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
       renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeInformingOfLongWait =
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;

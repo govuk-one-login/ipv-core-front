@@ -121,7 +121,6 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   }
 
   const phoneType = context ? (context as string) : undefined;
-  const baseApiUrl = "/app-vc-receipt-status";
 
   // 👇 Detect query flags and forward them to the spinner's API URL
   const isSnapshotTest = req.query.snapshotTest === "true";
@@ -134,7 +133,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     apiUrlParams.set("snapshotTest", "true");
   }
 
-  const apiUrl = `${baseApiUrl}?${apiUrlParams.toString()}`;
+  const apiUrl = `${config.API_APP_VC_RECEIPT_STATUS}?${apiUrlParams.toString()}`;
 
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.apiUrl = apiUrl;

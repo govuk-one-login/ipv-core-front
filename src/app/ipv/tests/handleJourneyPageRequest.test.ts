@@ -9,6 +9,7 @@ import {
   specifyCreateResponse,
 } from "../../../test-utils/mock-express";
 import IPV_PAGES from "../../../constants/ipv-pages";
+import API_URLS from "../../../config/config";
 
 describe("handleJourneyPageRequest", () => {
   // Mock handler parameters
@@ -199,7 +200,7 @@ describe("handleJourneyPageRequest", () => {
         csrfToken: undefined,
         context: undefined,
         pageErrorState: undefined,
-        apiUrl: "/app-vc-receipt-status",
+        apiUrl: API_URLS.API_APP_VC_RECEIPT_STATUS,
         qrCode: "QR_CODE_DATA",
         msBetweenRequests: 3000,
         msBeforeInformingOfLongWait: 60000,

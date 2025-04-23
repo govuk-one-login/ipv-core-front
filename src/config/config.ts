@@ -18,6 +18,7 @@ export default {
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
   API_CHECK_MOBILE_APP_VC_RECEIPT: "/app/check-vc-receipt",
+  API_APP_VC_RECEIPT_STATUS: "/app-vc-receipt-status",
   APP_STORE_URL_ANDROID:
     process.env.APP_STORE_URL_ANDROID ??
     "https://play.google.com/store/apps/details?id=uk.gov.documentchecking",
@@ -57,5 +58,4 @@ export default {
   POST_OFFICE_VISIT_BY_DAYS: 15,
   DAD_SPINNER_REQUEST_TIMEOUT:
     process.env.DAD_SPINNER_REQUEST_TIMEOUT || 2400000,
-  SNAPSHOT_TEST_SPINNERS: true,
 };

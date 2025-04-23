@@ -122,7 +122,24 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
 
   const phoneType = context ? (context as string) : undefined;
 
+  // 👇 Detect query flags and forward them to the spinner's API URL
+  const isSnapshotTest = req.query.snapshotTest === "true";
+  const apiUrlParams = new URLSearchParams();
+
+  const isDevTemplateRoute = req.path.startsWith(config.DEV_TEMPLATES);
+
+  if (isDevTemplateRoute && config.ENABLE_PREVIEW) {
+    apiUrlParams.set("preview", "true");
+  }
+
+  if (isSnapshotTest) {
+    apiUrlParams.set("snapshotTest", "true");
+  }
+
+  const apiUrl = `${config.API_APP_VC_RECEIPT_STATUS}?${apiUrlParams.toString()}`;
+
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
+    renderOptions.apiUrl = apiUrl;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     validatePhoneType(phoneType);
     renderOptions.qrCode = await generateQrCodeImageData(
@@ -136,6 +153,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     validatePhoneType(phoneType);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
+    renderOptions.apiUrl = apiUrl;
     renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
     renderOptions.msBeforeAbort = config.MAM_SPINNER_REQUEST_TIMEOUT;
     renderOptions.msBeforeInformingOfLongWait =

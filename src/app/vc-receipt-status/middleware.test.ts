@@ -25,6 +25,9 @@ describe("vc receipt status middleware tests", () => {
   beforeEach(() => {
     req = {
       session: {} as any,
+      query: {
+        preview: "",
+      },
     };
     res = {
       status: sinon.stub().returnsThis(),
@@ -83,13 +86,32 @@ describe("vc receipt status middleware tests", () => {
     expect(res.json).to.have.been.calledWith({ status: "ERROR" });
   });
 
-  it("pollVcReceiptStatus should return COMPLETED status when ENABLE_PREVIEW is true and NODE_ENV is local", async () => {
-    process.env.NODE_ENV = "local";
+  it("pollVcReceiptStatus should return COMPLETED status when query param snapshotTest is true", async () => {
+    req = {
+      query: {
+        snapshotTest: "true",
+      },
+    };
     config.ENABLE_PREVIEW = true;
+    process.env.NODE_ENV = "local";
 
     await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({ status: "COMPLETED" });
+  });
+
+  it("pollVcReceiptStatus should return PROCESSING status when ENABLE_PREVIEW is true and preview query param is true", async () => {
+    req = {
+      query: {
+        preview: "true",
+      },
+    };
+    config.ENABLE_PREVIEW = true;
+
+    await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ status: "PROCESSING" });
   });
 });

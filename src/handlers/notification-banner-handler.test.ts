@@ -83,6 +83,45 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
+  it("should display banner text from the second config variable if present", async () => {
+    // Arrange
+    const req = createRequest();
+    req.i18n.language = "en";
+    const res = createResponse();
+    parameterServiceStub.getParameter = sinon.fake((paramName: string) => {
+      if (paramName === "/core-front/notification-banner") {
+        return JSON.stringify([
+          {
+            pageId: "/some-other-page",
+            bannerMessage: "Test banner",
+            bannerMessageCy: "Welsh Test banner",
+            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          },
+        ]);
+      }
+      if (paramName === "/core-front/notification-banner2") {
+        return JSON.stringify([
+          {
+            pageId: "/some-page",
+            bannerMessage: "Test banner 2",
+            bannerMessageCy: "Welsh Test banner 2",
+            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          },
+        ]);
+      }
+    });
+
+    // Act
+    await notificationBannerHandler(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.true;
+    expect(res.locals.bannerMessage).to.equal("Test banner 2");
+    expect(next).to.have.been.calledOnce;
+  });
+
   it("should use parsed local environment variable when NODE_ENV is local", async () => {
     // Arrange
     const req = createRequest();
@@ -103,6 +142,39 @@ describe("Notification banner handler", () => {
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should use parsed local environment variable 2 when NODE_ENV is local", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    process.env.NODE_ENV = "local";
+    process.env["NOTIFICATION_BANNER"] = JSON.stringify([
+      {
+        pageId: "/some-other-page",
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
+    process.env["NOTIFICATION_BANNER_2"] = JSON.stringify([
+      {
+        pageId: "/some-page",
+        bannerMessage: "Test banner 2",
+        bannerMessageCy: "Welsh Test banner 2",
+        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+      },
+    ]);
+
+    // Act
+    await notificationBannerHandler(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.true;
+    expect(res.locals.bannerMessage).to.equal("Test banner 2");
     expect(next).to.have.been.calledOnce;
   });
 

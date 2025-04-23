@@ -243,7 +243,7 @@ test.describe.parallel("Functional tests", () => {
         const spinnerTextLocator = await page.getByText("You can now continue.");
         await expect(spinnerTextLocator).toBeVisible();
 
-        // Click continue to multiple-doc page
+        // Click continue to pyi-technical page
         await page.getByRole('button', { name: /Continue/ }).click();
 
         const pageHeading = await page.locator("h1").textContent();
@@ -265,6 +265,10 @@ test.describe.parallel("Functional tests", () => {
         // Check the spinner text
         const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
         await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
+
+        // Check continue button is disabled
+        const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });
+        await expect(continueButtonLocator).toBeDisabled()
       })
 
       test(`${journeyType} failure`, async ({ page }) => {

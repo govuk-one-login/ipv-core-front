@@ -496,6 +496,9 @@ resources:
           "context": "iphone"
         }
 
+  # Spinner component polls backend regularly to check for a VC or an update on the CRI response item.
+  # 404 ensures continued polling. 200 response body includes journey event for navigation.
+
   # Poll - 200 - success
   - method: GET
     path: /app/check-vc-receipt

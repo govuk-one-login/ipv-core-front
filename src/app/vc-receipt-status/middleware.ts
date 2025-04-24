@@ -3,7 +3,6 @@ import { RequestHandler } from "express-serve-static-core";
 import { appVcReceived } from "../../services/coreBackService";
 import { isJourneyResponse } from "../validators/postJourneyEventResponse";
 import { isAxiosError } from "axios";
-import config from "../../config/config";
 import { logger } from "../../lib/logger";
 
 export enum AppVcReceiptStatus {
@@ -36,7 +35,7 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
 };
 
 export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
-  const isPreview = config.ENABLE_PREVIEW && req.query.preview === "true";
+  const isPreview = req.query.preview === "true";
   const isSnapshot =
     req.query.snapshotTest === "true" && process.env.NODE_ENV === "local";
 

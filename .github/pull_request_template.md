@@ -30,4 +30,4 @@
 - [ ] No risk of credentials being exposed through logs
 
 <!-- Delete if changes don't apply -->
-- [ ] API and unit tests have been written/updated
+- [ ] API/unit tests have been written/updated

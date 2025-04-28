@@ -18,7 +18,7 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11.2'
-    - uses: pre-commit/action@v3.0.1
+    - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
       with:
         extra_args: "detect-secrets --all-files"
   run-tests:
@@ -37,7 +37,7 @@ jobs:
           cp .npmrc.template .npmrc && \
           sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
@@ -50,12 +50,12 @@ jobs:
         run: npm run test:coverage
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: sonarsource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # obtained from https://sonarcloud.io
       - name: Build docker image
         run: |
-          cd ${GITHUB_WORKSPACE} || exit 1
+          cd "${GITHUB_WORKSPACE}" || exit 1
           docker build -t "core-front-build:test" .
   browser-tests:
     name: Run browser tests

@@ -1363,7 +1363,7 @@
             "spinnerState": "Gallwch nawr barhau."
           },
           "longWait": {
-            "spinnerStateText": "ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
+            "spinnerStateText": "Ydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
           "error": {
             "heading": "Mae’n ddrwg gennym, mae problem",

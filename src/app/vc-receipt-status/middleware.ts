@@ -9,7 +9,7 @@ import { logger } from "../../lib/logger";
 export enum AppVcReceiptStatus {
   COMPLETED = "COMPLETED",
   ERROR = "ERROR",
-  PROCESSING = "PROCESSING"
+  PROCESSING = "PROCESSING",
 }
 
 export const getAppVcReceiptStatusAndStoreJourneyResponse = async (

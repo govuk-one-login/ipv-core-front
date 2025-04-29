@@ -10,7 +10,6 @@ export enum AppVcReceiptStatus {
   COMPLETED = "COMPLETED",
   ERROR = "ERROR",
   PROCESSING = "PROCESSING",
-  INTERVENTION = "INTERVENTION",
 }
 
 export const getAppVcReceiptStatusAndStoreJourneyResponse = async (

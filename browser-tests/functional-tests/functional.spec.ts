@@ -212,6 +212,10 @@ test.describe.parallel("Functional tests", () => {
         // Click continue to success page
         await page.getByRole('button', { name: /Continue/ }).click();
 
+        // Confirm url
+        expect(page.url()).toContain('/page-dcmaw-success');
+
+        // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
         expect(pageHeading).toBe(
           "We’ve successfully matched you to the photo on your ID",
@@ -229,6 +233,10 @@ test.describe.parallel("Functional tests", () => {
         // Click continue to multiple-doc page
         await page.getByRole('button', { name: /Continue/ }).click();
 
+        // Confirm url
+        expect(page.url()).toContain('/page-multiple-doc-check');
+
+        // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
         expect(pageHeading).toBe(
           "Continue proving your identity online",
@@ -246,6 +254,10 @@ test.describe.parallel("Functional tests", () => {
         // Click continue to pyi-technical page
         await page.getByRole('button', { name: /Continue/ }).click();
 
+        // Confirm url
+        expect(page.url()).toContain('/pyi-technical');
+
+        // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
         expect(pageHeading).toBe(
           "Sorry, there is a problem",
@@ -275,7 +287,10 @@ test.describe.parallel("Functional tests", () => {
         // Start session with existing identity
         await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Failure`));
 
-        // Check the page heading for technical error page
+        // MAM and DAD handle errors differently. DAD must use custom spinner code due to being integrated into the
+        // download page. It cannot refresh the entire page's content, so redirects to pyi-technical instead.
+
+        // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
         expect(pageHeading).toBe(
           "Sorry, there is a problem",

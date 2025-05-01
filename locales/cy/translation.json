@@ -210,7 +210,7 @@
       "content": {
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "otherWayButtonText": "Mynd ymlaen i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o brofi eich hunaniaeth",
+          "otherWayButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
         },
         "formErrorMessage": {
@@ -303,7 +303,7 @@
           "radioButtonPostOffice": "Ewch i Swyddfa’r Post",
           "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK  yn gyntaf",
           "separateOptionsInForm": "neu",
-          "radioButtonRp": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi"
+          "radioButtonRp": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -538,7 +538,7 @@
       "content": {
         "paragraph1": "Yn seiliedig ar beth rydych wedi dweud wrthym, ni allwch brofi eich hunaniaeth gyda GOV.UK One Login.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwilio am ffyrdd eraill o brofi pwy ydych chi."
+        "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
       }
     },
     "pyiTimeoutRecoverable": {
@@ -585,7 +585,7 @@
       "content": {
         "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn eich blaen i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi.",
+        "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato.",
         "paragraph2Unrecoverable": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
       }
     },
@@ -597,7 +597,7 @@
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "tryAgainButtonText": "Ceisiwch brofi eich hunaniaeth gyda One Login eto",
-          "continueButtonText": "Parhau i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a chwilio am ffyrdd eraill i brofi pwy ydych chi"
+          "continueButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

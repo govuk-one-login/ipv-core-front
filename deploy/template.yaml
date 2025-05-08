@@ -844,9 +844,9 @@ Resources:
               awslogs-group: !Ref ECSAccessLogsGroup
               awslogs-region: !Sub ${AWS::Region}
               awslogs-stream-prefix: !Sub core-front-${Environment}
-      Cpu: !If [ IsPerformanceSensitive, 2048, 256 ]
+      Cpu: !If [ IsPerformanceSensitive, 1024, 256 ]
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
-      Memory: !If [ IsPerformanceSensitive, 4096, 512 ]
+      Memory: !If [ IsPerformanceSensitive, 2048, 512 ]
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE

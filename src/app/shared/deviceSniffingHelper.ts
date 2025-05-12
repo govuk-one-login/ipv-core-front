@@ -41,16 +41,22 @@ export const sniffPhoneType = (
   fallback?: OsType,
 ): OsType | null => {
   const parser = new UAParser(req.headers["user-agent"]);
+  const deviceType = parser.getDevice().type;
+  const osName = parser.getOS().name;
+  const version = parser.getOS().version;
 
-  const version = parser.getOS()["version"];
-  switch (parser.getOS()["name"]) {
-    case OS_TYPES.IOS:
+  // Only treat "mobile" + OS as phone
+  if (deviceType === "mobile") {
+    if (osName === OS_TYPES.IOS) {
       return { name: PHONE_TYPES.IPHONE, version: parseVersion(version) };
-    case OS_TYPES.ANDROID:
+    }
+    if (osName === OS_TYPES.ANDROID) {
       return { name: PHONE_TYPES.ANDROID, version: parseVersion(version) };
-    default:
-      return fallback ?? null;
+    }
   }
+
+  // Everything else (tablet, desktop, unknown) → fallback → desktop flow
+  return fallback ?? null;
 };
 
 const parseVersion = (version: string | undefined): number | undefined =>

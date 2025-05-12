@@ -9,6 +9,7 @@ import {
   HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
   HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
+  HTTP_HEADER_USER_AGENT_IPAD,
 } from "../../test-utils/constants";
 import { specifyCreateRequest } from "../../test-utils/mock-express";
 
@@ -92,6 +93,11 @@ describe("User Agent Functions", () => {
       {
         scenario: "OS not iOS or Android",
         userAgent: HTTP_HEADER_USER_AGENT_NO_PHONE,
+        expectedOs: { name: "fallback" },
+      },
+      {
+        scenario: "iPad user agent",
+        userAgent: HTTP_HEADER_USER_AGENT_IPAD,
         expectedOs: { name: "fallback" },
       },
     ].forEach(({ scenario, userAgent, expectedOs }) => {

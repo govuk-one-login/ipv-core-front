@@ -1356,14 +1356,11 @@
         "spinner": {
           "initial": {
             "heading": "We’re checking your details",
-            "spinnerStateText": "This may take a few minutes.",
+            "spinnerStateText": "In progress",
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerState": "You can now continue."
-          },
-          "longWait": {
-            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+            "spinnerState": "Completed"
           },
           "error": {
             "heading": "Sorry, there is a problem",

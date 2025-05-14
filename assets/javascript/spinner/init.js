@@ -19,6 +19,7 @@ class Spinner {
     window.location.href = "/ipv/page/pyi-technical";
   };
 
+
   initialiseTimers = () => {
     if (this.domRequirementsMet) {
       this.timers.abortUnresponsiveRequest = setTimeout(() => {

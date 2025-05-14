@@ -1377,6 +1377,7 @@
           "longWait": {
             "spinnerStateText": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
+          "continueButtonText": "Parhewch",
           "error": {
             "heading": "Mae’n ddrwg gennym, mae problem",
             "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",

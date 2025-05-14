@@ -1374,6 +1374,7 @@
           "longWait": {
             "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
           },
+          "continueButtonText": "Continue",
           "error": {
             "heading": "Sorry, there is a problem",
             "messageText": "We cannot prove your identity right now.",

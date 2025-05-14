@@ -1040,7 +1040,10 @@
       "content": {
         "subHeading": "Trwydded yrru cerdyn-llun y DU",
         "paragraph": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirements": ["gyda’ch llun", "heb ddod i ben"],
+        "drivingLicenceRequirements": [
+          "gyda’ch llun",
+          "heb ddod i ben"
+        ],
         "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
         "subHeading2": "Pasbort y DU",
         "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
@@ -1139,7 +1142,16 @@
         "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
         "subHeading4": "3. Gorffennwch brofi pwy ydych chi yma",
         "paragraph5": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
-        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio."
+        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
+        "spinner": {
+          "initial": {
+            "spinnerStateText": "Ar y gweill",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "Cwblhawyd"
+          }
+        }
       }
     },
     "pyiTriageMobileDownload": {

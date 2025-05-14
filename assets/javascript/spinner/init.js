@@ -20,15 +20,15 @@ class Spinner {
     window.location.href = "/ipv/page/pyi-technical";
   };
 
-  reflectLongWait = () => {
-    this.spinnerState = "longWait";
-  };
+  // reflectLongWait = () => {
+  //   this.spinnerState = "longWait";
+  // };
 
   initialiseTimers = () => {
     if (this.domRequirementsMet) {
-      this.timers.informUserWhereWaitIsLong = setTimeout(() => {
-        this.reflectLongWait();
-      }, this.config.msBeforeInformingOfLongWait);
+      // this.timers.informUserWhereWaitIsLong = setTimeout(() => {
+      //   this.reflectLongWait();
+      // }, this.config.msBeforeInformingOfLongWait);
 
       this.timers.abortUnresponsiveRequest = setTimeout(() => {
         this.reflectError();
@@ -54,17 +54,17 @@ class Spinner {
           text: element.dataset.completeSpinnerstatetext || "",
           className: element.dataset.completeSpinnerstate,
         },
-        longWait: {
-          text: element.dataset.longwaitSpinnerstatetext,
-          className: "spinner__long-wait",
-        },
+        // longWait: {
+        //   text: element.dataset.longwaitSpinnerstatetext,
+        //   className: "spinner__long-wait",
+        // },
       };
 
       this.config = {
         apiUrl: element.dataset.apiUrl || this.config.apiUrl,
-        msBeforeInformingOfLongWait:
-          parseInt(element.dataset.msBeforeInformingOfLongWait) ||
-          this.config.msBeforeInformingOfLongWait,
+        // msBeforeInformingOfLongWait:
+        //   parseInt(element.dataset.msBeforeInformingOfLongWait) ||
+        //   this.config.msBeforeInformingOfLongWait,
         msBeforeAbort:
           parseInt(element.dataset.msBeforeAbort) || this.config.msBeforeAbort,
         msBetweenRequests:

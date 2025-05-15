@@ -25,6 +25,8 @@ export default {
   APP_STORE_URL_APPLE:
     process.env.APP_STORE_URL_APPLE ??
     "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
+  APPLE_APP_ID: process.env.APPLE_APP_ID ??
+    "DEV_IOS_APP_ID",
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT ?? 4501,

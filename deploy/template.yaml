@@ -88,6 +88,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
+      iosAppId: "DEV_IOS_APP_ID"
+      androidAppId: "DEV_ANDROID_APP_ID"
+      androidFingerprint: "DEV_ANDROID_FINGERPRINT"
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -105,6 +108,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::738810260032:root
+      iosAppId: "DEV_IOS_APP_ID"
+      androidAppId: "DEV_ANDROID_APP_ID"
+      androidFingerprint: "DEV_ANDROID_FINGERPRINT"
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -122,6 +128,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::429671060046:root
+      iosAppId: "N8W395F695.uk.gov.onelogin.build"
+      androidAppId: "uk.gov.onelogin.build"
+      androidFingerprint: "6E:AA:2A:A0:11:4B:62:EB:34:5E:BA:9D:44:13:85:DC:35:8B:10:60:B3:2B:4B:41:50:9F:E8:B7:FB:3A:DA:B0"
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -139,6 +148,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
+      iosAppId: "N8W395F695.uk.gov.onelogin.staging"
+      androidAppId: "uk.gov.onelogin.staging"
+      androidFingerprint: "72:77:50:A0:9D:B7:38:46:DD:19:33:A9:4D:59:58:AB:7D:A9:95:CC:5F:A9:77:E5:8C:74:BF:F4:42:EA:43:18"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -156,6 +168,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
+      iosAppId: "N8W395F695.uk.gov.onelogin.integration"
+      androidAppId: "uk.gov.onelogin.integration"
+      androidFingerprint: "25:87:35:1C:E8:5E:D7:72:47:16:82:2D:44:F5:E0:54:C9:7C:2B:82:A3:6A:6C:04:DF:89:17:50:8A:0B:75:AF"
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -173,6 +188,9 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
+      iosAppId: "N8W395F695.uk.gov.onelogin"
+      androidAppId: "uk.gov.onelogin"
+      androidFingerprint: "CC:8D:C5:6D:15:4A:F4:E7:97:B0:1A:68:88:CF:B7:B5:C7:EE:F0:8D:E5:94:D0:BD:BD:24:35:B7:CE:7B:B7:74"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -819,6 +837,21 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - logoutUrl
+            - Name: IOS_APP_ID
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - iosAppId
+            - Name: ANDROID_APP_ID
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - androidAppId
+            - Name: ANDROID_FINGERPRINT
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - androidFingerprint
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join

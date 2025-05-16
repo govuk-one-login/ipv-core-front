@@ -15,6 +15,7 @@ import devRouter from "./app/development/router";
 import ipvRouter from "./app/ipv/router";
 import mobileAppRouter from "./app/mobile-app/router";
 import vcReceiptStatusRouter from "./app/vc-receipt-status/router";
+import wellKnownRouter from "./app/./.well-known/router";
 import oauthRouter from "./app/oauth2/router";
 import config from "./config/config";
 import { setLocals } from "./lib/locals";
@@ -217,6 +218,7 @@ router.use("/", vcReceiptStatusRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }
+app.use("/.well-known", wellKnownRouter);
 
 app.use(router);
 

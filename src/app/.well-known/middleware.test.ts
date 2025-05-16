@@ -9,7 +9,7 @@ describe(".well-known middleware", () => {
   let next: any;
 
   const configStub = {
-    APPLE_APP_ID: "APPLE_APP_ID",
+    IOS_APP_ID: "IOS_APP_ID",
     ANDROID_APP_ID: "ANDROID_APP_ID",
     ANDROID_FINGERPRINT: "ANDROID_FINGERPRINT",
   };
@@ -54,7 +54,7 @@ describe(".well-known middleware", () => {
         apps: [],
         details: [
           {
-            appId: "APPLE_APP_ID",
+            appId: "IOS_APP_ID",
             paths: ["/ipv/app-redirect"],
           },
         ],

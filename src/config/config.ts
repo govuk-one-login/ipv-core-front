@@ -24,7 +24,7 @@ export default {
   APP_STORE_URL_APPLE:
     process.env.APP_STORE_URL_APPLE ??
     "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
-  APPLE_APP_ID: process.env.APPLE_APP_ID ?? "DEV_IOS_APP_ID",
+  IOS_APP_ID: process.env.IOS_APP_ID ?? "DEV_IOS_APP_ID",
   ANDROID_APP_ID: process.env.ANDROID_APP_ID ?? "DEV_ANDROID_APP_ID",
   ANDROID_FINGERPRINT:
     process.env.ANDROID_FINGERPRINT ?? "DEV_ANDROID_FINGERPRINT",

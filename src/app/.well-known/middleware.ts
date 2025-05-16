@@ -10,7 +10,7 @@ export const getAppleAppSiteAssociation: RequestHandler = (req, res) => {
       apps: [],
       details: [
         {
-          appId: config.APPLE_APP_ID,
+          appId: config.IOS_APP_ID,
           paths: [`/ipv/${APP_REDIRECT_PATH}`],
         },
       ],

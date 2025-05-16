@@ -20,7 +20,7 @@ import {
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
-import { APP_REDIRECT_PATH } from "../../constants/device-constants";
+import { APP_REDIRECT_PATH } from "../../constants/common-paths";
 
 const parseForm = bodyParser.urlencoded({ extended: false });
 

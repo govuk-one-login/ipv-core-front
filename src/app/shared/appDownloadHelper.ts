@@ -1,5 +1,6 @@
 import config from "../../config/config";
-import { APP_REDIRECT_PATH, PHONE_TYPES } from "../../constants/device-constants";
+import { APP_REDIRECT_PATH } from "../../constants/common-paths";
+import { PHONE_TYPES } from "../../constants/device-constants";
 import TechnicalError from "../../errors/technical-error";
 
 export const getAppStoreRedirectUrl = (phoneType: string): string => {

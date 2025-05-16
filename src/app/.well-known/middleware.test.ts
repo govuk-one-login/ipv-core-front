@@ -10,6 +10,8 @@ describe(".well-known middleware", () => {
 
   const configStub = {
     APPLE_APP_ID: "APPLE_APP_ID",
+    ANDROID_APP_ID: "ANDROID_APP_ID",
+    ANDROID_FINGERPRINT: "ANDROID_FINGERPRINT",
   };
 
   afterEach(() => {
@@ -17,45 +19,64 @@ describe(".well-known middleware", () => {
   });
 
   let middleware: typeof import("./middleware");
-  describe("getAppleAppSiteAssociation", () => {
-    beforeEach(() => {
-      middleware = proxyquire("./middleware", {
-        "../../config/config": { default: configStub },
-        "../ipv/router": { APP_REDIRECT_PATH : "app-redirect"}
-      })
 
-      req = {
-        query: {
-          preview: "",
-        },
-      };
+  beforeEach(() => {
+    middleware = proxyquire("./middleware", {
+      "../../config/config": { default: configStub },
+    });
 
-      res = {
-        status: sinon.stub().returnsThis(),
-        json: sinon.stub(),
-      };
+    req = {
+      query: {
+        preview: "",
+      },
+    };
 
-      next = sinon.stub();
+    res = {
+      status: sinon.stub(),
+      json: sinon.stub(),
+    };
 
-    })
-  })
+    next = sinon.stub();
+  });
 
-  it("should return site association file", () => {
+  it("getAppleAppSiteAssociation should return site association file", () => {
     // Act
-    middleware.getAppleAppSiteAssociation(req as Request, res as Response, next);
+    middleware.getAppleAppSiteAssociation(
+      req as Request,
+      res as Response,
+      next,
+    );
 
     // Assert
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith({
       appLinks: {
         apps: [],
-        details: [{
-          appId: "APPLE_APP_ID",
-          paths: [
-            `/ipv/app-redirect`
-          ]
-        }]
-      }
+        details: [
+          {
+            appId: "APPLE_APP_ID",
+            paths: ["/ipv/app-redirect"],
+          },
+        ],
+      },
     });
-  })
-})
+  });
+
+  it("getAppleAppSiteAssociation should return site association file", () => {
+    // Act
+    middleware.getAndroidAssetLinks(req as Request, res as Response, next);
+
+    // Assert
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith([
+      {
+        relation: ["delegate_permission/common.handle_all_urls"],
+        target: {
+          namespace: "android_app",
+          package_name: "ANDROID_APP_ID",
+          sha256_cert_fingerprints: "ANDROID_FINGERPRINT",
+        },
+      },
+    ]);
+  });
+});

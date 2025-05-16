@@ -1,5 +1,3 @@
-export const APP_REDIRECT_PATH = "app-redirect";
-
 export const PHONE_TYPES = Object.freeze({
   IPHONE: "iphone",
   ANDROID: "android",

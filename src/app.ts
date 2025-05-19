@@ -175,14 +175,6 @@ app.use((req, res, next) => {
 
 app.use(notificationBannerHandler);
 
-app.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
-  next();
-});
 app.use(loggerMiddleware);
 
 // Must be added to the app after the session and logging, and before the routers.
@@ -199,15 +191,6 @@ app.use((req, res, next) => {
 app.set("etag", false);
 
 const router = express.Router();
-
-router.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
-  next();
-});
 
 router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);

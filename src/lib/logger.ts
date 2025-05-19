@@ -1,3 +1,4 @@
+import { createInstance } from "@dynatrace/oneagent-sdk";
 import { Request, RequestHandler, Response } from "express";
 import pino, { Logger } from "pino";
 import pinoHttp, { ReqId } from "pino-http";
@@ -69,17 +70,26 @@ export const generateRequestId = (req: Request, res: Response): ReqId => {
   return newId;
 };
 
-const addRequestContext = (
-  req: Request,
-  res: Response,
-  val: object,
-): object => ({
-  ...val,
-  requestId: req.id,
-  ipvSessionId: req.session?.ipvSessionId,
-  sessionId: req.session?.id,
-  context: req.session?.context ?? undefined,
-});
+const getDynatraceContext = (): object | undefined => {
+  const dynatraceApi = createInstance();
+  const contextInfo = dynatraceApi.getTraceContextInfo();
+  if (contextInfo?.isValid) {
+    return {
+      "dt.trace_id": contextInfo.traceid,
+      "dt.span_id": contextInfo.spanid,
+    };
+  }
+};
+
+export const getLogRequestContext = (req: Request): object => {
+  return {
+    requestId: req.id,
+    ipvSessionId: req.session?.ipvSessionId,
+    sessionId: req.session?.id,
+    context: req.session?.context ?? undefined,
+    ...getDynatraceContext(),
+  };
+};
 
 export const loggerMiddleware: RequestHandler = pinoHttp({
   // Reuse an existing logger instance
@@ -90,7 +100,6 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
   wrapSerializers: false,
   // Define a custom receive message
   customReceivedMessage: (req) => `REQUEST RECEIVED: ${req.method}`,
-  customReceivedObject: addRequestContext,
   customErrorMessage: (req, res) =>
     `REQUEST FAILED WITH STATUS CODE: ${res.statusCode}`,
   customErrorObject: (req, res, error, val) => {
@@ -98,12 +107,11 @@ export const loggerMiddleware: RequestHandler = pinoHttp({
     if (val.err === HANDLED_ERROR) {
       delete val.err;
     }
-
-    return addRequestContext(req, res, val);
+    return val;
   },
+  customProps: getLogRequestContext,
   customSuccessMessage: (req, res) =>
     `REQUEST ${res.statusCode >= 400 ? "FAILED" : "COMPLETED"} WITH STATUS CODE OF: ${res.statusCode}`,
-  customSuccessObject: addRequestContext,
   customAttributeKeys: {
     responseTime: "timeTaken",
   },

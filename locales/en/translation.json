@@ -1174,7 +1174,7 @@
         },
         "details4": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" lrel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }
       }
     },

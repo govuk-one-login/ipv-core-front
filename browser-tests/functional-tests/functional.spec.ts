@@ -200,16 +200,22 @@ test.describe.parallel("Functional tests", () => {
   })
 
   test.describe.parallel("Check Strategic App VC receipt", () => {
-    ["Mam", "Dad"].forEach((journeyType) => {
-      const spinnerText =
-        journeyType === "Dad" ? "Completed" : "You can now continue.";
+    [{
+      journeyType: "Mam",
+      inProgressSpinnerText: "This may take a few minutes.",
+      completedSpinnerText: "You can now continue."
+    }, {
+      journeyType: "Dad",
+      inProgressSpinnerText: "In progress",
+      completedSpinnerText: "Completed"
+    }].forEach((journeyData) => {
 
-      test(`${journeyType} success`, async ({ page }) => {
+      test(`${journeyData.journeyType} success`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Success`));
+        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Success`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(spinnerText);
+        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to success page
@@ -225,12 +231,12 @@ test.describe.parallel("Functional tests", () => {
         );
       })
 
-      test(`${journeyType} abandon`, async ({ page }) => {
+      test(`${journeyData.journeyType} abandon`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Abandon`));
+        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Abandon`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(spinnerText);
+        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to multiple-doc page
@@ -246,12 +252,12 @@ test.describe.parallel("Functional tests", () => {
         );
       })
 
-      test(`${journeyType} error`, async ({ page }) => {
+      test(`${journeyData.journeyType} error`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Error`));
+        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Error`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(spinnerText);
+        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to pyi-technical page
@@ -267,31 +273,9 @@ test.describe.parallel("Functional tests", () => {
         );
       })
 
-      test(`${journeyType} pending`, async ({ page }) => {
-        test.setTimeout(90000);
-
+      test(`${journeyData.journeyType} failure`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Pending`));
-
-        // Check the spinner text
-        const spinnerText = journeyType === "Dad" ? "In progress" : "This may take a few minutes."
-        const normalSpinnerTextLocator = await page.getByText(spinnerText);
-        await expect(normalSpinnerTextLocator).toBeVisible();
-
-        // Check the spinner text
-        if(journeyType === "Mam") {
-          const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
-          await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
-        }
-
-        // Check continue button is disabled
-        const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });
-        await expect(continueButtonLocator).toBeDisabled()
-      })
-
-      test(`${journeyType} failure`, async ({ page }) => {
-        // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Failure`));
+        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Failure`));
 
         // MAM and DAD handle errors differently. DAD must use custom spinner code due to being integrated into the
         // download page. It cannot refresh the entire page's content, so redirects to pyi-technical instead.
@@ -303,5 +287,24 @@ test.describe.parallel("Functional tests", () => {
         );
       })
     })
+  })
+
+  test(`Mam pending`, async ({ page }) => {
+    test.setTimeout(90000);
+
+    // Start session with existing identity
+    await page.goto(getAuthoriseUrlForJourney(`checkVcReceiptMamPending`));
+
+    // Check the spinner text
+    const normalSpinnerTextLocator = await page.getByText("This may take a few minutes.");
+    await expect(normalSpinnerTextLocator).toBeVisible();
+
+    // Check the spinner text
+    const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
+    await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
+
+    // Check continue button is disabled
+    const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });
+    await expect(continueButtonLocator).toBeDisabled()
   })
 });

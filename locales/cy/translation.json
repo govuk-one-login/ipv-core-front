@@ -1145,7 +1145,7 @@
         "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "Ar y gweill",
+            "spinnerStateText": "In progress",
             "spinnerState": "pending"
           },
           "complete": {

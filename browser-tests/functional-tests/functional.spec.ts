@@ -201,12 +201,15 @@ test.describe.parallel("Functional tests", () => {
 
   test.describe.parallel("Check Strategic App VC receipt", () => {
     ["Mam", "Dad"].forEach((journeyType) => {
+      const spinnerText =
+        journeyType === "Dad" ? "Completed" : "You can now continue.";
+
       test(`${journeyType} success`, async ({ page }) => {
         // Start session with existing identity
         await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Success`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText("You can now continue.");
+        const spinnerTextLocator = await page.getByText(spinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to success page
@@ -227,7 +230,7 @@ test.describe.parallel("Functional tests", () => {
         await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Abandon`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText("You can now continue.");
+        const spinnerTextLocator = await page.getByText(spinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to multiple-doc page
@@ -248,7 +251,7 @@ test.describe.parallel("Functional tests", () => {
         await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Error`));
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText("You can now continue.");
+        const spinnerTextLocator = await page.getByText(spinnerText);
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to pyi-technical page
@@ -271,12 +274,15 @@ test.describe.parallel("Functional tests", () => {
         await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Pending`));
 
         // Check the spinner text
-        const normalSpinnerTextLocator = await page.getByText("This may take a few minutes.");
+        const spinnerText = journeyType === "Dad" ? "In progress" : "This may take a few minutes."
+        const normalSpinnerTextLocator = await page.getByText(spinnerText);
         await expect(normalSpinnerTextLocator).toBeVisible();
 
         // Check the spinner text
-        const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
-        await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
+        if(journeyType === "Mam") {
+          const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
+          await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
+        }
 
         // Check continue button is disabled
         const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });

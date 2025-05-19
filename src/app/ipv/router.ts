@@ -20,6 +20,7 @@ import {
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
+import { APP_REDIRECT_PATH } from "../../constants/common-paths";
 
 const parseForm = bodyParser.urlencoded({ extended: false });
 
@@ -85,7 +86,7 @@ router.post(
 );
 
 router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
-router.get("/app-redirect/:specifiedPhoneType", handleAppStoreRedirect);
+router.get(`/${APP_REDIRECT_PATH}/:specifiedPhoneType`, handleAppStoreRedirect);
 // Enables a link in the frontend to iterate the journey state
 // This is needed because some redirects must be done with links, not forms
 router.get("/journey/:pageId/:action", updateJourneyState);

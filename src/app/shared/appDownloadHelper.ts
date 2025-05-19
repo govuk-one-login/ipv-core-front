@@ -1,4 +1,5 @@
 import config from "../../config/config";
+import { APP_REDIRECT_PATH } from "../../constants/common-paths";
 import { PHONE_TYPES } from "../../constants/device-constants";
 import TechnicalError from "../../errors/technical-error";
 
@@ -7,5 +8,5 @@ export const getAppStoreRedirectUrl = (phoneType: string): string => {
     throw new TechnicalError(`Unrecognised phone type: ${phoneType}`);
   }
 
-  return config.SERVICE_URL + "/ipv/app-redirect/" + phoneType;
+  return config.SERVICE_URL + `/ipv/${APP_REDIRECT_PATH}/` + phoneType;
 };

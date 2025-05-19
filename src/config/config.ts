@@ -9,7 +9,6 @@ const coreBackApiUrl = appEnv.isLocal
   : appEnv.getServiceURL("core-back-api");
 
 export default {
-  ANDROID_APP_ID: process.env.ANDROID_APP_ID ?? "uk.gov.documentchecking",
   API_BASE_URL:
     coreBackApiUrl ?? process.env.API_BASE_URL ?? "http://localhost:4502",
   API_CRI_CALLBACK: "/cri/callback",
@@ -25,6 +24,10 @@ export default {
   APP_STORE_URL_APPLE:
     process.env.APP_STORE_URL_APPLE ??
     "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566",
+  IOS_APP_ID: process.env.IOS_APP_ID ?? "DEV_IOS_APP_ID",
+  ANDROID_APP_ID: process.env.ANDROID_APP_ID ?? "DEV_ANDROID_APP_ID",
+  ANDROID_FINGERPRINT:
+    process.env.ANDROID_FINGERPRINT ?? "DEV_ANDROID_FINGERPRINT",
   ENABLE_PREVIEW: process.env.ENABLE_PREVIEW === "development",
   EXTERNAL_WEBSITE_HOST: process.env.EXTERNAL_WEBSITE_HOST,
   PORT: process.env.PORT ?? 4501,

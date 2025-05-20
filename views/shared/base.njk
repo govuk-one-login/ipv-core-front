@@ -154,7 +154,7 @@
     <script type="module" nonce='{{ cspNonce }}' src="/public/javascripts/fingerprint.js"></script>
     <script type="module" nonce='{{ cspNonce }}'>
         import { setFingerprintCookie } from "/public/javascripts/fingerprint.js";
-        setFingerprintCookie('{{ serviceDomain }}')
+        setFingerprintCookie('{{ deviceIntelligenceCookieDomain }}')
     </script>
     {% endif %}
     <script nonce='{{ cspNonce }}'>

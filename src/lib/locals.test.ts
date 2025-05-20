@@ -45,7 +45,6 @@ describe("locals helper", () => {
       isGa4Enabled: false,
       isUaEnabled: true,
       logoutUrl: "https://example.com/logout",
-      serviceDomain: "localhost",
       serviceDomainDeviceIntelligence: "localhost",
       uaContainerId: "test-ua-id",
     });

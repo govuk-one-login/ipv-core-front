@@ -12,7 +12,6 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.analyticsCookieDomain = config.GTM_ANALYTICS_COOKIE_DOMAIN;
   res.locals.logoutUrl = config.LOGOUT_URL;
   res.locals.deleteAccountUrl = config.DELETE_ACCOUNT_URL;
-  res.locals.serviceDomain = config.SERVICE_DOMAIN;
   res.locals.serviceDomainDeviceIntelligence =
     config.SERVICE_DOMAIN_DEVICE_INTELLIGENCE;
 

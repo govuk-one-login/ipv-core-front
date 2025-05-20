@@ -13,7 +13,7 @@ const configStub = {
   GTM_ID: "test-ua-id",
   GTM_ID_GA4: "test-ga4-id",
   SERVICE_DOMAIN: "localhost",
-  SERVICE_DOMAIN_DEVICE_INTELLIGENCE: "localhost",
+  DEVICE_INTELLIGENCE_COOKIE_DOMAIN: "localhost",
   GA4_DISABLED: "true",
   UA_DISABLED: "false",
 };
@@ -45,7 +45,7 @@ describe("locals helper", () => {
       isGa4Enabled: false,
       isUaEnabled: true,
       logoutUrl: "https://example.com/logout",
-      serviceDomainDeviceIntelligence: "localhost",
+      deviceIntelligenceCookieDomain: "localhost",
       uaContainerId: "test-ua-id",
     });
 

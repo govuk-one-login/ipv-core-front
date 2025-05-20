@@ -1040,7 +1040,10 @@
       "content": {
         "subHeading": "Trwydded yrru cerdyn-llun y DU",
         "paragraph": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirements": ["gyda’ch llun", "heb ddod i ben"],
+        "drivingLicenceRequirements": [
+          "gyda’ch llun",
+          "heb ddod i ben"
+        ],
         "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
         "subHeading2": "Pasbort y DU",
         "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
@@ -1125,7 +1128,7 @@
         },
         "details3": {
           "summaryText": "Rwy’n sensitif i liwiau sy’n fflachio",
-          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
+          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
         },
         "details4": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",
@@ -1133,13 +1136,22 @@
         },
         "details5": {
           "summaryText": "Byddai’n well gen i beidio defnyddio’r ap",
-          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
+          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
         "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
         "subHeading4": "3. Gorffennwch brofi pwy ydych chi yma",
         "paragraph5": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
-        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio."
+        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
+        "spinner": {
+          "initial": {
+            "spinnerStateText": "In progress",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "Cwblhawyd"
+          }
+        }
       }
     },
     "pyiTriageMobileDownload": {
@@ -1152,7 +1164,7 @@
         "paragraph3": "Bydd cyfarwyddiadau ar beth sydd angen i chi ei wneud ar bob cam.",
         "details1": {
           "summaryText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
-          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
+          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
         },
         "button": "Lawrlwytho GOV.UK One Login",
         "details2": {
@@ -1165,7 +1177,7 @@
         },
         "details4": {
           "summaryText": "Byddai’n well gennyf beidio defnyddio’r ap",
-          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
+          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         }
       }
     },
@@ -1365,6 +1377,7 @@
           "longWait": {
             "spinnerStateText": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
+          "continueButtonText": "Parhau",
           "error": {
             "heading": "Mae’n ddrwg gennym, mae problem",
             "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",

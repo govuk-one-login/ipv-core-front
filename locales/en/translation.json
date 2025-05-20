@@ -1125,7 +1125,7 @@
         },
         "details3": {
           "summaryText": "I am sensitive to flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "details4": {
           "summaryText": "Do I need to take off my glasses?",
@@ -1133,13 +1133,22 @@
         },
         "details5": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity. Keep this page open while you do this.",
         "subHeading4": "3. Finish proving your identity here",
         "paragraph5": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
-        "paragraph6": "Then you can continue to the government service you want to use."
+        "paragraph6": "Then you can continue to the government service you want to use.",
+        "spinner": {
+          "initial": {
+            "spinnerStateText": "In progress",
+            "spinnerState": "pending"
+          },
+          "complete": {
+            "spinnerState": "Completed"
+          }
+        }
       }
     },
     "pyiTriageMobileDownload": {
@@ -1152,7 +1161,7 @@
         "paragraph3": "There will be instructions on what you need to do at each step.",
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1165,7 +1174,7 @@
         },
         "details4": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }
       }
     },
@@ -1365,6 +1374,7 @@
           "longWait": {
             "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
           },
+          "continueButtonText": "Continue",
           "error": {
             "heading": "Sorry, there is a problem",
             "messageText": "We cannot prove your identity right now.",

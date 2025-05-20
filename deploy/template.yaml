@@ -138,7 +138,7 @@ Mappings:
       tg500ErrorWindow: 300
       lambdaInvokeCompareWindow: 300
       languageToggle: true
-      useDeviceIntelligence: true
+      useDeviceIntelligence: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"

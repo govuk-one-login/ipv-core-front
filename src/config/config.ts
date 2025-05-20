@@ -46,6 +46,8 @@ export default {
   SERVICE_URL: process.env.SERVICE_URL,
   TEMPLATE_CACHING: process.env.TEMPLATE_CACHING,
   SERVICE_DOMAIN: process.env.SERVICE_DOMAIN ?? "localhost",
+  SERVICE_DOMAIN_DEVICE_INTELLIGENCE:
+    process.env.SERVICE_DOMAIN_DEVICE_INTELLIGENCE ?? "localhost",
   LANGUAGE_TOGGLE_ENABLED: process.env.LANGUAGE_TOGGLE === "true",
   USE_DEVICE_INTELLIGENCE: process.env.USE_DEVICE_INTELLIGENCE === "true",
   LOGOUT_URL: process.env.LOGOUT_URL ?? "https://oidc.account.gov.uk/logout",

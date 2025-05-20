@@ -28,3 +28,12 @@ export const getParameter = async (
 
   return parameterPromise;
 };
+
+// Temporary. Addressing inconsistent device intelligence cookie domain rollout
+export const getStaticDeviceIntelligenceCookieDomainFeatureSet =
+  async (): Promise<boolean> => {
+    const name =
+      "/core-front/staticDeviceIntelligenceCookieDomainEnabled";
+    const parameter = await getParameter(name);
+    return Boolean(parameter);
+  };

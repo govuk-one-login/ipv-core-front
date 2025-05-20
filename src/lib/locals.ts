@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import config from "../config/config";
 import { generateNonce } from "./strings";
+import { getStaticDeviceIntelligenceCookieDomainFeatureSet } from "../services/parameterStoreService";
 
 export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.uaContainerId = config.GTM_ID;
@@ -13,7 +14,9 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.logoutUrl = config.LOGOUT_URL;
   res.locals.deleteAccountUrl = config.DELETE_ACCOUNT_URL;
   res.locals.deviceIntelligenceCookieDomain =
-    config.DEVICE_INTELLIGENCE_COOKIE_DOMAIN;
+    (await getStaticDeviceIntelligenceCookieDomainFeatureSet())
+      ? config.DEVICE_INTELLIGENCE_COOKIE_DOMAIN
+      : config.SERVICE_DOMAIN;
 
   const contactUsUrl = new URL(config.CONTACT_URL);
   contactUsUrl.searchParams.set(

@@ -1412,13 +1412,13 @@
       }
     },
     "liveInUk": {
-      "title": "Do you live in the UK, the Channel Islands or the Isle of Man?",
-      "header": "Do you live in the UK, the Channel Islands or the Isle of Man?",
+      "title": "Where do you live?",
+      "header": "Where do you live?",
       "content": {
         "hint": "How you can prove your identity depends on where you live.",
         "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No"
+          "yes": "UK, Channel Islands or Isle of Man",
+          "no": "Another country"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

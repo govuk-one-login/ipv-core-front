@@ -1415,18 +1415,18 @@
       }
     },
     "liveInUk": {
-      "title": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
-      "header": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
+      "title": "Where do you live?",
+      "header": "Where do you live?",
       "content": {
-        "hint": "Mae sut y gallwch brofi eich hunaniaeth yn dibynnu ar ble rydych yn byw.",
+        "hint": "How you can prove your identity depends on where you live.",
         "formRadioButtons": {
-          "yes": "Ydw",
-          "no": "Na"
+          "yes": "UK, Channel Islands or Isle of Man",
+          "no": "Another country"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw",
-          "errorRadioMessage": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw"
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you live in the UK, the Channel Islands or the Isle of Man",
+          "errorRadioMessage": "Select yes if you live in the UK, the Channel Islands or the Isle of Man"
         }
       }
     },

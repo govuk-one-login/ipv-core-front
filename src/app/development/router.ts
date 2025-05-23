@@ -4,11 +4,16 @@ import {
   allTemplatesPost,
   templatesDisplayGet,
 } from "./middleware";
+import { csrfSynchronisedProtection } from "../../lib/csrf";
 
 const router = express.Router();
 
-router.post("/all-templates", allTemplatesPost);
-router.get("/all-templates", allTemplatesGet);
-router.get("/template/:templateId/:language", templatesDisplayGet);
+router.post("/all-templates", csrfSynchronisedProtection, allTemplatesPost);
+router.get("/all-templates", csrfSynchronisedProtection, allTemplatesGet);
+router.get(
+  "/template/:templateId/:language",
+  csrfSynchronisedProtection,
+  templatesDisplayGet,
+);
 
 export default router;

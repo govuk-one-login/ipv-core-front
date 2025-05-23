@@ -28,3 +28,6 @@
 
 <!-- Delete if changes don't apply -->
 - [ ] Browser/unit tests have been written/updated
+
+<!-- Delete if changes don't apply -->
+- [ ] Ensure added/updated routes have CSRF protection if required

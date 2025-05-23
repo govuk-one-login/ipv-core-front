@@ -330,7 +330,11 @@ test.describe.parallel("Functional tests", () => {
     expect(res.status()).toBe(404);
   });
 
-  [{testCase: "missing body", body: undefined, expectedStatusCode: 400}, {testCase: "missing csrf token", body: {data: {pageId: "live-in-uk"}}, expectedStatusCode: 403}, {testCase : "invalid csrf token", body: {data: {_csrf: "invalid-csrf"}}, expectedStatusCode: 403}].forEach(({testCase, body, expectedStatusCode}) => {
+  [
+    {testCase: "missing body", body: undefined, expectedStatusCode: 400},
+    {testCase: "missing csrf token", body: {data: {pageId: "live-in-uk"}}, expectedStatusCode: 403},
+    {testCase : "invalid csrf token", body: {data: {_csrf: "invalid-csrf"}}, expectedStatusCode: 403}
+  ].forEach(({testCase, body, expectedStatusCode}) => {
     test(`Post request to known route which has CSRF protection with ${testCase} returns ${expectedStatusCode}`, async ({request}) => {
       // Make a post request to an unknown route
       const res = await request.post("ipv/page/live-in-uk", body);

@@ -10,17 +10,25 @@ describe("getTokenFromRequest", () => {
     const token = getTokenFromRequest(testRequest);
 
     expect(token).to.equal("csrf-token");
-  })
+  });
 
   it("should throw BadRequest error when missing request body", () => {
     const testRequest = {} as unknown as Request;
 
-    expect(() => getTokenFromRequest(testRequest)).to.throw(BadRequestError, "Missing request body");
-  })
+    expect(() => getTokenFromRequest(testRequest)).to.throw(
+      BadRequestError,
+      "Missing request body",
+    );
+  });
 
   it("should throw Forbidden error when missing csrf token", () => {
-    const testRequest = {body: {pageId: "live-in-uk"}} as unknown as Request;
+    const testRequest = {
+      body: { pageId: "live-in-uk" },
+    } as unknown as Request;
 
-    expect(() => getTokenFromRequest(testRequest)).to.throw(ForbiddenError, "Missing csrf token");
-  })
-})
+    expect(() => getTokenFromRequest(testRequest)).to.throw(
+      ForbiddenError,
+      "Missing csrf token",
+    );
+  });
+});

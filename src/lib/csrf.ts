@@ -3,7 +3,7 @@ import { Request } from "express";
 import BadRequestError from "../errors/bad-request-error";
 import ForbiddenError from "../errors/forbidden-error";
 
-const { csrfSynchronisedProtection } = csrfSync({
+const { csrfSynchronisedProtection, getTokenFromRequest } = csrfSync({
   getTokenFromRequest: (req: Request) => {
     if (!req.body) {
       throw new BadRequestError("Missing request body");
@@ -18,4 +18,4 @@ const { csrfSynchronisedProtection } = csrfSync({
   },
 });
 
-export { csrfSynchronisedProtection };
+export { csrfSynchronisedProtection, getTokenFromRequest };

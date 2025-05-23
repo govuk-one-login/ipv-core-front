@@ -3,6 +3,6 @@ import { pollVcReceiptStatus } from "./middleware";
 
 const router = express.Router();
 
-router.get("/app-vc-receipt-status", pollVcReceiptStatus);
+router.get("/", pollVcReceiptStatus);
 
 export default router;

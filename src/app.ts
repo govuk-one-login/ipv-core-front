@@ -28,7 +28,6 @@ import {
   securityHeadersHandler,
   cspHandler,
 } from "./handlers/security-headers-handler";
-import { csrfSynchronisedProtection } from "./lib/csrf";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
 import protect, { ProtectionConfig } from "overload-protection";
 import { configureNunjucks, VIEWS } from "./config/nunjucks";
@@ -186,9 +185,6 @@ app.use((req, res, next) => {
 });
 app.use(loggerMiddleware);
 
-// Must be added to the app after the session and logging, and before the routers.
-app.use(csrfSynchronisedProtection);
-
 app.use((req, res, next) => {
   res.set(
     "Cache-Control",
@@ -214,7 +210,7 @@ router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
 router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
-router.use("/", vcReceiptStatusRouter);
+router.use("/app-vc-receipt-status", vcReceiptStatusRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }

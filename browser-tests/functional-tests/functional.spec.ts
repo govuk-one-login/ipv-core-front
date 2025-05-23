@@ -306,5 +306,37 @@ test.describe.parallel("Functional tests", () => {
     // Check continue button is disabled
     const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });
     await expect(continueButtonLocator).toBeDisabled()
+  });
+
+  ["unknown-route", "ipv/nested/unknown", "dev/nested/unknown"].forEach(route => {
+    test(`Unknown route ${route} returns 404 response`, async ({page}) => {
+      // Navigate to unknown route
+      const res = await page.goto(route);
+
+      // Check we get the not found error page
+      const pageHeading = await page.locator("h1").textContent();
+      expect(pageHeading).toBe(
+        "Page not found",
+      );
+      expect(res?.status()).toBe(404);
+    })
+  });
+
+  test("Post request to unknown route results in 404", async ({request}) => {
+    // Make a post request to an unknown route
+    const res = await request.post("unknown-route");
+
+    // Assert
+    expect(res.status()).toBe(404);
+  });
+
+  [{testCase: "missing body", body: undefined, expectedStatusCode: 400}, {testCase: "missing csrf token", body: {data: {pageId: "live-in-uk"}}, expectedStatusCode: 403}, {testCase : "invalid csrf token", body: {data: {_csrf: "invalid-csrf"}}, expectedStatusCode: 403}].forEach(({testCase, body, expectedStatusCode}) => {
+    test(`Post request to known route which has CSRF protection with ${testCase} returns ${expectedStatusCode}`, async ({request}) => {
+      // Make a post request to an unknown route
+      const res = await request.post("ipv/page/live-in-uk", body);
+
+      // Assert
+      expect(res.status()).toBe(expectedStatusCode);
+    })
   })
 });

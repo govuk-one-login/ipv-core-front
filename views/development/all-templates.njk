@@ -7,7 +7,7 @@
 
 {% extends "shared/base.njk" %}
 {% set pageTitleKey = "All templates" %}
-{% set rowClasses = "govuk-grid-column-full" %}
+{% set rowClasses = "govuk-grid-column-full" %} 
 
 {% if errorState %}
     {% set errorText = 'Select a page and a context if appropriate.' %}
@@ -17,14 +17,14 @@
 <table class="govuk-table">
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Template Name</th>
+      <th scope="col" class="govuk-table__header">Template</th>
       <th scope="col" class="govuk-table__header">Context</th>
       <th scope="col" class="govuk-table__header">Error State</th>
       <th scope="col" class="govuk-table__header">Submit</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-
+  
   {% for page, contexts in templatesWithContextRadioOptions %}
   <form action="/dev/all-templates" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -38,7 +38,7 @@
         {% if contexts | length %}
           {{ govukSelect({
             name: "pageContext",
-            selected: contexts[0].value,
+            selected: contexts[0].value, 
             items: contexts
           }) }}
         {% else %}

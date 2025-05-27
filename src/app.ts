@@ -23,7 +23,7 @@ import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
 import serverErrorHandler from "./handlers/internal-server-error-handler";
 import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
-import pageNotFoundHandler from "./handlers/page-not-found-handler";
+import unknownRouteHandler from "./handlers/unknown-route-handler";
 import {
   securityHeadersHandler,
   cspHandler,
@@ -220,7 +220,7 @@ app.use(router);
 
 app.use(journeyEventErrorHandler);
 app.use(serverErrorHandler);
-app.use(pageNotFoundHandler);
+app.use(unknownRouteHandler);
 
 const server = app
   .listen(config.PORT, () => {

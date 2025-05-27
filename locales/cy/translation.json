@@ -1145,11 +1145,11 @@
         "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "In progress",
+            "spinnerStateText": "Yn cymryd lle",
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerState": "Cwblhawyd"
+            "spinnerState": "Wedi’i gwblhau"
           }
         }
       }

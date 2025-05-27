@@ -12,10 +12,6 @@
 
 {% block content %}
 
-  {% if context !== "f2f" %}
-    {% set hintText = 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate %}
-  {% endif %}
-
   <form id="pyiConfirmDeleteDetailsActionForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radiosConfig = {
@@ -23,13 +19,13 @@
         name: "journey",
         fieldset: {
           legend: {
-            text: 'pages.pyiConfirmDeleteDetails.header' |  translateWithContext(context),
+            text: 'pages.pyiConfirmDeleteDetails.header' |  translate,
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
         hint: {
-          text: hintText
+          text: 'pages.pyiConfirmDeleteDetails.content.paragraph1' | translate
         },
         items: [
           {
@@ -38,7 +34,7 @@
           },
           {
             value: "end",
-            text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.no' | translateWithContext(context)
+            text: 'pages.pyiConfirmDeleteDetails.content.formRadioButtons.no' | translate
           }
         ]
       }

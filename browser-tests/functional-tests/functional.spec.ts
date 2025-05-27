@@ -23,7 +23,9 @@ test.describe.parallel("Functional tests", () => {
 
     // Check that we are on the post office start page
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/page-ipv-identity-postoffice-start`);
+    expect(url).toBe(
+      `${domainUrl}/ipv/page/page-ipv-identity-postoffice-start`,
+    );
   });
 
   test("Welsh language toggle", async ({ page }) => {
@@ -46,9 +48,7 @@ test.describe.parallel("Functional tests", () => {
 
     // Check the page heading for session ended page
     const pageHeading = await page.locator("h1").textContent();
-    expect(pageHeading).toBe(
-      "Session expired",
-    );
+    expect(pageHeading).toBe("Session expired");
   });
 
   test("Page not found", async ({ page }) => {
@@ -61,9 +61,7 @@ test.describe.parallel("Functional tests", () => {
 
     // Check the page heading for not found page
     const pageHeading = await page.locator("h1").textContent();
-    expect(pageHeading).toBe(
-      "Page not found",
-    );
+    expect(pageHeading).toBe("Page not found");
   });
 
   test("Context is used to display page", async ({ page }) => {
@@ -75,7 +73,9 @@ test.describe.parallel("Functional tests", () => {
     await page.click("button[id='submitButton']");
 
     // Check that we use the context returned by imposter to render the page
-    const contextSpecificTextLocator = await page.getByText("Use your UK photocard driving licence");
+    const contextSpecificTextLocator = await page.getByText(
+      "Use your UK photocard driving licence",
+    );
     await expect(contextSpecificTextLocator).toBeVisible();
   });
 
@@ -93,7 +93,7 @@ test.describe.parallel("Functional tests", () => {
   });
 
   test("Device intelligence cookie", async ({ page }) => {
-    const cookieName = 'di-device-intelligence';
+    const cookieName = "di-device-intelligence";
 
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testPageNavigation"));
@@ -104,7 +104,9 @@ test.describe.parallel("Functional tests", () => {
 
     // Check for cookie
     const cookies = await page.context().cookies();
-    const expectedCookies = cookies.find((cookie: { name: string; }) => cookie.name === cookieName);
+    const expectedCookies = cookies.find(
+      (cookie: { name: string }) => cookie.name === cookieName,
+    );
     expect(expectedCookies).toBeTruthy();
   });
 
@@ -118,48 +120,66 @@ test.describe.parallel("Functional tests", () => {
     expect(url).toBe(`https://example.com/`);
   });
 
-  test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({ page }) => {
+  test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({
+    page,
+  }) => {
     // Start a session with an existing identity
-    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+    await page.goto(
+      getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"),
+    );
 
-    const reuseIdentityPageHeaderLocator = await page.getByRole('heading', { name: "You have already proved your identity" });
+    const reuseIdentityPageHeaderLocator = await page.getByRole("heading", {
+      name: "You have already proved your identity",
+    });
     await expect(reuseIdentityPageHeaderLocator).toBeVisible();
 
-    const nameLocator = await page.getByText('Kenneth Decerqueira');
+    const nameLocator = await page.getByText("Kenneth Decerqueira");
     await expect(nameLocator).toBeVisible();
 
-    const birthDateLocator = await page.getByText('8 July 1965');
+    const birthDateLocator = await page.getByText("8 July 1965");
     await expect(birthDateLocator).toBeVisible();
 
-    const addressLocator = await page.getByText('8, Hadley Road')
+    const addressLocator = await page.getByText("8, Hadley Road");
     await expect(addressLocator).toBeVisible();
-  })
+  });
 
-  test("Successfully gets proven user details from core-back for the confirm-your-details screen", async ({ page }) => {
+  test("Successfully gets proven user details from core-back for the confirm-your-details screen", async ({
+    page,
+  }) => {
     // Start session with existing identity
-    await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
+    await page.goto(
+      getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"),
+    );
 
-    const confirmDetailsPageHeaderLocator = await page.getByRole('heading', { name: "You need to confirm your details" });
+    const confirmDetailsPageHeaderLocator = await page.getByRole("heading", {
+      name: "You need to confirm your details",
+    });
     await expect(confirmDetailsPageHeaderLocator).toBeVisible();
 
-    const givenNameLocator = await page.getByText('Kenneth');
+    const givenNameLocator = await page.getByText("Kenneth");
     await expect(givenNameLocator).toBeVisible();
-    const familyNameLocator = await page.getByText('Decerqueira');
+    const familyNameLocator = await page.getByText("Decerqueira");
     await expect(familyNameLocator).toBeVisible();
 
-    const birthDateLocator = await page.getByText('8 July 1965');
+    const birthDateLocator = await page.getByText("8 July 1965");
     await expect(birthDateLocator).toBeVisible();
 
-    const addressLocator = await page.getByText('8, Hadley Road')
+    const addressLocator = await page.getByText("8, Hadley Road");
     await expect(addressLocator).toBeVisible();
-  })
+  });
 
-  test("Displays error when no options are selected for update on update-details screen", async ({ page }) => {
+  test("Displays error when no options are selected for update on update-details screen", async ({
+    page,
+  }) => {
     // Start session with existing identity
-    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+    await page.goto(
+      getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"),
+    );
 
-    await page.getByRole('heading', { name: "If your details are wrong" }).click();
-    await page.getByRole('link', { name: "update your details" }).click();
+    await page
+      .getByRole("heading", { name: "If your details are wrong" })
+      .click();
+    await page.getByRole("link", { name: "update your details" }).click();
 
     // Check we are on the update-details page
     const url = page.url();
@@ -167,28 +187,42 @@ test.describe.parallel("Functional tests", () => {
 
     await page.click("button[id='submitButton']");
 
-    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update" });
+    const errorTextLocator = await page.getByRole("link", {
+      name: "Select which details you need to update",
+    });
     await expect(errorTextLocator).toBeVisible();
-  })
+  });
 
-  test("Displays error when details are not up-to-date but no options are selected on confirm-your-details screen", async ({ page }) => {
+  test("Displays error when details are not up-to-date but no options are selected on confirm-your-details screen", async ({
+    page,
+  }) => {
     // Start session with existing identity
-    await page.goto(getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"))
+    await page.goto(
+      getAuthoriseUrlForJourney("fraudCheckJourneyKennethDecerqueira"),
+    );
 
-    await page.click('input[value="no"]')
+    await page.click('input[value="no"]');
 
     await page.click("button[id='submitButton']");
 
-    const errorTextLocator = await page.getByRole('link', { name: "Select which details you need to update" });
+    const errorTextLocator = await page.getByRole("link", {
+      name: "Select which details you need to update",
+    });
     await expect(errorTextLocator).toBeVisible();
-  })
+  });
 
-  test("The selected form options on an update details screen sends the appropriate journey", async ({ page }) => {
+  test("The selected form options on an update details screen sends the appropriate journey", async ({
+    page,
+  }) => {
     // Start session with existing identity
-    await page.goto(getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"))
+    await page.goto(
+      getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"),
+    );
 
-    await page.getByRole('heading', { name: "If your details are wrong" }).click();
-    await page.getByRole('link', { name: "update your details" }).click();
+    await page
+      .getByRole("heading", { name: "If your details are wrong" })
+      .click();
+    await page.getByRole("link", { name: "update your details" }).click();
 
     await page.click("input[value='givenNames']");
     await page.click("input[value='address']");
@@ -197,97 +231,115 @@ test.describe.parallel("Functional tests", () => {
     // Check the appropriate endpoint is called and correct page is redirected to according to mock
     const url = page.url();
     expect(url).toBe(`${domainUrl}/ipv/page/page-update-name`);
-  })
+  });
 
   test.describe.parallel("Check Strategic App VC receipt", () => {
-    [{
-      journeyType: "Mam",
-      inProgressSpinnerText: "This may take a few minutes.",
-      completedSpinnerText: "You can now continue."
-    }, {
-      journeyType: "Dad",
-      inProgressSpinnerText: "In progress",
-      completedSpinnerText: "Completed"
-    }].forEach((journeyData) => {
-
+    [
+      {
+        journeyType: "Mam",
+        inProgressSpinnerText: "This may take a few minutes.",
+        completedSpinnerText: "You can now continue.",
+      },
+      {
+        journeyType: "Dad",
+        inProgressSpinnerText: "In progress",
+        completedSpinnerText: "Completed",
+      },
+    ].forEach((journeyData) => {
       test(`${journeyData.journeyType} success`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Success`));
+        await page.goto(
+          getAuthoriseUrlForJourney(
+            `checkVcReceipt${journeyData.journeyType}Success`,
+          ),
+        );
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
+        const spinnerTextLocator = await page.getByText(
+          journeyData.completedSpinnerText,
+        );
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to success page
-        await page.getByRole('button', { name: /Continue/ }).click();
+        await page.getByRole("button", { name: /Continue/ }).click();
 
         // Confirm url
-        expect(page.url()).toContain('/page-dcmaw-success');
+        expect(page.url()).toContain("/page-dcmaw-success");
 
         // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
         expect(pageHeading).toBe(
           "We’ve successfully matched you to the photo on your ID",
         );
-      })
+      });
 
       test(`${journeyData.journeyType} abandon`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Abandon`));
+        await page.goto(
+          getAuthoriseUrlForJourney(
+            `checkVcReceipt${journeyData.journeyType}Abandon`,
+          ),
+        );
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
+        const spinnerTextLocator = await page.getByText(
+          journeyData.completedSpinnerText,
+        );
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to multiple-doc page
-        await page.getByRole('button', { name: /Continue/ }).click();
+        await page.getByRole("button", { name: /Continue/ }).click();
 
         // Confirm url
-        expect(page.url()).toContain('/page-multiple-doc-check');
+        expect(page.url()).toContain("/page-multiple-doc-check");
 
         // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
-        expect(pageHeading).toBe(
-          "Continue proving your identity online",
-        );
-      })
+        expect(pageHeading).toBe("Continue proving your identity online");
+      });
 
       test(`${journeyData.journeyType} error`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Error`));
+        await page.goto(
+          getAuthoriseUrlForJourney(
+            `checkVcReceipt${journeyData.journeyType}Error`,
+          ),
+        );
 
         // Check the spinner text
-        const spinnerTextLocator = await page.getByText(journeyData.completedSpinnerText);
+        const spinnerTextLocator = await page.getByText(
+          journeyData.completedSpinnerText,
+        );
         await expect(spinnerTextLocator).toBeVisible();
 
         // Click continue to pyi-technical page
-        await page.getByRole('button', { name: /Continue/ }).click();
+        await page.getByRole("button", { name: /Continue/ }).click();
 
         // Confirm url
-        expect(page.url()).toContain('/pyi-technical');
+        expect(page.url()).toContain("/pyi-technical");
 
         // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
-        expect(pageHeading).toBe(
-          "Sorry, there is a problem",
-        );
-      })
+        expect(pageHeading).toBe("Sorry, there is a problem");
+      });
 
       test(`${journeyData.journeyType} failure`, async ({ page }) => {
         // Start session with existing identity
-        await page.goto(getAuthoriseUrlForJourney(`checkVcReceipt${journeyData.journeyType}Failure`));
+        await page.goto(
+          getAuthoriseUrlForJourney(
+            `checkVcReceipt${journeyData.journeyType}Failure`,
+          ),
+        );
 
         // MAM and DAD handle errors differently. DAD must use custom spinner code due to being integrated into the
         // download page. It cannot refresh the entire page's content, so redirects to pyi-technical instead.
 
         // Confirm page heading
         const pageHeading = await page.locator("h1").textContent();
-        expect(pageHeading).toBe(
-          "Sorry, there is a problem",
-        );
-      })
-    })
-  })
+        expect(pageHeading).toBe("Sorry, there is a problem");
+      });
+    });
+  });
 
   test(`Mam pending`, async ({ page }) => {
     test.setTimeout(90000);
@@ -296,15 +348,21 @@ test.describe.parallel("Functional tests", () => {
     await page.goto(getAuthoriseUrlForJourney(`checkVcReceiptMamPending`));
 
     // Check the spinner text
-    const normalSpinnerTextLocator = await page.getByText("This may take a few minutes.");
+    const normalSpinnerTextLocator = await page.getByText(
+      "This may take a few minutes.",
+    );
     await expect(normalSpinnerTextLocator).toBeVisible();
 
     // Check the spinner text
-    const longWaitSpinnerTextLocator = await page.getByText("We’re still checking your details. Do not close or refresh this page.");
+    const longWaitSpinnerTextLocator = await page.getByText(
+      "We’re still checking your details. Do not close or refresh this page.",
+    );
     await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
 
     // Check continue button is disabled
-    const continueButtonLocator = await page.getByRole('button', { name: /Continue/ });
-    await expect(continueButtonLocator).toBeDisabled()
-  })
+    const continueButtonLocator = await page.getByRole("button", {
+      name: /Continue/,
+    });
+    await expect(continueButtonLocator).toBeDisabled();
+  });
 });

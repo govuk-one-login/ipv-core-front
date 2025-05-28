@@ -280,7 +280,7 @@ describe("Error handlers", () => {
       journeyEventErrorHandler(err, req, res, next);
 
       // Assert
-      expect(res.redirect).to.have.been.calledWith("/ipv/page/pyi-technical");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
       expect(res.status).to.have.been.calledWith(HttpStatusCode.BadRequest);
     });
 
@@ -308,7 +308,7 @@ describe("Error handlers", () => {
       expect(res.status).to.have.been.calledOnceWith(
         HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
       );
-      expect(res.redirect).to.have.been.calledWith("/ipv/page/pyi-technical");
+      expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
     });
 
     it("should call next with error when there is no pageId", () => {
@@ -357,8 +357,8 @@ describe("Error handlers", () => {
 
       // Assert
       expect(req.session.clientOauthSessionId).to.eq("fake-session-id");
-      expect(res.redirect).to.have.been.calledWith(
-        "/ipv/page/pyi-timeout-recoverable",
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/pyi-timeout-recoverable.njk",
       );
       expect(res.status).to.have.been.calledWith(HttpStatusCode.Unauthorized);
     });

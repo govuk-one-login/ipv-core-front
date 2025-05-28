@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { ErrorRequestHandler } from "express";
 import sanitize from "sanitize-filename";
 import { HTTP_STATUS_CODES } from "../app.constants";
-import { getIpvPagePath } from "../lib/paths";
+import { getIpvPageTemplatePath } from "../lib/paths";
 import { isPageResponse } from "../app/validators/postJourneyEventResponse";
 import { HANDLED_ERROR } from "../lib/logger";
 
@@ -28,7 +28,10 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // Set this to avoid pino-http generating a new error in the request log
     res.err = HANDLED_ERROR;
 
-    return res.redirect(getIpvPagePath(pageId));
+    return res.render(getIpvPageTemplatePath(pageId), {
+      pageId: pageId,
+      csrfToken: req.csrfToken?.(true),
+    });
   }
 
   return next(err);

@@ -17,10 +17,12 @@ import {
   checkVcReceiptStatus,
   handleAppStoreRedirect,
   setRequestPageId,
+  validatePageId,
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
 import { APP_REDIRECT_PATH } from "../../constants/common-paths";
+import { csrfSynchronisedProtection } from "../../lib/csrf";
 
 const parseForm = bodyParser.urlencoded({ extended: false });
 
@@ -30,19 +32,26 @@ const getPagePath = (pageId: string): string => {
 
 router.get(
   getPagePath(IPV_PAGES.PYI_ATTEMPT_RECOVERY),
+  csrfSynchronisedProtection,
   renderAttemptRecoveryPage,
 );
 
 router.get(
   getPagePath(IPV_PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
+  csrfSynchronisedProtection,
   staticPageMiddleware(IPV_PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
 );
 
-router.get(getPagePath(":pageId"), handleJourneyPageRequest);
+router.get(
+  getPagePath(":pageId"),
+  csrfSynchronisedProtection,
+  handleJourneyPageRequest,
+);
 
 // Special case to handle determination of COI journey type based on the checkboxes selected
 router.post(
   getPagePath(IPV_PAGES.UPDATE_DETAILS),
+  csrfSynchronisedProtection,
   parseForm,
   setRequestPageId(IPV_PAGES.UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
@@ -53,6 +62,7 @@ router.post(
 // Special case to handle determination of COI journey type based on the checkboxes selected and determine the error type
 router.post(
   getPagePath(IPV_PAGES.CONFIRM_DETAILS),
+  csrfSynchronisedProtection,
   parseForm,
   setRequestPageId(IPV_PAGES.CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
@@ -63,6 +73,7 @@ router.post(
 // Special case to handle mobile app check receipt status, non javascript browser
 router.post(
   getPagePath(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
+  csrfSynchronisedProtection,
   parseForm,
   setRequestPageId(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
   checkVcReceiptStatus,
@@ -72,6 +83,7 @@ router.post(
 // Special case to handle desktop download app check receipt status, non javascript browser
 router.post(
   getPagePath(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
+  csrfSynchronisedProtection,
   parseForm,
   setRequestPageId(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
   checkVcReceiptStatus,
@@ -80,6 +92,8 @@ router.post(
 
 router.post(
   getPagePath(":pageId"),
+  validatePageId,
+  csrfSynchronisedProtection,
   parseForm,
   checkFormRadioButtonSelected,
   handleJourneyActionRequest,

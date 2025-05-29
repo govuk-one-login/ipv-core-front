@@ -3,7 +3,7 @@ import { getErrorPageTemplatePath } from "../lib/paths";
 import ERROR_PAGES from "../constants/error-pages";
 import { RequestHandler } from "express";
 
-const pageNotFoundHandler: RequestHandler = (req, res, next) => {
+const unknownRouteHandler: RequestHandler = (req, res, next) => {
   if (res.headersSent) {
     return next();
   }
@@ -12,4 +12,4 @@ const pageNotFoundHandler: RequestHandler = (req, res, next) => {
   res.render(getErrorPageTemplatePath(ERROR_PAGES.PAGE_NOT_FOUND));
 };
 
-export default pageNotFoundHandler;
+export default unknownRouteHandler;

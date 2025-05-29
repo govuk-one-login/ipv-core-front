@@ -526,3 +526,10 @@ export const setRequestPageId = (pageId: string): RequestHandler => {
     return next();
   };
 };
+
+export const validatePageId: RequestHandler = (req, res, next) => {
+  if (!isValidIpvPage(req.params.pageId)) {
+    throw new NotFoundError("Invalid page id");
+  }
+  return next();
+};

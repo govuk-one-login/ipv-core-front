@@ -2,7 +2,7 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { expect } from "chai";
 import proxyquire from "proxyquire";
 import sinon from "sinon";
-import pageNotFoundHandler from "./page-not-found-handler";
+import unknownRouteHandler from "./unknown-route-handler";
 import journeyEventErrorHandler from "./journey-event-error-handler";
 import {
   specifyCreateRequest,
@@ -37,14 +37,14 @@ describe("Error handlers", () => {
     axiosStub.isAxiosError.resetHistory();
   });
 
-  describe("pageNotFoundHandler", () => {
+  describe("unknownRouteHandler", () => {
     it("should render page-not-found view", () => {
       // Arrange
       const req = createRequest();
       const res = createResponse();
 
       // Act
-      pageNotFoundHandler(req, res, next);
+      unknownRouteHandler(req, res, next);
 
       // Assert
       expect(res.status).to.have.been.calledOnceWith(HttpStatusCode.NotFound);
@@ -61,7 +61,7 @@ describe("Error handlers", () => {
       });
 
       // Act
-      pageNotFoundHandler(req, res, next);
+      unknownRouteHandler(req, res, next);
 
       // Assert
       expect(next).to.be.have.been.calledOnce;

@@ -34,7 +34,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "prove-identity-no-photo-id": ["nino", undefined],
   "pyi-another-way": [],
   "pyi-attempt-recovery": [],
-  "pyi-confirm-delete-details": ["f2f", undefined],
+  "pyi-confirm-delete-details": [],
   "pyi-continue-with-driving-licence": [],
   "pyi-continue-with-passport": [],
   "pyi-details-deleted": ["f2f", undefined],

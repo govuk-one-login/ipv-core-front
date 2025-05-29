@@ -17,6 +17,7 @@ import {
   checkVcReceiptStatus,
   handleAppStoreRedirect,
   setRequestPageId,
+  validatePageId,
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
@@ -91,6 +92,7 @@ router.post(
 
 router.post(
   getPagePath(":pageId"),
+  validatePageId,
   csrfSynchronisedProtection,
   parseForm,
   checkFormRadioButtonSelected,

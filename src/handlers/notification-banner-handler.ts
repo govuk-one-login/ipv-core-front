@@ -1,6 +1,6 @@
-import { RequestHandler } from "express";
 import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
+import { RequestHandler } from "express";
 export interface BannerConfig {
   pageId: string;
   context?: string;
@@ -10,6 +10,17 @@ export interface BannerConfig {
   startTime: string;
   endTime: string;
 }
+
+// This should match dates in this format: 2025-05-11T21:00:00.000+0100
+const dateFormatRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{4}$/;
+
+const validateDate = (dateString: string): void => {
+  if (!dateFormatRegex.test(dateString)) {
+    throw new Error(
+      `Invalid date format for notification banner: ${dateString}`,
+    );
+  }
+};
 
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
@@ -41,11 +52,16 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
 
     bannerConfigsParsed.forEach((data: BannerConfig) => {
-      const currentTime = new Date().toISOString();
+      validateDate(data.startTime);
+      validateDate(data.endTime);
+
+      const bannerStartTime = new Date(data.startTime);
+      const bannerEndTime = new Date(data.endTime);
+      const currentTime = new Date();
       if (
         req.path === data.pageId &&
-        currentTime >= data.startTime &&
-        currentTime <= data.endTime &&
+        currentTime >= bannerStartTime &&
+        currentTime <= bannerEndTime &&
         ((!req.session.context && !data.context) ||
           req.session.context === data.context)
       ) {
@@ -59,7 +75,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
     });
     next();
   } catch (err) {
-    logger.error(err, "Error getting notification banner");
+    logger.error(err, "Error getting notification banner: " + err);
     next();
   }
 };

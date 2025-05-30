@@ -29,9 +29,9 @@ import {
   cspHandler,
 } from "./handlers/security-headers-handler";
 import { csrfSynchronisedProtection } from "./lib/csrf";
-import notificationBannerHandler from "./handlers/notification-banner-handler";
 import protect, { ProtectionConfig } from "overload-protection";
 import { configureNunjucks, VIEWS } from "./config/nunjucks";
+import notificationBannerHandler from "./handlers/notification-banner-handler";
 
 // Extend request object with our own extensions
 declare global {

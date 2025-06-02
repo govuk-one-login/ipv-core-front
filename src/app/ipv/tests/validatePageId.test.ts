@@ -13,7 +13,7 @@ const createResponse = specifyCreateResponse();
 describe("validatePageId", () => {
   it("should throw if invalid pageId is provided", () => {
     // Arrange
-    const req = createRequest({ params: { pageId: "unkownPageId" } });
+    const req = createRequest({ params: { pageId: "unknownPageId" } });
     const res = createResponse();
     const next = sinon.fake();
 
@@ -24,7 +24,7 @@ describe("validatePageId", () => {
     );
   });
 
-  it("should throw if invalid pageId is provided", () => {
+  it("should not throw given valid pageId", () => {
     // Arrange
     const req = createRequest({ params: { pageId: "live-in-uk" } });
     const res = createResponse();

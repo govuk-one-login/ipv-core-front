@@ -700,16 +700,13 @@
       }
     },
     "pyiConfirmDeleteDetails": {
-      "title": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
-      "titleF2f": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
-      "header": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
-      "headerF2f": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
+      "title": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
+      "header": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
       "content": {
         "paragraph1": "Ni fydd dileu eich GOV.UK One Login yn effeithio ar unrhyw gyfrifon eraill y llywodraeth sydd gennych, fel Porth y Llywodraeth neu Gredyd Cynhwysol.",
         "formRadioButtons": {
           "yes": "Ydw, dileu fy manylion",
-          "no": "Na, canslo a mynd yn ôl at fy manylion cyfredol",
-          "noF2f": "Na, rwyf am brofi fy hunaniaeth mewn Swyddfa’r Post"
+          "no": "Na, rwyf am brofi fy hunaniaeth mewn Swyddfa’r Post"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

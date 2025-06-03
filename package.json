@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
-    "@eslint/js": "9.27.0",
+    "@eslint/js": "9.28.0",
     "@types/cfenv": "1.2.4",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",
@@ -77,8 +77,8 @@
     "webpack": "5.99.5"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.817.0",
-    "@aws-sdk/client-ssm": "3.817.0",
+    "@aws-sdk/client-dynamodb": "3.821.0",
+    "@aws-sdk/client-ssm": "3.821.0",
     "@govuk-one-login/data-vocab": "1.9.2",
     "@govuk-one-login/frontend-analytics": "3.3.0",
     "@govuk-one-login/frontend-device-intelligence": "1.1.0",

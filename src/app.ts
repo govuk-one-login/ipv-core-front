@@ -23,12 +23,11 @@ import { loggerMiddleware, logger } from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
 import serverErrorHandler from "./handlers/internal-server-error-handler";
 import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
-import pageNotFoundHandler from "./handlers/page-not-found-handler";
+import unknownRouteHandler from "./handlers/unknown-route-handler";
 import {
   securityHeadersHandler,
   cspHandler,
 } from "./handlers/security-headers-handler";
-import { csrfSynchronisedProtection } from "./lib/csrf";
 import protect, { ProtectionConfig } from "overload-protection";
 import { configureNunjucks, VIEWS } from "./config/nunjucks";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
@@ -186,9 +185,6 @@ app.use((req, res, next) => {
 });
 app.use(loggerMiddleware);
 
-// Must be added to the app after the session and logging, and before the routers.
-app.use(csrfSynchronisedProtection);
-
 app.use((req, res, next) => {
   res.set(
     "Cache-Control",
@@ -214,7 +210,7 @@ router.use("/oauth2", oauthRouter);
 router.use("/credential-issuer", criRouter);
 router.use("/app", mobileAppRouter);
 router.use("/ipv", ipvRouter);
-router.use("/", vcReceiptStatusRouter);
+router.use("/app-vc-receipt-status", vcReceiptStatusRouter);
 if (config.ENABLE_PREVIEW) {
   router.use("/dev", devRouter);
 }
@@ -224,7 +220,7 @@ app.use(router);
 
 app.use(journeyEventErrorHandler);
 app.use(serverErrorHandler);
-app.use(pageNotFoundHandler);
+app.use(unknownRouteHandler);
 
 const server = app
   .listen(config.PORT, () => {

@@ -154,7 +154,7 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::444977453444:root
-      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.documentchecking"
+      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.onelogin.staging"
       appStoreUrlApple: "https://testflight.apple.com/v1/app/6737052003"
       iosAppId: "N8W395F695.uk.gov.onelogin.staging"
       androidAppId: "uk.gov.onelogin.staging"
@@ -176,8 +176,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       spotAccountArn: arn:aws:iam::298945768017:root
-      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.documentchecking"
-      appStoreUrlApple: "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566"
+      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.onelogin.integration"
+      appStoreUrlApple: "https://testflight.apple.com/v1/app/1633453405"
       iosAppId: "N8W395F695.uk.gov.onelogin.integration"
       androidAppId: "uk.gov.onelogin.integration"
       androidFingerprint: "25:87:35:1C:E8:5E:D7:72:47:16:82:2D:44:F5:E0:54:C9:7C:2B:82:A3:6A:6C:04:DF:89:17:50:8A:0B:75:AF"
@@ -198,8 +198,8 @@ Mappings:
       templateCaching: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       spotAccountArn: arn:aws:iam::101836073728:root
-      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.documentchecking"
-      appStoreUrlApple: "https://apps.apple.com/gb/app/gov-uk-id-check/id1629050566"
+      appStoreUrlAndroid: "https://play.google.com/store/apps/details?id=uk.gov.onelogin"
+      appStoreUrlApple: "https://apps.apple.com/uk/app/gov-uk-one-login/id6737119425"
       iosAppId: "N8W395F695.uk.gov.onelogin"
       androidAppId: "uk.gov.onelogin"
       androidFingerprint: "CC:8D:C5:6D:15:4A:F4:E7:97:B0:1A:68:88:CF:B7:B5:C7:EE:F0:8D:E5:94:D0:BD:BD:24:35:B7:CE:7B:B7:74"

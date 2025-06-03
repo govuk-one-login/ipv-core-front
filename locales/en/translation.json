@@ -743,16 +743,13 @@
       }
     },
     "pyiConfirmDeleteDetails": {
-      "title": "Are you sure you want to delete your details and prove your identity again?",
-      "titleF2f": "Are you sure you want to delete your details and prove your identity another way?",
-      "header": "Are you sure you want to delete your details and prove your identity again?",
-      "headerF2f": "Are you sure you want to delete your details and prove your identity another way?",
+      "title": "Are you sure you want to delete your details and prove your identity another way?",
+      "header": "Are you sure you want to delete your details and prove your identity another way?",
       "content": {
         "paragraph1": "Deleting the details saved in your GOV.UK One Login will not affect any other government account you may have, such as Government Gateway or Universal Credit.",
         "formRadioButtons": {
           "yes": "Yes, delete my details",
-          "no": "No, cancel and go back to my current details",
-          "noF2f": "No, I want to prove my identity at a Post Office"
+          "no": "No, I want to prove my identity at a Post Office"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -1412,18 +1409,18 @@
       }
     },
     "liveInUk": {
-      "title": "Do you live in the UK, the Channel Islands or the Isle of Man?",
-      "header": "Do you live in the UK, the Channel Islands or the Isle of Man?",
+      "title": "Where do you live?",
+      "header": "Where do you live?",
       "content": {
         "hint": "How you can prove your identity depends on where you live.",
         "formRadioButtons": {
-          "yes": "Yes",
-          "no": "No"
+          "uk": "UK, Channel Islands or Isle of Man",
+          "international": "Another country"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you live in the UK, the Channel Islands or the Isle of Man",
-          "errorRadioMessage": "Select yes if you live in the UK, the Channel Islands or the Isle of Man"
+          "errorSummaryDescriptionText": "Select where you live",
+          "errorRadioMessage": "Select where you live"
         }
       }
     },

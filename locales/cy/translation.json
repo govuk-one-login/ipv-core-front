@@ -700,16 +700,13 @@
       }
     },
     "pyiConfirmDeleteDetails": {
-      "title": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
-      "titleF2f": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
-      "header": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth eto?",
-      "headerF2f": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
+      "title": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
+      "header": "Ydych chi’n siwr eich bod am ddileu eich manylion a phrofi eich hunaniaeth mewn ffordd arall?",
       "content": {
         "paragraph1": "Ni fydd dileu eich GOV.UK One Login yn effeithio ar unrhyw gyfrifon eraill y llywodraeth sydd gennych, fel Porth y Llywodraeth neu Gredyd Cynhwysol.",
         "formRadioButtons": {
           "yes": "Ydw, dileu fy manylion",
-          "no": "Na, canslo a mynd yn ôl at fy manylion cyfredol",
-          "noF2f": "Na, rwyf am brofi fy hunaniaeth mewn Swyddfa’r Post"
+          "no": "Na, rwyf am brofi fy hunaniaeth mewn Swyddfa’r Post"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1415,18 +1412,18 @@
       }
     },
     "liveInUk": {
-      "title": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
-      "header": "Ydych chi’n byw yn y Deyrnas Unedig, Ynysoedd y Sianel neu Ynys Manaw?",
+      "title": "Ble rydych yn byw?",
+      "header": "Ble rydych yn byw?",
       "content": {
-        "hint": "Mae sut y gallwch brofi eich hunaniaeth yn dibynnu ar ble rydych yn byw.",
+        "hint": "Mae sut y gallwch brofi eich hunaniaeth yn dibynnu ar ble rydych chi’n byw.",
         "formRadioButtons": {
-          "yes": "Ydw",
-          "no": "Na"
+          "uk": "Y DU, Ynysoedd y Sianel neu Ynys Manaw",
+          "international": "Gwlad arall"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw",
-          "errorRadioMessage": "Dewiswch ydw os ydych yn byw yn y DU, Ynysoedd y Sianel neu Ynys Manaw"
+          "errorSummaryDescriptionText": "Dewiswch ble rydych yn byw",
+          "errorRadioMessage": "Dewiswch ble rydych yn byw"
         }
       }
     },

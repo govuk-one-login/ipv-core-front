@@ -5,6 +5,7 @@ import { HTTP_STATUS_CODES } from "../app.constants";
 import { getIpvPageTemplatePath } from "../lib/paths";
 import { isPageResponse } from "../app/validators/postJourneyEventResponse";
 import { HANDLED_ERROR } from "../lib/logger";
+import { generateToken } from "../lib/csrf";
 
 const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (res.headersSent) {
@@ -30,7 +31,7 @@ const journeyEventErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
     return res.render(getIpvPageTemplatePath(pageId), {
       pageId: pageId,
-      csrfToken: req.csrfToken?.(true),
+      csrfToken: generateToken(req, true),
     });
   }
 

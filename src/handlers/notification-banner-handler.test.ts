@@ -1,10 +1,11 @@
 import { expect } from "chai";
-import sinon from "sinon";
+import sinon, { SinonFakeTimers } from "sinon";
 import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../test-utils/mock-express";
 import proxyquire from "proxyquire";
+import { RequestHandler } from "express";
 
 describe("Notification banner handler", () => {
   // Mock handler parameters
@@ -13,22 +14,57 @@ describe("Notification banner handler", () => {
   });
   const createResponse = specifyCreateResponse();
   const next: any = sinon.fake();
+  const now = new Date("2025-01-01T12:00:00.000+0000");
+  const beforeNow = "2025-01-01T11:30:00.000+0000";
+  const afterNow = "2025-01-01T12:30:00.000+0000";
+  const beforeNowBst = "2025-01-01T12:30:00.000+0100";
+  const afterNowCapeVerde = "2025-01-01T11:30:00.000-0100";
 
   // Setup stubs
   const parameterServiceStub = {
     getParameter: sinon.fake(),
   };
-  const { default: notificationBannerHandler } = proxyquire(
-    "./notification-banner-handler",
-    {
-      "../services/parameterStoreService": parameterServiceStub,
+
+  const loggerStub = {
+    logger: {
+      info: sinon.spy(),
+      error: sinon.spy(),
+      debug: sinon.spy(),
+      warn: sinon.spy(),
     },
-  );
+  };
+
+  let underTest: RequestHandler = proxyquire("./notification-banner-handler", {
+    "../services/parameterStoreService": parameterServiceStub,
+    "../lib/logger": loggerStub,
+  }).default;
+
+  let clock: SinonFakeTimers;
+
+  before(() => {
+    clock = sinon.useFakeTimers(now);
+  });
+
+  after(() => {
+    clock.restore();
+  });
 
   beforeEach(() => {
     process.env.NODE_ENV = "production";
+
     next.resetHistory();
+
     parameterServiceStub.getParameter.resetHistory();
+
+    loggerStub.logger.info.resetHistory();
+    loggerStub.logger.error.resetHistory();
+    loggerStub.logger.debug.resetHistory();
+    loggerStub.logger.warn.resetHistory();
+
+    underTest = proxyquire("./notification-banner-handler", {
+      "../services/parameterStoreService": parameterServiceStub,
+      "../lib/logger": loggerStub,
+    }).default;
   });
 
   it("should display English banner text if language is set to English", async () => {
@@ -42,14 +78,14 @@ describe("Notification banner handler", () => {
           pageId: "/some-page",
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -68,14 +104,14 @@ describe("Notification banner handler", () => {
           pageId: "/some-page",
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -95,8 +131,8 @@ describe("Notification banner handler", () => {
             pageId: "/some-other-page",
             bannerMessage: "Test banner",
             bannerMessageCy: "Welsh Test banner",
-            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+            startTime: beforeNow,
+            endTime: afterNow,
           },
         ]);
       }
@@ -106,15 +142,15 @@ describe("Notification banner handler", () => {
             pageId: "/some-page",
             bannerMessage: "Test banner 2",
             bannerMessageCy: "Welsh Test banner 2",
-            startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-            endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+            startTime: beforeNow,
+            endTime: afterNow,
           },
         ]);
       }
     });
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -132,13 +168,13 @@ describe("Notification banner handler", () => {
         pageId: "/some-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
-        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+        startTime: beforeNow,
+        endTime: afterNow,
       },
     ]);
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -155,8 +191,8 @@ describe("Notification banner handler", () => {
         pageId: "/some-other-page",
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
-        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+        startTime: beforeNow,
+        endTime: afterNow,
       },
     ]);
     process.env["NOTIFICATION_BANNER_2"] = JSON.stringify([
@@ -164,13 +200,13 @@ describe("Notification banner handler", () => {
         pageId: "/some-page",
         bannerMessage: "Test banner 2",
         bannerMessageCy: "Welsh Test banner 2",
-        startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-        endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+        startTime: beforeNow,
+        endTime: afterNow,
       },
     ]);
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -185,7 +221,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves("");
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
@@ -203,13 +239,13 @@ describe("Notification banner handler", () => {
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
@@ -226,14 +262,14 @@ describe("Notification banner handler", () => {
           pageId: "/some-page",
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+          startTime: beforeNow,
           endTime: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
@@ -250,14 +286,38 @@ describe("Notification banner handler", () => {
           pageId: "/some-page",
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.true;
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should display banner if current time is between start and end times in different timezones", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter = sinon.fake.resolves(
+      JSON.stringify([
+        {
+          pageId: "/some-page",
+          bannerMessage: "Test banner",
+          bannerMessageCy: "Welsh Test banner",
+          startTime: beforeNowBst,
+          endTime: afterNowCapeVerde,
+        },
+      ]),
+    );
+
+    // Act
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -275,14 +335,14 @@ describe("Notification banner handler", () => {
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           context: "notMatchingContext",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
@@ -300,14 +360,14 @@ describe("Notification banner handler", () => {
           pageId: "/some-page",
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
@@ -326,14 +386,14 @@ describe("Notification banner handler", () => {
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           context: "matchingContext",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -352,22 +412,22 @@ describe("Notification banner handler", () => {
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           context: "matchingContext",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
         {
           pageId: "/some-page",
           bannerMessage: "Bad banner",
           bannerMessageCy: "Welsh Test banner",
           context: "notMatchingContext",
-          startTime: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-          endTime: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(),
+          startTime: beforeNow,
+          endTime: afterNow,
         },
       ]),
     );
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.true;
@@ -383,10 +443,11 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves("not JSON");
 
     // Act
-    await notificationBannerHandler(req, res, next);
+    await underTest(req, res, next);
 
     // Assert
     expect(res.locals.displayBanner).to.be.false;
     expect(next).to.have.been.calledOnce;
+    expect(loggerStub.logger.error).to.have.been.calledOnce;
   });
 });

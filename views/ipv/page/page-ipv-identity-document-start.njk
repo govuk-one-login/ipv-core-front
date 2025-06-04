@@ -28,7 +28,6 @@
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
-      classes: "govuk-radios--inline",
       idPrefix: "journey",
       name: "journey",
       fieldset: {

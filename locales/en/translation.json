@@ -590,18 +590,10 @@
       "content": {
         "paragraph1": "This could be because:",
         "signedOutReasons": [
-          "you’re using more than one browser (for example Chrome, Safari) to access the service",
-          "you started using a service from a link in an app (such as Facebook or Instagram)",
           "you signed in more than an hour ago",
           "you signed out while you were using another service"
         ],
         "h2": "What you can do",
-        "h3GoBackToTheApp": "Go back to the app or browser you started in",
-        "paragraph2": "If you started using a service from a link in another app or browser:",
-        "possibleActions": [
-          "Go back to the app or browser you started in.",
-          "Select the ‘Link GOV.UK One Login’ button to continue."
-        ],
         "h3GoBackToTheService": "Go back to the service you’re trying to use",
         "paragraph3": "If you signed in more than an hour ago or you signed out while you were using another service, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">go back to the service you were trying to use</a> and start again.",
         "h3IfYouNeedHelp": "If you need help",
@@ -1229,7 +1221,7 @@
         },
         "cannotUseInformation": {
           "summary": "If you cannot use the GOV.UK One Login app",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the GOV.UK One Login app.</p><p class=\"govuk-body govuk-!-margin-bottom-2\">You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.</p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab).</a></p>"
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Contact the GOV.UK One Login team if you cannot use the app.</p><p class=\"govuk-body govuk-!-margin-bottom-2\">You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.</p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab).</a></p>"
         }
       }
     },

@@ -547,18 +547,10 @@
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
         "signedOutReasons": [
-          "rydych yn defnyddio mwy nag un porwr (er enghraifft Chrome, Safari) i gael mynediad i’r gwasanaeth",
-          "rydych wedi dechrau defnyddio gwasanaeth o ddolen mewn ap (fel Facebook neu Instagram)",
           "rydych chi wedi mewngofnodi fwy nag awr yn ôl",
           "rydych wedi allgofnodi tra oeddech yn defnyddio gwasanaeth arall"
         ],
         "h2": "Beth allwch chi ei wneud",
-        "h3GoBackToTheApp": "Ewch yn ôl i’r ap neu’r porwr y gwnaethoch ddechrau ynddo",
-        "paragraph2": "Os gwnaethoch ddechrau defnyddio gwasanaeth o ddolen mewn ap neu borwr arall:",
-        "possibleActions": [
-          "Ewch yn ôl i’r ap neu’r porwr y gwnaethoch ddechrau ynddo.",
-          "Dewiswch y botwm ‘Cysylltu GOV.UK One Login’ i barhau."
-        ],
         "h3GoBackToTheService": "Ewch yn ôl i’r gwasanaeth rydych chi’n ceisio ei ddefnyddio",
         "paragraph3": "Os gwnaethoch fewngofnodi fwy nag awr yn ôl, neu os gwnaethoch allgofnodi tra’ch bod yn defnyddio gwasanaeth arall, <a class=\"govuk-link\" href=\"/ipv/journey/pyi-timeout-recoverable/build-client-oauth-response\" rel=\"noopener noreferrer\">ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio</a> a dechrau eto.",
         "h3IfYouNeedHelp": "Os ydych angen help",
@@ -1232,7 +1224,7 @@
         },
         "cannotUseInformation": {
           "summary": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â thîm GOV.UK One Login os na allwch ddefnyddio’r ap.</p>Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â’r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â thîm GOV. UK One Login os na allwch ddefnyddio’r ap.</p>Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â’r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
         }
       }
     },

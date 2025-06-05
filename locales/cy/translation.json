@@ -1224,7 +1224,7 @@
         },
         "cannotUseInformation": {
           "summary": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
-          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â thîm GOV. UK One Login os na allwch ddefnyddio’r ap.</p>Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â’r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
+          "text": "<p class=\"govuk-body govuk-!-margin-bottom-2\">Cysylltwch â thîm GOV.UK One Login os na allwch ddefnyddio’r ap.</p>Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.<p class=\"govuk-body govuk-!-margin-bottom-2\"></p><p class=\"govuk-body govuk-!-margin-bottom-2\"><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Cysylltu â’r tîm GOV.UK One Login (agor mewn tab newydd).</a></p>"
         }
       }
     },

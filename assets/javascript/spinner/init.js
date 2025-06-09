@@ -80,18 +80,23 @@ class Spinner {
 
   createVirtualDom = () => {
     const stateContent = this.content[this.spinnerState];
-    return [
+    let elements = [
       {
         nodeName: "div",
         id: "spinner",
         classes: ["spinner", "centre", stateContent.className ?? ""],
       },
-      {
-        nodeName: "p",
-        text: stateContent.text ?? "",
-        classes: ["centre", "spinner-state-text", "govuk-body"],
-      },
     ];
+
+    const paragraphs = (stateContent.text ?? "").split("\n");
+    paragraphs.forEach(t => elements.push(
+    {
+      nodeName: "p",
+      text: t,
+      classes: ["centre", "spinner-state-text", "govuk-body", "govuk-!-font-weight-bold"],
+    }));
+
+    return elements;
   };
 
   convert = (node) => {

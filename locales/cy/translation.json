@@ -1134,11 +1134,14 @@
         "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "Yn cymryd lle",
+            "spinnerStateText": "Aros i chi agor yr ap. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerState": "Wedi’i gwblhau"
+            "spinnerStateText": "Wedi’i gwblhau.\nNawr gallwch orffen profi pwy ydych chi ar-lein."
+          },
+          "longWait": {
+            "spinnerStateText": "Ar ôl i chi gyflwyno’ch gwybodaeth yn yr ap, gall gymryd ychydig funudau i orffen gwirio eich manylion.\nPeidiwch â chau na adnewyddu’r dudalen hon."
           }
         }
       }

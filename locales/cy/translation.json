@@ -1142,7 +1142,8 @@
           },
           "longWait": {
             "spinnerStateText": "Ar ôl i chi gyflwyno’ch gwybodaeth yn yr ap, gall gymryd ychydig funudau i orffen gwirio eich manylion.\nPeidiwch â chau na adnewyddu’r dudalen hon."
-          }
+          },
+          "ariaLiveText": "continue button is now available"
         }
       }
     },

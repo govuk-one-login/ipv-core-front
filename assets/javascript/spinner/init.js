@@ -1,5 +1,7 @@
 class Spinner {
   container;
+  spinnerContainer;
+  ariaLiveContainer;
   content;
   domRequirementsMet;
   spinnerState;
@@ -70,6 +72,7 @@ class Spinner {
         msBetweenRequests:
           parseInt(element.dataset.msBetweenRequests) ||
           this.config.msBetweenRequests,
+        ariaLiveText: element.dataset.ariaLiveText,
       };
 
       this.domRequirementsMet = true;
@@ -78,7 +81,7 @@ class Spinner {
     }
   };
 
-  createVirtualDom = () => {
+  createSpinnerVirtualDomElements = () => {
     const stateContent = this.content[this.spinnerState];
     let elements = [
       {
@@ -99,7 +102,17 @@ class Spinner {
     return elements;
   };
 
-  convert = (node) => {
+  updateAriaAlert = (messageText) => {
+    while (this.ariaLiveContainer.firstChild) {
+      this.ariaLiveContainer.removeChild(this.ariaLiveContainer.firstChild);
+    }
+
+    /* Create new message and append it to the live region */
+    const messageNode = document.createTextNode(messageText);
+    this.ariaLiveContainer.appendChild(messageNode);
+  };
+
+  convertToElement = (node) => {
     const el = document.createElement(node.nodeName);
     if (node.text) el.textContent = node.text;
     if (node.id) el.id = node.id;
@@ -111,15 +124,16 @@ class Spinner {
     const spinnerStateChanged = this.displayedSpinnerState !== this.spinnerState;
     if (spinnerStateChanged) {
       const elements = this
-        .createVirtualDom(this.spinnerState)
-        .map(this.convert);
-      this.container
+        .createSpinnerVirtualDomElements(this.spinnerState)
+        .map(this.convertToElement);
+      this.spinnerContainer
         .replaceChildren(...elements);
       this.displayedSpinnerState = this.spinnerState;
     }
 
     if (this.spinnerState === "complete") {
       this.button.removeAttribute("disabled");
+      this.updateAriaAlert(this.config.ariaLiveText);
     }
   };
 
@@ -146,7 +160,19 @@ class Spinner {
     }
   };
 
+  // For the Aria alert to work reliably we need to create its container once and then update the contents
+  // https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/
+  // So here we create a separate DOM element for the Aria live text that won't be touched when the spinner updates.
+  initialiseContainers = () => {
+    this.spinnerContainer = document.createElement("div");
+    this.ariaLiveContainer = document.createElement("div");
+    this.ariaLiveContainer.setAttribute("aria-live","assertive");
+    this.ariaLiveContainer.classList.add("govuk-visually-hidden");
+    this.container.replaceChildren(this.spinnerContainer, this.ariaLiveContainer);
+  };
+
   init = () => {
+    this.initialiseContainers();
     this.initialiseTimers();
     this.updateDom();
     this.requestAppVcReceiptStatus();
@@ -155,7 +181,7 @@ class Spinner {
   constructor(domContainer) {
     this.container = domContainer;
     this.button = document.getElementById("submitButton");
-    this.initialiseContent(this.container);
+    this.initialiseContent(domContainer);
     this.initialiseState();
   }
 }

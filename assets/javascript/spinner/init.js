@@ -7,6 +7,7 @@ class Spinner {
   button;
   config = {
     apiUrl: "/app-vc-receipt-status",
+    msBeforeInformingOfLongWait: 5000,
     msBeforeAbort: 25000,
     msBetweenRequests: 1000,
   };
@@ -19,9 +20,16 @@ class Spinner {
     window.location.href = "/ipv/page/pyi-technical";
   };
 
+  reflectLongWait = () => {
+    this.spinnerState = "longWait";
+  };
 
   initialiseTimers = () => {
     if (this.domRequirementsMet) {
+      this.timers.informUserWhereWaitIsLong = setTimeout(() => {
+        this.reflectLongWait();
+      }, this.config.msBeforeInformingOfLongWait);
+
       this.timers.abortUnresponsiveRequest = setTimeout(() => {
         this.reflectError();
       }, this.config.msBeforeAbort);
@@ -46,10 +54,17 @@ class Spinner {
           text: element.dataset.completeSpinnerstatetext || "",
           className: element.dataset.completeSpinnerstate,
         },
+        longWait: {
+          text: element.dataset.longwaitSpinnerstatetext,
+          className: "spinner__long-wait",
+        },
       };
 
       this.config = {
         apiUrl: element.dataset.apiUrl || this.config.apiUrl,
+        msBeforeInformingOfLongWait:
+          parseInt(element.dataset.msBeforeInformingOfLongWait) ||
+          this.config.msBeforeInformingOfLongWait,
         msBeforeAbort:
           parseInt(element.dataset.msBeforeAbort) || this.config.msBeforeAbort,
         msBetweenRequests:

@@ -65,11 +65,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     "existingIdentityInvalid",
     undefined,
   ],
-  "update-details-failed": [
-    "repeatFraudCheck",
-    "existingIdentityInvalid",
-    undefined,
-  ],
+  "update-details-failed": ["existingIdentityInvalid", undefined],
   "update-details": [],
   "update-name-date-birth": [
     "repeatFraudCheck",

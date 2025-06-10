@@ -1140,7 +1140,7 @@
           "longWait": {
             "spinnerStateText": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.\nDo not close or refresh this page."
           },
-          "ariaLiveText": "continue button is now available"
+          "ariaLiveText": "Completed. You can now finish proving your identity online."
         }
       }
     },

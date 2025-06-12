@@ -72,7 +72,7 @@ class Spinner {
         msBetweenRequests:
           parseInt(element.dataset.msBetweenRequests) ||
           this.config.msBetweenRequests,
-        ariaLiveText: element.dataset.ariaLiveText,
+        ariaButtonEnabledMessage: element.dataset.ariaButtonEnabledMessage,
       };
 
       this.domRequirementsMet = true;
@@ -133,7 +133,7 @@ class Spinner {
 
     if (this.spinnerState === "complete") {
       this.button.removeAttribute("disabled");
-      this.updateAriaAlert(this.config.ariaLiveText);
+      this.updateAriaAlert(this.config.ariaButtonEnabledMessage);
     }
   };
 

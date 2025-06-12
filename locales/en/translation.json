@@ -1367,6 +1367,7 @@
           "longWait": {
             "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
           },
+          "ariaButtonEnabledMessage": "Completed. You can now finish proving your identity online.",
           "continueButtonText": "Continue",
           "error": {
             "heading": "Sorry, there is a problem",

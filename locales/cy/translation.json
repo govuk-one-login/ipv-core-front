@@ -1370,6 +1370,7 @@
           "longWait": {
             "spinnerStateText": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
+          "ariaButtonEnabledMessage": "Wedi’i gwblhau. Nawr gallwch orffen profi pwy ydych chi ar-lein.",
           "continueButtonText": "Parhau",
           "error": {
             "heading": "Mae’n ddrwg gennym, mae problem",

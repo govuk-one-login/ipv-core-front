@@ -1138,7 +1138,7 @@
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerStateText": "Wedi’i gwblhau.\nNawr gallwch orffen profi pwy ydych chi ar-lein."
+            "spinnerStateText": "Wedi’i gwblhau.\nGallwch nawr orffen profi eich hunaniaeth ar-lein."
           },
           "longWait": {
             "spinnerStateText": "Ar ôl i chi gyflwyno’ch gwybodaeth yn yr ap, gall gymryd ychydig funudau i orffen gwirio eich manylion.\nPeidiwch â chau na adnewyddu’r dudalen hon."

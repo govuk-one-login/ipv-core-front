@@ -137,6 +137,17 @@ picture {
   display: block;
 }
 
+// Invisible ordered list for accessibility
+ol.invisible {
+  .govuk-list {
+    margin-top: 0;
+  }
+}
+
+.govuk-body+ol.invisible>li:first-child>.govuk-heading-m {
+  padding-top: 10px;
+}
+
 // Temporarily overwrite the tag component styling to match pre-v5 appearance.
 // This ensures a cohesive phase banner across One Login applications during the transition.
 .govuk-tag {

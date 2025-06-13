@@ -1125,18 +1125,22 @@
           "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
-        "paragraph4": "Follow the instructions in the app to prove your identity. Keep this page open while you do this.",
+        "paragraph4": "Follow the instructions in the app to prove your identity.",
         "subHeading4": "3. Finish proving your identity here",
         "paragraph5": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
         "paragraph6": "Then you can continue to the government service you want to use.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "In progress",
+            "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this.",
             "spinnerState": "pending"
           },
           "complete": {
-            "spinnerState": "Completed"
-          }
+            "spinnerStateText": "Completed.\nYou can now finish proving your identity online."
+          },
+          "longWait": {
+            "spinnerStateText": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.\nDo not close or refresh this page."
+          },
+          "ariaButtonEnabledMessage": "Completed. You can now finish proving your identity online."
         }
       }
     },
@@ -1363,6 +1367,7 @@
           "longWait": {
             "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
           },
+          "ariaButtonEnabledMessage": "You can now continue.",
           "continueButtonText": "Continue",
           "error": {
             "heading": "Sorry, there is a problem",

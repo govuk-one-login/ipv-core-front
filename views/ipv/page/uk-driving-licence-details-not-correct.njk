@@ -13,7 +13,7 @@
 {% block content %}
     <h1 class="govuk-heading-l" id="header"
         data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrect.header' | translate }}</h1>
-    <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translateWithContext(context) }}</p>
 
     {% if context === 'strategicApp' %}
         {{ govukWarningText({
@@ -28,7 +28,7 @@
     {% set radioItems = [
         {
             value: "next",
-            text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translate,
+            text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translateWithContext(context),
             hint: { text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonTextHint' | translateWithContext(context) }
         },
         {

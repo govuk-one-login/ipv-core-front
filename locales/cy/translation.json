@@ -347,14 +347,16 @@
       "title": "Os nad yw manylion eich trwydded yrru yn gywir",
       "header": "Os nad yw manylion eich trwydded yrru yn gywir",
       "content": {
-        "paragraph1": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
+        "paragraph1": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check.",
+        "paragraph1StrategicApp": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
         "paragraph2": "Gwnewch yn siŵr nad oes gan eich trwydded yrru unrhyw faw na chrafiadau arni.",
         "paragraph3": "Pan fyddwch yn sganio’ch trwydded yrru, gwnewch yn siŵr eich bod mewn ardal sydd wedi’i goleuo’n dda heb unrhyw dywyniad nag adlewyrchiad ar eich trwydded.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login",
+          "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check",
+          "continueButtonTextStrategicApp": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login",
           "continueButtonTextHint": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch agor yr ap",
-          "continueButtonTextHintStrategicApp": "",
+          "continueButtonTextHintStrategicApp": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch ailagor yr ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {

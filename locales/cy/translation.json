@@ -364,7 +364,7 @@
           "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         },
-        "warningMessage": "Cyn y gallwch sganio eto, mae'n rhaid i chi gau'r ap GOV.UK One Login ar eich ffôn clyfar yn llwyr.",
+        "warningMessage": "Cyn y gallwch sganio eto, mae’n rhaid i chi gau’r ap GOV.UK One Login ar eich ffôn clyfar yn llwyr.",
         "warningTextFallback": "Rhybudd"
       }
     },

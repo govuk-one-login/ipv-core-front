@@ -361,7 +361,8 @@
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
-        }
+        },
+        "waringMessage": "Before you can scan again, you must completely close the GOV.UK One Login app on your smartphone."
       }
     },
     "pyiDrivingLicenceNoMatch": {

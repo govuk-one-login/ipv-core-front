@@ -11,21 +11,19 @@
 {% set errorHref = "#drivingLicenceDetailsNotCorrectActionForm" %}
 
 {% block content %}
-    <h1 class="govuk-heading-l" id="header"
-        data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrect.header' | translate }}</h1>
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrect.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translateWithContext(context) }}</p>
-
     {% if context === 'strategicApp' %}
         {{ govukWarningText({
             text: 'pages.drivingLicenceDetailsNotCorrect.content.warningMessage' | translate,
             iconFallbackText: 'pages.drivingLicenceDetailsNotCorrect.content.warningTextFallback' | translate
         }) }}
     {% endif %}
-
     <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph2' | translate }}</p>
     <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph3' | translate }}</p>
 
-    {% set radioItems = [
+    {%
+        set radioItems = [
         {
             value: "next",
             text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translateWithContext(context),
@@ -34,7 +32,8 @@
         {
             value: "end",
             text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.otherWayButtonText' | translate
-        }] %}
+        }]
+    %}
 
     <form id="drivingLicenceDetailsNotCorrectActionForm" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -48,7 +47,8 @@
                 }
             },
             items: radioItems
-        } %}
+        }
+        %}
 
         {% if errorState %}
             {% set errorMessageObject = { 'text': 'pages.drivingLicenceDetailsNotCorrect.content.formErrorMessage.errorRadioMessage' | translate } %}

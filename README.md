@@ -41,17 +41,17 @@ npm install
 
 This project uses the following environment variables:
 
-| Variable name             | Description                                                                                                         | Default value    |
-|---------------------------|---------------------------------------------------------------------------------------------------------------------|------------------|
-| `API_BASE_URL`            | Specifies the base host of the backend API. It is used by the application to make requests to the backend services. | -                |
+| Variable name             | Description                                                                                                         | Default value                                                 |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `API_BASE_URL`            | Specifies the base host of the backend API. It is used by the application to make requests to the backend services. | -                                                             |
 | `CONTACT_URL`             | URL of the GOV.UK One Login contact form.                                                                           | [`https://home.account.gov.uk/contact-gov-uk-one-login`](https://home.account.gov.uk/contact-gov-uk-one-login) |
-| `ENABLE_PREVIEW`          | Turns on the `dev/all-templates` route to preview individual pages.                                                 | `development`  |
-| `EXTERNAL_WEBSITE_HOST`   | Sets the default host used by the application.                                                                      | `http://localhost:8080` |
-| `NODE_ENV`                | Specifies the environment where the application will run, for example `local`.                                      | -                |
-| `PORT`                    | Default port to run the web server on.                                                                              | `4501`           |
-| `SESSION_SECRET`          | The secret key used for encrypting and decrypting session data.                                                     | -                |
-| `LANGUAGE_TOGGLE`         | Active Language Toggle into all pages                                                                               | `false`          |
-| `USE_DEVICE_INTELLIGENCE` | Turn on device fingerprinting on all pages                                                                          | `false`          |
+| `ENABLE_PREVIEW`          | Turns on the `dev/all-templates` route to preview individual pages.                                                 | `development`                                                 |
+| `EXTERNAL_WEBSITE_HOST`   | Sets the default host used by the application.                                                                      | `http://localhost:                                            |
+| `NODE_ENV`                | Specifies the environment where the application will run, for example `local`.                                      | -                                                             |
+| `PORT`                    | Default port to run the web server on.                                                                              | `4501`                                                        |
+| `SESSION_SECRET`          | The secret key used for encrypting and decrypting session data.                                                     | -                                                             |
+| `LANGUAGE_TOGGLE`         | Active Language Toggle into all pages                                                                               | `false`                                                       |
+| `USE_DEVICE_INTELLIGENCE` | Turn on device fingerprinting on all pages                                                                          | `false`                                                       |
 
 
 ## Running ipv-core-front locally

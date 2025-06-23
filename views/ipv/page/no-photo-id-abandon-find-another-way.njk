@@ -38,7 +38,7 @@
     id: 'typesOfPhotoIdDetails'
   }) }}
 
-  <form id="noPhotoIdAbandonFindAnotherWay" action="/ipv/page/{{ pageId }}" method="POST">
+  <form id="noPhotoIdAbandonFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
       {% set radioOptions = [
         {

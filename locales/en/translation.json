@@ -133,8 +133,9 @@
         "European Union (EU) photocard driving licence",
         "UK passport",
         "non-UK passport",
-        "National identity card from a European Economic Area (EEA) country"
-      ]
+        "National identity card from the EU, Norway, Iceland or Liechtenstein"
+      ],
+      "paragraph4": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
     }
   },
   "pages": {
@@ -230,7 +231,6 @@
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
         "paragraph2": "You can prove your identity using the GOV.UK One Login app or at a Post Office instead.",
         "detailsLabel": "Types of photo ID you can use",
-        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
         "subHeading1": "How would you like to prove your identity?",
         "formRadioButtons": {
           "continueAppButtonText": "Prove your identity with the GOV.UK One Login app",
@@ -254,18 +254,6 @@
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK One Login app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
-        "paragraph3": "You can use a:",
-        "detailsList": [
-          "UK photocard driving licence",
-          "European Union (EU) photocard driving licence",
-          "UK passport",
-          "non-UK passport",
-          "National identity card from a European Economic Area (EEA) country",
-          "UK biometric residence permit (BRP)",
-          "UK biometric residence card (BRC)",
-          "UK Frontier Worker permit (FWP)"
-        ],
-        "paragraph4": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK One Login app only.",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
@@ -325,7 +313,6 @@
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK One Login app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
-        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go the service you need to use",

@@ -999,14 +999,13 @@
         ],
         "subHeading2": "Non-UK passport",
         "paragraph3": "You can use a non-UK passport as long as it has not expired.",
-        "subHeading3": "National identity card from a European Economic Area country",
-        "paragraph4": "You can use a national identity card from a European Economic Area (EEA) country if:",
+        "subHeading3": "National identity card from the EU, Norway, Iceland or Liechtenstein",
+        "paragraph4": "You can use a national identity card from the EU, Norway, Iceland or Liechtenstein if:",
         "eeaNationalIdentityCardRequirements": [
           "it is a plastic photocard, not a paper or handwritten card",
           "it has not expired",
           "the address on it is the same as your current address (if it has an address)"
         ],
-        "paragraph5": "The EEA includes EU countries, Norway, Iceland and Liechtenstein.",
         "subHeading4": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",

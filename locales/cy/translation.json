@@ -938,14 +938,13 @@
         ],
         "subHeading2": "Pasbort o’r tu allan i’r DU",
         "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU cyn belled nad yw wedi dod i ben.",
-        "subHeading3": "Cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd",
-        "paragraph4": "Gallwch ddefnyddio cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd os:",
+        "subHeading3": "Cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
+        "paragraph4": "Gallwch ddefnyddio cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein os:",
         "eeaNationalIdentityCardRequirements": [
           "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
           "nid yw wedi dod i ben",
           "mae’r cyfeiriad arno yr un fath â’ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)"
         ],
-        "paragraph5": "Mae’r AEE yn cynnwys gwledydd yr UE, Norwy, Gwlad yr Iâ a Liechtenstein.",
         "subHeading4": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",

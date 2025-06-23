@@ -1272,17 +1272,24 @@
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
       "content": {
-        "paragraph": "Rydych wedi dewis profi eich hunaniaeth mewn ffordd arall.",
-        "subHeading": "Beth hoffech chi ei wneud?",
+        "subHeading1DrivingLicence": "Os oes gennych basbort y DU",
+        "subHeading1Passport": "Os oes gennych drwydded yrru cerdyn-llun y DU",
+        "paragraph1DrivingLicence": "Rhowch fanylion eich pasbort y DU ac atebwch gwestiynau diogelwch",
+        "paragraph1Passport": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch gwestiynau diogelwch.",
+        "subHeading2": "Os oes gennych chi fath arall o ID gyda llun",
+        "paragraph2": "Profwch eich hunaniaeth mewn Swyddfa’r Post gyda:",
+        "documentList": [
+          "pasbort o’r tu allan i’r DU",
+          "Trwydded yrru cerdyn llun yr Undeb Ewropeaidd (UE)",
+          "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
+        ],
+        "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "backButtonTextDrivingLicence": "Defnyddiwch eich pasbort y Deyrnas Unedig",
-          "backButtonTextPassport": "Defnyddiwch eich trwydded yrru cerdyn-llun y DU",
-          "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
-          "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
-          "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE) neu gerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE). Bydd hyn yn cymryd mwy o amser.",
+          "backButtonTextDrivingLicence": "Defnyddiwch basbort y DU",
+          "backButtonTextPassport": "Defnyddiwch drwydded yrru cerdyn-llun y DU",
+          "otherPhotoIdButtonText": "Defnyddiwch fath arall o ID gyda llun a phrofwch eich hunaniaeth mewn Swyddfa’r Post",
           "divisor": "neu",
-          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "returnToRpButtonText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwiliwch am ffyrdd eraill o gael mynediad iddo"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

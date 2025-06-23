@@ -1269,17 +1269,24 @@
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
       "content": {
-        "paragraph": "You chose to prove your identity another way.",
-        "subHeading": "What would you like to do?",
+        "subHeading1DrivingLicence": "If you have a UK passport",
+        "subHeading1Passport": "If you have a UK photocard driving licence",
+        "paragraph1DrivingLicence": "Enter you UK passport details and answer security questions",
+        "paragraph1Passport": "Enter your UK photocard driving licence details and answer security questions.",
+        "subHeading2": "If you have another type of photo ID",
+        "paragraph2": "Prove your identity at a Post Office with a:",
+        "documentList": [
+          "non-UK passport",
+          "European Union (EU) photocard driving licence",
+          "national identity card from the EU, Norway, Iceland or Liechtenstein"
+        ],
+        "subHeading": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "backButtonTextDrivingLicence": "Use your UK passport",
-          "backButtonTextPassport": "Use your UK photocard driving licence",
-          "backButtonTextHintDrivingLicence": "You can prove your identity by entering your UK passport details and answering security questions.",
-          "backButtonTextHintPassport": "You can prove your identity by entering your UK photocard driving licence details and answering security questions.",
-          "otherPhotoIdButtonText": "Try using another type of photo ID",
-          "otherPhotoIdButtonTextHint": "You may be able to prove your identity another way if you have a non-UK passport, a European Union (EU) photocard driving licence, or a national identity card from a European Economic Area (EEA) country. This will take longer.",
+          "backButtonTextDrivingLicence": "Use a UK passport",
+          "backButtonTextPassport": "Use a UK photocard driving licence",
+          "otherPhotoIdButtonText": "Use another type of photo ID and prove your identity at a Post Office",
           "divisor": "or",
-          "returnToRpButtonText": "Continue to the service you were trying to use to find out if there are other ways to access it"
+          "returnToRpButtonText": "Go to the service you need to use and look for other ways to access it"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

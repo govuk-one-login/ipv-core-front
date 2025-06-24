@@ -60,7 +60,7 @@
     "globals": "16.2.0",
     "husky": "9.1.7",
     "lint-staged": "16.1.0",
-    "mocha": "10.8.2",
+    "mocha": "11.0.1",
     "nodemon": "3.1.7",
     "nyc": "17.1.0",
     "pino-pretty": "13.0.0",

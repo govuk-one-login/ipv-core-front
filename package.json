@@ -39,8 +39,11 @@
     "@eslint/js": "9.29.0",
 =======
     "@eslint/js": "9.28.0",
+<<<<<<< HEAD
     "@types/aws-sdk": "0.0.42",
 >>>>>>> f515b0e7 (feat(dfc-741): test fixtures)
+=======
+>>>>>>> fe94e2e4 (feat(dfc-741): uninstall aws sdk types packagE)
     "@types/cfenv": "1.2.4",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",

@@ -35,7 +35,12 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "@eslint/js": "9.29.0",
+=======
+    "@eslint/js": "9.28.0",
+    "@types/aws-sdk": "0.0.42",
+>>>>>>> f515b0e7 (feat(dfc-741): test fixtures)
     "@types/cfenv": "1.2.4",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",

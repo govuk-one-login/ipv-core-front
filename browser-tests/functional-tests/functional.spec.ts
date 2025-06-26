@@ -74,7 +74,7 @@ test.describe.parallel("Functional tests", () => {
 
     // Check that we use the context returned by imposter to render the page
     const contextSpecificTextLocator = await page.getByText(
-      "Use your UK photocard driving licence",
+      "Use a UK photocard driving licence",
     );
     await expect(contextSpecificTextLocator).toBeVisible();
   });

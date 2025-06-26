@@ -133,8 +133,9 @@
         "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
         "pasbort y DU",
         "pasbort o’r tu allan i’r DU",
-        "Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)"
-      ]
+        "Cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
+      ],
+      "paragraph4": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben."
     }
   },
   "pages": {
@@ -230,7 +231,6 @@
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
         "paragraph2": "Gallwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa’r Post yn lle hynny.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
-        "detailsParagraph": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
         "subHeading1": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
           "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
@@ -254,18 +254,6 @@
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph2": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
-        "paragraph3": "Gallwch ddefnyddio:",
-        "detailsList": [
-          "trwydded yrru cerdyn-llun y DU",
-          "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
-          "pasbort y DU",
-          "pasbort o’r tu allan i’r DU",
-          "Cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)",
-          "trwydded breswylio biometrig y DU (BRP)",
-          "cerdyn preswylio biometrig y DU (BRC)",
-          "trwydded Gweithiwr Ffiniol y DU (FWP)"
-        ],
-        "paragraph4": "Gallwch ond defnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login.",
         "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "radioButton1Text": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
@@ -325,7 +313,6 @@
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa Bost.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
-        "detailsParagraph": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
         "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio",
@@ -938,14 +925,13 @@
         ],
         "subHeading2": "Pasbort o’r tu allan i’r DU",
         "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU cyn belled nad yw wedi dod i ben.",
-        "subHeading3": "Cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd",
-        "paragraph4": "Gallwch ddefnyddio cerdyn hunaniaeth genedlaethol o wlad Ardal Economaidd Ewropeaidd os:",
+        "subHeading3": "Cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
+        "paragraph4": "Gallwch ddefnyddio cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein os:",
         "eeaNationalIdentityCardRequirements": [
           "mae’n gerdyn plastig gyda llun, nid trwydded bapur neu lawysgrifen",
           "nid yw wedi dod i ben",
           "mae’r cyfeiriad arno yr un fath â’ch cyfeiriad cyfredol (os oes ganddo gyfeiriad)"
         ],
-        "paragraph5": "Mae’r AEE yn cynnwys gwledydd yr UE, Norwy, Gwlad yr Iâ a Liechtenstein.",
         "subHeading4": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
@@ -1286,17 +1272,24 @@
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
       "content": {
-        "paragraph": "Rydych wedi dewis profi eich hunaniaeth mewn ffordd arall.",
-        "subHeading": "Beth hoffech chi ei wneud?",
+        "subHeading1DrivingLicence": "Os oes gennych basbort y DU",
+        "subHeading1Passport": "Os oes gennych drwydded yrru cerdyn-llun y DU",
+        "paragraph1DrivingLicence": "Rhowch fanylion eich pasbort y DU ac atebwch gwestiynau diogelwch",
+        "paragraph1Passport": "Rhowch fanylion eich trwydded yrru cerdyn-llun y DU ac atebwch gwestiynau diogelwch.",
+        "subHeading2": "Os oes gennych chi fath arall o ID gyda llun",
+        "paragraph2": "Profwch eich hunaniaeth mewn Swyddfa’r Post gyda:",
+        "documentList": [
+          "pasbort o’r tu allan i’r DU",
+          "Trwydded yrru cerdyn llun yr Undeb Ewropeaidd (UE)",
+          "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
+        ],
+        "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "backButtonTextDrivingLicence": "Defnyddiwch eich pasbort y Deyrnas Unedig",
-          "backButtonTextPassport": "Defnyddiwch eich trwydded yrru cerdyn-llun y DU",
-          "backButtonTextHintDrivingLicence": "Gallwch brofi eich hunaniaeth drwy roi eich manylion pasbort y DU ac ateb cwestiynau diogelwch",
-          "backButtonTextHintPassport": "Gallwch brofi eich hunaniaeth drwy roi manylion eich trwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch.",
-          "otherPhotoIdButtonText": "Rhowch gynnig ar ddefnyddio math arall o ID gyda llun",
-          "otherPhotoIdButtonTextHint": "Efallai y gallwch brofi eich hunaniaeth mewn ffordd arall os oes gennych basbort nad yw o’r DU, trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE) neu gerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE). Bydd hyn yn cymryd mwy o amser.",
+          "backButtonTextDrivingLicence": "Defnyddiwch basbort y DU",
+          "backButtonTextPassport": "Defnyddiwch drwydded yrru cerdyn-llun y DU",
+          "otherPhotoIdButtonText": "Defnyddiwch fath arall o ID gyda llun a phrofwch eich hunaniaeth mewn Swyddfa’r Post",
           "divisor": "neu",
-          "returnToRpButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "returnToRpButtonText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a chwiliwch am ffyrdd eraill o gael mynediad iddo"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

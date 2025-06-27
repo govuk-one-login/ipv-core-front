@@ -1,6 +1,6 @@
+import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import { expect } from "chai";
 import sinon from "sinon";
-import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 import { getParameter } from "./parameterStoreService";
 
 describe("parameterStoreService", () => {

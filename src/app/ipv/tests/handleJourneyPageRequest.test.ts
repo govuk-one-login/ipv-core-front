@@ -1,15 +1,15 @@
-import { expect } from "chai";
-import sinon from "sinon";
-import proxyquire from "proxyquire";
 import { HttpStatusCode } from "axios";
+import { expect } from "chai";
+import proxyquire from "proxyquire";
+import sinon from "sinon";
+import API_URLS from "../../../config/config";
+import IPV_PAGES from "../../../constants/ipv-pages";
 import NotFoundError from "../../../errors/not-found-error";
 import UnauthorizedError from "../../../errors/unauthorized-error";
 import {
   specifyCreateRequest,
   specifyCreateResponse,
 } from "../../../test-utils/mock-express";
-import IPV_PAGES from "../../../constants/ipv-pages";
-import API_URLS from "../../../config/config";
 
 describe("handleJourneyPageRequest", () => {
   // Mock handler parameters
@@ -202,9 +202,9 @@ describe("handleJourneyPageRequest", () => {
         pageErrorState: undefined,
         apiUrl: API_URLS.API_APP_VC_RECEIPT_STATUS,
         qrCode: "QR_CODE_DATA",
-        msBetweenRequests: 3000,
-        msBeforeInformingOfLongWait: 60000,
-        msBeforeAbort: 2400000,
+        msBetweenRequests: "3000",
+        msBeforeInformingOfLongWait: "60000",
+        msBeforeAbort: "2400000",
       },
     );
   });

@@ -133,8 +133,9 @@
         "European Union (EU) photocard driving licence",
         "UK passport",
         "non-UK passport",
-        "National identity card from a European Economic Area (EEA) country"
-      ]
+        "National identity card from the EU, Norway, Iceland or Liechtenstein"
+      ],
+      "paragraph4": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
     }
   },
   "pages": {
@@ -230,7 +231,6 @@
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
         "paragraph2": "You can prove your identity using the GOV.UK One Login app or at a Post Office instead.",
         "detailsLabel": "Types of photo ID you can use",
-        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
         "subHeading1": "How would you like to prove your identity?",
         "formRadioButtons": {
           "continueAppButtonText": "Prove your identity with the GOV.UK One Login app",
@@ -254,18 +254,6 @@
         "subHeading2": "If you have photo ID",
         "paragraph2": "You can use photo ID to prove your identity using the GOV.UK One Login app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
-        "paragraph3": "You can use a:",
-        "detailsList": [
-          "UK photocard driving licence",
-          "European Union (EU) photocard driving licence",
-          "UK passport",
-          "non-UK passport",
-          "National identity card from a European Economic Area (EEA) country",
-          "UK biometric residence permit (BRP)",
-          "UK biometric residence card (BRC)",
-          "UK Frontier Worker permit (FWP)"
-        ],
-        "paragraph4": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK One Login app only.",
         "subHeading3": "What would you like to do?",
         "formRadioButtons": {
           "radioButton1Text": "Go to the service you need to use and find out if they take other types of ID",
@@ -325,7 +313,6 @@
         "subHeading2": "If you have photo ID",
         "paragraph3": "You can use photo ID to prove your identity using the GOV.UK One Login app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use",
-        "detailsParagraph": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date.",
         "subHeading3": "How would you like to prove your identity?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Go the service you need to use",
@@ -999,14 +986,13 @@
         ],
         "subHeading2": "Non-UK passport",
         "paragraph3": "You can use a non-UK passport as long as it has not expired.",
-        "subHeading3": "National identity card from a European Economic Area country",
-        "paragraph4": "You can use a national identity card from a European Economic Area (EEA) country if:",
+        "subHeading3": "National identity card from the EU, Norway, Iceland or Liechtenstein",
+        "paragraph4": "You can use a national identity card from the EU, Norway, Iceland or Liechtenstein if:",
         "eeaNationalIdentityCardRequirements": [
           "it is a plastic photocard, not a paper or handwritten card",
           "it has not expired",
           "the address on it is the same as your current address (if it has an address)"
         ],
-        "paragraph5": "The EEA includes EU countries, Norway, Iceland and Liechtenstein.",
         "subHeading4": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",
@@ -1283,17 +1269,24 @@
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
       "content": {
-        "paragraph": "You chose to prove your identity another way.",
-        "subHeading": "What would you like to do?",
+        "subHeading1DrivingLicence": "If you have a UK passport",
+        "subHeading1Passport": "If you have a UK photocard driving licence",
+        "paragraph1DrivingLicence": "Enter your UK passport details and answer security questions",
+        "paragraph1Passport": "Enter your UK photocard driving licence details and answer security questions.",
+        "subHeading2": "If you have another type of photo ID",
+        "paragraph2": "Prove your identity at a Post Office with a:",
+        "documentList": [
+          "non-UK passport",
+          "European Union (EU) photocard driving licence",
+          "national identity card from the EU, Norway, Iceland or Liechtenstein"
+        ],
+        "subHeading": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "backButtonTextDrivingLicence": "Use your UK passport",
-          "backButtonTextPassport": "Use your UK photocard driving licence",
-          "backButtonTextHintDrivingLicence": "You can prove your identity by entering your UK passport details and answering security questions.",
-          "backButtonTextHintPassport": "You can prove your identity by entering your UK photocard driving licence details and answering security questions.",
-          "otherPhotoIdButtonText": "Try using another type of photo ID",
-          "otherPhotoIdButtonTextHint": "You may be able to prove your identity another way if you have a non-UK passport, a European Union (EU) photocard driving licence, or a national identity card from a European Economic Area (EEA) country. This will take longer.",
+          "backButtonTextDrivingLicence": "Use a UK passport",
+          "backButtonTextPassport": "Use a UK photocard driving licence",
+          "otherPhotoIdButtonText": "Use another type of photo ID and prove your identity at a Post Office",
           "divisor": "or",
-          "returnToRpButtonText": "Continue to the service you were trying to use to find out if there are other ways to access it"
+          "returnToRpButtonText": "Go to the service you need to use and look for other ways to access it"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

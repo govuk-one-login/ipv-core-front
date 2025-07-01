@@ -11,7 +11,15 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityAnotherTypePhotoId.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph' | translate }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityAnotherTypePhotoId.content.subHeading1' | translateWithContext(context) }}</h2>
+  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph1' | translateWithContext(context) }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityAnotherTypePhotoId.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph2' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    {% for listItem in 'pages.proveIdentityAnotherTypePhotoId.content.documentList' | translate({ returnObjects: true }) %}
+      <li>{{ listItem }}</li>
+    {% endfor %}
+  </ul>
   <form id="proveIdentityAnotherTypePhotoIdForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
@@ -26,13 +34,11 @@
       items: [
         {
           value: "otherPhotoId",
-          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonText' | translateWithContext(context),
-          hint: {text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonTextHint' | translateWithContext(context)}
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonText' | translateWithContext(context)
         },
         {
           value: "f2f",
-          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.otherPhotoIdButtonText' | translate,
-          hint: {text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.otherPhotoIdButtonTextHint' | translate}
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.otherPhotoIdButtonText' | translate
         },
         {
           divider: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.divisor' | translate

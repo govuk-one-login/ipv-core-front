@@ -152,8 +152,8 @@ class Spinner {
       } else if (data.status === "ERROR") {
         this.reflectError();
       } else if (data.status === "PROCESSING") {
+        this.updateAccordingToTimeElapsed();
         setTimeout(async () => {
-          this.updateAccordingToTimeElapsed();
           await this.requestAppVcReceiptStatus();
         }, this.config.msBetweenRequests);
       } else {

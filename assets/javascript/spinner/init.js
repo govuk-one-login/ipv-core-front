@@ -6,6 +6,7 @@ class Spinner {
   domRequirementsMet;
   spinnerState;
   timers = {};
+  initTime;
   button;
   config = {
     apiUrl: "/app-vc-receipt-status",
@@ -26,15 +27,12 @@ class Spinner {
     this.spinnerState = "longWait";
   };
 
-  initialiseTimers = () => {
-    if (this.domRequirementsMet) {
-      this.timers.informUserWhereWaitIsLong = setTimeout(() => {
-        this.reflectLongWait();
-      }, this.config.msBeforeInformingOfLongWait);
-
-      this.timers.abortUnresponsiveRequest = setTimeout(() => {
-        this.reflectError();
-      }, this.config.msBeforeAbort);
+  updateAccordingToTimeElapsed = () => {
+    const elapsedMilliseconds = this.initTime - new Date().getTime();
+    if (elapsedMilliseconds >= this.config.msBeforeAbort) {
+      this.reflectError();
+    } else if (elapsedMilliseconds >= this.config.msBeforeInformingOfLongWait) {
+      this.reflectLongWait();
     }
   };
 
@@ -42,6 +40,7 @@ class Spinner {
     if (this.domRequirementsMet) {
       this.spinnerState = "pending";
       this.button.setAttribute("disabled", true);
+      this.initTime = new Date().getTime();
     }
   };
 
@@ -92,12 +91,18 @@ class Spinner {
     ];
 
     const paragraphs = (stateContent.text ?? "").split("\n");
-    paragraphs.forEach(t => elements.push(
-    {
-      nodeName: "p",
-      text: t,
-      classes: ["centre", "spinner-state-text", "govuk-body", "govuk-!-font-weight-bold"],
-    }));
+    paragraphs.forEach((t) =>
+      elements.push({
+        nodeName: "p",
+        text: t,
+        classes: [
+          "centre",
+          "spinner-state-text",
+          "govuk-body",
+          "govuk-!-font-weight-bold",
+        ],
+      }),
+    );
 
     return elements;
   };
@@ -121,13 +126,13 @@ class Spinner {
   };
 
   updateDom = () => {
-    const spinnerStateChanged = this.displayedSpinnerState !== this.spinnerState;
+    const spinnerStateChanged =
+      this.displayedSpinnerState !== this.spinnerState;
     if (spinnerStateChanged) {
-      const elements = this
-        .createSpinnerVirtualDomElements(this.spinnerState)
-        .map(this.convertToElement);
-      this.spinnerContainer
-        .replaceChildren(...elements);
+      const elements = this.createSpinnerVirtualDomElements(
+        this.spinnerState,
+      ).map(this.convertToElement);
+      this.spinnerContainer.replaceChildren(...elements);
       this.displayedSpinnerState = this.spinnerState;
     }
 
@@ -148,6 +153,7 @@ class Spinner {
         this.reflectError();
       } else if (data.status === "PROCESSING") {
         setTimeout(async () => {
+          this.updateAccordingToTimeElapsed();
           await this.requestAppVcReceiptStatus();
         }, this.config.msBetweenRequests);
       } else {
@@ -166,14 +172,16 @@ class Spinner {
   initialiseContainers = () => {
     this.spinnerContainer = document.createElement("div");
     this.ariaLiveContainer = document.createElement("div");
-    this.ariaLiveContainer.setAttribute("aria-live","assertive");
+    this.ariaLiveContainer.setAttribute("aria-live", "assertive");
     this.ariaLiveContainer.classList.add("govuk-visually-hidden");
-    this.container.replaceChildren(this.spinnerContainer, this.ariaLiveContainer);
+    this.container.replaceChildren(
+      this.spinnerContainer,
+      this.ariaLiveContainer,
+    );
   };
 
   init = () => {
     this.initialiseContainers();
-    this.initialiseTimers();
     this.updateDom();
     this.requestAppVcReceiptStatus();
   };

@@ -28,7 +28,7 @@ class Spinner {
   };
 
   updateAccordingToTimeElapsed = () => {
-    const elapsedMilliseconds = this.initTime - new Date().getTime();
+    const elapsedMilliseconds = new Date().getTime() - this.initTime;
     if (elapsedMilliseconds >= this.config.msBeforeAbort) {
       this.reflectError();
     } else if (elapsedMilliseconds >= this.config.msBeforeInformingOfLongWait) {

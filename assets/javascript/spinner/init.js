@@ -16,10 +16,12 @@ class Spinner {
   };
 
   reflectCompletion = () => {
+    sessionStorage.removeItem('spinnerInitTime');
     this.spinnerState = "complete";
   };
 
   reflectError = () => {
+    sessionStorage.removeItem('spinnerInitTime');
     window.location.href = "/ipv/page/pyi-technical";
   };
 
@@ -40,7 +42,15 @@ class Spinner {
     if (this.domRequirementsMet) {
       this.spinnerState = "pending";
       this.button.setAttribute("disabled", true);
-      this.initTime = new Date().getTime();
+
+      let spinnerInitTime = sessionStorage.getItem('spinnerInitTime')
+      if(spinnerInitTime === null) {
+        spinnerInitTime = new Date().getTime();
+        sessionStorage.setItem('spinnerInitTime', spinnerInitTime.toString());
+      } else {
+        spinnerInitTime = parseInt(spinnerInitTime, 10);
+      }
+      this.initTime = spinnerInitTime;
     }
   };
 

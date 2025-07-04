@@ -5,7 +5,6 @@ class Spinner {
   content;
   domRequirementsMet;
   spinnerState;
-  timers = {};
   initTime;
   button;
   config = {

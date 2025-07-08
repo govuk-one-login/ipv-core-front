@@ -29,7 +29,7 @@ class Spinner {
   };
 
   updateAccordingToTimeElapsed = () => {
-    const elapsedMilliseconds = new Date().getTime() - this.initTime;
+    const elapsedMilliseconds = Date.now() - this.initTime;
     if (elapsedMilliseconds >= this.config.msBeforeAbort) {
       this.reflectError();
     } else if (elapsedMilliseconds >= this.config.msBeforeInformingOfLongWait) {
@@ -44,12 +44,13 @@ class Spinner {
 
       let spinnerInitTime = sessionStorage.getItem('spinnerInitTime')
       if(spinnerInitTime === null) {
-        spinnerInitTime = new Date().getTime();
+        spinnerInitTime = Date.now();
         sessionStorage.setItem('spinnerInitTime', spinnerInitTime.toString());
       } else {
         spinnerInitTime = parseInt(spinnerInitTime, 10);
       }
       this.initTime = spinnerInitTime;
+      this.updateAccordingToTimeElapsed();
     }
   };
 
@@ -163,6 +164,11 @@ class Spinner {
       } else if (data.status === "PROCESSING") {
         this.updateAccordingToTimeElapsed();
         setTimeout(async () => {
+          if ((Date.now() - this.initTime) >= this.config.msBeforeAbort) {
+            this.reflectError();
+            this.updateDom();
+            return;
+          }
           await this.requestAppVcReceiptStatus();
         }, this.config.msBetweenRequests);
       } else {
@@ -194,6 +200,7 @@ class Spinner {
     this.updateDom();
     this.requestAppVcReceiptStatus();
   };
+
 
   constructor(domContainer) {
     this.container = domContainer;

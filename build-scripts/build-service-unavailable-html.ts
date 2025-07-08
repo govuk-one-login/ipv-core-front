@@ -3,6 +3,7 @@ import i18next from "i18next";
 import {configureNunjucks} from "../src/config/nunjucks";
 
 const PROD_CONTACT_US_URL = "https://home.account.gov.uk/contact-gov-uk-one-login";
+const PROD_LOGOUT_URL = "https://oidc.account.gov.uk/logout"
 
 const buildServiceUnavailableHtml = async (outputFile: string) => {
   const enJson = JSON.parse(await readFile("./locales/en/translation.json", 'utf-8'));
@@ -26,6 +27,7 @@ const buildServiceUnavailableHtml = async (outputFile: string) => {
     cache: true,
     currentLanguage: "en",
     contactUsUrl: PROD_CONTACT_US_URL,
+    logoutUrl: PROD_LOGOUT_URL,
     language: "en",
     i18n: {
       language: "en"

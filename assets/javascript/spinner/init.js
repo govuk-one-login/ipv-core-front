@@ -6,6 +6,7 @@ class Spinner {
   domRequirementsMet;
   spinnerState;
   initTime;
+  abortController;
   button;
   config = {
     apiUrl: "/app-vc-receipt-status",
@@ -80,6 +81,16 @@ class Spinner {
     }
   };
 
+  handleAbort = () => {
+    this.abortController.abort();
+  }
+
+  initialiseAbortController = () => {
+    this.abortController = new AbortController();
+    window.removeEventListener('beforeunload', this.handleAbort);
+    window.addEventListener('beforeunload', this.handleAbort);
+  }
+
   createSpinnerVirtualDomElements = () => {
     const stateContent = this.content[this.spinnerState];
     let elements = [
@@ -137,32 +148,37 @@ class Spinner {
   };
 
   requestAppVcReceiptStatus = async () => {
-    try {
-      const response = await fetch(this.config.apiUrl);
-      const data = await response.json();
+    const signal = this.abortController.signal;
+    await fetch(this.config.apiUrl, { signal })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "COMPLETED") {
+          this.reflectCompletion();
+        } else if (data.status === "ERROR") {
+          this.reflectError();
+        } else if (data.status === "PROCESSING") {
+          this.updateAccordingToTimeElapsed();
+          setTimeout(async () => {
+            if ((Date.now() - this.initTime) >= this.config.msBeforeAbort) {
+              this.reflectError();
+              this.updateDom();
+              return;
+            }
+            await this.requestAppVcReceiptStatus();
+          }, this.config.msBetweenRequests);
+        } else {
+          throw new Error(`Unsupported status ${data.status}`);
+        }
+      })
+      .catch(error => {
+        if (error.name !== "AbortError") {
+          this.reflectError();
+        }
+      })
+      .finally(() => {
+        this.updateDom();
+      });
 
-      if (data.status === "COMPLETED") {
-        this.reflectCompletion();
-      } else if (data.status === "ERROR") {
-        this.reflectError();
-      } else if (data.status === "PROCESSING") {
-        this.updateAccordingToTimeElapsed();
-        setTimeout(async () => {
-          if ((Date.now() - this.initTime) >= this.config.msBeforeAbort) {
-            this.reflectError();
-            this.updateDom();
-            return;
-          }
-          await this.requestAppVcReceiptStatus();
-        }, this.config.msBetweenRequests);
-      } else {
-        throw new Error(`Unsupported status ${data.status}`);
-      }
-    } catch (e) {
-      this.reflectError();
-    } finally {
-      this.updateDom();
-    }
   };
 
   // For the Aria alert to work reliably we need to create its container once and then update the contents
@@ -200,6 +216,7 @@ class Spinner {
     this.button = document.getElementById("submitButton");
     this.initialiseContent(domContainer);
     this.initialiseState();
+    this.initialiseAbortController();
   }
 }
 

@@ -41,16 +41,6 @@ class Spinner {
     if (this.domRequirementsMet) {
       this.spinnerState = "pending";
       this.button.setAttribute("disabled", true);
-
-      let spinnerInitTime = sessionStorage.getItem('spinnerInitTime')
-      if(spinnerInitTime === null) {
-        spinnerInitTime = Date.now();
-        sessionStorage.setItem('spinnerInitTime', spinnerInitTime.toString());
-      } else {
-        spinnerInitTime = parseInt(spinnerInitTime, 10);
-      }
-      this.initTime = spinnerInitTime;
-      this.updateAccordingToTimeElapsed();
     }
   };
 
@@ -186,7 +176,20 @@ class Spinner {
     this.container.replaceChildren(this.spinnerContainer, this.ariaLiveContainer);
   };
 
+  initTimer = () => {
+    let spinnerInitTime = sessionStorage.getItem('spinnerInitTime')
+    if(spinnerInitTime === null) {
+      spinnerInitTime = Date.now();
+      sessionStorage.setItem('spinnerInitTime', spinnerInitTime.toString());
+    } else {
+      spinnerInitTime = parseInt(spinnerInitTime, 10);
+    }
+    this.initTime = spinnerInitTime;
+    this.updateAccordingToTimeElapsed();
+  }
+
   init = () => {
+    this.initTimer()
     this.initialiseContainers();
     this.updateDom();
     this.requestAppVcReceiptStatus();

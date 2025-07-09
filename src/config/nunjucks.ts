@@ -1,4 +1,4 @@
-import addLanguageParam from "@govuk-one-login/frontend-language-toggle";
+import { contactUsUrl, addLanguageParam } from "@govuk-one-login/frontend-ui";
 import i18next from "i18next";
 import nunjucks, { Environment, ConfigureOptions } from "nunjucks";
 import path from "path";
@@ -8,6 +8,7 @@ export const VIEWS = [
   path.resolve("views/"),
   path.resolve("node_modules/govuk-frontend/dist/"),
   path.resolve("node_modules/@govuk-one-login/"),
+  path.resolve("node_modules/@govuk-one-login/frontend-ui"),
 ];
 
 interface FilterContext {
@@ -100,7 +101,10 @@ export const configureNunjucks = (
     },
   );
 
-  // Required by the language toggle component
+  // Required by the frontend-ui components
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
+  nunjucksEnv.addGlobal("contactUsUrl", contactUsUrl);
+  nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", false);
+  nunjucksEnv.addGlobal("basePath", __dirname + "/../..");
   return nunjucksEnv;
 };

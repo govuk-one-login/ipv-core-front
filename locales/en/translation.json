@@ -14,7 +14,6 @@
       "error": "Error",
       "errorTitlePrefix": "Error: ",
       "warning": "Warning",
-      "signOut": "Sign out",
       "phaseBanner": {
         "tag": "Beta",
         "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">feedback (opens in new tab)</a>  will help us to improve it."
@@ -31,31 +30,6 @@
         "UK biometric residence card (BRC)",
         "UK Frontier Worker permit (FWP)"
       ]
-    },
-    "cookie": {
-      "cookieBanner": {
-        "title": "Cookies on GOV.UK One Login",
-        "heading": "Cookies on GOV.UK One Login",
-        "paragraph1": "We use some essential cookies to make this service work.",
-        "paragraph2": "We’d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.",
-        "changeCookiePreferencesLink": "change your cookie settings",
-        "cookieBannerAccept": {
-          "paragraph1": "You’ve accepted additional cookies. You can ",
-          "paragraph2": " at any time."
-        },
-        "cookieBannerReject": {
-          "paragraph1": "You’ve rejected additional cookies. You can ",
-          "paragraph2": " at any time."
-        },
-        "buttonAcceptText": "Accept analytics cookies",
-        "buttonRejectText": "Reject analytics cookies",
-        "linkViewCookies": "View cookies",
-        "cookieBannerHideLinkText": "Hide this message",
-        "cookieBannerHideLinkLabel": "Hide cookie message"
-      }
-    },
-    "header": {
-      "homepageHref": "https://www.gov.uk/"
     },
     "languageToggle": {
       "ariaLabel": "Choose Language"

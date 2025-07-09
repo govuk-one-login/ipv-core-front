@@ -18,6 +18,10 @@ import {
 import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
 import ERROR_PAGES from "../../constants/error-pages";
 import config from "../../config/config";
+import {
+  frontendUiTranslationCy,
+  frontendUiTranslationEn,
+} from "@govuk-one-login/frontend-ui";
 
 interface RadioOption {
   text: string;
@@ -95,6 +99,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
 
   await req.i18n.changeLanguage(language);
   res.locals.currentLanguage = language;
+  const pageTemplateTranslations =
+    language === "cy" ? frontendUiTranslationCy : frontendUiTranslationEn;
 
   const renderOptions: Record<string, unknown> = {
     templateId,
@@ -102,6 +108,14 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     context,
     errorState: req.query.errorState,
     pageErrorState: req.query.pageErrorState,
+    translations: {
+      translation: {
+        header: pageTemplateTranslations.header,
+        cookieBanner: pageTemplateTranslations.cookieBanner,
+        phaseBanner: pageTemplateTranslations.phaseBanner,
+        footer: pageTemplateTranslations.footer,
+      },
+    },
   };
 
   const errorTemplates = new Set<string>(Object.values(ERROR_PAGES));

@@ -909,8 +909,7 @@
         "subHeading4": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
         "formRadioButtons": {
           "yes": "Oes",
-          "no": "Na",
-          "noLastChoice": "Na - profi fy hunaniaeth mewn ffordd arall"
+          "no": "Na"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -943,8 +942,7 @@
         "subHeading3Nino": "Oes gennych chi rif Yswiriant Gwladol?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Oes",
-          "otherWayButtonText": "Na - profi fy hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextNino": "Na"
+          "otherWayButtonText": "Na"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

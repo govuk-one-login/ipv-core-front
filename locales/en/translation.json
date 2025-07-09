@@ -970,8 +970,7 @@
         "subHeading4": "Do you have any of these types of photo ID?",
         "formRadioButtons": {
           "yes": "Yes",
-          "no": "No",
-          "noLastChoice": "No - prove my identity another way"
+          "no": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
@@ -1004,8 +1003,7 @@
         "subHeading3Nino": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Yes",
-          "otherWayButtonText": "No - prove my identity another way",
-          "otherWayButtonTextNino": "No"
+          "otherWayButtonText": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

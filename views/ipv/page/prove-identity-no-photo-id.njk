@@ -38,7 +38,6 @@
   <form id="proveIdentityNoPhotoIdOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {
-      classes: "govuk-radios--inline",
       idPrefix: "journey",
       name: "journey",
       fieldset: {
@@ -54,7 +53,7 @@
         },
         {
           value: "end",
-          text: 'pages.proveIdentityNoPhotoId.content.formRadioButtons.otherWayButtonText' | translateWithContext(context)
+          text: 'pages.proveIdentityNoPhotoId.content.formRadioButtons.otherWayButtonText' | translate
         }
       ]
     } %}

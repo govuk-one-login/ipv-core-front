@@ -6,6 +6,7 @@ class Spinner {
   domRequirementsMet;
   spinnerState;
   initTime;
+  updateDomTimer;
   abortController;
   button;
   config = {
@@ -17,11 +18,14 @@ class Spinner {
 
   reflectCompletion = () => {
     sessionStorage.removeItem('spinnerInitTime');
+    clearInterval(this.updateDomTimer);
     this.spinnerState = "complete";
   };
 
   reflectError = () => {
     sessionStorage.removeItem('spinnerInitTime');
+    clearInterval(this.updateDomTimer);
+    this.abortController.abort();
     window.location.href = "/ipv/page/pyi-technical";
   };
 
@@ -72,6 +76,9 @@ class Spinner {
         msBetweenRequests:
           parseInt(element.dataset.msBetweenRequests) ||
           this.config.msBetweenRequests,
+        msBetweenDomUpdate:
+          parseInt(element.dataset.msBetweenDomUpdate) ||
+          this.config.msBetweenDomUpdate,
         ariaButtonEnabledMessage: element.dataset.ariaButtonEnabledMessage,
       };
 
@@ -144,6 +151,7 @@ class Spinner {
     if (this.spinnerState === "complete") {
       this.button.removeAttribute("disabled");
       this.updateAriaAlert(this.config.ariaButtonEnabledMessage);
+      clearInterval(this.updateDomTimer);
     }
   };
 
@@ -157,11 +165,9 @@ class Spinner {
         } else if (data.status === "ERROR") {
           this.reflectError();
         } else if (data.status === "PROCESSING") {
-          this.updateAccordingToTimeElapsed();
           setTimeout(async () => {
             if ((Date.now() - this.initTime) >= this.config.msBeforeAbort) {
               this.reflectError();
-              this.updateDom();
               return;
             }
             await this.requestAppVcReceiptStatus();
@@ -175,10 +181,6 @@ class Spinner {
           this.reflectError();
         }
       })
-      .finally(() => {
-        this.updateDom();
-      });
-
   };
 
   // For the Aria alert to work reliably we need to create its container once and then update the contents
@@ -202,13 +204,19 @@ class Spinner {
     }
     this.initTime = spinnerInitTime;
     this.updateAccordingToTimeElapsed();
+
+    this.updateDomTimer = setInterval(() => {
+      this.updateAccordingToTimeElapsed();
+      this.updateDom();
+    }, this.config.msBetweenDomUpdate)
   }
 
   init = () => {
     this.initTimer()
     this.initialiseContainers();
     this.updateDom();
-    this.requestAppVcReceiptStatus();
+    this.requestAppVcReceiptStatus()
+      .then(() => this.updateDom);
   };
 
   constructor(domContainer) {

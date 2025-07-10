@@ -181,6 +181,9 @@ class Spinner {
           this.reflectError();
         }
       })
+      .finally(() => {
+        this.updateDom();
+      })
   };
 
   // For the Aria alert to work reliably we need to create its container once and then update the contents
@@ -215,8 +218,7 @@ class Spinner {
     this.initTimer()
     this.initialiseContainers();
     this.updateDom();
-    this.requestAppVcReceiptStatus()
-      .then(() => this.updateDom);
+    this.requestAppVcReceiptStatus();
   };
 
   constructor(domContainer) {

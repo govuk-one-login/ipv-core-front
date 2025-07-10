@@ -3,6 +3,7 @@ import i18next from "i18next";
 import nunjucks, { Environment, ConfigureOptions } from "nunjucks";
 import path from "path";
 import { kebabCaseToPascalCase } from "../app/shared/stringHelper";
+import Config from "./config";
 
 export const VIEWS = [
   path.resolve("views/"),
@@ -104,7 +105,10 @@ export const configureNunjucks = (
   // Required by the frontend-ui components
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   nunjucksEnv.addGlobal("contactUsUrl", contactUsUrl);
-  nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", false);
+  nunjucksEnv.addGlobal(
+    "MAY_2025_REBRAND_ENABLED",
+    Config.MAY_2025_REBRAND_ENABLED,
+  );
   nunjucksEnv.addGlobal("basePath", __dirname + "/../..");
   return nunjucksEnv;
 };

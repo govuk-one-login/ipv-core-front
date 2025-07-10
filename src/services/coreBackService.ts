@@ -75,7 +75,7 @@ export const postJourneyEvent = (
   currentPage?: string,
 ): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   const requestConfig = generateAxiosConfig(
-    `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${event}`,
+    `${config.API_BASE_URL}${config.API_JOURNEY_EVENT}/${encodeURIComponent(event)}`,
     req,
   );
 
@@ -84,7 +84,7 @@ export const postJourneyEvent = (
   }
 
   return axiosInstance.post(
-    `${config.API_JOURNEY_EVENT}/${event}`,
+    `${config.API_JOURNEY_EVENT}/${encodeURIComponent(event)}`,
     {},
     requestConfig,
   );

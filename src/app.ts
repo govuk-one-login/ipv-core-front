@@ -31,6 +31,11 @@ import {
 import protect, { ProtectionConfig } from "overload-protection";
 import { configureNunjucks, VIEWS } from "./config/nunjucks";
 import notificationBannerHandler from "./handlers/notification-banner-handler";
+import {
+  setBaseTranslations,
+  setFrontendUiTranslations,
+  frontendUiMiddleware,
+} from "@govuk-one-login/frontend-ui";
 
 // Extend request object with our own extensions
 declare global {
@@ -123,7 +128,10 @@ i18next
     i18nextConfigurationOptions(path.resolve("locales/{{lng}}/{{ns}}.json")),
   );
 
+setBaseTranslations(i18next);
+setFrontendUiTranslations(i18next);
 app.use(i18nextMiddleware.handle(i18next));
+app.use(frontendUiMiddleware);
 
 app.use(cookieParser());
 

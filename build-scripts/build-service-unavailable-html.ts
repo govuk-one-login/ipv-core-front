@@ -1,38 +1,50 @@
 import {readFile, writeFile} from "fs/promises";
 import i18next from "i18next";
-import {configureNunjucks} from "../src/config/nunjucks";
+import { configureNunjucks } from "../src/config/nunjucks";
+import {
+  frontendUiTranslationEn,
+  setBaseTranslations,
+  setFrontendUiTranslations
+} from "@govuk-one-login/frontend-ui";
 
 const PROD_CONTACT_US_URL = "https://home.account.gov.uk/contact-gov-uk-one-login";
+const PROD_LOGOUT_URL = "https://oidc.account.gov.uk/logout"
 
 const buildServiceUnavailableHtml = async (outputFile: string) => {
-  const enJson = JSON.parse(await readFile("./locales/en/translation.json", 'utf-8'));
-  const cyJson = JSON.parse(await readFile("./locales/cy/translation.json", 'utf-8'));
   const applicationCss = await readFile("./dist/public/stylesheets/application.css");
 
-  i18next.init({
-    resources: {
-      en: {
-        translation: enJson
-      },
-      cy: {
-        translation: cyJson
-      }
-    }
-  })
+  await i18next.init();
+
+  setBaseTranslations(i18next);
+  setFrontendUiTranslations(i18next);
 
   const nunjucksEnv = configureNunjucks();
+
+  // Required by the frontend-ui components, override values from configureNunjucks()
+  nunjucksEnv.addGlobal("basePath", __dirname + "/..");
+  // PYIC-8499 Set this to true when we go live in production
+  nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", false);
 
   const renderOptions: Record<string, unknown> = {
     cache: true,
     currentLanguage: "en",
     contactUsUrl: PROD_CONTACT_US_URL,
+    logoutUrl: PROD_LOGOUT_URL,
     language: "en",
     i18n: {
       language: "en"
     },
     showLanguageToggle: false,
     useDeviceIntelligence: false,
-    applicationCss
+    applicationCss,
+    translations: {
+      translation: {
+        header: frontendUiTranslationEn.header,
+        cookieBanner: frontendUiTranslationEn.cookieBanner,
+        phaseBanner: frontendUiTranslationEn.phaseBanner,
+        footer: frontendUiTranslationEn.footer
+      }
+    },
   }
 
   const renderedHtml = nunjucksEnv.render("errors/service-unavailable.njk", renderOptions);

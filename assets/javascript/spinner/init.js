@@ -14,6 +14,7 @@ class Spinner {
     msBeforeInformingOfLongWait: 5000,
     msBeforeAbort: 25000,
     msBetweenRequests: 1000,
+    msBetweenDomUpdate: 2000,
   };
 
   reflectCompletion = () => {

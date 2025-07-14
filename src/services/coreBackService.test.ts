@@ -90,6 +90,20 @@ describe("CoreBackService", () => {
     );
   });
 
+  it("should encode unsafe characters in event before making the request", async () => {
+    const req = createRequest();
+    const rawEvent = "weird/event?name=value";
+    const encodedEvent = encodeURIComponent(rawEvent); // "weird%2Fevent%3Fname%3Dvalue"
+
+    await coreBackService.postJourneyEvent(req, rawEvent);
+
+    expect(axiosInstanceStub.post).to.have.been.calledWithMatch(
+      `/journey/${encodedEvent}`,
+      {},
+      sinon.match.object,
+    );
+  });
+
   it("should postSessionInitialise with correct parameters and headers", async () => {
     // Arrange
     const req = createRequest();

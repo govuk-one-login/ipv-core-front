@@ -168,7 +168,6 @@ class Spinner {
         } else if (data.status === "PROCESSING") {
           setTimeout(async () => {
             if ((Date.now() - this.initTime) >= this.config.msBeforeAbort) {
-              this.reflectError();
               return;
             }
             await this.requestAppVcReceiptStatus();

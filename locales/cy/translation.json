@@ -196,9 +196,9 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth yn y ffordd hyn",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth yn y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
@@ -275,9 +275,9 @@
       }
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "title": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth yn y ffordd hyn",
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni allwn brofi eich hunaniaeth y ffordd hyn",
+      "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth yn y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
@@ -330,8 +330,8 @@
       }
     },
     "pyiDrivingLicenceNoMatch": {
-      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio’ch manylion trwydded yrru cerdyn-llun y DU ddiwethaf.",
         "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
@@ -448,8 +448,8 @@
       }
     },
     "pyiPassportNoMatch": {
-      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu profi eich hunaniaeth",
+      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio’ch manylion pasbort y DU ddiwethaf.",
         "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
@@ -540,7 +540,7 @@
       "title": "Mae’n ddrwg gennym, mae problem",
       "header": "Mae’n ddrwg gennym, mae problem",
       "content": {
-        "paragraph1": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
+        "paragraph1": "Ni allwn gadarnhau eich hunaniaeth ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato.",
         "paragraph2Unrecoverable": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."

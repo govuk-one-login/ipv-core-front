@@ -16,7 +16,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "page-face-to-face-handoff": [],
   "page-ipv-identity-document-start": [],
   "page-ipv-identity-document-types": [],
-  "page-ipv-identity-postoffice-start": ["lastChoice", undefined],
+  "page-ipv-identity-postoffice-start": [],
   "page-ipv-pending": ["f2f-delete-details", undefined],
   "page-ipv-reuse": [],
   "page-ipv-success": ["repeatFraudCheck", "updateIdentity", undefined],

@@ -108,5 +108,8 @@
     "qrcode": "1.5.4",
     "sanitize-filename": "1.6.3",
     "ua-parser-js": "1.0.40"
+  },
+  "overrides": {
+    "form-data": ">=4.0.4"
   }
 }

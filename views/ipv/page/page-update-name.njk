@@ -21,21 +21,22 @@
     <li>{{ 'pages.pageUpdateName.content.list2' | translate }}</li>
   </ul>
 
-  <p class="govuk-body">{{ 'pages.pyiNewDetails.content.paragraph3' | translate | safe}}</p>
-
   {{ govukWarningText({
-    text: 'pages.pageUpdateName.content.warningText' | translateWithContext(context),
-    iconFallbackText: 'pages.pageUpdateName.content.warningTextFallback' | translate
-  }) }}
+      text: 'pages.pageUpdateName.content.warningText' | translateWithContext(context),
+      iconFallbackText: 'pages.pageUpdateName.content.warningTextFallback' | translate
+    }) }}
 
-  <h2 class="govuk-heading-m">{{ 'pages.pageUpdateName.content.subHeading1' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate( { url: contactUsUrl } ) | safe}}</p>
+  <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph3' | translate | safe}}</p>
+
+  {{ govukDetails({
+        summaryText: 'pages.pageUpdateName.content.nameMistakeInformation.summary' | translate,
+        text: 'pages.pageUpdateName.content.nameMistakeInformation.text' | translate( { url: contactUsUrl } ) | safe
+      }) }}
 
   {% if context != "repeatFraudCheck" %}
-    <h2 class="govuk-heading-m">{{ 'pages.pageUpdateName.content.subHeading2' | translate }}</h2>
-    <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph6' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph7' | translate }}</p>
+    <h2 class="govuk-heading-m">{{ 'pages.pageUpdateName.content.subHeading1' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate }}</p>
   {% endif %}
 
   <form class="govuk-heading-m" id="pageUpdateNameOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
@@ -45,7 +46,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pageUpdateName.content.subHeading3' | translate,
+          text: 'pages.pageUpdateName.content.subHeading2' | translate,
           classes: "govuk-fieldset__legend--m"
         }
       },

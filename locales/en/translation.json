@@ -196,9 +196,9 @@
       }
     },
     "photoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Sorry, we cannot confirm your identity this way",
+      "title": "Sorry, we cannot prove your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "header": "Sorry, we cannot confirm your identity this way",
+      "header": "Sorry, we cannot prove your identity this way",
       "headerDropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
@@ -275,9 +275,9 @@
       }
     },
     "noPhotoIdSecurityQuestionsFindAnotherWay": {
-      "title": "Sorry, we cannot confirm your identity this way",
+      "title": "Sorry, we cannot prove your identity this way",
       "titleDropout": "Find another way to prove your identity",
-      "header": "Sorry, we cannot confirm your identity this way",
+      "header": "Sorry, we cannot prove your identity this way",
       "headerDropout": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
@@ -330,8 +330,8 @@
       }
     },
     "pyiDrivingLicenceNoMatch": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
+      "title": "Sorry, we could not prove your identity",
+      "header": "Sorry, we could not prove your identity",
       "content": {
         "paragraph1": "We could not find a match when we last checked your UK photocard driving licence details.",
         "paragraph2": "You’ll need to prove your identity another way."
@@ -416,8 +416,8 @@
       }
     },
     "pyiPassportNoMatch": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
+      "title": "Sorry, we could not prove your identity",
+      "header": "Sorry, we could not prove your identity",
       "content": {
         "paragraph1": "We could not find a match when we last checked your UK passport details.",
         "paragraph2": "You’ll need to prove your identity another way."
@@ -583,7 +583,7 @@
       "title": "Sorry, there is a problem",
       "header": "Sorry, there is a problem",
       "content": {
-        "paragraph1": "We cannot confirm your identity right now.",
+        "paragraph1": "We cannot prove your identity right now.",
         "subHeading": "What you can do",
         "paragraph2": "Continue to the service you were trying to use to find out if there are other ways to access it.",
         "paragraph2Unrecoverable": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."

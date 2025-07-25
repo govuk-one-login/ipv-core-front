@@ -1158,12 +1158,12 @@
       "title": "Diweddaru eich enw gan ddefnyddio’r ap GOV.UK One Login",
       "header": "Diweddaru eich enw gan ddefnyddio’r ap GOV.UK One Login",
       "content": {
-        "paragraph1": "TODO: (update Welsh translation) I ddiweddaru eich enw, mae angen i chi brofi eich hunaniaeth eto gyda’ch enw newydd.",
+        "paragraph1": "I ddiweddaru eich enw, mae angen i chi brofi eich hunaniaeth eto.",
         "paragraph2": "Byddwch angen:",
         "list1": "ID gyda llun gyda’r enw rydych chi ei eisiau GOV.UK One Login ei ddefnyddio",
         "list2": "dweud wrthym ble rydych chi wedi byw am y 3 mis diwethaf",
-        "warningText": "TODO: (update Welsh translation) Efallai na fyddwch yn gallu defnyddio’ch GOV.UK One Login os na allwn gadarnhau eich hunaniaeth gan ddefnyddio’ch manylion newydd.",
-        "warningTextRepeatFraudCheck": "TODO: (update Welsh translation) Efallai na fyddwch yn gallu defnyddio’ch GOV.UK One Login os nad yw’ch manylion yn gyfredol.",
+        "warningText": "Os ydych yn diweddaru eich enw olaf, rhaid i'ch ID gyda llun ddangos yr un enwau a ddefnyddiwyd gennych pan brofwyd eich hunaniaeth ddiwethaf, gan gynnwys unrhyw enwau canol.",
+        "warningTextRepeatFraudCheck": "Os ydych yn diweddaru eich enw olaf, rhaid i'ch ID gyda llun ddangos yr un enwau a ddefnyddiwyd gennych pan brofwyd eich hunaniaeth ddiwethaf, gan gynnwys unrhyw enwau canol.",
         "warningTextFallback": "Rhybudd",
         "paragraph3": "Darganfyddwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ba ID gyda llun y gallwch ei ddefnyddio i brofi eich hunaniaeth (agor mewn tab newydd)</a>.",
         "nameMistakeInformation": {

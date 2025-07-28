@@ -1159,7 +1159,7 @@
         "paragraph2": "You’ll need:",
         "list1": "photo ID with the name you want GOV.UK One Login to use",
         "list2": "to tell us where you’ve lived for the last 3 months",
-        "warningText": "If you’re updating your last name, your photo ID must show the same given names you used when you last proved your identity, including any middle names",
+        "warningText": "If you’re updating your last name, your photo ID must show the same given names you used when you last proved your identity, including any middle names.",
         "warningTextFallback": "Warning",
         "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
         "nameMistakeInformation": {

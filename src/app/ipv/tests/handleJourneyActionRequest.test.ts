@@ -147,6 +147,7 @@ describe("handleJourneyActionRequest", () => {
       req,
       "some-journey-event",
       req.session.currentPage,
+      undefined,
     );
   });
 

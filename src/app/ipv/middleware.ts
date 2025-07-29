@@ -62,7 +62,7 @@ const journeyApi = async (
   action: string,
   req: Request,
   currentPageId?: string,
-  currentCriId?: string
+  currentCriId?: string,
 ): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   if (action.startsWith("/")) {
     action = action.substring(1);
@@ -92,9 +92,14 @@ export const processAction = async (
   res: Response,
   action: string,
   currentPageId?: string,
-  currentCriId?: string
+  currentCriId?: string,
 ): Promise<void> => {
-  const backendResponse = await journeyApi(action, req, currentPageId, currentCriId);
+  const backendResponse = await journeyApi(
+    action,
+    req,
+    currentPageId,
+    currentCriId,
+  );
 
   return await handleBackendResponse(req, res, backendResponse);
 };
@@ -103,7 +108,7 @@ export const handleBackendResponse = async (
   req: Request,
   res: Response,
   backendResponse: AxiosResponse<PostJourneyEventResponse>,
-  criId?: string
+  criId?: string,
 ): Promise<void> => {
   const data = backendResponse.data;
 

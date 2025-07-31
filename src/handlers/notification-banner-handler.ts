@@ -2,8 +2,12 @@ import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 import { RequestHandler } from "express";
 export interface BannerConfig {
-  pageId: string;
-  context?: string;
+  pages: [
+    {
+      pageId: string;
+      contexts?: string[];
+    },
+  ];
   bannerType?: string;
   bannerMessage: string;
   bannerMessageCy: string;
@@ -58,12 +62,14 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       const bannerStartTime = new Date(data.startTime);
       const bannerEndTime = new Date(data.endTime);
       const currentTime = new Date();
+
       if (
-        req.path === data.pageId &&
         currentTime >= bannerStartTime &&
         currentTime <= bannerEndTime &&
-        ((!req.session.context && !data.context) ||
-          req.session.context === data.context)
+        data.pages.some(p =>
+          p.pageId === req.path &&
+          ((!req.session.context && (!p.contexts || p.contexts?.includes(""))) ||
+            (req.session.context && p.contexts && p.contexts.includes(req.session.context))))
       ) {
         res.locals.displayBanner = true;
         res.locals.bannerType = data.bannerType;

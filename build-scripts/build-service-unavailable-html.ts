@@ -22,8 +22,8 @@ const buildServiceUnavailableHtml = async (outputFile: string) => {
 
   // Required by the frontend-ui components, override values from configureNunjucks()
   nunjucksEnv.addGlobal("basePath", __dirname + "/..");
-  // PYIC-8499 Set this to true when we go live in production
-  nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", false);
+  // As this page is static it must match the production branding.
+  nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", true);
 
   const renderOptions: Record<string, unknown> = {
     cache: true,

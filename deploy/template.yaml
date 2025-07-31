@@ -214,7 +214,7 @@ Mappings:
       lambdaInvokeCompareWindow: 300
       languageToggle: true
       useDeviceIntelligence: true
-      may2025RebrandEnabled: false
+      may2025RebrandEnabled: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"

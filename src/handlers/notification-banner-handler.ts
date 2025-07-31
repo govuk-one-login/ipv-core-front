@@ -1,6 +1,7 @@
 import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 import { RequestHandler } from "express";
+import Config from "../config/config";
 export interface BannerConfig {
   pages: [
     {
@@ -64,12 +65,17 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       const currentTime = new Date();
 
       if (
-        currentTime >= bannerStartTime &&
-        currentTime <= bannerEndTime &&
-        data.pages.some(p =>
-          p.pageId === req.path &&
-          ((!req.session.context && (!p.contexts || p.contexts?.includes(""))) ||
-            (req.session.context && p.contexts && p.contexts.includes(req.session.context))))
+        (Config.ALWAYS_SHOW_BANNERS ||
+          (currentTime >= bannerStartTime && currentTime <= bannerEndTime)) &&
+        data.pages.some(
+          (p) =>
+            p.pageId === req.path &&
+            ((!req.session.context &&
+              (!p.contexts || p.contexts?.includes(""))) ||
+              (req.session.context &&
+                p.contexts &&
+                p.contexts.includes(req.session.context))),
+        )
       ) {
         res.locals.displayBanner = true;
         res.locals.bannerType = data.bannerType;

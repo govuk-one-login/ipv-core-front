@@ -73,8 +73,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
             ((!req.session.context &&
               (!p.contexts || p.contexts?.includes(""))) ||
               (req.session.context &&
-                p.contexts &&
-                p.contexts.includes(req.session.context))),
+                p.contexts?.includes(req.session.context))),
         )
       ) {
         res.locals.displayBanner = true;

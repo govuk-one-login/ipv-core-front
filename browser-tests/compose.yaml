@@ -28,7 +28,7 @@ services:
       MAY_2025_REBRAND_ENABLED: true
       SERVICE_URL: http://localhost:4601
 # Note that due to how snapshot tests work the pageIds here include the language so the banners only appear in one language version of the snapshot. We also can't test banner contexts in snapshot tests as the all-templates page shortcuts a lot of stuff.
-      NOTIFICATION_BANNER: '[{"pageId":"/dev/template/live-in-uk/en","bannerMessage":"<h3>Test banner</h3> <p>This is a test banner <a class=\"govuk-notification-banner__link\" href=\"#\">with a dummy link</a></p>","bannerMessageCy":"Not seen","startTime":"2024-10-25T06:14:40.162+0000","endTime":"2030-10-25T06:14:40.162+0000"}]'
+      NOTIFICATION_BANNER: '[{"pages": [ { "pageId":"/dev/template/live-in-uk/en" } ],"bannerMessage":"<h3>Test banner</h3> <p>This is a test banner <a class=\"govuk-notification-banner__link\" href=\"#\">with a dummy link</a></p>","bannerMessageCy":"Not seen","startTime":"2024-10-25T06:14:40.162+0000","endTime":"2030-10-25T06:14:40.162+0000"}]'
     ports:
       - "4601:4601"
       - "5101:9229"

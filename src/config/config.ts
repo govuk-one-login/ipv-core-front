@@ -64,4 +64,5 @@ export default {
   DAD_SPINNER_REQUEST_TIMEOUT:
     process.env.DAD_SPINNER_REQUEST_TIMEOUT || 2400000,
   MAY_2025_REBRAND_ENABLED: process.env.MAY_2025_REBRAND_ENABLED === "true",
+  ALWAYS_SHOW_BANNERS: process.env.ALWAYS_SHOW_BANNERS === "true",
 };

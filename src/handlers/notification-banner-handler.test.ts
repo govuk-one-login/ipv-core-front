@@ -75,7 +75,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
@@ -101,7 +101,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
@@ -128,7 +128,7 @@ describe("Notification banner handler", () => {
       if (paramName === "/core-front/notification-banner") {
         return JSON.stringify([
           {
-            pageId: "/some-other-page",
+            pages: [{ pageId: "/some-other-page" }],
             bannerMessage: "Test banner",
             bannerMessageCy: "Welsh Test banner",
             startTime: beforeNow,
@@ -139,7 +139,7 @@ describe("Notification banner handler", () => {
       if (paramName === "/core-front/notification-banner2") {
         return JSON.stringify([
           {
-            pageId: "/some-page",
+            pages: [{ pageId: "/some-page" }],
             bannerMessage: "Test banner 2",
             bannerMessageCy: "Welsh Test banner 2",
             startTime: beforeNow,
@@ -158,6 +158,34 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
+  it("should display banner text on all pages", async () => {
+    // Arrange
+    const req = createRequest();
+    req.i18n.language = "en";
+    const res = createResponse();
+    parameterServiceStub.getParameter = sinon.fake((paramName: string) => {
+      if (paramName === "/core-front/notification-banner") {
+        return JSON.stringify([
+          {
+            pages: [{ pageId: "/some-other-page" }, { pageId: "/some-page" }],
+            bannerMessage: "Test banner",
+            bannerMessageCy: "Welsh Test banner",
+            startTime: beforeNow,
+            endTime: afterNow,
+          },
+        ]);
+      }
+    });
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.true;
+    expect(res.locals.bannerMessage).to.equal("Test banner");
+    expect(next).to.have.been.calledOnce;
+  });
+
   it("should use parsed local environment variable when NODE_ENV is local", async () => {
     // Arrange
     const req = createRequest();
@@ -165,7 +193,7 @@ describe("Notification banner handler", () => {
     process.env.NODE_ENV = "local";
     process.env["NOTIFICATION_BANNER"] = JSON.stringify([
       {
-        pageId: "/some-page",
+        pages: [{ pageId: "/some-page" }],
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
         startTime: beforeNow,
@@ -188,7 +216,7 @@ describe("Notification banner handler", () => {
     process.env.NODE_ENV = "local";
     process.env["NOTIFICATION_BANNER"] = JSON.stringify([
       {
-        pageId: "/some-other-page",
+        pages: [{ pageId: "/some-other-page" }],
         bannerMessage: "Test banner",
         bannerMessageCy: "Welsh Test banner",
         startTime: beforeNow,
@@ -197,7 +225,7 @@ describe("Notification banner handler", () => {
     ]);
     process.env["NOTIFICATION_BANNER_2"] = JSON.stringify([
       {
-        pageId: "/some-page",
+        pages: [{ pageId: "/some-page" }],
         bannerMessage: "Test banner 2",
         bannerMessageCy: "Welsh Test banner 2",
         startTime: beforeNow,
@@ -235,10 +263,10 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          startTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+          startTime: afterNow,
           endTime: afterNow,
         },
       ]),
@@ -259,11 +287,11 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
-          endTime: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
+          endTime: beforeNow,
         },
       ]),
     );
@@ -283,7 +311,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
@@ -307,7 +335,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNowBst,
@@ -331,10 +359,9 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page", contexts: ["notMatchingContext"] }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          context: "notMatchingContext",
           startTime: beforeNow,
           endTime: afterNow,
         },
@@ -357,7 +384,7 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page" }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
@@ -382,10 +409,35 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page", contexts: ["matchingContext"] }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          context: "matchingContext",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ]),
+    );
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.true;
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should display banner if config has blank and non-blank contexts and request has no context", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParameter = sinon.fake.resolves(
+      JSON.stringify([
+        {
+          pages: [
+            { pageId: "/some-page", contexts: ["notMatchingContext", ""] },
+          ],
+          bannerMessage: "Test banner",
+          bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
           endTime: afterNow,
         },
@@ -408,18 +460,16 @@ describe("Notification banner handler", () => {
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page", contexts: ["matchingContext"] }],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
-          context: "matchingContext",
           startTime: beforeNow,
           endTime: afterNow,
         },
         {
-          pageId: "/some-page",
+          pages: [{ pageId: "/some-page", contexts: ["notMatchingContext"] }],
           bannerMessage: "Bad banner",
           bannerMessageCy: "Welsh Test banner",
-          context: "notMatchingContext",
           startTime: beforeNow,
           endTime: afterNow,
         },
@@ -438,7 +488,6 @@ describe("Notification banner handler", () => {
   it("should continue if the config is invalid", async () => {
     // Arrange
     const req = createRequest();
-    req.session.context = "matchingContext";
     const res = createResponse();
     parameterServiceStub.getParameter = sinon.fake.resolves("not JSON");
 

@@ -80,6 +80,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -107,6 +108,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: true
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -134,6 +136,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: ""
@@ -161,6 +164,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"
@@ -188,6 +192,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
@@ -215,6 +220,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
+      alwaysShowBanners: false
       ga4Disabled: false
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
@@ -825,6 +831,8 @@ Resources:
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, useDeviceIntelligence ]
             - Name: MAY_2025_REBRAND_ENABLED
               Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, may2025RebrandEnabled ]
+            - Name: ALWAYS_SHOW_BANNERS
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, alwaysShowBanners ]
             - Name: NODE_OPTIONS
               Value: !Join
                 - ''

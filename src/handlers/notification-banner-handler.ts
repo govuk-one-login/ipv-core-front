@@ -2,6 +2,7 @@ import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 import { RequestHandler } from "express";
 import Config from "../config/config";
+import i18next from "i18next";
 export interface BannerConfig {
   pages: [
     {
@@ -82,6 +83,10 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
           req.i18n.language === "cy"
             ? data.bannerMessageCy
             : data.bannerMessage;
+        const translate = i18next.getFixedT(req.i18n.language);
+        res.locals.bannerTitleText = translate(
+          "general.govuk.notificationBanner.title",
+        );
       }
     });
     next();

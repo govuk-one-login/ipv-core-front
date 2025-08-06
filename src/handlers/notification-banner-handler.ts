@@ -87,6 +87,10 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
         res.locals.bannerTitleText = translate(
           "general.govuk.notificationBanner.title",
         );
+
+        logger.info(
+          `Banner enabled for "${req.path}" (context: "${req.session.context}")`,
+        );
       }
     });
     next();

@@ -88,7 +88,9 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
           "general.govuk.notificationBanner.title",
         );
 
-        logger.info(`Banner enabled for "${req.path}" (context: "${req.session.context}")`)
+        logger.info(
+          `Banner enabled for "${req.path}" (context: "${req.session.context}")`,
+        );
       }
     });
     next();

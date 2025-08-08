@@ -8,7 +8,10 @@ import { Request } from "express";
 import { Logger } from "pino";
 import { createAxiosInstance } from "../app/shared/axiosHelper";
 import config from "../config/config";
-import { PostJourneyEventResponse } from "../app/validators/postJourneyEventResponse";
+import {
+  JourneyResponse,
+  PostJourneyEventResponse,
+} from "../app/validators/postJourneyEventResponse";
 
 const axiosInstance = createAxiosInstance(config.API_BASE_URL);
 
@@ -123,7 +126,7 @@ export const postCriCallback = (
 export const postMobileAppCallback = (
   req: Request,
   body: MobileAppCallbackRequest,
-): Promise<AxiosResponse> => {
+): Promise<AxiosResponse<JourneyResponse>> => {
   return axiosInstance.post(
     config.API_MOBILE_APP_CALLBACK,
     body,

@@ -15,6 +15,7 @@ export interface PageResponse {
 
 export interface JourneyResponse {
   journey: string;
+  clientOAuthSessionId?: string;
 }
 
 export interface ClientResponse {

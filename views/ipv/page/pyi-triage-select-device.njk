@@ -12,6 +12,9 @@
 {% set showBack = true %}
 {% set hrefBack = "/ipv/journey/pyi-triage-select-device/back" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '0b936bee-23cb-4e87-8582-c23512e2646c' %}
+
 {% block content %}
   <form id="pyiTriageSelectDeviceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

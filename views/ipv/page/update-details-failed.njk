@@ -9,6 +9,9 @@
 {% set errorText = 'pages.updateDetailsFailed.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#updateDetailsFailedActionForm" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '25ca3bb3-784a-4ac5-a42a-ca40c9721ec6' %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.updateDetailsFailed.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithContext(context) }}</p>

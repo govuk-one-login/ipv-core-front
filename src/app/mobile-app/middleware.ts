@@ -1,7 +1,8 @@
 import { MobileAppCallbackRequest } from "../../services/coreBackService";
-import { handleBackendResponse } from "../ipv/middleware";
+import { processAction } from "../ipv/middleware";
 import * as CoreBackService from "../../services/coreBackService";
 import { RequestHandler } from "express";
+import ipvPages from "../../constants/ipv-pages";
 
 export const checkMobileAppDetails: RequestHandler = async (req, res) => {
   if (!req.query?.state) {
@@ -26,5 +27,11 @@ export const checkMobileAppDetails: RequestHandler = async (req, res) => {
     req.session.clientOauthSessionId = apiResponse.data.clientOAuthSessionId;
   }
 
-  return handleBackendResponse(req, res, apiResponse);
+  // Successful callbacks must originate from the mobile download page to cause a state transition.
+  return await processAction(
+    req,
+    res,
+    apiResponse.data.journey,
+    ipvPages.PYI_TRIAGE_MOBILE_DOWNLOAD_APP,
+  );
 };

@@ -21,6 +21,23 @@
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph3' | translate }}</p>
 
+      <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
+
+      {% set details1 %}
+          <ol class="govuk-list govuk-list--number">
+              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
+              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
+              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
+              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
+              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
+          </ol>
+      {% endset %}
+
+      {{ govukDetails({
+          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
+          html: details1
+      }) }}
+
       {{ govukWarningText({
         text: 'pages.pyiTriageDesktopDownload.content.warningText' | translate,
         iconFallbackText: 'pages.pyiTriageDesktopDownload.content.warningTextFallback' | translate
@@ -38,24 +55,6 @@
       </h3>
 
       <ul class="govuk-list" role="list">
-        <li>
-          {% set details1 %}
-            <ol class="govuk-list govuk-list--number">
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list6' | translate }}</li>
-            </ol>
-          {% endset %}
-
-          {{ govukDetails({
-              summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
-              html: details1
-          }) }}
-
-        </li>
         <li>
 
           {% set details2 %}
@@ -105,7 +104,7 @@
           {{ 'pages.pyiTriageDesktopDownload.content.subHeading3' | translate }}
       </h2>
 
-      <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph5' | translate }}</p>
 
       <div id="dad-spinner-container"
           data-initial-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerStateText' | translate }}"
@@ -127,8 +126,8 @@
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading4' | translate }}
       </h2>
 
-      <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph5' | translate }}</p>
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph6' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph7' | translate }}</p>
     </li>
   </ol>
 

@@ -1060,18 +1060,18 @@
         "paragraph2": "Yn gyntaf bydd angen i chi lawrlwytho, agor a defnyddio’r ap. Yna byddwch chi’n dod yn ôl i’r dudalen hon i orffen profi pwy ydych chi.",
         "subHeading1": "1. Lawrlwythwch yr ap GOV.UK One Login",
         "paragraph3": "Sganiwch y cod QR gyda’ch ffôn clyfar i lawrlwytho’r ap GOV.UK One Login.",
+        "paragraph4": "You can download the GOV.UK One Login app by using the camera on your phone to scan the QR code.",
         "warningText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
         "warningTextFallback": "Rhybudd",
         "qrCodeAlt": "Cod QR i lawrlwytho’r ap",
         "subHeading2": "Help i ddefnyddio’r ap GOV.UK One Login",
         "details1": {
           "summaryText": "Sut i sganio cod QR",
-          "list1": "Agorwch yr ap camera ar eich ffôn.",
-          "list2": "Gosodwch eich camera dros y cod QR.",
-          "list3": "Arhoswch nes bod y cod QR yn cael ei gydnabod gan eich camera ac mae dolen yn ymddangos ar eich sgrin.",
-          "list4": "Gosodwch eich camera dros y cod QR.",
-          "list5": "Tapiwch y ddolen i fynd i’r App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).",
-          "list6": "Lawrlwythwch yr ap GOV.UK One Login."
+          "list1": "Cael eich ffôn yn barod.",
+          "list2": "Agorwch yr ap camera ar eich ffôn.",
+          "list3": "Symudwch eich camera fel bod y cod QR i gyd yn amlwg ar eich sgrin.",
+          "list4": "Tapiwch y ddolen sy'n ymddangos ar eich sgrin. Bydd hyn yn mynd i App Store (iPhone) neu Play Store (Android).",
+          "list5": "Lawrlwythwch yr ap GOV.UK One Login."
         },
         "details2": {
           "summaryText": "Sut i lawrlwytho’r ap heb god QR",
@@ -1093,10 +1093,10 @@
           "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
-        "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
+        "paragraph5": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
         "subHeading4": "3. Gorffennwch brofi pwy ydych chi yma",
-        "paragraph5": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
-        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
+        "paragraph6": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
+        "paragraph7": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
             "spinnerStateText": "Aros i chi agor yr ap. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",

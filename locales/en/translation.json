@@ -1057,18 +1057,18 @@
         "paragraph2": "First you will need to download, open and use the app. Then you will come back to this page to finish proving your identity.",
         "subHeading1": "1. Download the GOV.UK One Login app",
         "paragraph3": "Scan the QR code with your smartphone to download the GOV.UK One Login app.",
+        "paragraph4": "You can download the GOV.UK One Login app by using the camera on your phone to scan the QR code.",
         "warningText": "The app uses a face scan with flashing colours",
         "warningTextFallback": "Warning",
         "qrCodeAlt": "QR code to download the app",
         "subHeading2": "Help using the GOV.UK One Login app",
         "details1": {
           "summaryText": "How to scan a QR code",
-          "list1": "Open the camera app on your phone.",
-          "list2": "Position your camera over the QR code.",
-          "list3": "Wait until the QR code is recognised by your camera and a link appears on your screen.",
-          "list4": "Position your camera over the QR code.",
-          "list5": "Tap the link to go to the App Store (for iPhone) or Play Store (for Android).",
-          "list6": "Download the GOV.UK One Login app."
+          "list1": "Have your phone ready.",
+          "list2": "Open the camera app on your phone.",
+          "list3": "Move your camera so the QR code is all clearly visible on your screen.",
+          "list4": "Tap the link that appears on your screen. This will go to App Store (iPhone) or Play Store (Android).",
+          "list5": "Download the GOV.UK One Login app."
         },
         "details2": {
           "summaryText": "How to download the app without a QR code",
@@ -1090,10 +1090,10 @@
           "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
-        "paragraph4": "Follow the instructions in the app to prove your identity.",
+        "paragraph5": "Follow the instructions in the app to prove your identity.",
         "subHeading4": "3. Finish proving your identity here",
-        "paragraph5": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
-        "paragraph6": "Then you can continue to the government service you want to use.",
+        "paragraph6": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
+        "paragraph7": "Then you can continue to the government service you want to use.",
         "spinner": {
           "initial": {
             "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this.",

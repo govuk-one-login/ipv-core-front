@@ -22,7 +22,7 @@ describe("mobile app middleware", () => {
       postMobileAppCallback: sinon.fake(),
     };
     const ipvMiddlewareStub = {
-      handleBackendResponse: sinon.fake(),
+      processAction: sinon.fake(),
     };
 
     let middleware: typeof import("./middleware");
@@ -73,9 +73,9 @@ describe("mobile app middleware", () => {
         req,
         { state: req.query.state },
       );
-      expect(
-        ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.data.journey,
-      ).to.equal("journey/next");
+      expect(ipvMiddlewareStub.processAction.lastCall.args[2]).to.equal(
+        "journey/next",
+      );
       expect(res.status).to.be.calledWith(200);
     });
 

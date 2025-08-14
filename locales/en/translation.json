@@ -1056,8 +1056,7 @@
         "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
         "paragraph2": "First you will need to download, open and use the app. Then you will come back to this page to finish proving your identity.",
         "subHeading1": "1. Download the GOV.UK One Login app",
-        "paragraph3": "Scan the QR code with your smartphone to download the GOV.UK One Login app.",
-        "paragraph4": "You can download the GOV.UK One Login app by using the camera on your phone to scan the QR code.",
+        "paragraph3": "You can download the GOV.UK One Login app by using the camera on your phone to scan the QR code.",
         "warningText": "The app uses a face scan with flashing colours",
         "warningTextFallback": "Warning",
         "qrCodeAlt": "QR code to download the app",
@@ -1090,10 +1089,10 @@
           "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
-        "paragraph5": "Follow the instructions in the app to prove your identity.",
+        "paragraph4": "Follow the instructions in the app to prove your identity.",
         "subHeading4": "3. Finish proving your identity here",
-        "paragraph6": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
-        "paragraph7": "Then you can continue to the government service you want to use.",
+        "paragraph5": "If we successfully match your face to your photo ID, you’ll finish proving your identity online.",
+        "paragraph6": "Then you can continue to the government service you want to use.",
         "spinner": {
           "initial": {
             "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this.",

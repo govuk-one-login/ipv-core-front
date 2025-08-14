@@ -1059,8 +1059,7 @@
         "paragraph1": "Mae’r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â’ch ID gyda llun.",
         "paragraph2": "Yn gyntaf bydd angen i chi lawrlwytho, agor a defnyddio’r ap. Yna byddwch chi’n dod yn ôl i’r dudalen hon i orffen profi pwy ydych chi.",
         "subHeading1": "1. Lawrlwythwch yr ap GOV.UK One Login",
-        "paragraph3": "Sganiwch y cod QR gyda’ch ffôn clyfar i lawrlwytho’r ap GOV.UK One Login.",
-        "paragraph4": "Gallwch lawrlwytho ap GOV.UK One Login trwy ddefnyddio’r camera ar eich ffôn i sganio’r cod QR.",
+        "paragraph3": "Gallwch lawrlwytho ap GOV.UK One Login trwy ddefnyddio’r camera ar eich ffôn i sganio’r cod QR.",
         "warningText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
         "warningTextFallback": "Rhybudd",
         "qrCodeAlt": "Cod QR i lawrlwytho’r ap",
@@ -1093,10 +1092,10 @@
           "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
-        "paragraph5": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
+        "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
         "subHeading4": "3. Gorffennwch brofi pwy ydych chi yma",
-        "paragraph6": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
-        "paragraph7": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
+        "paragraph5": "Os ydym yn llwyddo i baru’ch wyneb â’ch ID gyda llun, byddwch yn gorffen profi pwy ydych chi ar-lein.",
+        "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
             "spinnerStateText": "Aros i chi agor yr ap. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",

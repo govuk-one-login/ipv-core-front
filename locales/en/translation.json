@@ -1056,19 +1056,18 @@
         "paragraph1": "The GOV.UK One Login app works by matching your face to your photo ID.",
         "paragraph2": "First you will need to download, open and use the app. Then you will come back to this page to finish proving your identity.",
         "subHeading1": "1. Download the GOV.UK One Login app",
-        "paragraph3": "Scan the QR code with your smartphone to download the GOV.UK One Login app.",
+        "paragraph3": "You can download the GOV.UK One Login app by using the camera on your phone to scan the QR code.",
         "warningText": "The app uses a face scan with flashing colours",
         "warningTextFallback": "Warning",
         "qrCodeAlt": "QR code to download the app",
         "subHeading2": "Help using the GOV.UK One Login app",
         "details1": {
-          "summaryText": "How to scan a QR code",
-          "list1": "Open the camera app on your phone.",
-          "list2": "Position your camera over the QR code.",
-          "list3": "Wait until the QR code is recognised by your camera and a link appears on your screen.",
-          "list4": "Position your camera over the QR code.",
-          "list5": "Tap the link to go to the App Store (for iPhone) or Play Store (for Android).",
-          "list6": "Download the GOV.UK One Login app."
+          "summaryText": "How to scan the QR code",
+          "list1": "Have your phone ready.",
+          "list2": "Open the camera app on your phone.",
+          "list3": "Move your camera so the QR code is all clearly visible on your screen.",
+          "list4": "Tap the link that appears on your screen. This will go to App Store (iPhone) or Play Store (Android).",
+          "list5": "Download the GOV.UK One Login app."
         },
         "details2": {
           "summaryText": "How to download the app without a QR code",

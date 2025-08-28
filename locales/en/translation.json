@@ -1035,7 +1035,7 @@
           "a UK passport",
           "a non-UK passport",
           "a European Union (EU) photocard driving licence",
-          "a national identity card from a European Economic Area (EEA) country"
+          "a national identity card from the EU, Norway, Iceland or Liechtenstein"
         ],
         "subHeading2": "Do you have photo ID you can use at a Post Office?",
         "formRadioButtons": {

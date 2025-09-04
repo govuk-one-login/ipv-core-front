@@ -32,7 +32,7 @@ jobs:
           sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           aws-region: eu-west-2

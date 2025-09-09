@@ -1078,7 +1078,7 @@
         },
         "details3": {
           "summaryText": "I am sensitive to flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
         },
         "details4": {
           "summaryText": "Do I need to take off my glasses?",
@@ -1086,7 +1086,7 @@
         },
         "details5": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity.",

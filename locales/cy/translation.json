@@ -1081,7 +1081,7 @@
         },
         "details3": {
           "summaryText": "Rwy’n sensitif i liwiau sy’n fflachio",
-          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
+          "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>"
         },
         "details4": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",
@@ -1089,7 +1089,7 @@
         },
         "details5": {
           "summaryText": "Byddai’n well gen i beidio defnyddio’r ap",
-          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
+          "html": "<p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
         "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",

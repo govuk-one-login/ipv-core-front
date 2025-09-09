@@ -279,25 +279,30 @@ test.describe.parallel("Functional tests", () => {
     });
   });
 
-  ["Android", "Iphone"].forEach( mobileType => {
+  ["Android", "Iphone"].forEach((mobileType) => {
     [
       {
         eventSelected: "anotherWay",
         dropdownText: "I am sensitive to flashing colours",
-        linkText: "prove your identity another way if you think you might be sensitive to flashing colours",
-        expectedPage: "page-multiple-doc-check"
+        linkText:
+          "prove your identity another way if you think you might be sensitive to flashing colours",
+        expectedPage: "page-multiple-doc-check",
       },
       {
         eventSelected: "preferNoApp",
         dropdownText: "I’d prefer not to use the app",
         linkText: "prove your identity another way",
-        expectedPage: "pyi-triage-buffer"
-      }
-    ].forEach(({eventSelected, dropdownText, linkText, expectedPage}) => {
-      test(`User routed correctly when selecting ${eventSelected} on ${mobileType}`, async ({page}) => {
+        expectedPage: "pyi-triage-buffer",
+      },
+    ].forEach(({ eventSelected, dropdownText, linkText, expectedPage }) => {
+      test(`User routed correctly when selecting ${eventSelected} on ${mobileType}`, async ({
+        page,
+      }) => {
         // Start session
         await page.goto(
-          getAuthoriseUrlForJourney(`strategicAppDesktopDownloadPage${mobileType}${eventSelected}`),
+          getAuthoriseUrlForJourney(
+            `strategicAppDesktopDownloadPage${mobileType}${eventSelected}`,
+          ),
         );
 
         // Navigate to pyi-triage-desktop-download-app
@@ -307,13 +312,16 @@ test.describe.parallel("Functional tests", () => {
         await expect(pageHeading).toBeVisible();
 
         // Select "prefer not to use app" dropdown
-        await page.locator('.govuk-details__summary').getByText(dropdownText).click();
-        await page.getByRole("link", { name: linkText}).click();
+        await page
+          .locator(".govuk-details__summary")
+          .getByText(dropdownText)
+          .click();
+        await page.getByRole("link", { name: linkText }).click();
 
         // Redirected to expected page
         const url = page.url();
         expect(url).toBe(`${domainUrl}/ipv/page/${expectedPage}`);
-      })
-    })
-  })
+      });
+    });
+  });
 });

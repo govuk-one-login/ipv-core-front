@@ -6,7 +6,8 @@
     <input type="hidden" name="journey" value="next">
       {{ govukButton({
           id: "submitButton",
-          text: buttonLabel
+          text: buttonLabel,
+          attributes: {"data-nav": true,"data-link": "/undefined"}
       }) }}
 </form>
 {% endmacro %}

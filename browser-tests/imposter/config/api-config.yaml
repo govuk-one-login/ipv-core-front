@@ -40,7 +40,7 @@ resources:
     requestHeaders:
       content-type: "application/json"
       ipv-session-id:
-        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt).*$"
+        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt|strategicAppDesktopDownloadPage).*$"
         operator: NotMatches
     queryParams:
       currentPage:
@@ -618,4 +618,73 @@ resources:
       content: |
         {
           "page": "pyi-technical"
+        }
+
+  # Routing from pyi-triage-desktop-download-app
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "strategicAppDesktopDownloadPageAndroid"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-desktop-download-app",
+          "context": "android"
+        }
+
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "strategicAppDesktopDownloadPageIphone"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-desktop-download-app",
+          "context": "iphone"
+        }
+
+  - method: POST
+    path: /journey/preferNoApp
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "preferNoApp"
+        operator: Contains
+    queryParams:
+      currentPage: pyi-triage-desktop-download-app
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "pyi-triage-buffer"
+        }
+
+  - method: POST
+    path: /journey/anotherWay
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "anotherWay"
+        operator: Contains
+    queryParams:
+      currentPage: pyi-triage-desktop-download-app
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
         }

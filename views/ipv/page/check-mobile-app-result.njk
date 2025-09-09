@@ -44,5 +44,9 @@
 {% endblock %}
 
 {% block scripts %}
-    <script nonce='{{ cspNonce }}' defer type="text/javascript" src="/public/javascripts/spinner-app.js"></script>
+    <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+    <script nonce='{{ cspNonce }}' defer type="module">
+        import { useSpinner } from "/public/javascripts/frontend-ui.js";
+        useSpinner();
+    </script>
 {% endblock %}

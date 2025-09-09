@@ -1038,7 +1038,7 @@
           "pasbort y DU",
           "pasbort o’r tu allan i’r DU",
           "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
-          "cerdyn adnabod cenedlaethol o wlad Ardal Economaidd Ewropeaidd (AEE)"
+          "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
         ],
         "subHeading2": "Oes gennych chi ID gyda llun y gallwch ei ddefnyddio mewn Swyddfa’r Post?",
         "formRadioButtons": {
@@ -1059,19 +1059,18 @@
         "paragraph1": "Mae’r ap GOV.UK One Login yn gweithio trwy gyfateb eich wyneb â’ch ID gyda llun.",
         "paragraph2": "Yn gyntaf bydd angen i chi lawrlwytho, agor a defnyddio’r ap. Yna byddwch chi’n dod yn ôl i’r dudalen hon i orffen profi pwy ydych chi.",
         "subHeading1": "1. Lawrlwythwch yr ap GOV.UK One Login",
-        "paragraph3": "Sganiwch y cod QR gyda’ch ffôn clyfar i lawrlwytho’r ap GOV.UK One Login.",
+        "paragraph3": "Gallwch lawrlwytho ap GOV.UK One Login trwy ddefnyddio’r camera ar eich ffôn i sganio’r cod QR.",
         "warningText": "Mae’r ap yn defnyddio sgan wyneb gyda lliwiau sy’n fflachio",
         "warningTextFallback": "Rhybudd",
         "qrCodeAlt": "Cod QR i lawrlwytho’r ap",
         "subHeading2": "Help i ddefnyddio’r ap GOV.UK One Login",
         "details1": {
-          "summaryText": "Sut i sganio cod QR",
-          "list1": "Agorwch yr ap camera ar eich ffôn.",
-          "list2": "Gosodwch eich camera dros y cod QR.",
-          "list3": "Arhoswch nes bod y cod QR yn cael ei gydnabod gan eich camera ac mae dolen yn ymddangos ar eich sgrin.",
-          "list4": "Gosodwch eich camera dros y cod QR.",
-          "list5": "Tapiwch y ddolen i fynd i’r App Store (ar gyfer iPhone) neu Play Store (ar gyfer Android).",
-          "list6": "Lawrlwythwch yr ap GOV.UK One Login."
+          "summaryText": "Sut i sganio’r cod QR",
+          "list1": "Cael eich ffôn yn barod.",
+          "list2": "Agorwch yr ap camera ar eich ffôn.",
+          "list3": "Symudwch eich camera fel bod y cod QR i gyd yn amlwg ar eich sgrin.",
+          "list4": "Tapiwch y ddolen sy’n ymddangos ar eich sgrin. Bydd hyn yn mynd i App Store (iPhone) neu Play Store (Android).",
+          "list5": "Lawrlwythwch yr ap GOV.UK One Login."
         },
         "details2": {
           "summaryText": "Sut i lawrlwytho’r ap heb god QR",

@@ -1529,7 +1529,8 @@
         },
         "formErrorMessage": {
           "title": "There is a problem",
-          "description": "Select what you would like to do"
+          "description": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     }

@@ -1532,7 +1532,8 @@
         },
         "formErrorMessage": {
           "title": "Mae problem",
-          "description": "Dewiswch beth hoffech chi ei wneud"
+          "description": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     }

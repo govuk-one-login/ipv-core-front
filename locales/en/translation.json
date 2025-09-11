@@ -1521,7 +1521,7 @@
           "app": "Prove your identity with the GOV.UK OneLogin app",
           "appHint": "You’ll be shown how to download and use the app.",
           "postOffice": "Prove your identity at a Post Office",
-          "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first",
+          "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {

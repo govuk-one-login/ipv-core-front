@@ -38,10 +38,44 @@
         id: 'whatsNeededToUseTheApp'
     }) }}
 
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
 
     <form id="sorryTechnicalProblem" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set initialRadioOptions = [
+            {
+                value: "tryAgain",
+                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.tryAgain' | translate
+            },
+            {
+                value: "app",
+                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
+            }
+        ] %}
+        {% if context == 'f2fCriError' %}
+            {% set initialRadioOptions = initialRadioOptions.concat([{
+                value: "postOffice",
+                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
+            }]) %}
+        {% else %}
+            {% set initialRadioOptions = initialRadioOptions.concat([{
+                value: "postOffice",
+                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
+            }]) %}
+        {% endif %}
+
+        {% set finalRadioOptions = [{
+                 divider: "or"
+             },
+             {
+                 value: "returnToRp",
+                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.returnToRp' | translate
+             }]
+        %}
+
         {% set radiosConfig = {
             idPrefix: "journey",
             name: "journey",
@@ -51,29 +85,7 @@
                     classes: "govuk-fieldset__legend--m"
                 }
             },
-            items: [
-                {
-                    value: "tryAgain",
-                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.tryAgain' | translate
-                },
-                {
-                    value: "app",
-                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
-                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
-                },
-                {
-                    value: "postOffice",
-                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
-                },
-                {
-                    divider: "or"
-                },
-                {
-                    value: "returnToRp",
-                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.returnToRp' | translate
-                }
-            ]
+            items: initialRadioOptions.concat(finalRadioOptions)
         } %}
 
         {% if errorState %}

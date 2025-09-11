@@ -1504,6 +1504,7 @@
         "p2": "You can try again.",
         "p3": "You can also prove your identity with the GOV.UK One Login app.",
         "p4": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "p4F2fCriError": "Or you can prove your identity by answering some security questions online.",
         "subHeading2": "What would you like to do?",
         "details": {
           "title": "What do I need to use the app?",
@@ -1518,10 +1519,12 @@
         },
         "formRadioButtons": {
           "tryAgain": "Try again",
-          "app": "Prove your identity with the GOV.UK OneLogin app",
+          "app": "Prove your identity with the GOV.UK One Login app",
           "appHint": "You’ll be shown how to download and use the app.",
           "postOffice": "Prove your identity at a Post Office",
           "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first.",
+          "webRoute": "Prove your identity by answering some security questions",
+          "webRouteHint": "You’ll enter details from your UK passport or UK photocard driving licence first.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {

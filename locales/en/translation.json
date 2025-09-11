@@ -1496,8 +1496,8 @@
       }
     },
     "sorryTechnicalProblem": {
-      "title": "Sorry there’s a technical problem",
-      "header": "Sorry there’s a technical problem",
+      "title": "Sorry, there’s a technical problem",
+      "header": "Sorry, there’s a technical problem",
       "content": {
         "p1": "There’s an issue with GOV.UK One Login.",
         "subHeading1": "What you can do",

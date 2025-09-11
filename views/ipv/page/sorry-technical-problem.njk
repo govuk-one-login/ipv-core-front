@@ -34,7 +34,7 @@
 
     {{ govukDetails({
         summaryText: 'pages.sorryTechnicalProblem.content.details.title' | translate,
-        html: whatsNeededToUseTheApp
+        html: whatsNeededToUseTheApp,
         id: 'whatsNeededToUseTheApp'
     }) }}
 
@@ -46,10 +46,10 @@
             idPrefix: "journey",
             name: "journey",
             fieldset: {
-            legend: {
-                text: 'pages.sorryTechnicalProblem.content.subHeading2' | translate,
-                classes: "govuk-fieldset__legend--m"
-            }
+                legend: {
+                    text: 'pages.sorryTechnicalProblem.content.subHeading2' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
             },
             items: [
                 {
@@ -71,8 +71,8 @@
                 },
                 {
                     value: "returnToRp",
-                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.continuePostOfficeButtonText' | translate
-                },
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.returnToRp' | translate
+                }
             ]
         } %}
 

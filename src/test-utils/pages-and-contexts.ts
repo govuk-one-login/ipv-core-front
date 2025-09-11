@@ -65,6 +65,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     "existingIdentityInvalid",
     undefined,
   ],
+  "sorry-technical-problem": [],
   "update-details-failed": ["existingIdentityInvalid", undefined],
   "update-details": [],
   "update-name-date-birth": [

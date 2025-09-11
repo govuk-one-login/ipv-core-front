@@ -1497,6 +1497,41 @@
           "content": "Ni fyddwch yn gallu newid sut rydych yn cael codau diogelwch, ond efallai y byddwch yn gallu defnyddio’r dull rydych eisoes wedi’i sefydlu. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Gwiriwch beth allwch chi ei wneud</a>."
         }
       }
+    },
+    "sorryTechnicalProblem": {
+      "title": "Sorry there’s a technical problem",
+      "header": "Sorry there’s a technical problem",
+      "content": {
+        "p1": "There’s an issue with GOV.UK One Login.",
+        "subHeading1": "What you can do",
+        "p2": "You can try again.",
+        "p3": "You can also prove your identity with the GOV.UK One Login app.",
+        "p4": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "subHeading2": "What would you like to do?",
+        "details": {
+          "title": "What do I need to use the app?",
+          "p1": "You’ll need access to a phone with a working camera.",
+          "p2": "If you’re using an iPhone, it must be running iOS 15 or higher and be either:",
+          "iphoneTypes": [
+            "an iPhone 6s or newer if your photo ID is a UK driving licence",
+            "an iPhone 7 or newer if you’re using any other type of photo ID"
+          ],
+          "p3": "For an Android phone (for example, Samsung or Google Pixel), it must be running Android 10 or higher.",
+          "p4": "You’ll get guidance on how to download and use the app."
+        },
+        "formRadioButtons": {
+          "tryAgain": "Try again",
+          "app": "Prove your identity with the GOV.UK OneLogin app",
+          "appHint": "You’ll be shown how to download and use the app.",
+          "postOffice": "Prove your identity at a Post Office",
+          "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "title": "There is a problem",
+          "description": "Select what you would like to do"
+        }
+      }
     }
   }
 }

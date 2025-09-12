@@ -1507,7 +1507,7 @@
         "p2": "Gallwch roi cynnig arall.",
         "p3": "Gallwch hefyd brofi eich hunaniaeth gyda’r ap GOV.UK One Login.",
         "p4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
-        "p4F2fCriError": "TODO: Or you can prove your identity by answering some security questions online.",
+        "p4F2fCriError": "Neu gallwch brofi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch ar-lein.",
         "subHeading2": "Beth hoffech chi ei wneud?",
         "details": {
           "title": "Beth rwyf ei angen i ddefnyddio’r ap?",
@@ -1518,7 +1518,7 @@
             "iPhone 7 neu fwy newydd os ydych yn defnyddio unrhyw fath arall o ID gyda llun "
           ],
           "p3": "Ar gyfer ffôn Android (er enghraifft, Samsung neu Google Pixel), rhaid iddo fod yn rhedeg Android 10 neu uwch.",
-          "p4": "TODO: You’ll get guidance on how to download and use the app."
+          "p4": "Byddwch yn cael arweiniad ar sut i lawrlwytho a defnyddio’r ap."
         },
         "formRadioButtons": {
           "tryAgain": "Rhoi cynnig arall",

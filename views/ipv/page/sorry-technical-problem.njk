@@ -1,7 +1,6 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% set pageTitleKey = 'pages.sorryTechnicalProblem.title' %}
@@ -55,7 +54,7 @@
         ] %}
         {% if context == 'f2fCriError' %}
             {% set initialRadioOptions = initialRadioOptions.concat([{
-                value: "postOffice",
+                value: "webRoute",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
                 hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
             }]) %}

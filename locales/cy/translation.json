@@ -1497,6 +1497,45 @@
           "content": "Ni fyddwch yn gallu newid sut rydych yn cael codau diogelwch, ond efallai y byddwch yn gallu defnyddio’r dull rydych eisoes wedi’i sefydlu. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/you-can-change-security-code-method/cannot-change-security-codes\">Gwiriwch beth allwch chi ei wneud</a>."
         }
       }
+    },
+    "sorryTechnicalProblem": {
+      "title": "Mae’n ddrwg gennyf, mae problem dechnegol",
+      "header": "Mae’n ddrwg gennyf, mae problem dechnegol",
+      "content": {
+        "p1": "Mae yna broblem gyda GOV.UK One Login.",
+        "subHeading1": "Beth allwch chi ei wneud",
+        "p2": "Gallwch roi cynnig arall.",
+        "p3": "Gallwch hefyd brofi eich hunaniaeth gyda’r ap GOV.UK One Login.",
+        "p4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "p4F2fCriError": "Neu gallwch brofi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch ar-lein.",
+        "subHeading2": "Beth hoffech chi ei wneud?",
+        "details": {
+          "title": "Beth rwyf ei angen i ddefnyddio’r ap?",
+          "p1": "Bydd angen i chi gael mynediad i ffôn gyda chamera sy’n gweithio.",
+          "p2": "Os ydych yn defnyddio iPhone, rhaid iddo fod yn rhedeg iOS 15 neu uwch a bod naill ai yn: ",
+          "iphoneTypes": [
+            "iPhone 6s neu fwy newydd os yw’ch ID gyda llun yn drwydded yrru y DU",
+            "iPhone 7 neu fwy newydd os ydych yn defnyddio unrhyw fath arall o ID gyda llun "
+          ],
+          "p3": "Ar gyfer ffôn Android (er enghraifft, Samsung neu Google Pixel), rhaid iddo fod yn rhedeg Android 10 neu uwch.",
+          "p4": "Byddwch yn cael arweiniad ar sut i lawrlwytho a defnyddio’r ap."
+        },
+        "formRadioButtons": {
+          "tryAgain": "Rhoi cynnig arall",
+          "app": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
+          "appHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "postOffice": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
+          "postOfficeHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf.",
+          "webRoute": "Profi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch",
+          "webRouteHint": "Bydd angen i chi roi manylion o’ch pasbort y DU neu drwydded yrru cerdyn llun y DU yn gyntaf.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+        },
+        "formErrorMessage": {
+          "title": "Mae problem",
+          "description": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
     }
   }
 }

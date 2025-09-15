@@ -1394,9 +1394,9 @@ Resources:
           Value: identity
         - Key: Source
           Value: alphagov/di-ipv-core-front/deploy/template.yaml
-        - Key: !If [ IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag" ]
+        - Key: FMSRegionalPolicy
           Value: false
-        - Key: !If [ IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag" ]
+        - Key: CustomPolicy
           Value: true
     Metadata:
       checkov:

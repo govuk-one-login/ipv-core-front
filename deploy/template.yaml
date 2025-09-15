@@ -49,7 +49,12 @@ Conditions:
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
+  IsStaging: !Equals [ !Ref AWS::AccountId, "335257547869"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
+  IsDevOrBuildOrStaging: !Or
+    - !Condition IsDevelopment
+    - !Condition IsBuild
+    - !Condition IsStaging
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
     - !Equals [ !Ref Environment, staging ]
@@ -522,6 +527,11 @@ Resources:
           - Key: deletion_protection.enabled
             Value: true
           - !Ref AWS::NoValue
+      Tags:
+        - Key: !If [IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag"]
+          Value: false
+        - Key: !If [IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag"]
+          Value: true
     DependsOn: CoreFrontAccessLogsBucketPolicy
 
   PrivateLoadBalancerListenerTargetGroupECS:
@@ -1384,6 +1394,10 @@ Resources:
           Value: identity
         - Key: Source
           Value: alphagov/di-ipv-core-front/deploy/template.yaml
+        - Key: !If [ IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag" ]
+          Value: false
+        - Key: !If [ IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag" ]
+          Value: true
     Metadata:
       checkov:
         skip:

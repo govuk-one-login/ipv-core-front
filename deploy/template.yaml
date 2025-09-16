@@ -528,16 +528,11 @@ Resources:
             Value: true
           - !Ref AWS::NoValue
       Tags:
-        - !If
-          - IsDevOrBuildOrStaging
-          - Key: FMSRegionalPolicy
-            Value: false
-          - !Ref AWS::NoValue
-        - !If
-          - IsDevOrBuildOrStaging
-          - Key: CustomPolicy
-            Value: true
-          - !Ref AWS::NoValue
+        - Key: !If [IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag"]
+          Value: false
+        - Key: !If [IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag"]
+          Value: true
+    DependsOn: CoreFrontAccessLogsBucketPolicy
 
   PrivateLoadBalancerListenerTargetGroupECS:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"

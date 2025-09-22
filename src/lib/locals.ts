@@ -7,6 +7,8 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.ga4ContainerId = config.GTM_ID_GA4;
   res.locals.cspNonce = await generateNonce();
   res.locals.isGa4Enabled = config.GA4_DISABLED === "false";
+  res.locals.analyticsDataSensitive =
+    config.ANALYTICS_DATA_SENSITIVE === "true";
   res.locals.isUaEnabled = config.UA_DISABLED === "false";
   res.locals.dynatraceRumUrl = config.DT_RUM_URL;
   res.locals.analyticsCookieDomain = config.GTM_ANALYTICS_COOKIE_DOMAIN;

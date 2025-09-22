@@ -166,9 +166,3 @@ This command will install and configure the pre-commit Git hooks.
 You can use a [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file to define individuals or teams that are responsible for code in a repository. GitHub automatically requests reviews from these code owners when someone opens a pull request that modifies the code they own.
 
 You can find the [`CODEOWNERS` file for ipv-core-front](https://github.com/govuk-one-login/ipv-core-front/blob/main/CODEOWNERS) in the root.
-
-### Uploading assets to Amazon CloudFront
-
-If you add a new MIME type to either the `/assets` or `/public` folders, you must also add it to the CloudFront function in that repository.
-
-This is because there is a step in the `secure-post-merge.yml` GitHub workflow that pushes a ZIP archive of the `/public` and `/assets` folders to an Amazon S3 bucket. The archive is then decompressed and transferred to a separate bucket behind a CloudFront distribution, which is hosted at [https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets](https://github.com/alphagov/di-ipv-core-common-infra/tree/main/cloudformation/upload-assets).

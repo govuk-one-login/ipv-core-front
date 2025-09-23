@@ -55,6 +55,7 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('button', { name: 'Continue' }).click();
         await page.getByRole('radio', { name: 'Yes' }).check();
         await page.getByRole('button', { name: 'Continue' }).click();
+        await page.locator('#test_data').click();
         await page.locator('#test_data').selectOption('Alice Parker (Valid) DVLA Licence');
         await expect(page.locator('#test_data')).toHaveValue('Alice Parker (Valid) DVLA Licence');
         await page.getByRole('spinbutton', { name: 'Strength Hours' }).click();
@@ -68,7 +69,7 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('button', { name: 'Submit data and generate auth' }).click();
         
         //await page.goto('https://driving-licence-cri.stubs.account.gov.uk/authorize?client_id=ipv-core-build&request=eyJraWQiOiJkcml2aW5nLWxpY2VuY2UtY3JpLXN0dWJzLWJ1aWxkLUlOcUhCdk1ZV21Ob2RrbHZicFRDZ2YxRFMxMEZ2NWljNF84TGRvQk5qQXciLCJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.k6qNeJuDAYxwEmmIQFdagYwUSMCQbXuHuHkhDBKSMKwKoAakr_tAsX_verWFeS96y-W8BbrJqgxIqWsBxY5uvZY5RX8Krk7hx4vEoW244eQ2uGYmaLwu-xrO97Ds-k0s7sd8kLkuzu1J6sn7c3bIDvEy5jwUF7hZhJZfumjqGPXgAtYOFkfOZK9ooWtnN2A_5MB6UktxNDMaL_iwA-ObGKfdXewQCN7beLMZVCNcgFvh1LDc7feCNSUfzT4umZXhwkjCZZ-Ys9_8D9r9i9WMSytx4CcTL6ykKOdf7JwyUHlfD-eZqbTbvX2sIohULe-amgFXUCmGILQmkrKLAPHWMg.LrMCrjbAKKhH6XDn.SZCoVLRY5_DOzdfhOfgb4HAgSw9T-yYqHVWq0xDABPM2QRibsW13BSGhLG1duXiuE_JCx7yC1vmn1n9HOxyHCSWMEqeDRCR8w_ZbUb__ghMIW2gq9rmbz7y294886nMkLXV7yShnBwH3p5k-MM6gFPZyd9nigstQ2T6nnNSZJCo_rebVfqu8kb0NrnEMmSxwuJnv2M8aBFt_X4eTQoQjSQaWNljyb4PC-vQgOGg_F8HI2vHMw_Q-6cAXB-ThJjjBvEQUU0SDGSl_21gMZyG05bX3ubn1KRwUpuSmFsr7PaD9lDului4XZvdPUnaQAEDFeA1u2QleaXsZ-EszfzV0gxNtunlmaz3-wvV7eIyFnIJsuJXNMcTQVloEkAtm8UFqpXnPfueCVLIpaSCkIUqNqLJVOjKNTBAP0GmaKuJf_UXV3m0YJmACYbEXzBThb1-JUPUUbF007dxpuRLaY3w6uy0kKD35OQLxJ4GONX-CvzhyJDZKmqiT_u1ML2WiOJzZYFubeGUiqKT0xbmOG7t5OhyTnqebbr3FmviIR2kKIxW5--pqousBfsoZpK9aTJWNIwMnQspmcXa2rKndZ7YoNgBvm0wko2-T5AokGAR5ZWG83yg8QUYKqXyzmviPJCiFDPooIJSlTHtYXeOEau9x19SPSmrxYtByxTdiC6zIMvpYGa6WpBJ6arHgIATRdnBIA1R7xzH7XB4rJHlu1L3SNJF06WMKgbglee0U9XdW0WiwuKiNtrkwlsYgljYXrzU5s_cruBHrRj3jZd8r5rPdyfP3LPfOzvdcU275GB6AEaLTCPCuOE3v1raZOUwT2KOB8AiSv-0VXPyfeZazg5RT5gRccz7Pxx72qe2RW6XoIEna698ScFGmijU9wWWLb8aOKZkCZ8KVDuA0U-oyTpaFIqQBrIXCvbUdjDRP-pSxjByMNNK3j8B_L1TqVyF3yR5R_oT8cfv_OzYEvBalj0dnmDrf8W0q4MJWk2ZKkCL8gCcom_rD21-MjwkJpQsZtjWPp1U-Eba_9TEUgxuV0YY6IEhKSSm2uTJatkGDXUasIXt3gTUGT9-yVKHKLd-PC1sKQkckWNX-9CQu3K31OPfyw1uKGmOQyu4kkFCecKhLS9cuPDibwl97yAC6o2zKtYPbGg5hSugVpO6dTYpJtvfsMr31hKZ6WLy3d-Qf95q5AG81aVdoi76YTc2RJw3p7J__vSRQ-Ji4zehbY4L6lu8y-j4RtWgWijNcmVvAIirdfGzgQcpksLi5IDerL_oB8Iy9w7FVyL8EPgjudVMRvAioEgZgo7b0OervKOhEVnROIjuejtAxlKcEH9qUQSoBPE7x5g9mwkLLxiSrt3uWq8LMKLXHjKGk-bV-gjTGdHfGV4p2YfweKvsSdI4fZx0mdn8hRo2XxvZ9_xY5sMqsN05-J-3SxM1CH81vQROHvIxP11sRhxLKKigNnUKSmK_mUVpAaMGxUD7-JF9hdnS5ak4Czql0uJLDdv7jfMfqwPsq-hSUNBZ4BJ2wDSUUgietY-S90dDrPpynrU3L9oB_Ya15hezehzAG4l3bLUvGywId4PxpMDQSKZ64Tedxe4blWs-98lnQX40ktkZZAqvpziI05SbAAhHQ0gtcY-kOof10RhtsfrAdpcQ25JYdaImx-a--pbuUWbjvapV3qKWlKaP3Jsn2BYTMjXobFPSHMLcGKFBawIBDsm5g3hluA97Mc7eGDEvwBHN1WydkC9SMhFCFgGxxB55jb-18uQfrFiTXV0iTx9HRTC39O8FqYnu2COiaSICEHOS4kSeZfuOyXmuGqJcD.uMtrR4Is1_uUhAQ1OORqXw');
-        await expect(page.getByRole('heading', { name: 'Driving Licence (Stub)' })).toBeVisible({timeout: 15000});
+        await expect(page.getByRole('heading', { name: 'Driving Licence (Stub)' })).toBeVisible();
         await page.locator('#test_data').selectOption('Alice Parker (Valid) DVLA Licence');      
         await expect(page.locator('#test_data')).toHaveValue('Alice Parker (Valid) DVLA Licence');
         await page.getByRole('spinbutton', { name: 'Strength Hours' }).click();
@@ -79,7 +80,7 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('spinbutton', { name: 'Activity History Seconds' }).fill('1');
         await page.getByRole('button', { name: 'Submit data and generate auth' }).click();
         
-        //await page.goto('https://identity.build.account.gov.uk/ipv/page/page-dcmaw-success');
+        await page.goto('https://identity.build.account.gov.uk/ipv/page/page-dcmaw-success');
         await page.getByRole('button', { name: 'Continue' }).click();
         await page.locator('#test_data').selectOption('Alice Parker Valid Address');
         await page.getByRole('button', { name: 'Submit data and generate auth' }).click();
@@ -92,8 +93,9 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('checkbox', { name: 'Override VC Not Before (nbf)' }).check();
         await page.getByRole('button', { name: 'Submit data and generate auth' }).click();
         
-        //await page.goto('https://identity.build.account.gov.uk/ipv/page/page-ipv-success');
-        await expect(page.getByRole('heading', { name: 'Continue to the service you' })).toBeVisible();
+        await page.goto('https://identity.build.account.gov.uk/ipv/page/page-ipv-success');
+        await expect(page.getByRole('heading', { name: 'Continue to the service you need to use' })).toBeVisible();
+        await expect(page.getByRole('button', { name: 'Continue to the service' })).toBeEnabled();
         await page.getByRole('button', { name: 'Continue to the service' }).click();
         
         //await page.goto('https://orch.stubs.account.gov.uk/callback?code=3tS1XKO0OAsfvlXRLbZUk9k1gQIXVRXGE-JOOi4DRzg&state=orchestrator-stub-state');
@@ -170,7 +172,7 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('textbox', { name: 'Enter userId manually' }).fill(userId);
         await page.getByRole('button', { name: 'Full journey route' }).click();
         //await page.goto('https://identity.build.account.gov.uk/ipv/page/page-ipv-reuse');
-        await expect(page.getByRole('heading', { name: 'You have already proved your' })).toBeVisible();
+        await expect(page.locator('#header')).toContainText('You have already proved your identity');
         await expect(page.getByText('ALISON JANE PARKER')).toBeVisible();
         await expect(page.getByText('80TYEOMAN WAYTROWBRIDGEBA14')).toBeVisible();
         await expect(page.getByText('January 1970')).toBeVisible();

@@ -14,8 +14,14 @@ export default defineConfig({
       },
     },
   ],
+  timeout: 90 * 1000,
+  
   use: {
     baseURL: process.env?.WEBSITE_HOST || "http://localhost:4601",
     headless: true,
   },
+  // **FIX:** 'expect' should be here, at the top level
+  expect: {
+    timeout: 40 * 1000,
+  }
 });

@@ -172,7 +172,7 @@ test.describe('COI Fraud Check - Given Name Change', () => {
         await page.getByRole('textbox', { name: 'Enter userId manually' }).fill(userId);
         await page.getByRole('button', { name: 'Full journey route' }).click();
         //await page.goto('https://identity.build.account.gov.uk/ipv/page/page-ipv-reuse');
-        await expect(page.locator('#header')).toContainText('You have already proved your identity');
+    await expect(page.locator('#header')).toContainText('You have already proved your identity');
         await expect(page.getByText('ALISON JANE PARKER')).toBeVisible();
         await expect(page.getByText('80TYEOMAN WAYTROWBRIDGEBA14')).toBeVisible();
         await expect(page.getByText('January 1970')).toBeVisible();

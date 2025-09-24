@@ -33,22 +33,22 @@ test.describe('COI Fraud Check - Given Name Change', () => {
       await identityPage.selectUKLocation();
       await identityPage.confirmEligibility();
       
-      // DOC checking stub
+      // Process DOC checking evidence
       await docCheckingPage.processAliceParkerValidInitial();
       
-      // Driving licence evidence stub
+      // Process driving licence evidence
       await drivingLicencePage.expectDrivingLicenceStub();
       await drivingLicencePage.processAliceParkerValid();
       await identityPage.navigateToDcmawSuccess();
       await identityPage.continueFromDcmaw();
       
-      // Address stub
+      // Process address evidence
       await addressPage.processAliceParkerValidAddress();
       
-      // Fraud stub
+      // Process fraud evidence
       await fraudPage.processAliceParkerValid();
       
-      // Verify identity issued
+      // Complete initial journey at IPV success page
       await identityPage.navigateToIPVSuccess();
       await identityPage.expectIPVSuccess();
       await identityPage.continueToService();
@@ -64,15 +64,15 @@ test.describe('COI Fraud Check - Given Name Change', () => {
       await identityPage.selectUpdateDetails();
       await identityPage.selectUpdateNameMethod();
 
-      // DOC checking stub
+      // Process DOC checking with name change (includes biometric verification)
       await docCheckingPage.processAliceParkerNameChangeInitial();
 
-      // Driving licence evidence stub
+      // Process driving licence with name change
       await drivingLicencePage.expectDrivingLicenceStub();
       await drivingLicencePage.processAliceParkerNameChange();
       await identityPage.continueFromDcmaw();
 
-      // Fraud stub
+      // Process fraud evidence with name change
       await fraudPage.processAliceParkerNameChange();
 
       // Complete name change journey at IPV success page

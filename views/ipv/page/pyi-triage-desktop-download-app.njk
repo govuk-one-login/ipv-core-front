@@ -104,18 +104,26 @@
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
 
-      <div id="dad-spinner-container"
-          data-initial-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerStateText' | translate }}"
-          data-initial-spinnerState="{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerState' | translate }}"
-          data-complete-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.spinnerStateText' | translate }}"
-          data-complete-spinnerState="spinner__ready"
-          data-longWait-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.spinnerStateText' | translate }}"
-          data-api-url="{{ apiUrl }}"
-          data-ms-between-requests="{{msBetweenRequests}}"
-          data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
-          data-ms-before-abort="{{msBeforeAbort}}"
-          data-aria-button-enabled-message="{{ 'pages.pyiTriageDesktopDownload.content.spinner.ariaButtonEnabledMessage' | translate }}"
-        ></div>
+      <div id="spinner-container"
+            data-ms-between-requests="{{msBetweenRequests}}"
+            data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
+            data-ms-before-abort="{{msBeforeAbort}}"
+            data-aria-alert-completion-text="{{ 'pages.pyiTriageDesktopDownload.content.spinner.ariaBuariaButtonEnabledMessagettonEnabledMessage' | translate }}">
+        <div id="no-js-content">
+          {# If JS is disabled don't show anything. #}
+        </div>
+        <div id="wait-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerStateText' | translate }}</p>
+        </div>
+        <div id="long-wait-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.paragraph1' | translate }}</p>
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.paragraph2' | translate }}</p>
+        </div>
+        <div id="success-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.paragraph1' | translate }}</p>
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.paragraph2' | translate }}</p>
+        </div>
+      </div>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     </li>
@@ -132,4 +140,25 @@
   {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate) }}
 
   {% include "components/contact-us-link.njk" %}
+{% endblock %}
+
+{% block scripts %}
+  <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+  <script nonce='{{ cspNonce }}' defer type="module">
+      const button = document.getElementById("submitButton");
+      button.setAttribute("disabled", true);
+
+      const pollFunction = generatePollApiFunction('{{ apiUrl }}');
+
+      function successFunction() {
+        button.removeAttribute("disabled");
+      }
+
+      function errorFunction() {
+        window.location.href = "/ipv/page/pyi-technical";
+      }
+
+      import { useSpinner } from "/public/javascripts/frontend-ui.js";
+      useSpinner("spinner-container", pollFunction, successFunction, errorFunction);
+  </script>
 {% endblock %}

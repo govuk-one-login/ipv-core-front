@@ -1098,14 +1098,15 @@
         "paragraph6": "Yna gallwch barhau i wasanaeth y llywodraeth rydych chi am ei ddefnyddio.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "Aros i chi agor yr ap. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
-            "spinnerState": "pending"
+            "spinnerStateText": "Aros i chi agor yr ap. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn."
           },
           "complete": {
-            "spinnerStateText": "Wedi’i gwblhau.\nGallwch nawr orffen profi eich hunaniaeth ar-lein."
+            "paragraph1": "Wedi’i gwblhau.",
+            "paragraph2": "Gallwch nawr orffen profi eich hunaniaeth ar-lein."
           },
           "longWait": {
-            "spinnerStateText": "Ar ôl i chi gyflwyno’ch gwybodaeth yn yr ap, gall gymryd ychydig funudau i orffen gwirio eich manylion.\nPeidiwch â chau na adnewyddu’r dudalen hon."
+            "paragraph1": "Ar ôl i chi gyflwyno’ch gwybodaeth yn yr ap, gall gymryd ychydig funudau i orffen gwirio eich manylion.",
+            "paragraph2": "Peidiwch â chau na adnewyddu’r dudalen hon."
           },
           "ariaButtonEnabledMessage": "Wedi’i gwblhau. Nawr gallwch orffen profi pwy ydych chi ar-lein."
         }
@@ -1322,40 +1323,31 @@
     },
     "checkMobileAppResult": {
       "title": "Rydym yn gwirio eich manylion",
+      "header": "Rydym yn gwirio eich manylion",
+      "continueButtonText": "Parhau",
       "content": {
         "htmlOnlyVersion": {
-          "header": "Rydym yn gwirio eich manylion",
           "paragraph": "Gallwch geisio parhau.",
-          "paragraph2": "Os ydym yn dal i wirio’ch manylion, efallai y bydd angen i chi roi cynnig arni eto.",
-          "button": "Parhau"
+          "paragraph2": "Os ydym yn dal i wirio’ch manylion, efallai y bydd angen i chi roi cynnig arni eto."
         },
         "spinner": {
           "initial": {
-            "heading": "Rydym yn gwirio eich manylion",
-            "spinnerStateText": "Gall hyn gymryd ychydig o funudau.",
-            "spinnerState": "pending"
+            "text": "Gall hyn gymryd ychydig o funudau."
           },
           "complete": {
-            "spinnerState": "Gallwch nawr barhau."
+            "text": "Gallwch nawr barhau."
           },
           "longWait": {
-            "spinnerStateText": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
+            "text": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
           "ariaButtonEnabledMessage": "Gallwch nawr barhau.",
-          "continueButtonText": "Parhau",
           "error": {
+            "title": "Mae’n ddrwg gennym, mae problem",
             "heading": "Mae’n ddrwg gennym, mae problem",
             "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
             "whatYouCanDo": {
               "heading": "Beth allwch chi ei wneud",
-              "message": {
-                "text1": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK.",
-                "link": {
-                  "href": "",
-                  "text": ""
-                },
-                "text2": ""
-              }
+              "text": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
             }
           }
         }

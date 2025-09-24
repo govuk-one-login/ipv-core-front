@@ -34,7 +34,7 @@ To run the tests locally, you need to create a `.env` file in the root of the `b
 ORCHESTRATOR_STUB_URL="https://ORCH_STUB_URL"
 
 # API Keys
-TICF_MANAGEMENT_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+TICF_MANAGEMENT_API_KEY=""
 ```
 
 ## 🚀 Running Tests

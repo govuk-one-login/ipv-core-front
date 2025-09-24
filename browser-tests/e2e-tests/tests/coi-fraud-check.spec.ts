@@ -33,24 +33,22 @@ test.describe('COI Fraud Check - Given Name Change', () => {
       await identityPage.selectUKLocation();
       await identityPage.confirmEligibility();
       
-      // Process DOC checking evidence (initial step with biometric verification)
+      // DOC checking stub
       await docCheckingPage.processAliceParkerValidInitial();
       
-      // Process driving licence evidence
+      // Driving licence evidence stub
       await drivingLicencePage.expectDrivingLicenceStub();
       await drivingLicencePage.processAliceParkerValid();
-      
-      // Navigate to DCMAW success page and continue
       await identityPage.navigateToDcmawSuccess();
       await identityPage.continueFromDcmaw();
       
-      // Process address evidence
+      // Address stub
       await addressPage.processAliceParkerValidAddress();
       
-      // Process fraud evidence
+      // Fraud stub
       await fraudPage.processAliceParkerValid();
       
-      // Complete initial journey at IPV success page
+      // Verify identity issued
       await identityPage.navigateToIPVSuccess();
       await identityPage.expectIPVSuccess();
       await identityPage.continueToService();
@@ -66,17 +64,15 @@ test.describe('COI Fraud Check - Given Name Change', () => {
       await identityPage.selectUpdateDetails();
       await identityPage.selectUpdateNameMethod();
 
-      // Process DOC checking with name change (includes biometric verification)
+      // DOC checking stub
       await docCheckingPage.processAliceParkerNameChangeInitial();
 
-      // Process driving licence with name change
+      // Driving licence evidence stub
       await drivingLicencePage.expectDrivingLicenceStub();
       await drivingLicencePage.processAliceParkerNameChange();
-      
-      // Continue after driving licence (regular Continue button)
       await identityPage.continueFromDcmaw();
 
-      // Process fraud evidence with name change
+      // Fraud stub
       await fraudPage.processAliceParkerNameChange();
 
       // Complete name change journey at IPV success page

@@ -44,7 +44,7 @@ export const sendParamsToAPI: RequestHandler = async (req, res) => {
   }
 
   const apiResponse = await postCriCallback(req, body);
-  return handleBackendResponse(req, res, apiResponse);
+  return handleBackendResponse(req, res, apiResponse, query.id);
 };
 
 // Temporary - this will replace the above method once all CRI's have been migrated across to use the new endpoint
@@ -72,5 +72,5 @@ export const sendParamsToAPIV2: RequestHandler = async (req, res) => {
   }
 
   const apiResponse = await postCriCallback(req, body);
-  return handleBackendResponse(req, res, apiResponse);
+  return handleBackendResponse(req, res, apiResponse, criId);
 };

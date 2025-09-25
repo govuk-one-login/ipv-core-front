@@ -971,10 +971,10 @@
       "header": "Dywedwch wrthym os oes gennych un o’r mathau canlynol o ID gyda llun",
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
-        "subHeading": "Pasbort y DU (UK passport)",
+        "subHeading": "Pasbort y DU",
         "paragraph2": "Gallwch ddefnyddio unrhyw basbort y DU os yw heb ddod i ben.",
         "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
-        "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw: (You can use a non-UK passport if it:)",
+        "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
         "nonUkPassportRequirements": [
           "gyda sglodyn biometrig",
           "heb ddod i ben"

@@ -148,7 +148,7 @@
       const button = document.getElementById("submitButton");
       button.setAttribute("disabled", true);
 
-      const pollFunction = generatePollApiFunction('{{ apiUrl }}');
+      const pollFunction = generatePollApiFunction('{{ apiUrl | safe }}');
 
       function successFunction() {
         button.removeAttribute("disabled");

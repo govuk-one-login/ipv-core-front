@@ -50,7 +50,7 @@
         const pageHeading = document.getElementById("page-header");
         button.setAttribute("disabled", true);
 
-        const pollFunction = generatePollApiFunction('{{ apiUrl }}');
+        const pollFunction = generatePollApiFunction('{{ apiUrl | safe }}');
 
         function successFunction() {
           button.removeAttribute("disabled");

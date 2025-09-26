@@ -1,7 +1,7 @@
 // The generated function is for use with the frontend-ui spinner component
 function generatePollApiFunction(url) {
   return async function pollApiFunction(abortSignal) {
-    await fetch(url, { signal: abortSignal })
+    return fetch(url, { signal: abortSignal })
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "COMPLETED" || data.status === "INTERVENTION") {

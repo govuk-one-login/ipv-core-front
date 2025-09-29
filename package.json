@@ -77,7 +77,7 @@
     "webpack": "5.101.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.868.0",
+    "@aws-sdk/client-dynamodb": "3.896.0",
     "@aws-sdk/client-ssm": "3.896.0",
     "@govuk-one-login/data-vocab": "1.9.3",
     "@govuk-one-login/frontend-analytics": "3.3.0",

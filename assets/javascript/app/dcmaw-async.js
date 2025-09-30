@@ -4,7 +4,7 @@ function generatePollApiFunction(url) {
     return fetch(url, { signal: abortSignal })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "COMPLETED" || data.status === "INTERVENTION") {
+        if (data.status === "COMPLETED") {
           return 0; // Success
         } else if (data.status === "ERROR") {
           return 1; // Failure

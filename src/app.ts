@@ -109,7 +109,7 @@ app.use(
       cacheControl: true,
       immutable: false,
       maxAge: "3600s",
-    }
+    },
   ),
 );
 

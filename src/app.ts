@@ -103,7 +103,14 @@ app.use(securityHeadersHandler);
 app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
   "/assets",
-  express.static(path.resolve("node_modules/govuk-frontend/dist/govuk/assets")),
+  express.static(
+    path.resolve("node_modules/govuk-frontend/dist/govuk/assets"),
+    {
+      cacheControl: true,
+      immutable: false,
+      maxAge: "3600s",
+    }
+  ),
 );
 
 app.get("/healthcheck", (req, res) => {

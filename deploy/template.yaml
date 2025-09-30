@@ -227,6 +227,7 @@ Mappings:
       may2025RebrandEnabled: true
       alwaysShowBanners: false
       ga4Disabled: false
+      uaDisabled: false
       analyticsDataSensitive: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"

@@ -15,6 +15,7 @@ const configStub = {
   SERVICE_DOMAIN: "localhost",
   DEVICE_INTELLIGENCE_COOKIE_DOMAIN: "localhost",
   GA4_DISABLED: "true",
+  ANALYTICS_DATA_SENSITIVE: "false",
   UA_DISABLED: "false",
 };
 
@@ -43,6 +44,7 @@ describe("locals helper", () => {
       dynatraceRumUrl: "https://example.com/dt-url",
       ga4ContainerId: "test-ga4-id",
       isGa4Enabled: false,
+      analyticsDataSensitive: false,
       isUaEnabled: true,
       logoutUrl: "https://example.com/logout",
       deviceIntelligenceCookieDomain: "localhost",

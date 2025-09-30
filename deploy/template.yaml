@@ -198,7 +198,7 @@ Mappings:
       may2025RebrandEnabled: true
       alwaysShowBanners: false
       ga4Disabled: false
-      analyticsDataSensitive: false
+      analyticsDataSensitive: true
       uaDisabled: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
@@ -228,7 +228,7 @@ Mappings:
       alwaysShowBanners: false
       ga4Disabled: false
       uaDisabled: false
-      analyticsDataSensitive: false
+      analyticsDataSensitive: true
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.account.gov.uk/enter-password?type=deleteAccount"

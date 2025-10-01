@@ -976,15 +976,14 @@
         "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
         "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
         "nonUkPassportRequirements": [
-          "gyda sglodyn biometrig",
-          "heb ddod i ben"
+          "heb ddod i ben",
+          "gyda sglodyn biometrig"
         ],
         "details1": {
           "summaryText": "Oes gan eich pasbort sglodyn biometrig?",
           "paragraph4": " I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen."
         },
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
-
         "subHeading3": "Trwydded yrru cerdyn-llun y DU",
         "paragraph5": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
         "drivingLicenceRequirements": ["heb ddod i ben", "gyda’ch llun"],
@@ -1002,7 +1001,7 @@
           "no": "Na"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch Oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio",
           "errorRadioMessage": "Dewiswch Oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio"
         }

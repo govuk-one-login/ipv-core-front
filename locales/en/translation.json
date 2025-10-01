@@ -1086,7 +1086,7 @@
         },
         "details5": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity.",
@@ -1131,7 +1131,7 @@
         },
         "details4": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
         }
       }
     },

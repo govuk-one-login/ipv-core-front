@@ -1216,11 +1216,6 @@ Resources:
       EndpointConfiguration:
         Types:
           - REGIONAL
-      Tags:
-        - Key: !If [IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag"]
-          Value: false
-        - Key: !If [IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag"]
-          Value: true
 
   RestApiGwDeployment202502241200:
     DependsOn:

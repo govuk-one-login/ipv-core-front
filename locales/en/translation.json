@@ -903,20 +903,39 @@
       "header": "Tell us if you have one of the following types of photo ID",
       "content": {
         "paragraph": "This will help us find the best way for you to prove your identity.",
-        "subHeading": "UK photocard driving licence",
-        "paragraph1": "You can use one of the following types of photo ID:",
-        "insetText": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
-        "paragraph3": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
-        "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",
-        "subHeading1": "Do you have any of these types of photo ID?",
+        "subHeading": "UK passport",
+        "paragraph2": "You can use any UK passport if it has not expired.",
+        "subHeading2": "Non-UK passport with a biometric chip",
+        "paragraph3": "You can use a non-UK passport if it:",
+        "nonUkPassportRequirements": [
+          "has not expired",
+          "has a biometric chip"
+        ],
+        "details1": {
+          "summaryText": "Has your passport got a biometric chip?",
+          "paragraph4": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover."
+        },
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading3": "UK photocard driving licence",
+        "paragraph5": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": ["has not expired" ,"has your photo"],
+        "paragraph6": "It can be a full or provisional UK driving licence.",
+        "subHeading4": "UK biometric residence card or permit",
+        "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "requirements": [
+          "it’s up to 18 months after its expiry date",
+          "you have a smartphone"
+        ],
+        "subHeading5": "Do you have any of these types of photo ID ready to use?",
+        "hint": "It must be a real document. You cannot use a photocopy or digital copy.",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID",
-          "errorRadioMessage": "Select yes if you have any of these types of photo ID"
+          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID ready to use",
+          "errorRadioMessage": "Select yes if you have any of these types of photo ID ready to use"
         }
       }
     },

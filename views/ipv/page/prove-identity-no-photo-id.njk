@@ -11,6 +11,9 @@
 {% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translateWithContext(context) %}
 {% set errorHref = "#proveIdentityNoPhotoIdOptionsForm" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '8fe1817a-07f6-48a5-bd53-ebc92cb1629b'%}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoPhotoId.header' | translateWithContext(context) }}</h1>
   {% if context != "nino" %}

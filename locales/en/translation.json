@@ -1337,16 +1337,7 @@
           "longWait": {
             "text": "We’re still checking your details. Do not close or refresh this page."
           },
-          "ariaButtonEnabledMessage": "You can now continue.",
-          "error": {
-            "title": "Sorry, there is a problem",
-            "heading": "Sorry, there is a problem",
-            "messageText": "We cannot prove your identity right now.",
-            "whatYouCanDo": {
-              "heading": "What you can do",
-              "text": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
-            }
-          }
+          "ariaButtonEnabledMessage": "You can now continue."
         }
       }
     },

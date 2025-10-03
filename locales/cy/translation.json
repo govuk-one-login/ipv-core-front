@@ -1340,16 +1340,7 @@
           "longWait": {
             "text": "Rydym yn dal i wirio’ch manylion. Peidiwch â chau nac adnewyddu’r dudalen hon."
           },
-          "ariaButtonEnabledMessage": "Gallwch nawr barhau.",
-          "error": {
-            "title": "Mae’n ddrwg gennym, mae problem",
-            "heading": "Mae’n ddrwg gennym, mae problem",
-            "messageText": "Ni allwn brofi pwy ydych chi ar hyn o bryd.",
-            "whatYouCanDo": {
-              "heading": "Beth allwch chi ei wneud",
-              "text": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
-            }
-          }
+          "ariaButtonEnabledMessage": "Gallwch nawr barhau."
         }
       }
     },

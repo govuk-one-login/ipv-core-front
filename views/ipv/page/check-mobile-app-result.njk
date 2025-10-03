@@ -14,7 +14,6 @@
           data-ms-between-requests="{{msBetweenRequests}}"
           data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
           data-ms-before-abort="{{msBeforeAbort}}"
-          data-hide-spinner-on-error="true"
           data-aria-alert-completion-text="{{ 'pages.checkMobileAppResult.content.spinner.ariaButtonEnabledMessage' | translate }}">
       <div id="no-js-content" class="govuk-form-group">
         <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph' | translate }}</p>
@@ -28,11 +27,6 @@
       </div>
       <div id="success-content" style="display:none">
         <p class="centre govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.complete.text' | translate }}</p>
-      </div>
-      <div id="error-content" style="display:none">
-        <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.error.messageText' | translate }}</p>
-        <h2 class="govuk-heading-m">{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.heading' | translate }}</h2>
-        <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.text' | translate }}</p>
       </div>
     </div>
 
@@ -57,9 +51,7 @@
         }
 
         function errorFunction() {
-          document.title =  "{{ 'pages.checkMobileAppResult.content.spinner.error.title' | translate }}";
-          pageHeading.textContent = "{{ 'pages.checkMobileAppResult.content.spinner.error.heading' | translate }}";
-          button.style.display = "none";
+          window.location.href = "/ipv/page/pyi-technical";
         }
 
         import { useSpinner } from "/public/javascripts/frontend-ui.js";

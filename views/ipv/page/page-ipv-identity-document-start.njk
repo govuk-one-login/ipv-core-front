@@ -18,17 +18,59 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityDocumentStart.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph1' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet ">
-    {% for listItem in 'general.shared.suitableAppPhotoIds' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
+  <p class="govuk-body govuk-!-margin-bottom-6">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph' | translate }}</p>
+
+  <ul class="govuk-list" role="list">
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading' | translate }}</h2>
+      <p class="govuk-body govuk-details govuk-!-margin-bottom-6">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph2' | translate }}</p>
+    </li>
+
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading2' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.nonUkPassportRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+      <details class="govuk-details govuk-!-margin-bottom-6">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            {{ 'pages.pageIpvIdentityDocumentStart.content.details1.summaryText' | translate }}
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.details1.paragraph4' | translate }}</p>
+          <picture>
+            <source srcset="/public/images/passport-icon.svg" />
+            <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{ 'pages.pageIpvIdentityDocumentStart.content.imgAltText' | translate }}" />
+          </picture>
+        </div>
+      </details>
+    </li>
+
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading3' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+      <p class="govuk-body govuk-!-margin-bottom-6">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
+    </li>
+
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading4' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph7' | translate }}</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
+        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.requirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+    </li>
   </ul>
-  {{ govukInsetText({
-    html: 'pages.pageIpvIdentityDocumentStart.content.insetText' | translate
-  }) }}
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph3' | translate | safe }}</p>
 
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -37,7 +79,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pageIpvIdentityDocumentStart.content.subHeading1' | translate,
+          text: 'pages.pageIpvIdentityDocumentStart.content.subHeading5' | translate,
           classes: "govuk-fieldset__legend--m"
         }
       },

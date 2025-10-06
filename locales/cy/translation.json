@@ -971,20 +971,39 @@
       "header": "Dywedwch wrthym os oes gennych un o’r mathau canlynol o ID gyda llun",
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
-        "subHeading": "Trwydded yrru cerdyn gyda llun y DU",
-        "paragraph1": "Gallwch ddefnyddio un o’r mathau canlynol o ID gyda llun:",
-        "insetText": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
-        "paragraph3": "Darganfyddwch fwy am y gwahanol fathau o <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">ID gyda llun rydym yn ei dderbyn (agor mewn tab newydd)</a>",
-        "hint": "Bydd angen i chi gael eich ID gyda llun yn barod. Ni allwch ddefnyddio copi digidol neu lungopi.",
-        "subHeading1": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun?",
+        "subHeading": "Pasbort y DU",
+        "paragraph2": "Gallwch ddefnyddio unrhyw basbort y DU os yw heb ddod i ben.",
+        "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
+        "nonUkPassportRequirements": [
+          "heb ddod i ben",
+          "gyda sglodyn biometrig"
+        ],
+        "details1": {
+          "summaryText": "Oes gan eich pasbort sglodyn biometrig?",
+          "paragraph4": " I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen."
+        },
+        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
+        "subHeading3": "Trwydded yrru cerdyn-llun y DU",
+        "paragraph5": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
+        "drivingLicenceRequirements": ["heb ddod i ben", "gyda’ch llun"],
+        "paragraph6": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
+        "paragraph7": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
+        "requirements": [
+          "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
+          "oes gennych ffôn clyfar"
+        ],
+        "subHeading5": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio?",
+        "hint": " Rhaid iddi fod yn ddogfen go iawn. Ni allwch ddefnyddio copi digidol neu lungopi.",
         "formRadioButtons": {
           "yes": "Oes",
           "no": "Na"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun",
-          "errorRadioMessage": "Dewiswch oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun"
+          "errorSummaryDescriptionText": "Dewiswch Oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio",
+          "errorRadioMessage": "Dewiswch Oes os oes gennych unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio"
         }
       }
     },

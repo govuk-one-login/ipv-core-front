@@ -21,10 +21,9 @@ describe("getAppStoreRedirectUrl", () => {
   ["iphone-appOnly", "android-appOnly"].forEach((context) => {
     it(`should normalise and return correct redirect url for ${context}`, () => {
       const result = getAppStoreRedirectUrl(context);
-      const expected =
-        context.includes("iphone")
-          ? `${config.SERVICE_URL}/ipv/app-redirect/${PHONE_TYPES.IPHONE}`
-          : `${config.SERVICE_URL}/ipv/app-redirect/${PHONE_TYPES.ANDROID}`;
+      const expected = context.includes("iphone")
+        ? `${config.SERVICE_URL}/ipv/app-redirect/${PHONE_TYPES.IPHONE}`
+        : `${config.SERVICE_URL}/ipv/app-redirect/${PHONE_TYPES.ANDROID}`;
       expect(result).to.equal(expected);
     });
   });

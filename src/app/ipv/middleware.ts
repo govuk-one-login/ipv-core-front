@@ -26,7 +26,7 @@ import {
   getTemplatePath,
 } from "../../lib/paths";
 import PAGES from "../../constants/ipv-pages";
-import { validatePhoneType } from "../shared/contextHelper";
+import { getPhoneType } from "../shared/contextHelper";
 import {
   sniffPhoneType,
   detectAppTriageEvent,
@@ -365,16 +365,16 @@ export const handleJourneyPageRequest = async (
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
       renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
-      validatePhoneType(context);
-      const qrCodeUrl = getAppStoreRedirectUrl(context);
+      const phoneType = getPhoneType(context);
+      const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
       renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeInformingOfLongWait =
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
       renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      validatePhoneType(context);
-      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
+      const phoneType = getPhoneType(context);
+      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
       renderOptions.postOfficeVisitByDate = new Date().setDate(
         new Date().getDate() + config.POST_OFFICE_VISIT_BY_DAYS,

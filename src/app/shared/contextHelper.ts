@@ -1,7 +1,7 @@
-import { PHONE_TYPES, PhoneType } from "../../constants/device-constants";
+import { PHONE_TYPES } from "../../constants/device-constants";
 import TechnicalError from "../../errors/technical-error";
 
-export function getPhoneType(context?: string): PhoneType {
+export function getPhoneType(context?: string): PHONE_TYPES {
   if (!context || typeof context !== "string") {
     throw new TechnicalError(`Invalid phone type context: ${context}`);
   }

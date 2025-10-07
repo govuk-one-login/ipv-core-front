@@ -24,21 +24,6 @@
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph3' | translate }}</p>
 
-      {% set details1 %}
-          <ol class="govuk-list govuk-list--number">
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
-          </ol>
-      {% endset %}
-
-      {{ govukDetails({
-          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
-          html: details1
-      }) }}
-
       {{ govukWarningText({
         text: 'pages.pyiTriageDesktopDownload.content.warningText' | translate,
         iconFallbackText: 'pages.pyiTriageDesktopDownload.content.warningTextFallback' | translate
@@ -54,6 +39,21 @@
       <h3 class="govuk-heading-s">
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading2' | translate }}
       </h3>
+
+      {% set details1 %}
+        <ol class="govuk-list govuk-list--number">
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
+        </ol>
+      {% endset %}
+
+      {{ govukDetails({
+          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
+          html: details1
+      }) }}
 
       <ul class="govuk-list" role="list">
         <li>

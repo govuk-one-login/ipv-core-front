@@ -14,7 +14,8 @@ function generatePollApiFunction(url) {
       })
       .catch((error) => {
         if (error.name !== "AbortError") {
-          console.error("Error in pollFunction:", error);
+          console.error("Unexpected error in pollFunction, backing off: ", error);
+          return 3; // Backoff
         }
         return 1; // Failure
       });

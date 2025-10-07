@@ -12,7 +12,7 @@ import {
   getProvenIdentityUserDetails,
 } from "../../services/coreBackService";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 import {
   SUPPORTED_COMBO_EVENTS,
   UNSUPPORTED_COMBO_EVENTS,
@@ -237,9 +237,9 @@ export const handleAppStoreRedirect: RequestHandler = (req, res) => {
   const specifiedPhoneType = sniffPhoneType(req, fallbackPhoneType);
 
   switch (specifiedPhoneType?.name) {
-    case PHONE_TYPES.IPHONE:
+    case PHONE_TYPE.IPHONE:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
-    case PHONE_TYPES.ANDROID:
+    case PHONE_TYPE.ANDROID:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
     default:
       throw new BadRequestError(

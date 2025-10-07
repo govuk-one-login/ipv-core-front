@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 import { detectAppTriageEvent, sniffPhoneType } from "./deviceSniffingHelper";
 import { APP_TRIAGE_EVENTS } from "../../constants/events";
 import {
@@ -78,17 +78,17 @@ describe("User Agent Functions", () => {
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 14.3 },
+        expectedOs: { name: PHONE_TYPE.IPHONE, version: 14.3 },
       },
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 15.1 },
+        expectedOs: { name: PHONE_TYPE.IPHONE, version: 15.1 },
       },
       {
         scenario: "Android user agents",
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
-        expectedOs: { name: PHONE_TYPES.ANDROID, version: 8 },
+        expectedOs: { name: PHONE_TYPE.ANDROID, version: 8 },
       },
       {
         scenario: "OS not iOS or Android",

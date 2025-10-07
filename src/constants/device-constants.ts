@@ -1,9 +1,9 @@
-export enum PHONE_TYPES {
+export enum PHONE_TYPE {
   IPHONE = "iphone",
   ANDROID = "android",
 }
 
-export enum OS_TYPES {
+export enum OS_TYPE {
   IOS = "iOS",
   ANDROID = "Android",
 }

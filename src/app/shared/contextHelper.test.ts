@@ -1,14 +1,14 @@
 import { expect } from "chai";
 import { getPhoneType } from "./contextHelper";
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 
 describe("getPhoneType", () => {
   it("should return iphone for plain iphone context", () => {
-    expect(getPhoneType("iphone")).to.equal(PHONE_TYPES.IPHONE);
+    expect(getPhoneType("iphone")).to.equal(PHONE_TYPE.IPHONE);
   });
 
   it("should return android for plain android context", () => {
-    expect(getPhoneType("android")).to.equal(PHONE_TYPES.ANDROID);
+    expect(getPhoneType("android")).to.equal(PHONE_TYPE.ANDROID);
   });
 
   [
@@ -19,8 +19,8 @@ describe("getPhoneType", () => {
   ].forEach((context) => {
     it(`should normalize and return correct phone type for context: ${context}`, () => {
       const expected = context.startsWith("iphone")
-        ? PHONE_TYPES.IPHONE
-        : PHONE_TYPES.ANDROID;
+        ? PHONE_TYPE.IPHONE
+        : PHONE_TYPE.ANDROID;
       expect(getPhoneType(context)).to.equal(expected);
     });
   });

@@ -19,6 +19,7 @@ COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views
 COPY tsconfig.json ./
+RUN npm run versionAssets
 RUN npm run tsc
 RUN npm run build-service-unavailable
 

@@ -11,5 +11,5 @@
     "inlineSourceMap": true,
     "types": ["node", "mocha"]
   },
-  "include": ["src"]
+  "include": ["src", "gulpfile.ts"]
 }

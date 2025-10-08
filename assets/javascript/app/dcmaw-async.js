@@ -6,11 +6,12 @@ function generatePollApiFunction(url) {
       .then((data) => {
         if (data.status === "COMPLETED") {
           return 0; // Success
-        } else if (data.status === "ERROR") {
-          return 1; // Failure
-        } else {
+        } else if (data.status === "PROCESSING") {
           return 2; // Pending
+        } else if (data.status === "ERROR") {
+          return 3; // Backoff
         }
+        throw new Error(`Unexpected status: ${data.status}`);
       })
       .catch((error) => {
         if (error.name !== "AbortError") {

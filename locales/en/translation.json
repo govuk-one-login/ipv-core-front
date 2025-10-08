@@ -1114,14 +1114,15 @@
         "paragraph6": "Then you can continue to the government service you want to use.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this.",
-            "spinnerState": "pending"
+            "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this."
           },
           "complete": {
-            "spinnerStateText": "Completed.\nYou can now finish proving your identity online."
+            "paragraph1": "Completed.",
+            "paragraph2": "You can now finish proving your identity online."
           },
           "longWait": {
-            "spinnerStateText": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.\nDo not close or refresh this page."
+            "paragraph1": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.",
+            "paragraph2": "Do not close or refresh this page."
           },
           "ariaButtonEnabledMessage": "Completed. You can now finish proving your identity online."
         }
@@ -1338,42 +1339,24 @@
     },
     "checkMobileAppResult": {
       "title": "We’re checking your details",
+      "header": "We’re checking your details",
+      "continueButtonText": "Continue",
       "content": {
         "htmlOnlyVersion": {
-          "header": "We are checking your details",
           "paragraph": "You can try to continue.",
-          "paragraph2": "If we’re still checking your details, you might need to try again.",
-          "button": "Continue"
+          "paragraph2": "If we’re still checking your details, you might need to try again."
         },
         "spinner": {
           "initial": {
-            "heading": "We’re checking your details",
-            "spinnerStateText": "This may take a few minutes.",
-            "spinnerState": "pending"
+            "text": "This may take a few minutes."
           },
           "complete": {
-            "spinnerState": "You can now continue."
+            "text": "You can now continue."
           },
           "longWait": {
-            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+            "text": "We’re still checking your details. Do not close or refresh this page."
           },
-          "ariaButtonEnabledMessage": "You can now continue.",
-          "continueButtonText": "Continue",
-          "error": {
-            "heading": "Sorry, there is a problem",
-            "messageText": "We cannot prove your identity right now.",
-            "whatYouCanDo": {
-              "heading": "What you can do",
-              "message": {
-                "text1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-                "link": {
-                  "href": "",
-                  "text": ""
-                },
-                "text2": ""
-              }
-            }
-          }
+          "ariaButtonEnabledMessage": "You can now continue."
         }
       }
     },

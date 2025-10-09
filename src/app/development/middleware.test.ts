@@ -146,16 +146,17 @@ describe("allTemplatesPost", () => {
 });
 
 describe("templatesDisplayGet", () => {
-  it("should validate phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
+  it("should get phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
-    const phoneType = "ios";
+    const context = "iphone-appOnly";
+    const validPhoneType = "iphone";
     const req = createRequest({
       params: {
         templateId: PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP,
         language: "en",
       },
       query: {
-        context: phoneType,
+        context,
       },
     });
 
@@ -166,10 +167,10 @@ describe("templatesDisplayGet", () => {
 
     const res = createResponse();
 
-    const validatePhoneTypeStub = sinon.stub(
-      contextHelper,
-      "validatePhoneType",
-    );
+    // Stub out the helpers
+    const getPhoneTypeStub = sinon
+      .stub(contextHelper, "getPhoneType")
+      .returns(validPhoneType as any);
     const generateQrCodeStub = sinon
       .stub(qrCodeHelper, "generateQrCodeImageData")
       .resolves("mockedQrCode");
@@ -181,8 +182,8 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(validatePhoneTypeStub).to.have.been.calledWith(phoneType);
-    expect(getAppStoreRedirectUrlStub).to.have.been.calledWith(phoneType);
+    expect(getPhoneTypeStub).to.have.been.calledWith(context);
+    expect(getAppStoreRedirectUrlStub).to.have.been.calledWith(validPhoneType);
     expect(generateQrCodeStub).to.have.been.calledWith("mockedAppStoreUrl");
 
     expect(res.render).to.have.been.calledWithMatch(
@@ -191,7 +192,7 @@ describe("templatesDisplayGet", () => {
     );
 
     // Cleanup
-    validatePhoneTypeStub.restore();
+    getPhoneTypeStub.restore();
     generateQrCodeStub.restore();
     getAppStoreRedirectUrlStub.restore();
   });

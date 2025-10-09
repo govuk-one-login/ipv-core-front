@@ -1,8 +1,8 @@
 import { UAParser } from "ua-parser-js";
 import { Request } from "express";
 import {
-  PHONE_TYPES,
-  OS_TYPES,
+  PHONE_TYPE,
+  OS_TYPE,
   MINIMUM_IOS_VERSION,
 } from "../../constants/device-constants";
 import { APP_TRIAGE_EVENTS } from "../../constants/events";
@@ -18,12 +18,12 @@ export const detectAppTriageEvent = (req: Request): string => {
   const detectedPhone = sniffPhoneType(req);
 
   switch (detectedPhone?.name) {
-    case PHONE_TYPES.ANDROID:
+    case PHONE_TYPE.ANDROID:
       if (!detectedPhone?.version) {
         return APP_TRIAGE_EVENTS.APP_TRIAGE_SMARTPHONE;
       }
       return APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_ANDROID;
-    case PHONE_TYPES.IPHONE:
+    case PHONE_TYPE.IPHONE:
       if (
         !detectedPhone?.version ||
         detectedPhone.version < MINIMUM_IOS_VERSION
@@ -47,11 +47,11 @@ export const sniffPhoneType = (
 
   // Only treat "mobile" + OS as phone
   if (deviceType === "mobile") {
-    if (osName === OS_TYPES.IOS) {
-      return { name: PHONE_TYPES.IPHONE, version: parseVersion(version) };
+    if (osName === OS_TYPE.IOS) {
+      return { name: PHONE_TYPE.IPHONE, version: parseVersion(version) };
     }
-    if (osName === OS_TYPES.ANDROID) {
-      return { name: PHONE_TYPES.ANDROID, version: parseVersion(version) };
+    if (osName === OS_TYPE.ANDROID) {
+      return { name: PHONE_TYPE.ANDROID, version: parseVersion(version) };
     }
   }
 

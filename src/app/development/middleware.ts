@@ -5,7 +5,7 @@ import {
   generateUserDetails,
 } from "../shared/reuseHelper";
 import { pageRequiresUserDetails } from "../ipv/middleware";
-import { validatePhoneType } from "../shared/contextHelper";
+import { getPhoneType } from "../shared/contextHelper";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import PAGES from "../../constants/ipv-pages";
@@ -153,17 +153,17 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.apiUrl = apiUrl;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
-    validatePhoneType(phoneType);
+    const validPhoneType = getPhoneType(phoneType);
     renderOptions.qrCode = await generateQrCodeImageData(
-      getAppStoreRedirectUrl(phoneType),
+      getAppStoreRedirectUrl(validPhoneType),
     );
     renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
     renderOptions.msBeforeInformingOfLongWait =
       config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-    validatePhoneType(phoneType);
-    renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
+    const validPhoneType = getPhoneType(phoneType);
+    renderOptions.appDownloadUrl = getAppStoreRedirectUrl(validPhoneType);
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
     renderOptions.apiUrl = apiUrl;
     renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;

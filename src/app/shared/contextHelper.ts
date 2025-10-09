@@ -1,13 +1,18 @@
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 import TechnicalError from "../../errors/technical-error";
 
-export function validatePhoneType(context?: string): asserts context is string {
-  if (
-    !context ||
-    !([PHONE_TYPES.IPHONE, PHONE_TYPES.ANDROID] as string[]).includes(context)
-  ) {
-    throw new TechnicalError(
-      `Context cannot be parsed as a phone type: ${context}`,
-    );
+export function getPhoneType(context?: string): PHONE_TYPE {
+  if (!context || typeof context !== "string") {
+    throw new TechnicalError(`Invalid phone type context: ${context}`);
   }
+
+  if (context.startsWith(PHONE_TYPE.IPHONE)) {
+    return PHONE_TYPE.IPHONE;
+  }
+
+  if (context.startsWith(PHONE_TYPE.ANDROID)) {
+    return PHONE_TYPE.ANDROID;
+  }
+
+  throw new TechnicalError(`Unrecognised phone type: ${context}`);
 }

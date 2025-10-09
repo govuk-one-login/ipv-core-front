@@ -18,9 +18,15 @@
   <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph2' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph3' | translate }}</p>
 
+  {% if context in ["iphone-appOnly", "android-appOnly"] %}
+    {% set detailsHtml3 = 'pages.pyiTriageMobileDownload.content.details1.html' | translateWithContext("AppOnly") %}
+  {% else %}
+    {% set detailsHtml3 = 'pages.pyiTriageMobileDownload.content.details1.html' | translate %}
+  {% endif %}
+
   {{ govukDetails({
       summaryText: 'pages.pyiTriageMobileDownload.content.details1.summaryText' | translate,
-      html: 'pages.pyiTriageMobileDownload.content.details1.html' | translate
+      html: detailsHtml3
   }) }}
 
   {{ govukButton({
@@ -38,9 +44,15 @@
       html: 'pages.pyiTriageMobileDownload.content.details3.html' | translate
   }) }}
 
+  {% if context in ["iphone-appOnly", "android-appOnly"] %}
+    {% set detailsHtml4 = 'pages.pyiTriageMobileDownload.content.details4.html' | translateWithContext("AppOnly") %}
+  {% else %}
+    {% set detailsHtml4 = 'pages.pyiTriageMobileDownload.content.details4.html' | translate %}
+  {% endif %}
+
   {{ govukDetails({
       summaryText: 'pages.pyiTriageMobileDownload.content.details4.summaryText' | translate,
-      html: 'pages.pyiTriageMobileDownload.content.details4.html' | translate
+      html: detailsHtml4
   }) }}
 
   {% include "components/contact-us-link.njk" %}

@@ -49,12 +49,7 @@ Conditions:
   IsDev01: !Equals [ !Ref AWS::AccountId, "130355686670"]
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
-  IsStaging: !Equals [ !Ref AWS::AccountId, "335257547869"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
-  IsDevOrBuildOrStaging: !Or
-    - !Condition IsDevelopment
-    - !Condition IsBuild
-    - !Condition IsStaging
   IsProduction: !Equals [ !Ref Environment, production ]
   IsSubscriptionEnviroment: !Or
     - !Equals [ !Ref Environment, staging ]
@@ -534,9 +529,9 @@ Resources:
             Value: true
           - !Ref AWS::NoValue
       Tags:
-        - Key: !If [IsDevOrBuildOrStaging, "FMSRegionalPolicy", "aTempTag"]
+        - Key: FMSRegionalPolicy
           Value: false
-        - Key: !If [IsDevOrBuildOrStaging, "CustomPolicy", "anotherTempTag"]
+        - Key: CustomPolicy
           Value: true
     DependsOn: CoreFrontAccessLogsBucketPolicy
 

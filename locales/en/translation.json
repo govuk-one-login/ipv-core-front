@@ -1525,6 +1525,7 @@
           "appHint": "You’ll be shown how to download and use the app.",
           "postOffice": "Prove your identity at a Post Office",
           "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first.",
+          "postOfficeHintKbvCriError": "You’ll enter some details on GOV.UK first.",
           "webRoute": "Prove your identity by answering some security questions",
           "webRouteHint": "You’ll enter details from your UK passport or UK photocard driving licence first.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"

@@ -1,4 +1,4 @@
-FROM node:22.20.0-alpine3.21@sha256:3bbc8aa1c0db220a63d9f42aa6e8117b305d72a6527039e99fced68c9ab96c8e
+FROM node:22.20.0-alpine3.21@sha256:f40aebdd0c1959821ab6d72daecafb2cd1d4c9a958e9952c1d71b84d4458f875
 ENV PORT 4501
 WORKDIR /app
 COPY package.json package-lock.json ./

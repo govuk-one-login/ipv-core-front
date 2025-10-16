@@ -1088,7 +1088,7 @@
         "details5": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>",
-          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do if you cannot use the app</a>.</p>"
+          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity.",
@@ -1120,8 +1120,8 @@
         "paragraph3": "There will be instructions on what you need to do at each step.",
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
-          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do instead</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
+          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">Check what you can do instead</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1135,7 +1135,7 @@
         "details4": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>",
-          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do if you cannot use the app</a>.</p>"
+          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         }
       }
     },

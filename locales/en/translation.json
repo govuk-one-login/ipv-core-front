@@ -536,7 +536,7 @@
         "subHeading1Mam": "Are you on one of these phones?",
         "formRadioButtons": {
           "iphoneButtonTextDad": "Yes - I have access to an iPhone 8 or newer",
-          "iphoneButtonTextMam": "Yes - I’m on an iPhone 8 or Newer",
+          "iphoneButtonTextMam": "Yes - I’m on an iPhone 8 or newer",
           "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
           "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
           "neitherButtonTextDad": "No",

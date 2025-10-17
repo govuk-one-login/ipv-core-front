@@ -1,11 +1,11 @@
-export const PHONE_TYPES = Object.freeze({
-  IPHONE: "iphone",
-  ANDROID: "android",
-});
+export enum PHONE_TYPE {
+  IPHONE = "iphone",
+  ANDROID = "android",
+}
 
-export const OS_TYPES = Object.freeze({
-  IOS: "iOS",
-  ANDROID: "Android",
-});
+export enum OS_TYPE {
+  IOS = "iOS",
+  ANDROID = "Android",
+}
 
 export const MINIMUM_IOS_VERSION = 15;

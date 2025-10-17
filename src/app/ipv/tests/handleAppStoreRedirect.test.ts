@@ -1,5 +1,5 @@
 import sinon from "sinon";
-import { PHONE_TYPES } from "../../../constants/device-constants";
+import { PHONE_TYPE } from "../../../constants/device-constants";
 import config from "../../../config/config";
 import { handleAppStoreRedirect } from "../middleware";
 import {
@@ -21,7 +21,7 @@ describe("handleAppStoreRedirect", () => {
   it("redirects to the apple store if the user said they have an iphone", async function () {
     // Arrange
     const req = createRequest({
-      params: { specifiedPhoneType: PHONE_TYPES.IPHONE },
+      params: { specifiedPhoneType: PHONE_TYPE.IPHONE },
     });
     const res = createResponse();
 
@@ -35,7 +35,7 @@ describe("handleAppStoreRedirect", () => {
   it("redirects to the android store if the user said they have an android", async function () {
     // Arrange
     const req = createRequest({
-      params: { specifiedPhoneType: PHONE_TYPES.ANDROID },
+      params: { specifiedPhoneType: PHONE_TYPE.ANDROID },
     });
     const res = createResponse();
 

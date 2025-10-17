@@ -24,21 +24,6 @@
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph3' | translate }}</p>
 
-      {% set details1 %}
-          <ol class="govuk-list govuk-list--number">
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
-          </ol>
-      {% endset %}
-
-      {{ govukDetails({
-          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
-          html: details1
-      }) }}
-
       {{ govukWarningText({
         text: 'pages.pyiTriageDesktopDownload.content.warningText' | translate,
         iconFallbackText: 'pages.pyiTriageDesktopDownload.content.warningTextFallback' | translate
@@ -55,9 +40,23 @@
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading2' | translate }}
       </h3>
 
+      {% set details1 %}
+        <ol class="govuk-list govuk-list--number">
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
+        </ol>
+      {% endset %}
+
+      {{ govukDetails({
+          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
+          html: details1
+      }) }}
+
       <ul class="govuk-list" role="list">
         <li>
-
           {% set details2 %}
             <ol class="govuk-list govuk-list--number">
               <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list1' | translate }}</li>
@@ -71,35 +70,45 @@
               summaryText: 'pages.pyiTriageDesktopDownload.content.details2.summaryText' | translate,
               html: details2
           }) }}
-
         </li>
+
         <li>
+          {% if context in ["iphone-appOnly", "android-appOnly"] %}
+            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translateWithContext("AppOnly") %}
+          {% else %}
+            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translate %}
+          {% endif %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details3.summaryText' | translate,
-              html: 'pages.pyiTriageDesktopDownload.content.details3.html' | translate
+              html: detailsHtml3
           }) }}
-
         </li>
-        <li>
 
+        <li>
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details4.summaryText' | translate,
               html: 'pages.pyiTriageDesktopDownload.content.details4.html' | translate
           }) }}
-
         </li>
+
         <li>
+          {% if context in ["iphone-appOnly", "android-appOnly"] %}
+            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translateWithContext("AppOnly") %}
+          {% else %}
+            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translate %}
+          {% endif %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details5.summaryText' | translate,
-              html: 'pages.pyiTriageDesktopDownload.content.details5.html' | translate
+              html: detailsHtml5
           }) }}
         </li>
       </ul>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     </li>
+
     <li>
       <h2 class="govuk-heading-m">
           {{ 'pages.pyiTriageDesktopDownload.content.subHeading3' | translate }}
@@ -131,6 +140,7 @@
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     </li>
+
     <li>
       <h2 class="govuk-heading-m">
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading4' | translate }}

@@ -25,7 +25,7 @@ describe("handleJourneyPageRequest", () => {
 
   // Setup stubs
   const coreBackServiceStub = { getProvenIdentityUserDetails: sinon.fake() };
-  const contextHelperStub = { validatePhoneType: sinon.fake() };
+  const contextHelperStub = { getPhoneType: sinon.fake() };
   const appDownloadHelperStub = {
     getAppStoreRedirectUrl: sinon.fake.returns("https://example.com"),
   };
@@ -45,7 +45,7 @@ describe("handleJourneyPageRequest", () => {
   beforeEach(() => {
     next.resetHistory();
     coreBackServiceStub.getProvenIdentityUserDetails.resetHistory();
-    contextHelperStub.validatePhoneType.resetHistory();
+    contextHelperStub.getPhoneType.resetHistory();
     appDownloadHelperStub.getAppStoreRedirectUrl.resetHistory();
     qrCodeHelperStub.generateQrCodeImageData.resetHistory();
   });
@@ -189,7 +189,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(contextHelperStub.validatePhoneType).to.have.been.calledOnce;
+    expect(contextHelperStub.getPhoneType).to.have.been.calledOnce;
     expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
       .calledOnce;
     expect(qrCodeHelperStub.generateQrCodeImageData).to.have.been.calledOnce;
@@ -342,7 +342,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(contextHelperStub.validatePhoneType).to.have.been.calledOnce;
+    expect(contextHelperStub.getPhoneType).to.have.been.calledOnce;
     expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
       .calledOnce;
     expect(res.render).to.have.been.calledWith(

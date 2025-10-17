@@ -9,7 +9,8 @@ import {
   HTTP_HEADER_USER_AGENT_IPHONE_EXACT_VALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
   HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
-  HTTP_HEADER_USER_AGENT_IPAD, HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION
+  HTTP_HEADER_USER_AGENT_IPAD,
+  HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
 } from "../../test-utils/constants";
 import { specifyCreateRequest } from "../../test-utils/mock-express";
 
@@ -35,7 +36,8 @@ describe("User Agent Functions", () => {
       },
       {
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
-        scenario: "iOS devices with version greater than the minimum version supported",
+        scenario:
+          "iOS devices with version greater than the minimum version supported",
         expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_IPHONE,
       },
       {

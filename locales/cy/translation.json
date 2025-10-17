@@ -374,7 +374,7 @@
         "subHeading1Dad": "Oes gennych chi fynediad i iPhone neu ffôn Android?",
         "subHeading1Mam": "Ydych chi ar un o’r ffonau hyn?",
         "formRadioButtons": {
-          "iphoneButtonTextDad": "TODO: Yes - I have access to an iPhone 8 or newer",
+          "iphoneButtonTextDad": "Ydw - mae gen i fynediad i iPhone 8 neu fwy newydd",
           "iphoneButtonTextMam": "Ydw - rydw i ar iPhone 8 neu fwy newydd",
           "androidButtonTextDad": "Ydw - mae gen i fynediad i ffôn Android (er enghraifft, Samsung neu Google Pixel)",
           "androidButtonTextMam": "Ydw - rydw i ar ffôn Android (er enghraifft, Samsung neu Google Pixel)",

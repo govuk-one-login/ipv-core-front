@@ -365,8 +365,8 @@
       "headerDad": "Dywedwch wrthym a oes gennych fynediad i iPhone neu ffôn Android",
       "headerMam": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
       "content": {
-        "paragraph1": "TODO: To prove your identity with the GOV.UK One Login app, you need a smartphone with a working camera.",
-        "paragraph2": "TODO: This must be an iPhone 8 or newer, or an Android phone.",
+        "paragraph1": "I brofi eich hunaniaeth gyda'r ap GOV.UK One Login, rydych angen ffôn clyfar gyda chamera sy'n gweithio.",
+        "paragraph2": "Rhaid iddo fod yn iPhone 8 neu fwy newydd, neu ffôn Android.",
         "details": {
           "summaryText": "Sut ydw i’n gwybod pa iPhone sydd gen i?",
           "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynu’ch iPhone ar ôl 2016, mae’n debyg bod gennych iPhone 7 neu fwy newydd.</p><p>I wirio pa iPhone sydd gennych, ewch i’ch gosodiadau ffôn. Dewiswch ‘General’ yna ‘About’ a chwiliwch am ‘Model Name’.</p>"
@@ -375,7 +375,7 @@
         "subHeading1Mam": "Ydych chi ar un o’r ffonau hyn?",
         "formRadioButtons": {
           "iphoneButtonTextDad": "TODO: Yes - I have access to an iPhone 8 or newer",
-          "iphoneButtonTextMam": "TODO: Yes - I’m on an iPhone 8 or Newer",
+          "iphoneButtonTextMam": "Ydw - rydw i ar iPhone 8 neu fwy newydd",
           "androidButtonTextDad": "Ydw - mae gen i fynediad i ffôn Android (er enghraifft, Samsung neu Google Pixel)",
           "androidButtonTextMam": "Ydw - rydw i ar ffôn Android (er enghraifft, Samsung neu Google Pixel)",
           "neitherButtonTextDad": "Na",

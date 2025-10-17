@@ -526,20 +526,17 @@
       "headerDad": "Tell us if you have access to an iPhone or Android phone",
       "headerMam": "Tell us what smartphone you are using now",
       "content": {
-        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
-        "subHeading1": "If your photo ID is a UK photocard driving licence",
-        "paragraph2": "You need an iPhone 6s or newer, or an Android phone.",
-        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
-        "paragraph3": "You need an iPhone 7 or newer, or an Android phone.",
+        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need a smartphone with a working camera.",
+        "paragraph2": "This must be an iPhone 8 or newer, or an Android phone.",
         "details": {
           "summaryText": "How do I know which iPhone I have?",
-          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
+          "html": "<p>The iPhone 8 was released in 2017. If you bought your iPhone after 2017, you probably have an iPhone 8 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
         },
-        "subHeading3Dad": "Do you have access to an iPhone or Android phone?",
-        "subHeading3Mam": "Are you on one of these phones?",
+        "subHeading1Dad": "Do you have access to an iPhone or Android phone?",
+        "subHeading1Mam": "Are you on one of these phones?",
         "formRadioButtons": {
-          "iphoneButtonTextDad": "Yes - I have access to an iPhone",
-          "iphoneButtonTextMam": "Yes - I’m on an iPhone",
+          "iphoneButtonTextDad": "Yes - I have access to an iPhone 8 or newer",
+          "iphoneButtonTextMam": "Yes - I’m on an iPhone 8 or Newer",
           "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
           "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
           "neitherButtonTextDad": "No",
@@ -1404,7 +1401,7 @@
       "content": {
         "paragraph1": "You’ll need a:",
         "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "list2": "smartphone - this must be an iPhone 8 or newer, or an Android smartphone",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useAppButtonText": "Prove your identity with the GOV.UK One Login app",
@@ -1426,7 +1423,7 @@
         "paragraph1": "If you do not live in the UK, you can only prove your identity with the GOV.UK One Login app.",
         "paragraph2": "To do this you need a:",
         "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "list2": "smartphone - this must be an iPhone 8 or newer, or an Android smartphone",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to access it",

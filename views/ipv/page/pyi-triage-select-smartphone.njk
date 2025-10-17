@@ -21,10 +21,7 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translateWithContext(context) }}</h1>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph1' | translate }}</p>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.subHeading1' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph2' | translate }}</p>
-  <h2 class="govuk-heading-m">{{ 'pages.pyiTriageSelectSmartphone.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph3' | translate }}</p>
 
   {{ govukDetails({
     summaryText: 'pages.pyiTriageSelectSmartphone.content.details.summaryText' | translate,
@@ -38,7 +35,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pyiTriageSelectSmartphone.content.subHeading3' | translateWithContext(context),
+          text: 'pages.pyiTriageSelectSmartphone.content.subHeading1' | translateWithContext(context),
           classes: "govuk-fieldset__legend--m"
         }
       },

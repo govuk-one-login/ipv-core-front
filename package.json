@@ -103,7 +103,7 @@
     "nunjucks": "3.2.4",
     "overload-protection": "1.2.3",
     "pino": "9.12.0",
-    "pino-http": "11.0.0",
+    "pino-http": "10.5.0",
     "qrcode": "1.5.4",
     "sanitize-filename": "1.6.3",
     "ua-parser-js": "1.0.40"

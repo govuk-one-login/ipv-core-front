@@ -37,7 +37,12 @@
         id: 'whatsNeededToUseTheApp'
     }) }}
 
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+
+    {% if context == "f2fCriError" %}
+      <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+    {% else %}
+      <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translate }}</p>
+    {% endif %}
 
     <form id="sorryTechnicalProblem" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -62,7 +67,7 @@
             {% set initialRadioOptions = initialRadioOptions.concat([{
                 value: "postOffice",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
             }]) %}
         {% endif %}
 

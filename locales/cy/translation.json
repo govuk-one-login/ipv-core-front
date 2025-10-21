@@ -365,20 +365,17 @@
       "headerDad": "Dywedwch wrthym a oes gennych fynediad i iPhone neu ffôn Android",
       "headerMam": "Dywedwch wrthym pa ffôn clyfar rydych chi’n ei ddefnyddio nawr",
       "content": {
-        "paragraph1": "I brofi pwy ydych chi gyda’r ap GOV.UK One Login, mae angen iPhone neu ffôn Android gyda chamera sy’n gweithio.",
-        "subHeading1": "Os yw eich ID gyda llun yn drwydded yrru cerdyn-llun y DU",
-        "paragraph2": "Rydych angen iPhone 6s neu fwy newydd, neu ffôn Android.",
-        "subHeading2": "Os yw eich ID gyda llun yn basport, BRP, BRC neu FWP",
-        "paragraph3": "Rydych angen iPhone 7 neu fwy newydd, neu ffôn Android.",
+        "paragraph1": "I brofi eich hunaniaeth gyda’r ap GOV.UK One Login, rydych angen ffôn clyfar gyda chamera sy’n gweithio.",
+        "paragraph2": "Rhaid iddo fod yn iPhone 8 neu fwy newydd, neu ffôn Android.",
         "details": {
           "summaryText": "Sut ydw i’n gwybod pa iPhone sydd gen i?",
-          "html": "<p>Rhyddhawyd yr iPhone 7 yn 2016. Os gwnaethoch brynu’ch iPhone ar ôl 2016, mae’n debyg bod gennych iPhone 7 neu fwy newydd.</p><p>I wirio pa iPhone sydd gennych, ewch i’ch gosodiadau ffôn. Dewiswch ‘General’ yna ‘About’ a chwiliwch am ‘Model Name’.</p>"
+          "html": "<p>Rhyddhawyd yr iPhone 8 yn 2017. Os gwnaethoch brynu’ch iPhone ar ôl 2017, mae’n debyg bod gennych iPhone 8 neu fwy newydd.</p><p>I wirio pa iPhone sydd gennych, ewch i’ch gosodiadau ffôn. Dewiswch ‘General’ yna ‘About’ a chwiliwch am ‘Model Name’.</p>"
         },
-        "subHeading3Dad": "Oes gennych chi fynediad i iPhone neu ffôn Android?",
-        "subHeading3Mam": "Ydych chi ar un o’r ffonau hyn?",
+        "subHeading1Dad": "Oes gennych chi fynediad i iPhone neu ffôn Android?",
+        "subHeading1Mam": "Ydych chi ar un o’r ffonau hyn?",
         "formRadioButtons": {
-          "iphoneButtonTextDad": "Ydw - mae gen i fynediad i iPhone",
-          "iphoneButtonTextMam": "Ydw - rydw i ar iPhone",
+          "iphoneButtonTextDad": "Ydw - mae gen i fynediad i iPhone 8 neu fwy newydd",
+          "iphoneButtonTextMam": "Ydw - rydw i ar iPhone 8 neu fwy newydd",
           "androidButtonTextDad": "Ydw - mae gen i fynediad i ffôn Android (er enghraifft, Samsung neu Google Pixel)",
           "androidButtonTextMam": "Ydw - rydw i ar ffôn Android (er enghraifft, Samsung neu Google Pixel)",
           "neitherButtonTextDad": "Na",
@@ -1407,7 +1404,7 @@
       "content": {
         "paragraph1": "Byddwch angen:",
         "list1": "pasbort gyda sglodyn biometrig",
-        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",
+        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 8 neu fwy newydd, neu ffôn clyfar Android",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
@@ -1429,7 +1426,7 @@
         "paragraph1": "Os nad ydych yn byw yn y DU, dim ond gydag ap GOV.UK One Login y gallwch brofi eich hunaniaeth.",
         "paragraph2": "I wneud hyn, rydych angen:",
         "list1": "pasbort gyda sglodyn biometrig",
-        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 7 neu fwy newydd neu ffôn clyfar Android",
+        "list2": "ffôn clyfar - rhaid i hwn fod yn iPhone 8 neu fwy newydd, neu ffôn clyfar Android",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "otherWayButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",

@@ -624,7 +624,7 @@
       "warningTextContent": "Do not guess the answer if you do not know it. You cannot change your answers and you cannot skip any questions.",
       "warningTextFallback": "Warning",
       "summaryText": "How we know what questions to ask you",
-      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>",
+      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>",
       "buttonText": "Start answering questions"
     },
     "pageF2fHandoff": {
@@ -1233,7 +1233,7 @@
         "paragraph7": "You may also need the letter from the DWP saying that you were awarded PIP.",
         "details": {
           "summaryText": "How we use your details",
-          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a>.</p>"
+          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">read our privacy notice (opens in a new tab)</a>.</p>"
         },
         "paragraph8LinkText": "I need to prove my identity another way"
       }

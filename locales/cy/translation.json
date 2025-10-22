@@ -581,7 +581,7 @@
       "warningTextContent": "Peidiwch â dyfalu’r ateb os nad ydych yn ei wybod. Ni allwch newid eich atebion ac ni allwch hepgor unrhyw gwestiynau.",
       "warningTextFallback": "Rhybudd",
       "summaryText": "Sut rydym yn gwybod pa gwestiynau i’w gofyn i chi",
-      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p>Byddwn ond yn gofyn cwestiynau i chi am wybodaeth sydd gan Experian eisoes.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>",
+      "summaryHtml": "<p>Byddwn yn gweithio gyda <a class=\"govuk-link\"  target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (agor mewn tab newydd)</a> i wneud yn siwr ein bod yn gofyn cwestiynau i chi mai dim ond chi sy’n gallu eu hateb. Mae hyn oherwydd bod gan gwmnïau fel Experian fynediad at lawer o wybodaeth y gallwn wirio’ch atebion yn eu herbyn.</p><p>Byddwn ond yn gofyn cwestiynau i chi am wybodaeth sydd gan Experian eisoes.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice.cy\">Darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a> os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi pwy ydych chi.</p>",
       "buttonText": "Dechrau ateb cwestiynau"
     },
     "pageF2fHandoff": {
@@ -1236,7 +1236,7 @@
         "paragraph7": "Efallai y byddwch hefyd angen y llythyr gan y DWP yn dweud eich bod wedi cael dyfarniad o PIP.",
         "details": {
           "summaryText": "Sut rydym yn defnyddio eich manylion",
-          "html": "<p>Ni fyddwn yn cadw eich atebion nac yn eu rhannu â’r gwasanaeth rydych angen ei ddefnyddio.</p><p>Os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi eich hunaniaeth, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a>.</p>"
+          "html": "<p>Ni fyddwn yn cadw eich atebion nac yn eu rhannu â’r gwasanaeth rydych angen ei ddefnyddio.</p><p>Os hoffech wybod mwy am sut y bydd eich manylion yn cael eu defnyddio i brofi eich hunaniaeth, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice.cy\">darllenwch ein hysbysiad preifatrwydd (agor mewn tab newydd)</a>.</p>"
         },
         "paragraph8LinkText": "Rwyf angen profi fy hunaniaeth mewn ffordd arall"
       }

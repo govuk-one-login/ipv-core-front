@@ -1513,10 +1513,10 @@
         "details": {
           "title": "What do I need to use the app?",
           "p1": "You’ll need access to a phone with a working camera.",
-          "p2": "If you’re using an iPhone, it must be running iOS 15 or higher and be either:",
+          "p2": "If you’re using an iPhone, it must be:",
           "iphoneTypes": [
-            "an iPhone 6s or newer if your photo ID is a UK driving licence",
-            "an iPhone 7 or newer if you’re using any other type of photo ID"
+            "an iPhone 8 or newer",
+            "running iOS 16.7 or higher"
           ],
           "p3": "For an Android phone (for example, Samsung or Google Pixel), it must be running Android 10 or higher.",
           "p4": "You’ll get guidance on how to download and use the app."

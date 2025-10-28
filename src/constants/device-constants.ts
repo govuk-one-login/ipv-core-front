@@ -8,4 +8,4 @@ export enum OS_TYPE {
   ANDROID = "Android",
 }
 
-export const MINIMUM_IOS_VERSION = 15;
+export const MINIMUM_IOS_VERSION = 16.7;

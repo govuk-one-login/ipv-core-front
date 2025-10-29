@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.896.0",
-    "@aws-sdk/client-ssm": "3.896.0",
+    "@aws-sdk/client-ssm": "3.919.0",
     "@govuk-one-login/data-vocab": "1.9.3",
     "@govuk-one-login/frontend-analytics": "4.0.5",
     "@govuk-one-login/frontend-device-intelligence": "1.2.0",

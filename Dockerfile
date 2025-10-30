@@ -1,4 +1,4 @@
-FROM node:22.20.0-alpine3.21@sha256:3bbc8aa1c0db220a63d9f42aa6e8117b305d72a6527039e99fced68c9ab96c8e AS builder
+FROM node:25.1.0-alpine3.21@sha256:afcd03e0c9ae83fc30d48c8f05de72938e116d83b58b8220debfd0f56aff67ae AS builder
 WORKDIR /app
 
 # Install packages
@@ -25,7 +25,7 @@ RUN npm run build-service-unavailable
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM node:22.20.0-alpine3.21@sha256:3bbc8aa1c0db220a63d9f42aa6e8117b305d72a6527039e99fced68c9ab96c8e AS final
+FROM node:25.1.0-alpine3.21@sha256:afcd03e0c9ae83fc30d48c8f05de72938e116d83b58b8220debfd0f56aff67ae AS final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]

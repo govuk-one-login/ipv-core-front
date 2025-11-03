@@ -1373,7 +1373,8 @@ Resources:
   #
   # Rest api gateway vpc link
   #
-
+  # If deploying through secured pipeline and stack doesn't exist yet, you will need to add temporary permission to core-front deploy Iam Role to create this resource.
+  # This should only happen in shared dev environment if for some reason stack was deleted.
   ApiGatewayVpcLink:
     Condition: IsDevelopment
     DependsOn: NetworkLoadBalancerTargetGroup

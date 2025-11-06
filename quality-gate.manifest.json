@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.1.0/schemas/schema.json",
+  "services": [
+    {
+      "quality-gates": [
+        {
+          "check-types": [
+            "secret scanning"
+          ],
+          "config": {
+            "file": ".github/workflows/pre-merge-checks.yaml",
+            "name": "run secret detection",
+            "path": "jobs.pre-commit"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": [
+            "code style and linting",
+            "unit test coverage"
+          ],
+          "config": {
+            "file": ".github/workflows/pre-merge-checks.yaml",
+            "name": "run unit tests",
+            "path": "jobs.run-tests"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": [
+            "regression",
+            "new feature",
+            "visual regression"
+          ],
+          "config": {
+            "file": ".github/workflows/pre-merge-checks.yaml",
+            "name": "run browser-tests",
+            "path": "jobs.browser-tests"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        }
+      ],
+      "service-tag": "ipv-core"
+    }
+  ]
+}

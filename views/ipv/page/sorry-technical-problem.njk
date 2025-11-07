@@ -62,7 +62,7 @@
             {% set initialRadioOptions = initialRadioOptions.concat([{
                 value: "postOffice",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
             }]) %}
         {% endif %}
 

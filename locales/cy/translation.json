@@ -1510,6 +1510,7 @@
         "p2": "Gallwch roi cynnig arall.",
         "p3": "Gallwch hefyd brofi eich hunaniaeth gyda’r ap GOV.UK One Login.",
         "p4": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "p4KbvCriError": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post. Mae’r opsiwn hwn yn cymryd mwy o amser. Fel arfer, byddwch yn cael canlyniad o fewn diwrnod o fynd i Swyddfa’r Post.",
         "p4F2fCriError": "Neu gallwch brofi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch ar-lein.",
         "subHeading2": "Beth hoffech chi ei wneud?",
         "details": {
@@ -1529,6 +1530,7 @@
           "appHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "postOffice": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
           "postOfficeHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf.",
+          "postOfficeHintKbvCriError": "Byddwch yn rhoi rhywfaint o fanylion ar GOV.UK yn gyntaf.",
           "webRoute": "Profi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch",
           "webRouteHint": "Bydd angen i chi roi manylion o’ch pasbort y DU neu drwydded yrru cerdyn llun y DU yn gyntaf.",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"

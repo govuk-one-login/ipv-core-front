@@ -37,12 +37,7 @@
         id: 'whatsNeededToUseTheApp'
     }) }}
 
-
-    {% if context == "f2fCriError" %}
-      <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
-    {% else %}
-      <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translate }}</p>
-    {% endif %}
+    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
 
     <form id="sorryTechnicalProblem" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">

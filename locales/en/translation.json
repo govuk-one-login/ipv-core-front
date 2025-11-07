@@ -1506,6 +1506,7 @@
         "p2": "You can try again.",
         "p3": "You can also prove your identity with the GOV.UK One Login app.",
         "p4": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "p4KbvCriError": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
         "p4F2fCriError": "Or you can prove your identity by answering some security questions online.",
         "subHeading2": "What would you like to do?",
         "details": {

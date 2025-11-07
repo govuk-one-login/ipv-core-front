@@ -18,6 +18,7 @@
         {
           "check-types": [
             "code style and linting",
+            "unit",
             "unit test coverage"
           ],
           "config": {

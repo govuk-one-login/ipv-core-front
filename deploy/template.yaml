@@ -786,6 +786,7 @@ Resources:
         - Essential: true
           Image: CONTAINER-IMAGE-PLACEHOLDER
           Name: app
+          ReadonlyRootFilesystem: true
           Environment:
             - Name: API_BASE_URL
               Value: !Sub

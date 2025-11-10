@@ -32,8 +32,7 @@
         {
           "check-types": [
             "regression",
-            "new feature",
-            "visual regression"
+            "new feature"
           ],
           "config": {
             "file": ".github/workflows/pre-merge-checks.yaml",

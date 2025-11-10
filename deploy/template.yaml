@@ -51,7 +51,7 @@ Conditions:
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
-  IsSubscriptionEnviroment: !Or
+  IsSubscriptionEnvironment: !Or
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
     - !Equals [ !Ref Environment, production ]
@@ -727,7 +727,7 @@ Resources:
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnviroment
+    Condition: IsSubscriptionEnvironment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1072,6 +1072,7 @@ Resources:
         - !Ref AWS::NoValue
 
   RestDidDocumentResourceS3Role:
+    Condition: IsSubscriptionEnvironment
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -1165,10 +1166,11 @@ Resources:
   RestApiGwDeployment202502241200:
     DependsOn:
       - RestApiGatewayMethod
-      - RestDidDocumentMethod
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref RestApiGateway
+      - !If
+        - IsSubscriptionEnvironment
+        - RestDidDocumentMethod
+        - !Ref AWS::NoValue
+
 
   RestApiGatewayMethod:
     Type: AWS::ApiGateway::Method
@@ -1228,6 +1230,7 @@ Resources:
       PathPart: "did.json"
 
   RestDidDocumentMethod:
+    Condition: IsSubscriptionEnvironment
     Type: AWS::ApiGateway::Method
     Metadata:
       checkov:
@@ -1250,10 +1253,7 @@ Resources:
       Integration:
         Type: AWS
         IntegrationHttpMethod: GET
-        Uri: !If
-           - IsSubscriptionEnviroment
-           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
-           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationResponses:
@@ -1282,7 +1282,7 @@ Resources:
 
   RestApiGatewayAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnviroment
+    Condition: IsSubscriptionEnvironment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1459,7 +1459,7 @@ Resources:
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnviroment
+    Condition: IsSubscriptionEnvironment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""

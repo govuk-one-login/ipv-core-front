@@ -1516,10 +1516,10 @@
         "details": {
           "title": "Beth rwyf ei angen i ddefnyddio’r ap?",
           "p1": "Bydd angen i chi gael mynediad i ffôn gyda chamera sy’n gweithio.",
-          "p2": "Os ydych yn defnyddio iPhone, rhaid iddo fod yn rhedeg iOS 15 neu uwch a bod naill ai yn: ",
+          "p2": "Os ydych yn defnyddio iPhone, rhaid iddo fod yn:",
           "iphoneTypes": [
-            "iPhone 6s neu fwy newydd os yw’ch ID gyda llun yn drwydded yrru y DU",
-            "iPhone 7 neu fwy newydd os ydych yn defnyddio unrhyw fath arall o ID gyda llun "
+            "iPhone 8 neu fwy newydd",
+            "rhedeg iOS16.7 neu uwch"
           ],
           "p3": "Ar gyfer ffôn Android (er enghraifft, Samsung neu Google Pixel), rhaid iddo fod yn rhedeg Android 10 neu uwch.",
           "p4": "Byddwch yn cael arweiniad ar sut i lawrlwytho a defnyddio’r ap."

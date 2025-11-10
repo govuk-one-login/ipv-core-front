@@ -411,52 +411,6 @@ Resources:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
 
-  SpotKeysS3Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub published-did-documents-${Environment}
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              KMSMasterKeyID: !GetAtt S3KmsKey.Arn
-              SSEAlgorithm: "aws:kms"
-      VersioningConfiguration:
-        Status: "Enabled"
-      LoggingConfiguration:
-        DestinationBucketName: !Ref AccessLogsBucket
-        LogFilePrefix: spot-signing-keys
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
-        BlockPublicPolicy: true
-        RestrictPublicBuckets: true
-
-  SpotKeysBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref SpotKeysS3Bucket
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Sid: AllowAccountAccess
-            Effect: Allow
-            Principal:
-              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
-            Action:
-              - "s3:*"
-            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
-          - Sid: AllowSpotAccountAccess
-            Effect: Allow
-            Principal:
-              AWS: !FindInMap
-                - EnvironmentConfiguration
-                - !Ref AWS::AccountId
-                - spotAccountArn
-            Action:
-              - "s3:PutObject"
-              - "s3:GetObject"
-            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
-
   CoreFrontAccessLogsBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -1135,12 +1089,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - "s3:GetObject"
-                Resource: !Sub
-                  - "arn:aws:s3:::${BucketName}/did.json"
-                  - BucketName: !If
-                      - IsSubscriptionEnviroment
-                      - !Sub "govuk-one-login-spot-published-keys-${Environment}"
-                      - !Sub "published-did-documents-${Environment}"
+                Resource: !Sub "arn:aws:s3:::govuk-one-login-spot-published-keys-${Environment}/did.json"
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"

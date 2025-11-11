@@ -80,7 +80,7 @@ Mappings:
       languageToggle: true
       useDeviceIntelligence: true
       may2025RebrandEnabled: true
-      alwaysShowBanners: true
+      alwaysShowBanners: false
       ga4Disabled: false
       analyticsDataSensitive: false
       uaDisabled: false

@@ -51,11 +51,14 @@ Conditions:
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
-  IsSubscriptionEnvironment: !Or
+  IsStagingIntProd: !Or
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
     - !Equals [ !Ref Environment, production ]
-  IsNotSubscriptionEnvironment: !Not [ !Condition IsSubscriptionEnvironment ]
+  IsDevOrBuild: !Or
+    - !Equals [ !Ref Environment, build ]
+    - !Equals [ !Ref Environment, dev01 ]
+    - !Equals [ !Ref Environment, dev02 ]
   UsePermissionsBoundary: !Not
     - !Equals [ !Ref PermissionsBoundary, "none" ]
   UseCodeSigning: !Not
@@ -294,12 +297,13 @@ Resources:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
     Metadata:
+      # Ignore E3005 (linter thinks dependency may not exist) and W1001 (ref may be missing under conditions) - Both safe since they are only created in dev
       cfn-lint:
         config:
           ignore_checks:
             - E3005
             - W1001
-    DependsOn: RestApiGwDeployment202502241200NonSub
+    DependsOn: RestApiGwDeploymentWithoutDidEndpoint202511111337
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
@@ -733,7 +737,7 @@ Resources:
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnvironment
+    Condition: IsStagingIntProd
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1078,7 +1082,7 @@ Resources:
         - !Ref AWS::NoValue
 
   RestDidDocumentResourceS3Role:
-    Condition: IsSubscriptionEnvironment
+    Condition: IsStagingIntProd
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -1169,26 +1173,26 @@ Resources:
         Types:
           - REGIONAL
 
-  # For environments that have the DID document (staging, integration, production)
-  RestApiGwDeployment202502241200Sub:
-    Condition: IsSubscriptionEnvironment
+  # For environments that host SPOT's DID endpoint (staging, integration, production)
+  RestApiGwDeploymentWithDidEndpoint202511111337:
+    Condition: IsStagingIntProd
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
-      Description: "Deployment including DID document for subscription environments"
+      Description: "Deployment including SPOT's DID endpoint for staging, integration, and production environments"
 
-  # For dev/build environments that don’t have the DID document
-  RestApiGwDeployment202502241200NonSub:
-    Condition: IsNotSubscriptionEnvironment
+  # For dev/build environments that don’t host SPOTS's DID endpoint (dev01, dev02, build)
+  RestApiGwDeploymentWithoutDidEndpoint202511111337:
+    Condition: IsDevOrBuild
     DependsOn:
       - RestApiGatewayMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
-      Description: "Deployment without DID document for non-subscription environments"
+      Description: "Deployment without SPOT's DID endpoint for development and build environments"
 
   RestApiGatewayMethod:
     Type: AWS::ApiGateway::Method
@@ -1248,7 +1252,7 @@ Resources:
       PathPart: "did.json"
 
   RestDidDocumentMethod:
-    Condition: IsSubscriptionEnvironment
+    Condition: IsStagingIntProd
     Type: AWS::ApiGateway::Method
     Metadata:
       checkov:
@@ -1300,7 +1304,7 @@ Resources:
 
   RestApiGatewayAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnvironment
+    Condition: IsStagingIntProd
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1316,9 +1320,9 @@ Resources:
     Properties:
       StageName: !Sub ${Environment}
       DeploymentId: !If
-        - IsSubscriptionEnvironment
-        - !Ref RestApiGwDeployment202502241200Sub
-        - !Ref RestApiGwDeployment202502241200NonSub
+        - IsStagingIntProd
+        - !Ref RestApiGwDeploymentWithDidEndpoint202511111337
+        - !Ref RestApiGwDeploymentWithoutDidEndpoint202511111337
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn
@@ -1480,7 +1484,7 @@ Resources:
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsSubscriptionEnvironment
+    Condition: IsStagingIntProd
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""

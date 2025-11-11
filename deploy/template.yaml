@@ -1313,6 +1313,11 @@ Resources:
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
     Metadata:
+      # Ignore W1001 (conditional Ref) – both deployment resources are mutually exclusive and safely handled by CloudFormation.
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W1001
       checkov:
         skip:
           - id: "CKV_AWS_120"

@@ -55,6 +55,7 @@ Conditions:
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
     - !Equals [ !Ref Environment, production ]
+  IsNotSubscriptionEnvironment: !Not [ !Condition IsSubscriptionEnvironment ]
   UsePermissionsBoundary: !Not
     - !Equals [ !Ref PermissionsBoundary, "none" ]
   UseCodeSigning: !Not
@@ -292,12 +293,17 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    DependsOn: RestApiGwDeployment202502241200
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E3005
+            - W1001
+    DependsOn: RestApiGwDeployment202502241200NonSub
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
       Stage: !Ref ApiGatewayStage
-
 
   # dns rcord
   DevDNSRecord:
@@ -1163,14 +1169,26 @@ Resources:
         Types:
           - REGIONAL
 
-  RestApiGwDeployment202502241200:
+  # For environments that have the DID document (staging, integration, production)
+  RestApiGwDeployment202502241200Sub:
+    Condition: IsSubscriptionEnvironment
     DependsOn:
       - RestApiGatewayMethod
-      - !If
-        - IsSubscriptionEnvironment
-        - RestDidDocumentMethod
-        - !Ref AWS::NoValue
+      - RestDidDocumentMethod
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      Description: "Deployment including DID document for subscription environments"
 
+  # For dev/build environments that don’t have the DID document
+  RestApiGwDeployment202502241200NonSub:
+    Condition: IsNotSubscriptionEnvironment
+    DependsOn:
+      - RestApiGatewayMethod
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref RestApiGateway
+      Description: "Deployment without DID document for non-subscription environments"
 
   RestApiGatewayMethod:
     Type: AWS::ApiGateway::Method
@@ -1297,7 +1315,10 @@ Resources:
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !Ref RestApiGwDeployment202502241200
+      DeploymentId: !If
+        - IsSubscriptionEnvironment
+        - !Ref RestApiGwDeployment202502241200Sub
+        - !Ref RestApiGwDeployment202502241200NonSub
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn

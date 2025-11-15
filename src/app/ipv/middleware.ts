@@ -61,7 +61,8 @@ const allTemplates = fs
 const journeyApi = async (
   action: string,
   req: Request,
-  currentPageId: string,
+  currentPageId?: string,
+  currentCriId?: string,
 ): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   if (action.startsWith("/")) {
     action = action.substring(1);
@@ -71,7 +72,7 @@ const journeyApi = async (
     action = action.substring(8);
   }
 
-  return postJourneyEvent(req, action, currentPageId);
+  return postJourneyEvent(req, action, currentPageId, currentCriId);
 };
 
 const fetchUserDetails = async (
@@ -90,9 +91,15 @@ export const processAction = async (
   req: Request,
   res: Response,
   action: string,
-  currentPageId = "",
+  currentPageId?: string,
+  currentCriId?: string,
 ): Promise<void> => {
-  const backendResponse = await journeyApi(action, req, currentPageId);
+  const backendResponse = await journeyApi(
+    action,
+    req,
+    currentPageId,
+    currentCriId,
+  );
 
   return await handleBackendResponse(req, res, backendResponse);
 };
@@ -101,11 +108,12 @@ export const handleBackendResponse = async (
   req: Request,
   res: Response,
   backendResponse: AxiosResponse<PostJourneyEventResponse>,
+  criId?: string,
 ): Promise<void> => {
   const data = backendResponse.data;
 
   if (isJourneyResponse(data)) {
-    return await processAction(req, res, data.journey);
+    return await processAction(req, res, data.journey, undefined, criId);
   }
 
   if (isCriResponse(data) && isValidCriResponse(data)) {

@@ -1637,7 +1637,7 @@ Resources:
       OKActions:
         - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: []
-      EvaluationPeriods: 5
+      EvaluationPeriods: 2
       DatapointsToAlarm: 2
       Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, lb500ErrorLimit ]
       ComparisonOperator: GreaterThanOrEqualToThreshold
@@ -1674,7 +1674,7 @@ Resources:
       OKActions:
         - !ImportValue sns-topics-AlarmTopic
       InsufficientDataActions: []
-      EvaluationPeriods: 2
+      EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorLimit ]
       ComparisonOperator: GreaterThanOrEqualToThreshold

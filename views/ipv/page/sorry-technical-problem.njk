@@ -45,30 +45,58 @@
             {
                 value: "tryAgain",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.tryAgain' | translate
-            },
-            {
-                value: "app",
-                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
             }
         ] %}
-        {% if context == 'f2fCriError' %}
-            {% set initialRadioOptions = initialRadioOptions.concat([{
-                value: "webRoute",
-                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
-            }]) %}
+
+        {% if context != 'dlOrPassportMitigation' %}
+            {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "app",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
+                }
+            ]) %}
+        {% endif %}
+
+        {% if context %}
+            {% if context == 'kbvMitigation' %}
+                {% set initialRadioOptions = initialRadioOptions.concat([{
+                    divider: "or"
+                }]) %}
+            {% elif context == 'f2fCriError' %}
+                {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "webRoute",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
+                },
+                {
+                    divider: "or"
+                }]) %}
+            {% elif context == "kbvCriError" %}
+                {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "postOffice",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+                },
+                {
+                    divider: "or"
+                }]) %}
+            {% endif %}
         {% else %}
-            {% set initialRadioOptions = initialRadioOptions.concat([{
+            {% set initialRadioOptions = initialRadioOptions.concat([
+            {
                 value: "postOffice",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
                 hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+            },
+            {
+                divider: "or"
             }]) %}
         {% endif %}
 
-        {% set finalRadioOptions = [{
-                 divider: "or"
-             },
+        {% set finalRadioOptions = [
              {
                  value: "returnToRp",
                  text: 'pages.sorryTechnicalProblem.content.formRadioButtons.returnToRp' | translate

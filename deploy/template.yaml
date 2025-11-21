@@ -105,6 +105,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      frontendAutoScalingMinCount: 4
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -134,6 +135,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      frontendAutoScalingMinCount: 4
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -163,6 +165,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      frontendAutoScalingMinCount: 6
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -192,6 +195,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 900000
+      frontendAutoScalingMinCount: 4
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -221,6 +225,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      frontendAutoScalingMinCount: 4
     "075701497069": # Production
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -250,6 +255,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      frontendAutoScalingMinCount: 4 # PYIC-8733 After load testing set this to 6
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -523,8 +529,6 @@ Resources:
         - Key: deregistration_delay.timeout_seconds
           Value: 65
 
-
-
   PrivateLoadBalancerListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
@@ -588,7 +592,12 @@ Resources:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
       MaxCapacity: 60
-      MinCapacity: 4
+      MinCapacity:
+        !FindInMap [
+          EnvironmentConfiguration,
+          !Ref AWS::AccountId,
+          frontendAutoScalingMinCount,
+        ]
       ResourceId: !Join
         - '/'
         - - "service"

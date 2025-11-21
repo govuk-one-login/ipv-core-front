@@ -75,7 +75,13 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     "existingIdentityInvalid",
     undefined,
   ],
-  "sorry-technical-problem": ["f2fCriError", "kbvCriError", undefined],
+  "sorry-technical-problem": [
+    "f2fCriError",
+    "kbvCriError",
+    "dlOrPassportMitigation",
+    "kbvMitigation",
+    undefined,
+  ],
   "update-details-failed": ["existingIdentityInvalid", undefined],
   "update-details": [],
   "update-name-date-birth": [

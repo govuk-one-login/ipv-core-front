@@ -16,7 +16,7 @@ repos:
         args: ["--baseline", ".secrets.baseline"]
 
   -   repo: https://github.com/awslabs/cfn-python-lint
-      rev: v0.80.4 # The version of cfn-lint to use
+      rev: v1.41.0 # The version of cfn-lint to use
       hooks:
       -   id: cfn-python-lint
           files: .template\.yaml$

@@ -29,15 +29,21 @@
 
     <h2 class="govuk-heading-m">{{ 'pages.sorryTechnicalProblem.content.subHeading1' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p2' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
-    {{ govukDetails({
-        summaryText: 'pages.sorryTechnicalProblem.content.details.title' | translate,
-        html: whatsNeededToUseTheApp,
-        id: 'whatsNeededToUseTheApp'
-    }) }}
+    {% if context != "dlOrPassportMitigation" %}
+        <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+        {{ govukDetails({
+            summaryText: 'pages.sorryTechnicalProblem.content.details.title' | translate,
+            html: whatsNeededToUseTheApp,
+            id: 'whatsNeededToUseTheApp'
+        }) }}
+
+        {% if context != "kbvMitigation" %}
+            <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+        {% endif %}
+
+    {% endif %}
 
     <form id="sorryTechnicalProblem" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">

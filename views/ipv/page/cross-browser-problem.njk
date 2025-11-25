@@ -12,10 +12,14 @@
     <p class="govuk-body">{{ 'pages.crossBrowserProblem.content.p2' | translate }}</p>
     <p class="govuk-body">{{ 'pages.crossBrowserProblem.content.p3' | translate }}</p>
 
-    {{ govukButton({
-      id: "submitButton",
-      text: 'general.buttons.next' | translate
-    }) }}
+    <form id="crossBrowserProblemForm" action="/ipv/page/{{pageId}}" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <input type="hidden" name="journey" value="returnToRp">
+        {{ govukButton({
+            id: "submitButton",
+            text:'general.buttons.next' | translate
+        }) }}
+    </form>
 
     {% include "components/contact-us-link.njk" %}
 {% endblock %}

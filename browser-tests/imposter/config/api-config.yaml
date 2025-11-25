@@ -40,7 +40,7 @@ resources:
     requestHeaders:
       content-type: "application/json"
       ipv-session-id:
-        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt|strategicAppDesktopDownloadPage).*$"
+        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt|strategicAppDesktopDownloadPage|crossBrowserProblem).*$"
         operator: NotMatches
     queryParams:
       currentPage:
@@ -684,6 +684,43 @@ resources:
       currentPage: pyi-triage-desktop-download-app
     response:
       statusCode: 200
+      content: |
+        {
+          "page": "page-multiple-doc-check"
+        }
+
+  # Testing routing from cross-browser-problem page
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "crossBrowserProblem"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "cross-browser-problem"
+        }
+
+  - method: POST
+    path: /journey/build-client-oauth-response
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "crossBrowserProblem"
+        operator: Contains
+    queryParams:
+      currentPage: "cross-browser-problem"
+    response:
+      statusCode: 200
+      # In reality, core-back will route to the RP, but
+      # for this test, we just want to check that
+      # core-front makes the appropriate request to core-back
       content: |
         {
           "page": "page-multiple-doc-check"

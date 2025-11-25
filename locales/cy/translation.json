@@ -1008,32 +1008,29 @@
       "title": "Mathau o ID gyda llun",
       "header": "Mathau o ID gyda llun",
       "content": {
-        "subHeading": "Trwydded yrru cerdyn-llun y DU",
-        "paragraph": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirements": [
-          "gyda’ch llun",
-          "heb ddod i ben"
-        ],
-        "paragraph1": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
-        "subHeading2": "Pasbort y DU",
-        "paragraph3": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
-        "subHeading3": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
-        "paragraph4": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
+        "subHeading1": "Pasbort y DU",
+        "paragraph1": "Gallwch ddefnyddio unrhyw pasbort y DU os yw heb ddod i ben.",
+        "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "paragraph2": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
         "nonUkPassportRequirements": [
-          "gyda sglodyn biometrig",
-          "heb ddod i ben"
+          "heb ddod i ben",
+          "gyda sglodyn biometrig"
         ],
-        "paragraph5": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
-        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig. Mae’r symbol yn betryal gyda chylch yn y canol.",
-        "subHeading4": "Trwydded neu gerdyn breswylio biometrig y DU",
-        "paragraph6": "Gall hyn fod yn:",
-        "cardOrPermits": [
-          "trwydded breswylio biometrig (BRP)",
-          "cerdyn preswylio biometrig (BRC)",
-          "trwydded Gweithwyr Ffiniol (FWP)"
+        "paragraph3": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
+        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
+        "subHeading3": "Trwydded yrru cerdyn-llun y DU",
+        "paragraph4": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
+        "drivingLicenceRequirements": [
+          "heb ddod i ben",
+          "gyda’ch llun"
         ],
-        "paragraph7": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben os oes gennych ffôn clyfar.",
-        "insetText": "<h3 class=\"govuk-heading-s\">Er enghraifft</h3>os daeth eich BRP i ben ar 31 Hydref 2024, gallwch ei ddefnyddio i brofi eich hunaniaeth tan 30 Ebrill 2026."
+        "paragraph5": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
+        "paragraph6": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
+        "cardOrPermitRequirements": [
+          "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
+          "oes gennych ffôn clyfar"
+        ]
       }
     },
     "pyiPostOffice": {

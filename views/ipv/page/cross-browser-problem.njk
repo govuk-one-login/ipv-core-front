@@ -1,0 +1,21 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitleKey = 'pages.crossBrowserProblem.title' %}
+{% set googleTagManagerPageId = "crossBrowserProblem" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.crossBrowserProblem.header' | translate }}</h1>
+    <p class="govuk-body">{{ 'pages.crossBrowserProblem.content.p1' | translate }}</p>
+
+    <h2 class="govuk-heading-m">{{ 'pages.crossBrowserProblem.content.subHeading' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.crossBrowserProblem.content.p2' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.crossBrowserProblem.content.p3' | translate }}</p>
+
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+
+    {% include "components/contact-us-link.njk" %}
+{% endblock %}

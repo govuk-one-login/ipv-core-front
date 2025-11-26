@@ -940,29 +940,29 @@
       "title": "Types of photo ID",
       "header": "Types of photo ID",
       "content": {
-        "subHeading": "UK photocard driving licence",
-        "paragraph": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": ["has your photo", "has not expired"],
-        "paragraph1": "It can be a full or provisional UK driving licence.",
-        "subHeading2": "UK passport",
-        "paragraph3": "You can use any UK passport if it has not expired.",
-        "subHeading3": "Non-UK passport with a biometric chip",
-        "paragraph4": "You can use a non-UK passport if it:",
+        "subHeading1": "UK passport",
+        "paragraph1": "You can use any UK passport if it has not expired.",
+        "subHeading2": "Non-UK passport with a biometric chip",
+        "paragraph2": "You can use a non-UK passport if it:",
         "nonUkPassportRequirements": [
-          "has a biometric chip",
-          "has not expired"
+          "has not expired",
+          "has a biometric chip"
         ],
-        "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
-        "subHeading4": "UK biometric residence permit or card",
-        "paragraph6": "This can be a:",
-        "cardOrPermits": [
-          "biometric residence permit (BRP)",
-          "biometric residence card (BRC)",
-          "Frontier Worker permit (FWP)"
+        "paragraph3": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading3": "UK photocard driving licence",
+        "paragraph4": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": [
+          "has not expired",
+          "has your photo"
         ],
-        "paragraph7": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
-        "insetText": "<h3 class=\"govuk-heading-s\">Example</h3>If your BRP expired on 31 October 2024, you can use it to prove your identity until 30 April 2026."
+        "paragraph5": "It can be a full or provisional UK driving licence.",
+        "subHeading4": "UK biometric residence card or permit",
+        "paragraph6": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "cardOrPermitRequirements": [
+          "it’s up to 18 months after its expiry date",
+          "you have a smartphone"
+        ]
       }
     },
     "pageIpvIdentityPostofficeStart": {

@@ -1529,6 +1529,7 @@
           "postOfficeHintKbvCriError": "You’ll enter some details on GOV.UK first.",
           "webRoute": "Prove your identity by answering some security questions",
           "webRouteHint": "You’ll enter details from your UK passport or UK photocard driving licence first.",
+          "webRouteHintF2fCriError": "You’ll enter details from your UK passport or UK photocard driving licence first.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {

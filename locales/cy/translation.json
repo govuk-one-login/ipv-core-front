@@ -1529,6 +1529,7 @@
           "postOfficeHintKbvCriError": "Byddwch yn rhoi rhywfaint o fanylion ar GOV.UK yn gyntaf.",
           "webRoute": "Profi eich hunaniaeth trwy ateb rhai cwestiynau diogelwch",
           "webRouteHint": "Bydd angen i chi roi manylion o’ch pasbort y DU neu drwydded yrru cerdyn llun y DU yn gyntaf.",
+          "webRouteHintF2fCriError": "Bydd angen i chi roi manylion o’ch pasbort y DU neu drwydded yrru cerdyn llun y DU yn gyntaf.",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {

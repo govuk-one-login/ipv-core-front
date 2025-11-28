@@ -69,6 +69,7 @@ export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
 
   if(status === AppVcReceiptStatus.CLIENT_ERROR) {
     res.status(400).json({ status })
+    return;
   }
 
   res.status(200).json({ status });

@@ -52,14 +52,10 @@ Conditions:
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsNotBuild: !Not [ !Condition IsBuild ]
   IsProduction: !Equals [ !Ref Environment, production ]
-  IsStagingIntProd: !Or
+  IsSubscriptionEnviroment: !Or
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
     - !Equals [ !Ref Environment, production ]
-  IsDevOrBuild: !Or
-    - !Equals [ !Ref Environment, build ]
-    - !Equals [ !Ref Environment, dev01 ]
-    - !Equals [ !Ref Environment, dev02 ]
   UsePermissionsBoundary: !Not
     - !Equals [ !Ref PermissionsBoundary, "none" ]
   UseCodeSigning: !Not
@@ -303,18 +299,12 @@ Resources:
   DevApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Condition: IsDevelopment
-    Metadata:
-      # Ignore E3005 (linter thinks dependency may not exist) and W1001 (ref may be missing under conditions) - Both safe since they are only created in dev
-      cfn-lint:
-        config:
-          ignore_checks:
-            - E3005
-            - W1001
-    DependsOn: RestApiGwDeploymentWithoutDidEndpoint202511111337
+    DependsOn: RestApiGwDeployment202502241200
     Properties:
       DomainName: !Ref DevApiDomain
       ApiId: !Ref RestApiGateway
       Stage: !Ref ApiGatewayStage
+
 
   # dns rcord
   DevDNSRecord:
@@ -427,6 +417,52 @@ Resources:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
+
+  SpotKeysS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub published-did-documents-${Environment}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt S3KmsKey.Arn
+              SSEAlgorithm: "aws:kms"
+      VersioningConfiguration:
+        Status: "Enabled"
+      LoggingConfiguration:
+        DestinationBucketName: !Ref AccessLogsBucket
+        LogFilePrefix: spot-signing-keys
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  SpotKeysBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SpotKeysS3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "s3:*"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
+          - Sid: AllowSpotAccountAccess
+            Effect: Allow
+            Principal:
+              AWS: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - spotAccountArn
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${SpotKeysS3Bucket}/*"
 
   CoreFrontAccessLogsBucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -845,7 +881,7 @@ Resources:
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsStagingIntProd
+    Condition: IsSubscriptionEnviroment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1190,7 +1226,6 @@ Resources:
         - !Ref AWS::NoValue
 
   RestDidDocumentResourceS3Role:
-    Condition: IsStagingIntProd
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -1208,7 +1243,12 @@ Resources:
               - Effect: Allow
                 Action:
                   - "s3:GetObject"
-                Resource: !Sub "arn:aws:s3:::govuk-one-login-spot-published-keys-${Environment}/did.json"
+                Resource: !Sub
+                  - "arn:aws:s3:::${BucketName}/did.json"
+                  - BucketName: !If
+                      - IsSubscriptionEnviroment
+                      - !Sub "govuk-one-login-spot-published-keys-${Environment}"
+                      - !Sub "published-did-documents-${Environment}"
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
@@ -1281,26 +1321,13 @@ Resources:
         Types:
           - REGIONAL
 
-  # For environments that host SPOT's DID endpoint (staging, integration, production)
-  RestApiGwDeploymentWithDidEndpoint202511111337:
-    Condition: IsStagingIntProd
+  RestApiGwDeployment202502241200:
     DependsOn:
       - RestApiGatewayMethod
       - RestDidDocumentMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref RestApiGateway
-      Description: "Deployment including SPOT's DID endpoint for staging, integration, and production environments"
-
-  # For dev/build environments that don’t host SPOTS's DID endpoint (dev01, dev02, build)
-  RestApiGwDeploymentWithoutDidEndpoint202511111337:
-    Condition: IsDevOrBuild
-    DependsOn:
-      - RestApiGatewayMethod
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref RestApiGateway
-      Description: "Deployment without SPOT's DID endpoint for development and build environments"
 
   RestApiGatewayMethod:
     Type: AWS::ApiGateway::Method
@@ -1360,7 +1387,6 @@ Resources:
       PathPart: "did.json"
 
   RestDidDocumentMethod:
-    Condition: IsStagingIntProd
     Type: AWS::ApiGateway::Method
     Metadata:
       checkov:
@@ -1383,7 +1409,10 @@ Resources:
       Integration:
         Type: AWS
         IntegrationHttpMethod: GET
-        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
+        Uri: !If
+           - IsSubscriptionEnviroment
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/govuk-one-login-spot-published-keys-${Environment}/did.json"
+           - !Sub "arn:aws:apigateway:${AWS::Region}:s3:path/published-did-documents-${Environment}/did.json"
         Credentials: !GetAtt RestDidDocumentResourceS3Role.Arn
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationResponses:
@@ -1412,7 +1441,7 @@ Resources:
 
   RestApiGatewayAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsStagingIntProd
+    Condition: IsSubscriptionEnviroment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""
@@ -1421,21 +1450,13 @@ Resources:
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
     Metadata:
-      # Ignore W1001 (conditional Ref) – both deployment resources are mutually exclusive and safely handled by CloudFormation.
-      cfn-lint:
-        config:
-          ignore_checks:
-            - W1001
       checkov:
         skip:
           - id: "CKV_AWS_120"
             comment: "API should have caching - not for our use case"
     Properties:
       StageName: !Sub ${Environment}
-      DeploymentId: !If
-        - IsStagingIntProd
-        - !Ref RestApiGwDeploymentWithDidEndpoint202511111337
-        - !Ref RestApiGwDeploymentWithoutDidEndpoint202511111337
+      DeploymentId: !Ref RestApiGwDeployment202502241200
       RestApiId: !Ref RestApiGateway
       AccessLogSetting:
         DestinationArn: !GetAtt RestApiGatewayAccessLogsGroup.Arn
@@ -1597,7 +1618,7 @@ Resources:
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
-    Condition: IsStagingIntProd
+    Condition: IsSubscriptionEnviroment
     Properties:
       DestinationArn: "arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython"
       FilterPattern: ""

@@ -64,7 +64,7 @@ describe("checkVcReceiptStatus middleware", () => {
     expect(next).to.have.not.been.calledOnce;
   });
 
-  it("should throw error if status is ERROR", async () => {
+  it("should throw error if status is SERVER_ERROR", async () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();

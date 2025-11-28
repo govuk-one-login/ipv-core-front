@@ -1537,6 +1537,16 @@
           "errorRadioMessage": "Select what you would like to do"
         }
       }
+    },
+    "crossBrowserProblem": {
+      "title": "There is a problem",
+      "header": "There is a problem",
+      "content": {
+        "p1": "It looks like you started proving your identity using a different web browser to the one you’re using now.",
+        "subHeading": "What you need to do",
+        "p2": "Continue using this browser and follow the instructions.",
+        "p3": "When prompted, sign in to your GOV.UK One Login to finish proving your identity."
+      }
     }
   }
 }

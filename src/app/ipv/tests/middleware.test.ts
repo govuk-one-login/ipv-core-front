@@ -2,6 +2,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import {
   renderAttemptRecoveryPage,
+  renderCrossBrowserProblemPage,
   renderFeatureSetPage,
   setRequestPageId,
   staticPageMiddleware,
@@ -86,6 +87,26 @@ describe("journey middleware", () => {
 
       // Assert
       expect(res.render).to.have.been.calledWith("ipv/page-featureset.njk");
+    });
+  });
+
+  context("renderCrossBrowserProblemPage", () => {
+    it("should render the cross-browser-problem page", () => {
+      // Arrange
+      const req = createRequest();
+      const res = createResponse();
+
+      // Act
+      renderCrossBrowserProblemPage(req, res);
+
+      // Assert
+      expect(res.render).to.have.been.calledWith(
+        "ipv/page/cross-browser-problem.njk",
+        {
+          pageId: "cross-browser-problem",
+          csrfToken: undefined,
+        },
+      );
     });
   });
 });

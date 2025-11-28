@@ -324,4 +324,24 @@ test.describe.parallel("Functional tests", () => {
       });
     });
   });
+
+  test("cross-browser-problem page should send the correct action to core-back", async ({
+    page,
+  }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("crossBrowserProblem"));
+
+    // Check that we are on the cross-browser-problem page
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/cross-browser-problem`);
+
+    const pageHeading = await page.locator("h1").textContent();
+    expect(pageHeading).toBe("There is a problem");
+
+    // Click continue to return to the RP
+    await page.click("button[id='submitButton']");
+
+    // Core-back impostor is wired to return page-multiple-doc-check
+    expect(page.url()).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
+  });
 });

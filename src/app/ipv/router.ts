@@ -18,6 +18,8 @@ import {
   handleAppStoreRedirect,
   setRequestPageId,
   validatePageId,
+  renderCrossBrowserProblemPage,
+  handleCrossBrowserJourneyActionRequest,
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
@@ -40,6 +42,12 @@ router.get(
   getPagePath(IPV_PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
   csrfSynchronisedProtection,
   staticPageMiddleware(IPV_PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES),
+);
+
+router.get(
+  getPagePath(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  csrfSynchronisedProtection,
+  renderCrossBrowserProblemPage,
 );
 
 router.get(
@@ -88,6 +96,15 @@ router.post(
   setRequestPageId(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
   checkVcReceiptStatus,
   handleJourneyActionRequest,
+);
+
+// Special case to handle routing from cross-browser-problem page
+router.post(
+  getPagePath(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  csrfSynchronisedProtection,
+  parseForm,
+  setRequestPageId(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  handleCrossBrowserJourneyActionRequest,
 );
 
 router.post(

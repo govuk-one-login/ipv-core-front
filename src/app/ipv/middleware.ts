@@ -8,8 +8,8 @@ import fs from "fs";
 import path from "path";
 import { saveSessionAndRedirect } from "../shared/redirectHelper";
 import {
-  postJourneyEvent,
   getProvenIdentityUserDetails,
+  postJourneyEvent,
 } from "../../services/coreBackService";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { PHONE_TYPE } from "../../constants/device-constants";
@@ -21,16 +21,16 @@ import {
 } from "../../constants/update-details-journeys";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import {
-  getIpvPageTemplatePath,
   getIpvPagePath,
+  getIpvPageTemplatePath,
   getTemplatePath,
 } from "../../lib/paths";
 import PAGES from "../../constants/ipv-pages";
 import { getPhoneType } from "../shared/contextHelper";
 import {
-  sniffPhoneType,
   detectAppTriageEvent,
   OsType,
+  sniffPhoneType,
 } from "../shared/deviceSniffingHelper";
 import {
   isClientResponse,
@@ -453,8 +453,10 @@ export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
   const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
   if (status === AppVcReceiptStatus.PROCESSING) {
     await handleJourneyPageRequest(req, res, next, true);
-  } else if (status === AppVcReceiptStatus.ERROR) {
+  } else if (status === AppVcReceiptStatus.SERVER_ERROR) {
     throw new Error("Failed to get VC response status");
+  } else if (status === AppVcReceiptStatus.CLIENT_ERROR) {
+    throw new Error("Failed to get VC response status")
   } else if (status === AppVcReceiptStatus.COMPLETED) {
     return next();
   }

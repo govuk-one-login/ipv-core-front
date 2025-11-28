@@ -64,11 +64,30 @@ describe("checkVcReceiptStatus middleware", () => {
     expect(next).to.have.not.been.calledOnce;
   });
 
-  it("should throw error if status is ERROR", async () => {
+  it("should throw error if status is SERVER_ERROR", async () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("ERROR");
+    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("SERVER_ERROR");
+
+    // Act & Assert
+    await expect(
+      (async () => await checkVcReceiptStatus(req, res, next))(),
+    ).to.be.rejectedWith(Error, "Failed to get VC response status");
+
+    // Assert
+    expect(
+      getAppVcReceiptStatusAndStoreJourneyResponseStub,
+    ).to.have.been.calledWith(req);
+    expect(res.render).to.not.have.been.called;
+    expect(next).to.have.not.been.calledOnce;
+  });
+
+  it("should throw client error if status is CLIENT_ERROR", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    getAppVcReceiptStatusAndStoreJourneyResponseStub.resolves("CLIENT_ERROR");
 
     // Act & Assert
     await expect(

@@ -66,6 +66,16 @@ describe("vc receipt status middleware tests", () => {
     expect((req.session as any).journey).to.equal("journey/next");
   });
 
+  it("pollVcReceiptStatus should return CLIENT_ERROR status if appVcReceived returns 400", async () => {
+    const error = { response: { status: 400 } };
+    appVcReceivedStub.rejects(error);
+
+    await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
+
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith({ status: "CLIENT_ERROR" });
+  });
+
   it("pollVcReceiptStatus should return an error when appVcReceived does not return journey response", async () => {
     appVcReceivedStub.resolves({ data: {} });
     isJourneyResponse.returns(false);
@@ -73,17 +83,17 @@ describe("vc receipt status middleware tests", () => {
     await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(500);
-    expect(res.json).to.have.been.calledWith({ status: "ERROR" });
+    expect(res.json).to.have.been.calledWith({ status: "SERVER_ERROR" });
   });
 
-  it("pollVcReceiptStatus should return ERROR status if appVcReceived throws non 404 error", async () => {
+  it("pollVcReceiptStatus should return SERVER_ERROR status if appVcReceived throws non 400-499 error", async () => {
     const error = new Error("Test error");
     appVcReceivedStub.rejects(error);
 
     await middleware.pollVcReceiptStatus(req as Request, res as Response, next);
 
     expect(res.status).to.have.been.calledWith(500);
-    expect(res.json).to.have.been.calledWith({ status: "ERROR" });
+    expect(res.json).to.have.been.calledWith({ status: "SERVER_ERROR" });
   });
 
   it("pollVcReceiptStatus should return COMPLETED status when query param snapshotTest is true", async () => {

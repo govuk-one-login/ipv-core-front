@@ -10,7 +10,7 @@ export enum AppVcReceiptStatus {
   COMPLETED = "COMPLETED",
   PROCESSING = "PROCESSING",
   CLIENT_ERROR = "CLIENT_ERROR",
-  SERVER_ERROR = "SERVER_ERROR"
+  SERVER_ERROR = "SERVER_ERROR",
 }
 
 export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
@@ -29,7 +29,7 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
       return AppVcReceiptStatus.PROCESSING;
-    } else if( isAxiosError(error) && isClientError(error.response?.status)) {
+    } else if (isAxiosError(error) && isClientError(error.response?.status)) {
       return AppVcReceiptStatus.CLIENT_ERROR;
     }
     logger.error(error, "Error getting app vc receipt status");
@@ -38,11 +38,11 @@ export const getAppVcReceiptStatusAndStoreJourneyResponse = async (
 };
 
 const isClientError = (error: number | undefined): boolean => {
-  if(!error) {
+  if (!error) {
     return false;
   }
   return error >= 400 && error <= 499;
-}
+};
 
 export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
   const isPreview = config.ENABLE_PREVIEW && req.query.preview === "true";
@@ -67,8 +67,8 @@ export const pollVcReceiptStatus: RequestHandler = async (req, res) => {
     return;
   }
 
-  if(status === AppVcReceiptStatus.CLIENT_ERROR) {
-    res.status(400).json({ status })
+  if (status === AppVcReceiptStatus.CLIENT_ERROR) {
+    res.status(400).json({ status });
     return;
   }
 

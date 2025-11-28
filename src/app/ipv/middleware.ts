@@ -456,7 +456,7 @@ export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
   } else if (status === AppVcReceiptStatus.SERVER_ERROR) {
     throw new Error("Failed to get VC response status");
   } else if (status === AppVcReceiptStatus.CLIENT_ERROR) {
-    throw new Error("Failed to get VC response status")
+    throw new Error("Failed to get VC response status");
   } else if (status === AppVcReceiptStatus.COMPLETED) {
     return next();
   }

@@ -50,7 +50,6 @@ Conditions:
   IsDev02: !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsBuild: !Equals [ !Ref AWS::AccountId, "457601271792"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
-  IsNotBuild: !Not [ !Condition IsBuild ]
   IsProduction: !Equals [ !Ref Environment, production ]
   IsStagingIntProd: !Or
     - !Equals [ !Ref Environment, staging ]
@@ -255,7 +254,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
-      frontendAutoScalingMinCount: 4 # PYIC-8733 After load testing set this to 6
+      frontendAutoScalingMinCount: 6
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -608,7 +607,6 @@ Resources:
       ServiceNamespace: ecs
 
   CoreFrontStepScaleOutPolicy30:
-    Condition: IsBuild # PYI-8733 Remove after load test
     DependsOn: CoreFrontAutoScalingTarget
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
@@ -644,49 +642,7 @@ Resources:
                                     # Note: CPU can scale greater than 100% in a burst mode
                                     # on Fargate, so leave the upper bound open
 
-  # PYI-8733 Delete after load test
-  CoreFrontStepScaleOutPolicy:
-    Condition: IsNotBuild
-    DependsOn: CoreFrontAutoScalingTarget
-    Type: AWS::ApplicationAutoScaling::ScalingPolicy
-    Properties:
-      PolicyName: CoreFrontStepScalingOutPolicy
-      PolicyType: StepScaling
-      ResourceId: !Join
-        - '/'
-        - - "service"
-          - !Ref CoreFrontCluster
-          - !GetAtt CoreFrontService.Name
-      ScalableDimension: ecs:service:DesiredCount
-      ServiceNamespace: ecs
-      StepScalingPolicyConfiguration:
-        AdjustmentType: PercentChangeInCapacity
-        Cooldown: 30 # The policy will continue to respond to additional alarm breaches,
-                     # even while a scaling activity is in progress. This means Application
-                     # Auto Scaling will evaluate all alarm breaches as they occur.
-                     # A cooldown period is used to protect against over-scaling due to
-                     # multiple alarm breaches occurring in rapid succession.
-        MinAdjustmentMagnitude: 3
-        StepAdjustments:
-          - MetricIntervalUpperBound: 20 # 80%
-            ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
-                                   # with <80% utilisation
-          - MetricIntervalLowerBound: 20 # 80%
-            MetricIntervalUpperBound: 30 # 90%
-            ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
-                                   # with 80-90% utilisation
-          - MetricIntervalLowerBound: 30 # 90%
-            MetricIntervalUpperBound: 35 # 95%
-            ScalingAdjustment: 300 # Scale by 300% of containers if the metric is breached
-                                   # with 90-95% utilisation
-          - MetricIntervalLowerBound: 35 # 95%
-            ScalingAdjustment: 500 # Scale by 500% of containers if the metric is breached
-                                   # with >95% utilisation
-                                   # Note: CPU can scale greater than 100% in a burst mode
-                                   # on Fargate, so leave the upper bound open
-
   CoreFrontStepScaleInPolicy30:
-    Condition: IsBuild # PYI-8733 Remove after load test
     DependsOn: CoreFrontAutoScalingTarget
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
@@ -713,35 +669,7 @@ Resources:
             ScalingAdjustment: -25 # Scale down 25% of containers if the metric is breached
                                    # with <30% utilisation
 
-  # PYI-8733 Delete after load test
-  CoreFrontStepScaleInPolicy:
-    Condition: IsNotBuild
-    DependsOn: CoreFrontAutoScalingTarget
-    Type: AWS::ApplicationAutoScaling::ScalingPolicy
-    Properties:
-      PolicyName: CoreFrontStepScalingInPolicy
-      PolicyType: StepScaling
-      ResourceId: !Join
-        - '/'
-        - - "service"
-          - !Ref CoreFrontCluster
-          - !GetAtt CoreFrontService.Name
-      ScalableDimension: ecs:service:DesiredCount
-      ServiceNamespace: ecs
-      StepScalingPolicyConfiguration:
-        AdjustmentType: PercentChangeInCapacity
-        Cooldown: 420 # The policy will continue to respond to additional alarm breaches,
-                      # even while a scaling activity is in progress. This means Application
-                      # Auto Scaling will evaluate all alarm breaches as they occur.
-                      # A cooldown period is used to protect against under-scaling due to
-                      # multiple alarm breaches occurring in rapid succession.
-        StepAdjustments:
-          - MetricIntervalUpperBound: -40 # 20%
-            ScalingAdjustment: -50 # Scale down 50% of containers if the metric is breached
-                                   # with <20% utilisation
-
   CoreFrontStepScaleOutAlarm30:
-    Condition: IsBuild # PYI-8733 Remove after load test
     DependsOn: CoreFrontAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
     Properties:
@@ -763,33 +691,7 @@ Resources:
       Period: "60"
       Threshold: "30"
 
-  # PYI-8733 Delete after load test
-  CoreFrontStepScaleOutAlarm:
-    Condition: IsNotBuild
-    DependsOn: CoreFrontAutoScalingTarget
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      ActionsEnabled: true
-      AlarmActions:
-        - !Ref CoreFrontStepScaleOutPolicy
-      AlarmDescription: "CoreFrontClusterOver60PercentCPU"
-      ComparisonOperator: "GreaterThanThreshold"
-      DatapointsToAlarm: "1"
-      Dimensions:
-        - Name: ClusterName
-          Value: !Ref CoreFrontCluster
-        - Name: ServiceName
-          Value: !GetAtt CoreFrontService.Name
-      Unit: "Percent"
-      EvaluationPeriods: "1"
-      MetricName: "CPUUtilization"
-      Namespace: "AWS/ECS"
-      Statistic: "Average"
-      Period: "60"
-      Threshold: "60"
-
   CoreFrontStepScaleInAlarm30:
-    Condition: IsBuild # PYI-8733 Remove after load test
     DependsOn: CoreFrontAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
     Properties:
@@ -810,31 +712,6 @@ Resources:
       Statistic: "Average"
       Period: "60"
       Threshold: "30"
-
-  # PYI-8733 Delete after load test
-  CoreFrontStepScaleInAlarm:
-    Condition: IsNotBuild
-    DependsOn: CoreFrontAutoScalingTarget
-    Type: AWS::CloudWatch::Alarm
-    Properties:
-      ActionsEnabled: true
-      AlarmActions:
-        - !Ref CoreFrontStepScaleInPolicy
-      AlarmDescription: "CoreFrontClusterUnder60PercentCPU"
-      ComparisonOperator: "LessThanThreshold"
-      DatapointsToAlarm: "5"
-      Dimensions:
-        - Name: ClusterName
-          Value: !Ref CoreFrontCluster
-        - Name: ServiceName
-          Value: !GetAtt CoreFrontService.Name
-      Unit: "Percent"
-      EvaluationPeriods: "5"
-      MetricName: "CPUUtilization"
-      Namespace: "AWS/ECS"
-      Statistic: "Average"
-      Period: "60"
-      Threshold: "60"
 
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup

@@ -341,7 +341,7 @@ test.describe.parallel("Functional tests", () => {
     // Click continue to return to the RP
     await page.click("button[id='submitButton']");
 
-    // Core-back impostor is wired to return page-multiple-doc-check
-    expect(page.url()).toBe(`${domainUrl}/ipv/page/page-multiple-doc-check`);
+    // Core-back impostor is wired to redirect to a dev template page
+    expect(page.url()).toBe(`${domainUrl}/dev/template/page-ipv-success/en?test=crossBrowserProblem`);
   });
 });

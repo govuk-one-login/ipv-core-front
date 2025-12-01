@@ -116,8 +116,11 @@ test.describe.parallel("Functional tests", () => {
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
+    // Core-back impostor is configured to return a client redirect to a dev template page
     const url = page.url();
-    expect(url).toBe(`https://example.com/`);
+    expect(url).toBe(
+      `${domainUrl}/dev/template/page-ipv-success/en?test=clientRedirect`,
+    );
   });
 
   test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({
@@ -342,6 +345,8 @@ test.describe.parallel("Functional tests", () => {
     await page.click("button[id='submitButton']");
 
     // Core-back impostor is wired to redirect to a dev template page
-    expect(page.url()).toBe(`${domainUrl}/dev/template/page-ipv-success/en?test=crossBrowserProblem`);
+    expect(page.url()).toBe(
+      `${domainUrl}/dev/template/page-ipv-success/en?test=crossBrowserProblem`,
+    );
   });
 });

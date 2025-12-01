@@ -452,7 +452,7 @@ resources:
       content: |
         {
           "client": {
-            "redirectUrl": "https://example.com/"
+            "redirectUrl": "/dev/template/page-ipv-success/en?test=clientRedirect"
           }
         }
 

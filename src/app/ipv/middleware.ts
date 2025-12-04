@@ -54,6 +54,9 @@ import {
 
 const directoryPath = path.resolve("views/ipv/page");
 
+const BUILD_CLIENT_OAUTH_RESPONSE_ACTION =
+  "/journey/build-client-oauth-response";
+
 const allTemplates = fs
   .readdirSync(directoryPath)
   .map((file) => path.parse(file).name);
@@ -279,6 +282,16 @@ export const renderAttemptRecoveryPage = async (
   });
 };
 
+export const renderProblemDifferentBrowserPage = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  return res.render(getIpvPageTemplatePath(PAGES.PROBLEM_DIFFERENT_BROWSER), {
+    pageId: PAGES.PROBLEM_DIFFERENT_BROWSER,
+    csrfToken: req.csrfToken?.(true),
+  });
+};
+
 export const staticPageMiddleware = (
   pageId: string,
 ): ((req: Request, res: Response) => void) => {
@@ -397,6 +410,19 @@ export const handleJourneyPageRequest = async (
   } finally {
     delete req.session.currentPageStatusCode;
   }
+};
+
+export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
+  req,
+  res,
+) => {
+  const pageId = req.params.pageId;
+  if (req.session.currentPage !== pageId) {
+    await handleUnexpectedPage(req, res, pageId);
+  }
+  // We return directly to the Oauth client when continuing from
+  // the problem-different-browser page
+  return processAction(req, res, BUILD_CLIENT_OAUTH_RESPONSE_ACTION, pageId);
 };
 
 export const handleJourneyActionRequest: RequestHandler = async (req, res) => {

@@ -1,0 +1,25 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitleKey = 'pages.problemDifferentBrowser.title' %}
+{% set googleTagManagerPageId = "problemDifferentBrowser" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.problemDifferentBrowser.header' | translate }}</h1>
+    <p class="govuk-body">{{ 'pages.problemDifferentBrowser.content.p1' | translate }}</p>
+
+    <h2 class="govuk-heading-m">{{ 'pages.problemDifferentBrowser.content.subHeading' | translate }}</h2>
+    <p class="govuk-body">{{ 'pages.problemDifferentBrowser.content.p2' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.problemDifferentBrowser.content.p3' | translate }}</p>
+
+    <form id="problemDifferentBrowserForm" action="/ipv/page/{{pageId}}" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <input type="hidden" name="journey" value="returnToRp">
+        {{ govukButton({
+            id: "submitButton",
+            text:'general.buttons.next' | translate
+        }) }}
+    </form>
+
+    {% include "components/contact-us-link.njk" %}
+{% endblock %}

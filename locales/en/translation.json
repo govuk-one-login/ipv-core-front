@@ -1538,7 +1538,7 @@
         }
       }
     },
-    "crossBrowserProblem": {
+    "problemDifferentBrowser": {
       "title": "There is a problem",
       "header": "There is a problem",
       "content": {

@@ -689,7 +689,7 @@ resources:
           "page": "page-multiple-doc-check"
         }
 
-  # Testing routing from cross-browser-problem page
+  # Testing routing from problem-different-browser page
   - method: POST
     path: /journey/next
     requestHeaders:
@@ -704,7 +704,7 @@ resources:
       statusCode: 200
       content: |
         {
-          "page": "cross-browser-problem"
+          "page": "problem-different-browser"
         }
 
   - method: POST
@@ -715,7 +715,7 @@ resources:
         value: "crossBrowserProblem"
         operator: Contains
     queryParams:
-      currentPage: "cross-browser-problem"
+      currentPage: "problem-different-browser"
     response:
       statusCode: 200
       # In reality, core-back will route to the RP, but

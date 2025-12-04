@@ -1541,7 +1541,7 @@
         }
       }
     },
-    "crossBrowserProblem": {
+    "problemDifferentBrowser": {
       "title": "Mae problem",
       "header": "Mae problem",
       "content": {

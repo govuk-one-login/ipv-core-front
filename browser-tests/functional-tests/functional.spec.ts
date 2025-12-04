@@ -328,15 +328,15 @@ test.describe.parallel("Functional tests", () => {
     });
   });
 
-  test("cross-browser-problem page should send the correct action to core-back", async ({
+  test("problem-different-browser page should send the correct action to core-back", async ({
     page,
   }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("crossBrowserProblem"));
 
-    // Check that we are on the cross-browser-problem page
+    // Check that we are on the problem-different-browser page
     const url = page.url();
-    expect(url).toBe(`${domainUrl}/ipv/page/cross-browser-problem`);
+    expect(url).toBe(`${domainUrl}/ipv/page/problem-different-browser`);
 
     const pageHeading = await page.locator("h1").textContent();
     expect(pageHeading).toBe("There is a problem");

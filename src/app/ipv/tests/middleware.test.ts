@@ -2,7 +2,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import {
   renderAttemptRecoveryPage,
-  renderCrossBrowserProblemPage,
+  renderProblemDifferentBrowserPage,
   renderFeatureSetPage,
   setRequestPageId,
   staticPageMiddleware,
@@ -90,20 +90,20 @@ describe("journey middleware", () => {
     });
   });
 
-  context("renderCrossBrowserProblemPage", () => {
-    it("should render the cross-browser-problem page", () => {
+  context("renderProblemDifferentBrowserPage", () => {
+    it("should render the problem-different-browser page", () => {
       // Arrange
       const req = createRequest();
       const res = createResponse();
 
       // Act
-      renderCrossBrowserProblemPage(req, res);
+      renderProblemDifferentBrowserPage(req, res);
 
       // Assert
       expect(res.render).to.have.been.calledWith(
-        "ipv/page/cross-browser-problem.njk",
+        "ipv/page/problem-different-browser.njk",
         {
-          pageId: "cross-browser-problem",
+          pageId: "problem-different-browser",
           csrfToken: undefined,
         },
       );

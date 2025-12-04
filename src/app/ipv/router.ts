@@ -18,7 +18,7 @@ import {
   handleAppStoreRedirect,
   setRequestPageId,
   validatePageId,
-  renderCrossBrowserProblemPage,
+  renderProblemDifferentBrowserPage,
   handleCrossBrowserJourneyActionRequest,
 } from "./middleware";
 
@@ -45,9 +45,9 @@ router.get(
 );
 
 router.get(
-  getPagePath(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  getPagePath(IPV_PAGES.PROBLEM_DIFFERENT_BROWSER),
   csrfSynchronisedProtection,
-  renderCrossBrowserProblemPage,
+  renderProblemDifferentBrowserPage,
 );
 
 router.get(
@@ -98,12 +98,12 @@ router.post(
   handleJourneyActionRequest,
 );
 
-// Special case to handle routing from cross-browser-problem page
+// Special case to handle routing from problem-different-browser page
 router.post(
-  getPagePath(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  getPagePath(IPV_PAGES.PROBLEM_DIFFERENT_BROWSER),
   csrfSynchronisedProtection,
   parseForm,
-  setRequestPageId(IPV_PAGES.CROSS_BROWSER_PROBLEM),
+  setRequestPageId(IPV_PAGES.PROBLEM_DIFFERENT_BROWSER),
   handleCrossBrowserJourneyActionRequest,
 );
 

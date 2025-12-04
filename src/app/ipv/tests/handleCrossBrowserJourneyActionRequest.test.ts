@@ -38,9 +38,9 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
   it("should send build-client-oauth-response action to core-back", async () => {
     // Arrange
     const req = createRequest({
-      params: { pageId: "cross-browser-problem" },
+      params: { pageId: "problem-different-browser" },
       session: {
-        currentPage: "cross-browser-problem",
+        currentPage: "problem-different-browser",
       },
     });
     const res = createResponse();
@@ -59,7 +59,7 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
     expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
       req,
       "build-client-oauth-response",
-      IPV_PAGES.CROSS_BROWSER_PROBLEM,
+      IPV_PAGES.PROBLEM_DIFFERENT_BROWSER,
     );
     expect(res.redirect).to.have.been.calledWith(
       `/ipv/page/${IPV_PAGES.PAGE_MULTIPLE_DOC_CHECK}`,
@@ -69,7 +69,7 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
   it("should handle unexpected page", async () => {
     // Arrange
     const req = createRequest({
-      params: { pageId: "cross-browser-problem" },
+      params: { pageId: "problem-different-browser" },
       session: {
         currentPage: "page-multiple-doc-check",
       },

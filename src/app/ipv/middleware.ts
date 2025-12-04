@@ -282,12 +282,12 @@ export const renderAttemptRecoveryPage = async (
   });
 };
 
-export const renderCrossBrowserProblemPage = async (
+export const renderProblemDifferentBrowserPage = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  return res.render(getIpvPageTemplatePath(PAGES.CROSS_BROWSER_PROBLEM), {
-    pageId: PAGES.CROSS_BROWSER_PROBLEM,
+  return res.render(getIpvPageTemplatePath(PAGES.PROBLEM_DIFFERENT_BROWSER), {
+    pageId: PAGES.PROBLEM_DIFFERENT_BROWSER,
     csrfToken: req.csrfToken?.(true),
   });
 };
@@ -421,7 +421,7 @@ export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
     await handleUnexpectedPage(req, res, pageId);
   }
   // We return directly to the Oauth client when continuing from
-  // the cross-browser-problem page
+  // the problem-different-browser page
   return processAction(req, res, BUILD_CLIENT_OAUTH_RESPONSE_ACTION, pageId);
 };
 

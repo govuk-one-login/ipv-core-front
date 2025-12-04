@@ -1,16 +1,9 @@
-import cfenv from "cfenv";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const appEnv = cfenv.getAppEnv();
-const coreBackApiUrl = appEnv.isLocal
-  ? undefined
-  : appEnv.getServiceURL("core-back-api");
-
 export default {
-  API_BASE_URL:
-    coreBackApiUrl ?? process.env.API_BASE_URL ?? "http://localhost:4502",
+  API_BASE_URL: process.env.API_BASE_URL ?? "http://localhost:4502",
   API_CRI_CALLBACK: "/cri/callback",
   API_MOBILE_APP_CALLBACK: "/app/callback",
   API_JOURNEY_EVENT: "/journey",

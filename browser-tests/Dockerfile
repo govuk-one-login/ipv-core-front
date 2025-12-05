@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/playwright:v1.56.1-jammy AS playwright
 
 WORKDIR /browser-tests
 
-COPY ./browser-tests/package.json ./browser-tests/package-lock.json ./
+COPY ./browser-tests/package.json ./browser-tests/package-lock.json ./browser-tests/.npmrc ./
 
 RUN npm install
 

@@ -9,9 +9,30 @@
 {% set contentID = 'dec48606-5179-41f2-a1a4-ab94d3d17a31'%}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header"
-      data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvSuccess.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }}</p>
-  <p class="govuk-body">{{ 'pages.pageIpvSuccess.content.paragraph2' | translate }}</p>
-  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"> {{ 'pages.pageIpvSuccess.header' | translate }}</h1>
+  <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }} </p>
+  <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph2' | translate }} </p>
+
+  <a
+    href="/ipv/journey/{{ pageId }}/next"
+    class="govuk-button"
+    role="button"
+    draggable="false"
+    data-module="govuk-button"
+    data-frontendui="di-progress-button"
+    data-waiting-text="Wait"
+    data-long-waiting-text="Keep waiting"
+    data-error-page="/pyi-technical/context=unrecoverable"
+  >
+    {{ 'general.buttons.continueToService' | translate }}
+  </a>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+  <script nonce='{{ cspNonce }}' defer type="module">
+    import { initialiseProgressButtons } from "/public/javascripts/frontend-ui.js";
+    initialiseProgressButtons();
+  </script>
 {% endblock %}

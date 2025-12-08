@@ -4,7 +4,10 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**/README.md'
+      - '**/*.md'
+      - '**/*.test.ts'
+      - 'browser-tests/**'
+      - 'dev-deploy/**'
   workflow_dispatch:
 
 jobs:

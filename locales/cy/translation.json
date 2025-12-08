@@ -133,8 +133,11 @@
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
         "paragraph1BankAccount": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda’ch banc neu gymdeithas adeiladu.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
+        "insetText6mfc": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth.",
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph3": "Gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod os oes ffyrdd eraill i gael mynediad iddo."
+        "paragraph3": "Gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod os oes ffyrdd eraill i gael mynediad iddo.",
+        "paragraph3Coi": "Gallwch barhau i’r gwasanaeth heb ddiweddaru eich manylion. Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
+        "paragraph36mfc": "Gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Efallai y bydd ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio’ch GOV.UK One Login."
       }
     },
     "sorryCouldNotConfirmDetails": {

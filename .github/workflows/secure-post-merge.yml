@@ -8,6 +8,7 @@ on:
       - '**/*.test.ts'
       - 'browser-tests/**'
       - 'dev-deploy/**'
+      - 'src/test-utils/**'
   workflow_dispatch:
 
 jobs:

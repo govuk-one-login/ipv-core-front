@@ -133,8 +133,11 @@
         "paragraph1Nino": "We could not find a match for your National Insurance number when we checked your details with HMRC.",
         "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
+        "insetText6mfc": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What you can do",
-        "paragraph3": "You can go back to the service you were trying to use to find out if there are other ways to access it."
+        "paragraph3": "You can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "paragraph3Coi": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
+        "paragraph36mfc": "You can go back to the service you were trying to use. There may be another way to access the service without using your GOV.UK One Login."
       }
     },
     "sorryCouldNotConfirmDetails": {

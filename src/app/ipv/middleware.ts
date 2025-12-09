@@ -134,8 +134,8 @@ export const handleBackendResponse = async (
 
   if (isPageResponse(data)) {
     const currentPage = req.session.currentPage;
-    if(currentPage){
-      req.session.history?.push(currentPage);
+    if (currentPage) {
+      addToSessionHistory(req, currentPage);
     }
 
     req.session.currentPage = data.page;
@@ -539,4 +539,13 @@ export const validatePageId: RequestHandler = (req, res, next) => {
     throw new NotFoundError("Invalid page id");
   }
   return next();
+};
+
+const addToSessionHistory = (req: Request, currentPage: string): void => {
+  let history = req.session?.history;
+  if (!history) {
+    history = [currentPage];
+    req.session.history = history;
+  }
+  req.session.history?.push(currentPage);
 };

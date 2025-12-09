@@ -19,7 +19,9 @@
   {% endif %}
 
   {% if context == "6mfc" %}
-    <div class="govuk-inset-text">{{ 'pages.pyiNoMatch.content.insetText6mfc' | translate }}</div>
+    {{ govukInsetText({
+      text: 'pages.pyiNoMatch.content.insetTextRepeatFraudCheck' | translate
+    }) }}
   {% endif %}
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>

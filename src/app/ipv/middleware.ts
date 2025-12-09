@@ -133,6 +133,11 @@ export const handleBackendResponse = async (
   }
 
   if (isPageResponse(data)) {
+    const currentPage = req.session.currentPage;
+    if(currentPage){
+      req.session.history?.push(currentPage);
+    }
+
     req.session.currentPage = data.page;
     req.session.context = data?.context;
     req.session.currentPageStatusCode = data?.statusCode;

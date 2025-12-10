@@ -1,0 +1,99 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+
+{% set pageTitleKey = 'pages.needMoreInformationConfirmChangeDetails.title' %}
+{% set googleTagManagerPageId = "needMoreInformationConfirmChangeDetails" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '521793c8-b82c-4f82-b80b-3298d2de3dcf'%}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needMoreInformationConfirmChangeDetails.content.formErrorMessage.title' | translate %}
+{% set errorText = 'pages.needMoreInformationConfirmChangeDetails.content.formErrorMessage.description' | translate %}
+{% set errorHref = "#needMoreInformationConfirmChangeDetailsForm" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needMoreInformationConfirmChangeDetails.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph2' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph3' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph4' | translate }}</p>
+
+  {% set detailsHtml %}
+    <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.details1.paragraph5' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.details1.paragraph6' | translate }}</p>
+    <ul class="govuk-list govuk-list--bullet" role="list">
+      <li>{{ 'pages.needMoreInformationConfirmChangeDetails.content.details1.list1' | translate }}</li>
+      <li>{{ 'pages.needMoreInformationConfirmChangeDetails.content.details1.list2' | translate }}</li>
+    </ul>
+    <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.details1.paragraph7' | translate }}</p>
+    <picture>
+      <source srcset="/public/images/passport-icon.svg" />
+      <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{ 'pages.needMoreInformationConfirmChangeDetails.content.imgAltText' | translate }}" />
+    </picture>
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: 'pages.needMoreInformationConfirmChangeDetails.content.details1.summaryText' | translate,
+    html: detailsHtml
+  }) }}
+
+  {% if context %}
+    {%
+      set passport = {
+          value: "passport",
+          text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passport' | translate,
+          hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passportHint' | translate }
+        }
+    %}
+    {%
+      set returnToRp = {
+          value: "returnToRp",
+            text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRp' | translate,
+            hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRpHint' | translate }
+        }
+    %}
+    {%
+      set continueToService = {
+          value: "continueToService",
+          text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToService' | translate,
+          hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToServiceHint' | translate }
+        }
+      %}
+    {% endif %}
+
+  {% if context == "repeatFraudCheck" %}
+    {% set radioItems = [ passport, returnToRp] %}
+  {% elif context == "updateDetails" %}
+    {% set radioItems = [ continueToService, passport] %}
+  {% endif %}
+
+  <form id="needMoreInformationConfirmChangeDetailsForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needMoreInformationConfirmChangeDetails.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: radioItems
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needMoreInformationConfirmChangeDetails.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

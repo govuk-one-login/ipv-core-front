@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.1.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.2.0/schemas/schema.json",
   "services": [
     {
       "quality-gates": [
@@ -31,8 +31,9 @@
         },
         {
           "check-types": [
+            "new feature",
             "regression",
-            "new feature"
+            "visual regression"
           ],
           "config": {
             "file": ".github/workflows/pre-merge-checks.yaml",

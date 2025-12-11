@@ -8,7 +8,6 @@
 {% set googleTagManagerPageId = "needMoreInformationConfirmChangeDetails" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = '521793c8-b82c-4f82-b80b-3298d2de3dcf'%}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.needMoreInformationConfirmChangeDetails.content.formErrorMessage.title' | translate %}
@@ -44,26 +43,26 @@
   {% if context %}
     {%
       set passport = {
-          value: "passport",
-          text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passport' | translate,
-          hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passportHint' | translate }
-        }
+        value: "passport",
+        text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passport' | translate,
+        hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.passportHint' | translate }
+      }
     %}
     {%
       set returnToRp = {
-          value: "returnToRp",
-            text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRp' | translate,
-            hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRpHint' | translate }
-        }
+        value: "returnToRp",
+        text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRp' | translate,
+        hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.returnToRpHint' | translate }
+      }
     %}
     {%
       set continueToService = {
-          value: "continueToService",
-          text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToService' | translate,
-          hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToServiceHint' | translate }
-        }
-      %}
-    {% endif %}
+        value: "continueToService",
+        text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToService' | translate,
+        hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToServiceHint' | translate }
+      }
+    %}
+  {% endif %}
 
   {% if context == "repeatFraudCheck" %}
     {% set radioItems = [ passport, returnToRp] %}

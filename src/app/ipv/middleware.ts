@@ -109,6 +109,7 @@ export const handleBackendResponse = async (
   }
 
   if (isCriResponse(data) && isValidCriResponse(data)) {
+    console.log("CRI ID is : _______________" + data.cri.id)
     req.session.currentPage = data.cri.id;
     const redirectUrl = data.cri.redirectUrl;
     return res.redirect(redirectUrl);
@@ -133,9 +134,9 @@ export const handleBackendResponse = async (
   }
 
   if (isPageResponse(data)) {
-    const currentPage = req.session.currentPage;
-    if (currentPage) {
-      addToSessionHistory(req, currentPage);
+    const currentSessionPage = req.session.currentPage;
+    if (currentSessionPage) {
+      updateSessionHistory(req, currentSessionPage, data.page);
     }
 
     req.session.currentPage = data.page;
@@ -379,14 +380,6 @@ export const handleJourneyPageRequest = async (
     if (handleBackButton(req, res, pageId)) {
       const currentSessionPage = req.session.currentPage!;
       console.log("Requested from page: " + currentSessionPage);
-      req.session.currentPage = currentSessionPage;
-      const history = req.session.history;
-      if (Array.isArray(history) && history.length > 0) {
-        history?.pop();
-      }
-      req.session.history = history;
-
-      console.log("Updated History: " + history);
       console.log(
         "Redirecting user to: " + `/ipv/journey/${currentSessionPage}/back`,
       );
@@ -589,18 +582,29 @@ export const validatePageId: RequestHandler = (req, res, next) => {
   return next();
 };
 
-const addToSessionHistory = (req: Request, currentPage: string): void => {
+const updateSessionHistory = (req: Request, currentPage: string, requestedPageId: string): void => {
+  if (currentPage === PAGES.IDENTIFY_DEVICE) {
+    return;
+  }
+
   let history = req.session?.history;
   if (!history) {
     history = [currentPage];
     req.session.history = history;
-  }
-  if (currentPage === PAGES.IDENTIFY_DEVICE) {
     return;
   }
+
+
   console.log(
     "Received page response - Adding to session history! " + currentPage,
   );
+
+  const last = history[history.length - 1];
+  if (last === requestedPageId) {
+    req.session.history?.pop();
+    return;
+  }
+
   req.session.history?.push(currentPage);
   console.log("New Session History: " + req.session.history);
 };

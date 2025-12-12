@@ -109,6 +109,7 @@ export const handleBackendResponse = async (
   }
 
   if (isCriResponse(data) && isValidCriResponse(data)) {
+    console.log("CRI ID is : _______________" + data.cri.id)
     req.session.currentPage = data.cri.id;
     const redirectUrl = data.cri.redirectUrl;
     return res.redirect(redirectUrl);
@@ -133,6 +134,11 @@ export const handleBackendResponse = async (
   }
 
   if (isPageResponse(data)) {
+    const currentSessionPage = req.session.currentPage;
+    if (currentSessionPage) {
+      updateSessionHistory(req, currentSessionPage, data.page);
+    }
+
     req.session.currentPage = data.page;
     req.session.context = data?.context;
     req.session.currentPageStatusCode = data?.statusCode;
@@ -328,9 +334,29 @@ const validateSessionAndPage = async (
   return true;
 };
 
+export const handleBackButton = (
+  req: Request,
+  res: Response,
+  pageId: string,
+): boolean => {
+  const history = req.session.history;
+  if (history) {
+    console.log("History: " + history);
+    console.log("Last pageId in the history: " + history[history.length - 1]);
+  }
+
+  if (history && pageId === history[history.length - 1]) {
+    // res.redirect("")
+    return true;
+  }
+  return false;
+};
+
 export const updateJourneyState: RequestHandler = async (req, res) => {
   const currentPageId = req.params.pageId;
   const action = req.params.action;
+
+  console.log("HEEEEERE!");
 
   if (action && isValidIpvPage(currentPageId)) {
     await processAction(req, res, action, currentPageId);
@@ -349,10 +375,30 @@ export const handleJourneyPageRequest = async (
     const { pageId } = req.params;
     const { context } = req?.session || "";
 
+    console.log("(Browser Back Button) Requested Previous Page Id: " + pageId);
+
+    if (handleBackButton(req, res, pageId)) {
+      const currentSessionPage = req.session.currentPage!;
+      console.log("Requested from page: " + currentSessionPage);
+      console.log(
+        "Redirecting user to: " + `/ipv/journey/${currentSessionPage}/back`,
+      );
+      await saveSessionAndRedirect(
+        req,
+        res,
+        `/ipv/journey/${currentSessionPage}/back`,
+      );
+      return;
+    }
+
+    console.log("Handle Back Button didn't returned true.");
+
     // Stop further processing if response has already been handled
     if (!(await validateSessionAndPage(req, res, pageId))) {
       return;
     }
+
+    console.log("after");
 
     const renderOptions: Record<string, unknown> = {
       pageId,
@@ -534,4 +580,31 @@ export const validatePageId: RequestHandler = (req, res, next) => {
     throw new NotFoundError("Invalid page id");
   }
   return next();
+};
+
+const updateSessionHistory = (req: Request, currentPage: string, requestedPageId: string): void => {
+  if (currentPage === PAGES.IDENTIFY_DEVICE) {
+    return;
+  }
+
+  let history = req.session?.history;
+  if (!history) {
+    history = [currentPage];
+    req.session.history = history;
+    return;
+  }
+
+
+  console.log(
+    "Received page response - Adding to session history! " + currentPage,
+  );
+
+  const last = history[history.length - 1];
+  if (last === requestedPageId) {
+    req.session.history?.pop();
+    return;
+  }
+
+  req.session.history?.push(currentPage);
+  console.log("New Session History: " + req.session.history);
 };

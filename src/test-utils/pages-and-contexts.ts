@@ -91,6 +91,10 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     undefined,
   ],
   "uk-driving-licence-details-not-correct": ["strategicApp", undefined],
+  "need-more-information-confirm-change-details": [
+    "repeatFraudCheck",
+    "updateDetails",
+  ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
 };

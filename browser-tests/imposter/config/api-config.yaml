@@ -40,7 +40,7 @@ resources:
     requestHeaders:
       content-type: "application/json"
       ipv-session-id:
-        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt|strategicAppDesktopDownloadPage).*$"
+        value: "^.*(reuseJourney|fraudCheckJourney|checkVcReceipt|strategicAppDesktopDownloadPage|crossBrowserProblem).*$"
         operator: NotMatches
     queryParams:
       currentPage:
@@ -452,7 +452,7 @@ resources:
       content: |
         {
           "client": {
-            "redirectUrl": "https://example.com/"
+            "redirectUrl": "/dev/template/page-ipv-success/en?test=clientRedirect"
           }
         }
 
@@ -687,4 +687,43 @@ resources:
       content: |
         {
           "page": "page-multiple-doc-check"
+        }
+
+  # Testing routing from problem-different-browser page
+  - method: POST
+    path: /journey/next
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "crossBrowserProblem"
+        operator: Contains
+    queryParams:
+      currentPage:
+        operator: NotExists
+    response:
+      statusCode: 200
+      content: |
+        {
+          "page": "problem-different-browser"
+        }
+
+  - method: POST
+    path: /journey/build-client-oauth-response
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "crossBrowserProblem"
+        operator: Contains
+    queryParams:
+      currentPage: "problem-different-browser"
+    response:
+      statusCode: 200
+      # In reality, core-back will route to the RP, but
+      # for this test, we just want to check that
+      # core-front makes the appropriate request to core-back
+      content: |
+        {
+          "client": {
+            "redirectUrl": "/dev/template/page-ipv-success/en?test=crossBrowserProblem"
+          }
         }

@@ -1537,6 +1537,16 @@
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
+    },
+    "problemDifferentBrowser": {
+      "title": "Mae problem",
+      "header": "Mae problem",
+      "content": {
+        "p1": "Mae’n edrych fel eich bod wedi dechrau profi eich hunaniaeth drwy ddefnyddio porwr gwe gwahanol i’r un rydych yn ei ddefnyddio nawr.",
+        "subHeading": "Beth sydd angen i chi ei wneud",
+        "p2": "Parhewch i ddefnyddio’r porwr hwn a dilynwch y cyfarwyddiadau.",
+        "p3": "Pan ofynnir i chi, mewngofnodwch i’ch GOV.UK One Login i orffen profi eich hunaniaeth."
+      }
     }
   }
 }

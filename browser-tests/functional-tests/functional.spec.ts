@@ -116,8 +116,11 @@ test.describe.parallel("Functional tests", () => {
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
+    // Core-back impostor is configured to return a client redirect to a dev template page
     const url = page.url();
-    expect(url).toBe(`https://example.com/`);
+    expect(url).toBe(
+      `${domainUrl}/dev/template/page-ipv-success/en?test=clientRedirect`,
+    );
   });
 
   test("Successfully gets proven user details from core-back for the page-ipv-reuse screen", async ({
@@ -323,5 +326,27 @@ test.describe.parallel("Functional tests", () => {
         expect(url).toBe(`${domainUrl}/ipv/page/${expectedPage}`);
       });
     });
+  });
+
+  test("problem-different-browser page should send the correct action to core-back", async ({
+    page,
+  }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("crossBrowserProblem"));
+
+    // Check that we are on the problem-different-browser page
+    const url = page.url();
+    expect(url).toBe(`${domainUrl}/ipv/page/problem-different-browser`);
+
+    const pageHeading = await page.locator("h1").textContent();
+    expect(pageHeading).toBe("There is a problem");
+
+    // Click continue to return to the RP
+    await page.click("button[id='submitButton']");
+
+    // Core-back impostor is wired to redirect to a dev template page
+    expect(page.url()).toBe(
+      `${domainUrl}/dev/template/page-ipv-success/en?test=crossBrowserProblem`,
+    );
   });
 });

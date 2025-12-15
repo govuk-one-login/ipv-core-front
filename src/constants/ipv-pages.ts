@@ -1,6 +1,7 @@
 const IPV_PAGES = Object.freeze({
   CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
   CONFIRM_DETAILS: "confirm-your-details",
+  PROBLEM_DIFFERENT_BROWSER: "problem-different-browser",
   IDENTIFY_DEVICE: "identify-device",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
   NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:

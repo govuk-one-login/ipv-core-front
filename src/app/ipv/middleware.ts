@@ -38,8 +38,9 @@ import {
   isJourneyResponse,
   isPageResponse,
   isValidClientResponse,
-  isValidCriResponse, PageResponse,
-  PostJourneyEventResponse
+  isValidCriResponse,
+  PageResponse,
+  PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
 import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
@@ -51,7 +52,6 @@ import {
   AppVcReceiptStatus,
   getAppVcReceiptStatusAndStoreJourneyResponse,
 } from "../vc-receipt-status/middleware";
-
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -105,12 +105,12 @@ export const handleBackendResponse = async (
 ): Promise<void> => {
   const data = backendResponse.data;
 
-  console.log("Logging core back response below")
-  console.log("Logging core back response below")
-  console.log("Logging core back response below")
-  console.log("Logging core back response below")
-  console.log("Logging core back response below")
-  console.log("Logging core back response below")
+  console.log("Logging core back response below");
+  console.log("Logging core back response below");
+  console.log("Logging core back response below");
+  console.log("Logging core back response below");
+  console.log("Logging core back response below");
+  console.log("Logging core back response below");
 
   consoleLogSome(data);
 
@@ -148,14 +148,12 @@ export const handleBackendResponse = async (
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
-
   if (isPageResponse(data)) {
-
-    if(isPageRequestedFromSessionHistory(req, data)) {
+    if (isPageRequestedFromSessionHistory(req, data)) {
       setLastAsCurrentFromSessionHistory(req, data);
       removeLastFromSessionHistory(req, data);
     } else {
-      if (!data.skipBack){
+      if (!data.skipBack) {
         pushCurrentToTheHistory(req);
         setCurrent(req, data);
       }
@@ -357,21 +355,17 @@ const validateSessionAndPage = async (
   return true;
 };
 
-export const handleBackButton = (
-  req: Request,
-  pageId: string,
-): boolean => {
+export const handleBackButton = (req: Request, pageId: string): boolean => {
   const history = req.session.history;
-  if(!history ||  history.length === 0) {
+  if (!history || history.length === 0) {
     return false;
   }
 
-  history.forEach(node => {
+  history.forEach((node) => {
     consoleLogSome(node);
-  })
+  });
   console.log("And Current below");
   consoleLogSome(req.session.currentPostJourneyEventResponse!);
-
 
   const last = history[history?.length - 1];
 
@@ -379,19 +373,19 @@ export const handleBackButton = (
 };
 
 const consoleLogSome = (p: PostJourneyEventResponse): void => {
-  if(isPageResponse(p)) {
+  if (isPageResponse(p)) {
     console.log(`Page Response: page: ${p.page}, ${p.type}`);
   }
-  if(isJourneyResponse(p)) {
+  if (isJourneyResponse(p)) {
     console.log(`Journey Response: journey: ${p.journey}`);
   }
-  if(isCriResponse(p)) {
+  if (isCriResponse(p)) {
     console.log(`Cri Response: cri id: ${p.cri.id}`);
   }
-  if(isClientResponse(p)) {
+  if (isClientResponse(p)) {
     console.log(`Client Response: client: ${p.client.redirectUrl}`);
   }
-}
+};
 
 export const updateJourneyState: RequestHandler = async (req, res) => {
   const currentPageId = req.params.pageId;
@@ -648,19 +642,26 @@ export const validatePageId: RequestHandler = (req, res, next) => {
 //   console.log("New Session History: " + req.session.history);
 // };
 
-const updateSessionHistoryEvent = (req: Request, postJourneyEventResponse: PostJourneyEventResponse): void => {
+const updateSessionHistoryEvent = (
+  req: Request,
+  postJourneyEventResponse: PostJourneyEventResponse,
+): void => {
   // Skip here for now
-  if(isPageResponse(postJourneyEventResponse) && postJourneyEventResponse?.page === PAGES.IDENTIFY_DEVICE) {
+  if (
+    isPageResponse(postJourneyEventResponse) &&
+    postJourneyEventResponse?.page === PAGES.IDENTIFY_DEVICE
+  ) {
     return;
   }
 
-  const previousPostJourneyEventResponse = req.session.currentPostJourneyEventResponse;
+  const previousPostJourneyEventResponse =
+    req.session.currentPostJourneyEventResponse;
   req.session.currentPostJourneyEventResponse = postJourneyEventResponse;
   const history = req.session?.history;
 
   // If history doesn't exist we need to initialise it
   if (!history) {
-    if(previousPostJourneyEventResponse) {
+    if (previousPostJourneyEventResponse) {
       req.session.history = [previousPostJourneyEventResponse];
     } else {
       req.session.history = [];
@@ -669,56 +670,76 @@ const updateSessionHistoryEvent = (req: Request, postJourneyEventResponse: PostJ
   }
 
   // Add to session history
-  if(previousPostJourneyEventResponse) {
+  if (previousPostJourneyEventResponse) {
     req.session.history?.push(previousPostJourneyEventResponse);
   }
-}
+};
 
 const pushCurrentToTheHistory = (req: Request): void => {
   const current = req.session.currentPostJourneyEventResponse;
   let history = req.session.history;
-  if(!history) {
+  if (!history) {
     history = [];
   }
-  if(current) {
+  if (current) {
     history.push(current);
   }
   req.session.history = history;
-}
+};
 
-const setCurrent = (req: Request, postJourneyEventResponse: PostJourneyEventResponse): void => {
+const setCurrent = (
+  req: Request,
+  postJourneyEventResponse: PostJourneyEventResponse,
+): void => {
   req.session.currentPostJourneyEventResponse = postJourneyEventResponse;
-}
+};
 
-const setLastAsCurrentFromSessionHistory = (req: Request, postJourneyEventResponse: PostJourneyEventResponse): void => {
+const setLastAsCurrentFromSessionHistory = (
+  req: Request,
+  postJourneyEventResponse: PostJourneyEventResponse,
+): void => {
   const history = req.session?.history;
-  if(history && history.length > 0) {
+  if (history && history.length > 0) {
     const last = history[history.length - 1];
-    if(isPageResponse(last) && isPageResponse(postJourneyEventResponse) && last?.page === postJourneyEventResponse.page) {
+    if (
+      isPageResponse(last) &&
+      isPageResponse(postJourneyEventResponse) &&
+      last?.page === postJourneyEventResponse.page
+    ) {
       req.session.currentPostJourneyEventResponse = req.session.history?.pop();
       return;
     }
   }
-}
+};
 
-const removeLastFromSessionHistory = (req: Request, postJourneyEventResponse: PostJourneyEventResponse): void => {
+const removeLastFromSessionHistory = (
+  req: Request,
+  postJourneyEventResponse: PostJourneyEventResponse,
+): void => {
   const history = req.session?.history;
-  if(history && history.length > 0) {
+  if (history && history.length > 0) {
     const last = history[history.length - 1];
-    if(isPageResponse(last) && isPageResponse(postJourneyEventResponse) && last?.page === postJourneyEventResponse.page) {
+    if (
+      isPageResponse(last) &&
+      isPageResponse(postJourneyEventResponse) &&
+      last?.page === postJourneyEventResponse.page
+    ) {
       req.session.history?.pop();
       return;
     }
   }
-}
+};
 
-const isPageRequestedFromSessionHistory = (req: Request, pageResponse: PageResponse): boolean => {
+const isPageRequestedFromSessionHistory = (
+  req: Request,
+  pageResponse: PageResponse,
+): boolean => {
   const history = req.session.history;
-  if(history && history.length > 0) {
+  if (history && history.length > 0) {
     const last = history[history.length - 1];
-    if(isPageResponse(last) && last.page === pageResponse.page){
+    if (isPageResponse(last) && last.page === pageResponse.page) {
       return true;
     }
   }
   return false;
-}
+};

@@ -11,6 +11,7 @@ export interface PageResponse {
   context?: string;
   type?: string;
   clientOAuthSessionId?: string;
+  skipBack: boolean;
 }
 
 export interface JourneyResponse {

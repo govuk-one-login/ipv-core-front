@@ -55,7 +55,7 @@ jobs:
           password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
 
       - name: Deploy SAM app to ECR
-        uses: govuk-one-login/devplatform-upload-action-ecr@v1.4.0
+        uses: govuk-one-login/devplatform-upload-action-ecr@v1.5.0
         with:
           artifact-bucket-name: ${{ env.ENVIRONMENT == 'build' && secrets.ARTIFACT_BUCKET_NAME || secrets.ARTIFACT_BUCKET_NAME_DEV }}
           container-sign-kms-key-arn: ${{ env.ENVIRONMENT == 'build' && secrets.CONTAINER_SIGN_KMS_KEY || secrets.CONTAINER_SIGN_KMS_KEY_DEV }}

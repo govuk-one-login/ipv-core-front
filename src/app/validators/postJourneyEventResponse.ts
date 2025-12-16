@@ -24,9 +24,9 @@ export interface ClientResponse {
 }
 
 export interface ErrorResponse {
-  errorMessage: string,
-  errorCode: number,
-  statusCode: number
+  errorMessage: string;
+  errorCode: number;
+  statusCode: number;
 }
 
 export type PostJourneyEventResponse =
@@ -61,10 +61,10 @@ export const isPageResponse = (
 };
 
 export const isErrorResponse = (
-  res: PostJourneyEventResponse
+  res: PostJourneyEventResponse,
 ): res is ErrorResponse => {
   return (res as ErrorResponse)?.errorCode !== undefined;
-}
+};
 
 export const isValidCriResponse = (criResponse: CriResponse): boolean => {
   if (!criResponse.cri.redirectUrl) {

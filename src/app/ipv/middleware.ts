@@ -1,6 +1,6 @@
 import sanitize from "sanitize-filename";
 import { Request, Response } from "express";
-import { AxiosResponse, isAxiosError } from "axios";
+import { AxiosResponse } from "axios";
 import { NextFunction, RequestHandler } from "express-serve-static-core";
 import config from "../../config/config";
 import { generateUserDetails, UserDetails } from "../shared/reuseHelper";
@@ -35,13 +35,14 @@ import {
 import {
   ErrorResponse,
   isClientResponse,
-  isCriResponse, isErrorResponse,
+  isCriResponse,
+  isErrorResponse,
   isJourneyResponse,
   isPageResponse,
   isValidClientResponse,
   isValidCriResponse,
   PageResponse,
-  PostJourneyEventResponse
+  PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
 import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
@@ -99,8 +100,12 @@ export const processAction = async (
   return await handleBackendResponse(req, res, backendResponse);
 };
 
-const handleErrorResponse = async (req: Request, res: Response, errorResponse: ErrorResponse): Promise<void> => {
-  if(errorResponse.statusCode === 400 && errorResponse.errorCode === 1111) {
+const handleErrorResponse = async (
+  req: Request,
+  res: Response,
+  errorResponse: ErrorResponse,
+): Promise<void> => {
+  if (errorResponse.statusCode === 400 && errorResponse.errorCode === 1111) {
     req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
 
     return saveSessionAndRedirect(
@@ -113,7 +118,7 @@ const handleErrorResponse = async (req: Request, res: Response, errorResponse: E
   throw new TechnicalError(
     `Unsupported ErrorResponse received from core-back: ${JSON.stringify(errorResponse)}`,
   );
-}
+};
 
 export const handleBackendResponse = async (
   req: Request,
@@ -185,7 +190,7 @@ export const handleBackendResponse = async (
     }
   }
 
-  if(isErrorResponse(data)) {
+  if (isErrorResponse(data)) {
     return await handleErrorResponse(req, res, data);
   }
 
@@ -375,7 +380,6 @@ export const handleBackButton = (req: Request, pageId: string): boolean => {
 
   return isPageResponse(last) && pageId === last.page;
 };
-
 
 export const updateJourneyState: RequestHandler = async (req, res) => {
   const currentPageId = req.params.pageId;

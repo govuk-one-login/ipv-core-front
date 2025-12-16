@@ -226,7 +226,7 @@ Mappings:
       dadSpinnerRequestTimeout: 1800000
       frontendAutoScalingMinCount: 4
     "075701497069": # Production
-      lb500ErrorLimit: 2
+      lb500ErrorLimit: 10
       lb500ErrorWindow: 300
       tg500ErrorLimit: 300
       tg500ErrorWindow: 300

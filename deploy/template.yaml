@@ -105,6 +105,7 @@ Mappings:
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
       frontendAutoScalingMinCount: 4
+      publishedKeysAccountId: ""
     "175872367215": # core-dev02
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -135,6 +136,7 @@ Mappings:
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
       frontendAutoScalingMinCount: 4
+      publishedKeysAccountId: ""
     "457601271792": # Build
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -165,6 +167,7 @@ Mappings:
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
       frontendAutoScalingMinCount: 6
+      publishedKeysAccountId: ""
     "335257547869": # Staging
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -195,6 +198,7 @@ Mappings:
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 900000
       frontendAutoScalingMinCount: 4
+      publishedKeysAccountId: "444977453444"
     "991138514218": # Integration
       lb500ErrorLimit: 2
       lb500ErrorWindow: 300
@@ -225,6 +229,7 @@ Mappings:
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
       frontendAutoScalingMinCount: 4
+      publishedKeysAccountId: "298945768017"
     "075701497069": # Production
       lb500ErrorLimit: 10
       lb500ErrorWindow: 300
@@ -255,6 +260,7 @@ Mappings:
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
       frontendAutoScalingMinCount: 6
+      publishedKeysAccountId: "101836073728"
   SecurityGroups:
     PrefixListIds:
       dynamodb: "pl-b3a742da"
@@ -1089,7 +1095,21 @@ Resources:
               - Effect: Allow
                 Action:
                   - "kms:Decrypt"
-                Resource: !GetAtt S3KmsKey.Arn
+                Resource:
+                  - !GetAtt S3KmsKey.Arn
+                  - !Sub
+                    - "arn:aws:kms:${AWS::Region}:${PublishedKeysAccountId}:key/*"
+                    - PublishedKeysAccountId: !FindInMap
+                      - EnvironmentConfiguration
+                      - !Ref AWS::AccountId
+                      - publishedKeysAccountId
+                Condition:
+                  StringEquals:
+                    kms:ViaService:
+                      - !Sub "s3.${AWS::Region}.amazonaws.com"
+                  "ForAnyValue:StringEquals":
+                    "kms:ResourceAliases": "alias/published_keys_s3_bucket_key"
+
       PermissionsBoundary: !If
         - UsePermissionsBoundary
         - !Ref PermissionsBoundary

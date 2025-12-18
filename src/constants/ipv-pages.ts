@@ -36,7 +36,6 @@ const IPV_PAGES = Object.freeze({
   PYI_ESCAPE: "pyi-escape",
   PYI_F2F_DELETE_DETAILS: "pyi-f2f-delete-details",
   PYI_F2F_TECHNICAL: "pyi-f2f-technical",
-  PYI_NEW_DETAILS: "pyi-new-details",
   PYI_NO_MATCH: "pyi-no-match",
   PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",
   PYI_PASSPORT_NO_MATCH_ANOTHER_WAY: "pyi-passport-no-match-another-way",

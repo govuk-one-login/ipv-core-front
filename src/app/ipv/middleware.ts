@@ -419,6 +419,7 @@ export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
   const pageId = req.params.pageId;
   if (req.session.currentPage !== pageId) {
     await handleUnexpectedPage(req, res, pageId);
+    return;
   }
   // We return directly to the Oauth client when continuing from
   // the problem-different-browser page

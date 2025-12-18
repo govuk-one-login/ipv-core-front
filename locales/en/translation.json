@@ -164,24 +164,6 @@
         }
       }
     },
-    "findAnotherWayAccessService": {
-      "title": "Find another way to access the service",
-      "header": "Find another way to access the service",
-      "content": {
-        "paragraph1": "You were not able to update your details with the GOV.UK One Login app.",
-        "subHeading": "What would you like to do?",
-        "formRadioButtons": {
-          "contactOption": "Contact the GOV.UK One Login team",
-          "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.",
-          "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
     "pyiEscape": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",
@@ -665,38 +647,6 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
         "paragraph1CoiAddress": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
         "paragraph1CoiNoAddress": "We’ll need to check your details when you continue."
-      }
-    },
-    "pyiNewDetails": {
-      "title": "Prove your identity again with new details",
-      "header": "Prove your identity again with new details",
-      "content": {
-        "paragraph1": "To update your details, you need to:",
-        "updateDetailsTodo": [
-          "delete your details",
-          "prove your identity again with new details"
-        ],
-        "paragraph2": "You’ll need:",
-        "updateDetailsRequirements": [
-          "photo ID with the name you want GOV.UK One Login to use",
-          "to tell us where you’ve lived for the last 3 months"
-        ],
-        "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
-        "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
-        "warningTextFallback": "Warning",
-        "subHeading1": "If you need to use the service now",
-        "paragraph4": "Your proof of identity is still valid even if your details are out of date.",
-        "paragraph5": "You can use your current details to access the service you need to use.",
-        "subHeading2": "What would you like to do?",
-        "formRadioButtons": {
-          "yes": "Continue to delete my details",
-          "no": "Go back to my current details"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
       }
     },
     "pyiConfirmDeleteDetails": {

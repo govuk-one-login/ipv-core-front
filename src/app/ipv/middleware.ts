@@ -422,7 +422,7 @@ export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
   }
   // We return directly to the Oauth client when continuing from
   // the problem-different-browser page
-  return processAction(req, res, BUILD_CLIENT_OAUTH_RESPONSE_ACTION, pageId);
+  await processAction(req, res, BUILD_CLIENT_OAUTH_RESPONSE_ACTION, pageId);
 };
 
 export const handleJourneyActionRequest: RequestHandler = async (req, res) => {

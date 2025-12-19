@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { getAuthoriseUrlForJourney } from "./helpers";
 
 test.describe.parallel("Check Strategic App VC polling", () => {

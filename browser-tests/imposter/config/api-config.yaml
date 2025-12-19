@@ -569,6 +569,17 @@ resources:
     response:
       statusCode: 500
 
+  # Poll - 400 (bad request)
+  - method: GET
+    path: /app/check-vc-receipt
+    requestHeaders:
+      content-type: "application/json"
+      ipv-session-id:
+        value: "BadRequest"
+        operator: Contains
+    response:
+      statusCode: 400
+
   # Routing for the journey events returned by the polling end point above
 
   # Resulting journey - success

@@ -30,6 +30,10 @@ services:
       GA4_DISABLED: false
       ANALYTICS_DATA_SENSITIVE: false
       SERVICE_URL: http://localhost:4601
+      SPINNER_REQUEST_INTERVAL: 500
+      SPINNER_REQUEST_LONG_WAIT_INTERVAL: 2000
+      MAM_SPINNER_REQUEST_TIMEOUT: 6000
+      DAD_SPINNER_REQUEST_TIMEOUT: 6000
 # Note that due to how snapshot tests work the pageIds here include the language so the banners only appear in one language version of the snapshot. We also can't test banner contexts in snapshot tests as the all-templates page shortcuts a lot of stuff.
       NOTIFICATION_BANNER: '[{"pages": [ { "pageId":"/dev/template/live-in-uk/en" } ],"bannerMessage":"<h3>Test banner</h3> <p>This is a test banner <a class=\"govuk-notification-banner__link\" href=\"#\">with a dummy link</a></p>","bannerMessageCy":"Not seen","startTime":"2024-10-25T06:14:40.162+0000","endTime":"2030-10-25T06:14:40.162+0000"}]'
     ports:

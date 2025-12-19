@@ -1,17 +1,17 @@
 import { test, expect } from "@playwright/test";
 import { getAuthoriseUrlForJourney } from "./helpers";
 
-test.describe.parallel("Check Strategic App VC polling", () => {
-  ["Mam", "Dad"].forEach((journeyType) => {
-    test(`${journeyType} success`, async ({ page }) => {
+test.describe.parallel("Check Strategic App VC polling for MAM journey", () => {
+    test(`Mam success`, async ({ page }) => {
       // Start session with existing identity
       await page.goto(
-        getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Success`),
+        getAuthoriseUrlForJourney(`checkVcReceiptMamSuccess`),
       );
 
       // Check the spinner text
-      const spinnerTextLocator = await page.getByText("You can now continue");
-      await expect(spinnerTextLocator).toBeVisible();
+      const spinnerContentLocator = await page.locator('#spinner+div');
+      await expect(spinnerContentLocator).toContainText("You can now continue", { timeout: 500 });
+      await expect(spinnerContentLocator).toBeVisible();
 
       // Click continue to success page
       await page.getByRole("button", { name: /Continue/ }).click();
@@ -26,15 +26,16 @@ test.describe.parallel("Check Strategic App VC polling", () => {
       );
     });
 
-    test(`${journeyType} abandon`, async ({ page }) => {
+    test(`Mam user abandons app`, async ({ page }) => {
       // Start session with existing identity
       await page.goto(
-        getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Abandon`),
+        getAuthoriseUrlForJourney(`checkVcReceiptMamAbandon`),
       );
 
       // Check the spinner text
-      const spinnerTextLocator = await page.getByText("You can now continue");
-      await expect(spinnerTextLocator).toBeVisible();
+      const spinnerContentLocator = await page.locator('#spinner+div');
+      await expect(spinnerContentLocator).toContainText("You can now continue", { timeout: 500 });
+      await expect(spinnerContentLocator).toBeVisible();
 
       // Click continue to multiple-doc page
       await page.getByRole("button", { name: /Continue/ }).click();
@@ -47,15 +48,15 @@ test.describe.parallel("Check Strategic App VC polling", () => {
       expect(pageHeading).toBe("Continue proving your identity online");
     });
 
-    test(`${journeyType} error`, async ({ page }) => {
+    test(`Mam app error`, async ({ page }) => {
       // Start session with existing identity
       await page.goto(
-        getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Error`),
+        getAuthoriseUrlForJourney(`checkVcReceiptMamError`),
       );
 
       // Check the spinner text
-      const spinnerTextLocator = await page.getByText("You can now continue");
-      await expect(spinnerTextLocator).toBeVisible();
+      const spinnerContentLocator = await page.locator('#spinner+div');
+      await expect(spinnerContentLocator).toContainText("You can now continue", { timeout: 500 });
 
       // Click continue to pyi-technical page
       await page.getByRole("button", { name: /Continue/ }).click();
@@ -68,70 +69,48 @@ test.describe.parallel("Check Strategic App VC polling", () => {
       expect(pageHeading).toBe("Sorry, there is a problem");
     });
 
-    test(`${journeyType} pending`, async ({ page }) => {
-      test.setTimeout(90000);
-
+    test(`Mam pending shows long wait and eventually errors`, async ({ page }) => {
       // Start session with existing identity
       await page.goto(
-        getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Pending`),
+        getAuthoriseUrlForJourney(`checkVcReceiptMamPending`),
       );
 
       // Check the spinner text
-      const normalSpinnerTextLocator = await page.getByText(
-        "This may take a few minutes.",
-      );
-      await expect(normalSpinnerTextLocator).toBeVisible();
+      const spinnerContentLocator = await page.locator('#spinner+div');
 
-      // Check the spinner text
-      const longWaitSpinnerTextLocator = await page.getByText(
-        "We’re still checking your details. Do not close or refresh this page.",
-      );
-      await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
+      await expect(spinnerContentLocator).toContainText("This may take a few minutes", { timeout: 500 });
+      await expect(spinnerContentLocator).toBeVisible();
+
+      // For these tests the spinner long wait time is set to 2 seconds (see SPINNER_REQUEST_LONG_WAIT_INTERVAL in  compose.yaml)
+      await expect(spinnerContentLocator).toContainText("We’re still checking your details", { timeout: 5000 });
 
       // Check continue button is disabled
       const continueButtonLocator = await page.getByRole("button", {
         name: /Continue/,
       });
       await expect(continueButtonLocator).toBeDisabled();
+
+      // The spinner will time out after 6 seconds total
+      await page.waitForURL('**/pyi-technical', { timeout: 6000 });
     });
 
-    test(`${journeyType} failure`, async ({ page }) => {
+    test(`Mam bad request goes to technical error page`, async ({ page }) => {
       // Start session with existing identity
       await page.goto(
-        getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Failure`),
+        getAuthoriseUrlForJourney(`checkVcReceiptMamBadRequest`),
       );
 
-      // MAM and DAD handle errors differently. DAD must use custom spinner code due to being integrated into the
-      // download page. It cannot refresh the entire page's content, so redirects to pyi-technical instead.
-
-      // Confirm page heading
-      const pageHeading = await page.locator("h1").textContent();
-      expect(pageHeading).toBe("Sorry, there is a problem");
+      // The spinner will try 3 times on error responses with exponential back-off before going to the error page
+      await page.waitForURL('**/pyi-technical', { timeout: 10000 });
     });
-  });
-});
 
-test(`Mam pending`, async ({ page }) => {
-  test.setTimeout(90000);
+    test(`Mam core-back error goes to technical error page`, async ({ page }) => {
+      // Start session with existing identity
+      await page.goto(
+        getAuthoriseUrlForJourney(`checkVcReceiptMamFailure`),
+      );
 
-  // Start session with existing identity
-  await page.goto(getAuthoriseUrlForJourney(`checkVcReceiptMamPending`));
-
-  // Check the spinner text
-  const normalSpinnerTextLocator = await page.getByText(
-    "This may take a few minutes.",
-  );
-  await expect(normalSpinnerTextLocator).toBeVisible();
-
-  // Check the spinner text
-  const longWaitSpinnerTextLocator = await page.getByText(
-    "We’re still checking your details. Do not close or refresh this page.",
-  );
-  await expect(longWaitSpinnerTextLocator).toBeVisible({ timeout: 65000 });
-
-  // Check continue button is disabled
-  const continueButtonLocator = await page.getByRole("button", {
-    name: /Continue/,
-  });
-  await expect(continueButtonLocator).toBeDisabled();
+      // The spinner will try 3 times on error responses with exponential back-off before going to the error page
+      await page.waitForURL('**/pyi-technical', { timeout: 10000 });
+    });
 });

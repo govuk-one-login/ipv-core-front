@@ -35,6 +35,8 @@ resources:
 
   # This is the first endpoint hit after /session/initialise. For new identity journeys,
   # this should take us to the page-ipv-identity-document-start screen.
+  # This is the default response. We don't match on certain ipv-session-id values that have their own more specialised
+  # routing later on.
   - method: POST
     path: /journey/next
     requestHeaders:
@@ -165,7 +167,7 @@ resources:
         }
 
   # Journey for CRI test
-  # When the user selects the DCMAW option core back sends back the CRI URL to redirect the user to. The CRI then
+  # When the user selects the DCMAW option core-back sends back the CRI URL to redirect the user to. The CRI then
   # eventually sends the user back to core-front. Here we short circuit that and redirect the user straight to core
   # front so there's no need to set up a fake CRI too.
   - method: POST
@@ -189,7 +191,7 @@ resources:
         }
 
   # When core front receives a callback from a CRI it sends the details to core-back. Here we pretend that we got
-  # access_denied back the DCMAW cri and send the use to page-multiple-doc-check
+  # access_denied back from the DCMAW cri and send the use to page-multiple-doc-check
   - method: POST
     path: /cri/callback
     requestBody:
@@ -457,7 +459,8 @@ resources:
         }
 
   # Check Strategic App VC receipt
-  # These mock to test frontend logic dealing with polling & navigation
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here to skip straight to the
+  # check-mobile-app-result or pyi-triage-desktop-download-app page so we can test the polling and spinner behaviour
 
   # MAM
   - method: POST
@@ -496,8 +499,8 @@ resources:
           "context": "iphone"
         }
 
-  # Spinner component polls backend regularly to check for a VC or an update on the CRI response item.
-  # 404 ensures continued polling. 200 response body includes journey event for navigation.
+  # The spinner polls core-front which in turn calls /app/check-vc-receipt in core back.
+  # Here we mock the core-back endpoint to return various results depending on the sessions ID
 
   # Poll - 200 - success
   - method: GET
@@ -566,6 +569,8 @@ resources:
     response:
       statusCode: 500
 
+  # Routing for the journey events returned by the polling end point above
+
   # Resulting journey - success
   - method: POST
     path: /journey/next
@@ -619,6 +624,10 @@ resources:
         {
           "page": "pyi-technical"
         }
+
+  # pyi-triage-desktop-download-app routing
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here to skip straight to the
+  # pyi-triage-desktop-download-app page
 
   # Routing from pyi-triage-desktop-download-app
   - method: POST
@@ -688,6 +697,10 @@ resources:
         {
           "page": "page-multiple-doc-check"
         }
+
+  # Cross browser routing
+  # After initialising the session, the first endpoint hit is /journey/next which we stub here to skip straight to the
+  # problem-different-browser page
 
   # Testing routing from problem-different-browser page
   - method: POST

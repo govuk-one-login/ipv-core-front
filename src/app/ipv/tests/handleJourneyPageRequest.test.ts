@@ -91,10 +91,8 @@ describe("handleJourneyPageRequest", () => {
       await middleware.handleJourneyPageRequest(req, res, next);
 
       // Assert
-      expect(
-        coreBackServiceStub.getProvenIdentityUserDetails.firstCall,
-      ).to.have.been.calledWith(req);
-      expect(res.render).to.have.been.calledWith(
+      expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been.calledOnceWith(req);
+      expect(res.render).to.have.been.calledOnceWith(
         `ipv/page/page-ipv-reuse.njk`,
         sinon.match.has("userDetails", {
           name: "firstName LastName",
@@ -127,7 +125,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/prove-identity-no-photo-id.njk",
     );
   });
@@ -148,7 +146,7 @@ describe("handleJourneyPageRequest", () => {
 
     // Assert
     expect(req.session.currentPage).to.equal(IPV_PAGES.PYI_TIMEOUT_RECOVERABLE);
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/pyi-timeout-recoverable.njk",
     );
   });
@@ -165,7 +163,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/page-face-to-face-handoff.njk",
       {
         pageId: "page-face-to-face-handoff",
@@ -193,7 +191,7 @@ describe("handleJourneyPageRequest", () => {
     expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
       .calledOnce;
     expect(qrCodeHelperStub.generateQrCodeImageData).to.have.been.calledOnce;
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/pyi-triage-desktop-download-app.njk",
       {
         pageId: "pyi-triage-desktop-download-app",
@@ -224,10 +222,10 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/prove-identity-no-photo-id.njk",
     );
-    expect(res.status).to.have.been.calledWith(HttpStatusCode.ImATeapot);
+    expect(res.status).to.have.been.calledOnceWith(HttpStatusCode.ImATeapot);
     expect(req.session.currentPageStatusCode).to.equal(undefined);
   });
 
@@ -256,7 +254,7 @@ describe("handleJourneyPageRequest", () => {
       await middleware.handleJourneyPageRequest(req, res, next);
 
       // Assert
-      expect(next).to.have.been.calledWith(
+      expect(next).to.have.been.calledOnceWith(
         sinon.match.instanceOf(expectedError),
       );
     });
@@ -274,7 +272,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       "/ipv/page/pyi-attempt-recovery",
     );
     expect(req.session.currentPage).to.equal("pyi-attempt-recovery");
@@ -291,7 +289,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/pyi-timeout-unrecoverable.njk",
     );
   });
@@ -310,7 +308,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk");
+    expect(res.render).to.have.been.calledOnceWith("ipv/page/pyi-technical.njk");
   });
 
   it("should raise an error when missing params", async () => {
@@ -324,7 +322,7 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+    expect(next).to.have.been.calledOnceWith(sinon.match.instanceOf(Error));
   });
 
   it("should render pyi-triage-mobile-download-app page with render options when given valid pageId", async () => {
@@ -345,7 +343,7 @@ describe("handleJourneyPageRequest", () => {
     expect(contextHelperStub.getPhoneType).to.have.been.calledOnce;
     expect(appDownloadHelperStub.getAppStoreRedirectUrl).to.have.been
       .calledOnce;
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/pyi-triage-mobile-download-app.njk",
       {
         pageId: "pyi-triage-mobile-download-app",

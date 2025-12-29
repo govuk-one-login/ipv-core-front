@@ -164,24 +164,6 @@
         }
       }
     },
-    "findAnotherWayAccessService": {
-      "title": "Find another way to access the service",
-      "header": "Find another way to access the service",
-      "content": {
-        "paragraph1": "You were not able to update your details with the GOV.UK One Login app.",
-        "subHeading": "What would you like to do?",
-        "formRadioButtons": {
-          "contactOption": "Contact the GOV.UK One Login team",
-          "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.",
-          "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
     "pyiEscape": {
       "title": "Find another way to prove your identity",
       "header": "Find another way to prove your identity",
@@ -526,20 +508,17 @@
       "headerDad": "Tell us if you have access to an iPhone or Android phone",
       "headerMam": "Tell us what smartphone you are using now",
       "content": {
-        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need an iPhone or Android phone with a working camera.",
-        "subHeading1": "If your photo ID is a UK photocard driving licence",
-        "paragraph2": "You need an iPhone 6s or newer, or an Android phone.",
-        "subHeading2": "If your photo ID is a passport, BRP, BRC or FWP",
-        "paragraph3": "You need an iPhone 7 or newer, or an Android phone.",
+        "paragraph1": "To prove your identity with the GOV.UK One Login app, you need a smartphone with a working camera.",
+        "paragraph2": "This must be an iPhone 8 or newer, or an Android phone.",
         "details": {
           "summaryText": "How do I know which iPhone I have?",
-          "html": "<p>The iPhone 7 was released in 2016. If you bought your iPhone after 2016, you probably have an iPhone 7 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
+          "html": "<p>The iPhone 8 was released in 2017. If you bought your iPhone after 2017, you probably have an iPhone 8 or newer.</p><p>To check which iPhone you have, go to your phone settings. Select ‘General’ then ‘About’ and look for the ‘Model Name’.</p>"
         },
-        "subHeading3Dad": "Do you have access to an iPhone or Android phone?",
-        "subHeading3Mam": "Are you on one of these phones?",
+        "subHeading1Dad": "Do you have access to an iPhone or Android phone?",
+        "subHeading1Mam": "Are you on one of these phones?",
         "formRadioButtons": {
-          "iphoneButtonTextDad": "Yes - I have access to an iPhone",
-          "iphoneButtonTextMam": "Yes - I’m on an iPhone",
+          "iphoneButtonTextDad": "Yes - I have access to an iPhone 8 or newer",
+          "iphoneButtonTextMam": "Yes - I’m on an iPhone 8 or newer",
           "androidButtonTextDad": "Yes - I have access to an Android phone (for example, Samsung or Google Pixel)",
           "androidButtonTextMam": "Yes - I’m on an Android phone (for example, Samsung or Google Pixel)",
           "neitherButtonTextDad": "No",
@@ -624,7 +603,7 @@
       "warningTextContent": "Do not guess the answer if you do not know it. You cannot change your answers and you cannot skip any questions.",
       "warningTextFallback": "Warning",
       "summaryText": "How we know what questions to ask you",
-      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>",
+      "summaryHtml": "<p>We’ll work with <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.experian.co.uk/privacy/privacy-and-your-data?utm_medium=internalRef&utm_source=Consumer%20Services\">Experian (opens in a new tab)</a> to make sure we ask you questions that only you can answer. This is because companies like Experian have access to lots of information that we can check your answers against.</p><p>We’ll only ask you questions about information that Experian already has.</p><p><a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">Read our privacy notice (opens in a new tab)</a> if you’d like to know more about how your details will be used to prove your identity.</p>",
       "buttonText": "Start answering questions"
     },
     "pageF2fHandoff": {
@@ -668,38 +647,6 @@
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
         "paragraph1CoiAddress": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
         "paragraph1CoiNoAddress": "We’ll need to check your details when you continue."
-      }
-    },
-    "pyiNewDetails": {
-      "title": "Prove your identity again with new details",
-      "header": "Prove your identity again with new details",
-      "content": {
-        "paragraph1": "To update your details, you need to:",
-        "updateDetailsTodo": [
-          "delete your details",
-          "prove your identity again with new details"
-        ],
-        "paragraph2": "You’ll need:",
-        "updateDetailsRequirements": [
-          "photo ID with the name you want GOV.UK One Login to use",
-          "to tell us where you’ve lived for the last 3 months"
-        ],
-        "paragraph3": "Find out <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID you can use to prove your identity (opens in new tab)</a>.",
-        "warningTextContent": "You will not be able to continue to the service you need to use if we cannot confirm your identity again using your new details.",
-        "warningTextFallback": "Warning",
-        "subHeading1": "If you need to use the service now",
-        "paragraph4": "Your proof of identity is still valid even if your details are out of date.",
-        "paragraph5": "You can use your current details to access the service you need to use.",
-        "subHeading2": "What would you like to do?",
-        "formRadioButtons": {
-          "yes": "Continue to delete my details",
-          "no": "Go back to my current details"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
       }
     },
     "pyiConfirmDeleteDetails": {
@@ -903,20 +850,39 @@
       "header": "Tell us if you have one of the following types of photo ID",
       "content": {
         "paragraph": "This will help us find the best way for you to prove your identity.",
-        "subHeading": "UK photocard driving licence",
-        "paragraph1": "You can use one of the following types of photo ID:",
-        "insetText": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
-        "paragraph3": "Find out more about the different types of <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"/ipv/page/page-ipv-identity-document-types\">photo ID we accept (opens in new tab)</a>",
-        "hint": "You’ll need to have your photo ID ready. You cannot use a photocopy or digital copy.",
-        "subHeading1": "Do you have any of these types of photo ID?",
+        "subHeading": "UK passport",
+        "paragraph2": "You can use any UK passport if it has not expired.",
+        "subHeading2": "Non-UK passport with a biometric chip",
+        "paragraph3": "You can use a non-UK passport if it:",
+        "nonUkPassportRequirements": [
+          "has not expired",
+          "has a biometric chip"
+        ],
+        "details1": {
+          "summaryText": "Has your passport got a biometric chip?",
+          "paragraph4": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover."
+        },
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading3": "UK photocard driving licence",
+        "paragraph5": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": ["has not expired" ,"has your photo"],
+        "paragraph6": "It can be a full or provisional UK driving licence.",
+        "subHeading4": "UK biometric residence card or permit",
+        "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "requirements": [
+          "it’s up to 18 months after its expiry date",
+          "you have a smartphone"
+        ],
+        "subHeading5": "Do you have any of these types of photo ID ready to use?",
+        "hint": "It must be a real document. You cannot use a photocopy or digital copy.",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID",
-          "errorRadioMessage": "Select yes if you have any of these types of photo ID"
+          "errorSummaryDescriptionText": "Select yes if you have any of these types of photo ID ready to use",
+          "errorRadioMessage": "Select yes if you have any of these types of photo ID ready to use"
         }
       }
     },
@@ -924,29 +890,29 @@
       "title": "Types of photo ID",
       "header": "Types of photo ID",
       "content": {
-        "subHeading": "UK photocard driving licence",
-        "paragraph": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": ["has your photo", "has not expired"],
-        "paragraph1": "It can be a full or provisional UK driving licence.",
-        "subHeading2": "UK passport",
-        "paragraph3": "You can use any UK passport if it has not expired.",
-        "subHeading3": "Non-UK passport with a biometric chip",
-        "paragraph4": "You can use a non-UK passport if it:",
+        "subHeading1": "UK passport",
+        "paragraph1": "You can use any UK passport if it has not expired.",
+        "subHeading2": "Non-UK passport with a biometric chip",
+        "paragraph2": "You can use a non-UK passport if it:",
         "nonUkPassportRequirements": [
-          "has a biometric chip",
-          "has not expired"
+          "has not expired",
+          "has a biometric chip"
         ],
-        "paragraph5": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
-        "imgAltText": "The front cover of a passport with the biometric chip symbol. The symbol is rectangular with a circle in the middle.",
-        "subHeading4": "UK biometric residence permit or card",
-        "paragraph6": "This can be a:",
-        "cardOrPermits": [
-          "biometric residence permit (BRP)",
-          "biometric residence card (BRC)",
-          "Frontier Worker permit (FWP)"
+        "paragraph3": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading3": "UK photocard driving licence",
+        "paragraph4": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": [
+          "has not expired",
+          "has your photo"
         ],
-        "paragraph7": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date if you have a smartphone.",
-        "insetText": "<h3 class=\"govuk-heading-s\">Example</h3>If your BRP expired on 31 October 2024, you can use it to prove your identity until 30 April 2026."
+        "paragraph5": "It can be a full or provisional UK driving licence.",
+        "subHeading4": "UK biometric residence card or permit",
+        "paragraph6": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "cardOrPermitRequirements": [
+          "it’s up to 18 months after its expiry date",
+          "you have a smartphone"
+        ]
       }
     },
     "pageIpvIdentityPostofficeStart": {
@@ -1078,7 +1044,8 @@
         },
         "details3": {
           "summaryText": "I am sensitive to flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
+          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do instead</a>.</p>"
         },
         "details4": {
           "summaryText": "Do I need to take off my glasses?",
@@ -1086,7 +1053,8 @@
         },
         "details5": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>",
+          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity.",
@@ -1095,14 +1063,15 @@
         "paragraph6": "Then you can continue to the government service you want to use.",
         "spinner": {
           "initial": {
-            "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this.",
-            "spinnerState": "pending"
+            "spinnerStateText": "Waiting for you to open the app. Keep this page open while you do this."
           },
           "complete": {
-            "spinnerStateText": "Completed.\nYou can now finish proving your identity online."
+            "paragraph1": "Completed.",
+            "paragraph2": "You can now finish proving your identity online."
           },
           "longWait": {
-            "spinnerStateText": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.\nDo not close or refresh this page."
+            "paragraph1": "Once you’ve submitted your information in the app, it can take a few minutes to finish checking your details.",
+            "paragraph2": "Do not close or refresh this page."
           },
           "ariaButtonEnabledMessage": "Completed. You can now finish proving your identity online."
         }
@@ -1118,7 +1087,8 @@
         "paragraph3": "There will be instructions on what you need to do at each step.",
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
-          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>"
+          "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
+          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">Check what you can do instead</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1131,7 +1101,8 @@
         },
         "details4": {
           "summaryText": "I’d prefer not to use the app",
-          "html": "<p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>"
+          "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>",
+          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         }
       }
     },
@@ -1209,7 +1180,7 @@
         "paragraph7": "You may also need the letter from the DWP saying that you were awarded PIP.",
         "details": {
           "summaryText": "How we use your details",
-          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://signin.account.gov.uk/privacy-statement\">read our privacy notice (opens in a new tab)</a>.</p>"
+          "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">read our privacy notice (opens in a new tab)</a>.</p>"
         },
         "paragraph8LinkText": "I need to prove my identity another way"
       }
@@ -1220,7 +1191,6 @@
       "content": {
         "paragraph": "If you get PIP then we’ll ask you security questions about your payments.",
         "paragraph2": "If you do not get PIP or would prefer not to say then you’ll need to prove your identity another way.",
-        "paragraph3": "We will not keep your answer to this question or share it with the service you need to use.",
         "details": {
           "summaryText": "What is PIP?",
           "text": "PIP is a benefit paid to some people who have a long-term health condition or disability."
@@ -1319,42 +1289,24 @@
     },
     "checkMobileAppResult": {
       "title": "We’re checking your details",
+      "header": "We’re checking your details",
+      "continueButtonText": "Continue",
       "content": {
         "htmlOnlyVersion": {
-          "header": "We are checking your details",
           "paragraph": "You can try to continue.",
-          "paragraph2": "If we’re still checking your details, you might need to try again.",
-          "button": "Continue"
+          "paragraph2": "If we’re still checking your details, you might need to try again."
         },
         "spinner": {
           "initial": {
-            "heading": "We’re checking your details",
-            "spinnerStateText": "This may take a few minutes.",
-            "spinnerState": "pending"
+            "text": "This may take a few minutes."
           },
           "complete": {
-            "spinnerState": "You can now continue."
+            "text": "You can now continue."
           },
           "longWait": {
-            "spinnerStateText": "We’re still checking your details. Do not close or refresh this page."
+            "text": "We’re still checking your details. Do not close or refresh this page."
           },
-          "ariaButtonEnabledMessage": "You can now continue.",
-          "continueButtonText": "Continue",
-          "error": {
-            "heading": "Sorry, there is a problem",
-            "messageText": "We cannot prove your identity right now.",
-            "whatYouCanDo": {
-              "heading": "What you can do",
-              "message": {
-                "text1": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage.",
-                "link": {
-                  "href": "",
-                  "text": ""
-                },
-                "text2": ""
-              }
-            }
-          }
+          "ariaButtonEnabledMessage": "You can now continue."
         }
       }
     },
@@ -1398,7 +1350,7 @@
       "content": {
         "paragraph1": "You’ll need a:",
         "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "list2": "smartphone - this must be an iPhone 8 or newer, or an Android smartphone",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useAppButtonText": "Prove your identity with the GOV.UK One Login app",
@@ -1420,7 +1372,7 @@
         "paragraph1": "If you do not live in the UK, you can only prove your identity with the GOV.UK One Login app.",
         "paragraph2": "To do this you need a:",
         "list1": "passport with a biometric chip",
-        "list2": "smartphone - this must be an iPhone 7 or newer or an Android smartphone",
+        "list2": "smartphone - this must be an iPhone 8 or newer, or an Android smartphone",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "otherWayButtonText": "Continue to the service you were trying to use to look for other ways to access it",
@@ -1504,15 +1456,16 @@
         "p2": "You can try again.",
         "p3": "You can also prove your identity with the GOV.UK One Login app.",
         "p4": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
+        "p4KbvCriError": "Or you can prove your identity at a Post Office. This option takes longer. You’ll usually get an outcome within a day of going to the Post Office.",
         "p4F2fCriError": "Or you can prove your identity by answering some security questions online.",
         "subHeading2": "What would you like to do?",
         "details": {
           "title": "What do I need to use the app?",
           "p1": "You’ll need access to a phone with a working camera.",
-          "p2": "If you’re using an iPhone, it must be running iOS 15 or higher and be either:",
+          "p2": "If you’re using an iPhone, it must be:",
           "iphoneTypes": [
-            "an iPhone 6s or newer if your photo ID is a UK driving licence",
-            "an iPhone 7 or newer if you’re using any other type of photo ID"
+            "an iPhone 8 or newer",
+            "running iOS 16.7 or higher"
           ],
           "p3": "For an Android phone (for example, Samsung or Google Pixel), it must be running Android 10 or higher.",
           "p4": "You’ll get guidance on how to download and use the app."
@@ -1523,6 +1476,7 @@
           "appHint": "You’ll be shown how to download and use the app.",
           "postOffice": "Prove your identity at a Post Office",
           "postOfficeHint": "You’ll enter details from your photo ID on GOV.UK first.",
+          "postOfficeHintKbvCriError": "You’ll enter some details on GOV.UK first.",
           "webRoute": "Prove your identity by answering some security questions",
           "webRouteHint": "You’ll enter details from your UK passport or UK photocard driving licence first.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
@@ -1532,6 +1486,16 @@
           "description": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
         }
+      }
+    },
+    "problemDifferentBrowser": {
+      "title": "There is a problem",
+      "header": "There is a problem",
+      "content": {
+        "p1": "It looks like you started proving your identity using a different web browser to the one you’re using now.",
+        "subHeading": "What you need to do",
+        "p2": "Continue using this browser and follow the instructions.",
+        "p3": "When prompted, sign in to your GOV.UK One Login to finish proving your identity."
       }
     }
   }

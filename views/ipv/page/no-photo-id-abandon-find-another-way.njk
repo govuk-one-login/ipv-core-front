@@ -11,6 +11,9 @@
 {% set errorText = 'pages.noPhotoIdAbandonFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#noPhotoIdAbandonFindAnotherWayForm" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '1829e7ac-edb4-4efd-b75e-e4f8cbc0bffc' %}
+
 {% set photoIdHtml %}
   {% include "components/types-of-photo-id.njk" %}
 {% endset %}
@@ -43,23 +46,19 @@
       {% set radioOptions = [
         {
           value: "mobileApp",
-          id: "radio-app",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonApp' | translate,
           hint: { text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonAppHint' | translate }
         },
         {
           value: "passport",
-          id: "radio-passport",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPassport' | translate
         },
         {
           value: "drivingLicence",
-          id: "radio-drivingLicence",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonDrivingLicence' | translate
         },
         {
           value: "postOffice",
-          id: "radio-postOffice",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPostOffice' | translate,
           hint: { text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonPostOfficeHint' | translate }
         },
@@ -68,7 +67,6 @@
         },
         {
           value: "relyingParty",
-          id: "radio-relyingParty",
           text: 'pages.noPhotoIdAbandonFindAnotherWay.content.formRadioButtons.radioButtonRp' | translate
         }
       ] %}
@@ -88,6 +86,8 @@
     {% if errorState %}
       {% set errorMessageObject = { 'text': 'pages.noPhotoIdAbandonFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+
+
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}

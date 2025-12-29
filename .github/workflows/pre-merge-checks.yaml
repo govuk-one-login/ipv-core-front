@@ -1,0 +1,16 @@
+name: Pre-merge checks
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+
+jobs:
+  # Run the automated tests.
+  automatedTests:
+    uses: ./.github/workflows/automated-tests.yaml
+    secrets:
+      DYNATRACE_PAAS_TOKEN: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -3,11 +3,24 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.test.ts'
+      - 'browser-tests/**'
+      - 'dev-deploy/**'
+      - 'src/test-utils/**'
   workflow_dispatch:
 
 jobs:
+  # Re-run the automated tests now that the merge has happened.
+  automatedTests:
+    uses: ./.github/workflows/automated-tests.yaml
+    secrets:
+      DYNATRACE_PAAS_TOKEN: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   dockerBuildAndPush:
     name: Docker build and push
+    needs: automatedTests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -18,11 +31,11 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: '0'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
 
@@ -32,7 +45,7 @@ jobs:
           sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           aws-region: eu-west-2
@@ -42,7 +55,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367

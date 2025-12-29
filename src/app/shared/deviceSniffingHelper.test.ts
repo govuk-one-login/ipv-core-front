@@ -1,15 +1,16 @@
 import { expect } from "chai";
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 import { detectAppTriageEvent, sniffPhoneType } from "./deviceSniffingHelper";
 import { APP_TRIAGE_EVENTS } from "../../constants/events";
 import {
   HTTP_HEADER_USER_AGENT_NO_PHONE,
   HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID,
-  HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
+  HTTP_HEADER_USER_AGENT_IPHONE_EXACT_VALID_VERSION,
   HTTP_HEADER_USER_AGENT_ANDROID_NO_VERSION,
   HTTP_HEADER_USER_AGENT_IPHONE_NO_VERSION,
   HTTP_HEADER_USER_AGENT_IPAD,
+  HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
 } from "../../test-utils/constants";
 import { specifyCreateRequest } from "../../test-utils/mock-express";
 
@@ -29,8 +30,14 @@ describe("User Agent Functions", () => {
         expectedJourneyEvent: APP_TRIAGE_EVENTS.APP_TRIAGE,
       },
       {
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_EXACT_VALID_VERSION,
+        scenario: "iOS devices with exact valid version",
+        expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_IPHONE,
+      },
+      {
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
-        scenario: "iOS devices with valid version",
+        scenario:
+          "iOS devices with version greater than the minimum version supported",
         expectedJourneyEvent: APP_TRIAGE_EVENTS.MOBILE_DOWNLOAD_IPHONE,
       },
       {
@@ -78,17 +85,22 @@ describe("User Agent Functions", () => {
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_INVALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 14.3 },
+        expectedOs: { name: PHONE_TYPE.IPHONE, version: 14.3 },
+      },
+      {
+        scenario: "iOS user agents",
+        userAgent: HTTP_HEADER_USER_AGENT_IPHONE_EXACT_VALID_VERSION,
+        expectedOs: { name: PHONE_TYPE.IPHONE, version: 16.7 },
       },
       {
         scenario: "iOS user agents",
         userAgent: HTTP_HEADER_USER_AGENT_IPHONE_VALID_VERSION,
-        expectedOs: { name: PHONE_TYPES.IPHONE, version: 15.1 },
+        expectedOs: { name: PHONE_TYPE.IPHONE, version: 17.1 },
       },
       {
         scenario: "Android user agents",
         userAgent: HTTP_HEADER_USER_AGENT_ANDROID,
-        expectedOs: { name: PHONE_TYPES.ANDROID, version: 8 },
+        expectedOs: { name: PHONE_TYPE.ANDROID, version: 8 },
       },
       {
         scenario: "OS not iOS or Android",

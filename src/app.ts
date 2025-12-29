@@ -79,7 +79,7 @@ const protectConfig: ProtectionConfig = {
   production: process.env.NODE_ENV === "production",
   clientRetrySecs: 1,
   sampleInterval: 5,
-  maxEventLoopDelay: 400,
+  maxEventLoopDelay: 700,
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
   errorPropagationMode: true,
@@ -103,7 +103,10 @@ app.use(securityHeadersHandler);
 app.use("/public", express.static(path.resolve("dist/public")));
 app.use(
   "/assets",
-  express.static(path.resolve("node_modules/govuk-frontend/dist/govuk/assets")),
+  express.static(
+    path.resolve("node_modules/govuk-frontend/dist/govuk/assets"),
+    { maxAge: "3600s" },
+  ),
 );
 
 app.get("/healthcheck", (req, res) => {
@@ -249,6 +252,9 @@ if (process.env.NODE_ENV !== "local") {
 // to prevent possible 502 errors where the target connection has already been closed
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html#http-502-issues
 server.keepAliveTimeout = 65000;
+// It's also recommended to make the headers timeout (default 60s) longer than the keep-alive duration
+// See https://github.com/nodejs/node/issues/27363
+server.headersTimeout = 66000;
 
 process.on("SIGTERM", () => {
   logger.debug("SIGTERM signal received: closing HTTP server");

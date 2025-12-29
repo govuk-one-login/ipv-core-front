@@ -1,9 +1,0 @@
----
-applications:
-  - name: ((environment))-di-ipv-core-front
-    memory: 256M
-    buildpack: nodejs_buildpack
-    command: npm start
-    env:
-      API_BASE_URL: https://((internal-api-gateway-id)).execute-api.eu-west-2.amazonaws.com/((environment))
-      EXTERNAL_WEBSITE_HOST: https://((environment))-di-ipv-core-front.london.cloudapps.digital

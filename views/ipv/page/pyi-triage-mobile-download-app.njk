@@ -4,6 +4,9 @@
 {% set pageTitleKey = 'pages.pyiTriageMobileDownload.title' %}
 {% set googleTagManagerPageId = "pyiTriageMobileDownload" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '3cd71253-84b3-48d0-8083-6a52d94be222' %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
       {{ 'pages.pyiTriageMobileDownload.header' | translate }}
@@ -15,9 +18,15 @@
   <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph2' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiTriageMobileDownload.content.paragraph3' | translate }}</p>
 
+  {% if context in ["iphone-appOnly", "android-appOnly"] %}
+    {% set detailsHtml3 = 'pages.pyiTriageMobileDownload.content.details1.html' | translateWithContext("AppOnly") %}
+  {% else %}
+    {% set detailsHtml3 = 'pages.pyiTriageMobileDownload.content.details1.html' | translate %}
+  {% endif %}
+
   {{ govukDetails({
       summaryText: 'pages.pyiTriageMobileDownload.content.details1.summaryText' | translate,
-      html: 'pages.pyiTriageMobileDownload.content.details1.html' | translate
+      html: detailsHtml3
   }) }}
 
   {{ govukButton({
@@ -35,9 +44,15 @@
       html: 'pages.pyiTriageMobileDownload.content.details3.html' | translate
   }) }}
 
+  {% if context in ["iphone-appOnly", "android-appOnly"] %}
+    {% set detailsHtml4 = 'pages.pyiTriageMobileDownload.content.details4.html' | translateWithContext("AppOnly") %}
+  {% else %}
+    {% set detailsHtml4 = 'pages.pyiTriageMobileDownload.content.details4.html' | translate %}
+  {% endif %}
+
   {{ govukDetails({
       summaryText: 'pages.pyiTriageMobileDownload.content.details4.summaryText' | translate,
-      html: 'pages.pyiTriageMobileDownload.content.details4.html' | translate
+      html: detailsHtml4
   }) }}
 
   {% include "components/contact-us-link.njk" %}

@@ -3,42 +3,39 @@
 {% set pageTitleKey = 'pages.checkMobileAppResult.title' %}
 {% set googleTagManagerPageId = "checkMobileAppResult" %}
 {% set isPageDynamic = false %}
+{% set isPageDataSensitive = false %}
+{% set contentID = '111de52c-ea10-4b6d-a4f4-5a8b96c5925d'%}
 
 {% block content %}
   <form action="/ipv/page/{{ pageId }}" method="post" novalidate="novalidate">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    <h1 id="page-header" class="govuk-heading-l">{{ 'pages.checkMobileAppResult.header' | translate }}</h1>
+
     <div id="spinner-container"
-          data-initial-heading="{{ 'pages.checkMobileAppResult.content.spinner.initial.heading' | translate }}{{ serviceName }}"
-          data-initial-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerStateText' | translate }}"
-          data-initial-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.initial.spinnerState' | translate }}"
-          data-error-heading="{{ 'pages.checkMobileAppResult.content.spinner.error.heading' | translate }}"
-          data-error-messageText="{{ 'pages.checkMobileAppResult.content.spinner.error.messageText' | translate }}"
-          data-error-whatYouCanDo-heading="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.heading' | translate }}"
-          data-error-whatYouCanDo-message-text1="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.text1' | translate }}"
-          data-error-whatYouCanDo-message-link-href="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.link.href' | translate }}"
-          data-error-whatYouCanDo-message-link-text="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.link.text' | translate }}"
-          data-error-whatYouCanDo-message-text2="{{ 'pages.checkMobileAppResult.content.spinner.error.whatYouCanDo.message.text2' | translate }}"
-          data-complete-spinnerState="{{ 'pages.checkMobileAppResult.content.spinner.complete.spinnerState' | translate }}"
-          data-longWait-spinnerStateText="{{ 'pages.checkMobileAppResult.content.spinner.longWait.spinnerStateText' | translate }}"
-          data-continueButton-text="{{ 'pages.checkMobileAppResult.content.spinner.continueButtonText' | translate }}"
-          data-aria-button-enabled-message="{{ 'pages.checkMobileAppResult.content.spinner.ariaButtonEnabledMessage' | translate }}"
-          data-api-url="{{ apiUrl }}"
           data-ms-between-requests="{{msBetweenRequests}}"
           data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
-          data-ms-before-abort="{{msBeforeAbort}}">
-        <div class="govuk-form-group">
-            <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--l" for="more-detail">
-                    {{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.header' | translate }}
-                </label>
-            </h1>
-            <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph' | translate }}</p>
-            <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph2' | translate }}</p>
-            <button type="submit" class="govuk-button">
-                {{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.button' | translate }}
-            </button>
-        </div>
+          data-ms-before-abort="{{msBeforeAbort}}"
+          data-max-backoff-tries="3"
+          data-aria-alert-completion-text="{{ 'pages.checkMobileAppResult.content.spinner.ariaButtonEnabledMessage' | translate }}">
+      <div id="no-js-content" class="govuk-form-group">
+        <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph' | translate }}</p>
+        <p class="govuk-body">{{ 'pages.checkMobileAppResult.content.htmlOnlyVersion.paragraph2' | translate }}</p>
       </div>
+      <div id="wait-content" style="display:none">
+        <p class="centre govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.initial.text' | translate }}</p>
+      </div>
+      <div id="long-wait-content" style="display:none">
+        <p class="centre govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.longWait.text' | translate }}</p>
+      </div>
+      <div id="success-content" style="display:none">
+        <p class="centre govuk-body">{{ 'pages.checkMobileAppResult.content.spinner.complete.text' | translate }}</p>
+      </div>
+    </div>
+
+    <button id="submit-button" type="submit" class="govuk-button govuk-!-margin-top-4">
+      {{ 'pages.checkMobileAppResult.continueButtonText' | translate }}
+    </button>
   </form>
 
 {% endblock %}
@@ -46,7 +43,21 @@
 {% block scripts %}
     <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
     <script nonce='{{ cspNonce }}' defer type="module">
+        const button = document.getElementById("submit-button");
+        const pageHeading = document.getElementById("page-header");
+        button.setAttribute("disabled", true);
+
+        const pollFunction = generatePollApiFunction('{{ apiUrl | safe }}');
+
+        function successFunction() {
+          button.removeAttribute("disabled");
+        }
+
+        function errorFunction() {
+          window.location.href = "/ipv/journey/{{ pageId }}/error";
+        }
+
         import { useSpinner } from "/public/javascripts/frontend-ui.js";
-        useSpinner();
+        useSpinner("spinner-container", pollFunction, successFunction, errorFunction);
     </script>
 {% endblock %}

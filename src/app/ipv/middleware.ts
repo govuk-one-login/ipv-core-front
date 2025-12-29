@@ -8,11 +8,11 @@ import fs from "fs";
 import path from "path";
 import { saveSessionAndRedirect } from "../shared/redirectHelper";
 import {
-  postJourneyEvent,
   getProvenIdentityUserDetails,
+  postJourneyEvent,
 } from "../../services/coreBackService";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
-import { PHONE_TYPES } from "../../constants/device-constants";
+import { PHONE_TYPE } from "../../constants/device-constants";
 import {
   SUPPORTED_COMBO_EVENTS,
   UNSUPPORTED_COMBO_EVENTS,
@@ -21,16 +21,16 @@ import {
 } from "../../constants/update-details-journeys";
 import { getAppStoreRedirectUrl } from "../shared/appDownloadHelper";
 import {
-  getIpvPageTemplatePath,
   getIpvPagePath,
+  getIpvPageTemplatePath,
   getTemplatePath,
 } from "../../lib/paths";
 import PAGES from "../../constants/ipv-pages";
-import { validatePhoneType } from "../shared/contextHelper";
+import { getPhoneType } from "../shared/contextHelper";
 import {
-  sniffPhoneType,
   detectAppTriageEvent,
   OsType,
+  sniffPhoneType,
 } from "../shared/deviceSniffingHelper";
 import {
   isClientResponse,
@@ -53,6 +53,9 @@ import {
 } from "../vc-receipt-status/middleware";
 
 const directoryPath = path.resolve("views/ipv/page");
+
+const BUILD_CLIENT_OAUTH_RESPONSE_ACTION =
+  "/journey/build-client-oauth-response";
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -237,9 +240,9 @@ export const handleAppStoreRedirect: RequestHandler = (req, res) => {
   const specifiedPhoneType = sniffPhoneType(req, fallbackPhoneType);
 
   switch (specifiedPhoneType?.name) {
-    case PHONE_TYPES.IPHONE:
+    case PHONE_TYPE.IPHONE:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_APPLE);
-    case PHONE_TYPES.ANDROID:
+    case PHONE_TYPE.ANDROID:
       return saveSessionAndRedirect(req, res, config.APP_STORE_URL_ANDROID);
     default:
       throw new BadRequestError(
@@ -275,6 +278,16 @@ export const renderAttemptRecoveryPage = async (
   res: Response,
 ): Promise<void> => {
   return res.render(getIpvPageTemplatePath(PAGES.PYI_ATTEMPT_RECOVERY), {
+    csrfToken: req.csrfToken?.(true),
+  });
+};
+
+export const renderProblemDifferentBrowserPage = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  return res.render(getIpvPageTemplatePath(PAGES.PROBLEM_DIFFERENT_BROWSER), {
+    pageId: PAGES.PROBLEM_DIFFERENT_BROWSER,
     csrfToken: req.csrfToken?.(true),
   });
 };
@@ -365,16 +378,16 @@ export const handleJourneyPageRequest = async (
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
       renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
-      validatePhoneType(context);
-      const qrCodeUrl = getAppStoreRedirectUrl(context);
+      const phoneType = getPhoneType(context);
+      const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
       renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
       renderOptions.msBeforeInformingOfLongWait =
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
       renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      validatePhoneType(context);
-      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(context);
+      const phoneType = getPhoneType(context);
+      renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
       renderOptions.postOfficeVisitByDate = new Date().setDate(
         new Date().getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
@@ -397,6 +410,20 @@ export const handleJourneyPageRequest = async (
   } finally {
     delete req.session.currentPageStatusCode;
   }
+};
+
+export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
+  req,
+  res,
+) => {
+  const pageId = req.params.pageId;
+  if (req.session.currentPage !== pageId) {
+    await handleUnexpectedPage(req, res, pageId);
+    return;
+  }
+  // We return directly to the Oauth client when continuing from
+  // the problem-different-browser page
+  await processAction(req, res, BUILD_CLIENT_OAUTH_RESPONSE_ACTION, pageId);
 };
 
 export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
@@ -453,7 +480,9 @@ export const checkVcReceiptStatus: RequestHandler = async (req, res, next) => {
   const status = await getAppVcReceiptStatusAndStoreJourneyResponse(req);
   if (status === AppVcReceiptStatus.PROCESSING) {
     await handleJourneyPageRequest(req, res, next, true);
-  } else if (status === AppVcReceiptStatus.ERROR) {
+  } else if (status === AppVcReceiptStatus.SERVER_ERROR) {
+    throw new Error("Failed to get VC response status");
+  } else if (status === AppVcReceiptStatus.CLIENT_ERROR) {
     throw new Error("Failed to get VC response status");
   } else if (status === AppVcReceiptStatus.COMPLETED) {
     return next();

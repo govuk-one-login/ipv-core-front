@@ -11,6 +11,9 @@
 {% set errorText = 'pages.sorryTechnicalProblem.content.formErrorMessage.description' | translate %}
 {% set errorHref = "#sorryTechnicalProblem" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = 'd93801ec-7921-4358-88f3-87d196412689'%}
+
 {% set whatsNeededToUseTheApp %}
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.details.p1' | translate }}</p>
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.details.p2' | translate }}</p>
@@ -29,15 +32,21 @@
 
     <h2 class="govuk-heading-m">{{ 'pages.sorryTechnicalProblem.content.subHeading1' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p2' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
-    {{ govukDetails({
-        summaryText: 'pages.sorryTechnicalProblem.content.details.title' | translate,
-        html: whatsNeededToUseTheApp,
-        id: 'whatsNeededToUseTheApp'
-    }) }}
+    {% if context != "dlOrPassportMitigation" %}
+        <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
-    <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+        {{ govukDetails({
+            summaryText: 'pages.sorryTechnicalProblem.content.details.title' | translate,
+            html: whatsNeededToUseTheApp,
+            id: 'whatsNeededToUseTheApp'
+        }) }}
+
+        {% if context != "kbvMitigation" %}
+            <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+        {% endif %}
+
+    {% endif %}
 
     <form id="sorryTechnicalProblem" action="/ipv/page/{{ pageId }}" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -45,30 +54,58 @@
             {
                 value: "tryAgain",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.tryAgain' | translate
-            },
-            {
-                value: "app",
-                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
             }
         ] %}
-        {% if context == 'f2fCriError' %}
-            {% set initialRadioOptions = initialRadioOptions.concat([{
-                value: "webRoute",
-                text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
-            }]) %}
+
+        {% if context != 'dlOrPassportMitigation' %}
+            {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "app",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.app' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.appHint' | translate }
+                }
+            ]) %}
+        {% endif %}
+
+        {% if context %}
+            {% if context == 'kbvMitigation' %}
+                {% set initialRadioOptions = initialRadioOptions.concat([{
+                    divider: "or"
+                }]) %}
+            {% elif context == 'f2fCriError' %}
+                {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "webRoute",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRoute' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
+                },
+                {
+                    divider: "or"
+                }]) %}
+            {% elif context == "kbvCriError" %}
+                {% set initialRadioOptions = initialRadioOptions.concat([
+                {
+                    value: "postOffice",
+                    text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+                },
+                {
+                    divider: "or"
+                }]) %}
+            {% endif %}
         {% else %}
-            {% set initialRadioOptions = initialRadioOptions.concat([{
+            {% set initialRadioOptions = initialRadioOptions.concat([
+            {
                 value: "postOffice",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+            },
+            {
+                divider: "or"
             }]) %}
         {% endif %}
 
-        {% set finalRadioOptions = [{
-                 divider: "or"
-             },
+        {% set finalRadioOptions = [
              {
                  value: "returnToRp",
                  text: 'pages.sorryTechnicalProblem.content.formRadioButtons.returnToRp' | translate

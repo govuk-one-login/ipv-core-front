@@ -1,21 +1,18 @@
-name: Pre-merge checks
+name: Automated tests
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
+  workflow_call:
+    secrets:
+      DYNATRACE_PAAS_TOKEN:
+        required: true
+      SONAR_TOKEN:
+        required: true
 
 jobs:
-  pre-commit:
+  detect-secrets:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    - uses: actions/setup-python@v5
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.11.2'
     - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
@@ -27,9 +24,9 @@ jobs:
       packages: read
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
       - name: Setup .npmrc
@@ -37,7 +34,7 @@ jobs:
           cp .npmrc.template .npmrc && \
           sed -i s/TOKEN_WITH_READ_PACKAGE_PERMISSION/${{ secrets.GITHUB_TOKEN }}/ .npmrc
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
@@ -68,7 +65,7 @@ jobs:
         working-directory: browser-tests
     steps:
       - name: Pull repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup .npmrc
         run: |
           cp ../.npmrc.template ../.npmrc && \
@@ -77,7 +74,7 @@ jobs:
         run: docker compose up --exit-code-from browser-tests-tests
       - name: Upload test artifacts
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: browser-test-results
           path: ./browser-tests/test-results/

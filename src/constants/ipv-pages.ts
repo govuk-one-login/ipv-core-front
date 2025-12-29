@@ -1,6 +1,7 @@
 const IPV_PAGES = Object.freeze({
   CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
   CONFIRM_DETAILS: "confirm-your-details",
+  PROBLEM_DIFFERENT_BROWSER: "problem-different-browser",
   IDENTIFY_DEVICE: "identify-device",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
   NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
@@ -35,7 +36,6 @@ const IPV_PAGES = Object.freeze({
   PYI_ESCAPE: "pyi-escape",
   PYI_F2F_DELETE_DETAILS: "pyi-f2f-delete-details",
   PYI_F2F_TECHNICAL: "pyi-f2f-technical",
-  PYI_NEW_DETAILS: "pyi-new-details",
   PYI_NO_MATCH: "pyi-no-match",
   PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",
   PYI_PASSPORT_NO_MATCH_ANOTHER_WAY: "pyi-passport-no-match-another-way",

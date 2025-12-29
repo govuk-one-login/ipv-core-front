@@ -1,7 +1,6 @@
 @import "../../node_modules/govuk-frontend/dist/govuk/index";
 @import "../../node_modules/govuk-frontend/dist/govuk/base";
 @import "../../node_modules/@govuk-one-login/frontend-ui/build/all";
-@import "spinner";
 
 // Task list pattern
 
@@ -136,8 +135,9 @@ picture {
   display: block;
 }
 
-// Invisible ordered list for accessibility
-ol.invisible {
+// Invisible lists for accessibility
+ol.invisible,
+ul.invisible {
   .govuk-list {
     margin-top: 0;
   }

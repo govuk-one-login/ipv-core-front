@@ -6,6 +6,9 @@
 {% set pageTitleKey = 'pages.pyiTriageDesktopDownload.title' %}
 {% set googleTagManagerPageId = "pyiTriageDesktopDownload" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '7a2fcf6e-8db7-44e6-9661-7b29204f1837' %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">
       {{ 'pages.pyiTriageDesktopDownload.header' | translate }}
@@ -20,21 +23,6 @@
       </h2>
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph3' | translate }}</p>
-
-      {% set details1 %}
-          <ol class="govuk-list govuk-list--number">
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
-              <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
-          </ol>
-      {% endset %}
-
-      {{ govukDetails({
-          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
-          html: details1
-      }) }}
 
       {{ govukWarningText({
         text: 'pages.pyiTriageDesktopDownload.content.warningText' | translate,
@@ -52,9 +40,23 @@
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading2' | translate }}
       </h3>
 
+      {% set details1 %}
+        <ol class="govuk-list govuk-list--number">
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list1' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list2' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list3' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list4' | translate }}</li>
+          <li>{{ 'pages.pyiTriageDesktopDownload.content.details1.list5' | translate }}</li>
+        </ol>
+      {% endset %}
+
+      {{ govukDetails({
+          summaryText: 'pages.pyiTriageDesktopDownload.content.details1.summaryText' | translate,
+          html: details1
+      }) }}
+
       <ul class="govuk-list" role="list">
         <li>
-
           {% set details2 %}
             <ol class="govuk-list govuk-list--number">
               <li>{{ 'pages.pyiTriageDesktopDownload.content.details2.list1' | translate }}</li>
@@ -68,35 +70,45 @@
               summaryText: 'pages.pyiTriageDesktopDownload.content.details2.summaryText' | translate,
               html: details2
           }) }}
-
         </li>
+
         <li>
+          {% if context in ["iphone-appOnly", "android-appOnly"] %}
+            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translateWithContext("AppOnly") %}
+          {% else %}
+            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translate %}
+          {% endif %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details3.summaryText' | translate,
-              html: 'pages.pyiTriageDesktopDownload.content.details3.html' | translate
+              html: detailsHtml3
           }) }}
-
         </li>
-        <li>
 
+        <li>
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details4.summaryText' | translate,
               html: 'pages.pyiTriageDesktopDownload.content.details4.html' | translate
           }) }}
-
         </li>
+
         <li>
+          {% if context in ["iphone-appOnly", "android-appOnly"] %}
+            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translateWithContext("AppOnly") %}
+          {% else %}
+            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translate %}
+          {% endif %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details5.summaryText' | translate,
-              html: 'pages.pyiTriageDesktopDownload.content.details5.html' | translate
+              html: detailsHtml5
           }) }}
         </li>
       </ul>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     </li>
+
     <li>
       <h2 class="govuk-heading-m">
           {{ 'pages.pyiTriageDesktopDownload.content.subHeading3' | translate }}
@@ -104,21 +116,31 @@
 
       <p class="govuk-body">{{ 'pages.pyiTriageDesktopDownload.content.paragraph4' | translate }}</p>
 
-      <div id="dad-spinner-container"
-          data-initial-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerStateText' | translate }}"
-          data-initial-spinnerState="{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerState' | translate }}"
-          data-complete-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.spinnerStateText' | translate }}"
-          data-complete-spinnerState="spinner__ready"
-          data-longWait-spinnerStateText="{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.spinnerStateText' | translate }}"
-          data-api-url="{{ apiUrl }}"
-          data-ms-between-requests="{{msBetweenRequests}}"
-          data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
-          data-ms-before-abort="{{msBeforeAbort}}"
-          data-aria-button-enabled-message="{{ 'pages.pyiTriageDesktopDownload.content.spinner.ariaButtonEnabledMessage' | translate }}"
-        ></div>
+      <div id="spinner-container"
+            data-ms-between-requests="{{msBetweenRequests}}"
+            data-ms-before-informing-of-long-wait="{{msBeforeInformingOfLongWait}}"
+            data-ms-before-abort="{{msBeforeAbort}}"
+            data-max-backoff-tries="3"
+            data-aria-alert-completion-text="{{ 'pages.pyiTriageDesktopDownload.content.spinner.ariaBuariaButtonEnabledMessagettonEnabledMessage' | translate }}">
+        <div id="no-js-content">
+          {# If JS is disabled don't show anything. #}
+        </div>
+        <div id="wait-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.initial.spinnerStateText' | translate }}</p>
+        </div>
+        <div id="long-wait-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.paragraph1' | translate }}</p>
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.longWait.paragraph2' | translate }}</p>
+        </div>
+        <div id="success-content" style="display:none">
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.paragraph1' | translate }}</p>
+          <p class="centre govuk-body govuk-!-font-weight-bold">{{ 'pages.pyiTriageDesktopDownload.content.spinner.complete.paragraph2' | translate }}</p>
+        </div>
+      </div>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
     </li>
+
     <li>
       <h2 class="govuk-heading-m">
         {{ 'pages.pyiTriageDesktopDownload.content.subHeading4' | translate }}
@@ -132,4 +154,25 @@
   {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate) }}
 
   {% include "components/contact-us-link.njk" %}
+{% endblock %}
+
+{% block scripts %}
+  <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+  <script nonce='{{ cspNonce }}' defer type="module">
+      const button = document.getElementById("submitButton");
+      button.setAttribute("disabled", true);
+
+      const pollFunction = generatePollApiFunction('{{ apiUrl | safe }}');
+
+      function successFunction() {
+        button.removeAttribute("disabled");
+      }
+
+      function errorFunction() {
+        window.location.href = "/ipv/journey/{{ pageId }}/error";
+      }
+
+      import { useSpinner } from "/public/javascripts/frontend-ui.js";
+      useSpinner("spinner-container", pollFunction, successFunction, errorFunction);
+  </script>
 {% endblock %}

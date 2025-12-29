@@ -3,49 +3,55 @@
 {% set pageTitleKey = 'pages.pageIpvIdentityDocumentTypes.title' %}
 {% set googleTagManagerPageId = "pageIpvIdentityDocumentTypes" %}
 
+{% set isPageDataSensitive = false %}
+{% set contentID = '7d06a887-c4bd-47ea-b39c-6d19513b096f' %}
+
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvIdentityDocumentTypes.header' | translate }}</h1>
 
-  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet ">
-    {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
+  <ul class="govuk-list invisible">
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading1' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph1' | translate }}</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading2' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph2' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.nonUkPassportRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph3' | translate }}</p>
+      <picture>
+        <source srcset="/public/images/passport-icon.svg" />
+        <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{ 'pages.pageIpvIdentityDocumentTypes.content.imgAltText' | translate }}" />
+      </picture>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading3' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph4' | translate }}</p>
+      <ul class="govuk-list govuk-list--bullet ">
+        {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph5' | translate }}</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </li>
+    <li>
+      <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading4' | translate }}</h2>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph6' | translate }}</p>
+      <ul class="govuk-list govuk-list--bullet ">
+        {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.cardOrPermitRequirements' | translate({ returnObjects: true }) %}
+          <li>{{ listItem }}</li>
+        {% endfor %}
+      </ul>
+    </li>
   </ul>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph1' | translate }}</p>
-
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading2' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph3' | translate }}</p>
-
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading3' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph4' | translate }}</p>
-  <ul class="govuk-list  govuk-list--bullet">
-    {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.nonUkPassportRequirements' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
-  </ul>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph5' | translate }}</p>
-  <picture>
-    <source srcset="/public/images/passport-icon.svg" />
-    <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{ 'pages.pageIpvIdentityDocumentTypes.content.imgAltText' | translate }}" />
-  </picture>
-
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
-  <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading4' | translate }}</h2>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph6' | translate }}</p>
-  <ul class="govuk-list  govuk-list--bullet">
-    {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.cardOrPermits' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
-  </ul>
-  <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph7' | translate }}</p>
-  {{ govukInsetText({
-    html: 'pages.pageIpvIdentityDocumentTypes.content.insetText' | translate
-  }) }}
 {% endblock %}

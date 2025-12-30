@@ -48,8 +48,8 @@ describe(".well-known middleware", () => {
     );
 
     // Assert
-    expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith({
+    expect(res.status).to.have.been.calledOnceWith(200);
+    expect(res.json).to.have.been.calledOnceWith({
       appLinks: {
         apps: [],
         details: [
@@ -67,8 +67,8 @@ describe(".well-known middleware", () => {
     middleware.getAndroidAssetLinks(req as Request, res as Response, next);
 
     // Assert
-    expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith([
+    expect(res.status).to.have.been.calledOnceWith(200);
+    expect(res.json).to.have.been.calledOnceWith([
       {
         relation: ["delegate_permission/common.handle_all_urls"],
         target: {

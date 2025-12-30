@@ -49,7 +49,9 @@ describe("updateJourneyState", () => {
     await updateJourneyState(req, res, next);
 
     // Assert
-    expect(res.redirect).to.have.been.calledWith("/ipv/page/some-next-page");
+    expect(res.redirect).to.have.been.calledOnceWith(
+      "/ipv/page/some-next-page",
+    );
   });
 
   it("should throw NotFoundError if pageId is invalid", async () => {

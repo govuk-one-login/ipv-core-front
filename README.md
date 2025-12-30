@@ -68,6 +68,10 @@ Run `npm run build` again if changes are made to:
 * translations
 * images
 
+### Automated tests
+
+Tests can be run with `npm run test` but note that if you are using Node v22.18+, you will need to run `export NODE_OPTIONS="--no-experimental-strip-types"` first because of an incompatibility in our dependency 'proxyquire'.
+
 ### Running ipv-core-front locally with core-back and orch-stub
 
 You can run a complete IPV Core setup by using the

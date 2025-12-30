@@ -74,13 +74,14 @@ describe("processAction", () => {
     await middleware.processAction(req, res, "next");
 
     // Assert
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledTwice;
     expect(
       coreBackServiceStub.postJourneyEvent.getCall(0),
     ).to.have.been.calledWith(req, "next");
     expect(
       coreBackServiceStub.postJourneyEvent.getCall(1),
     ).to.have.been.calledWith(req, "appTriage");
-    expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
+    expect(res.redirect).to.have.been.calledOnceWith(`/ipv/page/${pageId}`);
   });
 
   it("should have called postJourneyEvent in the correct sequence", async function () {
@@ -106,6 +107,7 @@ describe("processAction", () => {
     await middleware.processAction(req, res, "next");
 
     // Assert
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledThrice;
     expect(
       coreBackServiceStub.postJourneyEvent.getCall(0),
     ).to.have.been.calledWith(req, "next");
@@ -116,7 +118,7 @@ describe("processAction", () => {
       coreBackServiceStub.postJourneyEvent.getCall(2),
     ).to.have.been.calledWith(req, "startCri");
 
-    expect(res.redirect).to.have.been.calledWith(`/ipv/page/${pageId}`);
+    expect(res.redirect).to.have.been.calledOnceWith(`/ipv/page/${pageId}`);
   });
 
   it("should set the status code of the page if provided", async function () {
@@ -131,14 +133,14 @@ describe("processAction", () => {
     await middleware.processAction(req, res, "next");
 
     // Assert
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledOnceWith(
       req,
       "next",
     );
     expect(req.session.currentPageStatusCode).to.equal(
       HttpStatusCode.ImATeapot,
     );
-    expect(res.redirect).to.have.been.calledWith(`/ipv/page/a-page-id`);
+    expect(res.redirect).to.have.been.calledOnceWith(`/ipv/page/a-page-id`);
   });
 
   it("should be redirected to a valid redirectURL given a valid CRI event response", async function () {
@@ -162,7 +164,7 @@ describe("processAction", () => {
     await middleware.processAction(req, res, "next");
 
     // Assert
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       `${redirectUrl}?client_id=${clientId}&request=${request}&response_type=${responseType}`,
     );
   });

@@ -91,7 +91,9 @@ describe("handleJourneyPageRequest", () => {
       await middleware.handleJourneyPageRequest(req, res, next);
 
       // Assert
-      expect(coreBackServiceStub.getProvenIdentityUserDetails).to.have.been.calledOnceWith(req);
+      expect(
+        coreBackServiceStub.getProvenIdentityUserDetails,
+      ).to.have.been.calledOnceWith(req);
       expect(res.render).to.have.been.calledOnceWith(
         `ipv/page/page-ipv-reuse.njk`,
         sinon.match.has("userDetails", {
@@ -308,7 +310,9 @@ describe("handleJourneyPageRequest", () => {
     await middleware.handleJourneyPageRequest(req, res, next);
 
     // Assert
-    expect(res.render).to.have.been.calledOnceWith("ipv/page/pyi-technical.njk");
+    expect(res.render).to.have.been.calledOnceWith(
+      "ipv/page/pyi-technical.njk",
+    );
   });
 
   it("should raise an error when missing params", async () => {

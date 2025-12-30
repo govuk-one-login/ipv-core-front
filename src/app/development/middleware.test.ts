@@ -184,7 +184,9 @@ describe("templatesDisplayGet", () => {
 
     // Assert
     expect(getPhoneTypeStub).to.have.been.calledOnceWith(context);
-    expect(getAppStoreRedirectUrlStub).to.have.been.calledOnceWith(validPhoneType);
+    expect(getAppStoreRedirectUrlStub).to.have.been.calledOnceWith(
+      validPhoneType,
+    );
     expect(generateQrCodeStub).to.have.been.calledOnceWith("mockedAppStoreUrl");
 
     expect(res.render).to.have.been.calledWithMatch(

@@ -29,7 +29,9 @@ describe("handleAppStoreRedirect", () => {
     await handleAppStoreRedirect(req, res, next);
 
     // Assert
-    expect(res.redirect).to.have.been.calledOnceWith(config.APP_STORE_URL_APPLE);
+    expect(res.redirect).to.have.been.calledOnceWith(
+      config.APP_STORE_URL_APPLE,
+    );
   });
 
   it("redirects to the android store if the user said they have an android", async function () {
@@ -43,7 +45,9 @@ describe("handleAppStoreRedirect", () => {
     await handleAppStoreRedirect(req, res, next);
 
     // Assert
-    expect(res.redirect).to.have.been.calledOnceWith(config.APP_STORE_URL_ANDROID);
+    expect(res.redirect).to.have.been.calledOnceWith(
+      config.APP_STORE_URL_ANDROID,
+    );
   });
 
   it("throws an error for a bad phone type", async function () {

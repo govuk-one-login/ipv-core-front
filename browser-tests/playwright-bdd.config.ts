@@ -1,9 +1,18 @@
 import { defineConfig, devices } from "@playwright/test";
+import { defineBddConfig } from "playwright-bdd";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+// Call defineBddConfig to register BDD configuration
+defineBddConfig({
+  features: "e2e-tests/features/**/*.feature",
+  steps: ["e2e-tests/steps/**/*.ts", "e2e-tests/fixtures/**/*.ts"],
+});
+
+// Export Playwright configuration for BDD tests
 export default defineConfig({
+  testDir: "./.features-gen",
   workers: 6,
   projects: [
     {
@@ -21,5 +30,5 @@ export default defineConfig({
   },
   expect: {
     timeout: 40 * 1000,
-  }
+  },
 });

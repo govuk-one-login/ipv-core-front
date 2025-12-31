@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "test": "npx playwright test",
+    "test:e2e": "npx playwright-bdd --config playwright-bdd.config.ts test && npx playwright test --config playwright-bdd.config.ts",
+    "test:all": "npm run test && npm run test:e2e",
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "keywords": [],
@@ -11,7 +13,15 @@
   "license": "MIT",
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",
+    "@cucumber/cucumber": "^10.0.0",
     "@playwright/test": "1.56.1",
-    "dotenv": "^17.2.1"
+    "dotenv": "^17.2.1",
+    "esbuild": "^0.27.2",
+    "pirates": "^4.0.7",
+    "playwright-bdd": "^8.4.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

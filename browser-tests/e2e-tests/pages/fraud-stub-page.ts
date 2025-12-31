@@ -19,4 +19,19 @@ export class FraudStubPage extends StubPage {
     });
     await this.submitData();
   }
+
+  async processKennethDecerqueiraFraud(): Promise<void> {
+    await this.selectTestData('Kenneth Decerqueira (Valid Experian) Fraud');
+    await this.overrideEvidenceBlock();
+    await this.setCustomEvidence('Passed fraud check (M1A)');
+    await this.submitData();
+  }
+
+  async overrideEvidenceBlock(): Promise<void> {
+    await this.selectCheckbox('Override evidence block');
+  }
+
+  async setCustomEvidence(evidenceValue: string): Promise<void> {
+    await this.selectOption('#custom_evidence', evidenceValue);
+  }
 }

@@ -7,7 +7,12 @@ const { Given, When, Then } = createBdd(test);
 
 Given('I navigate to Orchestrator Stub and start journey', async ({ orchestratorPage }) => {
   await orchestratorPage.navigate();
+  const userId = await orchestratorPage.getUserId();
+  expect(userId).toBeTruthy();
+  BddContext.set('userId', userId);
+  console.log(BddContext.get('userId') + ' is user ID');
   await orchestratorPage.startFullJourney();
+
 });
 
 Given('I enable Feature Flags', async ({ identityPage }) => {

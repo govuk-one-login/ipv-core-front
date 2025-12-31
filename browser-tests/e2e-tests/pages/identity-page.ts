@@ -14,6 +14,16 @@ export class IdentityPage extends BasePage {
     await this.clickButton('Continue');
   }
 
+  async selectNoPhotoID(): Promise<void> {
+    await this.selectRadio('No');
+    await this.clickButton('Continue');
+  }
+
+  async selectYesPhotoID(): Promise<void> {
+    await this.selectRadio('Yes');
+    await this.clickButton('Continue');
+  }
+
   async confirmEligibility(): Promise<void> {
     await this.selectRadio('Yes');
     await this.clickButton('Continue');
@@ -60,5 +70,29 @@ export class IdentityPage extends BasePage {
     await this.expectText('ALISON JANE PARKER');
     await this.expectText('80TYEOMAN WAYTROWBRIDGEBA14');
     await this.expectText('January 1970');
+  }
+
+  async expectReuseScreenForKenneth(): Promise<void> {
+    console.log("[IdentityPage] Checking Kenneth reuse screen...");
+    await expect(this.page.locator("#header")).toContainText(
+      "You have already proved your identity",
+      { timeout: 10000 }
+    );
+    console.log("[IdentityPage] ✓ Reuse screen header found");
+    
+    await this.expectText("KENNETH DECERQUEIRA");
+    await this.expectText("8, HADLEY ROAD");
+    await this.expectText("BATH");
+    await this.expectText("BA2 5AA");
+    await this.expectText("8 July 1965");
+    console.log("[IdentityPage] ✓ All Kenneth details verified");
+  }
+
+  async expectPostOfficeHeading(): Promise<void> {
+    await this.page
+      .getByRole('heading', {
+        name: 'Finish proving your identity at a Post Office',
+      })
+      .waitFor({ state: 'visible', timeout: 10000 });
   }
 }

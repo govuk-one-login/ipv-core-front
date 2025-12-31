@@ -35,9 +35,23 @@ export class OrchestratorStubPage extends BasePage {
       'Cri Type: https://cimit.stubs',
       'Cri Type: https://ticf.stubs.'
     ];
-
     for (const criType of expectedCriTypes) {
       await this.expectText(criType);
     }
+  }
+
+  async expectF2FCriTypes(): Promise<void> {
+    const expectedCriTypes = [
+      'Cri Type: https://address-cri',
+      'Cri Type: https://fraud-cri.',
+      'Cri Type: https://f2f-cri.',
+      'Cri Type: https://claimed-identity-cri.',
+      'Cri Type: https://cimit.stubs',
+      'Cri Type: https://ticf.stubs.'
+    ];
+    for (const criType of expectedCriTypes) {
+      await this.expectText(criType);  
+    }
+    console.log("[IdentityPage] ✓ All criType details verified");
   }
 }

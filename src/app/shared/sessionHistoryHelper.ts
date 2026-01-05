@@ -1,8 +1,14 @@
-import { isPageResponse, PageResponse, PostJourneyEventResponse } from "../validators/postJourneyEventResponse";
+import {
+  isPageResponse,
+  PageResponse,
+  PostJourneyEventResponse,
+} from "../validators/postJourneyEventResponse";
 import { Request } from "express";
 
-
-export const addResponseToSessionHistory = (req: Request, data: PostJourneyEventResponse): void => {
+export const addResponseToSessionHistory = (
+  req: Request,
+  data: PostJourneyEventResponse,
+): void => {
   const current = req.session.currentPostJourneyEventResponse;
   let history = req.session.history;
   if (!history) {
@@ -13,7 +19,7 @@ export const addResponseToSessionHistory = (req: Request, data: PostJourneyEvent
   }
   req.session.history = history;
   req.session.currentPostJourneyEventResponse = data;
-}
+};
 
 export const isPageRequestedFromSessionHistory = (
   req: Request,

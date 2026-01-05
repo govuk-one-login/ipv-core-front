@@ -41,7 +41,6 @@ import {
   isPageResponse,
   isValidClientResponse,
   isValidCriResponse,
-  PageResponse,
   PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
 import TechnicalError from "../../errors/technical-error";
@@ -58,7 +57,7 @@ import {
   addResponseToSessionHistory,
   isPageRequestedFromSessionHistory,
   removeLastFromSessionHistory,
-  setLastAsCurrentPostEventResponse
+  setLastAsCurrentPostEventResponse,
 } from "../shared/sessionHistoryHelper";
 
 const directoryPath = path.resolve("views/ipv/page");
@@ -191,14 +190,17 @@ export const handleBackendResponse = async (
   );
 };
 
-const handleSessionHistoryUpdate = (req: Request, data: PostJourneyEventResponse): void => {
+const handleSessionHistoryUpdate = (
+  req: Request,
+  data: PostJourneyEventResponse,
+): void => {
   if (isJourneyResponse(data)) {
     addResponseToSessionHistory(req, data);
-  } else if(isCriResponse(data) && isValidCriResponse(data)) {
+  } else if (isCriResponse(data) && isValidCriResponse(data)) {
     addResponseToSessionHistory(req, data);
   } else if (isClientResponse(data) && isValidClientResponse(data)) {
     addResponseToSessionHistory(req, data);
-  } else if(isPageResponse(data)) {
+  } else if (isPageResponse(data)) {
     if (isPageRequestedFromSessionHistory(req, data)) {
       setLastAsCurrentPostEventResponse(req, data);
       removeLastFromSessionHistory(req, data);
@@ -208,7 +210,7 @@ const handleSessionHistoryUpdate = (req: Request, data: PostJourneyEventResponse
       }
     }
   }
-}
+};
 
 const checkJourneyAction = (req: Request): void => {
   if (!req.body?.journey) {

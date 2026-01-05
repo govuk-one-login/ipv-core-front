@@ -17,7 +17,8 @@ const journeyConfigs: Record<JourneyType, JourneyConfig> = {
   },
   Dad: {
     successSpinnerText: "You can now finish proving your identity online.",
-    pendingInitialText: "Waiting for you to open the app. Keep this page open while you do this.",
+    pendingInitialText:
+      "Waiting for you to open the app. Keep this page open while you do this.",
     pendingLongWaitText: "Once you’ve submitted your information in the app",
   },
 };
@@ -31,8 +32,11 @@ test.describe.parallel("Check Strategic App VC polling", () => {
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Success`),
       );
 
-      const spinnerContentLocator = await page.locator('#spinner+div');
-      await expect(spinnerContentLocator).toContainText(config.successSpinnerText, { timeout: 500 });
+      const spinnerContentLocator = await page.locator("#spinner+div");
+      await expect(spinnerContentLocator).toContainText(
+        config.successSpinnerText,
+        { timeout: 500 },
+      );
       await expect(spinnerContentLocator).toBeVisible();
 
       await page.getByRole("button", { name: /Continue/ }).click();
@@ -50,8 +54,11 @@ test.describe.parallel("Check Strategic App VC polling", () => {
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Abandon`),
       );
 
-      const spinnerContentLocator = await page.locator('#spinner+div');
-      await expect(spinnerContentLocator).toContainText(config.successSpinnerText, { timeout: 500 });
+      const spinnerContentLocator = await page.locator("#spinner+div");
+      await expect(spinnerContentLocator).toContainText(
+        config.successSpinnerText,
+        { timeout: 500 },
+      );
       await expect(spinnerContentLocator).toBeVisible();
 
       await page.getByRole("button", { name: /Continue/ }).click();
@@ -67,8 +74,11 @@ test.describe.parallel("Check Strategic App VC polling", () => {
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Error`),
       );
 
-      const spinnerContentLocator = await page.locator('#spinner+div');
-      await expect(spinnerContentLocator).toContainText(config.successSpinnerText, { timeout: 500 });
+      const spinnerContentLocator = await page.locator("#spinner+div");
+      await expect(spinnerContentLocator).toContainText(
+        config.successSpinnerText,
+        { timeout: 500 },
+      );
 
       await page.getByRole("button", { name: /Continue/ }).click();
 
@@ -78,41 +88,55 @@ test.describe.parallel("Check Strategic App VC polling", () => {
       expect(pageHeading?.trim()).toBe("Sorry, there is a problem");
     });
 
-    test(`${journeyType} pending shows long wait and eventually errors`, async ({ page }) => {
+    test(`${journeyType} pending shows long wait and eventually errors`, async ({
+      page,
+    }) => {
       await page.goto(
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Pending`),
       );
 
-      const spinnerContentLocator = await page.locator('#spinner+div');
-      await expect(spinnerContentLocator).toContainText(config.pendingInitialText, { timeout: 500 });
+      const spinnerContentLocator = await page.locator("#spinner+div");
+      await expect(spinnerContentLocator).toContainText(
+        config.pendingInitialText,
+        { timeout: 500 },
+      );
       await expect(spinnerContentLocator).toBeVisible();
 
       // For these tests the spinner long wait time is set to 2 seconds (see SPINNER_REQUEST_LONG_WAIT_INTERVAL in compose.yaml)
-      await expect(spinnerContentLocator).toContainText(config.pendingLongWaitText, { timeout: 5000 });
+      await expect(spinnerContentLocator).toContainText(
+        config.pendingLongWaitText,
+        { timeout: 5000 },
+      );
 
-      const continueButtonLocator = await page.getByRole("button", { name: /Continue/ });
+      const continueButtonLocator = await page.getByRole("button", {
+        name: /Continue/,
+      });
       await expect(continueButtonLocator).toBeDisabled();
 
       // The spinner will time out after 6 seconds total
-      await page.waitForURL('**/pyi-technical', { timeout: 6000 });
+      await page.waitForURL("**/pyi-technical", { timeout: 6000 });
     });
 
-    test(`${journeyType} bad request goes to technical error page`, async ({ page }) => {
+    test(`${journeyType} bad request goes to technical error page`, async ({
+      page,
+    }) => {
       await page.goto(
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}BadRequest`),
       );
 
       // The spinner will try 3 times on error responses with exponential back-off before going to the error page
-      await page.waitForURL('**/pyi-technical', { timeout: 10000 });
+      await page.waitForURL("**/pyi-technical", { timeout: 10000 });
     });
 
-    test(`${journeyType} core-back error goes to technical error page`, async ({ page }) => {
+    test(`${journeyType} core-back error goes to technical error page`, async ({
+      page,
+    }) => {
       await page.goto(
         getAuthoriseUrlForJourney(`checkVcReceipt${journeyType}Failure`),
       );
 
       // The spinner will try 3 times on error responses with exponential back-off before going to the error page
-      await page.waitForURL('**/pyi-technical', { timeout: 10000 });
+      await page.waitForURL("**/pyi-technical", { timeout: 10000 });
     });
   });
 });

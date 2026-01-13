@@ -11,6 +11,7 @@ export interface PageResponse {
   context?: string;
   type?: string;
   clientOAuthSessionId?: string;
+  skipBack: boolean;
 }
 
 export interface JourneyResponse {
@@ -22,11 +23,18 @@ export interface ClientResponse {
   client: { redirectUrl: string };
 }
 
+export interface ErrorResponse {
+  errorMessage: string;
+  errorCode: number;
+  statusCode: number;
+}
+
 export type PostJourneyEventResponse =
   | JourneyResponse
   | PageResponse
   | CriResponse
-  | ClientResponse;
+  | ClientResponse
+  | ErrorResponse;
 
 export const isJourneyResponse = (
   res: PostJourneyEventResponse,
@@ -50,6 +58,12 @@ export const isPageResponse = (
   res: PostJourneyEventResponse,
 ): res is PageResponse => {
   return (res as PageResponse)?.page !== undefined;
+};
+
+export const isErrorResponse = (
+  res: PostJourneyEventResponse,
+): res is ErrorResponse => {
+  return (res as ErrorResponse)?.errorCode !== undefined;
 };
 
 export const isValidCriResponse = (criResponse: CriResponse): boolean => {

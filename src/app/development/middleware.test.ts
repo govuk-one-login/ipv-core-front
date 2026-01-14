@@ -46,7 +46,7 @@ describe("allTemplatesGet", () => {
     await middleware.allTemplatesGet(req, res);
 
     // Assert
-    expect(res.render).to.have.been.calledWith(
+    expect(res.render).to.have.been.calledOnceWith(
       "development/all-templates.njk",
       {
         templatesWithContextRadioOptions: {
@@ -63,8 +63,6 @@ describe("allTemplatesGet", () => {
 });
 
 describe("allTemplatesPost", () => {
-  const res = createResponse();
-
   [
     {
       testCase: "a template is not chosen",
@@ -79,11 +77,14 @@ describe("allTemplatesPost", () => {
     },
   ].forEach(({ testCase, req }) => {
     it(`should render the all-templates page when ${testCase}`, async () => {
+      // Arrange
+      const res = createResponse();
+
       // Act
       middleware.allTemplatesPost(req, res);
 
       // Assert
-      expect(res.render).to.have.been.calledWith(
+      expect(res.render).to.have.been.calledOnceWith(
         "development/all-templates.njk",
         {
           templatesWithContextRadioOptions: {
@@ -118,7 +119,7 @@ describe("allTemplatesPost", () => {
 
     // Assert
     expect(res.render).to.not.have.been.called;
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       "/dev/template/another-template/en?context=context&pageErrorState=true",
     );
   });
@@ -139,7 +140,7 @@ describe("allTemplatesPost", () => {
 
     // Assert
     expect(res.render).to.not.have.been.called;
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       "/dev/template/some-template/en",
     );
   });
@@ -182,9 +183,11 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(getPhoneTypeStub).to.have.been.calledWith(context);
-    expect(getAppStoreRedirectUrlStub).to.have.been.calledWith(validPhoneType);
-    expect(generateQrCodeStub).to.have.been.calledWith("mockedAppStoreUrl");
+    expect(getPhoneTypeStub).to.have.been.calledOnceWith(context);
+    expect(getAppStoreRedirectUrlStub).to.have.been.calledOnceWith(
+      validPhoneType,
+    );
+    expect(generateQrCodeStub).to.have.been.calledOnceWith("mockedAppStoreUrl");
 
     expect(res.render).to.have.been.calledWithMatch(
       sinon.match.string,
@@ -230,8 +233,8 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
-    expect(res.render).to.have.been.calledWith(
+    expect(req.i18n.changeLanguage).to.have.been.calledOnceWith("en");
+    expect(res.render).to.have.been.calledOnceWith(
       "ipv/page/some-user-page.njk",
       sinon.match({
         templateId: "some-user-page",
@@ -271,8 +274,8 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
-    expect(res.render).to.have.been.calledWith(
+    expect(req.i18n.changeLanguage).to.have.been.calledOnceWith("en");
+    expect(res.render).to.have.been.calledOnceWith(
       "errors/session-ended.njk",
       sinon.match({
         csrfToken: "test-token",
@@ -304,7 +307,7 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(req.i18n.changeLanguage).to.have.been.calledWith("en");
-    expect(res.render).to.have.been.calledWith("service-unavailable.html");
+    expect(req.i18n.changeLanguage).to.have.been.calledOnceWith("en");
+    expect(res.render).to.have.been.calledOnceWith("service-unavailable.html");
   });
 });

@@ -53,7 +53,7 @@ describe("journey middleware", () => {
       renderAttemptRecoveryPage(req, res);
 
       // Assert
-      expect(res.render).to.have.been.calledWith(
+      expect(res.render).to.have.been.calledOnceWith(
         "ipv/page/pyi-attempt-recovery.njk",
       );
     });
@@ -70,7 +70,7 @@ describe("journey middleware", () => {
       handler(req, res);
 
       // Assert
-      expect(res.render).to.have.been.calledWith(
+      expect(res.render).to.have.been.calledOnceWith(
         "ipv/page/page-ipv-identity-document-types.njk",
       );
     });
@@ -86,7 +86,7 @@ describe("journey middleware", () => {
       renderFeatureSetPage(req, res);
 
       // Assert
-      expect(res.render).to.have.been.calledWith("ipv/page-featureset.njk");
+      expect(res.render).to.have.been.calledOnceWith("ipv/page-featureset.njk");
     });
   });
 
@@ -100,7 +100,7 @@ describe("journey middleware", () => {
       renderProblemDifferentBrowserPage(req, res);
 
       // Assert
-      expect(res.render).to.have.been.calledWith(
+      expect(res.render).to.have.been.calledOnceWith(
         "ipv/page/problem-different-browser.njk",
         {
           pageId: "problem-different-browser",

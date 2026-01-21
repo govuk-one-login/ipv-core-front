@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - IPS-226
+      - ips-226-arm64-arch-migration
     paths-ignore:
       - '**/*.md'
       - '**/*.test.ts'

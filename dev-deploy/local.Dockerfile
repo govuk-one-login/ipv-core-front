@@ -1,4 +1,4 @@
-FROM node:20.11.1-alpine3.19@sha256:f4c96a28c0b2d8981664e03f461c2677152cd9a756012ffa8e2c6727427c2bda AS builder
+FROM node:22.16.0-alpine3.21@sha256:9f3ae04faa4d2188825803bf890792f33cc39033c9241fc6bb201149470436ca AS builder
 WORKDIR /app
 
 # Install packages
@@ -7,21 +7,25 @@ COPY package-lock.json ./
 COPY .npmrc ./
 RUN npm install
 
-# Build assets
+# Get assets
 COPY /assets ./assets
 RUN npm run build
 
-# Build code
+# Get build scripts
+COPY /build-scripts ./build-scripts
+
+# Compile TS and build code
 COPY /src ./src
 COPY /locales ./locales
 COPY /views ./views
 COPY tsconfig.json ./
 RUN npm run tsc
+RUN npm run build-service-unavailable
 
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM node:20.11.1-alpine3.19@sha256:f4c96a28c0b2d8981664e03f461c2677152cd9a756012ffa8e2c6727427c2bda AS final
+FROM node:22.14.0-alpine3.21@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944 AS final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]

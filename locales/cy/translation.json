@@ -1497,6 +1497,41 @@
         "p2": "Parhewch i ddefnyddio’r porwr hwn a dilynwch y cyfarwyddiadau.",
         "p3": "Pan ofynnir i chi, mewngofnodwch i’ch GOV.UK One Login i orffen profi eich hunaniaeth."
       }
+    },
+    "needMoreInformationConfirmChangeDetails": {
+      "title": "Rydym angen mwy o wybodaeth i gadarnhau’r newid i’ch manylion",
+      "header": "Rydym angen mwy o wybodaeth i gadarnhau’r newid i’ch manylion",
+      "content": {
+        "paragraph1": "Ni allwn gadarnhau’r newid i’ch manylion.",
+        "paragraph2RepeatFraudCheck": "Os oes gennych basbort dilys, gallwch brofi eich hunaniaeth yn yr ap GOV.UK One Login. ",
+        "paragraph2UpdateDetails": "Gallwch barhau i’r gwasanaeth heb ddiweddaru eich manylion. Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
+        "paragraph3RepeatFraudCheck": "Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio. ",
+        "paragraph3UpdateDetails": "Neu gallwch ddefnyddio pasbort dilys i brofi eich hunaniaeth yn yr ap GOV.UK One Login. Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio.",
+        "paragraph4": "Yna byddwn yn ceisio cadarnhau eich manylion eto.",
+        "details1": {
+          "summaryText": "Sut ydw i’n gwybod os yw fy mhasbort yn ddilys?",
+          "paragraph5": "Gallwch ddefnyddio unrhyw basbort y DU os nad yw wedi dod i ben.",
+          "paragraph6": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os:",
+          "list1": "mae ganddo sglodyn biometrig",
+          "list2": "nid yw wedi dod i ben",
+          "paragraph7": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen."
+        },
+        "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "passport": "Defnyddiwch eich pasbort i brofi eich hunaniaeth yn yr ap GOV.UK One Login",
+          "passportHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio.",
+          "returnToRpHint": "Efallai y bydd ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio’ch GOV.UK One Login.",
+          "continueToService": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
+          "continueToServiceHint": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid."
+        },
+        "formErrorMessage": {
+          "title": "Mae problem",
+          "description": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
     }
   }
 }

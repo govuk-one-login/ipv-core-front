@@ -1497,6 +1497,41 @@
         "p2": "Continue using this browser and follow the instructions.",
         "p3": "When prompted, sign in to your GOV.UK One Login to finish proving your identity."
       }
+    },
+    "needMoreInformationConfirmChangeDetails": {
+      "title": "We need more information to confirm your change of details",
+      "header": "We need more information to confirm your change of details",
+      "content": {
+        "paragraph1": "We could not confirm your change of details.",
+        "paragraph2RepeatFraudCheck": "If you have a valid passport, you can prove your identity in the GOV.UK One Login app.",
+        "paragraph2UpdateDetails": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
+        "paragraph3RepeatFraudCheck": "Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph3UpdateDetails": "Or you can use a valid passport to prove your identity in the GOV.UK One Login app. Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph4": "Then we’ll try to confirm your details again.",
+        "details1": {
+          "summaryText": "How do I know if my passport is valid?",
+          "paragraph5": "You can use any UK passport if it has not expired.",
+          "paragraph6": "You can use a non-UK passport if it:",
+          "list1": "has a biometric chip",
+          "list2": "has not expired",
+          "paragraph7": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover."
+        },
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "passport": "Use your passport to prove your identity in the GOV.UK One Login app",
+          "passportHint": "You’ll be shown how to download and use the app.",
+          "returnToRp": "Go back to the service you were trying to use",
+          "returnToRpHint": "There may be another way to access the service without using your GOV.UK One Login.",
+          "continueToService": "Continue to the service without updating your details",
+          "continueToServiceHint": "Your proof of identity is valid even if your details have changed."
+        },
+        "formErrorMessage": {
+          "title": "There is a problem",
+          "description": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
     }
   }
 }

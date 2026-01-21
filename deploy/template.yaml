@@ -66,6 +66,7 @@ Conditions:
   UseCanaryDeployment: !Or
     - !Condition IsNotDevelopment
     - !Equals [ !Ref Environment, dev-canary ]
+  EnableSpotArmInstance: !Equals [!Ref Environment, dev]
   IsPerformanceSensitive: !Or
     - !Not [ !Condition IsDevelopment ]
     - !Equals [ !Ref Environment, "dev-perf" ]
@@ -943,6 +944,8 @@ Resources:
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
+      RuntimePlatform:
+        CpuArchitecture: !If [EnableSpotArmInstance, "ARM64", "X86_64"]
       TaskRoleArn: !GetAtt ECSTaskRole.Arn
 
   ECSTaskExecutionRole:

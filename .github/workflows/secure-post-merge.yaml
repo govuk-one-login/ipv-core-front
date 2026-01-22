@@ -68,10 +68,10 @@ jobs:
         with:
           artifact-bucket-name: ${{ env.ENVIRONMENT == 'build' && secrets.ARTIFACT_BUCKET_NAME || secrets.ARTIFACT_BUCKET_NAME_DEV }}
           container-sign-kms-key-arn: ${{ env.ENVIRONMENT == 'build' && secrets.CONTAINER_SIGN_KMS_KEY || secrets.CONTAINER_SIGN_KMS_KEY_DEV }}
-          working-directory: ./deploy
-          docker-build-path: ..
-          dockerfile: ../dev-deploy/Dockerfile
-          template-file: template.yaml
+          working-directory: .
+          docker-build-path: .
+          dockerfile: dev-deploy/Dockerfile
+          template-file: deploy/template.yaml
           role-to-assume-arn: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           ecr-repo-name: ${{ env.ENVIRONMENT == 'build' && secrets.ECR_REPOSITORY || secrets.ECR_REPOSITORY_DEV }}
           # sam-deployment-parameters: Environment=${{ env.ENVIRONMENT }}

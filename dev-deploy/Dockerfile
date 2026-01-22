@@ -30,6 +30,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
 RUN ["apk", "add", "--no-cache", "tini", "curl"]
+
 USER appuser:appgroup
 
 WORKDIR /app
@@ -41,9 +42,6 @@ COPY --chown=appuser:appgroup --from=builder /app/locales ./locales
 COPY --chown=appuser:appgroup --from=builder /app/views ./views
 COPY --chown=appuser:appgroup --from=builder /app/package.json ./
 COPY --chown=appuser:appgroup --from=builder /app/package-lock.json ./
-
-COPY --platform=linux/arm64 --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs-arm64 / /
-ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV PORT=8080
 

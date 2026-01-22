@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 15
     env:
       AWS_REGION: eu-west-2
-      ENVIRONMENT: ${{ github.ref == 'refs/heads/ips-226-arm64-arch-migration' && 'dev01' || (github.event_name == 'workflow_dispatch' && 'dev01' || 'build') }}
+      ENVIRONMENT: ${{ github.ref == 'refs/heads/ips-226-arm64-arch-migration' && 'dev' || (github.event_name == 'workflow_dispatch' && 'dev01' || 'build') }}
     permissions:
       id-token: write
       contents: read
@@ -73,4 +73,5 @@ jobs:
           template-file: template.yaml
           role-to-assume-arn: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           ecr-repo-name: ${{ env.ENVIRONMENT == 'build' && secrets.ECR_REPOSITORY || secrets.ECR_REPOSITORY_DEV }}
+          # sam-deployment-parameters: Environment=${{ env.ENVIRONMENT }}
           checkout-repo: false

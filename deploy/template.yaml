@@ -67,7 +67,7 @@ Conditions:
     - !Condition IsNotDevelopment
     - !Equals [ !Ref Environment, dev-canary ]
   # ARM64 for dev01 testing
-  EnableSpotArmInstance: !Equals [!Ref Environment, dev01]
+  EnableSpotArmInstance: !Equals [!Ref Environment, dev]
   IsPerformanceSensitive: !Or
     - !Not [ !Condition IsDevelopment ]
     - !Equals [ !Ref Environment, "dev-perf" ]

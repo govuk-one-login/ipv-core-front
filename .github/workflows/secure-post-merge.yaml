@@ -8,7 +8,7 @@ on:
       - '**/*.md'
       - '**/*.test.ts'
       - 'browser-tests/**'
-      - 'dev-deploy/**'
+      # - 'dev-deploy/**'
       - 'src/test-utils/**'
   workflow_dispatch:
 

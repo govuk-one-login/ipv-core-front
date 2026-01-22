@@ -563,7 +563,8 @@ Resources:
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
-
+      CapacityProviders:
+        - !If [EnableSpotArmInstance, "FARGATE_SPOT", "FARGATE"]
   CoreFrontService:
     Type: "AWS::ECS::Service"
     Properties:

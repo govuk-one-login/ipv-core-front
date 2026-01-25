@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/page-fixtures';
+import { test, expect } from '../fixtures/bdd-fixtures';
 
 test.describe('COI Fraud Check - Given Name Change', () => {
   let userId: string;

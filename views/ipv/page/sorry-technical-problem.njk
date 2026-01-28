@@ -12,7 +12,20 @@
 {% set errorHref = "#sorryTechnicalProblem" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = 'd93801ec-7921-4358-88f3-87d196412689'%}
+
+{% if context %}
+    {% if context == 'dlOrPassportMitigation' %}
+        {% set contentID = 'cdc6ceca-ee12-47b0-a23f-e666ee9e1481'%}
+    {% elif context == 'f2fCriError' %}
+        {% set contentID = '8cf31c12-da4b-4eb4-a6e3-fbf966fa520f'%}
+    {% elif context == 'kbvCriError' %}
+        {% set contentID = 'f676cbc4-5bbf-4d8f-b2da-731d11bc7350'%}
+    {% elif context == 'kbvMitigation' %}
+        {% set contentID = 'f3f2b9da-c0d5-421a-bf18-6c9726b517e7'%}
+    {% endif %}
+{% else %}
+    {% set contentID = '63d579be-6e27-4bbb-84c3-491228e0a4e9'%}
+{% endif %}
 
 {% set whatsNeededToUseTheApp %}
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.details.p1' | translate }}</p>

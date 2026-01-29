@@ -93,7 +93,7 @@
     "csrf-sync": "4.2.0",
     "dotenv": "17.2.1",
     "express": "5.2.1",
-    "express-session": "1.18.2",
+    "express-session": "1.19.0",
     "govuk-frontend": "5.11.0",
     "i18next": "25.8.0",
     "i18next-fs-backend": "2.6.0",

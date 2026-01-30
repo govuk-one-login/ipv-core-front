@@ -592,7 +592,8 @@
         "detailsContent": "<p>Mae eich llythyr cwsmer yn dangos pa Swyddfa’r Post y gwnaethoch ddewis mynd iddi. </p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/identity/in-branch-verification-service#bfSearchLabel\">fynd i Swyddfa’r Post gwahanol cyn belled â’i bod yn cynnig gwiriad mewn cangen (agor mewn tab newydd)</a>.</p> <p>Nid oes angen i chi gysylltu â thîm GOV.UK One Login os ydych am fynd i Swyddfa’r Post gwahanol.</p>",
         "thirdCircle": "3",
         "subHeading3": "Arhoswch am eich canlyniad",
-        "paragraph6": "Byddwch yn cael e-bost gan GOV.UK One Login am ganlyniad eich gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
+        "paragraph6": "Bydd canlyniad eich gwiriad hunaniaeth fel arfer ar gael o fewn 24 awr o fynd i’r Swyddfa Bost.",
+        "paragraph7": "Pan fydd yn barod, byddwch yn cael e-bost gan GOV.UK One Login. Gallwch weld eich canlyniad trwy fewngofnodi.",
         "subHeading4": "Os ydych angen help"
       }
     },

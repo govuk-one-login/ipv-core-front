@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% from "frontend-ui/build/components/progress-button/macro.njk" import frontendUiProgressButton %}
 {% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% set pageTitleKey = 'pages.pageIpvSuccess.title' %}
@@ -12,20 +13,14 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"> {{ 'pages.pageIpvSuccess.header' | translate }}</h1>
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }} </p>
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph2' | translate }} </p>
-
-  <a
-    href="/ipv/journey/{{ pageId }}/next"
-    class="govuk-button"
-    role="button"
-    draggable="false"
-    data-module="govuk-button"
-    data-frontendui="di-progress-button"
-    data-waiting-text="Wait"
-    data-long-waiting-text="Keep waiting"
-    data-error-page="/ipv/page/pyi-technical"
-  >
-    {{ 'general.buttons.continueToService' | translate }}
-  </a>
+  
+  {{ frontendUiProgressButton({
+    translations: translations.translation.progressButton,
+    href: "/ipv/journey/" + pageId + "/next",
+    errorPage: "/ipv/page/pyi-technical",
+    text: ('general.buttons.continueToService' | translate),
+    customDevErrorTimeout: progressSpinnerButtonTimeout
+  }) }}
 {% endblock %}
 
 {% block scripts %}

@@ -16,6 +16,7 @@ export const setLocals: RequestHandler = async (req, res, next) => {
   res.locals.deleteAccountUrl = config.DELETE_ACCOUNT_URL;
   res.locals.deviceIntelligenceCookieDomain =
     config.DEVICE_INTELLIGENCE_COOKIE_DOMAIN;
+  res.locals.enableProgressButtonTimeout = config.PROGRESS_SPINNER_BUTTON_TIMEOUT;
 
   const contactUsUrl = new URL(config.CONTACT_URL);
   contactUsUrl.searchParams.set(

@@ -14,12 +14,17 @@
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }} </p>
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph2' | translate }} </p>
   
+  {% set customTimeout = undefined %}
+  {% if enableProgressSpinnerButtonTimeout %}
+    {% set customTimeout = progressSpinnerButtonTimeout %}
+  {% endif %}
+
   {{ frontendUiProgressButton({
     translations: translations.translation.progressButton,
     href: "/ipv/journey/" + pageId + "/next",
     errorPage: "/ipv/page/pyi-technical",
     text: ('general.buttons.continueToService' | translate),
-    customDevErrorTimeout: progressSpinnerButtonTimeout
+    customDevErrorTimeout: customTimeout
   }) }}
 {% endblock %}
 

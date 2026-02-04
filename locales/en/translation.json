@@ -635,7 +635,8 @@
         "detailsContent": "<p>Your Post Office customer letter shows which Post Office you chose to go to. </p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/identity/in-branch-verification-service#bfSearchLabel\">go to a different Post Office as long as it offers in-branch verification (opens in new tab)</a>.</p> <p>You do not need to contact the GOV.UK One Login team if you want to go to a different Post Office.</p>",
         "thirdCircle": "3",
         "subHeading3": "Wait for your result",
-        "paragraph6": "You’ll get an email from GOV.UK One Login about the result of your identity check – usually within a day of going to the Post Office.",
+        "paragraph6": "The result of your identity check will usually be available within 24 hours of going to the Post Office.",
+        "paragraph7": "When it’s ready, you’ll get an email from GOV.UK One Login. You can view your result by signing in.",
         "subHeading4": "If you need help"
       }
     },

@@ -237,7 +237,7 @@ Mappings:
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
       progressSpinnerButtonTimeout: 20000
-      enableProgressSpinnerButtonTimeout: true
+      enableProgressSpinnerButtonTimeout: false
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: "298945768017"
     "075701497069": # Production

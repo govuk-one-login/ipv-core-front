@@ -1266,7 +1266,7 @@
       "content": {
         "paragraph1Html": "Pan fyddwch yn parhau, byddwch yn gallu dileu eich GOV.UK One Login yn barhaol. Darganfyddwch <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">beth sy’n digwydd pan fyddwch yn dileu eich GOV.UK One Login (agor mewn tab newydd)<a>.",
         "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth  roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda’ch manylion newydd.",
-        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details. You can then create a new GOV.UK One Login."
+        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
       }
     },
     "updateDetailsFailed": {
@@ -1572,7 +1572,7 @@
         "list2": "non-UK passport with a biometric chip",
         "list3": "UK photocard driving licence",
         "list4": "UK biometric residence card or permit",
-        "paragraph2": "If you cannot prove your identity using the app, you should delete you GOV.UK One Login. Then you can create a new one.",
+        "paragraph2": "If you cannot prove your identity using the app, you should delete your GOV.UK One Login. Then you can create a new one.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useApp": "Prove your identity using the app and photo ID",
@@ -1594,7 +1594,7 @@
       "title": "You need to use the GOV.UK One Login app to prove your identity",
       "header": "You need to use the GOV.UK One Login app to prove your identity",
       "content": {
-        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete you GOV.UK One Login so you can create a new one.",
+        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete your GOV.UK One Login so you can create a new one.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useApp": "Prove your identity using the GOV.UK One Login app",

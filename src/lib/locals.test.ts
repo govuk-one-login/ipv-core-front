@@ -17,7 +17,7 @@ const configStub = {
   GA4_DISABLED: "true",
   ANALYTICS_DATA_SENSITIVE: "false",
   UA_DISABLED: "false",
-  ENABLE_PROGRESS_SPINNER_BUTTON_TIMEOUT: false,
+  ENABLE_PROGRESS_SPINNER_BUTTON: false,
   PROGRESS_SPINNER_BUTTON_TIMEOUT: 20000,
 };
 
@@ -45,7 +45,7 @@ describe("locals helper", () => {
       deleteAccountUrl: "https://example.com/delete-account",
       dynatraceRumUrl: "https://example.com/dt-url",
       progressSpinnerButtonTimeout: 20000,
-      enableProgressSpinnerButtonTimeout: false,
+      enableProgressSpinnerButton: false,
       ga4ContainerId: "test-ga4-id",
       isGa4Enabled: false,
       analyticsDataSensitive: false,

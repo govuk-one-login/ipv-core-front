@@ -18,8 +18,8 @@ export const setLocals: RequestHandler = async (req, res, next) => {
     config.DEVICE_INTELLIGENCE_COOKIE_DOMAIN;
   res.locals.progressSpinnerButtonTimeout =
     config.PROGRESS_SPINNER_BUTTON_TIMEOUT;
-  res.locals.enableProgressSpinnerButtonTimeout =
-    config.ENABLE_PROGRESS_SPINNER_BUTTON_TIMEOUT;
+  res.locals.enableProgressSpinnerButton =
+    config.ENABLE_PROGRESS_SPINNER_BUTTON;
 
   const contactUsUrl = new URL(config.CONTACT_URL);
   contactUsUrl.searchParams.set(

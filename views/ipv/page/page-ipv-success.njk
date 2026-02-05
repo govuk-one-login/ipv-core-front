@@ -14,25 +14,31 @@
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }} </p>
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph2' | translate }} </p>
   
-  {% set customTimeout = undefined %}
-  {% if enableProgressSpinnerButtonTimeout %}
+  {% if enableProgressSpinnerButton %}
+    {# New progress button (experiment) #}
     {% set customTimeout = progressSpinnerButtonTimeout %}
-  {% endif %}
 
-  {{ frontendUiProgressButton({
-    translations: translations.translation.progressButton,
-    href: "/ipv/journey/" + pageId + "/next",
-    errorPage: "/ipv/page/pyi-technical",
-    text: ('general.buttons.continueToService' | translate),
-    customDevErrorTimeout: customTimeout
-  }) }}
+    {{ frontendUiProgressButton({
+      translations: translations.translation.progressButton,
+      href: "/ipv/journey/" + pageId + "/next",
+      errorPage: "/ipv/page/pyi-technical",
+      text: ('general.buttons.continueToService' | translate),
+      customDevErrorTimeout: customTimeout
+    }) }}
+  {% else %}
+    {# Original button (control) #}
+    {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+  {% endif %}
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
-  <script nonce='{{ cspNonce }}' defer type="module" src="/public/javascripts/frontend-ui.js"></script>
-  <script nonce='{{ cspNonce }}' defer type="module">
-    import { initialiseProgressButtons } from "/public/javascripts/frontend-ui.js";
-    initialiseProgressButtons();
-  </script>
+  {% if enableProgressSpinnerButton %}
+    <script nonce="{{ cspNonce }}" defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+    <script nonce="{{ cspNonce }}" defer type="module">
+      import { initialiseProgressButtons } from "/public/javascripts/frontend-ui.js";
+      initialiseProgressButtons();
+    </script>
+  {% endif %}
 {% endblock %}
+

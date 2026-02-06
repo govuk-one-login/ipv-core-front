@@ -19,6 +19,7 @@
     {% set customTimeout = progressSpinnerButtonTimeout %}
 
     {{ frontendUiProgressButton({
+      id: "submitButton",
       translations: translations.translation.progressButton,
       href: "/ipv/journey/" + pageId + "/next",
       errorPage: "/ipv/page/pyi-technical",

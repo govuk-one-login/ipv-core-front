@@ -17,8 +17,6 @@ const configStub = {
   GA4_DISABLED: "true",
   ANALYTICS_DATA_SENSITIVE: "false",
   UA_DISABLED: "false",
-  ENABLE_PROGRESS_SPINNER_BUTTON: false,
-  PROGRESS_SPINNER_BUTTON_TIMEOUT: 20000,
 };
 
 const { setLocals } = proxyquire("./locals", {
@@ -44,8 +42,6 @@ describe("locals helper", () => {
       cspNonce: res.locals.cspNonce,
       deleteAccountUrl: "https://example.com/delete-account",
       dynatraceRumUrl: "https://example.com/dt-url",
-      progressSpinnerButtonTimeout: 20000,
-      enableProgressSpinnerButton: false,
       ga4ContainerId: "test-ga4-id",
       isGa4Enabled: false,
       analyticsDataSensitive: false,

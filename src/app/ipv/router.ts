@@ -51,16 +51,6 @@ router.get(
 );
 
 router.get(
-  getPagePath(IPV_PAGES.PYI_TECHNICAL),
-  csrfSynchronisedProtection,
-  (req, res) => {
-    return res.render(getPagePath(IPV_PAGES.PYI_TECHNICAL), {
-      context: "unrecoverable",
-    });
-  },
-);
-
-router.get(
   getPagePath(":pageId"),
   csrfSynchronisedProtection,
   handleJourneyPageRequest,

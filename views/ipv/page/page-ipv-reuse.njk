@@ -1,4 +1,5 @@
 {% extends "shared/base.njk" %}
+{% from "frontend-ui/build/components/progress-button/macro.njk" import frontendUiProgressButton %}
 {% from "components/journey-next-form.njk" import journeyNextForm %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
@@ -65,5 +66,33 @@
       </div>
     </details>
 
-    {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+    {% if enableProgressSpinnerButton %}
+      {# New progress button (experiment) #}
+      {% set customTimeout = progressSpinnerButtonTimeout %}
+
+      {{ frontendUiProgressButton({
+        id: "submitButton",
+        translations: translations.translation.progressButton,
+        href: "/ipv/journey/" + pageId + "/next",
+        errorPage: "/ipv/page/pyi-technical",
+        text: ('general.buttons.continueToService' | translate),
+        customDevErrorTimeout: customTimeout
+      }) }}
+    {% else %}
+      {# Original button (control) #}
+      {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+    {% endif %}
+
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% if enableProgressSpinnerButton %}
+    <script nonce="{{ cspNonce }}" defer type="module" src="/public/javascripts/frontend-ui.js"></script>
+    <script nonce="{{ cspNonce }}" defer type="module">
+      import { initialiseProgressButtons } from "/public/javascripts/frontend-ui.js";
+      initialiseProgressButtons();
+    </script>
+  {% endif %}
+{% endblock %}
+

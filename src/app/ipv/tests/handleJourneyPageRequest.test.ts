@@ -356,4 +356,36 @@ describe("handleJourneyPageRequest", () => {
       },
     );
   });
+
+  it("should render pyi-technical with unrecoverable context even if ipvSessionId is missing", async () => {
+    // Arrange
+    const req = createRequest({
+      params: { pageId: IPV_PAGES.PYI_TECHNICAL },
+      query: { context: "unrecoverable" },
+      session: {
+        ipvSessionId: undefined,
+      },
+    });
+
+    req.csrfToken = sinon.stub().returns("test-csrf-token");
+
+    const res = createResponse();
+
+    // Act
+    await middleware.handleJourneyPageRequest(req, res, next);
+
+    // Assert
+    expect(res.render).to.have.been.calledWith(
+      "ipv/page/pyi-technical.njk",
+      sinon.match({
+        pageId: "pyi-technical",
+        csrfToken: "test-csrf-token",
+        context: "unrecoverable",
+      }),
+    );
+
+    expect(next).to.not.have.been.calledWith(
+      sinon.match.instanceOf(UnauthorizedError),
+    );
+  });
 });

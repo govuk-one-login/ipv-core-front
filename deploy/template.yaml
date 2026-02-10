@@ -236,6 +236,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      progressSpinnerButtonTimeout: 20000
       enableProgressSpinnerButton: false
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: "298945768017"
@@ -268,6 +269,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      progressSpinnerButtonTimeout: 20000
       enableProgressSpinnerButton: false
       frontendAutoScalingMinCount: 6
       publishedKeysAccountId: "101836073728"

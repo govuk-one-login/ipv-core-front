@@ -16,7 +16,11 @@
 {% set hrefBack = "/ipv/journey/pyi-triage-select-smartphone/back" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = 'f6756787-3e1a-4ddb-b733-e1e67cc0ab8b' %}
+{% if context == "mam" %}
+  {% set contentID = '173ba833-aa88-42c8-aba0-8b9eb6b55079' %}
+{% elif context == "dad" %}
+  {% set contentID = 'f6756787-3e1a-4ddb-b733-e1e67cc0ab8b' %}
+{% endif %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translateWithContext(context) }}</h1>

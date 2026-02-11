@@ -55,6 +55,9 @@ Conditions:
     - !Equals [ !Ref AWS::AccountId, "175872367215"]
   IsNotDevelopment: !Not [ !Condition IsDevelopment ]
   IsProduction: !Equals [ !Ref Environment, production ]
+  IsIntOrProd: !Or
+    - !Equals [ !Ref Environment, production ]
+    - !Equals [ !Ref Environment, integration ]
   IsStagingIntProd: !Or
     - !Equals [ !Ref Environment, staging ]
     - !Equals [ !Ref Environment, integration ]
@@ -104,6 +107,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      progressSpinnerButtonTimeout: 20000
+      enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: ""
     "175872367215": # core-dev02
@@ -135,6 +140,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      progressSpinnerButtonTimeout: 20000
+      enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: ""
     "457601271792": # Build
@@ -166,6 +173,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
+      progressSpinnerButtonTimeout: 20000
+      enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 6
       publishedKeysAccountId: ""
     "335257547869": # Staging
@@ -197,6 +206,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 900000
+      progressSpinnerButtonTimeout: 20000
+      enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: "444977453444"
     "991138514218": # Integration
@@ -228,6 +239,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      progressSpinnerButtonTimeout: 10000 # This value isn't used in int or prod but CF requires these keys to be present in the mapping
+      enableProgressSpinnerButton: false
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: "298945768017"
     "075701497069": # Production
@@ -259,6 +272,8 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 600000
       dadSpinnerRequestTimeout: 1800000
+      progressSpinnerButtonTimeout: 10000 # This value isn't used in int or prod but CF requires these keys to be present in the mapping
+      enableProgressSpinnerButton: false
       frontendAutoScalingMinCount: 6
       publishedKeysAccountId: "101836073728"
   SecurityGroups:
@@ -912,6 +927,19 @@ Resources:
                 - EnvironmentConfiguration
                 - !Ref AWS::AccountId
                 - dadSpinnerRequestTimeout
+            - Name: PROGRESS_SPINNER_BUTTON_TIMEOUT
+              Value: !If
+                - IsIntOrProd
+                - !Ref AWS::NoValue
+                - !FindInMap
+                  - EnvironmentConfiguration
+                  - !Ref AWS::AccountId
+                  - progressSpinnerButtonTimeout
+            - Name: ENABLE_PROGRESS_SPINNER_BUTTON
+              Value: !FindInMap
+                - EnvironmentConfiguration
+                - !Ref AWS::AccountId
+                - enableProgressSpinnerButton
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join

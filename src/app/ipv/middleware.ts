@@ -309,6 +309,22 @@ const validateSessionAndPage = async (
     throw new NotFoundError("Invalid page id");
   }
 
+  // To handle technical error unrecoverable redirection for progress spinner
+  if (
+    pageId === PAGES.PYI_TECHNICAL &&
+    req.query?.context === "unrecoverable"
+  ) {
+    req.session.currentPage = pageId;
+
+    res.render(getIpvPageTemplatePath(pageId), {
+      pageId,
+      csrfToken: req.csrfToken?.(true),
+      context: "unrecoverable",
+    });
+
+    return false;
+  }
+
   // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario
   if (
     req.session?.clientOauthSessionId &&
@@ -322,7 +338,7 @@ const validateSessionAndPage = async (
     throw new UnauthorizedError("ipvSessionId is missing");
   }
 
-  // To handle techincal error page JS redirection for DAD page
+  // To handle technical error page JS redirection for DAD page
   if (
     pageId === PAGES.PYI_TIMEOUT_UNRECOVERABLE ||
     (pageId === PAGES.PYI_TECHNICAL &&

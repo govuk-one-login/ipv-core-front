@@ -8,7 +8,10 @@ import { DrivingLicenceStubPage } from '../pages/driving-licence-stub-page';
 import { AddressStubPage } from '../pages/address-stub-page';
 import { FraudStubPage } from '../pages/fraud-stub-page';
 import { F2FStubPage } from '../pages/f2f-stub-page';
+import { PassportStubPage } from '../pages/passport-stub-page';
+import { KBVStubPage } from '../pages/kbv-stub-page';
 import { ApiService } from '../services/api-service';
+import { DcmawAsyncService } from '../services/dcmaw-async-service';
 
 type PageFixtures = {
   orchestratorPage: OrchestratorStubPage;
@@ -19,7 +22,10 @@ type PageFixtures = {
   addressPage: AddressStubPage;
   fraudPage: FraudStubPage;
   f2fPage: F2FStubPage;
+  passportPage: PassportStubPage;
+  kbvPage: KBVStubPage;
   apiService: ApiService;
+  dcmawAsyncService: DcmawAsyncService;
   userId: string;
 };
 
@@ -48,8 +54,17 @@ export const test = baseTest.extend<PageFixtures>({
   f2fPage: async ({ page }, use) => {
     await use(new F2FStubPage(page));
   },
+  passportPage: async ({ page }, use) => {
+    await use(new PassportStubPage(page));
+  },
+  kbvPage: async ({ page }, use) => {
+    await use(new KBVStubPage(page));
+  },
   apiService: async ({ request }, use) => {
     await use(new ApiService(request));
+  },
+  dcmawAsyncService: async ({ request }, use) => {
+    await use(new DcmawAsyncService(request));
   },
   userId: async ({}, use) => {
     let userId = '';

@@ -13,7 +13,7 @@ defineBddConfig({
 // Export Playwright configuration for BDD tests
 export default defineConfig({
   testDir: "./.features-gen",
-  workers: 6,
+  workers: 3,
   projects: [
     {
       name: "chromium",

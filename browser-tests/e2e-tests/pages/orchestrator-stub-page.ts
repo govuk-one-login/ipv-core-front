@@ -11,6 +11,7 @@ export class OrchestratorStubPage extends BasePage {
   }
 
   async getUserId(): Promise<string> {
+    await this.page.waitForLoadState('networkidle');
     return await this.page.getByRole('textbox', { name: 'Enter userId manually' }).inputValue();
   }
 
@@ -52,6 +53,5 @@ export class OrchestratorStubPage extends BasePage {
     for (const criType of expectedCriTypes) {
       await this.expectText(criType);  
     }
-    console.log("[IdentityPage] ✓ All criType details verified");
   }
 }

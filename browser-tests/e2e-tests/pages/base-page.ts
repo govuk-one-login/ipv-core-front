@@ -8,7 +8,15 @@ export abstract class BasePage {
   }
 
   protected async clickButton(name: string): Promise<void> {
-    await this.page.getByRole('button', { name }).click();
+    // Use Promise.all to wait for navigation while clicking
+    await Promise.all([
+      this.page.waitForNavigation({ timeout: 30000 }).catch(() => {
+        // Navigation might not always occur, so we catch and ignore the error
+      }),
+      this.page.getByRole('button', { name }).click(),
+    ]);
+    // Wait for the new page to stabilize
+    await this.page.waitForLoadState('networkidle');
   }
 
   protected async selectRadio(name: string): Promise<void> {

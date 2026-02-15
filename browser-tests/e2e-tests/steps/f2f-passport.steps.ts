@@ -5,9 +5,7 @@ import { BddContext } from './bdd-context';
 
 const { Given, When, Then } = createBdd(test);
 
-When('I select I am from the UK', async ({ identityPage }) => {
-  await identityPage.selectUKLocation();
-});
+// Note: "I select I am from the UK" is now defined in common.steps.ts
 
 When('I confirm I do not have photo ID suitable for an app journey', async ({ identityPage }) => {
   await identityPage.selectNoPhotoID();
@@ -26,13 +24,7 @@ When('I enter CIC stub data as Kenneth Decerqueira', async ({ cicPage }) => {
   await cicPage.submitData();
 });
 
-When('I enter address stub data and submit', async ({ addressPage }) => {
-  await addressPage.processKennethDecerqueiraValidAddress();
-});
-
-When('I enter fraud build stub data and submit', async ({ fraudPage }) => {
-  await fraudPage.processKennethDecerqueiraFraud();
-});
+// Note: address and fraud steps are now consolidated in common.steps.ts
 
 When('I enter Face to Face Stub data for valid passport and submit', async ({ f2fPage }) => {
   await f2fPage.processKennethDecerqueiraF2F();

@@ -34,6 +34,7 @@ export class StubPage extends BasePage {
   }
 
   async overrideVCNotBefore(): Promise<void> {
-    await this.selectCheckbox('Override VC Not Before (nbf)');
+    // Selenium: @FindBy(id = "vcNotBeforeFlg") → overideVCNotBefore.click()
+    await this.page.locator('#vcNotBeforeFlg').check();
   }
 }

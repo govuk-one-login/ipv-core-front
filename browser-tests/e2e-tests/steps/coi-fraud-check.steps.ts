@@ -10,7 +10,6 @@ Given('I navigate to Orchestrator Stub and start journey', async ({ orchestrator
   const userId = await orchestratorPage.getUserId();
   expect(userId).toBeTruthy();
   BddContext.set('userId', userId);
-  console.log(BddContext.get('userId') + ' is user ID');
   await orchestratorPage.startFullJourney();
 
 });
@@ -20,12 +19,10 @@ Given('I enable Feature Flags', async ({ identityPage }) => {
 });
 
 Given('I configure TICF Management API', async ({ orchestratorPage, apiService }) => {
-  const userId = await orchestratorPage.getUserId();
+  // Use the userId stored from the initial navigation — page is no longer on orchestrator stub
+  const userId = BddContext.get('userId');
   expect(userId).toBeTruthy();
   await apiService.configureTicfManagementApi(userId);
-  
-  // Store userId in BddContext for use in subsequent steps
-  BddContext.set('userId', userId);
 });
 
 Given('I complete initial P2 identity journey', async ({
@@ -36,7 +33,7 @@ Given('I complete initial P2 identity journey', async ({
   addressPage,
   fraudPage,
 }) => {
-  await orchestratorPage.startFullJourney();
+  // Journey already started in background step — continue from identity page
   await identityPage.selectUKLocation();
   await identityPage.confirmEligibility();
 
@@ -85,6 +82,8 @@ When('I start reuse journey for name change', async ({
   // Process driving licence with name change
   await drivingLicencePage.expectDrivingLicenceStub();
   await drivingLicencePage.processAliceParkerNameChange();
+  // Selenium: enterStubDLDetailsDLAuthCheck calls clickSubmitAuth() then clickContinue()
+  // The DL submit lands on a DCMAW success page — need to click continue
   await identityPage.continueFromDcmaw();
 
   // Process fraud evidence with name change

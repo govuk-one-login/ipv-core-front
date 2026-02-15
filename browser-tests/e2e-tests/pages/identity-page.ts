@@ -3,10 +3,22 @@ import { BasePage } from './base-page';
 import { CONFIG } from '../config/test-config';
 
 export class IdentityPage extends BasePage {
-  async enableFeatureFlags(): Promise<void> {
-    await this.navigateTo(CONFIG.FEATURE_FLAGS.ENABLE_URL);
-    await this.page.goBack();
-    await this.page.goBack();
+  async enableFeatureFlags(featureSet?: string): Promise<void> {
+    let url = CONFIG.FEATURE_FLAGS.ENABLE_URL;
+    // If a specific feature set is passed, build the URL with that feature set
+    if (featureSet) {
+      const baseUrl = CONFIG.URLS.IDENTITY_BUILD;
+      url = `${baseUrl}/ipv/usefeatureset?featureSet=${featureSet}`;
+    }
+    await this.navigateTo(url);
+    await this.page.waitForLoadState('networkidle');
+    // Navigate back to the journey
+    try {
+      await this.page.goBack();
+      await this.page.waitForLoadState('networkidle');
+    } catch (e) {
+      // Ignore if there's no history to go back
+    }
   }
 
   async selectUKLocation(): Promise<void> {
@@ -62,7 +74,13 @@ export class IdentityPage extends BasePage {
   }
 
   async continueToService(): Promise<void> {
-    await this.clickButton('Continue to the service');
+    // Selenium CONTINUE_BUTTON = ByAll(#continue, #submitButton, button[type="submit"], ...)
+    const continueBtn = this.page.locator('#continue, #submitButton, button[type="submit"]').first();
+    await Promise.all([
+      this.page.waitForNavigation({ timeout: 30000 }).catch(() => {}),
+      continueBtn.click(),
+    ]);
+    await this.page.waitForLoadState('networkidle');
   }
 
   async expectReuseScreen(): Promise<void> {
@@ -73,19 +91,15 @@ export class IdentityPage extends BasePage {
   }
 
   async expectReuseScreenForKenneth(): Promise<void> {
-    console.log("[IdentityPage] Checking Kenneth reuse screen...");
     await expect(this.page.locator("#header")).toContainText(
       "You have already proved your identity",
       { timeout: 10000 }
     );
-    console.log("[IdentityPage] ✓ Reuse screen header found");
-    
     await this.expectText("KENNETH DECERQUEIRA");
     await this.expectText("8, HADLEY ROAD");
     await this.expectText("BATH");
     await this.expectText("BA2 5AA");
     await this.expectText("8 July 1965");
-    console.log("[IdentityPage] ✓ All Kenneth details verified");
   }
 
   async expectPostOfficeHeading(): Promise<void> {
@@ -95,4 +109,5 @@ export class IdentityPage extends BasePage {
       })
       .waitFor({ state: 'visible', timeout: 10000 });
   }
+
 }

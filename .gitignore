@@ -114,3 +114,6 @@ build
 
 # Browser test results
 browser-tests/test-results/
+
+# Generated feature files for execution
+browser-tests/.features-gen/

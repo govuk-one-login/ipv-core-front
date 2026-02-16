@@ -1,6 +1,6 @@
 # E2E Playwright BDD Tests
 
-This directory contains the **End-to-End (E2E) test suite** for the **IPV Core Front** application, built using **[playwright-bdd](https://github.com/nicolo-ribaudo/playwright-bdd)**, **Playwright**, and **TypeScript**. Tests are written as **Gherkin feature files** with step definitions, following a **Behaviour-Driven Development (BDD)** approach to simulate full user journeys across multiple services and stubs.
+This directory contains the **End-to-End (E2E) test suite** for the **IPV Core Front** application, built using **[playwright-bdd](https://github.com/vitalets/playwright-bdd)**, **Playwright**, and **TypeScript**. Tests are written as **Gherkin feature files** with step definitions, following a **Behaviour-Driven Development (BDD)** approach to simulate full user journeys across multiple services and stubs.
 
 > 📘 See also: [`browser-tests/QUICK_REFERENCE.md`](../QUICK_REFERENCE.md) for a handy cheat-sheet of common commands and patterns.
 

@@ -129,10 +129,9 @@ Then('user should have a {string} identity', async ({ page }, vot: string) => {
   // Click continue to get to the JSON response page
   // Selenium CONTINUE_BUTTON = ByAll(#continue, #submitButton, button[type="submit"], ...)
   const continueBtn = page.locator('#continue, #submitButton, button[type="submit"]').first();
-  await Promise.all([
-    page.waitForNavigation({ timeout: 30000 }).catch(() => {}),
-    continueBtn.click(),
-  ]);
+  const currentUrl = page.url();
+  await continueBtn.click();
+  await page.waitForURL((url: URL) => url.toString() !== currentUrl, { timeout: 30000 });
   await page.waitForLoadState('networkidle');
 
   // Verify VOT in raw user info

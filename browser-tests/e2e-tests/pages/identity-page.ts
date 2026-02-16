@@ -44,6 +44,10 @@ export class IdentityPage extends BasePage {
   async navigateToConfirmDetails(): Promise<void> {
     await this.navigateTo(`${CONFIG.URLS.IDENTITY_BUILD}/ipv/page/confirm-your-details`);
   }
+  // Selenium: assertEquals("You need to confirm your details", commonElements.getHeader("confirm-your-details"))
+  async expectConfirmDetailsPage(): Promise<void> {
+    await this.expectHeading('You need to confirm your details');
+  }
 
   async selectUpdateDetails(): Promise<void> {
     await this.selectRadio('No - I need to update my');
@@ -76,10 +80,13 @@ export class IdentityPage extends BasePage {
   async continueToService(): Promise<void> {
     // Selenium CONTINUE_BUTTON = ByAll(#continue, #submitButton, button[type="submit"], ...)
     const continueBtn = this.page.locator('#continue, #submitButton, button[type="submit"]').first();
-    await Promise.all([
-      this.page.waitForNavigation({ timeout: 30000 }).catch(() => {}),
-      continueBtn.click(),
-    ]);
+    const currentUrl = this.page.url();
+    await continueBtn.click();
+    // Wait for navigation away from the current page (avoids deprecated waitForNavigation race)
+    await this.page.waitForURL((url) => url.toString() !== currentUrl, { timeout: 30000 });
+    // Wait for the full redirect chain to settle — networkidle can fire prematurely
+    // between redirects, so wait for load first then networkidle
+    await this.page.waitForLoadState('load');
     await this.page.waitForLoadState('networkidle');
   }
 

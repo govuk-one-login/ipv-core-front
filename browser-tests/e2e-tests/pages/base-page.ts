@@ -8,14 +8,14 @@ export abstract class BasePage {
   }
 
   protected async clickButton(name: string): Promise<void> {
-    // Use Promise.all to wait for navigation while clicking
-    await Promise.all([
-      this.page.waitForNavigation({ timeout: 30000 }).catch(() => {
-        // Navigation might not always occur, so we catch and ignore the error
-      }),
-      this.page.getByRole('button', { name }).click(),
-    ]);
-    // Wait for the new page to stabilize
+    const currentUrl = this.page.url();
+    await this.page.getByRole('button', { name }).click();
+    // Wait for navigation if the URL changes, otherwise just wait for network to settle
+    try {
+      await this.page.waitForURL((url) => url.toString() !== currentUrl, { timeout: 15000 });
+    } catch {
+      // Navigation might not always occur (e.g. in-page form submission)
+    }
     await this.page.waitForLoadState('networkidle');
   }
 

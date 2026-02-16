@@ -72,7 +72,8 @@ When('I start reuse journey for name change', async ({
   await orchestratorPage.setUserId(userId);
   await orchestratorPage.startFullJourney();
 
-  await identityPage.navigateToConfirmDetails();
+  // Don't navigate directly — startFullJourney() routes returning P2 users to confirm-your-details
+  await identityPage.expectConfirmDetailsPage();
   await identityPage.selectUpdateDetails();
   await identityPage.selectUpdateNameMethod();
 

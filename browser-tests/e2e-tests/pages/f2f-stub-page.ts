@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 
 export class F2FStubPage extends StubPage {
   async navigateToF2FStub(): Promise<void> {
-    await this.page.waitForNavigation();
+    await this.page.waitForLoadState('networkidle');
   }
 
   async selectF2FTestData(testData: string): Promise<void> {

@@ -1539,28 +1539,28 @@
       }
     },
     "proveIdentityAgainApp": {
-      "title": "Prove your identity using the GOV.UK One Login app",
-      "header": "Prove your identity using the GOV.UK One Login app",
+      "title": "Profi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login",
+      "header": "Profi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login",
       "content": {
-        "paragraph1": "To prove your identity using the GOV.UK One Login app, you’ll need:",
-        "list1": "photo ID",
-        "list2": "a phone with a working camera",
-        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "I brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login, byddwch angen:",
+        "list1": "ID gyda llun",
+        "list2": "ffôn gyda chamera sy’n gweithio",
+        "paragraph2Html": "Darganfyddwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"placeholder\">ba ID gyda llun a ffôn rydych eu hangen i brofi eich hunaniaeth gan ddefnyddio’r ap (agor mewn tab newydd)</a>.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Prove your identity with the app",
-          "useAppHint": "We’ll guide you through this.",
-          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
+          "useApp": "Profi eich hunaniaeth gyda’r ap",
+          "useAppHint": "Byddwn yn eich tywys trwy hyn.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
         },
         "details": {
-          "title": "If you cannot use the GOV.UK One Login app",
-          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">delete your GOV.UK One Login</a>.",
-          "p2": "Then you can create a new GOV.UK One Login and prove your identity another way."
+          "title": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
+          "p1": "Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">ddileu eich GOV.UK One Login</a>.",
+          "p2": "Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth mewn ffordd arall."
         }
       }
     },

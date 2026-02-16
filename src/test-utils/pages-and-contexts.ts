@@ -28,6 +28,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "page-not-found": [],
   "personal-independence-payment": [],
   "photo-id-security-questions-find-another-way": ["dropout", undefined],
+  "prove-identity-again-app": [],
   "prove-identity-another-type-photo-id": ["drivingLicence", "passport"],
   "prove-identity-another-way": ["noF2f", undefined],
   "prove-identity-no-other-photo-id": ["drivingLicence", "passport"],

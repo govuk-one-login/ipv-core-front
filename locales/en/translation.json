@@ -1545,7 +1545,7 @@
         "paragraph1": "To prove your identity using the GOV.UK One Login app, you’ll need:",
         "list1": "photo ID",
         "list2": "a phone with a working camera",
-        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
+        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"placeholder\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useApp": "Prove your identity with the app",
@@ -1553,8 +1553,8 @@
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
         },
         "details": {

@@ -4,6 +4,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "problem-different-browser": [],
   "delete-handover": [],
   "live-in-uk": [],
+  "need-id-prove-identity-again-app": [],
   "no-photo-id-abandon-find-another-way": [],
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-security-questions-find-another-way": ["dropout", undefined],

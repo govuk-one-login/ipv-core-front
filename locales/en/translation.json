@@ -1580,13 +1580,13 @@
           "useAppHint": "We’ll guide you through this.",
           "delete": "Delete your GOV.UK One Login",
           "deleteHint": "Then you can create a new one and prove your identity another way.",
-          "separateOptionsInFormText": "or",
+          "divisor": "or",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
           "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
         }
       }

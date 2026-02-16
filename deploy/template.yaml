@@ -107,7 +107,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
-      progressSpinnerButtonTimeout: 20000
+      progressSpinnerButtonTimeout: 30000
       enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: ""
@@ -140,7 +140,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
-      progressSpinnerButtonTimeout: 20000
+      progressSpinnerButtonTimeout: 30000
       enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: ""
@@ -173,7 +173,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 300000
-      progressSpinnerButtonTimeout: 20000
+      progressSpinnerButtonTimeout: 30000
       enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 6
       publishedKeysAccountId: ""
@@ -206,7 +206,7 @@ Mappings:
       spinnerRequestLongWaitInterval: 60000
       mamSpinnerRequestTimeout: 300000
       dadSpinnerRequestTimeout: 900000
-      progressSpinnerButtonTimeout: 20000
+      progressSpinnerButtonTimeout: 30000
       enableProgressSpinnerButton: true
       frontendAutoScalingMinCount: 4
       publishedKeysAccountId: "444977453444"

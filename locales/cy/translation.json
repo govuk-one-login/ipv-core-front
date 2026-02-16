@@ -1592,24 +1592,24 @@
       }
     },
     "needProveIdentityAgainApp": {
-      "title": "You need to use the GOV.UK One Login app to prove your identity",
-      "header": "You need to use the GOV.UK One Login app to prove your identity",
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete your GOV.UK One Login so you can create a new one.",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "Os na allwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login, dylech ddileu eich GOV.UK One Login fel y gallwch greu un newydd.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Prove your identity using the GOV.UK One Login app",
-          "useAppHint": "We’ll guide you through this.",
-          "delete": "Delete your GOV.UK One Login",
-          "deleteHint": "Then you can create a new one and prove your identity another way.",
-          "separateOptionsInFormText": "or",
-          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
-          "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+          "useApp": "Profi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+          "useAppHint": "Byddwn yn eich tywys trwy hyn.",
+          "delete": "Dileu eich GOV.UK One Login",
+          "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
+          "separateOptionsInFormText": "neu",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "returnToRpHint": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth."
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
         }
       }
     },

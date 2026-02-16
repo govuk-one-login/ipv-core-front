@@ -1614,21 +1614,21 @@
       }
     },
     "sorryCouldNotConfirmIdentityReproveFailure": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
-      "content": {
-        "paragraph1": "We could not match you to the photo on your photo ID.",
-        "paragraph2": "You will not be able to use your existing GOV.UK One Login to access the service.",
-        "subHeading1": "What would you like to do?",
+      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
+        "content": {
+        "paragraph1": "Nid oeddem yn gallu eich paru chi â’r llun ar eich ID gyda llun.",
+        "paragraph2": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login presennol i gael mynediad i’r gwasanaeth.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "delete": "Delete your GOV.UK One Login",
-          "deleteHint": "Then you can create a new one and prove your identity another way.",
-          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
+          "delete": "Dileu eich GOV.UK One Login",
+          "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
         }
       }
     },

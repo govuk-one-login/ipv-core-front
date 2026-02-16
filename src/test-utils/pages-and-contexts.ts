@@ -83,6 +83,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     "existingIdentityInvalid",
     undefined,
   ],
+  "sorry-could-not-confirm-identity-reprove-failure": [],
   "sorry-technical-problem": [
     "f2fCriError",
     "kbvCriError",

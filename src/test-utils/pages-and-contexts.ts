@@ -2,7 +2,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   "check-mobile-app-result": [],
   "confirm-your-details": [],
   "problem-different-browser": [],
-  "delete-handover": [],
+  "delete-handover": ["reproveIdentity", undefined],
   "live-in-uk": [],
   "need-id-prove-identity-again-app": [],
   "need-prove-identity-again-app": [],

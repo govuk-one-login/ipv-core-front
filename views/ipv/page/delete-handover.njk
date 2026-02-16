@@ -12,7 +12,7 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{ 'pages.deleteHandover.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph1Html' | translate | safe }}</p>
-  <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph2' | translate  }}</p>
+  <p class="govuk-body">{{ 'pages.deleteHandover.content.paragraph2' | translateWithContext(context) }}</p>
 
   <form id="deleteAccountForm" action="/ipv/page/{{pageId}}" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">

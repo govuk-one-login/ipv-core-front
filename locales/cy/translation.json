@@ -1266,8 +1266,8 @@
       "header": "Dileu eich GOV.UK One Login",
       "content": {
         "paragraph1Html": "Pan fyddwch yn parhau, byddwch yn gallu dileu eich GOV.UK One Login yn barhaol. Darganfyddwch <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">beth sy’n digwydd pan fyddwch yn dileu eich GOV.UK One Login (agor mewn tab newydd)<a>.",
-        "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth  roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda’ch manylion newydd.",
-        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
+        "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda’ch manylion newydd.",
+        "paragraph2ReproveIdentity": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd."
       }
     },
     "updateDetailsFailed": {

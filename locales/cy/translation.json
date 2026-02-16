@@ -1633,21 +1633,21 @@
       }
     },
     "needProveIdentityAgainNoApp": {
-      "title": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
-      "header": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
+      "title": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+      "header": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
       "content": {
-        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete your GOV.UK One Login so you can create a new one.",
-        "subHeading1": "What would you like to do?",
+        "paragraph1": "Os na allwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login, dylech ddileu eich GOV.UK One Login fel y gallwch greu un newydd.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "delete": "Delete your GOV.UK One Login",
-          "deleteHint": "Then you can create a new one and prove your identity another way.",
-          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
-          "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+          "delete": "Dileu eich GOV.UK One Login",
+          "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "returnToRpHint": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth."
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
         }
       }
     }

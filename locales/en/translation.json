@@ -1645,8 +1645,8 @@
           "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
         },
         "formErrorMessage": {
-          "title": "There is a problem",
-          "description": "Select what you would like to do",
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
         }
       }

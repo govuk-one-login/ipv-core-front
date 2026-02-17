@@ -742,6 +742,24 @@ Resources:
       Period: "60"
       Threshold: "30"
 
+  ECSPredictiveScalingPolicy:
+    DependsOn: CoreFrontAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: ECSPredictiveScalingPolicy
+      PolicyType: PredictiveScaling
+      ResourceId: !Sub service/${CoreFrontCluster}/${CoreFrontService.Name}
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      PredictiveScalingPolicyConfiguration:
+        MaxCapacityBreachBehavior: HonorMaxCapacity
+        MetricSpecifications:
+          - PredefinedMetricPairSpecification:
+              PredefinedMetricType: ECSServiceCPUUtilization
+            TargetValue: 60
+        Mode: ForecastOnly
+        SchedulingBufferTime: 600
+
   ECSAccessLogsGroup:
     Type: AWS::Logs::LogGroup
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs

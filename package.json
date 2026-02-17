@@ -71,7 +71,7 @@
     "terser-webpack-plugin": "5.3.10",
     "ts-node": "10.9.2",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.55.0",
+    "typescript-eslint": "8.56.0",
     "uglify-js": "3.19.3",
     "webpack": "5.105.2"
   },

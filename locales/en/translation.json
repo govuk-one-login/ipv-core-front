@@ -1267,7 +1267,7 @@
       "content": {
         "paragraph1Html": "When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
         "paragraph2": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details.",
-        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
+        "paragraph2Reprove": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
       }
     },
     "updateDetailsFailed": {

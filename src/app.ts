@@ -36,6 +36,7 @@ import {
   setFrontendUiTranslations,
   frontendUiMiddleware,
 } from "@govuk-one-login/frontend-ui";
+import { PostJourneyEventResponse } from "./app/validators/postJourneyEventResponse";
 
 // Extend request object with our own extensions
 declare global {
@@ -53,6 +54,8 @@ declare module "express-session" {
     ipvSessionId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
+    currentPostJourneyEventResponse?: PostJourneyEventResponse;
+    history?: PostJourneyEventResponse[];
     context?: string;
     featureSet?: string;
     ipAddress?: string;

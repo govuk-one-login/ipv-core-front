@@ -1,0 +1,58 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.needProveIdentityAgainNoApp.title' %}
+{% set googleTagManagerPageId = "needProveIdentityAgainNoApp" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needProveIdentityAgainNoApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.needProveIdentityAgainNoApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#needProveIdentityAgainNoAppForm" %}
+
+{% set isPageDataSensitive = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needProveIdentityAgainNoApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needProveIdentityAgainNoApp.content.paragraph1' | translate }}</p>
+
+  <form id="needProveIdentityAgainNoAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needProveIdentityAgainNoApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "delete",
+          text: 'pages.needProveIdentityAgainNoApp.content.formRadioButtons.delete' | translate,
+          hint: {
+            text: 'pages.needProveIdentityAgainNoApp.content.formRadioButtons.deleteHint' | translate
+          }
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.needProveIdentityAgainNoApp.content.formRadioButtons.returnToRp' | translate,
+          hint: {
+            text: 'pages.needProveIdentityAgainNoApp.content.formRadioButtons.returnToRpHint' | translate
+          }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needProveIdentityAgainNoApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

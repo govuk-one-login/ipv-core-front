@@ -1,0 +1,71 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.proveIdentityAgainApp.title' %}
+{% set googleTagManagerPageId = "proveIdentityAgainApp" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.proveIdentityAgainApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.proveIdentityAgainApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#proveIdentityAgainAppForm" %}
+
+{% set isPageDataSensitive = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityAgainApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet" role="list">
+    <li>{{ 'pages.proveIdentityAgainApp.content.list1' | translate }}</li>
+    <li>{{ 'pages.proveIdentityAgainApp.content.list2' | translate }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.paragraph2Html' | translate | safe }}</p>
+
+  <form id="proveIdentityAgainAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.proveIdentityAgainApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "useApp",
+          text: 'pages.proveIdentityAgainApp.content.formRadioButtons.useApp' | translate,
+          hint: {
+            text: 'pages.proveIdentityAgainApp.content.formRadioButtons.useAppHint' | translate
+          }
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.proveIdentityAgainApp.content.formRadioButtons.returnToRp' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityAgainApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% set detailsHtml %}
+    <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p1' | translate | safe }}</p>
+    <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p2' | translate }}</p>
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: 'pages.proveIdentityAgainApp.content.details.title' | translate,
+    html: detailsHtml
+  }) }}
+{% endblock %}

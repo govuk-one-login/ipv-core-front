@@ -1,0 +1,75 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.needIdProveIdentityAgainApp.title' %}
+{% set googleTagManagerPageId = "needIdProveIdentityAgainApp" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needIdProveIdentityAgainApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.needIdProveIdentityAgainApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#needIdProveIdentityAgainAppForm" %}
+
+{% set isPageDataSensitive = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needIdProveIdentityAgainApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needIdProveIdentityAgainApp.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ 'pages.needIdProveIdentityAgainApp.content.list1' | translate }}</li>
+    <li>{{ 'pages.needIdProveIdentityAgainApp.content.list2' | translate }}</li>
+    <li>{{ 'pages.needIdProveIdentityAgainApp.content.list3' | translate }}</li>
+    <li>{{ 'pages.needIdProveIdentityAgainApp.content.list4' | translate }}</li>
+  </ul>
+  <p class="govuk-body">{{ 'pages.needIdProveIdentityAgainApp.content.paragraph2' | translate }}</p>
+
+  <form id="needIdProveIdentityAgainAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needIdProveIdentityAgainApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "useApp",
+          text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.useApp' | translate,
+          hint: {
+            text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.useAppHint' | translate
+          }
+        },
+        {
+          value: "delete",
+          text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.delete' | translate,
+          hint: {
+            text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.deleteHint' | translate
+          }
+        },
+        {
+          divider: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.divisor' | translate
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.returnToRp' | translate,
+          hint: {
+            text: 'pages.needIdProveIdentityAgainApp.content.formRadioButtons.returnToRpHint' | translate
+          }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needIdProveIdentityAgainApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

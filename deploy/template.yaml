@@ -175,7 +175,7 @@ Mappings:
       dadSpinnerRequestTimeout: 300000
       progressSpinnerButtonTimeout: 30000
       enableProgressSpinnerButton: true
-      frontendAutoScalingMinCount: 20
+      frontendAutoScalingMinCount: 6
       publishedKeysAccountId: ""
     "335257547869": # Staging
       lb500ErrorLimit: 2

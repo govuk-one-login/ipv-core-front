@@ -56,12 +56,12 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
     );
 
     // Assert
-    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledWith(
+    expect(coreBackServiceStub.postJourneyEvent).to.have.been.calledOnceWith(
       req,
       "build-client-oauth-response",
       IPV_PAGES.PROBLEM_DIFFERENT_BROWSER,
     );
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       `/ipv/page/${IPV_PAGES.PAGE_MULTIPLE_DOC_CHECK}`,
     );
   });
@@ -84,7 +84,7 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
     );
 
     // Assert
-    expect(res.redirect).to.have.been.calledWith(
+    expect(res.redirect).to.have.been.calledOnceWith(
       `/ipv/page/${IPV_PAGES.PYI_ATTEMPT_RECOVERY}`,
     );
   });

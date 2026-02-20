@@ -211,7 +211,7 @@ describe("handleJourneyActionRequest", () => {
       await middleware.handleJourneyActionRequest(req, res, next);
 
       // Assert
-      expect(res.redirect).to.have.been.calledWith(expectedRedirect);
+      expect(res.redirect).to.have.been.calledOnceWith(expectedRedirect);
     });
   });
 

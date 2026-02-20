@@ -1734,15 +1734,15 @@ Resources:
             Period: !FindInMap [ EnvironmentConfiguration, !Ref AWS::AccountId, tg500ErrorWindow ]
             Stat: Sum
 
-  FrontTargetGroup5xxPercentErrors:
+  FrontTargetGroupAndELB5xxPercentErrors:
     # This is used by the canary deployment stack
     Type: AWS::CloudWatch::Alarm
     Condition: UseCanaryDeployment
     Properties:
-      AlarmName: FrontTargetGroup5xxPercentAlarm
+      AlarmName: FrontTargetGroupAndELB5xxPercentAlarm
       AlarmDescription: >
-        The number of HTTP 5XX server error codes that originate from the
-        target group is greater than 5% of all traffic.
+        The sum of HTTP 5XX server error codes that originate from the
+        target group and the application load balancer is greater than 5% of all traffic.
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
       Threshold: 5
@@ -1752,7 +1752,7 @@ Resources:
       - Id: e1
         Label: ErrorPercent
         ReturnData: true
-        Expression: (m1/m2)*100
+        Expression: ((m1+m3)/m2)*100
       - Id: m1
         ReturnData: false
         MetricStat:
@@ -1773,6 +1773,17 @@ Resources:
             Dimensions:
             - Name: LoadBalancer
               Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
+          Period: 60
+          Stat: Sum
+      - Id: m3
+        ReturnData: false
+        MetricStat:
+          Metric:
+            Namespace: AWS/ApplicationELB
+            MetricName: HTTPCode_ELB_5XX_Count
+            Dimensions:
+              - Name: LoadBalancer
+                Value: !GetAtt PrivateLoadBalancer.LoadBalancerFullName
           Period: 60
           Stat: Sum
 
@@ -2021,7 +2032,7 @@ Resources:
         VpcId: !Sub ${VpcStackName}-VpcId
         ContainerName: app
         ContainerPort: 8080
-        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
+        CloudWatchAlarms: !Ref FrontTargetGroupAndELB5xxPercentErrors
         PermissionsBoundary: !If
           - UsePermissionsBoundary
           - !Ref PermissionsBoundary

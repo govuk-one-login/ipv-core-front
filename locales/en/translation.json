@@ -1545,7 +1545,7 @@
         "paragraph1": "To prove your identity using the GOV.UK One Login app, you’ll need:",
         "list1": "photo ID",
         "list2": "a phone with a working camera",
-        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"placeholder\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
+        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "useApp": "Prove your identity with the app",

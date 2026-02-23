@@ -1545,7 +1545,7 @@
         "paragraph1": "I brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login, byddwch angen:",
         "list1": "ID gyda llun",
         "list2": "ffôn gyda chamera sy’n gweithio",
-        "paragraph2Html": "Darganfyddwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"placeholder\">ba ID gyda llun a ffôn rydych eu hangen i brofi eich hunaniaeth gan ddefnyddio’r ap (agor mewn tab newydd)</a>.",
+        "paragraph2Html": "Darganfyddwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">ba ID gyda llun a ffôn rydych eu hangen i brofi eich hunaniaeth gan ddefnyddio’r ap (agor mewn tab newydd)</a>.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useApp": "Profi eich hunaniaeth gyda’r ap",
@@ -1568,7 +1568,7 @@
       "title": "Rydych angen ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login",
       "header": "Rydych angen ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login",
       "content": {
-        "paragraph1": "Rydych angen un o’r mathau canlynol o ID gyda llun :",
+        "paragraph1": "Rydych angen un o’r mathau canlynol o ID gyda llun:",
         "list1": "pasbort y DU",
         "list2": "pasbort nad yw o’r DU gyda sglodyn biometrig",
         "list3": "trwydded yrru cerdyn llun y DU",
@@ -1580,7 +1580,7 @@
           "useAppHint": "Byddwn yn eich tywys trwy hyn.",
           "delete": "Dileu eich GOV.UK One Login",
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
-          "separateOptionsInFormText": "neu",
+          "divisor": "neu",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "returnToRpHint": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth."
         },
@@ -1602,7 +1602,7 @@
           "useAppHint": "Byddwn yn eich tywys trwy hyn.",
           "delete": "Dileu eich GOV.UK One Login",
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
-          "separateOptionsInFormText": "neu",
+          "divisor": "neu",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "returnToRpHint": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth."
         },

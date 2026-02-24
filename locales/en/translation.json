@@ -133,8 +133,11 @@
         "paragraph1Nino": "We could not find a match for your National Insurance number when we checked your details with HMRC.",
         "paragraph1BankAccount": "We could not find a match when we checked your details with your bank or building society.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
+        "insetTextRepeatFraudCheck": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What you can do",
-        "paragraph3": "You can go back to the service you were trying to use to find out if there are other ways to access it."
+        "paragraph3": "You can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "paragraph3UpdateDetails": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
+        "paragraph3RepeatFraudCheck": "You can go back to the service you were trying to use. There may be another way to access the service without using your GOV.UK One Login."
       }
     },
     "sorryCouldNotConfirmDetails": {
@@ -632,7 +635,8 @@
         "detailsContent": "<p>Your Post Office customer letter shows which Post Office you chose to go to. </p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.postoffice.co.uk/identity/in-branch-verification-service#bfSearchLabel\">go to a different Post Office as long as it offers in-branch verification (opens in new tab)</a>.</p> <p>You do not need to contact the GOV.UK One Login team if you want to go to a different Post Office.</p>",
         "thirdCircle": "3",
         "subHeading3": "Wait for your result",
-        "paragraph6": "You’ll get an email from GOV.UK One Login about the result of your identity check – usually within a day of going to the Post Office.",
+        "paragraph6": "The result of your identity check will usually be available within 24 hours of going to the Post Office.",
+        "paragraph7": "When it’s ready, you’ll get an email from GOV.UK One Login. You can view your result by signing in.",
         "subHeading4": "If you need help"
       }
     },
@@ -1261,8 +1265,9 @@
       "title": "Delete your GOV.UK One Login",
       "header": "Delete your GOV.UK One Login",
       "content": {
-        "paragraph1Html": "When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)<a>.",
-        "paragraph2": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details."
+        "paragraph1Html": "When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)</a>.",
+        "paragraph2": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details.",
+        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
       }
     },
     "updateDetailsFailed": {
@@ -1496,6 +1501,154 @@
         "subHeading": "What you need to do",
         "p2": "Continue using this browser and follow the instructions.",
         "p3": "When prompted, sign in to your GOV.UK One Login to finish proving your identity."
+      }
+    },
+    "needMoreInformationConfirmChangeDetails": {
+      "title": "We need more information to confirm your change of details",
+      "header": "We need more information to confirm your change of details",
+      "content": {
+        "paragraph1": "We could not confirm your change of details.",
+        "paragraph2RepeatFraudCheck": "If you have a valid passport, you can prove your identity in the GOV.UK One Login app.",
+        "paragraph2UpdateDetails": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
+        "paragraph3RepeatFraudCheck": "Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph3UpdateDetails": "Or you can use a valid passport to prove your identity in the GOV.UK One Login app. Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph4": "Then we’ll try to confirm your details again.",
+        "details1": {
+          "summaryText": "How do I know if my passport is valid?",
+          "paragraph5": "You can use any UK passport if it has not expired.",
+          "paragraph6": "You can use a non-UK passport if it:",
+          "list1": "has a biometric chip",
+          "list2": "has not expired",
+          "paragraph7": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover."
+        },
+        "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "passport": "Use your passport to prove your identity in the GOV.UK One Login app",
+          "passportHint": "You’ll be shown how to download and use the app.",
+          "returnToRp": "Go back to the service you were trying to use",
+          "returnToRpHint": "There may be another way to access the service without using your GOV.UK One Login.",
+          "continueToService": "Continue to the service without updating your details",
+          "continueToServiceHint": "Your proof of identity is valid even if your details have changed."
+        },
+        "formErrorMessage": {
+          "title": "There is a problem",
+          "description": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "proveIdentityAgainApp": {
+      "title": "Prove your identity using the GOV.UK One Login app",
+      "header": "Prove your identity using the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "To prove your identity using the GOV.UK One Login app, you’ll need:",
+        "list1": "photo ID",
+        "list2": "a phone with a working camera",
+        "paragraph2Html": "Find out <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/using-your-gov-uk-one-login/proving-your-identity\">what photo ID and phone you need to prove your identity using the app (opens in new tab)</a>.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the app",
+          "useAppHint": "We’ll guide you through this.",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        },
+        "details": {
+          "title": "If you cannot use the GOV.UK One Login app",
+          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">delete your GOV.UK One Login</a>.",
+          "p2": "Then you can create a new GOV.UK One Login and prove your identity another way."
+        }
+      }
+    },
+    "needIdProveIdentityAgainApp": {
+      "title": "You need photo ID to prove your identity using the GOV.UK One Login app",
+      "header": "You need photo ID to prove your identity using the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "You need one of the following types of photo ID:",
+        "list1": "UK passport",
+        "list2": "non-UK passport with a biometric chip",
+        "list3": "UK photocard driving licence",
+        "list4": "UK biometric residence card or permit",
+        "paragraph2": "If you cannot prove your identity using the app, you should delete your GOV.UK One Login. Then you can create a new one.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity using the app and photo ID",
+          "useAppHint": "We’ll guide you through this.",
+          "delete": "Delete your GOV.UK One Login",
+          "deleteHint": "Then you can create a new one and prove your identity another way.",
+          "divisor": "or",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
+          "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "needProveIdentityAgainApp": {
+      "title": "You need to use the GOV.UK One Login app to prove your identity",
+      "header": "You need to use the GOV.UK One Login app to prove your identity",
+      "content": {
+        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete your GOV.UK One Login so you can create a new one.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity using the GOV.UK One Login app",
+          "useAppHint": "We’ll guide you through this.",
+          "delete": "Delete your GOV.UK One Login",
+          "deleteHint": "Then you can create a new one and prove your identity another way.",
+          "divisor": "or",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
+          "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "sorryCouldNotConfirmIdentityReproveFailure": {
+      "title": "Sorry, we could not confirm your identity",
+      "header": "Sorry, we could not confirm your identity",
+      "content": {
+        "paragraph1": "We could not match you to the photo on your photo ID.",
+        "paragraph2": "You will not be able to use your existing GOV.UK One Login to access the service.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "delete": "Delete your GOV.UK One Login",
+          "deleteHint": "Then you can create a new one and prove your identity another way.",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "needProveIdentityAgainNoApp": {
+      "title": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
+      "header": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "If you cannot prove your identity using the GOV.UK One Login app, you should delete your GOV.UK One Login so you can create a new one.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "delete": "Delete your GOV.UK One Login",
+          "deleteHint": "Then you can create a new one and prove your identity another way.",
+          "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
+          "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
       }
     }
   }

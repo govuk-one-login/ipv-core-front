@@ -54,7 +54,7 @@ To run the tests locally, you need to create a `.env` file in the root of the `b
 ```env
 # ── Required (tests will fail without these) ──────────────────────────
 ORCHESTRATOR_STUB_URL="https://your-orchestrator-stub-url"
-TICF_MANAGEMENT_API_KEY="your-api-key"
+TICF_MANAGEMENT_API_KEY="your-api-key" # pragma: allowlist secret
 
 # ── Optional (sensible defaults are provided) ─────────────────────────
 # IDENTITY_BUILD_URL="https://identity.build.account.gov.uk"

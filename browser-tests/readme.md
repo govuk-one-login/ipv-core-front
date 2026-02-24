@@ -49,6 +49,12 @@ Each test can have its own journey configured in `imposter/config/api-config.yam
 - Set up environment variables as in the `browser-tests-tests` container setup
 - Click on the arrow next to the test in IntelliJ
 
+### Running Playwright tests in the Playwright runner
+- Build the docker containers `docker compose build`
+- Run the imposter and core-front containers `docker compose up browser-tests-core-back-imposter browser-tests-core-front`
+- `npx playwright test --ui`
+- Or `npx playwright test --ui --headed` to see the browser as the test runs
+
 ### Debugging Core Front During Tests
 - Build the docker containers `docker compose build`
 - Run the imposter and core-front containers in one terminal `docker compose up browser-tests-core-back-imposter browser-tests-core-front`
@@ -84,4 +90,3 @@ NPM_COMMAND=update-snapshots docker compose up --exit-code-from browser-tests-te
 - 4601 - Core front
 - 4602 - Core back imposter
 - 5101 - Core front debug port
-

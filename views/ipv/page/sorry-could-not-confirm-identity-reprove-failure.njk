@@ -1,0 +1,56 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.sorryCouldNotConfirmIdentityReproveFailure.title' %}
+{% set googleTagManagerPageId = "sorryCouldNotConfirmIdentityReproveFailure" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#sorryCouldNotConfirmIdentityReproveFailureForm" %}
+
+{% set isPageDataSensitive = false %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.sorryCouldNotConfirmIdentityReproveFailure.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.paragraph2' | translate }}</p>
+
+  <form id="sorryCouldNotConfirmIdentityReproveFailureForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "delete",
+          text: 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formRadioButtons.delete' | translate,
+          hint: {
+            text: 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formRadioButtons.deleteHint' | translate
+          }
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formRadioButtons.returnToRp' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.sorryCouldNotConfirmIdentityReproveFailure.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

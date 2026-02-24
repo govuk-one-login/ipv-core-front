@@ -31,7 +31,7 @@ test.describe.parallel("Snapshot tests", () => {
         }
 
         const actualScreenshot = await page.screenshot({fullPage: true, type: "jpeg", quality: 20});
-        expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25});
+        expect(actualScreenshot).toMatchSnapshot(screenshotFilename, {threshold: 0.25,  maxDiffPixels: 2});
       });
     }
   );

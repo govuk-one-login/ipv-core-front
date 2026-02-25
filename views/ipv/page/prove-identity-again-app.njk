@@ -53,19 +53,24 @@
     {% endif %}
 
     {{ govukRadios(radiosConfig) }}
+
+    {% set detailsHtml %}
+      <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p1' | translate | safe }}</p>
+      <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p2' | translate }}</p>
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: 'pages.proveIdentityAgainApp.content.details.title' | translate,
+      html: detailsHtml
+    }) }}
+
     {{ govukButton({
       id: "submitButton",
       text: 'general.buttons.next' | translate
     }) }}
   </form>
 
-  {% set detailsHtml %}
-    <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p1' | translate | safe }}</p>
-    <p class="govuk-body">{{ 'pages.proveIdentityAgainApp.content.details.p2' | translate }}</p>
-  {% endset %}
 
-  {{ govukDetails({
-    summaryText: 'pages.proveIdentityAgainApp.content.details.title' | translate,
-    html: detailsHtml
-  }) }}
+
+  {% include "components/contact-us-link.njk" %}
 {% endblock %}

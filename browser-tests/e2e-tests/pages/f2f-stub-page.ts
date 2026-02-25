@@ -1,9 +1,9 @@
-import { StubPage } from './stub-page';
-import { expect } from '@playwright/test';
+import { StubPage } from "./stub-page";
+import { expect } from "@playwright/test";
 
 export class F2FStubPage extends StubPage {
   async navigateToF2FStub(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   async selectF2FTestData(testData: string): Promise<void> {
@@ -11,27 +11,27 @@ export class F2FStubPage extends StubPage {
   }
 
   async processValidPassport(): Promise<void> {
-    await this.selectTestData('Kenneth Decerqueira (Valid Passport)');
-    await expect(this.page.locator('#test_data')).toHaveValue(
-      'Kenneth Decerqueira (Valid Passport)'
+    await this.selectTestData("Kenneth Decerqueira (Valid Passport)");
+    await expect(this.page.locator("#test_data")).toHaveValue(
+      "Kenneth Decerqueira (Valid Passport)",
     );
   }
 
   async overrideEvidenceBlock(): Promise<void> {
-    await this.selectCheckbox('Override evidence block');
+    await this.selectCheckbox("Override evidence block");
   }
 
   async setCustomEvidence(evidenceValue: string): Promise<void> {
-    await this.selectOption('#custom_evidence', evidenceValue);
+    await this.selectOption("#custom_evidence", evidenceValue);
   }
 
   async setPassedF2FPassportCheck(): Promise<void> {
     await this.overrideEvidenceBlock();
-    await this.setCustomEvidence('Passed f2f passport check');
+    await this.setCustomEvidence("Passed f2f passport check");
   }
 
   async sendVCToAsyncQueue(): Promise<void> {
-    await this.selectCheckbox('Send VC to async queue');
+    await this.selectCheckbox("Send VC to async queue");
   }
 
   async submitF2FData(): Promise<void> {
@@ -46,10 +46,10 @@ export class F2FStubPage extends StubPage {
   }
 
   async processKennethDecerqueiraF2F(): Promise<void> {
-    await this.selectTestData('Kenneth Decerqueira (Valid Passport)');
+    await this.selectTestData("Kenneth Decerqueira (Valid Passport)");
     await this.sendVCToAsyncQueue();
     await this.overrideEvidenceBlock();
-    await this.setCustomEvidence('Passed f2f passport check');
+    await this.setCustomEvidence("Passed f2f passport check");
     await this.submitF2FData();
   }
 }

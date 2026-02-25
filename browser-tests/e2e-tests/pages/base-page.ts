@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect } from "@playwright/test";
 
 export abstract class BasePage {
   constructor(protected page: Page) {}
@@ -9,22 +9,24 @@ export abstract class BasePage {
 
   protected async clickButton(name: string): Promise<void> {
     const currentUrl = this.page.url();
-    await this.page.getByRole('button', { name }).click();
+    await this.page.getByRole("button", { name }).click();
     // Wait for navigation if the URL changes, otherwise just wait for network to settle
     try {
-      await this.page.waitForURL((url) => url.toString() !== currentUrl, { timeout: 15000 });
+      await this.page.waitForURL((url) => url.toString() !== currentUrl, {
+        timeout: 15000,
+      });
     } catch {
       // Navigation might not always occur (e.g. in-page form submission)
     }
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   protected async selectRadio(name: string): Promise<void> {
-    await this.page.getByRole('radio', { name }).check();
+    await this.page.getByRole("radio", { name }).check();
   }
 
   protected async selectCheckbox(name: string): Promise<void> {
-    await this.page.getByRole('checkbox', { name }).check();
+    await this.page.getByRole("checkbox", { name }).check();
   }
 
   protected async selectOption(selector: string, value: string): Promise<void> {
@@ -32,7 +34,7 @@ export abstract class BasePage {
   }
 
   protected async expectHeading(name: string): Promise<void> {
-    await expect(this.page.getByRole('heading', { name })).toBeVisible();
+    await expect(this.page.getByRole("heading", { name })).toBeVisible();
   }
 
   protected async expectText(text: string): Promise<void> {

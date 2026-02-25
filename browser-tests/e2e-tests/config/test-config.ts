@@ -1,58 +1,69 @@
 export class ConfigurationReader {
   private static getEnvironmentVariableOrError(variable: string): string {
     const value = process.env[variable];
-    if (!value || value.trim() === '') {
-      throw new Error(`Required environment variable '${variable}' is not set or is blank`);
+    if (!value || value.trim() === "") {
+      throw new Error(
+        `Required environment variable '${variable}' is not set or is blank`,
+      );
     }
     return value;
   }
 
-  private static getEnvironmentVariableOrDefault(variable: string, defaultValue: string): string {
+  private static getEnvironmentVariableOrDefault(
+    variable: string,
+    defaultValue: string,
+  ): string {
     const value = process.env[variable];
-    return (!value || value.trim() === '') ? defaultValue : value;
+    return !value || value.trim() === "" ? defaultValue : value;
   }
 
   // URL Configuration
   static getOrchestratorUrl(): string {
-    return this.getEnvironmentVariableOrError('ORCHESTRATOR_STUB_URL');
+    return this.getEnvironmentVariableOrError("ORCHESTRATOR_STUB_URL");
   }
 
   static getIdentityBuildUrl(): string {
     return this.getEnvironmentVariableOrDefault(
-      'IDENTITY_BUILD_URL',
-      'https://identity.build.account.gov.uk'
+      "IDENTITY_BUILD_URL",
+      "https://identity.build.account.gov.uk",
     );
   }
 
   static getTicfManagementUrl(): string {
     return this.getEnvironmentVariableOrDefault(
-      'TICF_MANAGEMENT_URL',
-      'https://ticf.stubs.account.gov.uk/management/user'
+      "TICF_MANAGEMENT_URL",
+      "https://ticf.stubs.account.gov.uk/management/user",
     );
   }
 
   // API Keys
   static getTicfApiKey(): string {
-    return this.getEnvironmentVariableOrError('TICF_MANAGEMENT_API_KEY');
+    return this.getEnvironmentVariableOrError("TICF_MANAGEMENT_API_KEY");
   }
 
   // Browser Configuration
   static getBrowser(): string {
-    return this.getEnvironmentVariableOrDefault('BROWSER', 'chromium');
+    return this.getEnvironmentVariableOrDefault("BROWSER", "chromium");
   }
 
   // Test Configuration
   static getTestTimeout(): number {
-    const timeout = process.env['TEST_TIMEOUT'];
+    const timeout = process.env["TEST_TIMEOUT"];
     return timeout ? parseInt(timeout, 10) : 90000;
   }
 
   static isHeadless(): boolean {
-    return this.getEnvironmentVariableOrDefault('HEADLESS', 'true').toLowerCase() === 'true';
+    return (
+      this.getEnvironmentVariableOrDefault("HEADLESS", "true").toLowerCase() ===
+      "true"
+    );
   }
 
   static getBaseUrl(): string {
-    return this.getEnvironmentVariableOrDefault('BASE_URL', this.getIdentityBuildUrl());
+    return this.getEnvironmentVariableOrDefault(
+      "BASE_URL",
+      this.getIdentityBuildUrl(),
+    );
   }
 }
 
@@ -62,7 +73,7 @@ export const CONFIG = {
     ORCHESTRATOR_STUB: ConfigurationReader.getOrchestratorUrl(),
     IDENTITY_BUILD: ConfigurationReader.getIdentityBuildUrl(),
     TICF_MANAGEMENT_API: ConfigurationReader.getTicfManagementUrl(),
-    CORE: ConfigurationReader.getBaseUrl()
+    CORE: ConfigurationReader.getBaseUrl(),
   },
   API: {
     TICF_API_KEY: ConfigurationReader.getTicfApiKey(),

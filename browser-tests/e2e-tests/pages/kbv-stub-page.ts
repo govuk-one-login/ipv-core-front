@@ -1,5 +1,5 @@
-import { expect, Page } from '@playwright/test';
-import { BasePage } from './base-page';
+import { expect, Page } from "@playwright/test";
+import { BasePage } from "./base-page";
 
 export class KBVStubPage extends BasePage {
   constructor(page: Page) {
@@ -15,9 +15,9 @@ export class KBVStubPage extends BasePage {
    * 5. click .govuk-button (submitdatagenerateauth)
    */
   async fillAndSubmit(testData: string, score: string): Promise<void> {
-    const testDataSelect = this.page.locator('#test_data');
+    const testDataSelect = this.page.locator("#test_data");
     const scoreInput = this.page.locator('[name="verificationScore"]');
-    const submitButton = this.page.locator('.govuk-button').first();
+    const submitButton = this.page.locator(".govuk-button").first();
 
     await testDataSelect.selectOption({ value: testData });
     await expect(testDataSelect).toHaveValue(testData);

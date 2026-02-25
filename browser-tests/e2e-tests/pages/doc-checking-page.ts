@@ -1,25 +1,25 @@
-import { StubPage } from './stub-page';
+import { StubPage } from "./stub-page";
 
 export class DocCheckingPage extends StubPage {
   async processAliceParkerValidInitial(): Promise<void> {
-    await this.page.locator('#test_data').click();
-    await this.selectTestData('Alice Parker (Valid) DVLA Licence');
+    await this.page.locator("#test_data").click();
+    await this.selectTestData("Alice Parker (Valid) DVLA Licence");
     await this.setEvidenceScores({
-      strength: '3',
-      validity: '2',
-      activityHistory: '1',
-      biometricVerification: '3'
+      strength: "3",
+      validity: "2",
+      activityHistory: "1",
+      biometricVerification: "3",
     });
     await this.submitData();
   }
 
   async processAliceParkerNameChangeInitial(): Promise<void> {
-    await this.selectTestData('Alice Parker (Changed First Name) DVLA Licence');
+    await this.selectTestData("Alice Parker (Changed First Name) DVLA Licence");
     await this.setEvidenceScores({
-      strength: '3',
-      validity: '2',
-      activityHistory: '1',
-      biometricVerification: '3'
+      strength: "3",
+      validity: "2",
+      activityHistory: "1",
+      biometricVerification: "3",
     });
     await this.submitData();
   }

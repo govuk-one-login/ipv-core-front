@@ -57,14 +57,14 @@ test.describe("Error tests", () => {
 
   test("Handles error with different CRI selection", async ({ page }) => {
     await page.goto(getAuthoriseUrlForJourney("testCriError"));
-    
+
     const radioButtons = page.locator("input[type='radio']");
     const count = await radioButtons.count();
-    
+
     if (count > 1) {
       await radioButtons.nth(1).click();
       await page.click("button[id='submitButton']");
-      
+
       const textLocator = await page.getByText("Sorry, there is a problem");
       await expect(textLocator).toBeVisible();
     }

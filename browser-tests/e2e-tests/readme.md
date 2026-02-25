@@ -46,6 +46,7 @@ e2e-tests/
 To run the tests locally, you need to create a `.env` file in the root of the `browser-tests/` directory. This file stores environment-specific URLs and API keys, keeping them separate from the codebase.
 
 ### Steps:
+
 1. Create a file named `.env` in the `browser-tests/` directory.
 2. Add the required environment variables (see below).
 
@@ -88,6 +89,7 @@ npm run test:e2e
 ```
 
 Under the hood this runs:
+
 ```bash
 npx playwright-bdd --config playwright-bdd.config.ts test && npx playwright test --config playwright-bdd.config.ts
 ```
@@ -138,18 +140,19 @@ npm run update-snapshots
 
 ## 🧩 Available npm Scripts
 
-| Script                   | Description                                              |
-|--------------------------|----------------------------------------------------------|
-| `npm test`               | Runs functional/snapshot tests (`playwright.config.ts`)  |
-| `npm run test:e2e`       | Generates BDD specs and runs E2E tests                   |
-| `npm run test:all`       | Runs both functional and E2E tests                       |
-| `npm run update-snapshots` | Updates visual snapshots for functional tests          |
+| Script                     | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| `npm test`                 | Runs functional/snapshot tests (`playwright.config.ts`) |
+| `npm run test:e2e`         | Generates BDD specs and runs E2E tests                  |
+| `npm run test:all`         | Runs both functional and E2E tests                      |
+| `npm run update-snapshots` | Updates visual snapshots for functional tests           |
 
 ---
 
 ## 📝 Writing New Tests
 
 1. **Create a feature file** in `features/` using Gherkin syntax:
+
    ```gherkin
    Feature: My new journey
 

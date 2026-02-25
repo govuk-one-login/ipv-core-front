@@ -9,23 +9,20 @@ export class StubPage extends BasePage {
   }
 
   async setEvidenceScores(scores: EvidenceScores): Promise<void> {
-    if (scores.strengthHours) {
-      await this.page.getByRole('spinbutton', { name: 'Strength Hours' }).fill(scores.strengthHours);
+    if (scores.strength) {
+      await this.page.getByRole('spinbutton', { name: 'Strength' }).fill(scores.strength);
     }
-    if (scores.validityMinutes) {
-      await this.page.getByRole('spinbutton', { name: 'Validity Minutes' }).fill(scores.validityMinutes);
+    if (scores.validity) {
+      await this.page.getByRole('spinbutton', { name: 'Validity' }).fill(scores.validity);
     }
-    if (scores.activityHistorySeconds) {
-      await this.page.getByRole('spinbutton', { name: 'Activity History Seconds' }).fill(scores.activityHistorySeconds);
+    if (scores.activityHistory) {
+      await this.page.getByRole('spinbutton', { name: 'Activity History' }).fill(scores.activityHistory);
     }
     if (scores.biometricVerification) {
-      await this.page.getByRole('spinbutton', { name: 'Biometric Verification' }).fill(scores.biometricVerification);
+      await this.page.getByRole('spinbutton', { name: 'Biometric Verification Process Level' }).fill(scores.biometricVerification);
     }
     if (scores.fraud) {
       await this.page.getByRole('spinbutton', { name: 'Fraud' }).fill(scores.fraud);
-    }
-    if (scores.activity) {
-      await this.page.getByRole('spinbutton', { name: 'Activity' }).fill(scores.activity);
     }
   }
 

@@ -5,7 +5,6 @@ Feature: COI Fraud Check - Given Name Change
 
   Background:
     Given I navigate to Orchestrator Stub and start journey
-    And I enable Feature Flags
     And I configure TICF Management API
 
   Scenario: Pass successfully for a given name change and show reuse screen

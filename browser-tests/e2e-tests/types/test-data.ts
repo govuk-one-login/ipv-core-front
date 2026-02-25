@@ -8,10 +8,9 @@ export interface TicfApiPayload {
 }
 
 export interface EvidenceScores {
-  strengthHours?: string;
-  validityMinutes?: string;
-  activityHistorySeconds?: string;
+  strength?: string;
+  validity?: string;
+  activityHistory?: string;
   biometricVerification?: string;
   fraud?: string;
-  activity?: string;
 }

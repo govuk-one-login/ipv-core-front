@@ -59,7 +59,6 @@ TICF_MANAGEMENT_API_KEY="your-api-key" # pragma: allowlist secret
 # ── Optional (sensible defaults are provided) ─────────────────────────
 # IDENTITY_BUILD_URL="https://identity.build.account.gov.uk"
 # TICF_MANAGEMENT_URL="https://ticf.stubs.account.gov.uk/management/user"
-# FEATURE_FLAGS="ticfCriBeta,disableStrategicApp"
 # BROWSER="chromium"
 # TEST_TIMEOUT="90000"
 # HEADLESS="true"

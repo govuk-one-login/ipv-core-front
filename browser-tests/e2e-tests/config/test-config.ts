@@ -19,7 +19,7 @@ export class ConfigurationReader {
 
   static getIdentityBuildUrl(): string {
     return this.getEnvironmentVariableOrDefault(
-      'IDENTITY_BUILD_URL', 
+      'IDENTITY_BUILD_URL',
       'https://identity.build.account.gov.uk'
     );
   }
@@ -34,16 +34,6 @@ export class ConfigurationReader {
   // API Keys
   static getTicfApiKey(): string {
     return this.getEnvironmentVariableOrError('TICF_MANAGEMENT_API_KEY');
-  }
-
-  // Feature Flags
-  static getFeatureFlagsUrl(): string {
-    const baseUrl = this.getIdentityBuildUrl();
-    const featureSet = this.getEnvironmentVariableOrDefault(
-      'FEATURE_FLAGS',
-      'ticfCriBeta,disableStrategicApp'
-    );
-    return `${baseUrl}/ipv/usefeatureset?featureSet=${featureSet}`;
   }
 
   // Browser Configuration
@@ -72,12 +62,10 @@ export const CONFIG = {
     ORCHESTRATOR_STUB: ConfigurationReader.getOrchestratorUrl(),
     IDENTITY_BUILD: ConfigurationReader.getIdentityBuildUrl(),
     TICF_MANAGEMENT_API: ConfigurationReader.getTicfManagementUrl(),
+    CORE: ConfigurationReader.getBaseUrl()
   },
   API: {
     TICF_API_KEY: ConfigurationReader.getTicfApiKey(),
-  },
-  FEATURE_FLAGS: {
-    ENABLE_URL: ConfigurationReader.getFeatureFlagsUrl(),
   },
   BROWSER: {
     TYPE: ConfigurationReader.getBrowser(),

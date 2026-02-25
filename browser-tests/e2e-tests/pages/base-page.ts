@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 export abstract class BasePage {
   constructor(protected page: Page) {}
@@ -25,10 +25,6 @@ export abstract class BasePage {
 
   protected async selectCheckbox(name: string): Promise<void> {
     await this.page.getByRole('checkbox', { name }).check();
-  }
-
-  protected async fillInput(selector: string, value: string): Promise<void> {
-    await this.page.locator(selector).fill(value);
   }
 
   protected async selectOption(selector: string, value: string): Promise<void> {

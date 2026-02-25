@@ -3,13 +3,10 @@ import { BasePage } from './base-page';
 import { CONFIG } from '../config/test-config';
 
 export class IdentityPage extends BasePage {
-  async enableFeatureFlags(featureSet?: string): Promise<void> {
-    let url = CONFIG.FEATURE_FLAGS.ENABLE_URL;
-    // If a specific feature set is passed, build the URL with that feature set
-    if (featureSet) {
-      const baseUrl = CONFIG.URLS.IDENTITY_BUILD;
-      url = `${baseUrl}/ipv/usefeatureset?featureSet=${featureSet}`;
-    }
+  async enableFeatureFlags(featureSet: string): Promise<void> {
+    const baseUrl = CONFIG.URLS.IDENTITY_BUILD;
+    const url = `${baseUrl}/ipv/usefeatureset?featureSet=${featureSet}`;
+
     await this.navigateTo(url);
     await this.page.waitForLoadState('networkidle');
     // Navigate back to the journey
@@ -60,10 +57,6 @@ export class IdentityPage extends BasePage {
     await this.clickButton('Continue');
   }
 
-  async navigateToDcmawSuccess(): Promise<void> {
-    await this.navigateTo(`${CONFIG.URLS.IDENTITY_BUILD}/ipv/page/page-dcmaw-success`);
-  }
-
   async navigateToIPVSuccess(): Promise<void> {
     await this.navigateTo(`${CONFIG.URLS.IDENTITY_BUILD}/ipv/page/page-ipv-success`);
   }
@@ -73,7 +66,7 @@ export class IdentityPage extends BasePage {
   }
 
   async expectIPVSuccess(): Promise<void> {
-    await this.expectHeading('Continue to the service you need to use');
+    expect(this.page.url()).toEqual(`${CONFIG.URLS.CORE}/ipv/page-dcmaw-success`);
     await expect(this.page.getByRole('button', { name: 'Continue to the service' })).toBeEnabled();
   }
 

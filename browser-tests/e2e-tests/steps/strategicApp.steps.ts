@@ -67,6 +67,18 @@ When(
   },
 );
 
+When(
+  "the user drops out of the app due to an incompatible device",
+  async ({ pageUtils }) => {
+    // On pyi-triage-select-device
+    await pageUtils.selectRadioAndContinue("computer-or-tablet");
+    // On pyi-triage-select-smartphone context=dad
+    await pageUtils.selectRadioAndContinue("neither");
+    // On pyi-triage-buffer
+    await pageUtils.selectRadioAndContinue("anotherWay");
+  },
+);
+
 // --- Continue button steps ---
 
 Then(

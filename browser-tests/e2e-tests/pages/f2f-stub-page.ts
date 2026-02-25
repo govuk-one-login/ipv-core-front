@@ -18,7 +18,7 @@ export class F2FStubPage extends StubPage {
   }
 
   async overrideEvidenceBlock(): Promise<void> {
-    await this.selectCheckbox("Override evidence block");
+    await this.page.locator("#expand_evidence").check();
   }
 
   async setCustomEvidence(evidenceValue: string): Promise<void> {
@@ -31,7 +31,7 @@ export class F2FStubPage extends StubPage {
   }
 
   async sendVCToAsyncQueue(): Promise<void> {
-    await this.selectCheckbox("Send VC to async queue");
+    await this.page.locator("#f2f_send_vc_queue").check();
   }
 
   async submitF2FData(): Promise<void> {

@@ -23,63 +23,22 @@ When(
   },
 );
 
-When(
-  "clicks continue on the signed into your GOV.UK One Login page in build stub",
-  async ({ page }) => {
-    // Validate language toggle is present
-    const langToggle = page
-      .locator("a, button")
-      .filter({ hasText: /English|Cymraeg/ });
-    await langToggle
-      .first()
-      .waitFor({ state: "visible", timeout: 5000 })
-      .catch(() => {});
+When("confirms they have a valid document", async ({ page }) => {
+  // Validate language toggle is present
+  const langToggle = page
+    .locator("a, button")
+    .filter({ hasText: /English|Cymraeg/ });
+  await langToggle
+    .first()
+    .waitFor({ state: "visible", timeout: 5000 })
+    .catch(() => {});
 
-    // Select "Yes" for photo ID question
-    const firstRadio = page.locator('input[type="radio"]').first();
-    await firstRadio.check();
-    await page.getByRole("button", { name: /Continue/ }).click();
-    await page.waitForLoadState("networkidle");
-
-    // On DOC Checking App (Stub) page — generate OAuth error
-    await page.locator("#tab_oauthError").click();
-    await page.locator("#endpoint").click();
-    await page.locator("#requested_oauth_error").selectOption("access_denied");
-    await page.locator('[name="submit"]').click();
-    await page.waitForLoadState("networkidle");
-
-    // Check language cookie and select appropriate document option
-    const cookies = await page.context().cookies();
-    const lngCookie = cookies.find((c) => c.name === "lng")?.value || "en";
-
-    if (lngCookie === "cy") {
-      const welshPassportRadio = page
-        .locator('input[type="radio"]')
-        .filter({
-          has: page
-            .locator("label")
-            .filter({ hasText: /Welsh Passport|Pasbort Cymru/ }),
-        })
-        .first();
-      const welshRadioVisible = await welshPassportRadio
-        .isVisible({ timeout: 3000 })
-        .catch(() => false);
-      if (welshRadioVisible) {
-        await welshPassportRadio.check();
-      }
-    } else {
-      // English path: select second radio option (Passport)
-      const allRadios = page.locator('input[type="radio"]');
-      const radioCount = await allRadios.count();
-      if (radioCount >= 2) {
-        await allRadios.nth(1).check();
-      }
-    }
-
-    await page.getByRole("button", { name: /Continue/ }).click();
-    await page.waitForLoadState("networkidle");
-  },
-);
+  // Select "Yes" for photo ID question
+  const firstRadio = page.locator('input[type="radio"]').first();
+  await firstRadio.check();
+  await page.getByRole("button", { name: /Continue/ }).click();
+  await page.waitForLoadState("networkidle");
+});
 
 When(
   "user enters the data in Passport stub as a PassportSubject",

@@ -29,7 +29,7 @@ export class IdentityPage extends BasePage {
   }
 
   async selectYesPhotoID(): Promise<void> {
-    await this.selectRadio("appTriage");
+    await this.selectRadio("next");
     await this.clickButton("submitButton");
   }
 
@@ -55,19 +55,13 @@ export class IdentityPage extends BasePage {
     await this.clickButton("submitButton");
   }
 
-  async navigateToIPVSuccess(): Promise<void> {
-    await this.navigateTo(
-      `${CONFIG.URLS.IDENTITY_BUILD}/ipv/page/page-ipv-success`,
-    );
-  }
-
   async continueFromDcmaw(): Promise<void> {
     await this.clickButton("submitButton");
   }
 
   async expectIPVSuccess(): Promise<void> {
     expect(this.page.url()).toEqual(
-      `${CONFIG.URLS.CORE}/ipv/page-dcmaw-success`,
+      `${CONFIG.URLS.CORE}/ipv/page/page-ipv-success`,
     );
     await expect(
       this.page.getByRole("button", { name: "Continue to the service" }),

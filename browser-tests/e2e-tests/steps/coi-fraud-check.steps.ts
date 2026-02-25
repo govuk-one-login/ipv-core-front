@@ -10,8 +10,10 @@ Given(
   async ({ orchestratorPage }) => {
     await orchestratorPage.navigate();
     const userId = await orchestratorPage.getUserId();
+    await orchestratorPage.setJourneyId("testId");
     expect(userId).toBeTruthy();
     BddContext.set("userId", userId);
+    console.log("User ID: " + userId);
     await orchestratorPage.startFullJourney();
   },
 );
@@ -31,17 +33,30 @@ Given(
   async ({
     orchestratorPage,
     identityPage,
-    docCheckingPage,
     drivingLicencePage,
     addressPage,
     fraudPage,
+    pageUtils,
+    dcmawAsyncService,
   }) => {
     // Journey already started in background step — continue from identity page
     await identityPage.selectUKLocation();
     await identityPage.confirmEligibility();
 
-    // Process DOC checking evidence
-    await docCheckingPage.processAliceParkerValidInitial();
+    // App triage via DAD iphone
+    await pageUtils.selectRadioAndContinue("computer-or-tablet");
+    await pageUtils.selectRadioAndContinue("iphone");
+
+    // Enqueue VC for Alice Parker DVLA
+    const userId = BddContext.get("userId");
+    const oauthState = await dcmawAsyncService.enqueueVcWithScenario(
+      userId,
+      "alice-parker-dvla",
+    );
+    BddContext.set("oauthState", oauthState);
+
+    // Wait until continue button is enabled on download page
+    await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
 
     // Process driving licence evidence
     await drivingLicencePage.processAliceParkerValid();
@@ -54,7 +69,6 @@ Given(
     await fraudPage.processAliceParkerValid();
 
     // Complete initial journey at IPV success page
-    await identityPage.navigateToIPVSuccess();
     await identityPage.expectIPVSuccess();
     await identityPage.continueToService();
     await orchestratorPage.expectRawUserInfoVisible();
@@ -66,9 +80,10 @@ When(
   async ({
     orchestratorPage,
     identityPage,
-    docCheckingPage,
     drivingLicencePage,
     fraudPage,
+    pageUtils,
+    dcmawAsyncService,
   }) => {
     const userId = BddContext.get("userId");
 
@@ -80,8 +95,19 @@ When(
     await identityPage.selectUpdateDetails();
     await identityPage.selectUpdateNameMethod();
 
-    // Process DOC checking with name change (includes biometric verification)
-    await docCheckingPage.processAliceParkerNameChangeInitial();
+    // App triage via DAD iphone
+    await pageUtils.selectRadioAndContinue("computer-or-tablet");
+    await pageUtils.selectRadioAndContinue("iphone");
+
+    // Enqueue VC for Alice Parker DVLA
+    const oauthState = await dcmawAsyncService.enqueueVcWithScenario(
+      userId,
+      "alice-parker-changed-first-name-dvla",
+    );
+    BddContext.set("oauthState", oauthState);
+
+    // Wait until continue button is enabled on download page
+    await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
 
     // Process driving licence with name change
     await drivingLicencePage.processAliceParkerNameChange();

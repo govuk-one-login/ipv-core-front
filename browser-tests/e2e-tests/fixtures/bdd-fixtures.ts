@@ -12,6 +12,7 @@ import { PassportStubPage } from "../pages/passport-stub-page";
 import { KBVStubPage } from "../pages/kbv-stub-page";
 import { ApiService } from "../services/api-service";
 import { DcmawAsyncService } from "../services/dcmaw-async-service";
+import { pageUtils } from "../utils/pages";
 
 type PageFixtures = {
   orchestratorPage: OrchestratorStubPage;
@@ -27,6 +28,7 @@ type PageFixtures = {
   apiService: ApiService;
   dcmawAsyncService: DcmawAsyncService;
   userId: string;
+  pageUtils: ReturnType<typeof pageUtils>;
 };
 
 export const test = baseTest.extend<PageFixtures>({
@@ -69,6 +71,9 @@ export const test = baseTest.extend<PageFixtures>({
   userId: async ({}, use) => {
     let userId = "";
     await use(userId);
+  },
+  pageUtils: async ({ page }, use) => {
+    await use(pageUtils(page));
   },
 });
 

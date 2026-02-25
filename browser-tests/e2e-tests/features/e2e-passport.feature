@@ -3,9 +3,10 @@ Feature: E2E Passport Journey
   @Build @Lamdatesta @PYIC-5477 @PYIC-6863 @PYIC-7016
   Scenario: Passport details page happy path
     When user starts a fresh full journey in 'build'
-    And the 'disableStrategicApp' feature set is enabled
     And user selects they are from the UK
-    And clicks continue on the signed into your GOV.UK One Login page in build stub
+    And confirms they have a valid document
+    And the user drops out of the app due to an incompatible device
+    And the user selects 'ukPassport' radio option and continues
     And user enters the data in Passport stub as a PassportSubject
     When user enters data in address stub and clicks on submit data and generate auth code
     Then user should be on Fraud Check (Stub)

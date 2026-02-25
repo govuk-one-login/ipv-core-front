@@ -23,6 +23,12 @@ export class OrchestratorStubPage extends BasePage {
       .fill(userId);
   }
 
+  async setJourneyId(journeyId: string) {
+    await this.page
+      .locator(`input[type="text"][id="signInJourneyIdText"]`)
+      .fill(journeyId);
+  }
+
   async expectRawUserInfoVisible(): Promise<void> {
     await this.expectText("Raw User Info Object");
   }
@@ -37,7 +43,7 @@ export class OrchestratorStubPage extends BasePage {
   async expectCriTypes(): Promise<void> {
     const expectedCriTypes = [
       "Cri Type: https://address-cri",
-      "Cri Type: https://dcmaw-cri.",
+      "Cri Type: https://dcmaw-async.",
       "Cri Type: https://driving-",
       "Cri Type: https://fraud-cri.",
       "Cri Type: https://cimit.stubs",

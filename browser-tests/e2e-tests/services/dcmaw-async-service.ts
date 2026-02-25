@@ -1,4 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
+import fs from "fs";
+import path from "path";
 
 const ASYNC_DCMAW_STUB_URL =
   process.env.ASYNC_DCMAW_STUB_URL ||
@@ -12,6 +14,54 @@ export interface EnqueueVcResponse {
 
 export class DcmawAsyncService {
   constructor(private request: APIRequestContext) {}
+
+  async enqueueVcWithScenario(userId: string, scenario: string) {
+    const payload = {
+      user_id: userId,
+      credential_subject: JSON.parse(
+        fs.readFileSync(
+          path.join(
+            __dirname,
+            `../data/async-dcmaw-stub-data/${scenario}/credentialSubject.json`,
+          ),
+          "utf-8",
+        ),
+      ),
+      evidence: JSON.parse(
+        fs.readFileSync(
+          path.join(
+            __dirname,
+            `../data/async-dcmaw-stub-data/${scenario}/evidence.json`,
+          ),
+          "utf-8",
+        ),
+      ),
+      queue_name: ASYNC_QUEUE_NAME,
+    };
+
+    const response = await this.request.post(
+      `${ASYNC_DCMAW_STUB_URL}/management/enqueueVc`,
+      {
+        data: payload,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+
+    if (response.status() !== 201) {
+      throw new Error(`DCMAW enqueue VC request failed: ${response.status()}`);
+    }
+
+    const body = await response.json();
+    const oauthState = body.oauthState;
+
+    if (typeof oauthState !== "string") {
+      throw new Error(
+        `DCMAW enqueue VC request did not return a string oauthState: ${JSON.stringify(oauthState)}`,
+      );
+    }
+
+    return oauthState;
+  }
 
   async enqueueVc(
     userId: string,

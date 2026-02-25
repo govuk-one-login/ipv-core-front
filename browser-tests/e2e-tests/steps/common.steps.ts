@@ -92,3 +92,10 @@ Then(
     await continueButton.click();
   },
 );
+
+When(
+  "the user selects {string} radio option and continues",
+  async ({ pageUtils }, radioOption: string) => {
+    await pageUtils.selectRadioAndContinue(radioOption);
+  },
+);

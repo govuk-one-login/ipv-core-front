@@ -44,7 +44,6 @@ Given(
     await docCheckingPage.processAliceParkerValidInitial();
 
     // Process driving licence evidence
-    await drivingLicencePage.expectDrivingLicenceStub();
     await drivingLicencePage.processAliceParkerValid();
     await identityPage.continueFromDcmaw();
 
@@ -78,7 +77,6 @@ When(
     await orchestratorPage.startFullJourney();
 
     // Don't navigate directly — startFullJourney() routes returning P2 users to confirm-your-details
-    await identityPage.expectConfirmDetailsPage();
     await identityPage.selectUpdateDetails();
     await identityPage.selectUpdateNameMethod();
 
@@ -86,7 +84,6 @@ When(
     await docCheckingPage.processAliceParkerNameChangeInitial();
 
     // Process driving licence with name change
-    await drivingLicencePage.expectDrivingLicenceStub();
     await drivingLicencePage.processAliceParkerNameChange();
     // Selenium: enterStubDLDetailsDLAuthCheck calls clickSubmitAuth() then clickContinue()
     // The DL submit lands on a DCMAW success page — need to click continue

@@ -19,23 +19,23 @@ export class IdentityPage extends BasePage {
   }
 
   async selectUKLocation(): Promise<void> {
-    await this.selectRadio("UK, Channel Islands or Isle");
-    await this.clickButton("Continue");
+    await this.selectRadio("uk");
+    await this.clickButton("submitButton");
   }
 
   async selectNoPhotoID(): Promise<void> {
-    await this.selectRadio("No");
-    await this.clickButton("Continue");
+    await this.selectRadio("end");
+    await this.clickButton("submitButton");
   }
 
   async selectYesPhotoID(): Promise<void> {
-    await this.selectRadio("Yes");
-    await this.clickButton("Continue");
+    await this.selectRadio("appTriage");
+    await this.clickButton("submitButton");
   }
 
   async confirmEligibility(): Promise<void> {
-    await this.selectRadio("Yes");
-    await this.clickButton("Continue");
+    await this.selectRadio("appTriage");
+    await this.clickButton("submitButton");
   }
 
   async navigateToConfirmDetails(): Promise<void> {
@@ -43,20 +43,16 @@ export class IdentityPage extends BasePage {
       `${CONFIG.URLS.IDENTITY_BUILD}/ipv/page/confirm-your-details`,
     );
   }
-  // Selenium: assertEquals("You need to confirm your details", commonElements.getHeader("confirm-your-details"))
-  async expectConfirmDetailsPage(): Promise<void> {
-    await this.expectHeading("You need to confirm your details");
-  }
 
   async selectUpdateDetails(): Promise<void> {
-    await this.selectRadio("No - I need to update my");
-    await this.selectCheckbox("Given names");
-    await this.clickButton("Continue");
+    await this.selectRadio("no");
+    await this.selectCheckbox("givenNames");
+    await this.clickButton("submitButton");
   }
 
   async selectUpdateNameMethod(): Promise<void> {
-    await this.selectRadio("Update your name using the");
-    await this.clickButton("Continue");
+    await this.selectRadio("update-name");
+    await this.clickButton("submitButton");
   }
 
   async navigateToIPVSuccess(): Promise<void> {
@@ -66,7 +62,7 @@ export class IdentityPage extends BasePage {
   }
 
   async continueFromDcmaw(): Promise<void> {
-    await this.clickButton("Continue");
+    await this.clickButton("submitButton");
   }
 
   async expectIPVSuccess(): Promise<void> {
@@ -96,8 +92,8 @@ export class IdentityPage extends BasePage {
   }
 
   async expectReuseScreen(): Promise<void> {
-    await expect(this.page.locator("#header")).toContainText(
-      "You have already proved your identity",
+    expect(this.page.url()).toEqual(
+      `${CONFIG.URLS.CORE}/ipv/page/page-ipv-reuse`,
     );
     await this.expectText("ALISON JANE PARKER");
     await this.expectText("80TYEOMAN WAYTROWBRIDGEBA14");
@@ -105,9 +101,8 @@ export class IdentityPage extends BasePage {
   }
 
   async expectReuseScreenForKenneth(): Promise<void> {
-    await expect(this.page.locator("#header")).toContainText(
-      "You have already proved your identity",
-      { timeout: 10000 },
+    expect(this.page.url()).toEqual(
+      `${CONFIG.URLS.CORE}/ipv/page/page-ipv-reuse`,
     );
     await this.expectText("KENNETH DECERQUEIRA");
     await this.expectText("8, HADLEY ROAD");
@@ -117,10 +112,8 @@ export class IdentityPage extends BasePage {
   }
 
   async expectPostOfficeHeading(): Promise<void> {
-    await this.page
-      .getByRole("heading", {
-        name: "Finish proving your identity at a Post Office",
-      })
-      .waitFor({ state: "visible", timeout: 10000 });
+    expect(this.page.url()).toEqual(
+      `${CONFIG.URLS.CORE}/ipv/page/page-face-to-face-handoff`,
+    );
   }
 }

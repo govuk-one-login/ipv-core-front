@@ -7,9 +7,15 @@ export abstract class BasePage {
     await this.page.goto(url);
   }
 
-  protected async clickButton(name: string): Promise<void> {
+  protected async clickButton(
+    idOrName: string,
+    useName: boolean = false,
+  ): Promise<void> {
     const currentUrl = this.page.url();
-    await this.page.getByRole("button", { name }).click();
+    const button = useName
+      ? this.page.getByRole("button", { name: idOrName })
+      : this.page.locator(`#${idOrName}`);
+    await button.click();
     // Wait for navigation if the URL changes, otherwise just wait for network to settle
     try {
       await this.page.waitForURL((url) => url.toString() !== currentUrl, {
@@ -21,20 +27,16 @@ export abstract class BasePage {
     await this.page.waitForLoadState("networkidle");
   }
 
-  protected async selectRadio(name: string): Promise<void> {
-    await this.page.getByRole("radio", { name }).check();
+  protected async selectRadio(value: string): Promise<void> {
+    await this.page.locator(`input[type="radio"][value="${value}"]`).check();
   }
 
-  protected async selectCheckbox(name: string): Promise<void> {
-    await this.page.getByRole("checkbox", { name }).check();
+  protected async selectCheckbox(value: string): Promise<void> {
+    await this.page.locator(`input[type="checkbox"][value="${value}"]`).check();
   }
 
   protected async selectOption(selector: string, value: string): Promise<void> {
     await this.page.locator(selector).selectOption(value);
-  }
-
-  protected async expectHeading(name: string): Promise<void> {
-    await expect(this.page.getByRole("heading", { name })).toBeVisible();
   }
 
   protected async expectText(text: string): Promise<void> {

@@ -5,8 +5,8 @@ export class PassportStubPage extends StubPage {
     await this.selectTestData(testData);
     // Set strength and validity scores before submitting (required by the stub)
     await this.setEvidenceScores({
-      strengthHours: "3",
-      validityMinutes: "2",
+      strength: "3",
+      validity: "2",
     });
     await this.submitData();
   }

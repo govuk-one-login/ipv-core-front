@@ -7,7 +7,7 @@ export class OrchestratorStubPage extends BasePage {
   }
 
   async startFullJourney(): Promise<void> {
-    await this.clickButton("Full journey route");
+    await this.clickButton("full-journey-button");
   }
 
   async getUserId(): Promise<string> {

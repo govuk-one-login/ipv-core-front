@@ -48,7 +48,7 @@ export const pageUtils = (page: Page) => {
         throw new Error(`Expected ${expectedPage} but got ${page.url()}`);
       }
     }
-  }
+  };
 
   return {
     selectRadio,
@@ -57,6 +57,6 @@ export const pageUtils = (page: Page) => {
     selectRadioAndContinue,
     waitForContinueButtonToBeEnabledThenContinue,
     selectContinueButton,
-    expectPage
+    expectPage,
   };
 };

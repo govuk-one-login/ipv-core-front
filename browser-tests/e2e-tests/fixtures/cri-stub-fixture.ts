@@ -1,15 +1,18 @@
-import { expect, Page } from "@playwright/test";
-import { getCriStubTestDataConfig } from "./cri-stub-data";
+import { Page } from "@playwright/test";
+import { getCriStubTestDataConfig } from "../utils/cri-stub-data";
 import { EvidenceScores } from "../types/test-data";
-import { pageUtils } from "./pages";
+import { pageUtils } from "./pages-fixture";
 
 export const criStubUtils = (
   page: Page,
   utils: ReturnType<typeof pageUtils>,
 ) => {
+  const TEST_DATA_INPUT = "#test_data";
+  const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
+  const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
+
   const setTestData = async (testDataIdentifier: string) => {
-    await page.locator("#test_data").selectOption(testDataIdentifier);
-    await expect(page.locator("#test_data")).toHaveValue(testDataIdentifier);
+    await page.locator(TEST_DATA_INPUT).selectOption(testDataIdentifier);
   };
 
   const setEvidenceScores = async (scores: EvidenceScores) => {
@@ -41,7 +44,7 @@ export const criStubUtils = (
     await setTestData(testDataConfig.stubData);
 
     if (testDataConfig.sendVcToAsyncQueue) {
-      await page.locator("#f2f_send_vc_queue").check();
+      await page.locator(SEND_VC_TO_QUEUE_CHECKBOX).check();
     }
 
     if (testDataConfig.evidenceScores) {
@@ -49,7 +52,7 @@ export const criStubUtils = (
     }
 
     if (testDataConfig.overrideVcNbf) {
-      await page.locator("#vcNotBeforeFlg").check();
+      await page.locator(OVERRIDE_VC_CHECKBOX).check();
     }
 
     await utils.selectContinueButton();

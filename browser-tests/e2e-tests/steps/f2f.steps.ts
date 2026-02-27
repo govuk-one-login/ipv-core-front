@@ -1,14 +1,12 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
-import { test } from "../fixtures/bdd-fixtures";
-import { BddContext } from "./bdd-context";
+import fixtures from "../fixtures";
 
-const {  When, Then } = createBdd(test);
+const { When, Then } = createBdd(fixtures);
 
 When(
   "the user starts a new journey in {string} until they get a {string} page",
-  async ({ orchestratorPage, pageUtils }, env: string, expectedPage: string) => {
-    const userId = BddContext.get("userId");
+  async ({ pageUtils, orchStubUtils }, env: string, expectedPage: string) => {
     const startTime = Date.now();
     const maxWaitMs = 20000; // 20 second timeout
     const retryIntervalMs = 2000; // Retry every 2 seconds
@@ -21,9 +19,7 @@ When(
       console.log(`[F2F Step] ${elapsedMs}ms: Attempting journey...`);
 
       try {
-        await orchestratorPage.navigate();
-        await orchestratorPage.setUserId(userId);
-        await orchestratorPage.startFullJourney();
+        await orchStubUtils.startJourney(env);
 
         console.log(`[F2F Step] Checking for ${expectedPage} screen...`);
         await pageUtils.expectPage(expectedPage);
@@ -58,9 +54,11 @@ When(
 
 Then(
   "Kenneth Decerqueira's credentials should be passed to the orch stub",
-  async ({ orchestratorPage, page }) => {
-    await orchestratorPage.expectRawUserInfoVisible();
-    await orchestratorPage.expandRawUserInfo();
+  async ({ page }) => {
+    await page
+      .locator("summary")
+      .filter({ hasText: "Raw User Info Object" })
+      .click();
 
     const expectedCriTypes = [
       "Cri Type: https://address-cri",

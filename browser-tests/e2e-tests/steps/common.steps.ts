@@ -1,9 +1,7 @@
 import { createBdd } from "playwright-bdd";
-import { errors, expect } from "@playwright/test";
-import { test } from "../fixtures/bdd-fixtures";
-import TimeoutError = errors.TimeoutError;
+import fixtures from "../fixtures";
 
-const { When, Then } = createBdd(test);
+const { When, Then } = createBdd(fixtures);
 
 When(
   /^the user selects they are (not )?from the UK$/,

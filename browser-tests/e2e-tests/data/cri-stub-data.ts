@@ -15,7 +15,7 @@ export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
     },
     address: {
       stubData: "Alice Parker Valid Address",
-    }
+    },
   },
   "alice-parker-expired-fraud": {
     fraud: {

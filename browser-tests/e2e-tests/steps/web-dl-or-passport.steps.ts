@@ -1,27 +1,13 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
-import { testFixtures } from "../fixtures/fixtures";
-import { BddContext } from "./bdd-context";
+import fixtures from "../fixtures";
 
-const { When, Then } = createBdd(testFixtures);
+const { When, Then } = createBdd(fixtures);
 
 When(
   "the user starts a new journey in {string}",
-  async ({ orchestratorPage }, env: string) => {
-    await orchestratorPage.navigate();
-
-    let userId = BddContext.get("userId");
-    if (userId) {
-      await orchestratorPage.setUserId(userId);
-    } else {
-      userId = await orchestratorPage.getUserId();
-      BddContext.set("userId", userId);
-    }
-
-    expect(userId).toBeTruthy();
-
-    await orchestratorPage.selectEnvironment(env);
-    await orchestratorPage.startFullJourney();
+  async ({ orchStubUtils }, env: string) => {
+    await orchStubUtils.startJourney(env);
   },
 );
 

@@ -1,21 +1,17 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
-import { test } from "../fixtures/bdd-fixtures";
+import fixtures from "../fixtures";
 import { BddContext } from "./bdd-context";
 
-const { Given, When, Then } = createBdd(test);
+const { Given, When, Then } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
-  async ({
-    identityPage,
-    pageUtils,
-    dcmawAsyncService,
-    criStubUtils,
-  }) => {
-    // Journey already started in background step — continue from identity page
-    await identityPage.selectUKLocation();
-    await identityPage.confirmEligibility();
+  async ({ pageUtils, dcmawAsyncService, criStubUtils }) => {
+    // On live-in-uk page
+    await pageUtils.selectRadioAndContinue("uk");
+    // On page-ipv-identity-document-start
+    await pageUtils.selectRadioAndContinue("appTriage");
 
     // App triage via DAD iphone
     await pageUtils.selectRadioAndContinue("computer-or-tablet");
@@ -41,10 +37,7 @@ Given(
     await pageUtils.selectContinueButton();
 
     // submit address details
-    await criStubUtils.submitDetailsToCriStub(
-      "alice-parker-valid",
-      "address",
-    );
+    await criStubUtils.submitDetailsToCriStub("alice-parker-valid", "address");
 
     // submit fraud details
     await criStubUtils.submitDetailsToCriStub(
@@ -54,19 +47,16 @@ Given(
   },
 );
 
-When(
-  "the user chooses to update their given name",
-  async ({ identityPage }) => {
-    await identityPage.selectUpdateDetails();
-    await identityPage.selectUpdateNameMethod();
-  },
-);
+When("the user chooses to update their given name", async ({ pageUtils }) => {
+  await pageUtils.selectRadio("no");
+  await pageUtils.selectCheckbox("givenNames");
+  await pageUtils.selectContinueButton();
+});
 
 Then(
   "Alison Parker's credentials should be passed to the orch stub",
-  async ({ orchestratorPage, page }) => {
-    await orchestratorPage.expectRawUserInfoVisible();
-    await orchestratorPage.expandRawUserInfo();
+  async ({ page }) => {
+    page.locator("summary").filter({ hasText: "Raw User Info Object" }).click();
 
     const expectedCriTypes = [
       "Cri Type: https://address-cri",

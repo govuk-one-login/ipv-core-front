@@ -1,10 +1,10 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
-import { test } from "../fixtures/bdd-fixtures";
+import fixtures from "../fixtures";
 import { BddContext } from "./bdd-context";
 import { CONFIG } from "../config/test-config";
 
-const { When, Then } = createBdd(test);
+const { When, Then } = createBdd(fixtures);
 
 When(
   /^the user confirms they (don't )?have suitable photo ID$/,
@@ -17,8 +17,6 @@ When(
 Then(
   "the user should see text {string} by {int} seconds",
   async ({ page }, text: string, timeout: number) => {
-    // Mirrors Selenium ExpectedConditions.presenceOfElementLocated — checks the element
-    // is in the DOM, not necessarily visible (page may toggle visibility via JS).
     const locator = page.locator(`//*[contains(text(),"${text}")]`).first();
     await expect(locator).toBeAttached({ timeout: timeout * 1000 });
   },

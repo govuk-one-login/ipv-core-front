@@ -3,16 +3,21 @@ import { pageUtils } from "./pages-fixture";
 import { criStubUtils } from "./cri-stub-fixture";
 import { orchestratorStubUtils } from "./orchestrator-stub-fixture";
 
-type Fixtures = {
-  scenarioContext: Map<string, any>;
+export interface ScenarioContext {
+  userId?: string;
+  oauthState?: string;
+}
+
+interface Fixtures {
+  scenarioContext: ScenarioContext;
   pageUtils: ReturnType<typeof pageUtils>;
   criStubUtils: ReturnType<typeof criStubUtils>;
   orchStubUtils: ReturnType<typeof orchestratorStubUtils>;
-};
+}
 
 export default baseTest.extend<Fixtures>({
   scenarioContext: async ({}, use) => {
-    await use(new Map<string, any>());
+    await use({});
   },
   pageUtils: async ({ page }, use) => {
     await use(pageUtils(page));
@@ -20,7 +25,7 @@ export default baseTest.extend<Fixtures>({
   criStubUtils: async ({ page, pageUtils }, use) => {
     await use(criStubUtils(page, pageUtils));
   },
-  orchStubUtils: async ({ page }, use) => {
-    await use(orchestratorStubUtils(page));
+  orchStubUtils: async ({ page, scenarioContext }, use) => {
+    await use(orchestratorStubUtils(page, scenarioContext));
   },
 });

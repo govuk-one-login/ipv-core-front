@@ -19,5 +19,5 @@ Feature: F2F Passport Journey
     When the user starts a new journey in 'build' until they get a 'page-ipv-reuse' page
     Then Kenneth Decerqueira's information is displayed on the reuse screen
     When the user chooses to continue
-    Then the user should have a '"P2"' identity
+    Then the user should have a 'P2' identity
     And Kenneth Decerqueira's credentials should be passed to the orch stub

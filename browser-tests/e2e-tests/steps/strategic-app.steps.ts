@@ -1,9 +1,11 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
-import { BddContext } from "./bdd-context";
 import { CONFIG } from "../config/test-config";
-import { enqueueVc, enqueueVcWithScenario } from "../clients/dcmaw-async-client";
+import {
+  enqueueVc,
+  enqueueVcWithScenario,
+} from "../clients/dcmaw-async-client";
 
 const { When, Then } = createBdd(fixtures);
 
@@ -72,12 +74,16 @@ Then(
 
 When(
   "the user submits {string} {string} {string} details to the app",
-  async ({},
+  async (
+    { scenarioContext },
     testUser: string,
     documentType: string,
     evidenceType: string,
   ) => {
-    const userId = BddContext.get("userId");
+    const userId = scenarioContext.userId;
+    if (!userId) {
+      throw new Error("Missing userId");
+    }
     console.log(
       `[StrategicApp] Enqueuing DCMAW VC for user ${userId}: ${testUser} ${documentType} ${evidenceType}`,
     );
@@ -87,32 +93,29 @@ When(
       documentType,
       evidenceType,
     );
-    BddContext.set("oauthState", oauthState);
-    console.log(
-      `[StrategicApp] ✓ DCMAW VC enqueued, oauthState: ${oauthState}`,
-    );
+    scenarioContext.oauthState = oauthState;
+    console.log(`[StrategicApp] ✓ DCMAW VC enqueued.`);
   },
 );
 
 When(
   "the user submits {string} details and continues from the {string} journey",
   async (
-    { pageUtils, page },
+    { pageUtils, page, scenarioContext },
     scenario: string,
     appTriageJourneyType: "DAD" | "MAM",
   ) => {
-    const userId = BddContext.get("userId");
+    const userId = scenarioContext.userId;
+    if (!userId) {
+      throw new Error("Missing userId");
+    }
 
     // Enqueue VC for Alice Parker DVLA
-    const oauthState = await enqueueVcWithScenario(
-      userId,
-      scenario,
-    );
-    BddContext.set("oauthState", oauthState);
+    const oauthState = await enqueueVcWithScenario(userId, scenario);
+    scenarioContext.oauthState = oauthState;
 
     if (appTriageJourneyType === "MAM") {
       // Manually perform app callback
-      const oauthState = BddContext.get("oauthState");
       await page.goto(`${CONFIG.URLS.CORE}/app/callback?state=${oauthState}`);
     }
 
@@ -123,29 +126,25 @@ When(
 
 // --- MAM callback from mobile app ---
 
-When("user returns from the app to core-front", async ({ page }) => {
-  const currentUrl = new URL(page.url());
-  const baseUrl = `${currentUrl.protocol}//${currentUrl.host}`;
-  const oauthState = BddContext.get("oauthState");
+When(
+  "user returns from the app to core-front",
+  async ({ page, scenarioContext }) => {
+    const currentUrl = new URL(page.url());
+    const baseUrl = `${currentUrl.protocol}//${currentUrl.host}`;
+    const oauthState = scenarioContext.oauthState;
 
-  const callbackUrl = `${baseUrl}/app/callback?state=${oauthState}`;
-  console.log(`[StrategicApp] Navigating to app callback: ${callbackUrl}`);
-  await page.goto(callbackUrl);
-  console.log("[StrategicApp] ✓ Returned from app to core-front");
-});
+    const callbackUrl = `${baseUrl}/app/callback?state=${oauthState}`;
+    console.log(`[StrategicApp] Navigating to app callback: ${callbackUrl}`);
+    await page.goto(callbackUrl);
+    console.log("[StrategicApp] ✓ Returned from app to core-front");
+  },
+);
 
 // --- Identity verification assertion ---
 
 Then(
   "the user should have a {string} identity",
-  async ({ page }, vot: string) => {
-    // Verify VOT in raw user info
-    await expect(page.getByText("Raw User Info Object").first()).toBeVisible({
-      timeout: 10000,
-    });
-    await expect(page.locator("#main-content").first()).toContainText(vot, {
-      timeout: 10000,
-    });
-    console.log(`✓ User identity verified as ${vot}`);
+  async ({ orchStubUtils }, expectedVot: string) => {
+    await orchStubUtils.expectVot(expectedVot);
   },
 );

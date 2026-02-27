@@ -7,7 +7,10 @@ const ASYNC_DCMAW_STUB_URL =
 const ASYNC_QUEUE_NAME =
   process.env.ASYNC_QUEUE_NAME || "stubQueue_criResponseQueue_build";
 
-export const enqueueVcWithScenario = async (userId: string, scenario: string) => {
+export const enqueueVcWithScenario = async (
+  userId: string,
+  scenario: string,
+) => {
   const payload = {
     user_id: userId,
     credential_subject: JSON.parse(

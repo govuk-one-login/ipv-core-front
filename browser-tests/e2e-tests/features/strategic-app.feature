@@ -4,7 +4,7 @@ Feature: StrategicApp
   @Build @QualityGateRegressionTest
   Scenario: Happy MAM iPhone journey
     Given the user starts a new journey in 'build'
-    And the user selects they are not from the UK
+    And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     Then the user should see the 'pyi-triage-select-device' page
     When the user selects 'smartphone' radio option and continues
@@ -21,12 +21,13 @@ Feature: StrategicApp
     And the user submits 'kenneth-decerqueira-valid' details to the 'address' CRI stub
     And the user submits 'kenneth-decerqueira-valid' details to the 'fraud' CRI stub
     Then the user should see the 'page-ipv-success' page
-    And the user should have a '"P2"' identity
+    When the user chooses to continue
+    Then the user should have a 'P2' identity
 
   @Build @PYIC-7471 @QualityGateRegressionTest
   Scenario: Happy DAD journey
     Given the user starts a new journey in 'build'
-    And the user selects they are not from the UK
+    And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     Then the user should see the 'pyi-triage-select-device' page
     When the user selects 'computer-or-tablet' radio option and continues
@@ -42,4 +43,5 @@ Feature: StrategicApp
     And the user submits 'kenneth-decerqueira-valid' details to the 'address' CRI stub
     And the user submits 'kenneth-decerqueira-valid' details to the 'fraud' CRI stub
     Then the user should see the 'page-ipv-success' page
-    And the user should have a '"P2"' identity
+    When the user chooses to continue
+    Then the user should have a 'P2' identity

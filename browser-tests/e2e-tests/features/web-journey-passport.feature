@@ -3,7 +3,7 @@ Feature: E2E Passport Journey
   @Build @Lamdatesta @PYIC-5477 @PYIC-6863 @PYIC-7016
   Scenario: Passport details page happy path
     When the user starts a new journey in 'build'
-    And the user selects they are not from the UK
+    And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     And the user drops out of the app due to an incompatible device
     Then the user should see the 'page-multiple-doc-check' page
@@ -18,9 +18,10 @@ Feature: E2E Passport Journey
     And the user submits 'kenneth-decerqueira-valid' details to the 'experian-kbv' CRI stub
     Then the user should see the 'page-ipv-success' page
     When the user chooses to continue
-    Then the user should have a '"P2"' identity
+    Then the user should have a 'P2' identity
 
     When the user starts a new journey in 'build'
     Then the user should see the 'page-ipv-reuse' page
-    And the user should have a '"P2"' identity
     And Kenneth Decerqueira's information is displayed on the reuse screen
+    When the user chooses to continue
+    Then the user should have a 'P2' identity

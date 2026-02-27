@@ -1,14 +1,13 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
-import { BddContext } from "./bdd-context";
 import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
 
 const { Given, When, Then } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
-  async ({ pageUtils, criStubUtils }) => {
+  async ({ pageUtils, criStubUtils, scenarioContext }) => {
     // On live-in-uk page
     await pageUtils.selectRadioAndContinue("uk");
     // On page-ipv-identity-document-start
@@ -19,12 +18,12 @@ Given(
     await pageUtils.selectRadioAndContinue("iphone");
 
     // Enqueue VC for Alice Parker DVLA
-    const userId = BddContext.get("userId");
-    const oauthState = await enqueueVcWithScenario(
-      userId,
-      "alice-parker-dvla",
-    );
-    BddContext.set("oauthState", oauthState);
+    const userId = scenarioContext.userId;
+    if (!userId) {
+      throw new Error("Missing userId");
+    }
+    const oauthState = await enqueueVcWithScenario(userId, "alice-parker-dvla");
+    scenarioContext.oauthState = oauthState;
 
     // Wait until continue button is enabled on download page
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);

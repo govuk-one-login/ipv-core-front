@@ -2,12 +2,13 @@ import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 import { BddContext } from "./bdd-context";
+import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
 
 const { Given, When, Then } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
-  async ({ pageUtils, dcmawAsyncService, criStubUtils }) => {
+  async ({ pageUtils, criStubUtils }) => {
     // On live-in-uk page
     await pageUtils.selectRadioAndContinue("uk");
     // On page-ipv-identity-document-start
@@ -19,7 +20,7 @@ Given(
 
     // Enqueue VC for Alice Parker DVLA
     const userId = BddContext.get("userId");
-    const oauthState = await dcmawAsyncService.enqueueVcWithScenario(
+    const oauthState = await enqueueVcWithScenario(
       userId,
       "alice-parker-dvla",
     );

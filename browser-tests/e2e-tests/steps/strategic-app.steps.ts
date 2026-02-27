@@ -3,6 +3,7 @@ import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 import { BddContext } from "./bdd-context";
 import { CONFIG } from "../config/test-config";
+import { enqueueVc, enqueueVcWithScenario } from "../clients/dcmaw-async-client";
 
 const { When, Then } = createBdd(fixtures);
 
@@ -71,8 +72,7 @@ Then(
 
 When(
   "the user submits {string} {string} {string} details to the app",
-  async (
-    { dcmawAsyncService },
+  async ({},
     testUser: string,
     documentType: string,
     evidenceType: string,
@@ -81,7 +81,7 @@ When(
     console.log(
       `[StrategicApp] Enqueuing DCMAW VC for user ${userId}: ${testUser} ${documentType} ${evidenceType}`,
     );
-    const oauthState = await dcmawAsyncService.enqueueVc(
+    const oauthState = await enqueueVc(
       userId,
       testUser,
       documentType,
@@ -97,14 +97,14 @@ When(
 When(
   "the user submits {string} details and continues from the {string} journey",
   async (
-    { dcmawAsyncService, pageUtils, page },
+    { pageUtils, page },
     scenario: string,
     appTriageJourneyType: "DAD" | "MAM",
   ) => {
     const userId = BddContext.get("userId");
 
     // Enqueue VC for Alice Parker DVLA
-    const oauthState = await dcmawAsyncService.enqueueVcWithScenario(
+    const oauthState = await enqueueVcWithScenario(
       userId,
       scenario,
     );

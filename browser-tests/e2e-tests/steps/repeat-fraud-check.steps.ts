@@ -47,10 +47,11 @@ Given(
   },
 );
 
-When("the user chooses to update their given name", async ({ pageUtils }) => {
+When("the user chooses to update their given name via the app", async ({ pageUtils }) => {
   await pageUtils.selectRadio("no");
   await pageUtils.selectCheckbox("givenNames");
   await pageUtils.selectContinueButton();
+  await pageUtils.selectRadioAndContinue("update-name")
 });
 
 Then(

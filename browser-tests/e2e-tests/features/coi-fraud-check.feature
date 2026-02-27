@@ -10,7 +10,7 @@ Feature: COI Fraud Check - Given Name Change
   Scenario: Pass successfully for a given name change and show reuse screen
     When the user starts a new journey in 'build'
     Then the user should see the 'confirm-your-details' page
-    When the user chooses to update their given name
+    When the user chooses to update their given name via the app
     And the user goes through 'DAD' 'iphone' triage
     And the user submits 'alice-parker-changed-first-name-dvla' details and continues from the 'DAD' journey
     And the user submits 'alice-parker-changed-first-name' details to the 'driving-licence' CRI stub

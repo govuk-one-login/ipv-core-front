@@ -1,7 +1,7 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
-import { CONFIG } from "../config/test-config";
+import config from "../config";
 import {
   enqueueVc,
   enqueueVcWithScenario,
@@ -116,7 +116,9 @@ When(
 
     if (appTriageJourneyType === "MAM") {
       // Manually perform app callback
-      await page.goto(`${CONFIG.URLS.CORE}/app/callback?state=${oauthState}`);
+      await page.goto(
+        `${config.coreFrontUrl}/app/callback?state=${oauthState}`,
+      );
     }
 
     // Wait until continue button is enabled on download page

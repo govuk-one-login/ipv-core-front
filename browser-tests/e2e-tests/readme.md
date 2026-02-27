@@ -47,25 +47,8 @@ To run the tests locally, you need to create a `.env` file in the root of the `b
 
 ### Steps:
 
-1. Create a file named `.env` in the `browser-tests/` directory.
-2. Add the required environment variables (see below).
-
-### Example `.env` file:
-
-```env
-# ── Required (tests will fail without these) ──────────────────────────
-ORCHESTRATOR_STUB_URL="https://your-orchestrator-stub-url"
-TICF_MANAGEMENT_API_KEY="your-api-key" # pragma: allowlist secret
-
-# ── Optional (sensible defaults are provided) ─────────────────────────
-# IDENTITY_BUILD_URL="https://identity.build.account.gov.uk"
-# TICF_MANAGEMENT_URL="https://ticf.stubs.account.gov.uk/management/user"
-# BROWSER="chromium"
-# TEST_TIMEOUT="90000"
-# HEADLESS="true"
-# BASE_URL="https://identity.build.account.gov.uk"
-# WEBSITE_HOST="http://localhost:4601"
-```
+1. Copy the `.env.template` file and re-name it to `.env` in the `browser-tests/e2e-tests` directory.
+2. Fill out the necessary config
 
 ---
 

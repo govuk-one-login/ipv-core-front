@@ -1,11 +1,6 @@
 import fs from "fs";
 import path from "path";
-
-const ASYNC_DCMAW_STUB_URL =
-  process.env.ASYNC_DCMAW_STUB_URL ||
-  "https://dcmaw-async.stubs.account.gov.uk";
-const ASYNC_QUEUE_NAME =
-  process.env.ASYNC_QUEUE_NAME || "stubQueue_criResponseQueue_build";
+import config from "../config";
 
 export const enqueueVcWithScenario = async (
   userId: string,
@@ -31,7 +26,7 @@ export const enqueueVcWithScenario = async (
         "utf-8",
       ),
     ),
-    queue_name: ASYNC_QUEUE_NAME,
+    queue_name: config.asyncQueueName,
   };
 
   return postToEnqueueVc(payload);
@@ -48,14 +43,14 @@ export const enqueueVc = async (
     test_user: testUser,
     document_type: documentType,
     evidence_type: evidenceType,
-    queue_name: ASYNC_QUEUE_NAME,
+    queue_name: config.asyncQueueName,
   };
 
   return postToEnqueueVc(payload);
 };
 
 const postToEnqueueVc = async (payload: object) => {
-  const response = await fetch(`${ASYNC_DCMAW_STUB_URL}/management/enqueueVc`, {
+  const response = await fetch(`${config.dcmawAsyncUrl}/management/enqueueVc`, {
     method: "POST",
     body: JSON.stringify(payload),
     headers: { "Content-Type": "application/json" },
@@ -63,7 +58,7 @@ const postToEnqueueVc = async (payload: object) => {
 
   const responsePayload = await response.json();
   if (response.status !== 201) {
-    throw new Error(`DCMAW enqueue VC request failed: ${responsePayload}`);
+    throw new Error(`DCMAW enqueue VC request failed: ${JSON.stringify(responsePayload)})`);
   }
 
   const oauthState = responsePayload.oauthState;

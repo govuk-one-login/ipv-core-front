@@ -1,4 +1,4 @@
-import { CONFIG } from "../config/test-config";
+import config from "../config";
 import { expect, Page } from "@playwright/test";
 import { ScenarioContext } from "./index";
 
@@ -11,7 +11,7 @@ export const orchestratorStubUtils = (
   const FULL_JOURNEY_BUTTON = "#full-journey-button";
 
   const startJourney = async (env: string) => {
-    await page.goto(CONFIG.URLS.ORCHESTRATOR_STUB);
+    await page.goto(config.orchestratorStubUrl);
 
     let userId = scenarioContext.userId;
     if (userId) {
@@ -33,13 +33,12 @@ export const orchestratorStubUtils = (
       .filter({ hasText: "Raw User Info Object" })
       .click();
 
-    await expect(
-      page
-        .locator(".govuk-details__text")
-        .first(),
-    ).toContainText(`"${expectedVot}"`, {
-      timeout: 10000,
-    });
+    await expect(page.locator(".govuk-details__text").first()).toContainText(
+      `"${expectedVot}"`,
+      {
+        timeout: 10000,
+      },
+    );
   };
 
   return {

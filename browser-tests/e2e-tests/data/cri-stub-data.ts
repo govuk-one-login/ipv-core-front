@@ -1,4 +1,10 @@
-import { EvidenceScores } from "../types/test-data";
+export interface EvidenceScores {
+  strength?: string;
+  validity?: string;
+  activityHistory?: string;
+  biometricVerification?: string;
+  fraud?: string;
+}
 
 export interface CriStubDataConfig {
   stubData: string;

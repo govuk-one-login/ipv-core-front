@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { getCriStubTestDataConfig } from "../utils/cri-stub-data";
-import { EvidenceScores } from "../types/test-data";
 import { pageUtils } from "./pages-fixture";
+import { EvidenceScores } from "../data/cri-stub-data";
 
 export const criStubUtils = (
   page: Page,

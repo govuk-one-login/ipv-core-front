@@ -11,22 +11,17 @@ export class OrchestratorStubPage extends BasePage {
   }
 
   async getUserId(): Promise<string> {
-    await this.page.waitForLoadState("networkidle");
-    return await this.page
-      .getByRole("textbox", { name: "Enter userId manually" })
-      .inputValue();
+    return this.page.locator("#userIdText").inputValue();
+  }
+
+  async getJourneyId(): Promise<string> {
+    return this.page.locator("#signInJourneyIdText").inputValue();
   }
 
   async setUserId(userId: string): Promise<void> {
     await this.page
       .getByRole("textbox", { name: "Enter userId manually" })
       .fill(userId);
-  }
-
-  async setJourneyId(journeyId: string) {
-    await this.page
-      .locator(`input[type="text"][id="signInJourneyIdText"]`)
-      .fill(journeyId);
   }
 
   async expectRawUserInfoVisible(): Promise<void> {
@@ -38,20 +33,6 @@ export class OrchestratorStubPage extends BasePage {
       .locator("summary")
       .filter({ hasText: "Raw User Info Object" })
       .click();
-  }
-
-  async expectCriTypes(): Promise<void> {
-    const expectedCriTypes = [
-      "Cri Type: https://address-cri",
-      "Cri Type: https://dcmaw-async.",
-      "Cri Type: https://driving-",
-      "Cri Type: https://fraud-cri.",
-      "Cri Type: https://cimit.stubs",
-      "Cri Type: https://ticf.stubs.",
-    ];
-    for (const criType of expectedCriTypes) {
-      await this.expectText(criType);
-    }
   }
 
   async expectF2FCriTypes(): Promise<void> {
@@ -66,5 +47,9 @@ export class OrchestratorStubPage extends BasePage {
     for (const criType of expectedCriTypes) {
       await this.expectText(criType);
     }
+  }
+
+  async selectEnvironment(env: string): Promise<void> {
+    await this.selectOption("#targetEnvironment", env);
   }
 }

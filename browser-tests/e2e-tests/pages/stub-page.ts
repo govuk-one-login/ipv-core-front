@@ -38,15 +38,11 @@ export class StubPage extends BasePage {
     }
   }
 
-  // TODO: update this to use the ID once the CRI stubs have been updated
-  // updated so that the "Submit data and generate auth" button has an id
-  // and also update the "clickButton" function
   async submitData(): Promise<void> {
-    await this.clickButton("submit", true);
+    await this.clickButton("submit");
   }
 
   async overrideVCNotBefore(): Promise<void> {
-    // Selenium: @FindBy(id = "vcNotBeforeFlg") → overideVCNotBefore.click()
     await this.page.locator("#vcNotBeforeFlg").check();
   }
 }

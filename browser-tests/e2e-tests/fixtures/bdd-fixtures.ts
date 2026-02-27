@@ -13,6 +13,7 @@ import { KBVStubPage } from "../pages/kbv-stub-page";
 import { ApiService } from "../services/api-service";
 import { DcmawAsyncService } from "../services/dcmaw-async-service";
 import { pageUtils } from "../utils/pages";
+import { criStubUtils } from "../utils/cri-stub";
 
 type PageFixtures = {
   orchestratorPage: OrchestratorStubPage;
@@ -27,8 +28,9 @@ type PageFixtures = {
   kbvPage: KBVStubPage;
   apiService: ApiService;
   dcmawAsyncService: DcmawAsyncService;
-  userId: string;
+  scenarioContext: Map<string, any>;
   pageUtils: ReturnType<typeof pageUtils>;
+  criStubUtils: ReturnType<typeof criStubUtils>;
 };
 
 export const test = baseTest.extend<PageFixtures>({
@@ -68,12 +70,14 @@ export const test = baseTest.extend<PageFixtures>({
   dcmawAsyncService: async ({ request }, use) => {
     await use(new DcmawAsyncService(request));
   },
-  userId: async ({}, use) => {
-    let userId = "";
-    await use(userId);
+  scenarioContext: async ({}, use) => {
+    await use(new Map<string, any>());
   },
   pageUtils: async ({ page }, use) => {
     await use(pageUtils(page));
+  },
+  criStubUtils: async ({ page, pageUtils }, use) => {
+    await use(criStubUtils(page, pageUtils));
   },
 });
 

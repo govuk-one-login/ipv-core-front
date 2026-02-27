@@ -1,7 +1,7 @@
 import { StubPage } from "./stub-page";
 
 export class FraudStubPage extends StubPage {
-  async processAliceParkerValid(): Promise<void> {
+  async processAliceParkerValidExpired(): Promise<void> {
     await this.selectTestData("Alice Parker (Valid) Fraud");
     // Selenium: enterFraudVCExpiryForUser — uses #fraud and #activity directly
     await this.page.locator("#fraud").fill("2");

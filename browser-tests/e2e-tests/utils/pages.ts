@@ -1,27 +1,18 @@
-import { expect, Page } from "@playwright/test";
+import { errors, expect, Page } from "@playwright/test";
+import TimeoutError = errors.TimeoutError;
 
 export const pageUtils = (page: Page) => {
   const selectRadio = async (value: string) =>
-    await page.locator(`input[type="radio"][value="${value}"]`).check();
+    await page.locator(`input[type="radio"][value="${value}"]`).first().check();
 
   const selectCheckbox = async (value: string) =>
-    await page.locator(`input[type="checkbox"][value="${value}"]`).check();
+    await page
+      .locator(`input[type="checkbox"][value="${value}"]`)
+      .first()
+      .check();
 
-  const clickButton = async (idOrName: string, useName: boolean = false) => {
-    const currentUrl = page.url();
-    const button = useName
-      ? page.getByRole("button", { name: idOrName })
-      : page.locator(`#${idOrName}`);
-    await button.click();
-    // Wait for navigation if the URL changes, otherwise just wait for network to settle
-    try {
-      await page.waitForURL((url) => url.toString() !== currentUrl, {
-        timeout: 15000,
-      });
-    } catch {
-      // Navigation might not always occur (e.g. in-page form submission)
-    }
-    await page.waitForLoadState("networkidle");
+  const clickButton = async (id: string) => {
+    await page.locator(`#${id}`).click();
   };
 
   const selectRadioAndContinue = async (value: string) => {
@@ -33,13 +24,31 @@ export const pageUtils = (page: Page) => {
     timeout: number,
   ) => {
     const continueButton = page
-      .locator(
-        '#continue, #submitButton, button[type="submit"], button[data-id="next"], button:has-text("Continue")',
-      )
+      .locator("#submitButton")
+      .or(page.locator('button[type="submit"]'))
       .first();
     await expect(continueButton).toBeEnabled({ timeout: timeout * 1000 });
     await continueButton.click();
   };
+
+  const selectContinueButton = async () => {
+    await page
+      .locator("#submitButton")
+      .or(page.locator('button[type="submit"]'))
+      .or(page.locator('input[type="submit"]'))
+      .first()
+      .click();
+  };
+
+  const expectPage = async (expectedPage: string) => {
+    try {
+      await page.waitForURL(`**/${expectedPage}`, { timeout: 3000 });
+    } catch (e) {
+      if (e instanceof TimeoutError) {
+        throw new Error(`Expected ${expectedPage} but got ${page.url()}`);
+      }
+    }
+  }
 
   return {
     selectRadio,
@@ -47,5 +56,7 @@ export const pageUtils = (page: Page) => {
     clickButton,
     selectRadioAndContinue,
     waitForContinueButtonToBeEnabledThenContinue,
+    selectContinueButton,
+    expectPage
   };
 };

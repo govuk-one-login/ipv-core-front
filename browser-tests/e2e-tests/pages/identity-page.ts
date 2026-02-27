@@ -45,6 +45,7 @@ export class IdentityPage extends BasePage {
   }
 
   async selectUpdateDetails(): Promise<void> {
+    // On confirm-your-details screen
     await this.selectRadio("no");
     await this.selectCheckbox("givenNames");
     await this.clickButton("submitButton");

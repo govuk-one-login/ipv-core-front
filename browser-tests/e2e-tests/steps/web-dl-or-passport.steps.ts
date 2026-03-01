@@ -2,14 +2,7 @@ import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 
-const { When, Then } = createBdd(fixtures);
-
-When(
-  "the user starts a new journey in {string}",
-  async ({ orchStubUtils }, env: string) => {
-    await orchStubUtils.startJourney(env);
-  },
-);
+const { Then } = createBdd(fixtures);
 
 Then(
   "Kenneth Decerqueira's information is displayed on the reuse screen",

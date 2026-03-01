@@ -12,7 +12,7 @@ Feature: StrategicApp
     When the user selects 'iphone' radio option and continues
     Then the user should see the 'pyi-triage-mobile-download-app' page
     When the user submits 'kennethD' 'ukChippedPassport' 'success' details to the app
-    And user returns from the app to core-front
+    And the user returns from the app to core-front
     Then the user should see the 'check-mobile-app-result' page
     And the continue button should be enabled within 15 seconds
     When the user chooses to continue

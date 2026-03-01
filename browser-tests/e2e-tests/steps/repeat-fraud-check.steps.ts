@@ -22,8 +22,7 @@ Given(
     if (!userId) {
       throw new Error("Missing userId");
     }
-    const oauthState = await enqueueVcWithScenario(userId, "alice-parker-dvla");
-    scenarioContext.oauthState = oauthState;
+    scenarioContext.oauthState = await enqueueVcWithScenario(userId, "alice-parker-dvla");
 
     // Wait until continue button is enabled on download page
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
@@ -34,7 +33,7 @@ Given(
       "driving-licence",
     );
     // On page-dcmaw-success
-    await pageUtils.selectContinueButton();
+    await pageUtils.getContinueButton().click();
 
     // submit address details
     await criStubUtils.submitDetailsToCriStub("alice-parker-valid", "address");
@@ -47,13 +46,18 @@ Given(
   },
 );
 
-When("the user chooses to update their given name via the app", async ({ pageUtils }) => {
-  await pageUtils.selectRadio("no");
-  await pageUtils.selectCheckbox("givenNames");
-  await pageUtils.selectContinueButton();
-  await pageUtils.selectRadioAndContinue("update-name")
-});
+When(
+  "the user chooses to update their given name via the app",
+  async ({ pageUtils }) => {
+    await pageUtils.selectRadio("no");
+    await pageUtils.selectCheckbox("givenNames");
+    await pageUtils.getContinueButton().click();
+    await pageUtils.selectRadioAndContinue("update-name");
+  },
+);
 
+// This is specific to the journey in scenario: Pass successfully for a given
+// name change and show reuse screen
 Then(
   "Alison Parker's credentials should be passed to the orch stub",
   async ({ page }) => {

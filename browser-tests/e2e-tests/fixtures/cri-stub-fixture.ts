@@ -40,7 +40,6 @@ export const criStubUtils = (
   const submitDetailsToCriStub = async (scenario: string, cri: string) => {
     const testDataConfig = getCriStubTestDataConfig(scenario, cri);
 
-    console.log(`Submitting ${scenario} details to the ${cri} stub`);
     await setTestData(testDataConfig.stubData);
 
     if (testDataConfig.sendVcToAsyncQueue) {
@@ -55,7 +54,7 @@ export const criStubUtils = (
       await page.locator(OVERRIDE_VC_CHECKBOX).check();
     }
 
-    await utils.selectContinueButton();
+    await utils.getContinueButton().click();
   };
 
   return {

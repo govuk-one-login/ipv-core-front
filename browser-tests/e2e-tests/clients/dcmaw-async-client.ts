@@ -50,6 +50,8 @@ export const enqueueVc = async (
 };
 
 const postToEnqueueVc = async (payload: object) => {
+  console.log("Enqueueing DCMAW Async VC...");
+
   const response = await fetch(`${config.dcmawAsyncUrl}/management/enqueueVc`, {
     method: "POST",
     body: JSON.stringify(payload),
@@ -58,7 +60,9 @@ const postToEnqueueVc = async (payload: object) => {
 
   const responsePayload = await response.json();
   if (response.status !== 201) {
-    throw new Error(`DCMAW enqueue VC request failed: ${JSON.stringify(responsePayload)})`);
+    throw new Error(
+      `DCMAW enqueue VC request failed: ${JSON.stringify(responsePayload)})`,
+    );
   }
 
   const oauthState = responsePayload.oauthState;

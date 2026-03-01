@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 
-dotenv.config({ path: "e2e-tests/.env"});
+dotenv.config({ path: "e2e-tests/.env" });
 
 const getEnvironmentVariableOrError = (variable: string): string => {
   const value = process.env[variable];

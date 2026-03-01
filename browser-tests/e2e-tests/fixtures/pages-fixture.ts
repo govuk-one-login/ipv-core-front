@@ -20,24 +20,20 @@ export const pageUtils = (page: Page) => {
     await clickButton("submitButton");
   };
 
-  const waitForContinueButtonToBeEnabledThenContinue = async (
-    timeout: number,
-  ) => {
-    const continueButton = page
-      .locator("#submitButton")
-      .or(page.locator('button[type="submit"]'))
-      .first();
-    await expect(continueButton).toBeEnabled({ timeout: timeout * 1000 });
-    await continueButton.click();
-  };
-
-  const selectContinueButton = async () => {
-    await page
+  const getContinueButton = () => {
+    return page
       .locator("#submitButton")
       .or(page.locator('button[type="submit"]'))
       .or(page.locator('input[type="submit"]'))
-      .first()
-      .click();
+      .first();
+  };
+
+  const waitForContinueButtonToBeEnabledThenContinue = async (
+    timeout: number,
+  ) => {
+    const continueButton = getContinueButton();
+    await expect(continueButton).toBeEnabled({ timeout: timeout * 1000 });
+    await continueButton.click();
   };
 
   const expectPage = async (expectedPage: string) => {
@@ -56,7 +52,7 @@ export const pageUtils = (page: Page) => {
     clickButton,
     selectRadioAndContinue,
     waitForContinueButtonToBeEnabledThenContinue,
-    selectContinueButton,
     expectPage,
+    getContinueButton,
   };
 };

@@ -1,7 +1,10 @@
 import { Page } from "@playwright/test";
-import { getCriStubTestDataConfig } from "../utils/cri-stub-data";
 import { pageUtils } from "./pages-fixture";
-import { EvidenceScores } from "../data/cri-stub-data";
+import {
+  criStubData,
+  CriStubDataConfig,
+  EvidenceScores,
+} from "../data/cri-stub-data";
 
 export const criStubUtils = (
   page: Page,
@@ -10,6 +13,21 @@ export const criStubUtils = (
   const TEST_DATA_INPUT = "#test_data";
   const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
   const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
+
+  const getCriStubTestDataConfig = (
+    scenario: string,
+    cri: string,
+  ): CriStubDataConfig => {
+    const testDataConfig = criStubData[scenario]?.[cri];
+
+    if (!testDataConfig) {
+      throw new Error(
+        `No CRI stub data for persona '${scenario}' + CRI '${cri}'`,
+      );
+    }
+
+    return testDataConfig;
+  };
 
   const setTestData = async (testDataIdentifier: string) => {
     await page.locator(TEST_DATA_INPUT).selectOption(testDataIdentifier);

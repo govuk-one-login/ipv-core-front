@@ -22,7 +22,10 @@ Given(
     if (!userId) {
       throw new Error("Missing userId");
     }
-    scenarioContext.oauthState = await enqueueVcWithScenario(userId, "alice-parker-dvla");
+    scenarioContext.oauthState = await enqueueVcWithScenario(
+      userId,
+      "alice-parker-dvla",
+    );
 
     // Wait until continue button is enabled on download page
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);

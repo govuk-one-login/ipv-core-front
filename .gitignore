@@ -66,6 +66,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+**/.env
 
 # npmrc file containing access token
 /.npmrc

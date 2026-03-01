@@ -1,8 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
 import { defineBddConfig } from "playwright-bdd";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 // Call defineBddConfig to register BDD configuration
 defineBddConfig({

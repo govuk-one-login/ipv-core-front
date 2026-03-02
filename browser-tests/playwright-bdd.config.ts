@@ -10,7 +10,7 @@ defineBddConfig({
 // Export Playwright configuration for BDD tests
 export default defineConfig({
   testDir: "./.features-gen",
-  reporter: 'line',
+  reporter: [['html', { open: 'never', outputFolder: 'e2e-tests/test-results' }]],
   workers: 3,
   projects: [
     {

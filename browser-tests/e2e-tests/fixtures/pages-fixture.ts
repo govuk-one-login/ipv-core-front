@@ -1,5 +1,6 @@
 import { errors, expect, Page } from "@playwright/test";
 import TimeoutError = errors.TimeoutError;
+import { sanitiseUrl } from "../helpers/url-helpers";
 
 export const pageUtils = (page: Page) => {
   const selectRadio = async (value: string) =>
@@ -41,7 +42,10 @@ export const pageUtils = (page: Page) => {
       await page.waitForURL(`**/${expectedPage}`, { timeout: 3000 });
     } catch (e) {
       if (e instanceof TimeoutError) {
-        throw new Error(`Expected ${expectedPage} but got ${page.url()}`);
+        const actualPageUrl = sanitiseUrl(page.url());
+        throw new Error(
+          `Expected "${expectedPage}" but got "${actualPageUrl.slice(actualPageUrl.lastIndexOf("/") + 1)}"`,
+        );
       }
     }
   };

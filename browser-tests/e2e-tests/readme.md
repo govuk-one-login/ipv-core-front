@@ -78,6 +78,12 @@ to re-generate the `*.spec.ts` file to keep it up-to-date.
   To avoid having to do this for each run configuration, set it within a template.
 - Open the generated `*.spec.ts` file in `.features-gen` and click on the arrow next to the test in IntelliJ
 
+## Debugging
+
+Running the tests with the Playwright UI is helpful for debugging as it also displays the browser within the UI.
+However, when running the tests locally, HTML test reports are also generated in `/browser-tests/e2e-tests/test-results`
+along with page screenshots upon failure.
+
 ---
 
 ## 📁 Project Structure
@@ -89,6 +95,7 @@ e2e-tests/
 ├── fixtures/             # playwright-bdd fixtures for dependency injection into scenarios (pageUtils, criStubUtils, etc.)
 ├── steps/                # Step definitions (.steps.ts) that implement each Gherkin step defined in /features/*.feature
 ├── clients/              # API clients for external services (e.g. DCMAW Async VC enqueueing)
+├── helpers/              # Standalone helpers that are not dependent on Playwright's existing fixtures/objects e.g. Page.
 └── data/                 # Test data — CRI stub data configs and async DCMAW stub JSON payloads
 ```
 
@@ -98,7 +105,8 @@ e2e-tests/
 3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects ( e.g. `Page` which allows
    browser page anipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
    `ScenarioContext` which defines contexts e.g. `userId` and `oauthState` to be shared between steps in a given scenario.
-   These are reset between scenarios.
-4. **Clients** (`clients/`) handle external API interactions needed during tests (e.g. enqueuing async VCs). These
+4. **Helpers** (`helpers/`) define common utilities not dependent on Playwright objects and can be called anywhere in the
+   code.
+5. **Clients** (`clients/`) handle external API interactions needed during tests (e.g. enqueuing async VCs). These
    are not dependent on any Playwright objects.
-5. **Data** (`data/`) holds test persona configurations and stub payloads used by fixtures and clients.
+6. **Data** (`data/`) holds test persona configurations and stub payloads used by fixtures and clients.

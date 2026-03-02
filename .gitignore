@@ -118,3 +118,6 @@ browser-tests/test-results/
 
 # Generated feature files for execution
 browser-tests/.features-gen/
+
+# Generated E2E test results
+browser-tests/e2e-tests/test-results/

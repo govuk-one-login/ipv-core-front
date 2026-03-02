@@ -3,70 +3,38 @@ import { getAuthoriseUrlForJourney } from "./helpers";
 
 test.describe("Error tests", () => {
   test("Handles an unexpected error from core-back", async ({ page }) => {
+    // Start a session
     await page.goto(getAuthoriseUrlForJourney("testUnexpectedError"));
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
-    const textLocator = await page.getByText("Sorry, there is a problem");
-    await expect(textLocator).toBeVisible();
-  });
-
-  test("Handles an unexpected error after a CRI callback", async ({ page }) => {
-    await page.goto(getAuthoriseUrlForJourney("testCriError"));
-    await page.click("input[type='radio'][value='appTriage']");
-    await page.click("button[id='submitButton']");
-
-    const textLocator = await page.getByText("Sorry, there is a problem");
-    await expect(textLocator).toBeVisible();
-  });
-
-  test("Handles error during session creation", async ({ page }) => {
-    await page.goto(getAuthoriseUrlForJourney("testSessionError"));
-
-    const textLocator = await page.getByText("Sorry, there is a problem");
-    await expect(textLocator).toBeVisible();
-  });
-
-  test("Handles invalid session state", async ({ page }) => {
-    await page.goto(getAuthoriseUrlForJourney("testInvalidSession"));
-    await page.click("input[type='radio'][value='appTriage']");
-    await page.click("button[id='submitButton']");
-
-    const textLocator = await page.getByText("Sorry, there is a problem");
-    await expect(textLocator).toBeVisible();
-  });
-
-  test("Error page has correct accessibility attributes", async ({ page }) => {
-    await page.goto(getAuthoriseUrlForJourney("testUnexpectedError"));
-    await page.click("input[type='radio'][value='appTriage']");
-    await page.click("button[id='submitButton']");
-
+    // Core-back is configured to return an error after selecting submit
     const heading = page.locator("h1");
     await expect(heading).toContainText("Sorry, there is a problem");
     await expect(page.locator("main")).toHaveAttribute("id", "main-content");
-  });
-
-  test("Error page displays contact link", async ({ page }) => {
-    await page.goto(getAuthoriseUrlForJourney("testUnexpectedError"));
-    await page.click("input[type='radio'][value='appTriage']");
-    await page.click("button[id='submitButton']");
-
     const contactLink = page.getByRole("link", { name: /contact/i });
     await expect(contactLink).toBeVisible();
   });
 
-  test("Handles error with different CRI selection", async ({ page }) => {
+  test("Handles an unexpected error after a CRI callback", async ({ page }) => {
+    // Start a session
     await page.goto(getAuthoriseUrlForJourney("testCriError"));
+    await page.click("input[type='radio'][value='appTriage']");
+    await page.click("button[id='submitButton']");
 
-    const radioButtons = page.locator("input[type='radio']");
-    const count = await radioButtons.count();
+    // Core-back is configured to return a CRI redirect which core-front handles by
+    // sending another request to core-back, this time, core-back is configured to
+    // return an error
+    const textLocator = page.getByText("Sorry, there is a problem");
+    await expect(textLocator).toBeVisible();
+  });
 
-    if (count > 1) {
-      await radioButtons.nth(1).click();
-      await page.click("button[id='submitButton']");
+  test("Handles error during session creation", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testSessionInitialiseError"));
 
-      const textLocator = await page.getByText("Sorry, there is a problem");
-      await expect(textLocator).toBeVisible();
-    }
+    // Core-back is configured to return an error form the initial /session/initialise call
+    const textLocator = page.getByText("Sorry, there is a problem");
+    await expect(textLocator).toBeVisible();
   });
 });

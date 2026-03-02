@@ -21,6 +21,10 @@ resources:
     requestHeaders:
       content-type: "application/json"
     # Capture the state value here so we can use it in the response to key later responses
+    requestBody:
+      jsonPath: $.state
+      value: "testSessionInitialiseError"
+      operator: NotEqualTo
     capture:
       testJourney:
         jsonPath: $.state
@@ -31,6 +35,26 @@ resources:
       content: |
         {
           "ipvSessionId": "${stores.request.testJourney}"
+        }
+
+  # First couple of requests to transfer from orchestration to core back.
+  # We return the state from the request as the ipvSessionId so that it can be used to pick which responses to send to
+  # later requests. This specific mock returns an error when core-front tries to initialise a session with core-back.
+  - method: POST
+    path: /session/initialise
+    requestHeaders:
+      content-type: "application/json"
+    # Capture the state value here so we can use it in the response to key later responses
+    requestBody:
+      jsonPath: $.state
+      value: "testSessionInitialiseError"
+      operator: EqualTo
+    response:
+      statusCode: 500
+      template: true
+      content: |
+        {
+          "error": "something-went-wrong"
         }
 
   # This is the first endpoint hit after /session/initialise. For new identity journeys,

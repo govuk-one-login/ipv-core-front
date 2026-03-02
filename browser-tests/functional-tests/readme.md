@@ -24,7 +24,7 @@ npm run test:functional-docker
 - Install the IntelliJ Test Automation plugin
 - Build the docker containers `docker compose build`
 - Run the imposter and core-front containers `docker compose up browser-tests-core-back-imposter browser-tests-core-front`
-- Optionally disable headless mode in `playwright.config.ts` so you can see what happening
+- Optionally disable headless mode in `playwright.config.ts` so you can see what's happening
 - Set up environment variables as in the `browser-tests-tests` container setup
 - Click on the arrow next to the test in IntelliJ
 

@@ -1,8 +1,8 @@
 # Browser Tests
 
 This folder contains the **functional tests**, **snapshot tests** and **E2E tests**.
-* The functional tests are integration tests which tests core-front against a mock of IPV Core Back.
-* The snapshot tests captures and compares visual snapshots of IPV Core's pages and checks for any changes from a base image.
+* The functional tests are integration tests which test core-front against a mock of IPV Core Back.
+* The snapshot tests capture and compare visual snapshots of IPV Core's pages and check for any changes from a base image.
 * The E2E tests simulate different user journeys in a browser from the orch stub, therefore, testing the entirety of IPV Core's stack, not
 just Core Front.
 
@@ -31,7 +31,7 @@ There are various scripts to run the tests, defined in `package.json`:
 | `update-snapshots`             | Runs the snapshot tests locally and replaces the base image of any updated pages. Before running this script, the containers must be spun up with `docker compose build && docker compose up`.  |
 | `test:functional-docker`       | Runs just the functional and snapshot tests. This spins up docker containers running Core Front, a mock of Core Back and another container running the tests.                                   |
 | `test:e2e` | Runs just the E2E tests locally.                                                                                                                                                                |
-| `test:e2e-ui` | Opens the Playwright Runner so the tests can be ran with the UI. Helpful for debugging.                                                                                                         |
+| `test:e2e-ui` | Opens the Playwright Runner so the tests can be run with the UI. Helpful for debugging.                                                                                                         |
 
 
 To run a script:

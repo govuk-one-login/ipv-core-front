@@ -58,7 +58,7 @@ npx playwright-bdd --config playwright-bdd.config.ts test && npx playwright test
 
 This does the following:
 
-1. `npx playwright-bdd --config playwright-bdd.config.ts test` generates `*.spec.js` files per feature file which contains
+1. `npx playwright-bdd --config playwright-bdd.config.ts test` generates `*.spec.js` files per feature file which contain
    standard `test()` calls that Playwright can execute in a `.features-gen` directory.
 2. `npx playwright test --config playwright-bdd.config.ts` runs these `*.spec.js` files as normal Playwright tests
 
@@ -74,7 +74,7 @@ to re-generate the `*.spec.ts` file to keep it up-to-date.
 
 - Install the IntelliJ Test Automation plugin
 - Set up the `.env` file
-- Open the Playwright Run Configuration and set the `Configration file` to point at `playwright-bdd.config.ts`
+- Open the Playwright Run Configuration and set the `Configuration file` to point at `playwright-bdd.config.ts`
   To avoid having to do this for each run configuration, set it within a template.
 - Open the generated `*.spec.ts` file in `.features-gen` and click on the arrow next to the test in IntelliJ
 
@@ -100,10 +100,10 @@ e2e-tests/
 ```
 
 1. **Feature files** (`features/*.feature`) describe user journeys in plain English using Gherkin syntax (Given/When/Then).
-2. **Step definitions** (`steps/*.steps.ts`) implements each Gherkin step using Playwright actions. The `createBdd()` at
-   the top of each file maps ech step to a Playwright action.
-3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects ( e.g. `Page` which allows
-   browser page anipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
+2. **Step definitions** (`steps/*.steps.ts`) implement each Gherkin step using Playwright actions. The `createBdd()` at
+   the top of each file maps each step to a Playwright action.
+3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects (e.g. `Page` which allows
+   browser page manipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
    `ScenarioContext` which defines contexts e.g. `userId` and `oauthState` to be shared between steps in a given scenario.
 4. **Helpers** (`helpers/`) define common utilities not dependent on Playwright objects and can be called anywhere in the
    code.

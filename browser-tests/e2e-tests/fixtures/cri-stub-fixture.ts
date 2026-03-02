@@ -1,15 +1,16 @@
 import { Page } from "@playwright/test";
-import { pageUtils } from "./pages-fixture";
+import { PageUtils } from "./pages-fixture";
 import {
   criStubData,
   CriStubDataConfig,
   EvidenceScores,
 } from "../data/cri-stub-data";
 
-export const criStubUtils = (
-  page: Page,
-  utils: ReturnType<typeof pageUtils>,
-) => {
+export interface CriStubUtils {
+  submitDetailsToCriStub: (scenario: string, cri: string) => Promise<void>;
+}
+
+export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   const TEST_DATA_INPUT = "#test_data";
   const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
   const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
@@ -29,11 +30,11 @@ export const criStubUtils = (
     return testDataConfig;
   };
 
-  const setTestData = async (testDataIdentifier: string) => {
+  const setTestData = async (testDataIdentifier: string): Promise<void> => {
     await page.locator(TEST_DATA_INPUT).selectOption(testDataIdentifier);
   };
 
-  const setEvidenceScores = async (scores: EvidenceScores) => {
+  const setEvidenceScores = async (scores: EvidenceScores): Promise<void> => {
     if (scores.strength) {
       await page.locator("#strength").fill(scores.strength);
     }
@@ -55,7 +56,10 @@ export const criStubUtils = (
     }
   };
 
-  const submitDetailsToCriStub = async (scenario: string, cri: string) => {
+  const submitDetailsToCriStub = async (
+    scenario: string,
+    cri: string,
+  ): Promise<void> => {
     const testDataConfig = getCriStubTestDataConfig(scenario, cri);
 
     await setTestData(testDataConfig.stubData);

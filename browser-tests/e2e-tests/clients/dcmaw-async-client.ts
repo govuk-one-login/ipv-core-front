@@ -5,7 +5,7 @@ import config from "../config";
 export const enqueueVcWithScenario = async (
   userId: string,
   scenario: string,
-) => {
+): Promise<string> => {
   const payload = {
     user_id: userId,
     credential_subject: JSON.parse(
@@ -37,7 +37,7 @@ export const enqueueVc = async (
   testUser: string,
   documentType: string,
   evidenceType: string,
-) => {
+): Promise<string> => {
   const payload = {
     user_id: userId,
     test_user: testUser,
@@ -49,8 +49,8 @@ export const enqueueVc = async (
   return postToEnqueueVc(payload);
 };
 
-const postToEnqueueVc = async (payload: object) => {
-  console.log("Enqueueing DCMAW Async VC...");
+const postToEnqueueVc = async (payload: object): Promise<string> => {
+  console.info("Enqueueing DCMAW Async VC...");
 
   const response = await fetch(`${config.dcmawAsyncUrl}/management/enqueueVc`, {
     method: "POST",

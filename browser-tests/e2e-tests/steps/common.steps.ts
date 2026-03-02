@@ -26,7 +26,7 @@ When(
 
     while (Date.now() - startTime < maxWaitMs) {
       const elapsedMs = Date.now() - startTime;
-      console.log(`${elapsedMs}ms: Attempting new journey with retry...`);
+      console.info(`${elapsedMs}ms: Attempting new journey with retry...`);
 
       try {
         await orchStubUtils.startJourney(env);
@@ -35,14 +35,14 @@ When(
       } catch (error) {
         lastError = error as Error;
         const elapsedMs = Date.now() - startTime;
-        console.log(`❌ Failed at ${elapsedMs}ms: ${lastError.message}`);
+        console.error(`❌ Failed at ${elapsedMs}ms: ${lastError.message}`);
 
         if (elapsedMs >= maxWaitMs) {
-          console.log("❌ Max timeout exceeded, stopping retries");
+          console.error("❌ Max timeout exceeded, stopping retries");
           throw lastError;
         }
 
-        console.log(`Retrying in ${retryIntervalMs}ms...`);
+        console.error(`Retrying in ${retryIntervalMs}ms...`);
         await new Promise((resolve) => setTimeout(resolve, retryIntervalMs));
       }
     }

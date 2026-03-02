@@ -1,152 +1,104 @@
 # E2E Playwright BDD Tests
 
-This directory contains the **End-to-End (E2E) test suite** for the **IPV Core Front** application, built using **[playwright-bdd](https://github.com/vitalets/playwright-bdd)**, **Playwright**, and **TypeScript**. Tests are written as **Gherkin feature files** with step definitions, following a **Behaviour-Driven Development (BDD)** approach to simulate full user journeys across multiple services and stubs.
+This directory contains the **End-to-End (E2E) test suite** for IPV Core.
 
-> 📘 See also: [`browser-tests/QUICK_REFERENCE.md`](../QUICK_REFERENCE.md) for a handy cheat-sheet of common commands and patterns.
+The tests are defined inside [Gherkin](https://cucumber.io/docs/gherkin/reference/) feature files and orchestrated with
+[Playwright](https://playwright.dev/docs/writing-tests).
+The [playwright-bdd](https://vitalets.github.io/playwright-bdd/#/) package is used to bridge the human-readable
+Behaviour-Driven Development (BDD) scenarios defined in the Gherkin feature files to Playwright's test runner to allow
+simulation of a user's full journey with IPV Core.
 
----
-
-## 📁 Project Structure
-
-The framework is structured using the **Page Object Model (POM)**, **Gherkin feature files**, and custom **fixtures** to ensure tests are readable, scalable, and easy to maintain.
-
-```
-e2e-tests/
-├── config/               # Handles test configuration and environment variables (ConfigurationReader).
-├── features/             # Gherkin .feature files defining test scenarios in plain English.
-│   ├── coi-fraud-check.feature
-│   ├── e2e-passport.feature
-│   ├── f2f-passport.feature
-│   └── strategicApp.feature
-├── fixtures/             # Custom Playwright BDD fixtures for dependency injection (page objects).
-├── pages/                # Page Object classes that encapsulate UI locators and interactions.
-├── services/             # Services for handling API requests (ApiService, DcmawAsyncService).
-├── steps/                # BDD step definitions (.steps.ts) mapped to Gherkin steps.
-│   ├── bdd-context.ts
-│   ├── common.steps.ts
-│   ├── coi-fraud-check.steps.ts
-│   ├── e2e-passport.steps.ts
-│   ├── f2f-passport.steps.ts
-│   └── strategicApp.steps.ts
-└── types/                # TypeScript type definitions for test data.
-```
-
-### 🔄 How BDD Tests Work
-
-1. **Feature files** (`features/*.feature`) describe scenarios in Gherkin syntax (Given/When/Then).
-2. **Step definitions** (`steps/*.steps.ts`) implement each Gherkin step using Playwright actions.
-3. **Fixtures** (`fixtures/bdd-fixtures.ts`) inject page objects into steps via `playwright-bdd`.
-4. **`playwright-bdd`** auto-generates Playwright spec files into `.features-gen/` at build time.
-5. **Playwright** then runs the generated specs as normal tests.
-
----
-
-## ⚙️ Local Configuration
-
-To run the tests locally, you need to create a `.env` file in the root of the `browser-tests/` directory. This file stores environment-specific URLs and API keys, keeping them separate from the codebase.
-
-### Steps:
-
-1. Copy the `.env.template` file and re-name it to `.env` in the `browser-tests/e2e-tests` directory.
-2. Fill out the necessary config
+> For guidance on adding E2E tests, see the [guidance doc](guidance.md).
 
 ---
 
 ## 🚀 Running Tests
 
-Make sure all dependencies are installed first:
+First, configure all environment variables by copying the `.env.template` in `/browser-tests/e2e-tests/`
+and removing the `.template` extension.
+
+Install all dependencies:
 
 ```bash
-cd browser-tests
+cd browser-tests/
 npm install
 ```
 
-> ⚠️ Run `npm install` from the `browser-tests/` directory — that's where the `package.json` lives. All test commands below should also be run from `browser-tests/`.
-
-### ▶️ Run All E2E BDD Tests
-
-This generates the Playwright specs from the Gherkin feature files and then executes them:
+To run all E2E tests, from anywhere within the `/browser-tests` directory:
 
 ```bash
 npm run test:e2e
 ```
 
-Under the hood this runs:
+To run a specific feature file, specify the feature file name:
+
+```bash
+npm run test:e2e -- grep "coi-fraud-check"
+```
+
+It might be helpful for debugging to run in headed mode. To do so, add the `--headed` option:
+
+```bash
+npm run test:e2e -- grep "coi-fraud-check" --headed
+```
+
+Or, you can run the E2E tests in the Playwright UI:
+
+```bash
+npm run test:e2e-ui
+```
+
+### Behind `npm run test:e2e`
+
+When running `npm run test:e2e`, under the hood, this runs:
 
 ```bash
 npx playwright-bdd --config playwright-bdd.config.ts test && npx playwright test --config playwright-bdd.config.ts
 ```
 
-### 🎯 Run a Specific Feature File
+This does the following:
 
-First generate the specs, then target the generated file by feature name:
+1. `npx playwright-bdd --config playwright-bdd.config.ts test` generates `*.spec.js` files per feature file which contains
+   standard `test()` calls that Playwright can execute in a `.features-gen` directory.
+2. `npx playwright test --config playwright-bdd.config.ts` runs these `*.spec.js` files as normal Playwright tests
 
-```bash
-# Generate specs from feature files
-npx playwright-bdd --config playwright-bdd.config.ts test
-
-# Run a specific feature (use grep to match the feature/scenario name)
-npx playwright test --config playwright-bdd.config.ts --grep "e2e-passport"
-```
-
-### 🖥️ Run in Headed Mode (See the Browser)
+When updating a test file, you'll need to run the following from the `/browser-tests` directory again:
 
 ```bash
 npx playwright-bdd --config playwright-bdd.config.ts test
-npx playwright test --config playwright-bdd.config.ts --headed
 ```
 
-### 🐛 Run in UI Mode (Recommended for Debugging)
+to re-generate the `*.spec.ts` file to keep it up-to-date.
 
-Playwright's interactive UI mode lets you step through tests, inspect the DOM, and view traces:
+## Running in IntelliJ
 
-```bash
-npx playwright-bdd --config playwright-bdd.config.ts test
-npx playwright test --config playwright-bdd.config.ts --ui
-```
-
-### 🤖 Run All Tests (Functional + E2E)
-
-This runs both the functional/snapshot tests and the E2E BDD tests:
-
-```bash
-npm run test:all
-```
-
-### 📸 Update Snapshots (Functional Tests Only)
-
-```bash
-npm run update-snapshots
-```
+- Install the IntelliJ Test Automation plugin
+- Set up the `.env` file
+- Open the Playwright Run Configuration and set the `Configration file` to point at `playwright-bdd.config.ts`
+  To avoid having to do this for each run configuration, set it within a template.
+- Open the generated `*.spec.ts` file in `.features-gen` and click on the arrow next to the test in IntelliJ
 
 ---
 
-## 🧩 Available npm Scripts
+## 📁 Project Structure
 
-| Script                     | Description                                             |
-| -------------------------- | ------------------------------------------------------- |
-| `npm test`                 | Runs functional/snapshot tests (`playwright.config.ts`) |
-| `npm run test:e2e`         | Generates BDD specs and runs E2E tests                  |
-| `npm run test:all`         | Runs both functional and E2E tests                      |
-| `npm run update-snapshots` | Updates visual snapshots for functional tests           |
+```
+e2e-tests/
+├── config/               # Environment configuration and dotenv loading
+├── features/             # Gherkin .feature files defining test scenarios in Given/When/Then syntax
+├── fixtures/             # playwright-bdd fixtures for dependency injection into scenarios (pageUtils, criStubUtils, etc.)
+├── steps/                # Step definitions (.steps.ts) that implement each Gherkin step defined in /features/*.feature
+├── clients/              # API clients for external services (e.g. DCMAW Async VC enqueueing)
+└── data/                 # Test data — CRI stub data configs and async DCMAW stub JSON payloads
+```
 
----
-
-## 📝 Writing New Tests
-
-1. **Create a feature file** in `features/` using Gherkin syntax:
-
-   ```gherkin
-   Feature: My new journey
-
-     Scenario: User completes the journey
-       Given the user starts on the orchestrator stub
-       When they complete the identity check
-       Then they should see the success page
-   ```
-
-2. **Add step definitions** in `steps/my-feature.steps.ts`, importing fixtures from `fixtures/bdd-fixtures.ts`.
-
-3. **Create page objects** in `pages/` if new pages are involved, following the existing POM pattern.
-
-4. **Run the tests** — `playwright-bdd` will auto-generate the Playwright specs from your feature files.
+1. **Feature files** (`features/*.feature`) describe user journeys in plain English using Gherkin syntax (Given/When/Then).
+2. **Step definitions** (`steps/*.steps.ts`) implements each Gherkin step using Playwright actions. The `createBdd()` at
+   the top of each file maps ech step to a Playwright action.
+3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects ( e.g. `Page` which allows
+   browser page anipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
+   `ScenarioContext` which defines contexts e.g. `userId` and `oauthState` to be shared between steps in a given scenario.
+   These are reset between scenarios.
+4. **Clients** (`clients/`) handle external API interactions needed during tests (e.g. enqueuing async VCs). These
+   are not dependent on any Playwright objects.
+5. **Data** (`data/`) holds test persona configurations and stub payloads used by fixtures and clients.

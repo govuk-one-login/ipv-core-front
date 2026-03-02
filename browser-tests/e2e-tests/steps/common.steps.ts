@@ -4,6 +4,31 @@ import { expect } from "@playwright/test";
 
 const { When, Then } = createBdd(fixtures);
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// reusable retryUntil function which can be used in any step where we want to retry an action until it succeeds or a timeout is reached. This is particularly useful for the case where we're waiting for an async VC to be ready which might require multiple attempts.
+const retryUntil = async (
+  action: () => Promise<void>,
+  maxWaitMs = 20000,
+  retryIntervalMs = 2000,
+): Promise<void> => {
+  const startTime = Date.now();
+  let lastError: Error;
+
+  while (Date.now() - startTime < maxWaitMs) {
+    try {
+      await action();
+      return;
+    } catch (error) {
+      lastError = error as Error;
+      console.error(`❌ Failed at ${Date.now() - startTime}ms: ${lastError.message}`);
+      await sleep(retryIntervalMs);
+    }
+  }
+
+  throw new Error(`Timed out after ${maxWaitMs}ms. Last error: ${lastError!.message}`);
+};
+
 /**
  * Common start of journey steps
  */
@@ -19,37 +44,10 @@ When(
 When(
   "the user starts a new journey in {string} until they get a {string} page",
   async ({ pageUtils, orchStubUtils }, env: string, expectedPage: string) => {
-    const startTime = Date.now();
-    const maxWaitMs = 20000; // 20 second timeout
-    const retryIntervalMs = 2000; // Retry every 2 seconds
-    let lastError: Error | null = null;
-
-    while (Date.now() - startTime < maxWaitMs) {
-      const elapsedMs = Date.now() - startTime;
-      console.info(`${elapsedMs}ms: Attempting new journey with retry...`);
-
-      try {
-        await orchStubUtils.startJourney(env);
-        await pageUtils.expectPage(expectedPage);
-        return;
-      } catch (error) {
-        lastError = error as Error;
-        const elapsedMs = Date.now() - startTime;
-        console.error(`❌ Failed at ${elapsedMs}ms: ${lastError.message}`);
-
-        if (elapsedMs >= maxWaitMs) {
-          console.error("❌ Max timeout exceeded, stopping retries");
-          throw lastError;
-        }
-
-        console.error(`Retrying in ${retryIntervalMs}ms...`);
-        await new Promise((resolve) => setTimeout(resolve, retryIntervalMs));
-      }
-    }
-
-    throw new Error(
-      `Failed after ${Date.now() - startTime}ms. Last error: ${lastError?.message}`,
-    );
+    await retryUntil(async () => {
+      await orchStubUtils.startJourney(env);
+      await pageUtils.expectPage(expectedPage);
+    });
   },
 );
 

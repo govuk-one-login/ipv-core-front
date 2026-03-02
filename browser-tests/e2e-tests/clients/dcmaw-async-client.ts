@@ -61,7 +61,7 @@ const postToEnqueueVc = async (payload: object): Promise<string> => {
   const responsePayload = await response.json();
   if (response.status !== 201) {
     throw new Error(
-      `DCMAW enqueue VC request failed: ${JSON.stringify(responsePayload)})`,
+      `DCMAW enqueue VC request failed: ${JSON.stringify(responsePayload)}`,
     );
   }
 

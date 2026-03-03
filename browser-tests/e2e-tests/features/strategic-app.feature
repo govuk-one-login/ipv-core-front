@@ -1,5 +1,8 @@
 @QualityGateStackTest
 Feature: StrategicApp
+  As a user with suitable device and documents
+  I want to complete identity verification with the app
+  So that I can prove my identity
 
   @Build @QualityGateRegressionTest
   Scenario: Happy MAM iPhone journey

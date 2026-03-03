@@ -4,9 +4,12 @@ import { expect } from "@playwright/test";
 
 const { When, Then } = createBdd(fixtures);
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
-// reusable retryUntil function which can be used in any step where we want to retry an action until it succeeds or a timeout is reached. This is particularly useful for the case where we're waiting for an async VC to be ready which might require multiple attempts.
+// reusable retryUntil function which can be used in any step where we want to retry an
+// action until it succeeds or a timeout is reached. This is particularly useful for the
+// case where we're waiting for an async VC to be ready which might require multiple attempts.
 const retryUntil = async (
   action: () => Promise<void>,
   maxWaitMs = 20000,
@@ -21,12 +24,16 @@ const retryUntil = async (
       return;
     } catch (error) {
       lastError = error as Error;
-      console.error(`❌ Failed at ${Date.now() - startTime}ms: ${lastError.message}`);
+      console.error(
+        `❌ Failed at ${Date.now() - startTime}ms: ${lastError.message}`,
+      );
       await sleep(retryIntervalMs);
     }
   }
 
-  throw new Error(`Timed out after ${maxWaitMs}ms. Last error: ${lastError!.message}`);
+  throw new Error(
+    `Timed out after ${maxWaitMs}ms. Last error: ${lastError!.message}`,
+  );
 };
 
 /**

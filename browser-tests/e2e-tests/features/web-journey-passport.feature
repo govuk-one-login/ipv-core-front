@@ -1,6 +1,9 @@
 Feature: E2E Passport Journey
+  As a user without a suitable device for app journey
+  I want to complete identity verification in another way via the web
+  So that I can prove my identity
 
-  @Build @Lamdatesta @PYIC-5477 @PYIC-6863 @PYIC-7016
+  @Build @QualityGateRegressionTest @PYIC-5477 @PYIC-6863 @PYIC-7016
   Scenario: Passport details page happy path
     When the user starts a new journey in 'build'
     And the user selects they are from the UK

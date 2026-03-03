@@ -64,7 +64,10 @@ When(
 Then(
   "Alison Parker's credentials should be passed to the orch stub",
   async ({ page }) => {
-    await page.locator("summary").filter({ hasText: "Raw User Info Object" }).click();
+    await page
+      .locator("summary")
+      .filter({ hasText: "Raw User Info Object" })
+      .click();
 
     const expectedCriTypes = [
       "Cri Type: https://address-cri",

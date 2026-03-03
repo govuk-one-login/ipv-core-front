@@ -22,7 +22,7 @@ interface Fixtures {
 }
 
 export default baseTest.extend<Fixtures>({
-  scenarioContext: async ({}, use): Promise<void> => {
+  scenarioContext: async (_, use): Promise<void> => {
     await use({});
   },
   pageUtils: async ({ page }, use): Promise<void> => {

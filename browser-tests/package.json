@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test:functional": "npx playwright test --config playwright.config.ts",
-    "update-snapshots": "npx playwright test --config playwright.config.ts --update-snapshots",
+    "test:functional": "playwright test --config playwright.config.ts",
+    "update-snapshots": "playwright test --config playwright.config.ts --update-snapshots",
     "test:functional-docker": "docker compose build && docker compose up --exit-code-from browser-tests-tests",
-    "test:e2e": "npx playwright-bdd --config playwright-bdd.config.ts test && npx playwright test --config playwright-bdd.config.ts",
+    "test:e2e": "bddgen --config playwright-bdd.config.ts test && playwright test --config playwright-bdd.config.ts",
     "test:e2e-ui": "npm run test:e2e -- --ui",
     "test:all": "npm run test:functional-docker && npm run test:e2e",
     "test:update-snapshots-docker": "docker compose build && NPM_COMMAND=update-snapshots docker compose up --exit-code-from browser-tests-tests"
@@ -16,11 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@cucumber/cucumber": "^10.0.0",
     "@playwright/test": "1.56.1",
     "dotenv": "^17.3.1",
-    "esbuild": "^0.27.2",
-    "pirates": "^4.0.7",
     "playwright-bdd": "^8.4.2"
   },
   "devDependencies": {

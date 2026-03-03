@@ -14,6 +14,7 @@ export default defineConfig({
       },
     },
   ],
+  testIgnore: /\.features-gen/, // This ignores the generated playwright files for the e2e tests
   timeout: 90 * 1000,
   use: {
     baseURL: process.env?.WEBSITE_HOST || "http://localhost:4601",

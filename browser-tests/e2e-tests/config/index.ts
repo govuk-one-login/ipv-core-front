@@ -22,6 +22,10 @@ const getEnvironmentVariableOrDefault = (
 
 const config = {
   orchestratorStubUrl: getEnvironmentVariableOrError("ORCHESTRATOR_STUB_URL"),
+  orchStubTargetEnv: getEnvironmentVariableOrDefault(
+    "ORCH_STUB_TARGET_ENV",
+    "default",
+  ),
   coreFrontUrl: getEnvironmentVariableOrError("CORE_FRONT_URL"),
   asyncQueueName: getEnvironmentVariableOrError("ASYNC_QUEUE_NAME"),
   dcmawAsyncUrl: getEnvironmentVariableOrDefault(

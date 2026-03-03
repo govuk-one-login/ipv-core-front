@@ -5,7 +5,7 @@ Feature: E2E Passport Journey
 
   @Build @QualityGateRegressionTest @PYIC-5477 @PYIC-6863 @PYIC-7016
   Scenario: Passport details page happy path
-    When the user starts a new journey in 'build'
+    When the user starts a new journey
     And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     And the user drops out of the app due to an incompatible device
@@ -23,7 +23,7 @@ Feature: E2E Passport Journey
     When the user chooses to continue
     Then the user should have a 'P2' identity
 
-    When the user starts a new journey in 'build'
+    When the user starts a new journey
     Then the user should see the 'page-ipv-reuse' page
     And Kenneth Decerqueira's information is displayed on the reuse screen
     When the user chooses to continue

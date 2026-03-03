@@ -17,7 +17,6 @@ Given(
     await pageUtils.selectRadioAndContinue("computer-or-tablet");
     await pageUtils.selectRadioAndContinue("iphone");
 
-    // Enqueue VC for Alice Parker DVLA
     const userId = scenarioContext.userId;
     if (!userId) {
       throw new Error("Missing userId");
@@ -27,10 +26,8 @@ Given(
       "alice-parker-dvla",
     );
 
-    // Wait until continue button is enabled on download page
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
 
-    // submit DL details
     await criStubUtils.submitDetailsToCriStub(
       "alice-parker-valid",
       "driving-licence",
@@ -38,10 +35,8 @@ Given(
     // On page-dcmaw-success
     await pageUtils.getContinueButton().click();
 
-    // submit address details
     await criStubUtils.submitDetailsToCriStub("alice-parker-valid", "address");
 
-    // submit fraud details
     await criStubUtils.submitDetailsToCriStub(
       "alice-parker-expired-fraud",
       "fraud",

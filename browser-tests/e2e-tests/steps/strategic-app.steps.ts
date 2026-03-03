@@ -90,7 +90,6 @@ When(
       throw new Error("Missing userId");
     }
 
-    // Enqueue VC for Alice Parker DVLA
     const oauthState = await enqueueVcWithScenario(userId, scenario);
     scenarioContext.oauthState = oauthState;
 
@@ -101,7 +100,6 @@ When(
       );
     }
 
-    // Wait until continue button is enabled on download page
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
   },
 );

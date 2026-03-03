@@ -6,7 +6,7 @@ Feature: StrategicApp
 
   @Build @QualityGateRegressionTest
   Scenario: Happy MAM iPhone journey
-    Given the user starts a new journey in 'build'
+    Given the user starts a new journey
     And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     Then the user should see the 'pyi-triage-select-device' page
@@ -29,7 +29,7 @@ Feature: StrategicApp
 
   @Build @PYIC-7471 @QualityGateRegressionTest
   Scenario: Happy DAD journey
-    Given the user starts a new journey in 'build'
+    Given the user starts a new journey
     And the user selects they are from the UK
     And the user confirms they have suitable photo ID
     Then the user should see the 'pyi-triage-select-device' page

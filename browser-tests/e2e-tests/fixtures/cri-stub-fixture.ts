@@ -48,8 +48,8 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
         .first()
         .fill(scores.activityHistory);
     }
-    if (scores.biometricVerification) {
-      await page.locator("#verification").fill(scores.biometricVerification);
+    if (scores.verification) {
+      await page.locator("#verification").fill(scores.verification);
     }
     if (scores.fraud) {
       await page.locator("#fraud").fill(scores.fraud);

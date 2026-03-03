@@ -39,20 +39,17 @@ const retryUntil = async (
 /**
  * Common start of journey steps
  */
-When(
-  "the user starts a new journey in {string}",
-  async ({ orchStubUtils }, env: string) => {
-    await orchStubUtils.startJourney(env);
-  },
-);
+When("the user starts a new journey", async ({ orchStubUtils }) => {
+  await orchStubUtils.startJourney();
+});
 
 // An alternative to the above new journey step where we need to wait for
 // an async VC which might require a few retries.
 When(
-  "the user starts a new journey in {string} until they get a {string} page",
-  async ({ pageUtils, orchStubUtils }, env: string, expectedPage: string) => {
+  "the user starts a new journey until they get a {string} page",
+  async ({ pageUtils, orchStubUtils }, expectedPage: string) => {
     await retryUntil(async () => {
-      await orchStubUtils.startJourney(env);
+      await orchStubUtils.startJourney();
       await pageUtils.expectPage(expectedPage);
     });
   },

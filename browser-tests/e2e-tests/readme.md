@@ -2,6 +2,10 @@
 
 This directory contains the **End-to-End (E2E) test suite** for IPV Core.
 
+These run against a fully deployed environment (Build, Staging, etc.). They simulate full user journeys end-to-end,
+going through identity verification flows, submitting documents to CRIs, enqueuing async VCs, and verifying the final
+identity outcome.
+
 The tests are defined inside [Gherkin](https://cucumber.io/docs/gherkin/reference/) feature files and orchestrated with
 [Playwright](https://playwright.dev/docs/writing-tests).
 The [playwright-bdd](https://vitalets.github.io/playwright-bdd/#/) package is used to bridge the human-readable

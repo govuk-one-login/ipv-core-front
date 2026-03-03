@@ -1,6 +1,9 @@
 # Functional Tests
 
 The functional tests run Core Front against a browser using Playwright and a fake Core Back provided by imposter.
+These test isolated FE concerns such as redirects, language toggle and special case handling such as device-sniffing
+for app triage. The backend responses are mocked, so these tests verify that Core Front behaves correctly in isolation
+without needing real external services.
 
 ## Journeys
 

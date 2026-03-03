@@ -2,7 +2,7 @@ export interface EvidenceScores {
   strength?: string;
   validity?: string;
   activityHistory?: string;
-  biometricVerification?: string;
+  verification?: string;
   fraud?: string;
 }
 
@@ -54,7 +54,7 @@ export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
     },
     "experian-kbv": {
       stubData: "Kenneth Decerqueira (Valid Experian) KBV",
-      evidenceScores: { biometricVerification: "2" },
+      evidenceScores: { verification: "2" },
     },
     "claimed-identity": {
       stubData: "Kenneth Decerqueira",
@@ -64,7 +64,7 @@ export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
       evidenceScores: {
         strength: "4",
         validity: "2",
-        biometricVerification: "3",
+        verification: "3",
       },
       sendVcToAsyncQueue: true,
     },

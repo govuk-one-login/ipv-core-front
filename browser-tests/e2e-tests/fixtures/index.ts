@@ -7,6 +7,7 @@ import {
 } from "./orchestrator-stub-fixture";
 import { TestInfo } from "playwright/test";
 import { sanitiseUrl } from "../helpers/url-helpers";
+import { test } from "@playwright/test";
 
 export interface ScenarioContext {
   userId?: string;
@@ -22,7 +23,8 @@ interface Fixtures {
 }
 
 export default baseTest.extend<Fixtures>({
-  scenarioContext: async (_, use): Promise<void> => {
+  scenarioContext: async ({}, use): Promise<void> => {
+    // NOSONAR S3626 - sonarqube is unhappy because of the empty object but playwright-bdd requires it
     await use({});
   },
   pageUtils: async ({ page }, use): Promise<void> => {

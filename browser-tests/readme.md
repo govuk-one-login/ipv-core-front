@@ -16,6 +16,8 @@ For more information on each test suite, see their documentation:
 ## Quick Start
 
 ### Installation
+Copy the `.npmrc.template` file and update the name to `.npmrc`. Replace the `TOKEN_WITH_READ_PACKAGE_PERMISSION` placeholder
+with your own personal access token with read:packages scope. Then run install:
 ```bash
 cd browser-tests/
 npm install

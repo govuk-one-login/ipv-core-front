@@ -23,7 +23,8 @@ Given(
     }
     scenarioContext.oauthState = await enqueueVcWithScenario(
       userId,
-      "alice-parker-dvla",
+      "alice-parker-valid",
+      "successful",
     );
 
     await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);

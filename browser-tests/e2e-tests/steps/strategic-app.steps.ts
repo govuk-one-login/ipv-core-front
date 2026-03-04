@@ -79,9 +79,10 @@ When(
 );
 
 When(
-  "the user submits {string} details and continues from the {string} journey",
+  "the user submits {string} {string} details and continues from the {string} journey",
   async (
     { pageUtils, page, scenarioContext },
+    successfulOrFailed: "successful" | "failed",
     scenario: string,
     appTriageJourneyType: "DAD" | "MAM",
   ) => {
@@ -90,7 +91,11 @@ When(
       throw new Error("Missing userId");
     }
 
-    const oauthState = await enqueueVcWithScenario(userId, scenario);
+    const oauthState = await enqueueVcWithScenario(
+      userId,
+      scenario,
+      successfulOrFailed,
+    );
     scenarioContext.oauthState = oauthState;
 
     if (appTriageJourneyType === "MAM") {

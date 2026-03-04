@@ -36,23 +36,23 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
 
   const setEvidenceScores = async (scores: EvidenceScores): Promise<void> => {
     if (scores.strength) {
-      await page.locator("#strength").fill(scores.strength);
+      await page.locator("#strength").fill(scores.strength.toString());
     }
     if (scores.validity) {
-      await page.locator("#validity").fill(scores.validity);
+      await page.locator("#validity").fill(scores.validity.toString());
     }
     if (scores.activityHistory) {
       await page
         .locator("#activityHistory")
         .or(page.locator("#activity"))
         .first()
-        .fill(scores.activityHistory);
+        .fill(scores.activityHistory.toString());
     }
     if (scores.verification) {
-      await page.locator("#verification").fill(scores.verification);
+      await page.locator("#verification").fill(scores.verification.toString());
     }
     if (scores.fraud) {
-      await page.locator("#fraud").fill(scores.fraud);
+      await page.locator("#fraud").fill(scores.fraud.toString());
     }
   };
 
@@ -62,7 +62,9 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   ): Promise<void> => {
     const testDataConfig = getCriStubTestDataConfig(scenario, cri);
 
-    await setTestData(testDataConfig.stubData);
+    if (testDataConfig.cannedStubData) {
+      await setTestData(testDataConfig.cannedStubData);
+    }
 
     if (testDataConfig.sendVcToAsyncQueue) {
       await page.locator(SEND_VC_TO_QUEUE_CHECKBOX).check();

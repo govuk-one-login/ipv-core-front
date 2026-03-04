@@ -32,7 +32,7 @@ Guidelines for writing and maintaining E2E Playwright BDD tests in this director
 ## Managing Test Data
 
 - Add CRI stub persona data to `data/cri-stub-data.ts` using the existing `CriStubDataConfig` structure. Each entry maps a persona name + CRI type to the stub data identifier and evidence scores.
-- For async DCMAW journeys, add `credentialSubject.json` and `evidence.json` files under `data/async-dcmaw-stub-data/<scenario-name>/`.
+- Custom credentials not already pre-canned by the stubs, can be created in `/data/custom-credentials` using the helpers in `cri-stub-data-builders.ts` and inserted into the `criStubData` object.
 - Use descriptive, consistent persona naming (e.g. `alice-parker-changed-first-name`, `kenneth-decerqueira-valid`) so it's clear what the data represents.
 
 ## Running and Debugging

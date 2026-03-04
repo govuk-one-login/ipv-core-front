@@ -1,13 +1,20 @@
+import { CredentialSubjectClass } from "@govuk-one-login/data-vocab/credentials";
+import {
+  aliceParkerDvla,
+  alisonParkerDvla,
+} from "./custom-credentials/alice-parker";
+
 export interface EvidenceScores {
-  strength?: string;
-  validity?: string;
-  activityHistory?: string;
-  verification?: string;
-  fraud?: string;
+  strength?: number;
+  validity?: number;
+  activityHistory?: number;
+  verification?: number;
+  fraud?: number;
 }
 
 export interface CriStubDataConfig {
-  stubData: string;
+  customCredentialSubject?: CredentialSubjectClass;
+  cannedStubData?: string;
   evidenceScores?: EvidenceScores;
   overrideVcNbf?: boolean;
   sendVcToAsyncQueue?: boolean;
@@ -15,56 +22,74 @@ export interface CriStubDataConfig {
 
 export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
   "alice-parker-valid": {
+    "dcmaw-async": {
+      customCredentialSubject: aliceParkerDvla(),
+      evidenceScores: {
+        strength: 3,
+        validity: 2,
+        activityHistory: 1,
+        verification: 3,
+      },
+    },
     "driving-licence": {
-      stubData: "Alice Parker (Valid) DVLA Licence",
-      evidenceScores: { strength: "3", validity: "2", activityHistory: "1" },
+      cannedStubData: "Alice Parker (Valid) DVLA Licence",
+      evidenceScores: { strength: 3, validity: 2, activityHistory: 1 },
     },
     address: {
-      stubData: "Alice Parker Valid Address",
+      cannedStubData: "Alice Parker Valid Address",
     },
   },
   "alice-parker-expired-fraud": {
     fraud: {
-      stubData: "Alice Parker (Valid) Fraud",
-      evidenceScores: { fraud: "2", activityHistory: "1" },
+      cannedStubData: "Alice Parker (Valid) Fraud",
+      evidenceScores: { fraud: 2, activityHistory: 1 },
       overrideVcNbf: true,
     },
   },
   "alice-parker-changed-first-name": {
+    "dcmaw-async": {
+      customCredentialSubject: alisonParkerDvla(),
+      evidenceScores: {
+        strength: 3,
+        validity: 2,
+        activityHistory: 1,
+        verification: 3,
+      },
+    },
     "driving-licence": {
-      stubData: "Alice Parker (Changed First Name) DVLA Licence",
-      evidenceScores: { strength: "3", validity: "2", activityHistory: "1" },
+      cannedStubData: "Alice Parker (Changed First Name) DVLA Licence",
+      evidenceScores: { strength: 3, validity: 2, activityHistory: 1 },
     },
     fraud: {
-      stubData: "Alice Parker (Changed First Name) Fraud",
-      evidenceScores: { fraud: "2", activityHistory: "1" },
+      cannedStubData: "Alice Parker (Changed First Name) Fraud",
+      evidenceScores: { fraud: 2, activityHistory: 1 },
     },
   },
   "kenneth-decerqueira-valid": {
     passport: {
-      stubData: "Kenneth Decerqueira (Valid Experian) Passport",
-      evidenceScores: { strength: "3", validity: "2" },
+      cannedStubData: "Kenneth Decerqueira (Valid Experian) Passport",
+      evidenceScores: { strength: 3, validity: 2 },
     },
     address: {
-      stubData: "Kenneth Decerqueira (Valid Experian) Address",
+      cannedStubData: "Kenneth Decerqueira (Valid Experian) Address",
     },
     fraud: {
-      stubData: "Kenneth Decerqueira (Valid Experian) Fraud",
-      evidenceScores: { fraud: "2", activityHistory: "1" },
+      cannedStubData: "Kenneth Decerqueira (Valid Experian) Fraud",
+      evidenceScores: { fraud: 2, activityHistory: 1 },
     },
     "experian-kbv": {
-      stubData: "Kenneth Decerqueira (Valid Experian) KBV",
-      evidenceScores: { verification: "2" },
+      cannedStubData: "Kenneth Decerqueira (Valid Experian) KBV",
+      evidenceScores: { verification: 2 },
     },
     "claimed-identity": {
-      stubData: "Kenneth Decerqueira",
+      cannedStubData: "Kenneth Decerqueira",
     },
     f2f: {
-      stubData: "Kenneth Decerqueira (Valid Passport)",
+      cannedStubData: "Kenneth Decerqueira (Valid Passport)",
       evidenceScores: {
-        strength: "4",
-        validity: "2",
-        verification: "3",
+        strength: 4,
+        validity: 2,
+        verification: 3,
       },
       sendVcToAsyncQueue: true,
     },

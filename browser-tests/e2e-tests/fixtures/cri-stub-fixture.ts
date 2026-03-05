@@ -14,6 +14,12 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   const TEST_DATA_INPUT = "#test_data";
   const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
   const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
+  const STRENGTH_SCORE_INPUT = "#strength";
+  const VALIDITY_SCORE_INTPUT = "#validity";
+  const ACTIVITY_SCORE_INPUT = "#activity";
+  const ACTIVITY_HISTORY_SCORE_INPUT = "#activityHistory";
+  const VERIFICATION_SCORE_INPUT = "#verification";
+  const FRAUD_SCORE_INPUT = "#fraud";
 
   const getCriStubTestDataConfig = (
     scenario: string,
@@ -36,23 +42,27 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
 
   const setEvidenceScores = async (scores: EvidenceScores): Promise<void> => {
     if (scores.strength) {
-      await page.locator("#strength").fill(scores.strength.toString());
+      await page.locator(STRENGTH_SCORE_INPUT).fill(scores.strength.toString());
     }
     if (scores.validity) {
-      await page.locator("#validity").fill(scores.validity.toString());
+      await page
+        .locator(VALIDITY_SCORE_INTPUT)
+        .fill(scores.validity.toString());
     }
     if (scores.activityHistory) {
       await page
-        .locator("#activityHistory")
-        .or(page.locator("#activity"))
+        .locator(ACTIVITY_HISTORY_SCORE_INPUT)
+        .or(page.locator(ACTIVITY_SCORE_INPUT))
         .first()
         .fill(scores.activityHistory.toString());
     }
     if (scores.verification) {
-      await page.locator("#verification").fill(scores.verification.toString());
+      await page
+        .locator(VERIFICATION_SCORE_INPUT)
+        .fill(scores.verification.toString());
     }
     if (scores.fraud) {
-      await page.locator("#fraud").fill(scores.fraud.toString());
+      await page.locator(FRAUD_SCORE_INPUT).fill(scores.fraud.toString());
     }
   };
 

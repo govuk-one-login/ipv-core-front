@@ -32,6 +32,13 @@ const config = {
     "ASYNC_DCMAW_STUB_URL",
     "https://dcmaw-async.stubs.account.gov.uk",
   ),
+  cimit: {
+    managementUrl: getEnvironmentVariableOrDefault(
+      "CIMIT_MANAGEMENT_URL",
+      "https://cimit.stubs.account.gov.uk",
+    ),
+    managementApiKey: getEnvironmentVariableOrError("CIMIT_MANAGEMENT_API_KEY"),
+  },
 };
 
 export default config;

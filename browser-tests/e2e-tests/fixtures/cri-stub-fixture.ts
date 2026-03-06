@@ -5,15 +5,27 @@ import {
   CriStubDataConfig,
   EvidenceScores,
 } from "../data/cri-stub-data";
+import config from "../config";
 
 export interface CriStubUtils {
-  submitDetailsToCriStub: (scenario: string, cri: string) => Promise<void>;
+  submitDetailsToCriStub: (
+    scenario: string,
+    cri: string,
+    ci?: string,
+    mitigatedCi?: string,
+  ) => Promise<void>;
 }
 
 export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   const TEST_DATA_INPUT = "#test_data";
   const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
   const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
+
+  const CI_INPUT = "#ci";
+  const MITIGATED_CI_INPUT = "#ciMitigated";
+  const CIMIT_API_KEY_INPUT = "#ciMitiApiKey";
+  const CIMIT_MANAGEMENT_URL = "#ciMitiBaseUrl";
+
   const STRENGTH_SCORE_INPUT = "#strength";
   const VALIDITY_SCORE_INTPUT = "#validity";
   const ACTIVITY_SCORE_INPUT = "#activity";
@@ -69,6 +81,8 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   const submitDetailsToCriStub = async (
     scenario: string,
     cri: string,
+    ci?: string,
+    mitigatedCi?: string,
   ): Promise<void> => {
     const testDataConfig = getCriStubTestDataConfig(scenario, cri);
 
@@ -86,6 +100,18 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
 
     if (testDataConfig.overrideVcNbf) {
       await page.locator(OVERRIDE_VC_CHECKBOX).check();
+    }
+
+    if (ci) {
+      await page.locator(CI_INPUT).fill(ci);
+    }
+
+    if (mitigatedCi) {
+      await page.locator(MITIGATED_CI_INPUT).fill(mitigatedCi);
+      await page
+        .locator(CIMIT_API_KEY_INPUT)
+        .fill(config.cimit.managementApiKey);
+      await page.locator(CIMIT_MANAGEMENT_URL).fill(config.cimit.managementUrl);
     }
 
     await utils.getContinueButton().click();

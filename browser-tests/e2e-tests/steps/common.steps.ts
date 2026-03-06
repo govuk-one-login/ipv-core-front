@@ -1,8 +1,34 @@
 import { createBdd } from "playwright-bdd";
 import fixtures from "../fixtures";
 import { expect } from "@playwright/test";
+import { PageActions, pageScenarioActions } from "./page-scenario-actions";
+import { PageUtils } from "../fixtures/pages-fixture";
 
 const { When, Then } = createBdd(fixtures);
+
+export const performPageActionForScenario = async (
+  { pageUtils }: { pageUtils: PageUtils },
+  scenario: keyof typeof pageScenarioActions,
+): Promise<void> => {
+  if (!(scenario in pageScenarioActions)) {
+    throw new Error(
+      `Unknown scenario: "${scenario}".\n` +
+        `Add it to pageScenarioActions in data/page-scenario-actions.ts — ` +
+        `do not create a new step definition.`,
+    );
+  }
+  const pageAction = pageScenarioActions[scenario] as PageActions;
+
+  await pageUtils.expectPage(pageAction.page);
+
+  if (pageAction.action) {
+    await pageAction.action({ pageUtils });
+  } else if (pageAction.radioValue) {
+    await pageUtils.selectRadioAndContinue(pageAction.radioValue);
+  } else {
+    await pageUtils.getContinueButton().click();
+  }
+};
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -73,6 +99,13 @@ When(
 /**
  * Generic page assertions and interactions
  */
+// This step should be used for all simple IPV page interactions (e.g. where the
+// user has to select a radio option and continues). This ensures that the Gherkin
+// scenarios align with BDD best practices of steps describing the intended
+// behaviour of the system rather than the implementation e.g. instead of
+// "the user selects 'uk' and continues", we should write "the user is from the UK"
+When("the user {string}", performPageActionForScenario);
+
 When(
   "the user selects {string} radio option and continues",
   async ({ pageUtils }, radioOption: string) => {
@@ -102,16 +135,35 @@ Then(
 /**
  * Common CRI interactions
  */
+// Put this into its own file
 When(
-  "the user submits {string} details to the {string} CRI stub",
-  async ({ criStubUtils }, scenario: string, cri: string) => {
-    await criStubUtils.submitDetailsToCriStub(scenario, cri);
+  /^the user submits '([\w-]+)' '([\w-]+)' details to the CRI( with a '([\w-]+)' CI)?$/,
+  async ({ criStubUtils }, scenario: string, cri: string, ci?: string) => {
+    await criStubUtils.submitDetailsToCriStub(scenario, cri, ci);
+  },
+);
+
+When(
+  /^the user submits '([\w-]+)' '([\w-]+)' details to the CRI to mitigate the '([\w-]+)' CI$/,
+  async (
+    { criStubUtils },
+    scenario: string,
+    cri: string,
+    mitigatedCi: string,
+  ) => {
+    await criStubUtils.submitDetailsToCriStub(
+      scenario,
+      cri,
+      undefined,
+      mitigatedCi,
+    );
   },
 );
 
 /**
  * Common end-of-journey orch stub steps
  */
+// put this into its own file
 Then(
   "the user should have a {string} identity",
   async ({ orchStubUtils }, expectedVot: string) => {

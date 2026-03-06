@@ -1,11 +1,12 @@
 import { createBdd } from "playwright-bdd";
-import { expect } from "@playwright/test";
-import fixtures from "../fixtures";
+import { expect, Page } from "@playwright/test";
+import fixtures, { ScenarioContext } from "../fixtures";
 import config from "../config";
 import {
   enqueueVc,
   enqueueVcWithScenario,
 } from "../clients/dcmaw-async-client";
+import { PageUtils } from "../fixtures/pages-fixture";
 
 const { When, Then } = createBdd(fixtures);
 
@@ -78,35 +79,39 @@ When(
   },
 );
 
+export const enqueueDcmawAsyncVcWithScenario = async (
+  {
+    pageUtils,
+    page,
+    scenarioContext,
+  }: { pageUtils: PageUtils; page: Page; scenarioContext: ScenarioContext },
+  successfulOrFailed: "successful" | "failed",
+  scenario: string,
+  appTriageJourneyType: "DAD" | "MAM",
+): Promise<void> => {
+  const userId = scenarioContext.userId;
+  if (!userId) {
+    throw new Error("Missing userId");
+  }
+
+  const oauthState = await enqueueVcWithScenario(
+    userId,
+    scenario,
+    successfulOrFailed,
+  );
+  scenarioContext.oauthState = oauthState;
+
+  if (appTriageJourneyType === "MAM") {
+    // Manually perform app callback
+    await page.goto(`${config.coreFrontUrl}/app/callback?state=${oauthState}`);
+  }
+
+  await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
+};
+
 When(
   "the user submits {string} {string} details and continues from the {string} journey",
-  async (
-    { pageUtils, page, scenarioContext },
-    successfulOrFailed: "successful" | "failed",
-    scenario: string,
-    appTriageJourneyType: "DAD" | "MAM",
-  ) => {
-    const userId = scenarioContext.userId;
-    if (!userId) {
-      throw new Error("Missing userId");
-    }
-
-    const oauthState = await enqueueVcWithScenario(
-      userId,
-      scenario,
-      successfulOrFailed,
-    );
-    scenarioContext.oauthState = oauthState;
-
-    if (appTriageJourneyType === "MAM") {
-      // Manually perform app callback
-      await page.goto(
-        `${config.coreFrontUrl}/app/callback?state=${oauthState}`,
-      );
-    }
-
-    await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
-  },
+  enqueueDcmawAsyncVcWithScenario,
 );
 
 /**

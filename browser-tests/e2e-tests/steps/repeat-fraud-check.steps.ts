@@ -1,33 +1,35 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
-import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
+import { performPageActionForScenario } from "./common.steps";
+import { enqueueDcmawAsyncVcWithScenario } from "./strategic-app.steps";
 
 const { Given, When, Then } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
-  async ({ pageUtils, criStubUtils, scenarioContext }) => {
+  async ({ pageUtils, criStubUtils, scenarioContext, page }) => {
     // On live-in-uk page
-    await pageUtils.selectRadioAndContinue("uk");
+    await performPageActionForScenario({ pageUtils }, "is from the UK");
     // On page-ipv-identity-document-start
-    await pageUtils.selectRadioAndContinue("appTriage");
-
-    // App triage via DAD iphone
-    await pageUtils.selectRadioAndContinue("computer-or-tablet");
-    await pageUtils.selectRadioAndContinue("iphone");
-
-    const userId = scenarioContext.userId;
-    if (!userId) {
-      throw new Error("Missing userId");
-    }
-    scenarioContext.oauthState = await enqueueVcWithScenario(
-      userId,
-      "alice-parker-valid",
-      "successful",
+    await performPageActionForScenario(
+      { pageUtils },
+      "has valid photo ID for the app",
     );
 
-    await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
+    // App triage via DAD iphone
+    await performPageActionForScenario(
+      { pageUtils },
+      "is on a computer or tablet",
+    );
+    await performPageActionForScenario({ pageUtils }, "has an iphone");
+
+    await enqueueDcmawAsyncVcWithScenario(
+      { pageUtils, page, scenarioContext },
+      "successful",
+      "alice-parker-valid",
+      "DAD",
+    );
 
     await criStubUtils.submitDetailsToCriStub(
       "alice-parker-valid",

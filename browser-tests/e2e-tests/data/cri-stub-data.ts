@@ -3,6 +3,7 @@ import {
   aliceParkerDvla,
   alisonParkerDvla,
 } from "./custom-credentials/alice-parker";
+import { kennethDecerquieraPassport } from "./custom-credentials/kenneth-decerquiera";
 
 export interface EvidenceScores {
   strength?: number;
@@ -66,6 +67,15 @@ export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
     },
   },
   "kenneth-decerqueira-valid": {
+    "dcmaw-async": {
+      customCredentialSubject: kennethDecerquieraPassport(),
+      evidenceScores: {
+        strength: 0,
+        validity: 0,
+        activityHistory: 0,
+        verification: 0,
+      },
+    },
     passport: {
       cannedStubData: "Kenneth Decerqueira (Valid Experian) Passport",
       evidenceScores: { strength: 3, validity: 2 },

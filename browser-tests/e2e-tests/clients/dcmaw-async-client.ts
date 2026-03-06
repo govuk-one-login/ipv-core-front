@@ -12,7 +12,7 @@ const createDcmawEvidenceBlock = (
   if (
     scores.verification == undefined &&
     scores.strength == undefined &&
-    scores.verification == undefined &&
+    scores.validity == undefined &&
     scores.activityHistory == undefined
   ) {
     throw new Error(

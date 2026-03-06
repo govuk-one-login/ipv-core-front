@@ -23,7 +23,7 @@ export const drivingPermit = (
   overrides?: Partial<DrivingPermitDetailsClass>,
 ): DrivingPermitDetailsClass => {
   const expDate = new Date();
-  expDate.setMonth(expDate.getFullYear() + 1);
+  expDate.setMonth(expDate.getMonth() + 6);
   return {
     expiryDate: expDate.toISOString().split("T")[0],
     issuedBy,

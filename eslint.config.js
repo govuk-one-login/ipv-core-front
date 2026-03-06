@@ -49,5 +49,12 @@ module.exports = tsEslint.config(
       "@typescript-eslint/no-explicit-any": "off", // any is convenient for tests
       "@typescript-eslint/no-unused-expressions": "off", // chai assertions are often 'unused' expressions
     }
+  },
+  {
+    // This is to allow console statements when running the E2E tests which is helpful for debugging.
+    files: ["browser-tests/e2e-tests/**/*.ts"],
+    rules: {
+      "no-console": ["error", { allow: ["info", "warn", "error"] }],
+    },
   }
 );

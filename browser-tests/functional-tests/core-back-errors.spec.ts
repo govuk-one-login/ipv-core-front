@@ -5,26 +5,36 @@ test.describe("Error tests", () => {
   test("Handles an unexpected error from core-back", async ({ page }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testUnexpectedError"));
-
-    // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
-    // When we come back with an error
-    const textLocator = await page.getByText("Sorry, there is a problem");
-    await expect(textLocator).toBeVisible();
+    // Core-back is configured to return an error after selecting submit
+    const heading = page.locator("h1");
+    await expect(heading).toContainText("Sorry, there is a problem");
+    await expect(page.locator("main")).toHaveAttribute("id", "main-content");
+    const contactLink = page.getByRole("link", { name: /contact/i });
+    await expect(contactLink).toBeVisible();
   });
 
   test("Handles an unexpected error after a CRI callback", async ({ page }) => {
     // Start a session
     await page.goto(getAuthoriseUrlForJourney("testCriError"));
-
-    // Go to the DCMAW CRI
     await page.click("input[type='radio'][value='appTriage']");
     await page.click("button[id='submitButton']");
 
-    // When we come back from DCMAW with an error
-    const textLocator = await page.getByText("Sorry, there is a problem");
+    // Core-back is configured to return a CRI redirect which core-front handles by
+    // sending another request to core-back, this time, core-back is configured to
+    // return an error
+    const textLocator = page.getByText("Sorry, there is a problem");
+    await expect(textLocator).toBeVisible();
+  });
+
+  test("Handles error during session creation", async ({ page }) => {
+    // Start a session
+    await page.goto(getAuthoriseUrlForJourney("testSessionInitialiseError"));
+
+    // Core-back is configured to return an error form the initial /session/initialise call
+    const textLocator = page.getByText("Sorry, there is a problem");
     await expect(textLocator).toBeVisible();
   });
 });

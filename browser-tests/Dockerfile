@@ -14,4 +14,4 @@ COPY ./browser-tests/tsconfig.json ./
 COPY ../views/ipv/page ../views/ipv/page
 COPY ../src/test-utils/pages-and-contexts.ts ../src/test-utils/pages-and-contexts.ts
 
-CMD ["npm run test"]
+CMD ["npm", "run", "test:functional"]

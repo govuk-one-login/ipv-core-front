@@ -94,18 +94,27 @@ along with page screenshots upon failure.
 
 ```
 e2e-tests/
-├── config/               # Environment configuration and dotenv loading
-├── features/             # Gherkin .feature files defining test scenarios in Given/When/Then syntax
-├── fixtures/             # playwright-bdd fixtures for dependency injection into scenarios (pageUtils, criStubUtils, etc.)
-├── steps/                # Step definitions (.steps.ts) that implement each Gherkin step defined in /features/*.feature
-├── clients/              # API clients for external services (e.g. DCMAW Async VC enqueueing)
-├── helpers/              # Standalone helpers that are not dependent on Playwright's existing fixtures/objects e.g. Page.
-└── data/                 # Test data — CRI stub data configs and async DCMAW stub JSON payloads
+├── config/                         # Environment configuration and dotenv loading
+├── features/                       # Gherkin .feature files defining test scenarios in Given/When/Then syntax
+├── fixtures/                       # playwright-bdd fixtures for dependency injection into scenarios (pageUtils, criStubUtils, etc.)
+├── steps/                          # Step definitions (.steps.ts) that implement each Gherkin step defined in /features/*.feature
+│   ├── ipv-page-steps/             # Each file represents an IPV Core page. These contain the step definitions for all the interactions with that page.
+│   ├── orch-stub.steps.ts          # This contains the step defiinitions for all the interactions with the orch stub (commonly at the beginning and end of a journey).
+│   ├── generic.steps.ts            # This contains the step defiinitions that can be used in isolation across various pages and sub-journeys.
+│   └── <sub-journey>.steps.ts      # These contain step definitions specific to a sub-journey.
+├── clients/                        # API clients for external services (e.g. DCMAW Async VC enqueueing)
+├── helpers/                        # Standalone helpers that are not dependent on Playwright's existing fixtures/objects e.g. Page.
+└── data/                           # Test data — CRI stub data configs and async DCMAW stub JSON payloads
 ```
 
 1. **Feature files** (`features/*.feature`) describe user journeys in plain English using Gherkin syntax (Given/When/Then).
-2. **Step definitions** (`steps/*.steps.ts`) implement each Gherkin step using Playwright actions. The `createBdd()` at
+2. **Step definitions** (`steps/**/*.steps.ts`) implement each Gherkin step using Playwright actions. The `createBdd()` at
    the top of each file maps each step to a Playwright action.
+   1. Within the `ipv-page-steps/` directory are all the step functions defining interactions for a given page.
+   2. `<sub-journey>.steps.ts` files contain step definitions specific to a sub-journey including composite steps.
+   3. `orch-stub.steps.ts` contains step functions defining interactions with the orch stub.
+   4. `generic.steps.ts` contains generic assertions and interactions that can be used in isolation across multiple pages
+      and sub-journeys.
 3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects (e.g. `Page` which allows
    browser page manipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
    `ScenarioContext` which defines contexts e.g. `userId` and `oauthState` to be shared between steps in a given scenario.

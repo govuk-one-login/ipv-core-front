@@ -1,5 +1,4 @@
 import { createBdd } from "playwright-bdd";
-import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 import config from "../config";
 import {
@@ -7,56 +6,11 @@ import {
   enqueueVcWithScenario,
 } from "../clients/dcmaw-async-client";
 
-const { When, Then } = createBdd(fixtures);
-
-/**
- * App triage steps
- */
-When(
-  "the user drops out of the app due to an incompatible device",
-  async ({ pageUtils }) => {
-    // On pyi-triage-select-device
-    await pageUtils.selectRadioAndContinue("computer-or-tablet");
-    // On pyi-triage-select-smartphone context=dad
-    await pageUtils.selectRadioAndContinue("neither");
-    // On pyi-triage-buffer
-    await pageUtils.selectRadioAndContinue("anotherWay");
-  },
-);
-
-When(
-  /^the user goes through '(MAM|DAD)' '(iphone|android)' triage$/,
-  async (
-    { pageUtils },
-    deviceType: "MAM" | "DAD",
-    phoneType: "iphone" | "android",
-  ) => {
-    // On pyi-triage-select-device
-    if (deviceType === "DAD")
-      await pageUtils.selectRadioAndContinue("computer-or-tablet");
-    else {
-      await pageUtils.selectRadioAndContinue("smartphone");
-    }
-    // On pyi-triage-select-smartphone
-    await pageUtils.selectRadioAndContinue(phoneType);
-  },
-);
-
-/**
- * Continue from download page steps
- */
-Then(
-  "the continue button should be enabled within {int} seconds",
-  async ({ pageUtils }, timeout: number) => {
-    const continueButton = pageUtils.getContinueButton();
-    await expect(continueButton).toBeEnabled({ timeout: timeout * 1000 });
-  },
-);
+const { When } = createBdd(fixtures);
 
 /**
  * DCMAW Async VC production
  */
-
 When(
   "the user submits {string} {string} {string} details to the app",
   async (

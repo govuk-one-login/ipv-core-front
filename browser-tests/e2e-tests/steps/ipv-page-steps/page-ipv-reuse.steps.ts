@@ -1,6 +1,6 @@
 import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
-import fixtures from "../fixtures";
+import fixtures from "../../fixtures";
 
 const { Then } = createBdd(fixtures);
 

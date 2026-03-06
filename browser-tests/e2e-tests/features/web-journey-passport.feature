@@ -5,26 +5,24 @@ Feature: E2E Passport Journey
 
   @Build @QualityGateRegressionTest @PYIC-5477 @PYIC-6863 @PYIC-7016
   Scenario: Passport details page happy path
-    When the user starts a new journey
-    And the user selects they are from the UK
-    And the user confirms they have suitable photo ID
-    And the user drops out of the app due to an incompatible device
-    Then the user should see the 'page-multiple-doc-check' page
-    When the user selects 'ukPassport' radio option and continues
-    And the user submits 'kenneth-decerqueira-valid' details to the 'passport' CRI stub
-    And the user submits 'kenneth-decerqueira-valid' details to the 'address' CRI stub
-    And the user submits 'kenneth-decerqueira-valid' details to the 'fraud' CRI stub
-    Then the user should see the 'personal-independence-payment' page
-    When the user selects 'end' radio option and continues
-    Then the user should see the 'page-pre-experian-kbv-transition' page
-    When the user chooses to continue
-    And the user submits 'kenneth-decerqueira-valid' details to the 'experian-kbv' CRI stub
-    Then the user should see the 'page-ipv-success' page
-    When the user chooses to continue
+    Given the user starts a new journey
+    And the user is from the UK
+    And the user has valid photo ID for the app
+    And the user is on a computer or tablet
+    And the user does not have an appropriate device for the app
+    And the user needs another way to prove their identity from the app
+    And the user has a passport for the web journey
+    When the user submits 'kenneth-decerqueira-valid' 'passport' details to the CRI
+    And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
+    And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
+    And the user does not get PIP
+    And the user moves on to answer security questions with Experian KBV
+    And the user submits 'kenneth-decerqueira-valid' 'experian-kbv' details to the CRI
+    And the user continues to the RP after successfully proving their identity
     Then the user should have a 'P2' identity
 
     When the user starts a new journey
     Then the user should see the 'page-ipv-reuse' page
     And Kenneth Decerqueira's information is displayed on the reuse screen
     When the user chooses to continue
-    Then the user should have a 'P2' identity
+    And the user should have a 'P2' identity

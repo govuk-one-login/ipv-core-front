@@ -2,20 +2,20 @@ import { createBdd } from "playwright-bdd";
 import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
+import { selectResidenceLocation } from "./ipv-page-steps/live-in-uk.steps";
+import { selectPhotoIdAvailability } from "./ipv-page-steps/page-ipv-identity-document-start.steps";
+import { selectDevice } from "./ipv-page-steps/pyi-triage-select-device.steps";
+import { selectSmartphone } from "./ipv-page-steps/pyi-triage-select-smartphone.steps";
 
-const { Given, When, Then } = createBdd(fixtures);
+const { Given, Then } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
   async ({ pageUtils, criStubUtils, scenarioContext }) => {
-    // On live-in-uk page
-    await pageUtils.selectRadioAndContinue("uk");
-    // On page-ipv-identity-document-start
-    await pageUtils.selectRadioAndContinue("appTriage");
-
-    // App triage via DAD iphone
-    await pageUtils.selectRadioAndContinue("computer-or-tablet");
-    await pageUtils.selectRadioAndContinue("iphone");
+    await selectResidenceLocation(pageUtils, true);
+    await selectPhotoIdAvailability(pageUtils, true);
+    await selectDevice(pageUtils, "computer-or-tablet");
+    await selectSmartphone(pageUtils, "iphone");
 
     const userId = scenarioContext.userId;
     if (!userId) {
@@ -45,16 +45,6 @@ Given(
   },
 );
 
-When(
-  "the user chooses to update their given name via the app",
-  async ({ pageUtils }) => {
-    await pageUtils.selectRadio("no");
-    await pageUtils.selectCheckbox("givenNames");
-    await pageUtils.getContinueButton().click();
-    await pageUtils.selectRadioAndContinue("update-name");
-  },
-);
-
 // This is specific to the journey in scenario: Pass successfully for a given
 // name change and show reuse screen
 Then(
@@ -76,17 +66,5 @@ Then(
     for (const criType of expectedCriTypes) {
       await expect(page.getByText(criType)).toBeVisible();
     }
-  },
-);
-
-Then(
-  "Alison Parker's information is displayed on the reuse screen",
-  async ({ page }) => {
-    await expect(page.getByText("ALISON JANE PARKER")).toBeVisible();
-    await expect(page.getByText("80T")).toBeVisible();
-    await expect(page.getByText("YEOMAN WAY")).toBeVisible();
-    await expect(page.getByText("TROWBRIDGE")).toBeVisible();
-    await expect(page.getByText("BA14")).toBeVisible();
-    await expect(page.getByText("January 1970")).toBeVisible();
   },
 );

@@ -6,14 +6,13 @@ Feature: F2F Passport Journey
   @Build @PYIC-8131 @QualityGateRegressionTest
   Scenario: F2F Passport claim is returned in the user identity response
     Given the user starts a new journey
-    And the user selects they are from the UK
-    And the user confirms they don't have suitable photo ID
-    Then the user should see the 'page-ipv-identity-postoffice-start' page
-    When the user selects 'next' radio option and continues
-    And the user submits 'kenneth-decerqueira-valid' details to the 'claimed-identity' CRI stub
-    And the user submits 'kenneth-decerqueira-valid' details to the 'address' CRI stub
-    And the user submits 'kenneth-decerqueira-valid' details to the 'fraud' CRI stub
-    And the user submits 'kenneth-decerqueira-valid' details to the 'f2f' CRI stub
+    And the user is from the UK
+    And the user doesn't have valid photo ID for the app
+    And the user has valid photo ID for the Post Office
+    And the user submits 'kenneth-decerqueira-valid' 'claimed-identity' details to the CRI
+    And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
+    And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
+    And the user submits 'kenneth-decerqueira-valid' 'f2f' details to the CRI
     Then the user should see the 'page-face-to-face-handoff' page
 
     When the user starts a new journey until they get a 'page-ipv-reuse' page

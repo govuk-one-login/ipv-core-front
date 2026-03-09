@@ -22,7 +22,7 @@ The steps folder has the following structure:
 
 ```
 steps/                          # Step definitions (.steps.ts) that implement each Gherkin step defined in /features/*.feature
-├── ipv-page-steps/             # Each file represents an IPV Core page. These contain the step deifinitions for all the interactions with that page.
+├── ipv-page-steps/             # Each file represents an IPV Core page. These contain the step definitions for all the interactions with that page.
 ├── orch-stub.steps.ts          # This contains the step definitions for all the interactions with the orch stub (commonly at the beginning and end of a journey).
 ├── generic.steps.ts            # This contains the step definitions that can be used in isolation across various pages and sub-journeys.
 └── <sub-journey>.steps.ts      # These contain step definitions specific to sub-journey.

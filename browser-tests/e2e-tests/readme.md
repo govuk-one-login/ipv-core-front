@@ -1,5 +1,7 @@
 # E2E Playwright BDD Tests
 
+> Note: The work to migrate our current E2E test suite is still a WIP and the tests in this directory aren't yet run anywhere.
+
 This directory contains the **End-to-End (E2E) test suite** for IPV Core.
 
 These run against a fully deployed environment (Build, Staging, etc.). They simulate full user journeys end-to-end,

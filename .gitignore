@@ -66,9 +66,10 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+**/.env
 
 # npmrc file containing access token
-/.npmrc
+**/.npmrc
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -114,3 +115,9 @@ build
 
 # Browser test results
 browser-tests/test-results/
+
+# Generated feature files for execution
+browser-tests/.features-gen/
+
+# Generated E2E test results
+browser-tests/e2e-tests/test-results/

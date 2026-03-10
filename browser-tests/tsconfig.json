@@ -11,5 +11,5 @@
     "inlineSourceMap": true,
     "types": ["node"]
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts", "../src/test-utils/pages-and-contexts.ts"]
 }

@@ -107,4 +107,6 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
   ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
-};
+} as const;
+
+export type PageName = keyof typeof pagesAndContexts;

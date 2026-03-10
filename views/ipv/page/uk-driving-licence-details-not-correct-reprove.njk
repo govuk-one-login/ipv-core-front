@@ -2,24 +2,28 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% set pageTitleKey = 'pages.drivingLicenceDetailsNotCorrectReprove.title' %}
-{% set googleTagManagerPageId = "drivingLicenceDetailsNotCorrectReprove" %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% set pageTitleKey = 'pages.drivingLicenceDetailsNotCorrectIntervention.title' %}
+{% set googleTagManagerPageId = "drivingLicenceDetailsNotCorrectIntervention" %}
 
 {% set isPageDataSensitive = false %}
 {% set contentID = 'e88c0ada-1cc5-4af7-be40-aa68f6ca9b1d' %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrectReprove.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectReprove.content.paragraph1' | translate }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.paragraph1' | translate }}</p>
   {{ govukWarningText({
-    text: 'pages.drivingLicenceDetailsNotCorrectReprove.content.warningMessage' | translate,
-    iconFallbackText: 'pages.drivingLicenceDetailsNotCorrectReprove.content.warningTextFallback' | translate
+    text: 'pages.drivingLicenceDetailsNotCorrectIntervention.content.warningMessage' | translate,
+    iconFallbackText: 'pages.drivingLicenceDetailsNotCorrectIntervention.content.warningTextFallback' | translate
   }) }}
-  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectReprove.content.paragraph2' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectReprove.content.paragraph3' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.paragraph2' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.paragraph3' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.paragraph4' | translate }}</p>
 
   {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
-  <a class="govuk-link" rel="noopener noreferrer" href="/ipv/journey/uk-driving-licence-details-not-correct-reprove/preferNoApp">{{ 'pages.drivingLicenceDetailsNotCorrectReprove.content.escapeLinkText' | translate }}</a>
+  <a class="govuk-link" rel="noopener noreferrer" href="/ipv/journey/uk-driving-licence-details-not-correct-reprove/preferNoApp">{{ 'pages.drivingLicenceDetailsNotCorrectIntervention.content.escapeLinkText' | translate }}</a>
 
 {% endblock %}

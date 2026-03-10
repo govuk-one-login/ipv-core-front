@@ -1573,7 +1573,7 @@
         },
         "details": {
           "title": "If you cannot use the GOV.UK One Login app",
-          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">delete your GOV.UK One Login</a>.",
+          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/prove-identity-again-app/delete\">delete your GOV.UK One Login</a>.",
           "p2": "Then you can create a new GOV.UK One Login and prove your identity another way."
         }
       }

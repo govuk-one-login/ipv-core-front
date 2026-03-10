@@ -1573,7 +1573,7 @@
         },
         "details": {
           "title": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
-          "p1": "Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">ddileu eich GOV.UK One Login</a>.",
+          "p1": "Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/prove-identity-again-app/delete\">ddileu eich GOV.UK One Login</a>.",
           "p2": "Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth mewn ffordd arall."
         }
       }

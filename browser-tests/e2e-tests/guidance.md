@@ -46,7 +46,8 @@ When adding new Scenarios:
 ## Using Fixtures
 
 - You can access commonised browser interactions through the provided fixtures (`pageUtils`, `criStubUtils`, `orchStubUtils`). These encapsulate common patterns used with Playwright's `Page` object and keeps
-  steps concise, but you can still access the built-in `page` fixture if required.
+  steps concise, but you can still access the built-in `page` fixture if required. When simulating an interaction, always check if an existing utility in the fixtures can be used first before directly
+  using a page locator for the interaction.
 - Use `scenarioContext` to share state (e.g. `userId`, `oauthState`) between steps within a scenario.
 - If a utility is commonly used but does not depend on any Playwright objects, consider adding it to the `/helpers` folder instead.
 

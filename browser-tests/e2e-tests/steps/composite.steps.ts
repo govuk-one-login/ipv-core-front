@@ -1,5 +1,4 @@
 import { createBdd } from "playwright-bdd";
-import { expect } from "@playwright/test";
 import fixtures from "../fixtures";
 import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
 import { selectResidenceLocation } from "./ipv-page-steps/live-in-uk.steps";
@@ -7,7 +6,7 @@ import { selectPhotoIdAvailability } from "./ipv-page-steps/page-ipv-identity-do
 import { selectDevice } from "./ipv-page-steps/pyi-triage-select-device.steps";
 import { selectSmartphone } from "./ipv-page-steps/pyi-triage-select-smartphone.steps";
 
-const { Given, Then } = createBdd(fixtures);
+const { Given } = createBdd(fixtures);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",
@@ -42,29 +41,5 @@ Given(
       "alice-parker-expired-fraud",
       "fraud",
     );
-  },
-);
-
-// This is specific to the journey in scenario: Pass successfully for a given
-// name change and show reuse screen
-Then(
-  "Alison Parker's credentials should be passed to the orch stub",
-  async ({ page }) => {
-    await page
-      .locator("summary")
-      .filter({ hasText: "Raw User Info Object" })
-      .click();
-
-    const expectedCriTypes = [
-      "Cri Type: https://address-cri",
-      "Cri Type: https://dcmaw-async.",
-      "Cri Type: https://driving-",
-      "Cri Type: https://fraud-cri.",
-      "Cri Type: https://cimit.stubs",
-      "Cri Type: https://ticf.stubs.",
-    ];
-    for (const criType of expectedCriTypes) {
-      await expect(page.getByText(criType)).toBeVisible();
-    }
   },
 );

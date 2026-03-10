@@ -1,5 +1,6 @@
-import { createBdd } from "playwright-bdd";
+import { createBdd, DataTable } from "playwright-bdd";
 import fixtures from "../fixtures";
+import { expect } from "@playwright/test";
 
 const { When, Then } = createBdd(fixtures);
 
@@ -61,5 +62,25 @@ Then(
   "the user should have a {string} identity",
   async ({ orchStubUtils }, expectedVot: string) => {
     await orchStubUtils.expectVot(expectedVot);
+  },
+);
+
+Then(
+  "the following user credentials are passed to the oauth client",
+  async ({ page }, credentialsTable: DataTable) => {
+    await page
+      .locator("summary")
+      .filter({ hasText: "Raw User Info Object" })
+      .click();
+
+    const expectedCriTypes = credentialsTable
+      .rows()
+      .map((issuer) => `Cri Type: https://${issuer}`);
+
+    await Promise.all(
+      expectedCriTypes.map((criType) =>
+        expect(page.getByText(criType)).toBeVisible(),
+      ),
+    );
   },
 );

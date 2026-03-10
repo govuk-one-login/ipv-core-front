@@ -19,4 +19,11 @@ Feature: F2F Passport Journey
     Then Kenneth Decerqueira's information is displayed on the reuse screen
     When the user chooses to continue
     Then the user should have a 'P2' identity
-    And Kenneth Decerqueira's credentials should be passed to the orch stub
+    And the following user credentials are passed to the oauth client
+      | Credential Issuer |
+      | claimed-identity  |
+      | address-cri       |
+      | fraud-cri         |
+      | f2f-cri           |
+      | cimit             |
+      | ticf              |

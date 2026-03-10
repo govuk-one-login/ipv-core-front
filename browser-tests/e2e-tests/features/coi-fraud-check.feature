@@ -20,7 +20,14 @@ Feature: COI Repeat Fraud Check - Given Name Change
     And the user submits 'alice-parker-changed-first-name' 'fraud' details to the CRI
     And the user continues to the RP after successfully proving their identity
     Then the user should have a 'P2' identity
-    And Alison Parker's credentials should be passed to the orch stub
+    And the following user credentials are passed to the oauth client
+      | Credential Issuer |
+      | dcmaw-async       |
+      | address-cri       |
+      | fraud-cri         |
+      | driving-licence   |
+      | cimit             |
+      | ticf              |
 
     When the user starts a new journey
     Then the user should see the 'page-ipv-reuse' page

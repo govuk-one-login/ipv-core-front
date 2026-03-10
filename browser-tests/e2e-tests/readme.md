@@ -103,6 +103,7 @@ e2e-tests/
 │   ├── ipv-page-steps/             # Each file represents an IPV Core page. These contain the step definitions for all the interactions with that page.
 │   ├── orch-stub.steps.ts          # This contains the step defiinitions for all the interactions with the orch stub (commonly at the beginning and end of a journey).
 │   ├── generic.steps.ts            # This contains the step defiinitions that can be used in isolation across various pages and sub-journeys.
+│   ├── composite.steps.ts          # This contains reusable steps that bundle multiple page and CRI interactions e.g. to encapsulate a sub-journey and keep a feature file concise.
 │   └── <sub-journey>.steps.ts      # These contain step definitions specific to a sub-journey.
 ├── clients/                        # API clients for external services (e.g. DCMAW Async VC enqueueing)
 ├── helpers/                        # Standalone helpers that are not dependent on Playwright's existing fixtures/objects e.g. Page.
@@ -117,6 +118,8 @@ e2e-tests/
    3. `orch-stub.steps.ts` contains step functions defining interactions with the orch stub.
    4. `generic.steps.ts` contains generic assertions and interactions that can be used in isolation across multiple pages
       and sub-journeys.
+   5. `composite.steps.ts` contains reusable steps that bundle multiple page and CRI interactions e.g. to encapsulate
+      a sub-journey and keep a feature file concise.
 3. **Fixtures** (`fixtures/index.ts`) defines common utilities dependent on Playwright objects (e.g. `Page` which allows
    browser page manipulation) to be injected and made available to the steps via `createBdd()`. This also includes the
    `ScenarioContext` which defines contexts e.g. `userId` and `oauthState` to be shared between steps in a given scenario.

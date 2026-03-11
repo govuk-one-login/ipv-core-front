@@ -101,6 +101,7 @@ export const pagesAndContexts: Record<string, (string | undefined)[]> = {
     undefined,
   ],
   "uk-driving-licence-details-not-correct": ["strategicApp", undefined],
+  "uk-driving-licence-details-not-correct-reprove": [],
   "need-more-information-confirm-change-details": [
     "repeatFraudCheck",
     "updateDetails",

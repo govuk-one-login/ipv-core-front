@@ -17,8 +17,6 @@ const IPV_PAGES = Object.freeze({
   PAGE_MULTIPLE_DOC_CHECK: "page-multiple-doc-check",
   PAGE_PRE_EXPERIAN_KBV_TRANSITION: "page-pre-experian-kbv-transition",
   PAGE_PRE_DWP_KBV_TRANSITION: "page-pre-dwp-kbv-transition",
-  PAGE_DRIVING_LICENCE_DETAILS_NOT_CORRECT:
-    "uk-driving-licence-details-not-correct",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
   PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
     "photo-id-security-questions-find-another-way",
@@ -47,6 +45,10 @@ const IPV_PAGES = Object.freeze({
   PYI_TRIAGE_MOBILE_DOWNLOAD_APP: "pyi-triage-mobile-download-app",
   PYI_TRIAGE_SELECT_DEVICE: "pyi-triage-select-device",
   PYI_TRIAGE_SELECT_SMARTPHONE: "pyi-triage-select-smartphone",
+  UK_DRIVING_LICENCE_DETAILS_NOT_CORRECT:
+    "uk-driving-licence-details-not-correct",
+  UK_DRIVING_LICENCE_DETAILS_NOT_CORRECT_REPROVE:
+    "uk-driving-licence-details-not-correct-reprove",
   UPDATE_DETAILS: "update-details",
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
   WE_MATCHED_YOU_TO_YOUR_ONE_LOGIN: "we-matched-you-to-your-one-login",

@@ -317,6 +317,20 @@
         "warningTextFallback": "Warning"
       }
     },
+    "drivingLicenceDetailsNotCorrectIntervention": {
+      "title": "If your driving licence details are not correct",
+      "header": "If your driving licence details are not correct",
+      "content": {
+        "paragraph1": "You can scan your UK photocard driving licence in the GOV.UK One Login app again.",
+        "warningMessage": "Before you can scan again, you must completely close the GOV.UK One Login app on your smartphone.",
+        "warningTextFallback": "Warning",
+        "paragraph2": "Make sure your driving licence does not have any dirt or scratches on it.",
+        "paragraph3": "When you scan your driving licence, make sure you’re in a well-lit area with no glare or reflection on your licence.",
+        "subHeading": "What you can do",
+        "paragraph4": "Scan your UK photocard driving licence in the GOV.UK One Login app again.",
+        "escapeLinkText": "I do not want to scan my licence again"
+      }
+    },
     "pyiDrivingLicenceNoMatch": {
       "title": "Sorry, we could not confirm your identity",
       "header": "Sorry, we could not confirm your identity",
@@ -1559,7 +1573,7 @@
         },
         "details": {
           "title": "If you cannot use the GOV.UK One Login app",
-          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">delete your GOV.UK One Login</a>.",
+          "p1": "You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/prove-identity-again-app/delete\">delete your GOV.UK One Login</a>.",
           "p2": "Then you can create a new GOV.UK One Login and prove your identity another way."
         }
       }

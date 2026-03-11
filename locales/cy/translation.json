@@ -317,6 +317,20 @@
         "warningTextFallback": "Rhybudd"
       }
     },
+    "drivingLicenceDetailsNotCorrectIntervention": {
+      "title": "Os nad yw manylion eich trwydded yrru yn gywir",
+      "header": "Os nad yw manylion eich trwydded yrru yn gywir",
+      "content": {
+        "paragraph1": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
+        "warningMessage": "Cyn y gallwch sganio eto, mae’n rhaid i chi gau’r ap GOV.UK One Login ar eich ffôn clyfar yn llwyr.",
+        "warningTextFallback": "Rhybudd",
+        "paragraph2": "Gwnewch yn siŵr nad oes gan eich trwydded yrru unrhyw faw na chrafiadau arni.",
+        "paragraph3": "Pan fyddwch yn sganio’ch trwydded yrru, gwnewch yn siŵr eich bod mewn ardal sydd wedi’i goleuo’n dda heb unrhyw dywyniad nag adlewyrchiad ar eich trwydded.",
+        "subHeading": "Beth allwch chi ei wneud",
+        "paragraph4": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
+        "escapeLinkText": "Nid wyf eisiau sganio fy nhrwydded eto"
+      }
+    },
     "pyiDrivingLicenceNoMatch": {
       "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
       "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
@@ -1559,7 +1573,7 @@
         },
         "details": {
           "title": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
-          "p1": "Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"placeholder\">ddileu eich GOV.UK One Login</a>.",
+          "p1": "Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/prove-identity-again-app/delete\">ddileu eich GOV.UK One Login</a>.",
           "p2": "Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth mewn ffordd arall."
         }
       }

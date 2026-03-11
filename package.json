@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/alphagov/di-ipv-core-front#readme",
   "devDependencies": {
-    "@eslint/js": "9.39.1",
+    "@eslint/js": "10.0.1",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",
     "@types/cookie-parser": "1.4.8",
@@ -53,9 +53,9 @@
     "@types/uid-safe": "2.1.5",
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
-    "eslint": "9.36.0",
-    "eslint-config-prettier": "10.1.1",
-    "eslint-plugin-prettier": "5.5.0",
+    "eslint": "10.0.3",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.5",
     "globals": "17.4.0",
     "husky": "9.1.7",
     "lint-staged": "16.3.2",
@@ -70,7 +70,7 @@
     "sinon-chai": "3.7.0",
     "ts-node": "10.9.2",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.56.1",
+    "typescript-eslint": "8.57.0",
     "uglify-js": "3.19.3"
   },
   "dependencies": {

@@ -58,6 +58,7 @@ export const pageUtils = (page: Page): PageUtils => {
         const actualPageUrl = sanitiseUrl(page.url());
         throw new Error(
           `Expected "${expectedPage}" but got "${actualPageUrl.slice(actualPageUrl.lastIndexOf("/") + 1)}"`,
+          { cause: e },
         );
       }
     }

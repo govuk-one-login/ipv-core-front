@@ -14,8 +14,8 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityAnotherTypePhotoId.header' | translate }}</h1>
-  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityAnotherTypePhotoId.content.subHeading1' | translateWithContext(context) }}</h2>
-  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph1' | translateWithContext(context) }}</p>
+  <h2 class="govuk-heading-m">{{ 'pages.proveIdentityAnotherTypePhotoId.content.subHeading1' | translateWithPageContextOrFallback(pageContext, 'invalidDoc') }}</h2>
+  <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'invalidDoc') }}</p>
   <h2 class="govuk-heading-m">{{ 'pages.proveIdentityAnotherTypePhotoId.content.subHeading2' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.proveIdentityAnotherTypePhotoId.content.paragraph2' | translate }}</p>
   <ul class="govuk-list govuk-list--bullet">
@@ -37,7 +37,7 @@
       items: [
         {
           value: "otherPhotoId",
-          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonText' | translateWithContext(context)
+          text: 'pages.proveIdentityAnotherTypePhotoId.content.formRadioButtons.backButtonText' | translateWithPageContextOrFallback(pageContext, 'invalidDoc')
         },
         {
           value: "f2f",

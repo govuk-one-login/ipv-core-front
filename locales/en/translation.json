@@ -146,18 +146,18 @@
       "content": {
         "paragraph1": "We could not find a match when we checked your details with another organisation.",
         "paragraph2": "To keep your information safe, we cannot tell you which of your details we were unable to match.",
-        "paragraph3ExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",
-        "paragraph3ExistingIdentityValid": "Your details have not been updated.",
+        "paragraph3": "You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph3IsExistingIdentityValid": "Your details have not been updated.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "contactOption": "Contact the GOV.UK One Login team",
           "contactOptionHint": "You may need to delete your GOV.UK One Login. Then you can create a new one and try to prove your identity again with your new details.",
           "deleteOption": "Delete your GOV.UK One Login",
           "deleteOptionHint": "You can then create a new one and prove your identity using your new details.",
-          "returnToServiceExistingIdentityInvalid": "Go back to the service you were trying to use",
-          "returnToServiceHintExistingIdentityInvalid": "There may be another way to access the service without using your GOV.UK One Login.",
-          "returnToServiceExistingIdentityValid": "Continue to the service without updating your details",
-          "returnToServiceHintExistingIdentityValid": "Your proof of identity is valid even if your details have changed.",
+          "returnToService": "Go back to the service you were trying to use",
+          "returnToServiceHint": "There may be another way to access the service without using your GOV.UK One Login.",
+          "returnToServiceIsExistingIdentityValid": "Continue to the service without updating your details",
+          "returnToServiceHintIsExistingIdentityValid": "Your proof of identity is valid even if your details have changed.",
           "endOption": "Continue to the service you were trying to use to find out if there are other ways to access it"
         },
         "formErrorMessage": {
@@ -297,15 +297,15 @@
       "header": "If your driving licence details are not correct",
       "content": {
         "paragraph1": "You can scan your UK photocard driving licence in the GOV.UK ID Check app again.",
-        "paragraph1StrategicApp": "You can scan your UK photocard driving licence in the GOV.UK One Login app again.",
+        "paragraph1IsFromStrategicApp": "You can scan your UK photocard driving licence in the GOV.UK One Login app again.",
         "paragraph2": "Make sure your driving licence does not have any dirt or scratches on it.",
         "paragraph3": "When you scan your driving licence, make sure you’re in a well-lit area with no glare or reflection on your licence.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continueButtonText": "Scan your UK photocard driving licence in the GOV.UK ID Check app again",
-          "continueButtonTextStrategicApp": "Scan your UK photocard driving licence in the GOV.UK One Login app again",
+          "continueButtonTextIsFromStrategicApp": "Scan your UK photocard driving licence in the GOV.UK One Login app again",
           "continueButtonTextHint": "You’ll need to answer a few questions again before you can open the app",
-          "continueButtonTextHintStrategicApp": "You’ll need to answer a few questions again before you can reopen the app.",
+          "continueButtonTextHintIsFromStrategicApp": "You’ll need to answer a few questions again before you can reopen the app.",
           "otherWayButtonText": "Prove your identity another way"
         },
         "formErrorMessage": {
@@ -585,7 +585,7 @@
         "paragraph1": "We cannot confirm your identity right now.",
         "subHeading": "What you can do",
         "paragraph2": "Continue to the service you were trying to use to find out if there are other ways to access it.",
-        "paragraph2Unrecoverable": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
+        "paragraph2IsUnrecoverable": "Go back to the service you were trying to use and start again. You can look for the service using your search engine or find it from the GOV.UK homepage."
       }
     },
     "pyiF2fTechnical": {
@@ -656,15 +656,12 @@
     },
     "pageDcmawSuccess": {
       "title": "We’ve successfully matched you to the photo on your ID",
-      "titleCoiAddress": "You’ve given us your new name",
-      "titleCoiNoAddress": "You’ve given us your new name",
+      "titleNoAddress": "You’ve given us your new name",
       "header": "We’ve successfully matched you to the photo on your ID",
-      "headerCoiAddress": "You’ve given us your new name",
-      "headerCoiNoAddress": "You’ve given us your new name",
+      "headerNoAddress": "You’ve given us your new name",
       "content": {
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
-        "paragraph1CoiAddress": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
-        "paragraph1CoiNoAddress": "We’ll need to check your details when you continue."
+        "paragraph1NoAddress": "We’ll need to check your details when you continue."
       }
     },
     "pyiConfirmDeleteDetails": {
@@ -719,14 +716,14 @@
     "updateNameDateBirth": {
       "title": "Update your full name or date of birth",
       "titleReuse": "You cannot update your full name or date of birth",
-      "titleRfcAccountDeletion": "You cannot update your full name or date of birth",
+      "titleRfc": "You cannot update your full name or date of birth",
       "header": "Update your full name or date of birth",
       "headerReuse": "You cannot update your full name or date of birth",
-      "headerRfcAccountDeletion": "You cannot update your full name or date of birth",
+      "headerRfc": "You cannot update your full name or date of birth",
       "content": {
         "paragraph1": "To update your full name or date of birth, you need to contact the GOV.UK One Login team.",
         "paragraph1Reuse": "This is to help protect you from identity fraud.",
-        "paragraph1RfcAccountDeletion": "This is to help protect you from identity fraud.",
+        "paragraph1Rfc": "This is to help protect you from identity fraud.",
         "paragraph2": "You can still use the service if your details are out of date.",
         "paragraph3": "To use a different full name or date of birth, you’ll need to delete your GOV.UK One Login and create a new one.",
         "warningText": "You may not be able to use your GOV.UK One Login if your details are not up to date.",
@@ -735,9 +732,9 @@
         "formRadioButtons": {
           "yes": "Contact the GOV.UK One Login team to update your full name or date of birth",
           "yesReuse": "Continue to the service without updating your details",
-          "yesRfcAccountDeletion": "Delete your GOV.UK One Login",
+          "yesRfc": "Delete your GOV.UK One Login",
           "yesHintReuse": "Your proof of identity is valid even if your details have changed.",
-          "yesHintRfcAccountDeletion": "Then create a new one and prove your identity with your new details.",
+          "yesHintRfc": "Then create a new one and prove your identity with your new details.",
           "no": "Go back and check your details again",
           "noReuse": "Delete your GOV.UK One Login",
           "noHint": "You might be able to update your details yourself if you only need to update either your first or middle names, or your last name.",
@@ -790,7 +787,7 @@
           "UK photocard driving licence (full or provisional)",
           "UK passport"
         ],
-        "requirementsNino": [
+        "requirementsAllowNino": [
           "UK photocard driving licence (full or provisional)",
           "UK passport",
           "National Insurance number"
@@ -858,8 +855,7 @@
       "header": "Continue to the service you need to use",
       "content": {
         "paragraph1": "You’ve successfully proved your identity. You can now continue to the service you need to use.",
-        "paragraph1RepeatFraudCheck": "We’ve checked your details. You can now continue to the service you need to use.",
-        "paragraph1UpdateIdentity": "We’ve checked your details. You can now continue to the service you need to use.",
+        "paragraph1Coi": "We’ve checked your details. You can now continue to the service you need to use.",
         "paragraph2": "Some of the information you shared when you proved your identity might be used to automatically fill in forms within the service."
       }
     },
@@ -968,14 +964,14 @@
     },
     "proveIdentityNoPhotoId": {
       "title": "Prove your identity with bank or building society details and security questions",
-      "titleNino": "Prove your identity with your National Insurance number and security questions",
+      "titleNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "header": "Prove your identity with bank or building society details and security questions",
-      "headerNino": "Prove your identity with your National Insurance number and security questions",
+      "headerNinoOnly": "Prove your identity with your National Insurance number and security questions",
       "content": {
         "paragraph1": "You can use any current account with a UK bank or building society to prove your identity. Your name must be on the account.",
         "subHeading": "Provide some personal details",
         "paragraph2": "We’ll ask you for your:",
-        "paragraph2Nino": "As well as your National Insurance number, we also need your:",
+        "paragraph2NinoOnly": "As well as your National Insurance number, we also need your:",
         "personalDetails": {
           "name": "name",
           "dob": "date of birth",
@@ -985,9 +981,9 @@
         },
         "subHeading2": "Answer some security questions",
         "paragraph3": "We’ll then ask you some security questions. This helps us check if the details you’ve given are being used by you.",
-        "paragraph3Nino": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
+        "paragraph3NinoOnly": "We’ll then ask you some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "subHeading3": "Do you have a UK bank or building society current account in your name?",
-        "subHeading3Nino": "Do you have a National Insurance number?",
+        "subHeading3NinoOnly": "Do you have a National Insurance number?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Yes",
           "otherWayButtonText": "No"
@@ -996,8 +992,8 @@
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select yes if you have a UK bank or building society account in your name",
           "errorRadioMessage": "Select yes if you have a UK bank or building society account in your name",
-          "errorSummaryDescriptionTextNino": "Select yes if you have a National Insurance number",
-          "errorRadioMessageNino": "Select yes if you have a National Insurance number"
+          "errorSummaryDescriptionTextNinoOnly": "Select yes if you have a National Insurance number",
+          "errorRadioMessageNinoOnly": "Select yes if you have a National Insurance number"
         }
       }
     },
@@ -1063,7 +1059,7 @@
         "details3": {
           "summaryText": "I am sensitive to flashing colours",
           "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
-          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do instead</a>.</p>"
+          "htmlIsAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Check what you can do instead</a>.</p>"
         },
         "details4": {
           "summaryText": "Do I need to take off my glasses?",
@@ -1072,7 +1068,7 @@
         "details5": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">prove your identity another way</a>.</p>",
-          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
+          "htmlIsAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         },
         "subHeading3": "2. Open the GOV.UK One Login app",
         "paragraph4": "Follow the instructions in the app to prove your identity.",
@@ -1106,7 +1102,7 @@
         "details1": {
           "summaryText": "The app uses a face scan with flashing colours",
           "html": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>You can <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">prove your identity another way if you think you might be sensitive to flashing colours</a>.</p>",
-          "htmlAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">Check what you can do instead</a>.</p>"
+          "htmlIsAppOnly": "<p>The face scan checks that you’re a real person. It uses different colours that change less than 3 times per second.</p><p>If you think you might be sensitive to flashing colours and do not want to use the app, you may not be able to prove your identity. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/anotherWay\">Check what you can do instead</a>.</p>"
         },
         "button": "Download GOV.UK One Login",
         "details2": {
@@ -1120,7 +1116,7 @@
         "details4": {
           "summaryText": "I’d prefer not to use the app",
           "html": "<p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p>If you’d prefer not to use the app, you may be able to <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">prove your identity another way</a>.</p>",
-          "htmlAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
+          "htmlIsAppOnly": "<p>You can only prove your identity using the app.</p><p>You can <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app\">read about how to use the app (opens in a new tab)</a> if you’re not sure you can use it.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-mobile-download-app/preferNoApp\">Check what you can do if you cannot use the app</a>.</p>"
         }
       }
     },
@@ -1281,7 +1277,7 @@
       "content": {
         "paragraph1Html": "When you continue, you’ll be able to permanently delete your GOV.UK One Login. Find out <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">what happens when you delete your GOV.UK One Login (opens in new tab)</a>.",
         "paragraph2": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login and prove your identity with your new details.",
-        "paragraph2ReproveIdentity": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
+        "paragraph2Reprove": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
       }
     },
     "updateDetailsFailed": {
@@ -1289,7 +1285,7 @@
       "header": "You were not able to update your details with the GOV.UK One Login app",
       "content": {
         "paragraph1": "You can still use the service if your details are out of date.",
-        "paragraph1ExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",
+        "paragraph1IsExistingIdentityInvalid": "You will not be able to use your GOV.UK One Login to access the service.",
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continue": "Continue to the service without updating your details",

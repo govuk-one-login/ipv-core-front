@@ -138,6 +138,7 @@ export const handleBackendResponse = async (
   if (isPageResponse(data)) {
     req.session.currentPage = data.page;
     req.session.context = data?.context;
+    req.session.pageContext = data?.pageContext;
     req.session.currentPageStatusCode = data?.statusCode;
 
     // Special case handling for "identify-device". This is used by core-back to signal that we need to

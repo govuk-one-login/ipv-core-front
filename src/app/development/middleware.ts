@@ -15,7 +15,11 @@ import {
   getIpvPageTemplatePath,
   getTemplatePath,
 } from "../../lib/paths";
-import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
+import {
+  NO_CONTEXT_VARIANT,
+  PageName,
+  pagesAndContexts,
+} from "../../test-utils/pages-and-contexts";
 import ERROR_PAGES from "../../constants/error-pages";
 import config from "../../config/config";
 import {
@@ -37,32 +41,39 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
 };
 
 const getMappedPageContextRadioOptions = (): Record<
-  keyof typeof pagesAndContexts,
+  PageName,
   RadioOption[]
 > => {
-  const templatesWithContextRadioOptions: Record<
-    keyof typeof pagesAndContexts,
-    RadioOption[]
-  > = {};
+  const templatesWithContextRadioOptions: Record<PageName, RadioOption[]> = {};
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
   for (const [page, contexts] of Object.entries(pagesAndContexts)) {
-    templatesWithContextRadioOptions[page] = contexts.map((context) => ({
-      text: context ?? "No context",
-      value: context ?? "",
-    }));
+    templatesWithContextRadioOptions[page] = contexts.map(
+      (contextLabelAndValue) => {
+        if (contextLabelAndValue === NO_CONTEXT_VARIANT) {
+          return { text: "No context", value: "" };
+        }
+
+        const label = Object.keys(contextLabelAndValue)[0];
+        return {
+          text: label,
+          value: JSON.stringify(contextLabelAndValue[label]),
+        };
+      },
+    );
   }
 
   return templatesWithContextRadioOptions;
 };
 
 export const allTemplatesPost: RequestHandler = async (req, res) => {
-  const context = req.body.pageContext;
+  const pageContext = req.body.pageContext;
   const templateId = req.body.template;
 
   if (
     templateId === undefined ||
-    (pagesAndContexts[req.body.template].length > 0 && context === undefined)
+    (pagesAndContexts[req.body.template].length > 0 &&
+      pageContext === undefined)
   ) {
     const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
 
@@ -77,10 +88,10 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
   const hasErrorState = req.body.hasErrorState;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
-  if (context || hasErrorState) {
+  if (pageContext || hasErrorState) {
     const queryParams: [string, string][] = [];
-    if (context) {
-      queryParams.push(["context", encodeURIComponent(context)]);
+    if (pageContext) {
+      queryParams.push(["pageContext", encodeURIComponent(pageContext)]);
     }
     if (hasErrorState) {
       queryParams.push(["pageErrorState", "true"]);
@@ -95,7 +106,9 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
 export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const templateId = req.params.templateId;
   const language = req.params.language;
-  const context = req.query.context;
+  const pageContext = req.query.pageContext
+    ? JSON.parse(req.query.pageContext as string)
+    : undefined;
 
   await req.i18n.changeLanguage(language);
   res.locals.currentLanguage = language;
@@ -105,7 +118,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const renderOptions: Record<string, unknown> = {
     templateId,
     csrfToken: req.csrfToken?.(true),
-    context,
+    pageContext,
     errorState: req.query.errorState,
     pageErrorState: req.query.pageErrorState,
     translations: {
@@ -134,7 +147,9 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
 
-  const phoneType = context ? (context as string) : undefined;
+  const phoneType =
+    ((pageContext as Record<string, unknown>)?.smartphone as string) ||
+    undefined;
 
   // 👇 Detect query flags and forward them to the spinner's API URL
   const isSnapshotTest = req.query.snapshotTest === "true";

@@ -3,21 +3,21 @@
 
 {% set isPageDynamic = true %}
 {% set pageTitleKey = 'pages.pyiDetailsDeleted.title' %}
-{% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translateWithContext(context) %}
+{% set customButtonLabel = 'pages.pyiDetailsDeleted.content.submitButtonText' | translateWithPageContextOrFallback(pageContext, 'journeyType') %}
 {% set googleTagManagerPageId = "pyiDetailsDeleted" %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
       xmlns="http://www.w3.org/1999/html">{{ 'pages.pyiDetailsDeleted.header' | translate }}</h1>
 
-  {% if context !== "f2f" %}
+  {% if pageContext.journeyType !== "f2f" %}
     <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph1' | translate }}</p>
   {% endif %}
 
-  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph2' | translateWithContext(context) }}</p>
-  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph3' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
+  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
 
-  {% if context !== "f2f" %}
+  {% if pageContext.journeyType !== "f2f" %}
     <ul class="govuk-list govuk-list--bullet">
       {% for listItem in 'pages.pyiDetailsDeleted.content.requirements' | translate({ returnObjects: true }) %}
         <li>{{ listItem }}</li>
@@ -25,7 +25,7 @@
     </ul>
   {% endif %}
 
-  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translateWithContext(context) | safe }}</p>
+  <p class="govuk-body">{{ 'pages.pyiDetailsDeleted.content.paragraph4' | translateWithPageContextOrFallback(pageContext, 'journeyType') | safe }}</p>
 
   {{ journeyNextForm(pageId, csrfToken, customButtonLabel ) }}
 {% endblock %}

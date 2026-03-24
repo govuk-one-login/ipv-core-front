@@ -12,9 +12,9 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}}">{{'pages.pyiTechnical.header' | translate }}</h1>
   <p class="govuk-body">{{'pages.pyiTechnical.content.paragraph1' | translate }}</p>
   <h2 class="govuk-heading-m">{{'pages.pyiTechnical.content.subHeading' | translate }}</h2>
-  <p class="govuk-body">{{'pages.pyiTechnical.content.paragraph2' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{'pages.pyiTechnical.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'isUnrecoverable') }}</p>
 
-  {% if context === "unrecoverable" %}
+  {% if pageContext.isUnrecoverable %}
     {{ govukButton({
       "text": 'general.shared.govUKHomepageButtonText' | translate,
       "type": "Submit",

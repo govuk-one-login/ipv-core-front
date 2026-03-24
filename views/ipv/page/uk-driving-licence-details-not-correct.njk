@@ -15,8 +15,8 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.drivingLicenceDetailsNotCorrect.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translateWithContext(context) }}</p>
-  {% if context === 'strategicApp' %}
+  <p class="govuk-body">{{ 'pages.drivingLicenceDetailsNotCorrect.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'isFromStrategicApp') }}</p>
+  {% if pageContext.isFromStrategicApp %}
     {{ govukWarningText({
       text: 'pages.drivingLicenceDetailsNotCorrect.content.warningMessage' | translate,
       iconFallbackText: 'pages.drivingLicenceDetailsNotCorrect.content.warningTextFallback' | translate
@@ -29,8 +29,8 @@
     set radioItems = [
       {
           value: "next",
-          text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translateWithContext(context),
-          hint: { text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonTextHint' | translateWithContext(context) }
+          text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonText' | translateWithPageContextOrFallback(pageContext, 'isFromStrategicApp'),
+          hint: { text: 'pages.drivingLicenceDetailsNotCorrect.content.formRadioButtons.continueButtonTextHint' | translateWithPageContextOrFallback(pageContext, 'isFromStrategicApp') }
       },
       {
           value: "end",

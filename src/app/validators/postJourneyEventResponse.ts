@@ -9,6 +9,7 @@ export interface PageResponse {
   page: string;
   statusCode?: number;
   context?: string;
+  pageContext?: Record<string, unknown>;
   type?: string;
   clientOAuthSessionId?: string;
 }

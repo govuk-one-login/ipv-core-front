@@ -54,6 +54,7 @@ declare module "express-session" {
     clientOauthSessionId?: string;
     currentPage?: string;
     context?: string;
+    pageContext?: Record<string, unknown>;
     featureSet?: string;
     ipAddress?: string;
     currentPageStatusCode?: number;

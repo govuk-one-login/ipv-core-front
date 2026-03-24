@@ -2,7 +2,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% set pageTitleKey = 'pages.photoIdSecurityQuestionsFindAnotherWay.title' | translateWithContext(context) %}
+{% set pageTitleKey = 'pages.photoIdSecurityQuestionsFindAnotherWay.title' | fullKeyWithContext(pageContext, 'reason') %}
 
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.photoIdSecurityQuestionsFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
@@ -17,8 +17,8 @@
 {% endset %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
-  <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithContext(context) }}</p>
+  <h1 class="govuk-heading-l" id="header">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.header' | translateWithPageContextOrFallback(pageContext, 'reason') }}</h1>
+  <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
   <p class="govuk-body">{{ 'pages.photoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>
 
   {{ govukDetails({

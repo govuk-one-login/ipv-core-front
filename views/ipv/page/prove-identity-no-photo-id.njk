@@ -1,42 +1,42 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% set pageTitleKey = 'pages.proveIdentityNoPhotoId.title' | translateWithContext(context) %}
+{% set pageTitleKey = 'pages.proveIdentityNoPhotoId.title' | fullKeyWithContext(pageContext, 'ninoOnly') %}
 {% set googleTagManagerPageId = "proveIdentityNoPhotoId" %}
 
 {% set showBack = true %}
 {% set hrefBack = "/ipv/journey/prove-identity-no-photo-id/back" %}
 {% set errorState = pageErrorState %}
 {% set errorTitle = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
-{% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translateWithContext(context) %}
+{% set errorText = 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translateWithPageContextOrFallback(pageContext, 'ninoOnly') %}
 {% set errorHref = "#proveIdentityNoPhotoIdOptionsForm" %}
 
 {% set isPageDataSensitive = false %}
 {% set contentID = '8fe1817a-07f6-48a5-bd53-ebc92cb1629b'%}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoPhotoId.header' | translateWithContext(context) }}</h1>
-  {% if context != "nino" %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityNoPhotoId.header' | translateWithPageContextOrFallback(pageContext, 'ninoOnly') }}</h1>
+  {% if not pageContext.ninoOnly %}
     <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph1' | translate }}</p>
     <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading' | translate }}</h2>
   {% endif %}
 
-  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph2' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'ninoOnly') }}</p>
   <ul class="govuk-list govuk-list--bullet ">
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.name' | translate }}</li>
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.dob' | translate }}</li>
-    {% if context != "nino" %}
+    {% if not pageContext.ninoOnly %}
       <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.accountNumber' | translate }}</li>
       <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.NINumber' | translate }}</li>
     {% endif %}
     <li>{{ 'pages.proveIdentityNoPhotoId.content.personalDetails.address' | translate }}</li>
   </ul>
 
-  {% if context != "nino" %}
+  {% if not pageContext.ninoOnly %}
     <h2 class="govuk-heading-m">{{ 'pages.proveIdentityNoPhotoId.content.subHeading2' | translate }}</h2>
   {% endif %}
 
-  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph3' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.proveIdentityNoPhotoId.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'ninoOnly') }}</p>
 
   <form id="proveIdentityNoPhotoIdOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -45,7 +45,7 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.proveIdentityNoPhotoId.content.subHeading3' | translateWithContext(context),
+          text: 'pages.proveIdentityNoPhotoId.content.subHeading3' | translateWithPageContextOrFallback(pageContext, 'ninoOnly'),
           classes: "govuk-fieldset__legend--m"
         }
       },
@@ -62,7 +62,7 @@
     } %}
 
     {% if errorState %}
-      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorRadioMessage' | translateWithContext(context) } %}
+      {% set errorMessageObject = { 'text': 'pages.proveIdentityNoPhotoId.content.formErrorMessage.errorRadioMessage' | translateWithPageContextOrFallback(pageContext, 'ninoOnly') } %}
       {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
     {% endif %}
 

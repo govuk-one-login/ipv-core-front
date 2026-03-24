@@ -13,14 +13,14 @@
 
 {% set isPageDataSensitive = false %}
 
-{% if context %}
-    {% if context == 'dlOrPassportMitigation' %}
+{% if pageContext %}
+    {% if pageContext.reason == 'dlOrPassportMitigation' %}
         {% set contentID = 'cdc6ceca-ee12-47b0-a23f-e666ee9e1481'%}
-    {% elif context == 'f2fCriError' %}
+    {% elif pageContext.reason == 'f2fCriError' %}
         {% set contentID = '8cf31c12-da4b-4eb4-a6e3-fbf966fa520f'%}
-    {% elif context == 'kbvCriError' %}
+    {% elif pageContext.reason == 'kbvCriError' %}
         {% set contentID = 'f676cbc4-5bbf-4d8f-b2da-731d11bc7350'%}
-    {% elif context == 'kbvMitigation' %}
+    {% elif pageContext.reason == 'kbvMitigation' %}
         {% set contentID = 'f3f2b9da-c0d5-421a-bf18-6c9726b517e7'%}
     {% endif %}
 {% else %}
@@ -46,7 +46,7 @@
     <h2 class="govuk-heading-m">{{ 'pages.sorryTechnicalProblem.content.subHeading1' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p2' | translate }}</p>
 
-    {% if context != "dlOrPassportMitigation" %}
+    {% if not pageContext or (pageContext.reason != "dlOrPassportMitigation") %}
         <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
         {{ govukDetails({
@@ -55,8 +55,8 @@
             id: 'whatsNeededToUseTheApp'
         }) }}
 
-        {% if context != "kbvMitigation" %}
-            <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithContext(context) }}</p>
+        {% if not pageContext or (pageContext.reason != "kbvMitigation") %}
+            <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
         {% endif %}
 
     {% endif %}
@@ -70,7 +70,7 @@
             }
         ] %}
 
-        {% if context != 'dlOrPassportMitigation' %}
+        {% if not pageContext or (pageContext.reason != 'dlOrPassportMitigation') %}
             {% set initialRadioOptions = initialRadioOptions.concat([
                 {
                     value: "app",
@@ -80,12 +80,12 @@
             ]) %}
         {% endif %}
 
-        {% if context %}
-            {% if context == 'kbvMitigation' %}
+        {% if pageContext %}
+            {% if pageContext.reason == 'kbvMitigation' %}
                 {% set initialRadioOptions = initialRadioOptions.concat([{
                     divider: "or"
                 }]) %}
-            {% elif context == 'f2fCriError' %}
+            {% elif pageContext.reason == 'f2fCriError' %}
                 {% set initialRadioOptions = initialRadioOptions.concat([
                 {
                     value: "webRoute",
@@ -95,12 +95,12 @@
                 {
                     divider: "or"
                 }]) %}
-            {% elif context == "kbvCriError" %}
+            {% elif pageContext.reason == "kbvCriError" %}
                 {% set initialRadioOptions = initialRadioOptions.concat([
                 {
                     value: "postOffice",
                     text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+                    hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithPageContext(pageContext, 'reason') }
                 },
                 {
                     divider: "or"
@@ -111,7 +111,7 @@
             {
                 value: "postOffice",
                 text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOffice' | translate,
-                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithContext(context) }
+                hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
             },
             {
                 divider: "or"

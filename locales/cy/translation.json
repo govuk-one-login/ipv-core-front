@@ -146,18 +146,18 @@
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
-        "paragraph3ExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad i’r gwasanaeth.",
-        "paragraph3ExistingIdentityValid": "Nid yw eich manylion wedi cael eu diweddaru.",
+        "paragraph3": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad i’r gwasanaeth.",
+        "paragraph3IsExistingIdentityValid": "Nid yw eich manylion wedi cael eu diweddaru.",
         "subHeading": "Beth hoffech chi ei wneud? ",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
           "contactOptionHint": "Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.",
           "deleteOption": "Dileu eich GOV.UK One Login",
           "deleteOptionHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd.",
-          "returnToServiceExistingIdentityInvalid": "Ewch yn ôl i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
-          "returnToServiceHintExistingIdentityInvalid": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
-          "returnToServiceExistingIdentityValid": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
-          "returnToServiceHintExistingIdentityValid": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
+          "returnToService": "Ewch yn ôl i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
+          "returnToServiceIsExistingIdentityValid": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
+          "returnToServiceHintIsExistingIdentityValid": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
           "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
@@ -297,15 +297,15 @@
       "header": "Os nad yw manylion eich trwydded yrru yn gywir",
       "content": {
         "paragraph1": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check.",
-        "paragraph1StrategicApp": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
+        "paragraph1IsFromStrategicApp": "Gallwch sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login.",
         "paragraph2": "Gwnewch yn siŵr nad oes gan eich trwydded yrru unrhyw faw na chrafiadau arni.",
         "paragraph3": "Pan fyddwch yn sganio’ch trwydded yrru, gwnewch yn siŵr eich bod mewn ardal sydd wedi’i goleuo’n dda heb unrhyw dywyniad nag adlewyrchiad ar eich trwydded.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continueButtonText": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK ID Check",
-          "continueButtonTextStrategicApp": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login",
+          "continueButtonTextIsFromStrategicApp": "Sganio eich trwydded yrru cerdyn-llun y DU eto yn yr ap GOV.UK One Login",
           "continueButtonTextHint": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch agor yr ap",
-          "continueButtonTextHintStrategicApp": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch ailagor yr ap.",
+          "continueButtonTextHintIsFromStrategicApp": "Bydd angen i chi ateb ychydig o gwestiynau eto cyn y gallwch ailagor yr ap.",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
         },
         "formErrorMessage": {
@@ -613,15 +613,12 @@
     },
     "pageDcmawSuccess": {
       "title": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
-      "titleCoiAddress": "Rydych wedi rhoi eich enw newydd i ni",
-      "titleCoiNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "titleNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
       "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
-      "headerCoiAddress": "Rydych wedi rhoi eich enw newydd i ni",
-      "headerCoiNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "headerNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
       "content": {
         "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau.",
-        "paragraph1CoiAddress": "Bydd angen i chi roi eich cyfeiriad cartref presennol (a chyfeiriad blaenorol os ydych wedi symud yn ddiweddar) pan fyddwch yn parhau.",
-        "paragraph1CoiNoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
+        "paragraph1NoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
       }
     },
     "pyiConfirmDeleteDetails": {
@@ -643,14 +640,14 @@
     "updateNameDateBirth": {
       "title": "Diweddaru eich enw llawn neu ddyddiad geni",
       "titleReuse": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
-      "titleRfcAccountDeletion": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
+      "titleRfc": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
       "header": "Diweddaru eich enw llawn neu ddyddiad geni",
       "headerReuse": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
-      "headerRfcAccountDeletion": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
+      "headerRfc": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",
       "content": {
         "paragraph1": "I ddiweddaru eich enw llawn neu ddyddiad geni, mae angen i chi gysylltu â’r tîm GOV.UK One Login.",
         "paragraph1Reuse": "Mae hyn er mwyn helpu i’ch diogelu rhag twyll hunaniaeth.",
-        "paragraph1RfcAccountDeletion": "Mae hyn er mwyn helpu i’ch diogelu rhag twyll hunaniaeth.",
+        "paragraph1Rfc": "Mae hyn er mwyn helpu i’ch diogelu rhag twyll hunaniaeth.",
         "paragraph2": "Gallwch barhau i ddefnyddio’r gwasanaeth os yw’ch manylion allan o ddyddiad.",
         "paragraph3": "I ddefnyddio enw llawn neu ddyddiad geni gwahanol, bydd angen i chi ddileu eich GOV.UK One Login a chreu un newydd.",
         "warningText": "Efallai na fyddwch yn gallu defnyddio’ch GOV.UK One Login os nad yw’ch manylion yn gyfredol.",
@@ -659,9 +656,9 @@
         "formRadioButtons": {
           "yes": "Cysylltwch â’r tîm GOV.UK One Login i ddiweddaru eich enw llawn neu ddyddiad geni",
           "yesReuse": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
-          "yesRfcAccountDeletion": "Dileu eich GOV.UK One Login",
+          "yesRfc": "Dileu eich GOV.UK One Login",
           "yesHintReuse": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
-          "yesHintRfcAccountDeletion": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda’ch manylion newydd.",
+          "yesHintRfc": "Yna crëwch un newydd a phrofwch eich hunaniaeth gyda’ch manylion newydd.",
           "no": "Ewch yn ôl i wirio eich manylion eto",
           "noReuse": "Dileu eich GOV.UK One Login",
           "noHint": "Efallai y byddwch yn gallu diweddaru eich manylion eich hun os ydych ond angen diweddaru eich enwau cyntaf neu ganol, neu’ch enw olaf.",
@@ -790,7 +787,7 @@
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU"
         ],
-        "requirementsNino": [
+        "requirementsAllowNino": [
           "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",
           "’rhif Yswiriant Gwladol"
@@ -888,14 +885,14 @@
     },
     "proveIdentityNoPhotoId": {
       "title": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "titleNino": "Profi eich hunaniaeth gyda’ch rhif Yswiriant Gwladol a chwestiynau diogelwch",
+      "titleNinoOnly": "Profi eich hunaniaeth gyda’ch rhif Yswiriant Gwladol a chwestiynau diogelwch",
       "header": "Profi eich hunaniaeth gyda manylion banc neu gymdeithas adeiladu a chwestiynau diogelwch",
-      "headerNino": "Profi eich hunaniaeth gyda’ch rhif Yswiriant Gwladol a chwestiynau diogelwch",
+      "headerNinoOnly": "Profi eich hunaniaeth gyda’ch rhif Yswiriant Gwladol a chwestiynau diogelwch",
       "content": {
         "paragraph1": "Gallwch ddefnyddio unrhyw gyfrif cyfredol gyda banc neu gymdeithas adeiladu yn y DU i brofi eich hunaniaeth. Rhaid i’ch enw fod ar y cyfrif.",
         "subHeading": "Darparwch rhywfaint o fanylion personol",
         "paragraph2": "Byddwn yn gofyn i chi am eich:",
-        "paragraph2Nino": "Yn ogystal â’ch rhif Yswiriant Gwladol, rydym hefyd angen eich:",
+        "paragraph2NinoOnly": "Yn ogystal â’ch rhif Yswiriant Gwladol, rydym hefyd angen eich:",
         "personalDetails": {
           "name": "enw",
           "dob": "dyddiad geni",
@@ -905,9 +902,9 @@
         },
         "subHeading2": "Atebwch rhai cwestiynau diogelwch",
         "paragraph3": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Mae hyn yn ein helpu i wirio a yw’r manylion rydych wedi’u rhoi yn cael eu defnyddio gennych chi.",
-        "paragraph3Nino": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi",
+        "paragraph3NinoOnly": "Yna byddwn yn gofyn rhywfaint o gwestiynau diogelwch i chi. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi",
         "subHeading3": "A oes gennych gyfrif banc neu gymdeithas adeiladu cyfredol yn eich enw chi?",
-        "subHeading3Nino": "Oes gennych chi rif Yswiriant Gwladol?",
+        "subHeading3NinoOnly": "Oes gennych chi rif Yswiriant Gwladol?",
         "formRadioButtons": {
           "continueBankDetailsButtonText": "Oes",
           "otherWayButtonText": "Na"
@@ -916,8 +913,8 @@
           "errorSummaryTitleText": "Mae problem",
           "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud",
-          "errorSummaryDescriptionTextNino": "Dewiswch oes os oes gennych rif Yswiriant Gwladol",
-          "errorRadioMessageNino": "Dewiswch oes os oes gennych rif Yswiriant Gwladol"
+          "errorSummaryDescriptionTextNinoOnly": "Dewiswch oes os oes gennych rif Yswiriant Gwladol",
+          "errorRadioMessageNinoOnly": "Dewiswch oes os oes gennych rif Yswiriant Gwladol"
         }
       }
     },
@@ -926,8 +923,7 @@
       "header": "Parhau i’r gwasanaeth rydych angen ei ddefnyddio",
       "content": {
         "paragraph1": "Rydych wedi profi pwy ydych chi’n llwyddiannus. Gallwch nawr barhau i’r gwasanaeth rydych angen ei ddefnyddio.",
-        "paragraph1RepeatFraudCheck": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â’r gwasanaeth rydych angen ei ddefnyddio.",
-        "paragraph1UpdateIdentity": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â’r gwasanaeth rydych angen ei ddefnyddio.",
+        "paragraph1Coi": "Rydym wedi gwirio eich manylion. Gallwch nawr barhau â’r gwasanaeth rydych angen ei ddefnyddio.",
         "paragraph2": "Gallai rhywfaint o’r wybodaeth a rannwyd gennych pan wnaethoch brofi pwy ydych chi gael ei defnyddio i lenwi ffurflenni yn awtomatig o fewn y gwasanaeth."
       }
     },
@@ -1063,7 +1059,7 @@
         "details3": {
           "summaryText": "Rwy’n sensitif i liwiau sy’n fflachio",
           "html": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Gallwch <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">brofi pwy ydych chi mewn ffordd arall os ydych yn credu y gallech fod yn sensitif i liwiau sy’n fflachio</a>.</p>",
-          "htmlAppOnly": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Os ydych yn meddwl y gallech fod yn sensitif i liwiau sy’n fflachio ac nad ydych am ddefnyddio’r ap, efallai na fyddwch yn gallu profi eich hunaniaeth. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Gwiriwch beth allwch chi ei wneud yn lle hynny</a>.</p>"
+          "htmlIsAppOnly": "<p>Mae’r sgan wyneb yn gwirio eich bod yn berson go iawn. Mae’n defnyddio gwahanol liwiau sy’n newid llai na 3 gwaith yr eiliad.</p><p>Os ydych yn meddwl y gallech fod yn sensitif i liwiau sy’n fflachio ac nad ydych am ddefnyddio’r ap, efallai na fyddwch yn gallu profi eich hunaniaeth. <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/anotherWay\">Gwiriwch beth allwch chi ei wneud yn lle hynny</a>.</p>"
         },
         "details4": {
           "summaryText": "Oes angen i mi dynnu fy sbectol?",
@@ -1072,7 +1068,7 @@
         "details5": {
           "summaryText": "Byddai’n well gen i beidio defnyddio’r ap",
           "html": "<p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app.cy\">ddarllen am sut i ddefnyddio’r ap (agor mewn tab newydd)</a> os nad ydych yn siŵr y gallwch ei ddefnyddio.</p><p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>",
-          "htmlAppOnly": "<p>Gallwch ond profi eich hunaniaeth drwy ddefnyddio’r ap.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app.cy\">ddarllen am sut i ddefnyddio’r ap (agor mewn tab newydd)</a> os nad ydych yn siŵr y gallwch ei ddefnyddio.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Gwiriwch beth allwch chi ei wneud os na allwch ddefnyddio’r ap</a>.</p>"
+          "htmlIsAppOnly": "<p>Gallwch ond profi eich hunaniaeth drwy ddefnyddio’r ap.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app.cy\">ddarllen am sut i ddefnyddio’r ap (agor mewn tab newydd)</a> os nad ydych yn siŵr y gallwch ei ddefnyddio.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Gwiriwch beth allwch chi ei wneud os na allwch ddefnyddio’r ap</a>.</p>"
         },
         "subHeading3": "2. Agorwch yr ap GOV.UK One Login",
         "paragraph4": "Dilynwch y cyfarwyddiadau yn yr ap i brofi pwy ydych chi. Cadwch y dudalen hon ar agor tra byddwch yn gwneud hyn.",
@@ -1281,7 +1277,7 @@
       "content": {
         "paragraph1Html": "Pan fyddwch yn parhau, byddwch yn gallu dileu eich GOV.UK One Login yn barhaol. Darganfyddwch <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"https://www.gov.uk/guidance/deleting-your-govuk-one-login\">beth sy’n digwydd pan fyddwch yn dileu eich GOV.UK One Login (agor mewn tab newydd)<a>.",
         "paragraph2": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd a phrofi eich hunaniaeth gyda’ch manylion newydd.",
-        "paragraph2ReproveIdentity": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd."
+        "paragraph2Reprove": "Ar ôl i chi ddileu eich GOV.UK One Login, ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio. Yna gallwch greu GOV.UK One Login newydd."
       }
     },
     "updateDetailsFailed": {
@@ -1289,7 +1285,7 @@
       "header": "Nid oeddech yn gallu diweddaru eich manylion gyda’r ap GOV.UK One Login",
       "content": {
         "paragraph1": "Gallwch barhau i ddefnyddio’r gwasanaeth os yw’ch manylion allan o ddyddiad.",
-        "paragraph1ExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
+        "paragraph1IsExistingIdentityInvalid": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "continue": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",

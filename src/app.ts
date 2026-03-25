@@ -53,7 +53,6 @@ declare module "express-session" {
     ipvSessionId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
-    context?: string;
     pageContext?: Record<string, unknown>;
     featureSet?: string;
     ipAddress?: string;

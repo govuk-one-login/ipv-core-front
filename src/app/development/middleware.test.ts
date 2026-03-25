@@ -16,15 +16,22 @@ import PAGES from "../../constants/ipv-pages";
 import * as contextHelper from "../shared/contextHelper";
 import * as qrCodeHelper from "../shared/qrCodeHelper";
 import * as appDownloadHelper from "../shared/appDownloadHelper";
+import {
+  NO_CONTEXT_VARIANT,
+  pagesAndContexts,
+} from "../../test-utils/pages-and-contexts";
 
 const createResponse = specifyCreateResponse();
 const createRequest = specifyCreateRequest();
 
 const fsReadDirStub = { readdir: sinon.stub() };
-const pagesAndContextsStub = {
+const pagesAndContextsStub: { pagesAndContexts: typeof pagesAndContexts } = {
   pagesAndContexts: {
     "some-template": [],
-    "another-template": ["context", undefined],
+    "another-template": [
+      { rfc: { journeyType: "rfc", allowAccountDeletion: true } },
+      NO_CONTEXT_VARIANT,
+    ],
   },
 };
 const middleware = proxyquire("./middleware", {
@@ -52,7 +59,10 @@ describe("allTemplatesGet", () => {
         templatesWithContextRadioOptions: {
           "some-template": [],
           "another-template": [
-            { text: "context", value: "context" },
+            {
+              text: "rfc",
+              value: '{"journeyType":"rfc","allowAccountDeletion":true}',
+            },
             { text: "No context", value: "" },
           ],
         },
@@ -90,7 +100,10 @@ describe("allTemplatesPost", () => {
           templatesWithContextRadioOptions: {
             "some-template": [],
             "another-template": [
-              { text: "context", value: "context" },
+              {
+                text: "rfc",
+                value: '{"journeyType":"rfc","allowAccountDeletion":true}',
+              },
               { text: "No context", value: "" },
             ],
           },
@@ -108,7 +121,10 @@ describe("allTemplatesPost", () => {
       body: {
         template: "another-template",
         language: "en",
-        pageContext: "context",
+        pageContext: JSON.stringify({
+          journeyType: "reuse",
+          allowAccountDeletion: true,
+        }),
         hasErrorState: true,
       },
     });
@@ -120,7 +136,7 @@ describe("allTemplatesPost", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/another-template/en?context=context&pageErrorState=true",
+      "/dev/template/another-template/en?pageContext=%7B%22journeyType%22%3A%22reuse%22%2C%22allowAccountDeletion%22%3Atrue%7D&pageErrorState=true",
     );
   });
 
@@ -149,7 +165,6 @@ describe("allTemplatesPost", () => {
 describe("templatesDisplayGet", () => {
   it("should get phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
-    const context = "iphone-appOnly";
     const validPhoneType = "iphone";
     const req = createRequest({
       params: {
@@ -157,7 +172,10 @@ describe("templatesDisplayGet", () => {
         language: "en",
       },
       query: {
-        context,
+        pageContext: JSON.stringify({
+          smartphone: validPhoneType,
+          isAppOnly: true,
+        }),
       },
     });
 
@@ -183,7 +201,7 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(getPhoneTypeStub).to.have.been.calledOnceWith(context);
+    expect(getPhoneTypeStub).to.have.been.calledOnceWith(validPhoneType);
     expect(getAppStoreRedirectUrlStub).to.have.been.calledOnceWith(
       validPhoneType,
     );

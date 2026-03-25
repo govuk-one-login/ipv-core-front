@@ -37,7 +37,7 @@ describe("checkFormRadioButtonSelected middleware", () => {
       {
         pageId: req.session.currentPage,
         csrfToken: undefined,
-        context: undefined,
+        pageContext: undefined,
         pageErrorState: true,
       },
     );

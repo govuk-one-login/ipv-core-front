@@ -170,7 +170,7 @@ describe("handleJourneyPageRequest", () => {
       {
         pageId: "page-face-to-face-handoff",
         csrfToken: undefined,
-        context: undefined,
+        pageContext: undefined,
         pageErrorState: undefined,
         postOfficeVisitByDate: sinon.match.number,
       },
@@ -198,7 +198,7 @@ describe("handleJourneyPageRequest", () => {
       {
         pageId: "pyi-triage-desktop-download-app",
         csrfToken: undefined,
-        context: undefined,
+        pageContext: undefined,
         pageErrorState: undefined,
         apiUrl: API_URLS.API_APP_VC_RECEIPT_STATUS,
         qrCode: "QR_CODE_DATA",
@@ -335,7 +335,7 @@ describe("handleJourneyPageRequest", () => {
       params: { pageId: IPV_PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP },
       session: {
         currentPage: IPV_PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP,
-        context: { os: "ANDROID" },
+        pageContext: { os: "ANDROID" },
       },
     });
     const res = createResponse();
@@ -352,7 +352,7 @@ describe("handleJourneyPageRequest", () => {
       {
         pageId: "pyi-triage-mobile-download-app",
         csrfToken: undefined,
-        context: { os: "ANDROID" },
+        pageContext: { os: "ANDROID" },
         pageErrorState: undefined,
         appDownloadUrl: "https://example.com",
       },
@@ -363,7 +363,7 @@ describe("handleJourneyPageRequest", () => {
     // Arrange
     const req = createRequest({
       params: { pageId: IPV_PAGES.PYI_TECHNICAL },
-      query: { context: "unrecoverable" },
+      query: { pageContext: JSON.stringify({ isUnrecoverable: true }) },
       session: {
         ipvSessionId: undefined,
       },
@@ -382,7 +382,7 @@ describe("handleJourneyPageRequest", () => {
       sinon.match({
         pageId: "pyi-technical",
         csrfToken: "test-csrf-token",
-        context: "unrecoverable",
+        pageContext: { isUnrecoverable: true },
       }),
     );
 

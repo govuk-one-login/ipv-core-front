@@ -137,7 +137,6 @@ export const handleBackendResponse = async (
 
   if (isPageResponse(data)) {
     req.session.currentPage = data.page;
-    req.session.context = data?.context;
     req.session.pageContext = data?.pageContext;
     req.session.currentPageStatusCode = data?.statusCode;
 
@@ -311,19 +310,22 @@ const validateSessionAndPage = async (
   }
 
   // To handle technical error unrecoverable redirection for progress spinner
-  if (
-    pageId === PAGES.PYI_TECHNICAL &&
-    req.query?.context === "unrecoverable"
-  ) {
-    req.session.currentPage = pageId;
+  if (pageId === PAGES.PYI_TECHNICAL && req.query?.pageContext) {
+    const parsedPageContext = JSON.parse(req.query.pageContext as string);
 
-    res.render(getIpvPageTemplatePath(pageId), {
-      pageId,
-      csrfToken: req.csrfToken?.(true),
-      context: "unrecoverable",
-    });
+    if (parsedPageContext["isUnrecoverable"]) {
+      req.session.currentPage = pageId;
 
-    return false;
+      res.render(getIpvPageTemplatePath(pageId), {
+        pageId,
+        csrfToken: req.csrfToken?.(true),
+        pageContext: {
+          isUnrecoverable: true,
+        },
+      });
+
+      return false;
+    }
   }
 
   // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario
@@ -377,7 +379,7 @@ export const handleJourneyPageRequest = async (
 ): Promise<void> => {
   try {
     const { pageId } = req.params;
-    const { context } = req?.session || "";
+    const { pageContext } = req?.session || {};
 
     // Stop further processing if response has already been handled
     if (!(await validateSessionAndPage(req, res, pageId))) {
@@ -387,7 +389,7 @@ export const handleJourneyPageRequest = async (
     const renderOptions: Record<string, unknown> = {
       pageId,
       csrfToken: req.csrfToken?.(true),
-      context,
+      pageContext,
       pageErrorState,
     };
 
@@ -395,7 +397,7 @@ export const handleJourneyPageRequest = async (
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
       renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
-      const phoneType = getPhoneType(context);
+      const phoneType = getPhoneType(pageContext?.smartphone as string);
       const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
       renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
@@ -403,7 +405,7 @@ export const handleJourneyPageRequest = async (
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
       renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      const phoneType = getPhoneType(context);
+      const phoneType = getPhoneType(pageContext?.smartphone as string);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
       renderOptions.postOfficeVisitByDate = new Date().setDate(
@@ -520,7 +522,7 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
   res,
   next,
 ) => {
-  const { context, currentPage } = req?.session || {};
+  const { pageContext, currentPage } = req?.session || {};
 
   if (!currentPage) {
     throw new TechnicalError("currentPage cannot be empty");
@@ -541,7 +543,7 @@ export const formHandleCoiDetailsCheck: RequestHandler = async (
       errorState: req.body.detailsCorrect ? "checkbox" : "radiobox",
       pageId: currentPage,
       csrfToken: req.csrfToken?.(true),
-      context: context,
+      pageContext,
     };
     if (pageRequiresUserDetails(currentPage)) {
       renderOptions.userDetails = await fetchUserDetails(req);

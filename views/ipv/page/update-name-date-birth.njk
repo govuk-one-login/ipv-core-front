@@ -31,7 +31,7 @@
             <p class="govuk-body">{{'pages.updateNameDateBirth.content.paragraph2' | translate }}</p>
         {% endif %}
 
-        {% if pageContext.journeyType === 'rfcAccountDeletion' %}
+        {% if pageContext.journeyType === 'rfc' %}
             {{ govukWarningText({
                 text: 'pages.updateNameDateBirth.content.warningText' | translate,
                 iconFallbackText: 'pages.updateNameDateBirth.content.warningTextFallback' | translate

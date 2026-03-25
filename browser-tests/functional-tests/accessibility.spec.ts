@@ -1,13 +1,14 @@
 import { test, expect, Page } from "@playwright/test";
 import { iteratePagesAndContexts } from "../data/pagesAndContexts.js";
 import AxeBuilder from "@axe-core/playwright";
+import { NO_CONTEXT_VARIANT } from "../../src/test-utils/pages-and-contexts";
 
 const domainUrl = process.env.WEBSITE_HOST;
 
 test.describe.parallel("Accessibility tests", () => {
   test.setTimeout(120000);
-  iteratePagesAndContexts((pageName, context, language, url) => {
-    test(`Accessibility check for ${pageName}, context ${context} and language ${language}`, async ({
+  iteratePagesAndContexts((pageName, contextScenario, language, url) => {
+    test(`Accessibility check for ${pageName}, context ${contextScenario == NO_CONTEXT_VARIANT ? "undefined" : `${JSON.stringify(Object.values(contextScenario)[0])} (${Object.keys(contextScenario)[0]})`} and language ${language}`, async ({
       page,
     }) => {
       await page.goto(url);

@@ -160,7 +160,9 @@ resources:
       content: |
         {
           "page": "prove-identity-another-type-photo-id",
-          "context": "passport"
+          "pageContext": {
+            "invalidDoc" : "passport"
+          }
         }
 
   # Journey for unexpected error from core-back
@@ -285,7 +287,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-mobile-download-app",
-          "context": "android"
+          "pageContext": {
+            "smartphone" : "android",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -300,7 +305,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-mobile-download-app",
-          "context": "iphone"
+          "pageContext": {
+            "smartphone" : "iphone",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -315,7 +323,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-mobile-download-app",
-          "context": "iphone"
+          "pageContext": {
+            "smartphone" : "iphone",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -330,7 +341,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-mobile-download-app",
-          "context": "android"
+          "pageContext": {
+            "smartphone" : "android",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -345,7 +359,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-mobile-download-app",
-          "context": "iphone"
+          "pageContext": {
+            "smartphone" : "iphone",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -520,7 +537,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-desktop-download-app",
-          "context": "iphone"
+          "pageContext": {
+            "smartphone" : "iphone",
+            "isAppOnly" : "false",
+          }
         }
 
   # The spinner polls core-front which in turn calls /app/check-vc-receipt in core back.
@@ -680,7 +700,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-desktop-download-app",
-          "context": "android"
+          "pageContext": {
+            "smartphone" : "android",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST
@@ -698,7 +721,10 @@ resources:
       content: |
         {
           "page": "pyi-triage-desktop-download-app",
-          "context": "iphone"
+          "pageContext": {
+            "smartphone" : "iphone",
+            "isAppOnly" : "false",
+          }
         }
 
   - method: POST

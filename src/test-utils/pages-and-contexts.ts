@@ -16,7 +16,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-security-questions-find-another-way": [
     { dropout: { reason: "dropout" } },
-    {},
+    NO_CONTEXT_VARIANT,
   ],
   "non-uk-no-app-options": [],
   "non-uk-app-intro": [],
@@ -91,7 +91,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
     { nino: { reason: "nino" } },
     { updateDetails: { reason: "updateDetails" } },
     { repeatFraudCheck: { reason: "repeatFraudCheck" } },
-    {},
+    NO_CONTEXT_VARIANT,
   ],
   "pyi-passport-no-match-another-way": [],
   "pyi-passport-no-match": [],
@@ -126,7 +126,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
   "sorry-could-not-confirm-details": [
     { existingIdentityValid: { isExistingIdentityValid: true } },
     { existingIdentityInvalid: { isExistingIdentityValid: false } },
-    {},
+    NO_CONTEXT_VARIANT,
   ],
   "sorry-could-not-confirm-identity-reprove-failure": [],
   "sorry-technical-problem": [
@@ -134,7 +134,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
     { kbvCriError: { reason: "kbvCriError" } },
     { dlOrPassportMitigation: { reason: "dlOrPassportMitigation" } },
     { kbvMitigation: { reason: "kbvMitigation" } },
-    {},
+    NO_CONTEXT_VARIANT,
   ],
   "update-details-failed": [
     { existingIdentityInvalid: { isExistingIdentityInvalid: true } },
@@ -144,7 +144,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
   "update-name-date-birth": [
     { reuse: { journeyType: "reuse" } },
     { rfcAccountDeletion: { journeyType: "rfc" } },
-    {},
+    NO_CONTEXT_VARIANT,
   ],
   "uk-driving-licence-details-not-correct": [
     { strategicApp: { isFromStrategicApp: true } },
@@ -152,7 +152,7 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
   ],
   "uk-driving-licence-details-not-correct-reprove": [],
   "need-more-information-confirm-change-details": [
-    { repeatFraudCheck: { journeyType: "rfc" } },
+    { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
     { updateDetails: { journeyType: "updateDetails" } },
   ],
   "we-matched-you-to-your-one-login": [],

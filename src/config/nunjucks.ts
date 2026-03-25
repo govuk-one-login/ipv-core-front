@@ -51,6 +51,7 @@ export const configureNunjucks = (
     ...nunjucksOptions,
   });
 
+  // Note: this is used by frontend-ui
   nunjucksEnv.addFilter(
     "translate",
     function (this: FilterContext, key, options) {
@@ -59,6 +60,7 @@ export const configureNunjucks = (
     },
   );
 
+  // Note: this is used by frontend-ui
   nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
     const translate = i18next.getFixedT("en");
     return translate(key, options);
@@ -122,6 +124,19 @@ export const configureNunjucks = (
     ) {
       const contextValue = getPageContextValue(pageContext, contextKey) || "";
       return key + contextValue;
+    },
+  );
+
+  nunjucksEnv.addFilter(
+    "addUriEncodedPageContext",
+    function (
+      this: FilterContext,
+      uri: string,
+      pageContext: Record<string, unknown>,
+    ) {
+      return (
+        uri + `?pageContext=${encodeURIComponent(JSON.stringify(pageContext))}`
+      );
     },
   );
 

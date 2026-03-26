@@ -1,15 +1,16 @@
 import { getParameter } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
-import { RequestHandler } from "express";
+import { RequestHandler, Request } from "express";
 import Config from "../config/config";
 import i18next from "i18next";
+
+interface PageBannerConfig {
+  pageId: string;
+  contexts?: Record<string, unknown>[];
+}
+
 export interface BannerConfig {
-  pages: [
-    {
-      pageId: string;
-      contexts?: string[];
-    },
-  ];
+  pages: PageBannerConfig[];
   bannerType?: string;
   bannerMessage: string;
   bannerMessageCy: string;
@@ -70,11 +71,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
           (currentTime >= bannerStartTime && currentTime <= bannerEndTime)) &&
         data.pages.some(
           (p) =>
-            p.pageId === req.path &&
-            ((!req.session.context &&
-              (!p.contexts || p.contexts?.includes(""))) ||
-              (req.session.context &&
-                p.contexts?.includes(req.session.context))),
+            p.pageId === req.path && shouldDisplayNotificationBanner(p, req),
         )
       ) {
         res.locals.displayBanner = true;
@@ -89,7 +86,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
         );
 
         logger.info(
-          `Banner enabled for "${req.path}" (context: "${req.session.context}")`,
+          `Banner enabled for "${req.path}" (context: "${JSON.stringify(req.session.pageContext)}")`,
         );
       }
     });
@@ -98,6 +95,31 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
     logger.error(err, "Error getting notification banner: " + err);
     next();
   }
+};
+
+const shouldDisplayNotificationBanner = (
+  pageBannerConfig: PageBannerConfig,
+  req: Request,
+): boolean => {
+  if (pageBannerConfig.pageId !== req.path) {
+    return false;
+  }
+
+  if (
+    !req.session.pageContext ||
+    Object.keys(req.session.pageContext).length == 0
+  ) {
+    const hasNoContextVariant = (): boolean | undefined =>
+      pageBannerConfig.contexts?.some((ctx) => Object.keys(ctx).length === 0);
+    return !pageBannerConfig.contexts || !!hasNoContextVariant();
+  }
+
+  return (
+    req.session.pageContext &&
+    !!pageBannerConfig.contexts?.some((ctx) =>
+      Object.entries(ctx).every(([k, v]) => req.session.pageContext?.[k] === v),
+    )
+  );
 };
 
 export default notificationBannerHandler;

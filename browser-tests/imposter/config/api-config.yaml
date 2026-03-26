@@ -289,7 +289,7 @@ resources:
           "page": "pyi-triage-mobile-download-app",
           "pageContext": {
             "smartphone" : "android",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -307,7 +307,7 @@ resources:
           "page": "pyi-triage-mobile-download-app",
           "pageContext": {
             "smartphone" : "iphone",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -325,7 +325,7 @@ resources:
           "page": "pyi-triage-mobile-download-app",
           "pageContext": {
             "smartphone" : "iphone",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -343,7 +343,7 @@ resources:
           "page": "pyi-triage-mobile-download-app",
           "pageContext": {
             "smartphone" : "android",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -361,7 +361,7 @@ resources:
           "page": "pyi-triage-mobile-download-app",
           "pageContext": {
             "smartphone" : "iphone",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -539,7 +539,7 @@ resources:
           "page": "pyi-triage-desktop-download-app",
           "pageContext": {
             "smartphone" : "iphone",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -702,7 +702,7 @@ resources:
           "page": "pyi-triage-desktop-download-app",
           "pageContext": {
             "smartphone" : "android",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 
@@ -723,7 +723,7 @@ resources:
           "page": "pyi-triage-desktop-download-app",
           "pageContext": {
             "smartphone" : "iphone",
-            "isAppOnly" : "false",
+            "isAppOnly" : false
           }
         }
 

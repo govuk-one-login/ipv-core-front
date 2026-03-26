@@ -12,7 +12,7 @@ const sleep = (ms: number): Promise<void> =>
 // case where we're waiting for an async VC to be ready which might require multiple attempts.
 const retryUntil = async (
   action: () => Promise<void>,
-  maxWaitMs = 20000,
+  maxWaitMs = 30000,
   retryIntervalMs = 2000,
 ): Promise<void> => {
   const startTime = Date.now();

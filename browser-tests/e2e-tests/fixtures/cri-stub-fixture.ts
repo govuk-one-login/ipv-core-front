@@ -19,6 +19,7 @@ export interface CriStubUtils {
 export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
   const TEST_DATA_INPUT = "#test_data";
   const SEND_VC_TO_QUEUE_CHECKBOX = "#f2f_send_vc_queue";
+  const QUEUE_NAME_INPUT = "#f2f_stub_queue_name";
   const OVERRIDE_VC_CHECKBOX = "#vcNotBeforeFlg";
 
   const CI_INPUT = "#ci";
@@ -90,6 +91,7 @@ export const criStubUtils = (page: Page, utils: PageUtils): CriStubUtils => {
 
     if (testDataConfig.sendVcToAsyncQueue) {
       await page.locator(SEND_VC_TO_QUEUE_CHECKBOX).check();
+      await page.locator(QUEUE_NAME_INPUT).fill(config.asyncQueueName);
     }
 
     if (testDataConfig.evidenceScores) {

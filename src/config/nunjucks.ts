@@ -140,6 +140,18 @@ export const configureNunjucks = (
     },
   );
 
+  nunjucksEnv.addFilter("jsonToList", function (str: string) {
+    try {
+      const parsed = JSON.parse(str.trim().replaceAll(/^'|'$/g, ""));
+      const items = Object.entries(parsed)
+        .map(([k, v]) => `<li>${k}: ${v}</li>`)
+        .join("");
+      return `<ul>${items}</ul>`;
+    } catch {
+      return str;
+    }
+  });
+
   // TODO PYIC-8718: remove this once the ipv-core-base.njk file for core in frontend-ui
   // has been updated to remove the use of translateWithContextOrFallback
   nunjucksEnv.addFilter(

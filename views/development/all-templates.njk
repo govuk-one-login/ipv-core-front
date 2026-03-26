@@ -4,6 +4,7 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% extends "shared/base.njk" %}
 {% set pageTitleKey = "All templates" %}
@@ -41,6 +42,31 @@
             selected: contexts[0].value,
             items: contexts
           }) }}
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <h3 class="govuk-!-margin-0 govuk-!-font-size-19 govuk-!-font-weight-regular govuk-details__summary-text">
+                Page context key
+              </h3>
+            </summary>
+            <div class="govuk-details__text">
+            <table class="govuk-table">
+              {% for pageContext in contexts %}
+
+                  {% if pageContext.text != "No context" %}
+                  <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">
+                      {{ pageContext.text }}:
+                    </th>
+                    <td class="govuk-table__cell">
+                      {{ pageContext.value | jsonToList | safe }}
+                    </td>
+                  </tr>
+                  {% endif %}
+
+              {% endfor %}
+            </table>
+            </div>
+          </details>
         {% else %}
           <span class="govuk-body">No context</span>
         {% endif %}

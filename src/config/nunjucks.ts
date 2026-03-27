@@ -51,7 +51,9 @@ export const configureNunjucks = (
     ...nunjucksOptions,
   });
 
-  // Note: this is used by frontend-ui
+  // Note: this is used by our base njk file which is in the govuk-one-login-frontend/frontend-ui
+  // repo. If making changes to this filter, make sure to check if the base template also needs
+  // updating and if it requires multiple deployments.
   nunjucksEnv.addFilter(
     "translate",
     function (this: FilterContext, key, options) {
@@ -60,7 +62,9 @@ export const configureNunjucks = (
     },
   );
 
-  // Note: this is used by frontend-ui
+  // Note: this is used by our base njk file which is in the govuk-one-login-frontend/frontend-ui
+  // repo. If making changes to this filter, make sure to check if the base template also needs
+  // updating and if it requires multiple deployments.
   nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
     const translate = i18next.getFixedT("en");
     return translate(key, options);
@@ -201,7 +205,9 @@ export const configureNunjucks = (
     },
   );
 
-  // Required by the frontend-ui components
+  // Note: these are required by govuk-one-login-frontend/frontend-ui components
+  // If making changes to this filter, make sure to check if the base template also needs
+  // updating and if it requires multiple deployments.
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   nunjucksEnv.addGlobal("contactUsUrl", contactUsUrl);
   nunjucksEnv.addGlobal(

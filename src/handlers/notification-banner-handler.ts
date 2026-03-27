@@ -69,10 +69,7 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
       if (
         (Config.ALWAYS_SHOW_BANNERS ||
           (currentTime >= bannerStartTime && currentTime <= bannerEndTime)) &&
-        data.pages.some(
-          (p) =>
-            p.pageId === req.path && shouldDisplayNotificationBanner(p, req),
-        )
+        data.pages.some((p) => shouldDisplayNotificationBanner(p, req))
       ) {
         res.locals.displayBanner = true;
         res.locals.bannerType = data.bannerType;

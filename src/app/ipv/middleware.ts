@@ -393,11 +393,14 @@ export const handleJourneyPageRequest = async (
       pageErrorState,
     };
 
+    const smartphone = pageContext
+      ? (pageContext.smartphone as string)
+      : undefined;
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
       renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
-      const phoneType = getPhoneType(pageContext?.smartphone as string);
+      const phoneType = getPhoneType(smartphone);
       const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
       renderOptions.msBetweenRequests = config.SPINNER_REQUEST_INTERVAL;
@@ -405,7 +408,7 @@ export const handleJourneyPageRequest = async (
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
       renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-      const phoneType = getPhoneType(pageContext?.smartphone as string);
+      const phoneType = getPhoneType(smartphone);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {
       renderOptions.postOfficeVisitByDate = new Date().setDate(

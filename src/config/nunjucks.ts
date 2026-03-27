@@ -206,8 +206,8 @@ export const configureNunjucks = (
   );
 
   // Note: these are required by govuk-one-login-frontend/frontend-ui components
-  // If making changes to this filter, make sure to check if the base template also needs
-  // updating and if it requires multiple deployments.
+  // If making changes to these filters, make sure to check if the frontend-ui
+  // components also need updating and if it requires multiple deployments
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   nunjucksEnv.addGlobal("contactUsUrl", contactUsUrl);
   nunjucksEnv.addGlobal(

@@ -147,9 +147,9 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
 
-  const phoneType =
-    ((pageContext as Record<string, unknown>)?.smartphone as string) ||
-    undefined;
+  const phoneType = pageContext
+    ? ((pageContext as Record<string, unknown>).smartphone as string)
+    : undefined;
 
   // 👇 Detect query flags and forward them to the spinner's API URL
   const isSnapshotTest = req.query.snapshotTest === "true";

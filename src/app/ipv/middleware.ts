@@ -33,8 +33,10 @@ import {
   sniffPhoneType,
 } from "../shared/deviceSniffingHelper";
 import {
+  ErrorResponse,
   isClientResponse,
   isCriResponse,
+  isErrorResponse,
   isJourneyResponse,
   isPageResponse,
   isValidClientResponse,
@@ -51,6 +53,12 @@ import {
   AppVcReceiptStatus,
   getAppVcReceiptStatusAndStoreJourneyResponse,
 } from "../vc-receipt-status/middleware";
+import {
+  addResponseToSessionHistory,
+  isPageRequestedFromSessionHistory,
+  removeLastFromSessionHistory,
+  setLastAsCurrentPostEventResponse,
+} from "../shared/sessionHistoryHelper";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -100,12 +108,34 @@ export const processAction = async (
   return await handleBackendResponse(req, res, backendResponse);
 };
 
+const handleErrorResponse = async (
+  req: Request,
+  res: Response,
+  errorResponse: ErrorResponse,
+): Promise<void> => {
+  if (errorResponse.statusCode === 400 && errorResponse.errorCode === 1111) {
+    req.session.currentPage = PAGES.PYI_ATTEMPT_RECOVERY;
+
+    return saveSessionAndRedirect(
+      req,
+      res,
+      getIpvPagePath(PAGES.PYI_ATTEMPT_RECOVERY),
+    );
+  }
+
+  throw new TechnicalError(
+    `Unsupported ErrorResponse received from core-back: ${JSON.stringify(errorResponse)}`,
+  );
+};
+
 export const handleBackendResponse = async (
   req: Request,
   res: Response,
   backendResponse: AxiosResponse<PostJourneyEventResponse>,
 ): Promise<void> => {
   const data = backendResponse.data;
+
+  handleSessionHistoryUpdate(req, data);
 
   if (isJourneyResponse(data)) {
     return await processAction(req, res, data.journey);
@@ -154,9 +184,35 @@ export const handleBackendResponse = async (
     }
   }
 
+  if (isErrorResponse(data)) {
+    return await handleErrorResponse(req, res, data);
+  }
+
   throw new TechnicalError(
     `Unrecognised response type received from core-back: ${JSON.stringify(sanitiseResponseData(backendResponse))}`,
   );
+};
+
+const handleSessionHistoryUpdate = (
+  req: Request,
+  data: PostJourneyEventResponse,
+): void => {
+  if (isJourneyResponse(data)) {
+    addResponseToSessionHistory(req, data);
+  } else if (isCriResponse(data) && isValidCriResponse(data)) {
+    addResponseToSessionHistory(req, data);
+  } else if (isClientResponse(data) && isValidClientResponse(data)) {
+    addResponseToSessionHistory(req, data);
+  } else if (isPageResponse(data)) {
+    if (isPageRequestedFromSessionHistory(req, data)) {
+      setLastAsCurrentPostEventResponse(req, data);
+      removeLastFromSessionHistory(req, data);
+    } else {
+      if (!data.skipBack) {
+        addResponseToSessionHistory(req, data);
+      }
+    }
+  }
 };
 
 const checkJourneyAction = (req: Request): void => {
@@ -357,6 +413,16 @@ const validateSessionAndPage = async (
   return true;
 };
 
+export const handleBackButton = (req: Request, pageId: string): boolean => {
+  const history = req.session.history;
+  if (!history || history.length === 0) {
+    return false;
+  }
+  const last = history[history?.length - 1];
+
+  return isPageResponse(last) && pageId === last.page;
+};
+
 export const updateJourneyState: RequestHandler = async (req, res) => {
   const currentPageId = req.params.pageId;
   const action = req.params.action;
@@ -377,6 +443,16 @@ export const handleJourneyPageRequest = async (
   try {
     const { pageId } = req.params;
     const { context } = req?.session || "";
+
+    if (handleBackButton(req, pageId)) {
+      const currentSessionPage = req.session.currentPage!;
+      await saveSessionAndRedirect(
+        req,
+        res,
+        `/ipv/journey/${currentSessionPage}/back`,
+      );
+      return;
+    }
 
     // Stop further processing if response has already been handled
     if (!(await validateSessionAndPage(req, res, pageId))) {

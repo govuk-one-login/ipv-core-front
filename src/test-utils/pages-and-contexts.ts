@@ -1,6 +1,18 @@
+import { PageContextFor } from "../types/page-contexts";
+import { IpvPageName } from "../constants/ipv-pages";
+
 export const NO_CONTEXT_VARIANT = {} as const;
 
-export const pagesAndContexts: Record<string, Record<string, object>[]> = {
+type ContextVariant<K extends IpvPageName> = Record<string, PageContextFor<K>>;
+
+type PagesAndContexts = Omit<
+  {
+    [K in IpvPageName]: ContextVariant<K>[];
+  },
+  "identify-device"
+>;
+
+export const pagesAndContexts: PagesAndContexts = {
   "check-mobile-app-result": [],
   "confirm-your-details": [],
   "problem-different-browser": [],
@@ -157,6 +169,6 @@ export const pagesAndContexts: Record<string, Record<string, object>[]> = {
   ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
-} as const;
+};
 
-export type PageName = keyof typeof pagesAndContexts;
+export type DevTemplatePages = keyof typeof pagesAndContexts;

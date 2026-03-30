@@ -25,11 +25,13 @@ const createResponse = specifyCreateResponse();
 const createRequest = specifyCreateRequest();
 
 const fsReadDirStub = { readdir: sinon.stub() };
-const pagesAndContextsStub: { pagesAndContexts: typeof pagesAndContexts } = {
+const pagesAndContextsStub: {
+  pagesAndContexts: Partial<typeof pagesAndContexts>;
+} = {
   pagesAndContexts: {
-    "some-template": [],
-    "another-template": [
-      { rfc: { journeyType: "rfc", allowAccountDeletion: true } },
+    "live-in-uk": [],
+    "delete-handover": [
+      { reproveIdentity: { journeyType: "reprove" } },
       NO_CONTEXT_VARIANT,
     ],
   },
@@ -40,7 +42,7 @@ const middleware = proxyquire("./middleware", {
 });
 
 beforeEach(() => {
-  fsReadDirStub.readdir.resolves(["some-template.njk", "another-template.njk"]);
+  fsReadDirStub.readdir.resolves(["live-in-uk.njk", "delete-handover.njk"]);
 });
 
 describe("allTemplatesGet", () => {
@@ -57,11 +59,11 @@ describe("allTemplatesGet", () => {
       "development/all-templates.njk",
       {
         templatesWithContextRadioOptions: {
-          "some-template": [],
-          "another-template": [
+          "live-in-uk": [],
+          "delete-handover": [
             {
-              text: "rfc",
-              value: '{"journeyType":"rfc","allowAccountDeletion":true}',
+              text: "reproveIdentity",
+              value: '{"journeyType":"reprove"}',
             },
             { text: "No context", value: "" },
           ],
@@ -82,7 +84,7 @@ describe("allTemplatesPost", () => {
       testCase:
         "a template is chosen but a context is not if there are context options",
       req: createRequest({
-        body: { template: "another-template", pageContext: undefined },
+        body: { template: "delete-handover", pageContext: undefined },
       }),
     },
   ].forEach(({ testCase, req }) => {
@@ -98,11 +100,11 @@ describe("allTemplatesPost", () => {
         "development/all-templates.njk",
         {
           templatesWithContextRadioOptions: {
-            "some-template": [],
-            "another-template": [
+            "live-in-uk": [],
+            "delete-handover": [
               {
-                text: "rfc",
-                value: '{"journeyType":"rfc","allowAccountDeletion":true}',
+                text: "reproveIdentity",
+                value: '{"journeyType":"reprove"}',
               },
               { text: "No context", value: "" },
             ],
@@ -119,11 +121,10 @@ describe("allTemplatesPost", () => {
     // Arrange
     const req = createRequest({
       body: {
-        template: "another-template",
+        template: "delete-handover",
         language: "en",
         pageContext: JSON.stringify({
-          journeyType: "reuse",
-          allowAccountDeletion: true,
+          journeyType: "reprove",
         }),
         hasErrorState: true,
       },
@@ -136,7 +137,7 @@ describe("allTemplatesPost", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/another-template/en?pageContext=%7B%22journeyType%22%3A%22reuse%22%2C%22allowAccountDeletion%22%3Atrue%7D&pageErrorState=true",
+      "/dev/template/delete-handover/en?pageContext=%7B%22journeyType%22%3A%22reprove%22%7D&pageErrorState=true",
     );
   });
 
@@ -144,7 +145,7 @@ describe("allTemplatesPost", () => {
     // Arrange
     const req = createRequest({
       body: {
-        template: "some-template",
+        template: "live-in-uk",
         language: "en",
         hasErrorState: false,
       },
@@ -157,7 +158,7 @@ describe("allTemplatesPost", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/some-template/en",
+      "/dev/template/live-in-uk/en",
     );
   });
 });

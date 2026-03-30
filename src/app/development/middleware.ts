@@ -16,8 +16,8 @@ import {
   getTemplatePath,
 } from "../../lib/paths";
 import {
+  DevTemplatePages,
   NO_CONTEXT_VARIANT,
-  PageName,
   pagesAndContexts,
 } from "../../test-utils/pages-and-contexts";
 import ERROR_PAGES from "../../constants/error-pages";
@@ -26,6 +26,7 @@ import {
   frontendUiTranslationCy,
   frontendUiTranslationEn,
 } from "@govuk-one-login/frontend-ui";
+import { getTypedPageContext } from "../../types/page-contexts";
 
 interface RadioOption {
   text: string;
@@ -40,11 +41,8 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   });
 };
 
-const getMappedPageContextRadioOptions = (): Record<
-  PageName,
-  RadioOption[]
-> => {
-  const templatesWithContextRadioOptions: Record<PageName, RadioOption[]> = {};
+const getMappedPageContextRadioOptions = (): Record<string, RadioOption[]> => {
+  const templatesWithContextRadioOptions: Record<string, RadioOption[]> = {};
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
   for (const [page, contexts] of Object.entries(pagesAndContexts)) {
@@ -68,12 +66,13 @@ const getMappedPageContextRadioOptions = (): Record<
 
 export const allTemplatesPost: RequestHandler = async (req, res) => {
   const pageContext = req.body.pageContext;
-  const templateId = req.body.template;
+  const templateId = req.body.template
+    ? (req.body.template as DevTemplatePages)
+    : undefined;
 
   if (
     templateId === undefined ||
-    (pagesAndContexts[req.body.template].length > 0 &&
-      pageContext === undefined)
+    (pagesAndContexts[templateId].length > 0 && pageContext === undefined)
   ) {
     const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
 
@@ -147,10 +146,6 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
 
-  const phoneType = pageContext
-    ? ((pageContext as Record<string, unknown>).smartphone as string)
-    : undefined;
-
   // 👇 Detect query flags and forward them to the spinner's API URL
   const isSnapshotTest = req.query.snapshotTest === "true";
   const apiUrlParams = new URLSearchParams();
@@ -168,7 +163,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.apiUrl = apiUrl;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
-    const validPhoneType = getPhoneType(phoneType);
+    const smartphone = getTypedPageContext(templateId, pageContext)?.smartphone;
+    const validPhoneType = getPhoneType(smartphone);
     renderOptions.qrCode = await generateQrCodeImageData(
       getAppStoreRedirectUrl(validPhoneType),
     );
@@ -177,7 +173,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
       config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-    const validPhoneType = getPhoneType(phoneType);
+    const smartphone = getTypedPageContext(templateId, pageContext)?.smartphone;
+    const validPhoneType = getPhoneType(smartphone);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(validPhoneType);
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
     renderOptions.apiUrl = apiUrl;

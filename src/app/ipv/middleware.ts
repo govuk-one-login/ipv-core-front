@@ -41,6 +41,7 @@ import {
   isValidCriResponse,
   PostJourneyEventResponse,
 } from "../validators/postJourneyEventResponse";
+import { getTypedPageContext } from "../../types/page-contexts";
 import TechnicalError from "../../errors/technical-error";
 import BadRequestError from "../../errors/bad-request-error";
 import NotFoundError from "../../errors/not-found-error";
@@ -393,13 +394,11 @@ export const handleJourneyPageRequest = async (
       pageErrorState,
     };
 
-    const smartphone = pageContext
-      ? (pageContext.smartphone as string)
-      : undefined;
     if (pageRequiresUserDetails(pageId)) {
       renderOptions.userDetails = await fetchUserDetails(req);
     } else if (pageId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
       renderOptions.apiUrl = config.API_APP_VC_RECEIPT_STATUS;
+      const smartphone = getTypedPageContext(pageId, pageContext)?.smartphone;
       const phoneType = getPhoneType(smartphone);
       const qrCodeUrl = getAppStoreRedirectUrl(phoneType);
       renderOptions.qrCode = await generateQrCodeImageData(qrCodeUrl);
@@ -408,6 +407,7 @@ export const handleJourneyPageRequest = async (
         config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
       renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
     } else if (pageId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
+      const smartphone = getTypedPageContext(pageId, pageContext)?.smartphone;
       const phoneType = getPhoneType(smartphone);
       renderOptions.appDownloadUrl = getAppStoreRedirectUrl(phoneType);
     } else if (pageId === PAGES.PAGE_FACE_TO_FACE_HANDOFF) {

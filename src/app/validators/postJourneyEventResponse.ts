@@ -1,3 +1,6 @@
+import { PageContextFor } from "../../types/page-contexts";
+import { IpvPageName } from "../../constants/ipv-pages";
+
 export interface CriResponse {
   cri: {
     id: string;
@@ -5,10 +8,10 @@ export interface CriResponse {
   };
 }
 
-export interface PageResponse {
-  page: string;
+export interface PageResponse<T extends IpvPageName> {
+  page: T;
   statusCode?: number;
-  pageContext?: Record<string, unknown>;
+  pageContext?: PageContextFor<T>;
   type?: string;
   clientOAuthSessionId?: string;
 }
@@ -24,7 +27,7 @@ export interface ClientResponse {
 
 export type PostJourneyEventResponse =
   | JourneyResponse
-  | PageResponse
+  | PageResponse<IpvPageName>
   | CriResponse
   | ClientResponse;
 
@@ -48,8 +51,8 @@ export const isClientResponse = (
 
 export const isPageResponse = (
   res: PostJourneyEventResponse,
-): res is PageResponse => {
-  return (res as PageResponse)?.page !== undefined;
+): res is PageResponse<IpvPageName> => {
+  return (res as PageResponse<IpvPageName>)?.page !== undefined;
 };
 
 export const isValidCriResponse = (criResponse: CriResponse): boolean => {

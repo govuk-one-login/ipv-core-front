@@ -1,17 +1,20 @@
 import {
+  DevTemplatePages,
   NO_CONTEXT_VARIANT,
   pagesAndContexts,
 } from "../../src/test-utils/pages-and-contexts";
 
 type TestFn = (
-  pageName: string,
+  pageName: DevTemplatePages,
   context: Record<string, object> | typeof NO_CONTEXT_VARIANT,
   language: string,
   url: string,
 ) => void;
 
 export const iteratePagesAndContexts = (test: TestFn): void => {
-  for (const pageName of Object.keys(pagesAndContexts)) {
+  for (const pageName of Object.keys(
+    pagesAndContexts,
+  ) as Array<DevTemplatePages>) {
     const pageContexts = pagesAndContexts[pageName];
     const contextsToTest =
       pageContexts.length > 0 ? pageContexts : [NO_CONTEXT_VARIANT];

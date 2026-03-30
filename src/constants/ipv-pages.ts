@@ -1,12 +1,27 @@
 const IPV_PAGES = Object.freeze({
   CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
   CONFIRM_DETAILS: "confirm-your-details",
+  DELETE_HANDOVER: "delete-handover",
+  LIVE_IN_UK: "live-in-uk",
   PROBLEM_DIFFERENT_BROWSER: "problem-different-browser",
   IDENTIFY_DEVICE: "identify-device",
+  NEED_ID_PROVE_IDENTITY_AGAIN_APP: "need-id-prove-identity-again-app",
+  NEED_MORE_INFORMATION_CONFIRM_CHANGE_DETAILS:
+    "need-more-information-confirm-change-details",
+  NEED_PHOTO_ID_ABANDON_FIND_ANOTHER_WAY:
+    "no-photo-id-abandon-find-another-way",
+  NEED_PROVE_IDENTITY_AGAIN_APP: "need-prove-identity-again-app",
+  NEED_PROVE_IDENTITY_AGAIN_NO_APP: "need-prove-identity-again-no-app",
+  NON_UK_NO_APP_OPTIONS: "non-uk-no-app-options",
+  NON_UK_NO_APP_INTRO: "non-uk-app-intro",
+  NON_UK_NO_APP: "non-uk-no-app",
+  NON_UK_NO_PASSPORT: "non-uk-no-passport",
+  NON_UK_PASSPORT: "non-uk-passport",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
   NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
     "no-photo-id-security-questions-find-another-way",
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
+  PAGE_DIFFERENT_SECURITY_QUESTIONS: "page-different-security-questions",
   PAGE_FACE_TO_FACE_HANDOFF: "page-face-to-face-handoff",
   PAGE_IPV_IDENTITY_DOCUMENT_START: "page-ipv-identity-document-start",
   PAGE_IPV_IDENTITY_DOCUMENT_TYPES: "page-ipv-identity-document-types",
@@ -15,13 +30,18 @@ const IPV_PAGES = Object.freeze({
   PAGE_IPV_REUSE: "page-ipv-reuse",
   PAGE_IPV_SUCCESS: "page-ipv-success",
   PAGE_MULTIPLE_DOC_CHECK: "page-multiple-doc-check",
+  PAGE_NOT_FOUND: "page-not-found",
   PAGE_PRE_EXPERIAN_KBV_TRANSITION: "page-pre-experian-kbv-transition",
+  PAGE_UPDATE_NAME: "page-update-name",
   PAGE_PRE_DWP_KBV_TRANSITION: "page-pre-dwp-kbv-transition",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
   PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
     "photo-id-security-questions-find-another-way",
-  PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
+  PROVE_IDENTITY_AGAIN_APP: "prove-identity-again-app",
+  PROVE_IDENTITY_ANOTHER_TYPE_PHOTO_ID: "prove-identity-another-type-photo-id",
   PROVE_IDENTITY_ANOTHER_WAY: "prove-identity-another-way",
+  PROVE_IDENTITY_NO_OTHER_PHOTO_ID: "prove-identity-no-other-photo-id",
+  PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
   PYI_CONFIRM_DELETE_DETAILS: "pyi-confirm-delete-details",
@@ -41,18 +61,29 @@ const IPV_PAGES = Object.freeze({
   PYI_TECHNICAL: "pyi-technical",
   PYI_TIMEOUT_RECOVERABLE: "pyi-timeout-recoverable",
   PYI_TIMEOUT_UNRECOVERABLE: "pyi-timeout-unrecoverable",
+  PYI_TRIAGE_BUFFER: "pyi-triage-buffer",
   PYI_TRIAGE_DESKTOP_DOWNLOAD_APP: "pyi-triage-desktop-download-app",
   PYI_TRIAGE_MOBILE_DOWNLOAD_APP: "pyi-triage-mobile-download-app",
   PYI_TRIAGE_SELECT_DEVICE: "pyi-triage-select-device",
   PYI_TRIAGE_SELECT_SMARTPHONE: "pyi-triage-select-smartphone",
+  REPROVE_IDENTITY_START: "reprove-identity-start",
+  SERVICE_UNAVAILABLE: "service-unavailable",
+  SESSION_ENDED: "session-ended",
+  SORRY_COULD_NOT_CONFIRM_IDENTITY_REPROVE_FAILURE:
+    "sorry-could-not-confirm-identity-reprove-failure",
+  SORRY_COULD_NOT_CONFIRM_DETAILS: "sorry-could-not-confirm-details",
+  SORRY_TECHNICAL_PROBLEM: "sorry-technical-problem",
   UK_DRIVING_LICENCE_DETAILS_NOT_CORRECT:
     "uk-driving-licence-details-not-correct",
   UK_DRIVING_LICENCE_DETAILS_NOT_CORRECT_REPROVE:
     "uk-driving-licence-details-not-correct-reprove",
   UPDATE_DETAILS: "update-details",
+  UPDATE_DETAILS_FAILED: "update-details-failed",
   UPDATE_NAME_DATE_BIRTH: "update-name-date-birth",
   WE_MATCHED_YOU_TO_YOUR_ONE_LOGIN: "we-matched-you-to-your-one-login",
   YOU_CAN_CHANGE_SECURITY_CODE_METHOD: "you-can-change-security-code-method",
-});
+} as const);
+
+export type IpvPageName = (typeof IPV_PAGES)[keyof typeof IPV_PAGES];
 
 export default IPV_PAGES;

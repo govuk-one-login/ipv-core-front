@@ -131,19 +131,6 @@ export const configureNunjucks = (
     },
   );
 
-  nunjucksEnv.addFilter(
-    "addUriEncodedPageContext",
-    function (
-      this: FilterContext,
-      uri: string,
-      pageContext: Record<string, unknown>,
-    ) {
-      return (
-        uri + `?pageContext=${encodeURIComponent(JSON.stringify(pageContext))}`
-      );
-    },
-  );
-
   nunjucksEnv.addFilter("jsonToList", function (str: string) {
     try {
       const parsed = JSON.parse(str.trim().replaceAll(/^'|'$/g, ""));

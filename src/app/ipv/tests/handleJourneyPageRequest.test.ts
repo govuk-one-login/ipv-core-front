@@ -363,7 +363,7 @@ describe("handleJourneyPageRequest", () => {
     // Arrange
     const req = createRequest({
       params: { pageId: IPV_PAGES.PYI_TECHNICAL },
-      query: { pageContext: JSON.stringify({ isUnrecoverable: true }) },
+      query: { isUnrecoverable: "" }, // a truthy value will be written as either ?isUnrecoverable or ?isUnrecoverable=true
       session: {
         ipvSessionId: undefined,
       },

@@ -52,6 +52,7 @@ import {
   AppVcReceiptStatus,
   getAppVcReceiptStatusAndStoreJourneyResponse,
 } from "../vc-receipt-status/middleware";
+import { parseQueryValue } from "../shared/requestHelpers";
 
 const directoryPath = path.resolve("views/ipv/page");
 
@@ -311,22 +312,21 @@ const validateSessionAndPage = async (
   }
 
   // To handle technical error unrecoverable redirection for progress spinner
-  if (pageId === PAGES.PYI_TECHNICAL && req.query?.pageContext) {
-    const parsedPageContext = JSON.parse(req.query.pageContext as string);
+  if (
+    pageId === PAGES.PYI_TECHNICAL &&
+    !!parseQueryValue(req.query?.isUnrecoverable as string | undefined)
+  ) {
+    req.session.currentPage = pageId;
 
-    if (parsedPageContext["isUnrecoverable"]) {
-      req.session.currentPage = pageId;
+    res.render(getIpvPageTemplatePath(pageId), {
+      pageId,
+      csrfToken: req.csrfToken?.(true),
+      pageContext: {
+        isUnrecoverable: true,
+      },
+    });
 
-      res.render(getIpvPageTemplatePath(pageId), {
-        pageId,
-        csrfToken: req.csrfToken?.(true),
-        pageContext: {
-          isUnrecoverable: true,
-        },
-      });
-
-      return false;
-    }
+    return false;
   }
 
   // Check for clientOauthSessionId for recoverable timeout page - specific to cross browser scenario

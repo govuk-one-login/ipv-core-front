@@ -26,7 +26,8 @@ import {
   frontendUiTranslationCy,
   frontendUiTranslationEn,
 } from "@govuk-one-login/frontend-ui";
-import { getTypedPageContext } from "../../types/page-contexts";
+import { getTypedPageContext, PageContextFor } from "../../types/page-contexts";
+import { parseQueryValue } from "../shared/requestHelpers";
 
 interface RadioOption {
   text: string;
@@ -74,39 +75,66 @@ export const allTemplatesPost: RequestHandler = async (req, res) => {
     templateId === undefined ||
     (pagesAndContexts[templateId].length > 0 && pageContext === undefined)
   ) {
-    const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
-
     return res.render(getTemplatePath("development", "all-templates"), {
-      templatesWithContextRadioOptions: templatesWithContextRadioOptions,
+      templatesWithContextRadioOptions: getMappedPageContextRadioOptions(),
       csrfToken: req.csrfToken?.(true),
       errorState: true,
     });
   }
 
-  const language = req.body.language;
-  const hasErrorState = req.body.hasErrorState;
+  const { language, hasErrorState } = req.body;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
   if (pageContext || hasErrorState) {
-    const queryParams: [string, string][] = [];
-    if (pageContext) {
-      queryParams.push(["pageContext", encodeURIComponent(pageContext)]);
-    }
-    if (hasErrorState) {
-      queryParams.push(["pageErrorState", "true"]);
-    }
-    redirectUrl +=
-      "?" + queryParams.map(([key, value]) => `${key}=${value}`).join("&");
+    redirectUrl += `?${buildQueryString(pageContext, hasErrorState)}`;
+  }
+  return res.redirect(redirectUrl);
+};
+
+const buildQueryString = (
+  pageContext: string | undefined,
+  hasErrorState: boolean,
+): string => {
+  const params: [string, string | boolean][] = [];
+
+  if (pageContext) {
+    const parsed = JSON.parse(pageContext) as PageContextFor<DevTemplatePages>;
+    Object.entries(parsed).forEach(([key, value]) => {
+      params.push([key, value]);
+    });
   }
 
-  return res.redirect(redirectUrl);
+  if (hasErrorState) params.push(["pageErrorState", "true"]);
+
+  return params
+    .map(([key, value]) =>
+      typeof value === "string" || (typeof value === "boolean" && !value)
+        ? `${key}=${value}`
+        : key,
+    )
+    .join("&");
+};
+
+const transformPageContextFromQuery = (
+  query: object,
+): Record<string, unknown> | undefined => {
+  const entries = Object.entries(query)
+    .filter(([, value]) => value != undefined)
+    .map(([key, value]) => [key, parseQueryValue(value)]);
+
+  return entries.length === 0 ? undefined : Object.fromEntries(entries);
 };
 
 export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const templateId = req.params.templateId;
   const language = req.params.language;
-  const pageContext = req.query.pageContext
-    ? JSON.parse(req.query.pageContext as string)
+  const pageContext = req.query
+    ? transformPageContextFromQuery({
+        ...req.query,
+        snapshotTest: undefined,
+        errorState: undefined,
+        pageErrorState: undefined,
+      })
     : undefined;
 
   await req.i18n.changeLanguage(language);

@@ -3,6 +3,7 @@ import {
   NO_CONTEXT_VARIANT,
   pagesAndContexts,
 } from "../../src/test-utils/pages-and-contexts";
+import { PageContextFor } from "../../src/types/page-contexts";
 
 type TestFn = (
   pageName: DevTemplatePages,
@@ -23,8 +24,13 @@ export const iteratePagesAndContexts = (test: TestFn): void => {
       for (const language of ["en", "cy"]) {
         let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}?pageErrorState=true&snapshotTest=true`;
         if (contextScenario !== NO_CONTEXT_VARIANT) {
-          const contextValue = Object.values(contextScenario)[0];
-          url += `&pageContext=${encodeURIComponent(JSON.stringify(contextValue))}`;
+          const contextValue = Object.values(
+            contextScenario,
+          )[0] as PageContextFor<DevTemplatePages>;
+          const contextQueryParams = Object.entries(contextValue)
+            .map(([key, value]) => `${key}=${value}`)
+            .join("&");
+          url += `&${contextQueryParams}`;
         }
         test(pageName, contextScenario, language, url);
       }

@@ -34,6 +34,10 @@ const pagesAndContextsStub: {
       { reproveIdentity: { journeyType: "reprove" } },
       NO_CONTEXT_VARIANT,
     ],
+    "pyi-triage-desktop-download-app": [
+      { iphoneAppOnly: { smartphone: "iphone", isAppOnly: true } },
+      { iphone: { smartphone: "iphone", isAppOnly: false } },
+    ],
   },
 };
 const middleware = proxyquire("./middleware", {
@@ -66,6 +70,16 @@ describe("allTemplatesGet", () => {
               value: '{"journeyType":"reprove"}',
             },
             { text: "No context", value: "" },
+          ],
+          "pyi-triage-desktop-download-app": [
+            {
+              text: "iphoneAppOnly",
+              value: '{"smartphone":"iphone","isAppOnly":true}',
+            },
+            {
+              text: "iphone",
+              value: '{"smartphone":"iphone","isAppOnly":false}',
+            },
           ],
         },
         csrfToken: undefined,
@@ -108,6 +122,16 @@ describe("allTemplatesPost", () => {
               },
               { text: "No context", value: "" },
             ],
+            "pyi-triage-desktop-download-app": [
+              {
+                text: "iphoneAppOnly",
+                value: '{"smartphone":"iphone","isAppOnly":true}',
+              },
+              {
+                text: "iphone",
+                value: '{"smartphone":"iphone","isAppOnly":false}',
+              },
+            ],
           },
           csrfToken: undefined,
           errorState: true,
@@ -117,28 +141,45 @@ describe("allTemplatesPost", () => {
     });
   });
 
-  it("should redirect to the correct url if template, context and error state have been chosen", async () => {
-    // Arrange
-    const req = createRequest({
-      body: {
-        template: "delete-handover",
-        language: "en",
-        pageContext: JSON.stringify({
-          journeyType: "reprove",
-        }),
-        hasErrorState: true,
+  [
+    {
+      scenario: "boolean context is true",
+      testContext: {
+        smartphone: "iphone",
+        isAppOnly: true,
       },
+      expectedContextParams: "smartphone=iphone&isAppOnly",
+    },
+    {
+      scenario: "boolean context is false",
+      testContext: {
+        smartphone: "iphone",
+        isAppOnly: false,
+      },
+      expectedContextParams: "smartphone=iphone&isAppOnly=false",
+    },
+  ].forEach(({ scenario, testContext, expectedContextParams }) => {
+    it(`should redirect to the correct url if template, context and error state have been chosen - ${scenario}`, async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          template: "pyi-triage-desktop-download-app",
+          language: "en",
+          pageContext: JSON.stringify(testContext),
+          hasErrorState: true,
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.allTemplatesPost(req, res);
+
+      // Assert
+      expect(res.render).to.not.have.been.called;
+      expect(res.redirect).to.have.been.calledOnceWith(
+        `/dev/template/pyi-triage-desktop-download-app/en?${expectedContextParams}&pageErrorState=true`,
+      );
     });
-    const res = createResponse();
-
-    // Act
-    await middleware.allTemplatesPost(req, res);
-
-    // Assert
-    expect(res.render).to.not.have.been.called;
-    expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/delete-handover/en?pageContext=%7B%22journeyType%22%3A%22reprove%22%7D&pageErrorState=true",
-    );
   });
 
   it("should redirect to the correct url if template is chosen with no available contexts", async () => {
@@ -173,10 +214,8 @@ describe("templatesDisplayGet", () => {
         language: "en",
       },
       query: {
-        pageContext: JSON.stringify({
-          smartphone: validPhoneType,
-          isAppOnly: true,
-        }),
+        smartphone: validPhoneType,
+        isAppOnly: "true",
       },
     });
 

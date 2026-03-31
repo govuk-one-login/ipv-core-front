@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "outDir": "build",
     "inlineSourceMap": true,
-    "types": ["node", "mocha"]
+    "types": ["node", "mocha"],
+    "rootDir": "src"
   },
   "include": ["src"]
 }

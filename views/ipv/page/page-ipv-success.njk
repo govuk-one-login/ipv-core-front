@@ -11,9 +11,9 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"> {{ 'pages.pageIpvSuccess.header' | translate }}</h1>
-  <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithContext(context) }} </p>
+  <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'journeyType') }} </p>
   <p class="govuk-body"> {{ 'pages.pageIpvSuccess.content.paragraph2' | translate }} </p>
-  
+
   {% if enableProgressSpinnerButton %}
     {# New progress button (experiment) #}
     {% set customTimeout = progressSpinnerButtonTimeout %}
@@ -22,7 +22,7 @@
       id: "submitButton",
       translations: translations.translation.progressButton,
       href: "/ipv/journey/" + pageId + "/next",
-      errorPage: "/ipv/page/pyi-technical?context=unrecoverable",
+      errorPage: '/ipv/page/pyi-technical?isUnrecoverable',
       text: ('general.buttons.continueToService' | translate),
       customDevErrorTimeout: customTimeout
     }) }}
@@ -42,4 +42,3 @@
     </script>
   {% endif %}
 {% endblock %}
-

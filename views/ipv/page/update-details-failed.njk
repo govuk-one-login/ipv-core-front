@@ -14,11 +14,11 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.updateDetailsFailed.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.updateDetailsFailed.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'isExistingIdentityInvalid') }}</p>
 
   <form id="updateDetailsFailedActionForm" action="/ipv/page/{{ pageId }}" method="POST">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-         {% if context == "existingIdentityInvalid" %}
+         {% if pageContext.isExistingIdentityInvalid %}
             {% set radioOptions =
               [
                    {

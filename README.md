@@ -37,6 +37,14 @@ https://github.com/govuk-one-login/ipv-core-front.git
 npm install
 ```
 
+### Dependencies on govuk-one-login-frontend
+
+We import common components, functions and middleware from the [govuk-one-login-frontend repository](https://github.com/govuk-one-login/govuk-one-login-frontend/tree/main)
+such as the spinner component, language middleware and our base nunjucks template which is extended by all of Core's pages.
+
+Note: the base template in the above repo depends on nunjucks filters that are defined in this repository. When updating a filter,
+consider if it affects the base nunjucks file and if the change will require multiple deployments to ensure backwards compatibility.
+
 ### Environment variables
 
 This project uses the following environment variables:

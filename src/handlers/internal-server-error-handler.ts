@@ -77,7 +77,7 @@ const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   req.session.currentPage = PAGES.PYI_TECHNICAL;
   res.render(getIpvPageTemplatePath(PAGES.PYI_TECHNICAL), {
-    context: "unrecoverable",
+    pageContext: { isUnrecoverable: true },
   });
 };
 

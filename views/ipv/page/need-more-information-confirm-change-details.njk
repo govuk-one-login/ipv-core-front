@@ -17,8 +17,8 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needMoreInformationConfirmChangeDetails.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph1' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph2' | translateWithContext(context) }}</p>
-  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph3' | translateWithContext(context) }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
   <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph4' | translate }}</p>
 
   {% set detailsHtml %}
@@ -40,7 +40,7 @@
     html: detailsHtml
   }) }}
 
-  {% if context %}
+  {% if pageContext %}
     {%
       set passport = {
         value: "passport",
@@ -62,12 +62,11 @@
         hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToServiceHint' | translate }
       }
     %}
-  {% endif %}
-
-  {% if context == "repeatFraudCheck" %}
-    {% set radioItems = [ passport, returnToRp] %}
-  {% elif context == "updateDetails" %}
-    {% set radioItems = [ continueToService, passport] %}
+    {% if pageContext.journeyType == "repeatFraudCheck" %}
+      {% set radioItems = [ passport, returnToRp] %}
+    {% elif pageContext.journeyType == "updateDetails" %}
+      {% set radioItems = [ continueToService, passport] %}
+    {% endif %}
   {% endif %}
 
   <form id="needMoreInformationConfirmChangeDetailsForm" action="/ipv/page/{{ pageId }}" method="POST">

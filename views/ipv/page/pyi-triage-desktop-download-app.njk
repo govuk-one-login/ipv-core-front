@@ -73,11 +73,7 @@
         </li>
 
         <li>
-          {% if context in ["iphone-appOnly", "android-appOnly"] %}
-            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translateWithContext("AppOnly") %}
-          {% else %}
-            {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translate %}
-          {% endif %}
+          {% set detailsHtml3 = 'pages.pyiTriageDesktopDownload.content.details3.html' | translateWithPageContextOrFallback(pageContext, 'isAppOnly') %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details3.summaryText' | translate,
@@ -93,11 +89,7 @@
         </li>
 
         <li>
-          {% if context in ["iphone-appOnly", "android-appOnly"] %}
-            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translateWithContext("AppOnly") %}
-          {% else %}
-            {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translate %}
-          {% endif %}
+          {% set detailsHtml5 = 'pages.pyiTriageDesktopDownload.content.details5.html' | translateWithPageContextOrFallback(pageContext, 'isAppOnly') %}
 
           {{ govukDetails({
               summaryText: 'pages.pyiTriageDesktopDownload.content.details5.summaryText' | translate,

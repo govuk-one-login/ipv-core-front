@@ -116,7 +116,7 @@ describe("Error handlers", () => {
       // Assert
       expect(res.status).to.have.been.calledOnceWith(HttpStatusCode.BadGateway);
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
-        context: "unrecoverable",
+        pageContext: { isUnrecoverable: true },
       });
     });
 
@@ -161,7 +161,7 @@ describe("Error handlers", () => {
         HttpStatusCode.InternalServerError,
       );
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
-        context: "unrecoverable",
+        pageContext: { isUnrecoverable: true },
       });
     });
 
@@ -179,7 +179,7 @@ describe("Error handlers", () => {
         HttpStatusCode.InternalServerError,
       );
       expect(res.render).to.have.been.calledWith("ipv/page/pyi-technical.njk", {
-        context: "unrecoverable",
+        pageContext: { isUnrecoverable: true },
       });
     });
 

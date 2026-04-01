@@ -210,7 +210,10 @@ describe("handle update details/COI form checkbox", () => {
           // Arrange
           const req = createRequest({
             body: { detailsToUpdate, detailsCorrect },
-            session: { context: "coi", currentPage: "confirm-your-details" },
+            session: {
+              pageContext: { journeyType: "coi" },
+              currentPage: "confirm-your-details",
+            },
           });
           const res = createResponse();
 
@@ -228,7 +231,10 @@ describe("handle update details/COI form checkbox", () => {
       // Arrange
       const req = createRequest({
         body: { detailsToUpdate: "", detailsCorrect: "" },
-        session: { context: "coi", currentPage: "confirm-your-details" },
+        session: {
+          pageContext: { journeyType: "coi" },
+          currentPage: "confirm-your-details",
+        },
       });
       const res = createResponse();
 
@@ -242,7 +248,7 @@ describe("handle update details/COI form checkbox", () => {
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
         {
-          context: "coi",
+          pageContext: { journeyType: "coi" },
           errorState: "radiobox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
@@ -255,7 +261,10 @@ describe("handle update details/COI form checkbox", () => {
       // Arrange
       const req = createRequest({
         body: { detailsToUpdate: "", detailsCorrect: "no" },
-        session: { context: "coi", currentPage: "confirm-your-details" },
+        session: {
+          pageContext: { journeyType: "coi" },
+          currentPage: "confirm-your-details",
+        },
       });
       const res = createResponse();
 
@@ -269,7 +278,7 @@ describe("handle update details/COI form checkbox", () => {
       expect(res.render).to.have.been.calledWith(
         "ipv/page/confirm-your-details.njk",
         {
-          context: "coi",
+          pageContext: { journeyType: "coi" },
           errorState: "checkbox",
           pageId: "confirm-your-details",
           csrfToken: undefined,
@@ -299,7 +308,7 @@ describe("handle update details/COI form checkbox", () => {
     const req = specifyCreateRequest()({
       params: { pageId: "update-details" },
       session: {
-        context: undefined,
+        pageContext: undefined,
         currentPage: "check-name-date-birth",
         save: sinon.fake.yields(null),
       },
@@ -319,7 +328,7 @@ describe("handle update details/COI form checkbox", () => {
         errorState: "radiobox",
         pageId: "check-name-date-birth",
         csrfToken: undefined,
-        context: undefined,
+        pageContext: undefined,
       },
     );
   });

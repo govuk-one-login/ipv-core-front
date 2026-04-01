@@ -20,6 +20,28 @@ interface FilterContext {
   };
 }
 
+function getPageContextValue(
+  pageContext: Record<string, unknown>,
+  contextKey: string,
+): string | null {
+  if (!pageContext) return null;
+
+  const contextValue = pageContext[contextKey];
+
+  if (typeof contextValue == "boolean") {
+    // If the context is a boolean flag and it exists, the context is still
+    // valid (hence we don't return null) but we only want to enable it
+    // if the flag is set to true
+    return contextValue ? kebabCaseToPascalCase(contextKey) : "";
+  }
+
+  if (typeof contextValue == "string") {
+    return kebabCaseToPascalCase(contextValue);
+  }
+
+  return null;
+}
+
 export const configureNunjucks = (
   nunjucksOptions: ConfigureOptions = {},
   appViews: string[] = VIEWS,
@@ -29,6 +51,9 @@ export const configureNunjucks = (
     ...nunjucksOptions,
   });
 
+  // Note: this is used by our base njk file which is in the govuk-one-login-frontend/frontend-ui
+  // repo. If making changes to this filter, make sure to check if the base template also needs
+  // updating and if it requires multiple deployments.
   nunjucksEnv.addFilter(
     "translate",
     function (this: FilterContext, key, options) {
@@ -37,24 +62,89 @@ export const configureNunjucks = (
     },
   );
 
+  // Note: this is used by our base njk file which is in the govuk-one-login-frontend/frontend-ui
+  // repo. If making changes to this filter, make sure to check if the base template also needs
+  // updating and if it requires multiple deployments.
   nunjucksEnv.addFilter("translateToEnglish", function (key, options) {
     const translate = i18next.getFixedT("en");
     return translate(key, options);
   });
 
+  /**
+   * If context:
+   *   - does not exist in the pageContext object
+   *   - has a boolean value, but it's false
+   *  then, fallback to the translation without the context
+   */
   nunjucksEnv.addFilter(
-    "translateWithContext",
-    function (this: FilterContext, key, context, options) {
+    "translateWithPageContextOrFallback",
+    function (
+      this: FilterContext,
+      key: string,
+      pageContext: Record<string, unknown>,
+      contextKey: string,
+      options,
+    ) {
       const translate = i18next.getFixedT(this.ctx.i18n.language);
-
-      const pascalContext = kebabCaseToPascalCase(context);
-
-      const fullKey = key + pascalContext;
-
-      return translate(fullKey, options);
+      const contextValue = getPageContextValue(pageContext, contextKey) || "";
+      return translate([key + contextValue, key], options);
     },
   );
 
+  /**
+   * If context:
+   *   - does not exist in the pageContext object
+   *   - has a boolean value, but it's false
+   *  then throw an error as there is no fallback
+   */
+  nunjucksEnv.addFilter(
+    "translateWithPageContext",
+    function (
+      this: FilterContext,
+      key: string,
+      pageContext: Record<string, unknown>,
+      contextKey: string,
+      options,
+    ) {
+      const translate = i18next.getFixedT(this.ctx.i18n.language);
+      const contextValue = getPageContextValue(pageContext, contextKey);
+      if (!contextValue) {
+        throw new Error(
+          `Context key ${contextKey} does not exist in pageContext object`,
+        );
+      }
+
+      return translate(key + contextValue, options);
+    },
+  );
+
+  nunjucksEnv.addFilter(
+    "fullKeyWithContext",
+    function (
+      this: FilterContext,
+      key: string,
+      pageContext: Record<string, unknown>,
+      contextKey: string,
+    ) {
+      const contextValue = getPageContextValue(pageContext, contextKey) || "";
+      return key + contextValue;
+    },
+  );
+
+  nunjucksEnv.addFilter("jsonToList", function (str: string) {
+    try {
+      const parsed = JSON.parse(str.trim().replaceAll(/^'|'$/g, ""));
+      const items = Object.entries(parsed)
+        .map(([k, v]) => `<li>${k}: ${v}</li>`)
+        .join("");
+      return `<ul>${items}</ul>`;
+    } catch {
+      return str;
+    }
+  });
+
+  // TODO PYIC-8718: remove this once the ipv-core-base.njk file for core in frontend-ui
+  // has been updated to remove the use of translateWithContextOrFallback
   nunjucksEnv.addFilter(
     "translateWithContextOrFallback",
     function (this: FilterContext, key, context, options) {
@@ -102,7 +192,9 @@ export const configureNunjucks = (
     },
   );
 
-  // Required by the frontend-ui components
+  // Note: these are required by govuk-one-login-frontend/frontend-ui components
+  // If making changes to these filters, make sure to check if the frontend-ui
+  // components also need updating and if it requires multiple deployments
   nunjucksEnv.addGlobal("addLanguageParam", addLanguageParam);
   nunjucksEnv.addGlobal("contactUsUrl", contactUsUrl);
   nunjucksEnv.addGlobal(

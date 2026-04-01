@@ -1,24 +1,38 @@
-import { pagesAndContexts } from "../../src/test-utils/pages-and-contexts";
+import {
+  DevTemplatePages,
+  NO_CONTEXT_VARIANT,
+  pagesAndContexts,
+} from "../../src/test-utils/pages-and-contexts";
+import { PageContextFor } from "../../src/types/page-contexts";
 
 type TestFn = (
-  pageName: string,
-  context: string | undefined,
+  pageName: DevTemplatePages,
+  context: Record<string, object> | typeof NO_CONTEXT_VARIANT,
   language: string,
   url: string,
 ) => void;
 
 export const iteratePagesAndContexts = (test: TestFn): void => {
-  for (const pageName of Object.keys(pagesAndContexts)) {
-    const contexts = pagesAndContexts[pageName];
-    const contextsToTest = contexts.length > 0 ? contexts : [undefined];
+  for (const pageName of Object.keys(
+    pagesAndContexts,
+  ) as Array<DevTemplatePages>) {
+    const pageContexts = pagesAndContexts[pageName];
+    const contextsToTest =
+      pageContexts.length > 0 ? pageContexts : [NO_CONTEXT_VARIANT];
 
-    for (const context of contextsToTest) {
+    for (const contextScenario of contextsToTest) {
       for (const language of ["en", "cy"]) {
         let url = `${process.env.WEBSITE_HOST}/dev/template/${pageName}/${language}?pageErrorState=true&snapshotTest=true`;
-        if (context !== undefined) {
-          url += `&context=${context}`;
+        if (contextScenario !== NO_CONTEXT_VARIANT) {
+          const contextValue = Object.values(
+            contextScenario,
+          )[0] as PageContextFor<DevTemplatePages>;
+          const contextQueryParams = Object.entries(contextValue)
+            .map(([key, value]) => `${key}=${value}`)
+            .join("&");
+          url += `&${contextQueryParams}`;
         }
-        test(pageName, context, language, url);
+        test(pageName, contextScenario, language, url);
       }
     }
   }

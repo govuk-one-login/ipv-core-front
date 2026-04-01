@@ -4,16 +4,16 @@ import fs from "fs";
 import {
   iteratePagesAndContexts
 } from "../data/pagesAndContexts";
-import { pagesAndContexts } from "../../src/test-utils/pages-and-contexts";
+import { NO_CONTEXT_VARIANT, pagesAndContexts } from "../../src/test-utils/pages-and-contexts";
 
 test.describe.parallel("Snapshot tests", () => {
   test.setTimeout(120000);
   iteratePagesAndContexts(
-    (pageName, context, language, url) => {
-      test(`Snapshot test for ${pageName}, context ${context} and language ${language}`, async ({ page }) => {
+    (pageName, contextScenario, language, url) => {
+      test(`Snapshot test for ${pageName}, context ${contextScenario == NO_CONTEXT_VARIANT ? "undefined" : `${JSON.stringify(Object.values(contextScenario)[0])} (${Object.keys(contextScenario)[0]})`} and language ${language}`, async ({ page }) => {
         let screenshotContext = "";
-        if (context !== undefined) {
-          screenshotContext = `-${context}`;
+        if (contextScenario !== NO_CONTEXT_VARIANT) {
+          screenshotContext = `-${Object.keys(contextScenario)[0]}`;
         }
         const screenshotFilename = `${pageName}-${language}${screenshotContext}.jpeg`;
         await page.goto(url);

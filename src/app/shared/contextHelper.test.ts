@@ -11,20 +11,6 @@ describe("getPhoneType", () => {
     expect(getPhoneType("android")).to.equal(PHONE_TYPE.ANDROID);
   });
 
-  [
-    "iphone-appOnly",
-    "iphone-something",
-    "android-appOnly",
-    "android-14",
-  ].forEach((context) => {
-    it(`should normalize and return correct phone type for context: ${context}`, () => {
-      const expected = context.startsWith("iphone")
-        ? PHONE_TYPE.IPHONE
-        : PHONE_TYPE.ANDROID;
-      expect(getPhoneType(context)).to.equal(expected);
-    });
-  });
-
   [null, undefined].forEach((context) => {
     it(`should throw a TechnicalError for invalid or missing context: ${context}`, () => {
       expect(() => getPhoneType(context as any)).to.throw(

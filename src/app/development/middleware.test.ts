@@ -16,15 +16,28 @@ import PAGES from "../../constants/ipv-pages";
 import * as contextHelper from "../shared/contextHelper";
 import * as qrCodeHelper from "../shared/qrCodeHelper";
 import * as appDownloadHelper from "../shared/appDownloadHelper";
+import {
+  NO_CONTEXT_VARIANT,
+  pagesAndContexts,
+} from "../../test-utils/pages-and-contexts";
 
 const createResponse = specifyCreateResponse();
 const createRequest = specifyCreateRequest();
 
 const fsReadDirStub = { readdir: sinon.stub() };
-const pagesAndContextsStub = {
+const pagesAndContextsStub: {
+  pagesAndContexts: Partial<typeof pagesAndContexts>;
+} = {
   pagesAndContexts: {
-    "some-template": [],
-    "another-template": ["context", undefined],
+    "live-in-uk": [],
+    "delete-handover": [
+      { reproveIdentity: { journeyType: "reprove" } },
+      NO_CONTEXT_VARIANT,
+    ],
+    "pyi-triage-desktop-download-app": [
+      { iphoneAppOnly: { smartphone: "iphone", isAppOnly: true } },
+      { iphone: { smartphone: "iphone", isAppOnly: false } },
+    ],
   },
 };
 const middleware = proxyquire("./middleware", {
@@ -33,7 +46,7 @@ const middleware = proxyquire("./middleware", {
 });
 
 beforeEach(() => {
-  fsReadDirStub.readdir.resolves(["some-template.njk", "another-template.njk"]);
+  fsReadDirStub.readdir.resolves(["live-in-uk.njk", "delete-handover.njk"]);
 });
 
 describe("allTemplatesGet", () => {
@@ -50,10 +63,23 @@ describe("allTemplatesGet", () => {
       "development/all-templates.njk",
       {
         templatesWithContextRadioOptions: {
-          "some-template": [],
-          "another-template": [
-            { text: "context", value: "context" },
+          "live-in-uk": [],
+          "delete-handover": [
+            {
+              text: "reproveIdentity",
+              value: '{"journeyType":"reprove"}',
+            },
             { text: "No context", value: "" },
+          ],
+          "pyi-triage-desktop-download-app": [
+            {
+              text: "iphoneAppOnly",
+              value: '{"smartphone":"iphone","isAppOnly":true}',
+            },
+            {
+              text: "iphone",
+              value: '{"smartphone":"iphone","isAppOnly":false}',
+            },
           ],
         },
         csrfToken: undefined,
@@ -72,7 +98,7 @@ describe("allTemplatesPost", () => {
       testCase:
         "a template is chosen but a context is not if there are context options",
       req: createRequest({
-        body: { template: "another-template", pageContext: undefined },
+        body: { template: "delete-handover", pageContext: undefined },
       }),
     },
   ].forEach(({ testCase, req }) => {
@@ -88,10 +114,23 @@ describe("allTemplatesPost", () => {
         "development/all-templates.njk",
         {
           templatesWithContextRadioOptions: {
-            "some-template": [],
-            "another-template": [
-              { text: "context", value: "context" },
+            "live-in-uk": [],
+            "delete-handover": [
+              {
+                text: "reproveIdentity",
+                value: '{"journeyType":"reprove"}',
+              },
               { text: "No context", value: "" },
+            ],
+            "pyi-triage-desktop-download-app": [
+              {
+                text: "iphoneAppOnly",
+                value: '{"smartphone":"iphone","isAppOnly":true}',
+              },
+              {
+                text: "iphone",
+                value: '{"smartphone":"iphone","isAppOnly":false}',
+              },
             ],
           },
           csrfToken: undefined,
@@ -102,33 +141,52 @@ describe("allTemplatesPost", () => {
     });
   });
 
-  it("should redirect to the correct url if template, context and error state have been chosen", async () => {
-    // Arrange
-    const req = createRequest({
-      body: {
-        template: "another-template",
-        language: "en",
-        pageContext: "context",
-        hasErrorState: true,
+  [
+    {
+      scenario: "boolean context is true",
+      testContext: {
+        smartphone: "iphone",
+        isAppOnly: true,
       },
+      expectedContextParams: "smartphone=iphone&isAppOnly",
+    },
+    {
+      scenario: "boolean context is false",
+      testContext: {
+        smartphone: "iphone",
+        isAppOnly: false,
+      },
+      expectedContextParams: "smartphone=iphone&isAppOnly=false",
+    },
+  ].forEach(({ scenario, testContext, expectedContextParams }) => {
+    it(`should redirect to the correct url if template, context and error state have been chosen - ${scenario}`, async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          template: "pyi-triage-desktop-download-app",
+          language: "en",
+          pageContext: JSON.stringify(testContext),
+          hasErrorState: true,
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.allTemplatesPost(req, res);
+
+      // Assert
+      expect(res.render).to.not.have.been.called;
+      expect(res.redirect).to.have.been.calledOnceWith(
+        `/dev/template/pyi-triage-desktop-download-app/en?${expectedContextParams}&pageErrorState=true`,
+      );
     });
-    const res = createResponse();
-
-    // Act
-    await middleware.allTemplatesPost(req, res);
-
-    // Assert
-    expect(res.render).to.not.have.been.called;
-    expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/another-template/en?context=context&pageErrorState=true",
-    );
   });
 
   it("should redirect to the correct url if template is chosen with no available contexts", async () => {
     // Arrange
     const req = createRequest({
       body: {
-        template: "some-template",
+        template: "live-in-uk",
         language: "en",
         hasErrorState: false,
       },
@@ -141,7 +199,7 @@ describe("allTemplatesPost", () => {
     // Assert
     expect(res.render).to.not.have.been.called;
     expect(res.redirect).to.have.been.calledOnceWith(
-      "/dev/template/some-template/en",
+      "/dev/template/live-in-uk/en",
     );
   });
 });
@@ -149,7 +207,6 @@ describe("allTemplatesPost", () => {
 describe("templatesDisplayGet", () => {
   it("should get phone type and generate QR code for PYI_TRIAGE_DESKTOP_DOWNLOAD_APP", async () => {
     // Arrange
-    const context = "iphone-appOnly";
     const validPhoneType = "iphone";
     const req = createRequest({
       params: {
@@ -157,7 +214,8 @@ describe("templatesDisplayGet", () => {
         language: "en",
       },
       query: {
-        context,
+        smartphone: validPhoneType,
+        isAppOnly: "true",
       },
     });
 
@@ -183,7 +241,7 @@ describe("templatesDisplayGet", () => {
     await middleware.templatesDisplayGet(req, res);
 
     // Assert
-    expect(getPhoneTypeStub).to.have.been.calledOnceWith(context);
+    expect(getPhoneTypeStub).to.have.been.calledOnceWith(validPhoneType);
     expect(getAppStoreRedirectUrlStub).to.have.been.calledOnceWith(
       validPhoneType,
     );

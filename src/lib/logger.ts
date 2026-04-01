@@ -78,7 +78,7 @@ const addRequestContext = (
   requestId: req.id,
   ipvSessionId: req.session?.ipvSessionId,
   sessionId: req.session?.id,
-  context: req.session?.context ?? undefined,
+  context: req.session?.pageContext ?? undefined,
 });
 
 export const loggerMiddleware: RequestHandler = pinoHttp({

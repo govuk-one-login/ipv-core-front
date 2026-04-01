@@ -36,7 +36,7 @@
         text: 'pages.pageUpdateName.content.nameMistakeInformation.text' | translate( { url: contactUsUrl } ) | safe
       }) }}
 
-  {% if context != "repeatFraudCheck" %}
+  {% if not pageContext %}
     <h2 class="govuk-heading-m">{{ 'pages.pageUpdateName.content.subHeading1' | translate }}</h2>
     <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph4' | translate }}</p>
     <p class="govuk-body">{{ 'pages.pageUpdateName.content.paragraph5' | translate }}</p>
@@ -62,8 +62,8 @@
         },
         {
           value: "end",
-          text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonText' | translateWithContext(context),
-          hint: { text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonTextHint' | translateWithContext(context) }
+          text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonText' | translateWithPageContextOrFallback(pageContext, 'journeyType'),
+          hint: { text: 'pages.pageUpdateName.content.formRadioButtons.continueServiceButtonTextHint' | translateWithPageContextOrFallback(pageContext, 'journeyType') }
         },
         {
           divider: 'pages.pageUpdateName.content.formRadioButtons.separateOptionsInFormText' | translate

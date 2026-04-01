@@ -15,13 +15,19 @@ import {
   getIpvPageTemplatePath,
   getTemplatePath,
 } from "../../lib/paths";
-import { pagesAndContexts } from "../../test-utils/pages-and-contexts";
+import {
+  DevTemplatePages,
+  NO_CONTEXT_VARIANT,
+  pagesAndContexts,
+} from "../../test-utils/pages-and-contexts";
 import ERROR_PAGES from "../../constants/error-pages";
 import config from "../../config/config";
 import {
   frontendUiTranslationCy,
   frontendUiTranslationEn,
 } from "@govuk-one-login/frontend-ui";
+import { getTypedPageContext, PageContextFor } from "../../types/page-contexts";
+import { parseQueryValue } from "../shared/requestHelpers";
 
 interface RadioOption {
   text: string;
@@ -36,66 +42,100 @@ export const allTemplatesGet: RequestHandler = async (req, res) => {
   });
 };
 
-const getMappedPageContextRadioOptions = (): Record<
-  keyof typeof pagesAndContexts,
-  RadioOption[]
-> => {
-  const templatesWithContextRadioOptions: Record<
-    keyof typeof pagesAndContexts,
-    RadioOption[]
-  > = {};
+const getMappedPageContextRadioOptions = (): Record<string, RadioOption[]> => {
+  const templatesWithContextRadioOptions: Record<string, RadioOption[]> = {};
 
   // Get all contexts for all pages and map to radio option objects for the GOV.UK Design System nunjucks template
   for (const [page, contexts] of Object.entries(pagesAndContexts)) {
-    templatesWithContextRadioOptions[page] = contexts.map((context) => ({
-      text: context ?? "No context",
-      value: context ?? "",
-    }));
+    templatesWithContextRadioOptions[page] = contexts.map(
+      (contextLabelAndValue) => {
+        if (contextLabelAndValue === NO_CONTEXT_VARIANT) {
+          return { text: "No context", value: "" };
+        }
+
+        const label = Object.keys(contextLabelAndValue)[0];
+        return {
+          text: label,
+          value: JSON.stringify(contextLabelAndValue[label]),
+        };
+      },
+    );
   }
 
   return templatesWithContextRadioOptions;
 };
 
 export const allTemplatesPost: RequestHandler = async (req, res) => {
-  const context = req.body.pageContext;
-  const templateId = req.body.template;
+  const pageContext = req.body.pageContext;
+  const templateId = req.body.template
+    ? (req.body.template as DevTemplatePages)
+    : undefined;
 
   if (
     templateId === undefined ||
-    (pagesAndContexts[req.body.template].length > 0 && context === undefined)
+    (pagesAndContexts[templateId].length > 0 && pageContext === undefined)
   ) {
-    const templatesWithContextRadioOptions = getMappedPageContextRadioOptions();
-
     return res.render(getTemplatePath("development", "all-templates"), {
-      templatesWithContextRadioOptions: templatesWithContextRadioOptions,
+      templatesWithContextRadioOptions: getMappedPageContextRadioOptions(),
       csrfToken: req.csrfToken?.(true),
       errorState: true,
     });
   }
 
-  const language = req.body.language;
-  const hasErrorState = req.body.hasErrorState;
+  const { language, hasErrorState } = req.body;
 
   let redirectUrl = `/dev/template/${encodeURIComponent(templateId)}/${encodeURIComponent(language)}`;
-  if (context || hasErrorState) {
-    const queryParams: [string, string][] = [];
-    if (context) {
-      queryParams.push(["context", encodeURIComponent(context)]);
-    }
-    if (hasErrorState) {
-      queryParams.push(["pageErrorState", "true"]);
-    }
-    redirectUrl +=
-      "?" + queryParams.map(([key, value]) => `${key}=${value}`).join("&");
+  if (pageContext || hasErrorState) {
+    redirectUrl += `?${buildQueryString(pageContext, hasErrorState)}`;
+  }
+  return res.redirect(redirectUrl);
+};
+
+const buildQueryString = (
+  pageContext: string | undefined,
+  hasErrorState: boolean,
+): string => {
+  const params: [string, string | boolean][] = [];
+
+  if (pageContext) {
+    const parsed = JSON.parse(pageContext) as PageContextFor<DevTemplatePages>;
+    Object.entries(parsed).forEach(([key, value]) => {
+      params.push([key, value]);
+    });
   }
 
-  return res.redirect(redirectUrl);
+  if (hasErrorState) params.push(["pageErrorState", "true"]);
+
+  return params
+    .map(([key, value]) =>
+      typeof value === "string" || (typeof value === "boolean" && !value)
+        ? `${key}=${value}`
+        : key,
+    )
+    .join("&");
+};
+
+const transformPageContextFromQuery = (
+  query: object,
+): Record<string, unknown> | undefined => {
+  const entries = Object.entries(query)
+    .filter(([, value]) => value != undefined)
+    .map(([key, value]) => [key, parseQueryValue(value)]);
+
+  return entries.length === 0 ? undefined : Object.fromEntries(entries);
 };
 
 export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const templateId = req.params.templateId;
   const language = req.params.language;
-  const context = req.query.context;
+  const pageContext = req.query
+    ? transformPageContextFromQuery({
+        ...req.query,
+        snapshotTest: undefined,
+        errorState: undefined,
+        pageErrorState: undefined,
+      })
+    : undefined;
 
   await req.i18n.changeLanguage(language);
   res.locals.currentLanguage = language;
@@ -105,7 +145,7 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   const renderOptions: Record<string, unknown> = {
     templateId,
     csrfToken: req.csrfToken?.(true),
-    context,
+    pageContext,
     errorState: req.query.errorState,
     pageErrorState: req.query.pageErrorState,
     translations: {
@@ -134,8 +174,6 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     );
   }
 
-  const phoneType = context ? (context as string) : undefined;
-
   // 👇 Detect query flags and forward them to the spinner's API URL
   const isSnapshotTest = req.query.snapshotTest === "true";
   const apiUrlParams = new URLSearchParams();
@@ -153,7 +191,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
   if (templateId === PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP) {
     renderOptions.apiUrl = apiUrl;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
-    const validPhoneType = getPhoneType(phoneType);
+    const smartphone = getTypedPageContext(templateId, pageContext)?.smartphone;
+    const validPhoneType = getPhoneType(smartphone);
     renderOptions.qrCode = await generateQrCodeImageData(
       getAppStoreRedirectUrl(validPhoneType),
     );
@@ -162,7 +201,8 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
       config.SPINNER_REQUEST_LONG_WAIT_INTERVAL;
     renderOptions.msBeforeAbort = config.DAD_SPINNER_REQUEST_TIMEOUT;
   } else if (templateId === PAGES.PYI_TRIAGE_MOBILE_DOWNLOAD_APP) {
-    const validPhoneType = getPhoneType(phoneType);
+    const smartphone = getTypedPageContext(templateId, pageContext)?.smartphone;
+    const validPhoneType = getPhoneType(smartphone);
     renderOptions.appDownloadUrl = getAppStoreRedirectUrl(validPhoneType);
   } else if (templateId === PAGES.CHECK_MOBILE_APP_RESULT) {
     renderOptions.apiUrl = apiUrl;

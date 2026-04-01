@@ -2,7 +2,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% set pageTitleKey = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.title' %}
+{% set pageTitleKey = 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.title' | fullKeyWithContext(pageContext, 'reason') %}
 {% set googleTagManagerPageId = "noPhotoIdSecurityQuestionsFindAnotherWay" %}
 {% set isPageDynamic = true %}
 
@@ -19,8 +19,8 @@
 {% endset %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.header' | translateWithContext(context) }}</h1>
-  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithContext(context) }}</p>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.header' | translateWithPageContextOrFallback(pageContext, 'reason') }}</h1>
+  <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
 
   <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.noPhotoIdSecurityQuestionsFindAnotherWay.content.paragraph2' | translate }}</p>

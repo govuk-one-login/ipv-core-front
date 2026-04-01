@@ -352,122 +352,184 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
-  it("should not display banner if config has context but the request does not", async () => {
+  [
+    {
+      scenario:
+        "config has context but the request does not - session pageContext is undefined",
+      sessionPageContext: undefined,
+      bannerConfigPageContexts: [{ notMatchingContext: true }],
+    },
+    {
+      scenario:
+        "config has context but the request does not - session pageContext is an empty object",
+      sessionPageContext: {},
+      bannerConfigPageContexts: [{ notMatchingContext: true }],
+    },
+    {
+      scenario:
+        "config has no context but the request does - banner config contexts is an empty array",
+      sessionPageContext: { notMatchingContext: true },
+      bannerConfigPageContexts: [],
+    },
+    {
+      scenario:
+        "config has no context but the request does - banner config contexts is undefined",
+      sessionPageContext: { notMatchingContext: true },
+      bannerConfigPageContexts: undefined,
+    },
+    {
+      scenario:
+        "config context is not an exact object match to the context in the request - value doesn't match",
+      sessionPageContext: { notMatchingContext: true },
+      bannerConfigPageContexts: [{ notMatchingContext: false }],
+    },
+    {
+      scenario:
+        "config context is not an exact object match to the context in the request - value matches but there's an unmatched property",
+      sessionPageContext: { notMatchingContext: true },
+      bannerConfigPageContexts: [
+        { notMatchingContext: true, journeyType: "coi" },
+      ],
+    },
+  ].forEach(
+    ({
+      scenario,
+      sessionPageContext,
+      bannerConfigPageContexts,
+    }: {
+      scenario: string;
+      sessionPageContext?: Record<string, unknown>;
+      bannerConfigPageContexts?: Record<string, unknown>[];
+    }) => {
+      it(`should not display banner if ${scenario}`, async () => {
+        // Arrange
+        const req = createRequest();
+        req.session.pageContext = sessionPageContext;
+        const res = createResponse();
+        parameterServiceStub.getParameter = sinon.fake.resolves(
+          JSON.stringify([
+            {
+              pages: [
+                { pageId: "/some-page", contexts: bannerConfigPageContexts },
+              ],
+              bannerMessage: "Test banner",
+              bannerMessageCy: "Welsh Test banner",
+              startTime: beforeNow,
+              endTime: afterNow,
+            },
+          ]),
+        );
+
+        // Act
+        await underTest(req, res, next);
+
+        // Assert
+        expect(res.locals.displayBanner).to.be.false;
+        expect(next).to.have.been.calledOnce;
+      });
+    },
+  );
+
+  [
+    {
+      scenario: "config and request have the exact same context",
+      sessionPageContext: {
+        matchingContextBoolean: true,
+        matchingContextString: "matched",
+      },
+      bannerConfigPageContexts: [
+        { matchingContextBoolean: true, matchingContextString: "matched" },
+      ],
+    },
+    {
+      scenario:
+        "config and request have a matching context and banner config contexts is multi-valued",
+      sessionPageContext: { matchingContext: true },
+      bannerConfigPageContexts: [
+        { matchingContext: true },
+        { nonMatchingContext: "test" },
+      ],
+    },
+    {
+      scenario:
+        "request has no context and config has no context - banner config context is undefined",
+      sessionPageContext: undefined,
+      bannerConfigPageContexts: undefined,
+    },
+    {
+      scenario:
+        "request has no context and config has no context - banner config context contains empty object",
+      sessionPageContext: undefined,
+      bannerConfigPageContexts: [{}],
+    },
+    {
+      scenario: "request has no context and config has matching empty variant",
+      sessionPageContext: undefined,
+      bannerConfigPageContexts: [
+        { noMatchingContext: true },
+        { nonMatchingContext: "test" },
+        {},
+      ],
+    },
+  ].forEach(
+    ({
+      scenario,
+      sessionPageContext,
+      bannerConfigPageContexts,
+    }: {
+      scenario: string;
+      sessionPageContext?: Record<string, unknown>;
+      bannerConfigPageContexts?: Record<string, unknown>[];
+    }) => {
+      it(`should display banner if ${scenario}`, async () => {
+        // Arrange
+        const req = createRequest();
+        req.session.pageContext = sessionPageContext;
+        const res = createResponse();
+        parameterServiceStub.getParameter = sinon.fake.resolves(
+          JSON.stringify([
+            {
+              pages: [
+                { pageId: "/some-page", contexts: bannerConfigPageContexts },
+              ],
+              bannerMessage: "Test banner",
+              bannerMessageCy: "Welsh Test banner",
+              startTime: beforeNow,
+              endTime: afterNow,
+            },
+          ]),
+        );
+
+        // Act
+        await underTest(req, res, next);
+
+        // Assert
+        expect(res.locals.displayBanner).to.be.true;
+        expect(next).to.have.been.calledOnce;
+      });
+    },
+  );
+
+  it("should display correct banner if multiple banners configured for different contexts", async () => {
     // Arrange
     const req = createRequest();
-    const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page", contexts: ["notMatchingContext"] }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
-
-    // Act
-    await underTest(req, res, next);
-
-    // Assert
-    expect(res.locals.displayBanner).to.be.false;
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should not display banner if config has no context but the request does", async () => {
-    // Arrange
-    const req = createRequest();
-    req.session.context = "notMatchingContext";
-    const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
-
-    // Act
-    await underTest(req, res, next);
-
-    // Assert
-    expect(res.locals.displayBanner).to.be.false;
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should display banner if config and request have the same context", async () => {
-    // Arrange
-    const req = createRequest();
-    req.session.context = "matchingContext";
-    const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page", contexts: ["matchingContext"] }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
-
-    // Act
-    await underTest(req, res, next);
-
-    // Assert
-    expect(res.locals.displayBanner).to.be.true;
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should display banner if config has blank and non-blank contexts and request has no context", async () => {
-    // Arrange
-    const req = createRequest();
+    req.session.pageContext = { matchingContext: true };
     const res = createResponse();
     parameterServiceStub.getParameter = sinon.fake.resolves(
       JSON.stringify([
         {
           pages: [
-            { pageId: "/some-page", contexts: ["notMatchingContext", ""] },
+            { pageId: "/some-page", contexts: [{ matchingContext: true }] },
           ],
           bannerMessage: "Test banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,
           endTime: afterNow,
         },
-      ]),
-    );
-
-    // Act
-    await underTest(req, res, next);
-
-    // Assert
-    expect(res.locals.displayBanner).to.be.true;
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should display correct banner if multiple banners configured for different contexts", async () => {
-    // Arrange
-    const req = createRequest();
-    req.session.context = "matchingContext";
-    const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
         {
-          pages: [{ pageId: "/some-page", contexts: ["matchingContext"] }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-        {
-          pages: [{ pageId: "/some-page", contexts: ["notMatchingContext"] }],
+          pages: [
+            { pageId: "/some-page", contexts: [{ matchingContext: false }] },
+          ],
           bannerMessage: "Bad banner",
           bannerMessageCy: "Welsh Test banner",
           startTime: beforeNow,

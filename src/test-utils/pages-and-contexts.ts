@@ -1,113 +1,174 @@
-export const pagesAndContexts: Record<string, (string | undefined)[]> = {
+import { PageContextFor } from "../types/page-contexts";
+import { IpvPageName } from "../constants/ipv-pages";
+
+export const NO_CONTEXT_VARIANT = {} as const;
+
+type ContextVariant<K extends IpvPageName> = Record<string, PageContextFor<K>>;
+
+type PagesAndContexts = Omit<
+  {
+    [K in IpvPageName]: ContextVariant<K>[];
+  },
+  "identify-device"
+>;
+
+export const pagesAndContexts: PagesAndContexts = {
   "check-mobile-app-result": [],
   "confirm-your-details": [],
   "problem-different-browser": [],
-  "delete-handover": ["reproveIdentity", undefined],
+  "delete-handover": [
+    { reproveIdentity: { journeyType: "reprove" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "live-in-uk": [],
   "need-id-prove-identity-again-app": [],
   "need-prove-identity-again-app": [],
   "need-prove-identity-again-no-app": [],
   "no-photo-id-abandon-find-another-way": [],
   "no-photo-id-exit-find-another-way": [],
-  "no-photo-id-security-questions-find-another-way": ["dropout", undefined],
+  "no-photo-id-security-questions-find-another-way": [
+    { dropout: { reason: "dropout" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "non-uk-no-app-options": [],
   "non-uk-app-intro": [],
   "non-uk-no-app": [],
   "non-uk-no-passport": [],
   "non-uk-passport": [],
-  "page-dcmaw-success": ["coiNoAddress", undefined],
+  "page-dcmaw-success": [
+    { coiNoAddress: { noAddress: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-face-to-face-handoff": [],
   "page-ipv-identity-document-start": [],
   "page-ipv-identity-document-types": [],
   "page-ipv-identity-postoffice-start": [],
-  "page-ipv-pending": ["f2f-delete-details", undefined],
+  "page-ipv-pending": [
+    { "f2f-delete-details": { allowDeleteDetails: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-ipv-reuse": [],
-  "page-ipv-success": ["repeatFraudCheck", "updateIdentity", undefined],
-  "page-multiple-doc-check": ["nino", undefined],
+  "page-ipv-success": [
+    { repeatFraudCheck: { journeyType: "coi" } },
+    { updateIdentity: { journeyType: "coi" } },
+    NO_CONTEXT_VARIANT,
+  ],
+  "page-multiple-doc-check": [
+    { nino: { allowNino: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-pre-dwp-kbv-transition": [],
   "page-pre-experian-kbv-transition": [],
-  "page-update-name": ["repeatFraudCheck", undefined],
+  "page-update-name": [
+    { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-different-security-questions": [],
   "page-not-found": [],
   "personal-independence-payment": [],
-  "photo-id-security-questions-find-another-way": ["dropout", undefined],
+  "photo-id-security-questions-find-another-way": [
+    { dropout: { reason: "dropout" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "prove-identity-again-app": [],
-  "prove-identity-another-type-photo-id": ["drivingLicence", "passport"],
-  "prove-identity-another-way": ["noF2f", undefined],
-  "prove-identity-no-other-photo-id": ["drivingLicence", "passport"],
-  "prove-identity-no-photo-id": ["nino", undefined],
+  "prove-identity-another-type-photo-id": [
+    { drivingLicence: { invalidDoc: "drivingLicence" } },
+    { passport: { invalidDoc: "passport" } },
+  ],
+  "prove-identity-another-way": [
+    { noF2f: { removeF2f: true } },
+    NO_CONTEXT_VARIANT,
+  ],
+  "prove-identity-no-other-photo-id": [
+    { drivingLicence: { invalidDoc: "drivingLicence" } },
+    { passport: { invalidDoc: "passport" } },
+  ],
+  "prove-identity-no-photo-id": [
+    { nino: { ninoOnly: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "pyi-another-way": [],
   "pyi-attempt-recovery": [],
   "pyi-confirm-delete-details": [],
   "pyi-continue-with-driving-licence": [],
   "pyi-continue-with-passport": [],
-  "pyi-details-deleted": ["f2f", undefined],
+  "pyi-details-deleted": [{ f2f: { journeyType: "f2f" } }, NO_CONTEXT_VARIANT],
   "pyi-driving-licence-no-match-another-way": [],
   "pyi-driving-licence-no-match": [],
   "pyi-escape": [],
   "pyi-f2f-delete-details": [],
   "pyi-f2f-technical": [],
   "pyi-no-match": [
-    "bankAccount",
-    "nino",
-    "updateDetails",
-    "repeatFraudCheck",
-    undefined,
+    { bankAccount: { reason: "bankAccount" } },
+    { nino: { reason: "nino" } },
+    { updateDetails: { reason: "updateDetails" } },
+    { repeatFraudCheck: { reason: "repeatFraudCheck" } },
+    NO_CONTEXT_VARIANT,
   ],
   "pyi-passport-no-match-another-way": [],
   "pyi-passport-no-match": [],
   "pyi-post-office": [],
-  "pyi-technical": ["unrecoverable", undefined],
+  "pyi-technical": [
+    { unrecoverable: { isUnrecoverable: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "pyi-timeout-recoverable": [],
   "pyi-timeout-unrecoverable": [],
   "pyi-triage-buffer": [],
   "pyi-triage-desktop-download-app": [
-    "android",
-    "iphone",
-    "android-appOnly",
-    "iphone-appOnly",
+    { android: { smartphone: "android", isAppOnly: false } },
+    { iphone: { smartphone: "iphone", isAppOnly: false } },
+    { "android-appOnly": { smartphone: "android", isAppOnly: true } },
+    { "iphone-appOnly": { smartphone: "iphone", isAppOnly: true } },
   ],
   "pyi-triage-mobile-download-app": [
-    "android",
-    "iphone",
-    "android-appOnly",
-    "iphone-appOnly",
+    { android: { smartphone: "android", isAppOnly: false } },
+    { iphone: { smartphone: "iphone", isAppOnly: false } },
+    { "android-appOnly": { smartphone: "android", isAppOnly: true } },
+    { "iphone-appOnly": { smartphone: "iphone", isAppOnly: true } },
   ],
   "pyi-triage-select-device": [],
-  "pyi-triage-select-smartphone": ["mam", "dad"],
+  "pyi-triage-select-smartphone": [
+    { mam: { deviceType: "mam" } },
+    { dad: { deviceType: "dad" } },
+  ],
   "reprove-identity-start": [],
   "service-unavailable": [],
   "session-ended": [],
   "sorry-could-not-confirm-details": [
-    "deleteDetailsReuse",
-    "existingIdentityValid",
-    "existingIdentityInvalid",
-    undefined,
+    { existingIdentityValid: { isExistingIdentityValid: true } },
+    { existingIdentityInvalid: { isExistingIdentityValid: false } },
+    NO_CONTEXT_VARIANT,
   ],
   "sorry-could-not-confirm-identity-reprove-failure": [],
   "sorry-technical-problem": [
-    "f2fCriError",
-    "kbvCriError",
-    "dlOrPassportMitigation",
-    "kbvMitigation",
-    undefined,
+    { f2fCriError: { reason: "f2fCriError" } },
+    { kbvCriError: { reason: "kbvCriError" } },
+    { dlOrPassportMitigation: { reason: "dlOrPassportMitigation" } },
+    { kbvMitigation: { reason: "kbvMitigation" } },
+    NO_CONTEXT_VARIANT,
   ],
-  "update-details-failed": ["existingIdentityInvalid", undefined],
+  "update-details-failed": [
+    { existingIdentityInvalid: { isExistingIdentityInvalid: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "update-details": [],
   "update-name-date-birth": [
-    "repeatFraudCheck",
-    "reuse",
-    "rfcAccountDeletion",
-    undefined,
+    { reuse: { journeyType: "reuse" } },
+    { rfcAccountDeletion: { journeyType: "rfc" } },
+    NO_CONTEXT_VARIANT,
   ],
-  "uk-driving-licence-details-not-correct": ["strategicApp", undefined],
+  "uk-driving-licence-details-not-correct": [
+    { strategicApp: { isFromStrategicApp: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "uk-driving-licence-details-not-correct-reprove": [],
   "need-more-information-confirm-change-details": [
-    "repeatFraudCheck",
-    "updateDetails",
+    { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
+    { updateDetails: { journeyType: "updateDetails" } },
   ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
-} as const;
+};
 
-export type PageName = keyof typeof pagesAndContexts;
+export type DevTemplatePages = keyof typeof pagesAndContexts;

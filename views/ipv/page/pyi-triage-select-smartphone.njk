@@ -3,7 +3,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% set pageTitleKey = 'pages.pyiTriageSelectSmartphone.title' | translateWithContext(context) %}
+{% set pageTitleKey = 'pages.pyiTriageSelectSmartphone.title' | fullKeyWithContext(pageContext, 'deviceType') %}
 
 {% set googleTagManagerPageId = "pyiTriageSelectSmartphone" %}
 
@@ -16,14 +16,14 @@
 {% set hrefBack = "/ipv/journey/pyi-triage-select-smartphone/back" %}
 
 {% set isPageDataSensitive = false %}
-{% if context == "mam" %}
+{% if pageContext.deviceType == "mam" %}
   {% set contentID = '173ba833-aa88-42c8-aba0-8b9eb6b55079' %}
-{% elif context == "dad" %}
+{% elif pageContext.deviceType == "dad" %}
   {% set contentID = 'f6756787-3e1a-4ddb-b733-e1e67cc0ab8b' %}
 {% endif %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translateWithContext(context) }}</h1>
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiTriageSelectSmartphone.header' | translateWithPageContext(pageContext, 'deviceType') }}</h1>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph1' | translate }}</p>
   <p class="govuk-body">{{ 'pages.pyiTriageSelectSmartphone.content.paragraph2' | translate }}</p>
 
@@ -39,22 +39,22 @@
       name: "journey",
       fieldset: {
         legend: {
-          text: 'pages.pyiTriageSelectSmartphone.content.subHeading1' | translateWithContext(context),
+          text: 'pages.pyiTriageSelectSmartphone.content.subHeading1' | translateWithPageContext(pageContext, 'deviceType'),
           classes: "govuk-fieldset__legend--m"
         }
       },
       items: [
         {
           value: "iphone",
-          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.iphoneButtonText' | translateWithContext(context)
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.iphoneButtonText' | translateWithPageContext(pageContext, 'deviceType')
         },
         {
           value: "android",
-          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.androidButtonText' | translateWithContext(context)
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.androidButtonText' | translateWithPageContext(pageContext, 'deviceType')
         },
         {
           value: "neither",
-          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.neitherButtonText' | translateWithContext(context)
+          text: 'pages.pyiTriageSelectSmartphone.content.formRadioButtons.neitherButtonText' | translateWithPageContext(pageContext, 'deviceType')
         }
       ]
     } %}

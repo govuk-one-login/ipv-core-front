@@ -316,6 +316,14 @@ const validateSessionAndPage = async (
     pageId === PAGES.PYI_TECHNICAL &&
     !!parseQueryValue(req.query?.isUnrecoverable as string | undefined)
   ) {
+    req.log.info({
+      message: {
+        description: "Handling frontend redirect to unrecoverable error page",
+      },
+      level: "INFO",
+      requestId: req.id,
+    });
+
     req.session.currentPage = pageId;
 
     res.render(getIpvPageTemplatePath(pageId), {

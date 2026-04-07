@@ -103,16 +103,19 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK One Login app, you can use a:",
-      "paragraph2": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK One Login app only.",
-      "paragraph3": "At a Post Office, you can use a:",
+      "paragraph2": "You can use an expired photocard driving licence with the GOV.UK One Login app if it:",
+      "list1": "expired in the last 90 days",
+      "list2": "was issued by DVLA (see section 4c on your licence)",
+      "paragraph3": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date with the GOV.UK One Login app.",
+      "paragraph4": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
         "European Union (EU) photocard driving licence",
         "UK passport",
         "non-UK passport",
-        "National identity card from the EU, Norway, Iceland or Liechtenstein"
+        "national identity card from the EU, Norway, Iceland or Liechtenstein"
       ],
-      "paragraph4": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
+      "paragraph5": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
     }
   },
   "pages": {

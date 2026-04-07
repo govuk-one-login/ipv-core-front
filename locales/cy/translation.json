@@ -103,16 +103,19 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "Ar gyfer yr ap GOV.UK One Login, gallwch ddefnyddio:",
-      "paragraph2": "Gallwch ond defnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login.",
-      "paragraph3": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
+      "paragraph2": "Gallwch ddefnyddio trwydded yrru cerdyn llun sydd wedi dod i ben gyda'r ap GOV.UK One Login os yw:",
+      "list1": "wedi dod i ben yn ystod y 90 diwrnod diwethaf",
+      "list2": "wedi'i gyhoeddi gan DVLA (gweler adran 4c ar eich trwydded)",
+      "paragraph3": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda'r ap GOV.UK One Login",
+      "paragraph4": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
       "postOfficeDocumentList": [
         "trwydded yrru cerdyn-llun y DU",
         "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
         "pasbort y DU",
         "pasbort o’r tu allan i’r DU",
-        "Cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
+        "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
       ],
-      "paragraph4": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben."
+      "paragraph5": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben."
     }
   },
   "pages": {

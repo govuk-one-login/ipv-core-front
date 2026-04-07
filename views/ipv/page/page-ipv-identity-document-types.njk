@@ -35,18 +35,19 @@
     <li>
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading3' | translate }}</h2>
       <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph4' | translate }}</p>
-      <ul class="govuk-list govuk-list--bullet ">
-        {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph5' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph6' | translate }}</p>
+      <ul class="govuk-list  govuk-list--bullet">
+        {% set formattedExpiryDate = documentExpiryDate | GDSDate %}
+        {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.drivingLicenceRequirements' | translate({ expiryDate: formattedExpiryDate, returnObjects: true }) %}
           <li>{{ listItem }}</li>
         {% endfor %}
       </ul>
-      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph5' | translate }}</p>
-
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     </li>
     <li>
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentTypes.content.subHeading4' | translate }}</h2>
-      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph6' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentTypes.content.paragraph7' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet ">
         {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.cardOrPermitRequirements' | translate({ returnObjects: true }) %}
           <li>{{ listItem }}</li>

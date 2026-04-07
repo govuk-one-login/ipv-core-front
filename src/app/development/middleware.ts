@@ -215,6 +215,16 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     renderOptions.postOfficeVisitByDate = defaultDate.setDate(
       defaultDate.getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
     );
+  } else if (
+    templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES ||
+    templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_START
+  ) {
+    // Calculate date: Today minus 90 days
+    const expiryDate = new Date();
+    expiryDate.setDate(
+      expiryDate.getDate() - config.DOCUMENT_EXPIRY_GRACE_PERIOD,
+    );
+    renderOptions.documentExpiryDate = expiryDate.getTime();
   }
 
   return res.render(

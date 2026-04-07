@@ -787,20 +787,22 @@
       "content": {
         "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein drwy roi manylion o unrhyw un o’r canlynol:",
         "requirements": [
-          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
-          "pasbort y DU"
+          "pasbort y DU",
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)"
         ],
         "requirementsAllowNino": [
-          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "’rhif Yswiriant Gwladol"
         ],
         "paragraph2": "Bydd angen i chi hefyd ateb rhai cwestiynau diogelwch. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
         "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
         "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU",
+          "continuePassportButtonHint": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",
+          "continueDrivingLicenceButtonHint": "Ni allwch ddefnyddio trwydded yrru sydd wedi dod i ben.",
           "continueNinoButtonText": "Rhowch eich rhif Yswiriant Gwladol",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"

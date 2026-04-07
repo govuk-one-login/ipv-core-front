@@ -787,20 +787,22 @@
       "content": {
         "paragraph1": "You can continue proving your identity online by entering details from any of the following:",
         "requirements": [
-          "UK photocard driving licence (full or provisional)",
-          "UK passport"
+          "UK passport",
+          "UK photocard driving licence (full or provisional)"
         ],
         "requirementsAllowNino": [
-          "UK photocard driving licence (full or provisional)",
           "UK passport",
+          "UK photocard driving licence (full or provisional)",
           "National Insurance number"
         ],
         "paragraph2": "You’ll also need to answer some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "paragraph3": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK driving licence details",
           "continuePassportButtonText": "Enter your UK passport details",
+          "continuePassportButtonHint": "You can use a UK passport up to 18 months after its expiry date.",
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details",
+          "continueDrivingLicenceButtonHint": "You cannot use an expired driving licence.",
           "continueNinoButtonText": "Enter your National Insurance number",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Prove your identity another way"

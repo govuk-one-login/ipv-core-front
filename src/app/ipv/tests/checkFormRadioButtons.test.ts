@@ -34,12 +34,13 @@ describe("checkFormRadioButtonSelected middleware", () => {
     // Assert
     expect(res.render).to.have.been.calledWith(
       `ipv/page/${req.session.currentPage}.njk`,
-      {
+      sinon.match({
         pageId: req.session.currentPage,
         csrfToken: undefined,
         pageContext: undefined,
         pageErrorState: true,
-      },
+        documentExpiryDate: sinon.match.number,
+      }),
     );
     expect(next).to.have.not.been.calledOnce;
   });

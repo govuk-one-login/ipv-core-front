@@ -426,7 +426,6 @@ export const handleJourneyPageRequest = async (
       pageId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES ||
       pageId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_START
     ) {
-      // Calculate date: Today minus 90 days
       const expiryDate = new Date();
       expiryDate.setDate(
         expiryDate.getDate() - config.DOCUMENT_EXPIRY_GRACE_PERIOD,

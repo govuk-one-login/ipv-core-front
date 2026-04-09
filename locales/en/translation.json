@@ -883,10 +883,13 @@
         },
         "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "subHeading3": "UK photocard driving licence",
-        "paragraph5": "You can use a UK driving licence if it has your photo.",
-        "paragraph6": "It can be a full or provisional licence.",
-        "paragraph7": "If your UK driving licence has expired, you can only use it if:",
-        "drivingLicenceRequirements": [
+        "paragraph5": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirements": ["has not expired" ,"has your photo"],
+        "paragraph6": "It can be a full or provisional UK driving licence.",
+        "paragraph5AllowMfaReset": "You can use a UK driving licence if it has your photo.",
+        "paragraph6AllowMfaReset": "It can be a full or provisional licence.",
+        "paragraph7AllowMfaReset": "If your UK driving licence has expired, you can only use it if:",
+        "drivingLicenceRequirementsAllowMfaReset": [
           "it expired on or after {{ expiryDate }}",
           "it was issued by DVLA (see section 4c on your licence)",
           "you have a smartphone"

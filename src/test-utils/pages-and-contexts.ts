@@ -40,7 +40,10 @@ export const pagesAndContexts: PagesAndContexts = {
     NO_CONTEXT_VARIANT,
   ],
   "page-face-to-face-handoff": [],
-  "page-ipv-identity-document-start": [],
+  "page-ipv-identity-document-start": [
+    { mfaReset: { allowMfaReset: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-ipv-identity-document-types": [],
   "page-ipv-identity-postoffice-start": [],
   "page-ipv-pending": [

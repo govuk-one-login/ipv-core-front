@@ -219,7 +219,6 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES ||
     templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_START
   ) {
-    // Use a fixed baseline for Dev/Snapshots (Matches F2F logic above)
     const devBaseDate = new Date("2026-04-07");
     const gracePeriod = config.DOCUMENT_EXPIRY_GRACE_PERIOD || 90;
 

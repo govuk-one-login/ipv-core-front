@@ -143,21 +143,6 @@ export const configureNunjucks = (
     }
   });
 
-  // TODO PYIC-8718: remove this once the ipv-core-base.njk file for core in frontend-ui
-  // has been updated to remove the use of translateWithContextOrFallback
-  nunjucksEnv.addFilter(
-    "translateWithContextOrFallback",
-    function (this: FilterContext, key, context, options) {
-      const translate = i18next.getFixedT(this.ctx.i18n.language);
-
-      const pascalContext = kebabCaseToPascalCase(context);
-
-      const fullKey = key + pascalContext;
-
-      return translate([fullKey, key], options);
-    },
-  );
-
   // allow pushing or adding another attribute to an Object
   nunjucksEnv.addFilter("setAttribute", function (dictionary, key, value) {
     dictionary[key] = value;

@@ -12,7 +12,12 @@
 {% set errorHref = "#noPhotoIdSecurityQuestionsFindAnotherWayForm" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = '562a0ebb-34a0-4db1-b04c-17963686c98c' %}
+
+{% if pageContext.reason == "dropout" %}
+    {% set contentID = '5ed297db-68a9-4915-aaf1-6473b29d0965' %}
+{% else %}
+    {% set contentID = '562a0ebb-34a0-4db1-b04c-17963686c98c' %}
+{% endif %}
 
 {% set photoIdHtml %}
   {% include "components/types-of-photo-id.njk" %}

@@ -11,7 +11,12 @@
 {% set isPageDynamic = true %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = 'fda9b096-7f35-44f6-ba3a-9959a2425a57'%}
+
+{% if pageContext.allowNino %}
+    {% set contentID = '92e2d32e-0e81-41eb-91ef-940da5432b91' %}
+{% else %}
+    {% set contentID = 'fda9b096-7f35-44f6-ba3a-9959a2425a57' %}
+{% endif %}
 
 {% set radioItems = [
     {

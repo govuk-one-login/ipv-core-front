@@ -40,7 +40,7 @@
       <ul class="govuk-list  govuk-list--bullet">
         {% set formattedExpiryDate = documentExpiryDate | GDSDate %}
         {% for listItem in 'pages.pageIpvIdentityDocumentTypes.content.drivingLicenceRequirements' | translate({ expiryDate: formattedExpiryDate, returnObjects: true }) %}
-          <li>{{ listItem }}</li>
+          <li>{{ listItem | safe }}</li>
         {% endfor %}
       </ul>
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">

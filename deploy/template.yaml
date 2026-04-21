@@ -1671,9 +1671,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       OKActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1708,9 +1708,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       OKActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
@@ -1799,9 +1799,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       OKActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       AlarmActions:
-         - !ImportValue build-notifications-WarningAlertsTopicArn
+         - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: 10

@@ -74,7 +74,7 @@
     "uglify-js": "3.19.3"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.1030.0",
+    "@aws-sdk/client-dynamodb": "3.1036.0",
     "@aws-sdk/client-ssm": "3.1030.0",
     "@govuk-one-login/data-vocab": "2.0.0",
     "@govuk-one-login/frontend-analytics": "4.0.5",

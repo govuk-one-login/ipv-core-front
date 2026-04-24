@@ -51,6 +51,7 @@ declare global {
 declare module "express-session" {
   interface SessionData {
     ipvSessionId?: string;
+    previousIpvSessionId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
     pageContext?: Record<string, unknown>;

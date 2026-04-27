@@ -27,6 +27,7 @@ export const setIpvSessionId: RequestHandler = async (req, res, next) => {
   const response = await postSessionInitialise(req, authParams);
 
   req.session.ipvSessionId = response?.data?.ipvSessionId;
+  req.session.previousIpvSessionId = undefined;
 
   return next();
 };

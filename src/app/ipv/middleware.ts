@@ -58,6 +58,7 @@ const directoryPath = path.resolve("views/ipv/page");
 
 const BUILD_CLIENT_OAUTH_RESPONSE_ACTION =
   "/journey/build-client-oauth-response";
+const ORCH_HANDOFF = "orchestrator";
 
 const allTemplates = fs
   .readdirSync(directoryPath)
@@ -120,7 +121,7 @@ export const handleBackendResponse = async (
   }
 
   if (isClientResponse(data) && isValidClientResponse(data)) {
-    req.session.currentPage = "orchestrator";
+    req.session.currentPage = ORCH_HANDOFF;
 
     const message = {
       description:
@@ -132,8 +133,10 @@ export const handleBackendResponse = async (
       req.session.clientOauthSessionId = undefined;
     }
 
+    req.session.previousIpvSessionId = req.session.ipvSessionId;
     req.session.ipvSessionId = undefined;
     const { redirectUrl } = data.client;
+
     return saveSessionAndRedirect(req, res, redirectUrl);
   }
 
@@ -311,17 +314,25 @@ const validateSessionAndPage = async (
     throw new NotFoundError("Invalid page id");
   }
 
-  // To handle technical error unrecoverable redirection for progress spinner
+  // To handle timeout error redirect for progress spinner button component on handoff to Orch
+  // ORCH_HANDOFF is the expected current state here - timeout after initiating redirect to Orch
+  // REUSE/SUCCESS also included in case the component fails or times out prematurely
   if (
     pageId === PAGES.PYI_TECHNICAL &&
-    !!parseQueryValue(req.query?.isUnrecoverable as string | undefined)
+    !!parseQueryValue(req.query?.spinnerTimeout as string | undefined) &&
+    [ORCH_HANDOFF, PAGES.PAGE_IPV_REUSE, PAGES.PAGE_IPV_SUCCESS].includes(
+      req.session.currentPage ?? "",
+    )
   ) {
     req.log.info({
       message: {
-        description: "Handling frontend redirect to unrecoverable error page",
+        description:
+          "Handling progress spinner button timeout redirect to error page",
       },
       level: "INFO",
       requestId: req.id,
+      previousIpvSessionId: req.session.previousIpvSessionId,
+      fromPage: req.session.currentPage,
     });
 
     req.session.currentPage = pageId;

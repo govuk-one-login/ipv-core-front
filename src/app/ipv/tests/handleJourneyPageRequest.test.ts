@@ -359,13 +359,14 @@ describe("handleJourneyPageRequest", () => {
     );
   });
 
-  it("should render pyi-technical with unrecoverable context even if ipvSessionId is missing", async () => {
+  it("should render pyi-technical with unrecoverable context for progress spinner button timeout", async () => {
     // Arrange
     const req = createRequest({
       params: { pageId: IPV_PAGES.PYI_TECHNICAL },
-      query: { isUnrecoverable: "" }, // a truthy value will be written as either ?isUnrecoverable or ?isUnrecoverable=true
+      query: { spinnerTimeout: "" }, // a truthy value will be written as either ?spinnerTimeout or ?spinnerTimeout=true
       session: {
         ipvSessionId: undefined,
+        currentPage: IPV_PAGES.PAGE_IPV_REUSE,
       },
     });
 

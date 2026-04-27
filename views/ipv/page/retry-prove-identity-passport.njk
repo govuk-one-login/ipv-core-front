@@ -1,0 +1,62 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.retryProveIdentityPassport.title' %}
+{% set googleTagManagerPageId = "retryProveIdentityPassport" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.retryProveIdentityPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.retryProveIdentityPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#retryProveIdentityPassportForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '847dbe1c-bd58-4422-a853-365b03110777' %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.retryProveIdentityPassport.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.retryProveIdentityPassport.content.paragraph1' | translate }}</p>
+  <ul class="govuk-list govuk-list--bullet" role="list">
+    <li>{{ 'pages.retryProveIdentityPassport.content.list1' | translate }}</li>
+    <li>{{ 'pages.retryProveIdentityPassport.content.list2' | translate }}</li>
+  </ul>
+
+  <form id="retryProveIdentityPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.retryProveIdentityPassport.content.subHeading' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "retryPassport",
+          text: 'pages.retryProveIdentityPassport.content.formRadioButtons.retryPassport' | translate
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.retryProveIdentityPassport.content.formRadioButtons.returnToRp' | translate,
+          hint: {
+            text: 'pages.retryProveIdentityPassport.content.formRadioButtons.returnToRpHint' | translate
+          }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.retryProveIdentityPassport.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

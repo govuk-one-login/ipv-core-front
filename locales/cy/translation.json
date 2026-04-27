@@ -761,6 +761,32 @@
         "paragraph2": "Mae angen i chi wneud hyn hyd yn oed os ydych wedi profi eich hunaniaeth gyda GOV.UK One Logn o’r blaen."
       }
     },
+    "retryProveIdentityApp": {
+      "title": "You need to prove your identity with the GOV.UK One Login app",
+      "header": "You need to prove your identity with the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "You’ll need one of the following:",
+        "list1": "UK passport",
+        "list2": "non-UK passport with a biometric chip",
+        "paragraph2": "You’ll also need a smartphone with a working camera.",
+        "details": {
+          "title": "Why you need to use an app",
+          "p1": "There was a problem checking your details and you need to try to prove your identity again.",
+          "p2": "For security reasons, you can only do this using the GOV.UK One Login app."
+        },
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK One Login app",
+          "returnToRp": "Go to the service you need to use",
+          "returnToRpHint": "Check what you can do if you cannot prove your identity with the app."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pageDifferentSecurityQuestions": {
       "title": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
@@ -1633,7 +1659,7 @@
     "sorryCouldNotConfirmIdentityReproveFailure": {
       "title": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
       "header": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
-        "content": {
+      "content": {
         "paragraph1": "Nid oeddem yn gallu eich paru chi â’r llun ar eich ID gyda llun.",
         "paragraph2": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login presennol i gael mynediad i’r gwasanaeth.",
         "subHeading1": "Beth hoffech chi ei wneud?",

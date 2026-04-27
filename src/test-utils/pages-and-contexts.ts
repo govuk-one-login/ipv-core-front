@@ -136,6 +136,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { dad: { deviceType: "dad" } },
   ],
   "reprove-identity-start": [],
+  "retry-prove-identity-app": [],
   "service-unavailable": [],
   "session-ended": [],
   "sorry-could-not-confirm-details": [

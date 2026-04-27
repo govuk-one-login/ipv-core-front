@@ -502,6 +502,32 @@
         "paragraph2": "You need to do this even if you have proved your identity with GOV.UK One Login before."
       }
     },
+    "retryProveIdentityApp": {
+      "title": "You need to prove your identity with the GOV.UK One Login app",
+      "header": "You need to prove your identity with the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "You’ll need one of the following:",
+        "list1": "UK passport",
+        "list2": "non-UK passport with a biometric chip",
+        "paragraph2": "You’ll also need a smartphone with a working camera.",
+        "details": {
+          "title": "Why you need to use an app",
+          "p1": "There was a problem checking your details and you need to try to prove your identity again.",
+          "p2": "For security reasons, you can only do this using the GOV.UK One Login app."
+        },
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK One Login app",
+          "returnToRp": "Go to the service you need to use",
+          "returnToRpHint": "Check what you can do if you cannot prove your identity with the app."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pageDifferentSecurityQuestions": {
       "title": "You need to prove your identity another way",
       "header": "You need to prove your identity another way",
@@ -879,7 +905,7 @@
         "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "subHeading3": "UK photocard driving licence",
         "paragraph5": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": ["has not expired" ,"has your photo"],
+        "drivingLicenceRequirements": ["has not expired", "has your photo"],
         "paragraph6": "It can be a full or provisional UK driving licence.",
         "subHeading4": "UK biometric residence card or permit",
         "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
@@ -916,10 +942,7 @@
         "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "subHeading3": "UK photocard driving licence",
         "paragraph4": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": [
-          "has not expired",
-          "has your photo"
-        ],
+        "drivingLicenceRequirements": ["has not expired", "has your photo"],
         "paragraph5": "It can be a full or provisional UK driving licence.",
         "subHeading4": "UK biometric residence card or permit",
         "paragraph6": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
@@ -1478,10 +1501,7 @@
           "title": "What do I need to use the app?",
           "p1": "You’ll need access to a phone with a working camera.",
           "p2": "If you’re using an iPhone, it must be:",
-          "iphoneTypes": [
-            "an iPhone 8 or newer",
-            "running iOS 16.7 or higher"
-          ],
+          "iphoneTypes": ["an iPhone 8 or newer", "running iOS 16.7 or higher"],
           "p3": "For an Android phone (for example, Samsung or Google Pixel), it must be running Android 10 or higher.",
           "p4": "You’ll get guidance on how to download and use the app."
         },

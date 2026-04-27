@@ -67,6 +67,7 @@ const IPV_PAGES = Object.freeze({
   PYI_TRIAGE_SELECT_DEVICE: "pyi-triage-select-device",
   PYI_TRIAGE_SELECT_SMARTPHONE: "pyi-triage-select-smartphone",
   REPROVE_IDENTITY_START: "reprove-identity-start",
+  RETRY_PROVE_IDENTITY_APP: "retry-prove-identity-app",
   SERVICE_UNAVAILABLE: "service-unavailable",
   SESSION_ENDED: "session-ended",
   SORRY_COULD_NOT_CONFIRM_IDENTITY_REPROVE_FAILURE:

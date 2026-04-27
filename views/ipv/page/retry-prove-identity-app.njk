@@ -11,7 +11,13 @@
 {% set errorHref = "#retryProveIdentityAppForm" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = '1cb1c1bc-62ad-4124-9da2-6260ffbe9c73'%}
+{% set isPageDynamic = true %}
+
+{% if pageContext.returningUser %}
+  {% set contentID = '395d1102-d38b-47a6-a0d8-5eb1ae0349db' %}
+{% else %}
+  {% set contentID = '1cb1c1bc-62ad-4124-9da2-6260ffbe9c73' %}
+{% endif %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.retryProveIdentityApp.header' | translate }}</h1>
@@ -23,8 +29,8 @@
   <p class="govuk-body">{{ 'pages.retryProveIdentityApp.content.paragraph2' | translate }}</p>
 
   {% set detailsHtml %}
-    <p class="govuk-body">{{ 'pages.retryProveIdentityApp.content.details.p1' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.retryProveIdentityApp.content.details.p2' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.retryProveIdentityApp.content.details.p1' | translateWithPageContextOrFallback(pageContext, 'returningUser') }}</p>
+    <p class="govuk-body">{{ 'pages.retryProveIdentityApp.content.details.p2' | translateWithPageContextOrFallback(pageContext, 'returningUser') }}</p>
   {% endset %}
 
   {{ govukDetails({

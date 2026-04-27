@@ -786,6 +786,26 @@
         }
       }
     },
+    "retryProveIdentityPassport": {
+      "title": "Sorry, we could not confirm your identity",
+      "header": "Sorry, we could not confirm your identity",
+      "content": {
+        "paragraph1": "You can try again if you have a:",
+        "list1": "UK passport",
+        "list2": "non-UK passport with a biometric chip",
+        "subHeading": "What would you like to do?",
+        "formRadioButtons": {
+          "retryPassport": "Try again with a passport",
+          "returnToRp": "Go to the service you need to use",
+          "returnToRpHint": "Check what you can do if you cannot prove your identity with GOV.UK One Login."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pageDifferentSecurityQuestions": {
       "title": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",

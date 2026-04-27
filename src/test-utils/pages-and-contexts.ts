@@ -137,6 +137,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { returningUser: { returningUser: true } },
     NO_CONTEXT_VARIANT,
   ],
+  "retry-prove-identity-passport": [],
   "service-unavailable": [],
   "session-ended": [],
   "sorry-could-not-confirm-details": [

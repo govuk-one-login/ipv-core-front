@@ -513,7 +513,9 @@
         "details": {
           "title": "Why you need to use an app",
           "p1": "There was a problem checking your details and you need to try to prove your identity again.",
-          "p2": "For security reasons, you can only do this using the GOV.UK One Login app."
+          "p1ReturningUser": "For security reasons, you can only prove your identity using the GOV.UK One Login app and a passport with a biometric chip.",
+          "p2": "For security reasons, you can only do this using the GOV.UK One Login app.",
+          "p2ReturningUser": "This is because there was a problem when you last tried to prove your identity."
         },
         "subHeading": "What would you like to do?",
         "formRadioButtons": {

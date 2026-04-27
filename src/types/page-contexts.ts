@@ -11,6 +11,7 @@ type PageContextMap = {
   "page-update-name": { journeyType: string };
   "photo-id-security-questions-find-another-way": { reason: string };
   "prove-identity-another-type-photo-id": { invalidDoc: string };
+  "retry-prove-identity-app": { returningUser: boolean };
   "prove-identity-another-way": { removeF2f: boolean };
   "prove-identity-no-other-photo-id": { invalidDoc: string };
   "prove-identity-no-photo-id": { ninoOnly: boolean };

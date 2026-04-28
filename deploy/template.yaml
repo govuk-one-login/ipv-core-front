@@ -1671,9 +1671,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 2
       DatapointsToAlarm: 2
@@ -1708,9 +1708,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
@@ -1799,9 +1799,9 @@ Resources:
         - RunbookUrl: !FindInMap [ Constants, Urls, pagerDutyRunbook]
       ActionsEnabled: true
       OKActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       AlarmActions:
-        - !ImportValue sns-topics-AlarmTopic
+        - !ImportValue di-ipv-core-notifications-PagerDutySNSTopicArn
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
       Threshold: 10
@@ -1852,9 +1852,9 @@ Resources:
       AlarmDescription: "Trigger an alarm when Fatal Error occurs"
       ActionsEnabled: true
       OKActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       AlarmActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       InsufficientDataActions: []
       MetricName: FatalErrorMessage
       Namespace: !Sub "${AWS::StackName}/LogMessages"
@@ -1875,9 +1875,9 @@ Resources:
       AlarmDescription: Trigger the alarm if less than 95% of requests has a latency of less than 1 second with a minimum of 25 invocations in 2 out of the last 5 minutes
       ActionsEnabled: true
       OKActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       AlarmActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
@@ -1920,9 +1920,9 @@ Resources:
       AlarmDescription: Trigger the alarm if less than 99% of requests has a latency of less than 2.5 second with a minimum of 150 invocations in 2 out of the last 5 minutes
       ActionsEnabled: true
       OKActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       AlarmActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 5
       DatapointsToAlarm: 2
@@ -1965,7 +1965,7 @@ Resources:
       AlarmDescription: Trigger a warning if the running container task count drops below 2
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 1
       DatapointsToAlarm: 1
@@ -1995,7 +1995,7 @@ Resources:
       AlarmDescription: Trigger a critical alert if the running container task count drops below 1
       ActionsEnabled: true
       AlarmActions:
-        - !ImportValue alarm-alerts-topic
+        - !ImportValue build-notifications-WarningAlertsTopicArn
       InsufficientDataActions: []
       EvaluationPeriods: 1
       DatapointsToAlarm: 1

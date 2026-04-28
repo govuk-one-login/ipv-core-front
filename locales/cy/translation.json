@@ -1,23 +1,13 @@
 {
   "general": {
     "buttons": {
-      "authorizeAndReturn": "Awdurdodi a Dychwelyd",
       "start": "Dechrau",
       "next": "Parhau",
-      "cancel": "Canslo",
-      "govUkHomepage": " Ewch i hafan GOV.UK",
       "continueToService": "Parhau i’r gwasanaeth"
     },
     "govuk": {
       "backLink": "Yn ôl",
-      "errorSummaryTitle": "Mae problem",
-      "error": "Gwall",
       "errorTitlePrefix": "Gwall: ",
-      "warning": "Rhybudd",
-      "phaseBanner": {
-        "tag": "Beta",
-        "content": "Mae hwn yn wasanaeth newydd – bydd eich <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella."
-      },
       "notificationBanner": {
         "title": "Pwysig"
       }
@@ -33,32 +23,6 @@
         "cerdyn preswylio biometrig y DU (BRC)",
         "trwydded Gweithiwr Ffiniol y DU (FWP)"
       ]
-    },
-    "languageToggle": {
-      "ariaLabel": "Dewis iaith"
-    },
-    "footer": {
-      "accessibilityStatement": {
-        "linkText": "Datganiad hygyrchedd"
-      },
-      "cookies": {
-        "linkText": "Cwcis"
-      },
-      "terms": {
-        "linkText": "Telerau ac amodau"
-      },
-      "privacy": {
-        "linkText": "Hysbysiad preifatrwydd"
-      },
-      "support": {
-        "linkText": "Cymorth (agor mewn tab newydd)"
-      },
-      "copyright": {
-        "linkText": "© Hawlfraint y goron"
-      },
-      "contentLicence": {
-        "linkText": "Mae’r holl gynnwys ar gael o dan <a class=\"govuk-footer__link\" href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\">Trwydded Llywodraeth Agored v3.0</a>, oni nodir yn wahanol"
-      }
     }
   },
   "error": {
@@ -745,8 +709,7 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch ‘Nid wyf angen diweddaru fy manylion’",
-          "errorCheckboxMessage": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch ‘Nid wyf angen diweddaru fy manylion’"
+          "errorSummaryDescriptionText": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch ‘Nid wyf angen diweddaru fy manylion’"
         }
       }
     },

@@ -1,23 +1,13 @@
 {
   "general": {
     "buttons": {
-      "authorizeAndReturn": "Authorize And Return",
       "start": "Start",
       "next": "Continue",
-      "cancel": "Cancel",
-      "govUkHomepage": "Go to the GOV.UK homepage",
       "continueToService": "Continue to the service"
     },
     "govuk": {
       "backLink": "Back",
-      "errorSummaryTitle": "There’s a problem",
-      "error": "Error",
       "errorTitlePrefix": "Error: ",
-      "warning": "Warning",
-      "phaseBanner": {
-        "tag": "Beta",
-        "content": "This is a new service – your <a class=\"govuk-link\" rel=\"noopener\" target=\"_blank\" href=\"{{url}}\">feedback (opens in new tab)</a>  will help us to improve it."
-      },
       "notificationBanner": {
         "title": "Important"
       }
@@ -33,32 +23,6 @@
         "UK biometric residence card (BRC)",
         "UK Frontier Worker permit (FWP)"
       ]
-    },
-    "languageToggle": {
-      "ariaLabel": "Choose Language"
-    },
-    "footer": {
-      "accessibilityStatement": {
-        "linkText": "Accessibility statement"
-      },
-      "cookies": {
-        "linkText": "Cookies"
-      },
-      "terms": {
-        "linkText": "Terms and conditions"
-      },
-      "privacy": {
-        "linkText": "Privacy notice"
-      },
-      "support": {
-        "linkText": "Support (opens in new tab)"
-      },
-      "copyright": {
-        "linkText": "© Crown copyright"
-      },
-      "contentLicence": {
-        "linkText": "All content is available under the <a class=\"govuk-footer__link\" href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\" rel=\"licence\">Open Government Licence v3.0</a>, except where otherwise stated"
-      }
     }
   },
   "error": {
@@ -489,8 +453,7 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select which details you need to update, or select ‘I do not need to update my details’",
-          "errorCheckboxMessage": "Select which details you need to update, or select ‘I do not need to update my details’"
+          "errorSummaryDescriptionText": "Select which details you need to update, or select ‘I do not need to update my details’"
         }
       }
     },

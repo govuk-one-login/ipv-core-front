@@ -1201,7 +1201,7 @@
         "subHeading1": "Os ydych angen defnyddio’r gwasanaeth nawr",
         "paragraph4": "Mae eich prawf hunaniaeth yn dal i fod yn ddilys hyd yn oed os yw’ch manylion ddim yn gyfredol.",
         "paragraph5": "Gallwch ddefnyddio’ch manylion sydd wedi’u harbed i gael mynediad i’r gwasanaeth rydych angen ei ddefnyddio.",
-        "subHeading3": "Beth hoffech chi ei wneud?",
+        "subHeading2": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "updateDetailsButtonText": "Diweddaru eich enw gan ddefnyddio’r ap GOV.UK One Login",
           "updateDetailsButtonTextHint": "Byddwn yn eich tywys drwy hyn.",

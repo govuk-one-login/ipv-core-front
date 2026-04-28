@@ -82,23 +82,6 @@ describe("Generate User Details", () => {
           addressDetailHtml:
             "Room 25, Turing House, Block 4b, Vital Living<br>1, Circular Square, 7 O'Reilly Way<br>Oxford Lane, University Quarter, Lancaster<br>Lancashire<br>M12 7LU<br>Italy",
         },
-        {
-          label:
-            "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 1",
-          addressDetailHtml:
-            "Flat 24, Wollatorn House<br>7, Batchelor Street<br>London<br>N15 0EY",
-        },
-        {
-          label:
-            "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 2",
-          addressDetailHtml:
-            "Flat 18, The Paper Apartments<br>162, Offord Road<br>London<br>N2 1NS",
-        },
-        {
-          label:
-            "pages.pageIpvReuse.content.userDetailsInformation.previousAddress 3",
-          addressDetailHtml: "7, Acorne Terrace<br>London<br>N16 4QF",
-        },
       ],
     });
   });

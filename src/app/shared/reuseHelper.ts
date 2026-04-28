@@ -91,18 +91,18 @@ export const generateUserDetails = (
       familyName,
     },
     dateOfBirth: userDetailsResponse.dateOfBirth,
-    addresses: userDetailsResponse.addresses?.map((address, idx) => {
-      const addressDetailHtml = generateHTMLofAddress(address);
-      const label =
-        idx === 0
-          ? i18n.t(
-              "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
-            )
-          : `${i18n.t(
-              "pages.pageIpvReuse.content.userDetailsInformation.previousAddress",
-            )} ${idx}`;
-
-      return { label, addressDetailHtml };
-    }),
+    addresses:
+      userDetailsResponse.addresses.length === 0
+        ? []
+        : [
+            {
+              label: i18n.t(
+                "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
+              ),
+              addressDetailHtml: generateHTMLofAddress(
+                userDetailsResponse.addresses[0],
+              ),
+            },
+          ],
   };
 };

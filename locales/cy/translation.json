@@ -122,7 +122,7 @@
           "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
           "returnToServiceIsExistingIdentityValid": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
           "returnToServiceHintIsExistingIdentityValid": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
-          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

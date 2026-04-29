@@ -184,7 +184,7 @@
         "formRadioButtons": {
           "radioButton1Text": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio a darganfod a ydynt yn derbyn mathau eraill o ID",
           "radioButton2Text": "Defnyddiwch ID gyda llun i brofi eich hunaniaeth gyda GOV.UK One Login",
-          "separateOptionsInFormText": "Neu",
+          "separateOptionsInFormText": "neu",
           "radioButton3Text": "Ewch yn ôl a cheisio defnyddio’ch manylion banc i brofi eich hunaniaeth"
         },
         "formErrorMessage": {

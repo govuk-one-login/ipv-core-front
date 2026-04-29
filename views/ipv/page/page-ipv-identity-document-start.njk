@@ -52,18 +52,31 @@
 
     <li>
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading3' | translate }}</h2>
-      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
-      <ul class="govuk-list  govuk-list--bullet">
-        {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.drivingLicenceRequirements' | translate({ returnObjects: true }) %}
-          <li>{{ listItem }}</li>
-        {% endfor %}
-      </ul>
-      <p class="govuk-body govuk-!-margin-bottom-6">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
+
+      {% if pageContext.allowMfaReset %}
+        <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translateWithPageContext(pageContext, 'allowMfaReset') }}</p>
+        <ul class="govuk-list  govuk-list--bullet">
+          {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.drivingLicenceRequirementsAllowMfaReset' | translate({ returnObjects: true }) %}
+            <li>{{ listItem }}</li>
+          {% endfor %}
+        </ul>
+        <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translateWithPageContext(pageContext, 'allowMfaReset') }}</p>
+      {% else %}
+        <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph5' | translate }}</p>
+        <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph6' | translate }}</p>
+        <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph7' | translate  }}</p>
+        <ul class="govuk-list  govuk-list--bullet">
+          {% set formattedExpiryDate = documentExpiryDate | GDSDate %}
+          {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.drivingLicenceRequirements' | translate({ expiryDate: formattedExpiryDate, returnObjects: true }) %}
+            <li>{{ listItem | safe }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </li>
 
     <li>
       <h2 class="govuk-heading-m">{{ 'pages.pageIpvIdentityDocumentStart.content.subHeading4' | translate }}</h2>
-      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph7' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pageIpvIdentityDocumentStart.content.paragraph8' | translate }}</p>
       <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
         {% for listItem in 'pages.pageIpvIdentityDocumentStart.content.requirements' | translate({ returnObjects: true }) %}
           <li>{{ listItem }}</li>

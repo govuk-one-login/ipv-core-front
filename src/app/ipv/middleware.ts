@@ -433,6 +433,15 @@ export const handleJourneyPageRequest = async (
       renderOptions.postOfficeVisitByDate = new Date().setDate(
         new Date().getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
       );
+    } else if (
+      pageId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES ||
+      pageId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_START
+    ) {
+      const expiryDate = new Date();
+      expiryDate.setDate(
+        expiryDate.getDate() - config.DOCUMENT_EXPIRY_GRACE_PERIOD,
+      );
+      renderOptions.documentExpiryDate = expiryDate.getTime();
     } else if (req.session.currentPageStatusCode !== undefined) {
       // Set this to avoid pino-http generating a new error in the request log
       res.err = HANDLED_ERROR;

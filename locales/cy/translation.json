@@ -103,16 +103,19 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "Ar gyfer yr ap GOV.UK One Login, gallwch ddefnyddio:",
-      "paragraph2": "Gallwch ond defnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login.",
-      "paragraph3": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
+      "paragraph2": "Gallwch ddefnyddio trwydded yrru cerdyn llun sydd wedi dod i ben gyda’r ap GOV.UK One Login os yw:",
+      "list1": "wedi dod i ben yn ystod y 90 diwrnod diwethaf",
+      "list2": "wedi’i gyhoeddi gan DVLA (gweler adran 4c ar eich trwydded)",
+      "paragraph3": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login",
+      "paragraph4": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
       "postOfficeDocumentList": [
         "trwydded yrru cerdyn-llun y DU",
         "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
         "pasbort y DU",
         "pasbort o’r tu allan i’r DU",
-        "Cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
+        "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein"
       ],
-      "paragraph4": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben."
+      "paragraph5": "Mewn Swyddfa’r Post, ni ddylai eich IDgyda  llun fod wedi dod i ben, oni bai bod gennych basbort y DU. Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben."
     }
   },
   "pages": {
@@ -784,20 +787,22 @@
       "content": {
         "paragraph1": "Gallwch barhau i brofi’ch hunaniaeth ar-lein drwy roi manylion o unrhyw un o’r canlynol:",
         "requirements": [
-          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
-          "pasbort y DU"
+          "pasbort y DU",
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)"
         ],
         "requirementsAllowNino": [
-          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "pasbort y DU",
+          "Trwydded yrru cerdyn-llun y DU (llawn neu dros dro)",
           "’rhif Yswiriant Gwladol"
         ],
         "paragraph2": "Bydd angen i chi hefyd ateb rhai cwestiynau diogelwch. Rydym yn defnyddio’r rhain i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
         "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
         "subHeading": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",
           "continuePassportButtonText": "Rhowch fanylion eich pasbort y DU",
+          "continuePassportButtonHint": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+          "continueDrivingLicenceButtonText": "Rhowch fanylion eich trwydded yrru y DU",
+          "continueDrivingLicenceButtonHint": "Ni allwch ddefnyddio trwydded yrru sydd wedi dod i ben.",
           "continueNinoButtonText": "Rhowch eich rhif Yswiriant Gwladol",
           "separateOptionsInFormText": "neu",
           "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall"
@@ -946,11 +951,15 @@
         },
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
         "subHeading3": "Trwydded yrru cerdyn-llun y DU",
-        "paragraph5": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirements": ["heb ddod i ben", "gyda’ch llun"],
-        "paragraph6": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "paragraph5AllowMfaReset": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
+        "drivingLicenceRequirementsAllowMfaReset": ["heb ddod i ben", "gyda’ch llun"],
+        "paragraph6AllowMfaReset": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "paragraph5": "Gallwch ddefnyddio trwydded yrru y DU os yw eich llun arno.",
+        "paragraph6": "Gall fod yn drwydded lawn neu dros dro.",
+        "paragraph7": "Os yw eich trwydded yrru y DU wedi dod i ben, gallwch ond ei ddefnyddio os:",
+        "drivingLicenceRequirements": ["daeth i ben ar neu ar ôl {{ expiryDate }}", "fe’i cyhoeddwyd gan y DVLA (gweler adran 4c ar eich trwydded)", "mae gennych ffôn clyfar"],
         "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
-        "paragraph7": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
+        "paragraph8": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
         "requirements": [
           "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"
@@ -983,14 +992,12 @@
         "paragraph3": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen.",
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
         "subHeading3": "Trwydded yrru cerdyn-llun y DU",
-        "paragraph4": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirements": [
-          "heb ddod i ben",
-          "gyda’ch llun"
-        ],
-        "paragraph5": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
+        "paragraph4": "Gallwch ddefnyddio trwydded yrru y DU os yw eich llun arno.",
+        "paragraph5": "Gall fod yn drwydded lawn neu dros dro.",
+        "paragraph6": "Os yw eich trwydded yrru y DU wedi dod i ben, gallwch ond ei ddefnyddio os:",
+        "drivingLicenceRequirements": ["daeth i ben ar neu ar ôl {{ expiryDate }}", "fe’i cyhoeddwyd gan y DVLA (gweler adran 4c ar eich trwydded)", "mae gennych ffôn clyfar"],
         "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
-        "paragraph6": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
+        "paragraph7": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
         "cardOrPermitRequirements": [
           "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"

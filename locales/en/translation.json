@@ -103,16 +103,19 @@
     },
     "typesOfPhotoId": {
       "paragraph1": "For the GOV.UK One Login app, you can use a:",
-      "paragraph2": "You can use an expired BRP, BRC, or FWP up to 18 months after its expiry date with the GOV.UK One Login app only.",
-      "paragraph3": "At a Post Office, you can use a:",
+      "paragraph2": "You can use an expired photocard driving licence with the GOV.UK One Login app if it:",
+      "list1": "expired in the last 90 days",
+      "list2": "was issued by DVLA (see section 4c on your licence)",
+      "paragraph3": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date with the GOV.UK One Login app.",
+      "paragraph4": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
         "European Union (EU) photocard driving licence",
         "UK passport",
         "non-UK passport",
-        "National identity card from the EU, Norway, Iceland or Liechtenstein"
+        "national identity card from the EU, Norway, Iceland or Liechtenstein"
       ],
-      "paragraph4": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
+      "paragraph5": "At a Post Office, your photo ID must not have expired, unless you have a UK passport. You can use a UK passport up to 18 months after its expiry date."
     }
   },
   "pages": {
@@ -784,20 +787,22 @@
       "content": {
         "paragraph1": "You can continue proving your identity online by entering details from any of the following:",
         "requirements": [
-          "UK photocard driving licence (full or provisional)",
-          "UK passport"
+          "UK passport",
+          "UK photocard driving licence (full or provisional)"
         ],
         "requirementsAllowNino": [
-          "UK photocard driving licence (full or provisional)",
           "UK passport",
+          "UK photocard driving licence (full or provisional)",
           "National Insurance number"
         ],
         "paragraph2": "You’ll also need to answer some security questions. We use these to stop anyone who might have your details from pretending to be you.",
         "paragraph3": "It takes about 10 minutes to prove your identity this way.",
         "subHeading": "How would you like to prove your identity?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK driving licence details",
           "continuePassportButtonText": "Enter your UK passport details",
+          "continuePassportButtonHint": "You can use a UK passport up to 18 months after its expiry date.",
+          "continueDrivingLicenceButtonText": "Enter your UK driving licence details",
+          "continueDrivingLicenceButtonHint": "You cannot use an expired driving licence.",
           "continueNinoButtonText": "Enter your National Insurance number",
           "separateOptionsInFormText": "or",
           "otherWayButtonText": "Prove your identity another way"
@@ -878,11 +883,19 @@
         },
         "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "subHeading3": "UK photocard driving licence",
-        "paragraph5": "You can use a UK driving licence if it:",
-        "drivingLicenceRequirements": ["has not expired" ,"has your photo"],
-        "paragraph6": "It can be a full or provisional UK driving licence.",
+        "paragraph5AllowMfaReset": "You can use a UK driving licence if it:",
+        "drivingLicenceRequirementsAllowMfaReset": ["has not expired" ,"has your photo"],
+        "paragraph6AllowMfaReset": "It can be a full or provisional UK driving licence.",
+        "paragraph5": "You can use a UK driving licence if it has your photo.",
+        "paragraph6": "It can be a full or provisional licence.",
+        "paragraph7": "If your UK driving licence has expired, you can only use it if:",
+        "drivingLicenceRequirements": [
+          "it expired on or after {{ expiryDate }}",
+          "it was issued by DVLA (see section 4c on your licence)",
+          "you have a smartphone"
+        ],
         "subHeading4": "UK biometric residence card or permit",
-        "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "paragraph8": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
         "requirements": [
           "it’s up to 18 months after its expiry date",
           "you have a smartphone"
@@ -915,14 +928,16 @@
         "paragraph3": "To check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover.",
         "imgAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
         "subHeading3": "UK photocard driving licence",
-        "paragraph4": "You can use a UK driving licence if it:",
+        "paragraph4": "You can use a UK driving licence if it has your photo.",
+        "paragraph5": "It can be a full or provisional licence.",
+        "paragraph6": "If your UK driving licence has expired, you can only use it if:",
         "drivingLicenceRequirements": [
-          "has not expired",
-          "has your photo"
+          "it expired on or after {{ expiryDate }}",
+          "it was issued by DVLA (see section 4c on your licence)",
+          "you have a smartphone"
         ],
-        "paragraph5": "It can be a full or provisional UK driving licence.",
         "subHeading4": "UK biometric residence card or permit",
-        "paragraph6": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
+        "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
         "cardOrPermitRequirements": [
           "it’s up to 18 months after its expiry date",
           "you have a smartphone"

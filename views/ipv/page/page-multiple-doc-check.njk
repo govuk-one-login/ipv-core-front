@@ -20,12 +20,14 @@
 
 {% set radioItems = [
     {
-      value: "drivingLicence",
-      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+      value: "ukPassport",
+      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate,
+      hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonHint' | translate }
     },
     {
-      value: "ukPassport",
-      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate
+      value: "drivingLicence",
+      text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate,
+      hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonHint' | translate }
     }
   ]
 %}

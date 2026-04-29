@@ -215,6 +215,16 @@ export const templatesDisplayGet: RequestHandler = async (req, res) => {
     renderOptions.postOfficeVisitByDate = defaultDate.setDate(
       defaultDate.getDate() + config.POST_OFFICE_VISIT_BY_DAYS,
     );
+  } else if (
+    templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_TYPES ||
+    templateId === PAGES.PAGE_IPV_IDENTITY_DOCUMENT_START
+  ) {
+    const devBaseDate = new Date("2026-04-07");
+    const gracePeriod = config.DOCUMENT_EXPIRY_GRACE_PERIOD || 90;
+
+    renderOptions.documentExpiryDate = devBaseDate.setDate(
+      devBaseDate.getDate() - gracePeriod,
+    );
   }
 
   return res.render(

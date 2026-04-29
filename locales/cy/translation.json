@@ -125,7 +125,7 @@
           "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
           "returnToServiceIsExistingIdentityValid": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
           "returnToServiceHintIsExistingIdentityValid": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
-          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "endOption": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -725,50 +725,50 @@
       }
     },
     "retryProveIdentityApp": {
-      "title": "You need to prove your identity with the GOV.UK One Login app",
-      "header": "You need to prove your identity with the GOV.UK One Login app",
+      "title": "Mae angen i chi brofi eich hunaniaeth gyda’r ap GOV.UK One Login",
+      "header": "Mae angen i chi brofi eich hunaniaeth gyda’r ap GOV.UK  One Login",
       "content": {
-        "paragraph1": "You’ll need one of the following:",
-        "list1": "UK passport",
-        "list2": "non-UK passport with a biometric chip",
-        "paragraph2": "You’ll also need a smartphone with a working camera.",
+        "paragraph1": "Byddwch angen un o’r canlynol:",
+        "list1": "pasbort y DU",
+        "list2": "pasbort nad yw o’r DU gyda sglodyn biometrig",
+        "paragraph2": "Byddwch hefyd angen ffôn clyfar gyda chamera sy’n gweithio.",
         "details": {
-          "title": "Why you need to use an app",
-          "p1": "There was a problem checking your details and you need to try to prove your identity again.",
-          "p1ReturningUser": "For security reasons, you can only prove your identity using the GOV.UK One Login app and a passport with a biometric chip.",
-          "p2": "For security reasons, you can only do this using the GOV.UK One Login app.",
-          "p2ReturningUser": "This is because there was a problem when you last tried to prove your identity."
+          "title": "Pam mae angen i chi ddefnyddio ap",
+          "p1": "Roedd problem yn gwirio’ch manylion ac mae angen i chi geisio profi eich hunaniaeth eto.",
+          "p1ReturningUser": "Am resymau diogelwch, dim ond gan ddefnyddio’r ap GOV.UK One Login a phasbort gyda sglodyn biometrig y gallwch brofi eich hunaniaeth.",
+          "p2": "Am resymau diogelwch, dim ond gan ddefnyddio’r ap GOV.UK One Login y gallwch wneud hyn.",
+          "p2ReturningUser": "Mae hyn oherwydd roedd problem pan wnaethoch geisio profi eich hunaniaeth ddiwethaf."
         },
-        "subHeading": "What would you like to do?",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Prove your identity with the GOV.UK One Login app",
-          "returnToRp": "Go to the service you need to use",
-          "returnToRpHint": "Check what you can do if you cannot prove your identity with the app."
+          "useApp": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
+          "returnToRp": "Mynd i’r gwasanaeth rydych angen ei ddefnyddio",
+          "returnToRpHint": "Gwirio beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda’r ap."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
     "retryProveIdentityPassport": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
+      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich hunaniaeth",
       "content": {
-        "paragraph1": "You can try again if you have a:",
-        "list1": "UK passport",
-        "list2": "non-UK passport with a biometric chip",
-        "subHeading": "What would you like to do?",
+        "paragraph1": "Gallwch roi cynnig arall os oes gennych:",
+        "list1": "pasbort y DU",
+        "list2": "pasbort nad yw o’r DU gyda sglodyn biometrig",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "retryPassport": "Try again with a passport",
-          "returnToRp": "Go to the service you need to use",
-          "returnToRpHint": "Check what you can do if you cannot prove your identity with GOV.UK One Login."
+          "retryPassport": "Rhoi cynnig arall gyda phasbort",
+          "returnToRp": "Mynd i’r gwasanaeth rydych angen ei ddefnyddio",
+          "returnToRpHint": "Gwirio beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda GOV.UK One Login."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },

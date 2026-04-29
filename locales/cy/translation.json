@@ -112,7 +112,7 @@
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
         "paragraph3": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad i’r gwasanaeth.",
         "paragraph3IsExistingIdentityValid": "Nid yw eich manylion wedi cael eu diweddaru.",
-        "subHeading": "Beth hoffech chi ei wneud? ",
+        "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "contactOption": "Cysylltwch â thîm GOV.UK One Login",
           "contactOptionHint": "Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.",
@@ -953,7 +953,7 @@
         ],
         "details1": {
           "summaryText": "Oes gan eich pasbort sglodyn biometrig?",
-          "paragraph4": " I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen."
+          "paragraph4": "I wirio os oes gan eich pasbort sglodyn biometrig, edrychwch am y symbol sglodyn biometrig petryal ar y clawr blaen."
         },
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
         "subHeading3": "Trwydded yrru cerdyn-llun y DU",

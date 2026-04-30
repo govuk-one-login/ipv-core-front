@@ -21,11 +21,13 @@
 {% set radioItems = [
     {
       value: "ukPassport",
+      id: "ukPassport",
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonText' | translate,
       hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continuePassportButtonHint' | translate }
     },
     {
       value: "drivingLicence",
+      id: "drivingLicence",
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonText' | translate,
       hint: { text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueDrivingLicenceButtonHint' | translate }
     }
@@ -35,6 +37,7 @@
 {% if pageContext.allowNino %}
     {% set radioItems = (radioItems.push({
         value: "nino",
+        id: "nino",
         text: 'pages.pageMultipleDocCheck.content.formRadioButtons.continueNinoButtonText' | translate
     }), radioItems) %}
 {% endif %}
@@ -45,6 +48,7 @@
     },
     {
       value: "end",
+      id: "end",
       text: 'pages.pageMultipleDocCheck.content.formRadioButtons.otherWayButtonText' | translate
     }),
     radioItems)

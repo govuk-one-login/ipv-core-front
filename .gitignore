@@ -121,3 +121,6 @@ browser-tests/.features-gen/
 
 # Generated E2E test results
 browser-tests/e2e-tests/test-results/
+
+# Script output
+translation-inconsistencies.json

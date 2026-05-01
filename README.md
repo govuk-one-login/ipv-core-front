@@ -12,6 +12,11 @@ ipv-core-front works with the following IPV Core repositories:
 * [ipv-core-common-infra](https://github.com/govuk-one-login/ipv-core-common-infra) - utilities that automate IPV Core ancillary services
 * [ipv-stubs](https://github.com/govuk-one-login/ipv-stubs) - test stubs for IPV Core dependencies (credential issuers)
 
+# Kiro
+Kiro is Amazon's coding assistant AI, currently, as part of the AI experiment, we are allowed to use the command line version `kiro-cli`. This project includes a `.kiro` folder that contains markdown files designed
+to give Kiro high level context about the project to help it make suggestions that work with the existing design decisions. This folder is committed so that all developers on the team can improvae and benefit from
+the steering information (https://kiro.dev/docs/cli/steering/).
+
 # Developing ipv-core-front
 
 This guide explains how to:

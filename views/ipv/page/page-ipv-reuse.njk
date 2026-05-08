@@ -14,13 +14,6 @@
     <h1 class="govuk-heading-l" id="header"
         data-page="{{ googleTagManagerPageId }}">{{ 'pages.pageIpvReuse.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph1' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
-
-    <h2 class="govuk-heading-m">{{ 'pages.pageIpvReuse.content.subHeading' | translate }}</h2>
-    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph3' | translate }}</p>
-    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph4' | translate }}</p>
-
-    <h3 class="govuk-heading-s">{{ 'pages.pageIpvReuse.content.subHeading2' | translate }}</h3>
 
     {% set rows = [
         {
@@ -55,6 +48,8 @@
         rows: rows
     }) }}
 
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
+
     <details class="govuk-details">
       <summary class="govuk-details__summary">
         <h3 class="govuk-!-margin-0 govuk-!-font-size-19 govuk-!-font-weight-regular govuk-details__summary-text">
@@ -75,12 +70,12 @@
         translations: translations.translation.progressButton,
         href: "/ipv/journey/" + pageId + "/next",
         errorPage: '/ipv/page/pyi-technical?spinnerTimeout',
-        text: ('general.buttons.continueToService' | translate),
+        text: ('pages.pageIpvReuse.content.continueButton' | translate),
         customDevErrorTimeout: customTimeout
       }) }}
     {% else %}
       {# Original button (control) #}
-      {{ journeyNextForm(pageId, csrfToken, 'general.buttons.continueToService' | translate ) }}
+      {{ journeyNextForm(pageId, csrfToken, 'pages.pageIpvReuse.content.continueButton' | translate ) }}
     {% endif %}
 
 {% endblock %}

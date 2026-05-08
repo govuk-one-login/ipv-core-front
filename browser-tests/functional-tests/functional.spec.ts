@@ -132,7 +132,7 @@ test.describe.parallel("Functional tests", () => {
     );
 
     const reuseIdentityPageHeaderLocator = await page.getByRole("heading", {
-      name: "You have already proved your identity",
+      name: "Confirm your details",
     });
     await expect(reuseIdentityPageHeaderLocator).toBeVisible();
 

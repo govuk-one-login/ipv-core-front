@@ -1,0 +1,53 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.needApp.title' %}
+{% set googleTagManagerPageId = "needApp" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.needApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#needAppForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = 'aa01d261-c2de-41cb-b3de-205c56716ea4'%}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needApp.content.paragraph1' | translate }}</p>
+
+  <form id="needAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "returnToRp",
+          text: 'pages.needApp.content.formRadioButtons.continueToServiceButtonText' | translate
+        },
+        {
+          value: "useApp",
+          text: 'pages.needApp.content.formRadioButtons.appSmartphoneButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

@@ -151,6 +151,13 @@ Breaking this example down:
         handleJourneyActionRequest,
     );
     ```
+### Add new page to constants:
+
+When adding new pages make sure those are also added to the required constants
+
+- In [ipv-pages.ts](../src/constants/ipv-pages.ts) file update IPV_PAGES object with new page
+
+- In [pages-and-contexts.ts](../src/test-utils/pages-and-contexts.ts) file update pagesAndContexts object with new page and contexts values
 
 ### Notes
 

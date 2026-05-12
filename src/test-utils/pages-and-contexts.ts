@@ -21,6 +21,8 @@ export const pagesAndContexts: PagesAndContexts = {
     NO_CONTEXT_VARIANT,
   ],
   "live-in-uk": [],
+  "need-app": [],
+  "need-biometric-passport": [],
   "need-id-prove-identity-again-app": [],
   "need-prove-identity-again-app": [],
   "need-prove-identity-again-no-app": [],
@@ -68,6 +70,7 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "page-different-security-questions": [],
   "page-not-found": [],
+  "passport-biometric-chip": [],
   "personal-independence-payment": [],
   "photo-id-security-questions-find-another-way": [
     { dropout: { reason: "dropout" } },

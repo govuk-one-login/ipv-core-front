@@ -1,0 +1,68 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.passportBiometricChip.title' %}
+{% set googleTagManagerPageId = "passportBiometricChip" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.passportBiometricChip.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.passportBiometricChip.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#passportBiometricChipForm" %}
+
+
+{% set isPageDataSensitive = false %}
+{% set contentID = 'caf75ee8-82fe-455b-9559-57087f009867'%}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/passport-biometric-chip/back" %}
+
+{% block content %}
+
+  {% set radioHintHtml %}
+    {{ 'pages.passportBiometricChip.content.hintText' | translate }}
+    <picture>
+      <source srcset="/public/images/passport-icon.svg"/>
+      <img width="174" height="121" loading="lazy" src="/public/images/passport-icon-1x.png" srcset="/public/images/passport-icon-2x.png 2x" alt="{{ 'pages.passportBiometricChip.content.passportImageAltText' | translate }}" />
+    </picture>
+  {% endset -%}
+
+  <form id="passportBiometricChipForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.passportBiometricChip.header' | translate,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        html: radioHintHtml
+      },
+      items: [
+        {
+          value: "next",
+          text: 'pages.passportBiometricChip.content.formRadioButtons.nextButtonText' | translate
+        },
+        {
+          value: "abandon",
+          text: 'pages.passportBiometricChip.content.formRadioButtons.abandonButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.passportBiometricChip.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

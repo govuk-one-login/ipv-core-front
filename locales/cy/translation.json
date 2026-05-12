@@ -388,6 +388,23 @@
         }
       }
     },
+    "needApp": {
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "content": {
+        "paragraph1": "Os nad ydych chi’n byw yn y DU, gallwch ond defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi gyda GOV.UK One Login.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "continueToServiceButtonText": "Mynd i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio i chwilio am ffyrdd eraill o’i gyrchu",
+          "appSmartphoneButtonText": "Defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau profi eich hunaniaeth ar-lein",
       "header": "Parhau profi eich hunaniaeth ar-lein",
@@ -1447,7 +1464,41 @@
         }
       }
     },
+    "passportBiometricChip": {
+      "title": "Oes gennych chi basbort gyda sglodyn biometrig?",
+      "header": "Oes gennych chi basbort gyda sglodyn biometrig?",
+      "content": {
+        "hintText": "Mae gan eich pasbort sglodyn biometrig os yw’r clawr blaen yn dangos symbol hirsgwar gyda chylch yn y canol.",
+        "passportImageAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
+        "formRadioButtons": {
+          "nextButtonText": "Oes",
+          "abandonButtonText": "Na"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych chi basbort gyda sglodyn biometrig",
+          "errorRadioMessage": "Dewiswch oes os oes gennych chi basbort gyda sglodyn biometrig"
+        }
+      }
+    },
     "nonUkNoPassport": {
+      "title": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "returnToRpButtonText": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
+          "useAppButtonText": "Defnyddio pasbort gyda sglodyn biometrig i brofi pwy ydych chi"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "needBiometricPassport": {
       "title": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {

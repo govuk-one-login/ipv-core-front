@@ -1,0 +1,57 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.needBiometricPassport.title' %}
+{% set googleTagManagerPageId = "needBiometricPassport" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needBiometricPassport.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.needBiometricPassport.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#needBiometricPassportForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '059cc6c8-6e04-4de9-a6c0-5d26cd9e53c0'%}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/need-biometric-passport/back" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needBiometricPassport.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needBiometricPassport.content.paragraph1' | translate }}</p>
+
+  <form id="needBiometricPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needBiometricPassport.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "returnToRp",
+          text: 'pages.needBiometricPassport.content.formRadioButtons.returnToRpButtonText' | translate
+        },
+        {
+          value: "useApp",
+          text: 'pages.needBiometricPassport.content.formRadioButtons.useAppButtonText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needBiometricPassport.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

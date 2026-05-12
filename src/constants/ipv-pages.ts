@@ -5,6 +5,8 @@ const IPV_PAGES = Object.freeze({
   LIVE_IN_UK: "live-in-uk",
   PROBLEM_DIFFERENT_BROWSER: "problem-different-browser",
   IDENTIFY_DEVICE: "identify-device",
+  NEED_APP: "need-app",
+  NEED_BIOMETRIC_PASSPORT: "need-biometric-passport",
   NEED_ID_PROVE_IDENTITY_AGAIN_APP: "need-id-prove-identity-again-app",
   NEED_MORE_INFORMATION_CONFIRM_CHANGE_DETAILS:
     "need-more-information-confirm-change-details",
@@ -34,6 +36,7 @@ const IPV_PAGES = Object.freeze({
   PAGE_PRE_EXPERIAN_KBV_TRANSITION: "page-pre-experian-kbv-transition",
   PAGE_UPDATE_NAME: "page-update-name",
   PAGE_PRE_DWP_KBV_TRANSITION: "page-pre-dwp-kbv-transition",
+  PASSPORT_BIOMETRIC_CHIP: "passport-biometric-chip",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
   PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
     "photo-id-security-questions-find-another-way",

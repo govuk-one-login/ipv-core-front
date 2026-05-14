@@ -45,10 +45,7 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "page-ipv-identity-document-types": [],
   "page-ipv-identity-postoffice-start": [],
-  "page-ipv-pending": [
-    { "f2f-delete-details": { allowDeleteDetails: true } },
-    NO_CONTEXT_VARIANT,
-  ],
+  "page-ipv-pending": [],
   "page-ipv-reuse": [],
   "page-ipv-success": [
     { repeatFraudCheck: { journeyType: "coi" } },
@@ -92,14 +89,11 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "pyi-another-way": [],
   "pyi-attempt-recovery": [],
-  "pyi-confirm-delete-details": [],
   "pyi-continue-with-driving-licence": [],
   "pyi-continue-with-passport": [],
-  "pyi-details-deleted": [{ f2f: { journeyType: "f2f" } }, NO_CONTEXT_VARIANT],
   "pyi-driving-licence-no-match-another-way": [],
   "pyi-driving-licence-no-match": [],
   "pyi-escape": [],
-  "pyi-f2f-delete-details": [],
   "pyi-f2f-technical": [],
   "pyi-no-match": [
     { bankAccount: { reason: "bankAccount" } },

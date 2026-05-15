@@ -32,11 +32,8 @@ export const pagesAndContexts: PagesAndContexts = {
     { dropout: { reason: "dropout" } },
     NO_CONTEXT_VARIANT,
   ],
-  "non-uk-no-app-options": [],
   "non-uk-app-intro": [],
   "non-uk-no-app": [],
-  "non-uk-no-passport": [],
-  "non-uk-passport": [],
   "page-dcmaw-success": [
     { coiNoAddress: { noAddress: true } },
     NO_CONTEXT_VARIANT,

@@ -180,7 +180,7 @@ test.describe.parallel("Functional tests", () => {
     );
 
     await page
-      .getByRole("heading", { name: "If your details are wrong" })
+      .getByText("If your details are wrong")
       .click();
     await page.getByRole("link", { name: "update your details" }).click();
 
@@ -223,7 +223,7 @@ test.describe.parallel("Functional tests", () => {
     );
 
     await page
-      .getByRole("heading", { name: "If your details are wrong" })
+      .getByText("If your details are wrong")
       .click();
     await page.getByRole("link", { name: "update your details" }).click();
 

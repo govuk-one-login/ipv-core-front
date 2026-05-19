@@ -6,7 +6,6 @@ type PageContextMap = {
   "no-photo-id-security-questions-find-another-way": { reason: string };
   "page-dcmaw-success": { noAddress: boolean };
   "page-ipv-identity-document-start": { allowMfaReset: boolean };
-  "page-ipv-pending": { allowDeleteDetails: boolean };
   "page-ipv-success": { journeyType: string };
   "page-multiple-doc-check": { allowNino: boolean };
   "page-update-name": { journeyType: string };
@@ -16,7 +15,6 @@ type PageContextMap = {
   "prove-identity-another-way": { removeF2f: boolean };
   "prove-identity-no-other-photo-id": { invalidDoc: string };
   "prove-identity-no-photo-id": { ninoOnly: boolean };
-  "pyi-details-deleted": { journeyType: string };
   "pyi-no-match": { reason: string };
   "pyi-technical": { isUnrecoverable: boolean };
   "pyi-triage-desktop-download-app": {

@@ -3,6 +3,7 @@
 // When it is run it generates translation-inconsistencies.json if there are any issues with the translation files. This
 // includes:
 // - Inconsistent translations from English to Welsh
+// - Translation text that isn't used on any pages
 // - Mismatched entries in the English and Welsh files
 // - Any untranslated text is put into a form suitable for sending to the translation team
 //

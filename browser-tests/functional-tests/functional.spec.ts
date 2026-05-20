@@ -179,9 +179,7 @@ test.describe.parallel("Functional tests", () => {
       getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"),
     );
 
-    await page
-      .getByText("If your details are wrong")
-      .click();
+    await page.getByText("If your details are wrong").click();
     await page.getByRole("link", { name: "update your details" }).click();
 
     // Check we are on the update-details page
@@ -222,9 +220,7 @@ test.describe.parallel("Functional tests", () => {
       getAuthoriseUrlForJourney("reuseJourneyKennethDecerqueira"),
     );
 
-    await page
-      .getByText("If your details are wrong")
-      .click();
+    await page.getByText("If your details are wrong").click();
     await page.getByRole("link", { name: "update your details" }).click();
 
     await page.click("input[value='givenNames']");

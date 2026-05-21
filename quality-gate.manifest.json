@@ -8,9 +8,9 @@
             "secret scanning"
           ],
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
+            "file": ".github/workflows/automated-tests.yaml",
             "name": "run secret detection",
-            "path": "jobs.pre-commit"
+            "path": "jobs.detect-secrets"
           },
           "phase": "pre-merge",
           "provider": "GitHub"
@@ -22,7 +22,7 @@
             "unit test coverage"
           ],
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
+            "file": ".github/workflows/automated-tests.yaml",
             "name": "run unit tests",
             "path": "jobs.run-tests"
           },
@@ -36,7 +36,7 @@
             "visual regression"
           ],
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
+            "file": ".github/workflows/automated-tests.yaml",
             "name": "run browser-tests",
             "path": "jobs.browser-tests"
           },

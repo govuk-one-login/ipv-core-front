@@ -45,6 +45,8 @@ jobs:
         run: npm run lint
       - name: Run test and write coverage
         run: npm run test:coverage
+      - name: Check translations
+        run: npm run check-translations
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
         uses: sonarsource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0

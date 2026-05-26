@@ -342,23 +342,6 @@
         }
       }
     },
-    "nonUkNoAppOptions": {
-      "title": "You need to use the GOV.UK One Login app to prove your identity",
-      "header": "You need to use the GOV.UK One Login app to prove your identity",
-      "content": {
-        "paragraph1": "If you do not live in the UK, you can only use the app and a smartphone to prove your identity with GOV.UK One Login.",
-        "subHeading1": "What would you like to do?",
-        "formRadioButtons": {
-          "continueToServiceButtonText": "Go to the service you were trying to use to look for other ways to access it",
-          "appSmartphoneButtonText": "Use the app and a smartphone to prove your identity"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
-        }
-      }
-    },
     "needApp": {
       "title": "You need to use the GOV.UK One Login app to prove your identity",
       "header": "You need to use the GOV.UK One Login app to prove your identity",
@@ -822,11 +805,8 @@
         "subHeading": "If you’ve already been to the Post Office",
         "paragraph3": "Your identity check is still being processed.",
         "paragraph4": "You’ll get an email when there’s a result for your identity check - usually within a day of going to the Post Office.",
-        "subHeading2": "If you want to prove your identity another way",
-        "paragraph5": "If you no longer want to prove your identity at a Post Office, you can <a id=\"deleteDetailsLink\" class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">delete your details and try to prove your identity another way</a>.",
-        "paragraph6": "We will automatically delete your details if you do not go to the Post Office within 10 days of getting your confirmation email.",
-        "subHeading3": "If you need help",
-        "paragraph7": "Contact us if you:",
+        "subHeading2": "If you need help",
+        "paragraph5": "Contact us if you:",
         "reasonsToContact": [
           "need help to finish proving your identity with the Post Office",
           "would prefer not to go to the Post Office and want to prove your identity another way"
@@ -1397,23 +1377,6 @@
         }
       }
     },
-    "nonUkPassport": {
-      "title": "Do you have a passport with a biometric chip?",
-      "header": "Do you have a passport with a biometric chip?",
-      "content": {
-        "hintText": "Your passport has a biometric chip if the front cover shows a rectangular symbol with a circle in the middle.",
-        "passportImageAltText": "The front cover of a passport with the biometric chip symbol enlarged.",
-        "formRadioButtons": {
-          "nextButtonText": "Yes",
-          "abandonButtonText": "No"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select yes if you have a passport with a biometric chip",
-          "errorRadioMessage": "Select yes if you have a passport with a biometric chip"
-        }
-      }
-    },
     "passportBiometricChip": {
       "title": "Do you have a passport with a biometric chip?",
       "header": "Do you have a passport with a biometric chip?",
@@ -1428,23 +1391,6 @@
           "errorSummaryTitleText": "There is a problem",
           "errorSummaryDescriptionText": "Select yes if you have a passport with a biometric chip",
           "errorRadioMessage": "Select yes if you have a passport with a biometric chip"
-        }
-      }
-    },
-    "nonUkNoPassport": {
-      "title": "You need to use a passport with a biometric chip to prove your identity",
-      "header": "You need to use a passport with a biometric chip to prove your identity",
-      "content": {
-        "paragraph1": "If you do not live in the UK, you can only prove your identity with GOV.UK One Login using a passport with a biometric chip.",
-        "subHeading1": "What would you like to do?",
-        "formRadioButtons": {
-          "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
-          "useAppButtonText": "Use a passport with a biometric chip to prove your identity"
-        },
-        "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

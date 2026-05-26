@@ -42,7 +42,7 @@
       "header": "Sesiwn wedi dod i ben",
       "content": {
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph1": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio’ch peiriant chwilio neu ddod o hyd iddo o hafan GOV.UK."
+        "paragraph1": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
       }
     },
     "serviceUnavailable": {
@@ -100,7 +100,7 @@
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
         "paragraph1BankAccount": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda’ch banc neu gymdeithas adeiladu.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
-        "insetTextRepeatFraudCheck": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth.",
+        "insetTextRepeatFraudCheck": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph3": "Gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod os oes ffyrdd eraill i gael mynediad iddo.",
         "paragraph3UpdateDetails": "Gallwch barhau i’r gwasanaeth heb ddiweddaru eich manylion. Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
@@ -113,7 +113,7 @@
       "content": {
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
-        "paragraph3": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad i’r gwasanaeth.",
+        "paragraph3": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
         "paragraph3IsExistingIdentityValid": "Nid yw eich manylion wedi cael eu diweddaru.",
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
@@ -121,7 +121,7 @@
           "contactOptionHint": "Efallai y bydd angen i chi ddileu’ch GOV.UK One Login. Yna gallwch greu un newydd a cheisio profi eich hunaniaeth eto gyda’ch manylion newydd.",
           "deleteOption": "Dileu eich GOV.UK One Login",
           "deleteOptionHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd.",
-          "returnToService": "Ewch yn ôl i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToService": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio",
           "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
           "returnToServiceIsExistingIdentityValid": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
           "returnToServiceHintIsExistingIdentityValid": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
@@ -135,13 +135,13 @@
       }
     },
     "pyiEscape": {
-      "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
-      "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
+      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "otherWayButtonText": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
-          "restartButtonText": "Ceisio profi eich hunaniaeth gyda GOV.UK One Login eto"
+          "restartButtonText": "Ceisiwch brofi eich hunaniaeth gyda One Login eto"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -165,7 +165,7 @@
           "continueAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
           "continueAppButtonTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "continuePostOfficeButtonText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
-          "continuePostOfficeButtonTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf."
+          "continuePostOfficeButtonTextHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK yn gyntaf."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -198,8 +198,8 @@
       }
     },
     "noPhotoIdAbandonFindAnotherWay": {
-      "title": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
-      "header": "Dod o hyd i ffordd arall o brofi eich hunaniaeth",
+      "title": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "header": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "subHeading": "Os nad oes gennych ID gyda llun",
         "paragraph1": "Gallwch geisio profi eich hunaniaeth gyda’r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
@@ -249,7 +249,7 @@
           "radioButtonAppText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "radioButtonPoText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
-          "radioButtonPoTextHint": "Byddwch yn rhoi manylion o’ch ID llun ar GOV.UK yn gyntaf.",
+          "radioButtonPoTextHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK yn gyntaf.",
           "separateOptionsInFormText": "neu"
         },
         "formErrorMessage": {
@@ -372,13 +372,13 @@
       }
     },
     "needApp": {
-      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
-      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi pwy ydych chi",
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Os nad ydych chi’n byw yn y DU, gallwch ond defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi gyda GOV.UK One Login.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueToServiceButtonText": "Mynd i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio i chwilio am ffyrdd eraill o’i gyrchu",
+          "continueToServiceButtonText": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
           "appSmartphoneButtonText": "Defnyddio’r ap a ffôn clyfar i brofi pwy ydych chi"
         },
         "formErrorMessage": {
@@ -389,8 +389,8 @@
       }
     },
     "pyiContinueWithPassport": {
-      "title": "Parhau profi eich hunaniaeth ar-lein",
-      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "title": "Parhau i brofi eich hunaniaeth ar-lein",
+      "header": "Parhau i brofi eich hunaniaeth ar-lein",
       "content": {
         "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
         "requirements": [
@@ -440,8 +440,8 @@
       }
     },
     "pyiContinueWithDrivingLicence": {
-      "title": "Parhau profi eich hunaniaeth ar-lein",
-      "header": "Parhau profi eich hunaniaeth ar-lein",
+      "title": "Parhau i brofi eich hunaniaeth ar-lein",
+      "header": "Parhau i brofi eich hunaniaeth ar-lein",
       "content": {
         "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
         "requirements": [
@@ -489,8 +489,8 @@
       }
     },
     "pyiTimeoutUnrecoverable": {
-      "title": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
-      "header": "Rydych wedi allgofnodi o’ch GOV.UK One Login",
+      "title": "Rydych wedi cael eich allgofnodi o’ch GOV.UK One Login",
+      "header": "Rydych wedi cael eich allgofnodi o’ch GOV.UK One Login",
       "content": {
         "paragraph1": "Gallai hyn fod oherwydd:",
         "signedOutReasons": [
@@ -499,7 +499,7 @@
           "defnyddiwyd mwy nag un porwr (er enghraifft Chrome, Safari)"
         ],
         "subHeading": "Beth allwch chi ei wneud",
-        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
+        "paragraph2": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
       }
     },
     "pyiTechnical": {
@@ -509,7 +509,7 @@
         "paragraph1": "Ni allwn gadarnhau eich hunaniaeth ar hyn o bryd.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph2": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato.",
-        "paragraph2IsUnrecoverable": "Ewch yn ôl i’r gwasanaeth roeddech chi’n ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
+        "paragraph2IsUnrecoverable": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio a dechrau eto. Gallwch chwilio am y gwasanaeth gan ddefnyddio eich peiriant chwilio neu dewch o hyd iddo o hafan GOV.UK."
       }
     },
     "pyiF2fTechnical": {
@@ -691,7 +691,7 @@
     },
     "retryProveIdentityApp": {
       "title": "Mae angen i chi brofi eich hunaniaeth gyda’r ap GOV.UK One Login",
-      "header": "Mae angen i chi brofi eich hunaniaeth gyda’r ap GOV.UK  One Login",
+      "header": "Mae angen i chi brofi eich hunaniaeth gyda’r ap GOV.UK One Login",
       "content": {
         "paragraph1": "Byddwch angen un o’r canlynol:",
         "list1": "pasbort y DU",
@@ -718,8 +718,8 @@
       }
     },
     "retryProveIdentityPassport": {
-      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich hunaniaeth",
+      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
       "content": {
         "paragraph1": "Gallwch roi cynnig arall os oes gennych:",
         "list1": "pasbort y DU",
@@ -805,11 +805,8 @@
         "subHeading": "Os ydych eisoes wedi bod i Swyddfa’r Post",
         "paragraph3": "Mae eich gwiriad hunaniaeth yn dal i gael ei brosesu.",
         "paragraph4": "Byddwch yn cael e-bost pan fydd canlyniad i’ch gwiriad hunaniaeth – fel arfer o fewn diwrnod o fynd i Swyddfa’r Post.",
-        "subHeading2": "Os ydych am brofi eich hunaniaeth mewn ffordd arall",
-        "paragraph5": "Os nad ydych bellach am brofi eich hunaniaeth mewn Swyddfa Bost, gallwch <a id=\"deleteDetailsLink\" class=\"govuk-link\" href=\"/ipv/journey/page-ipv-pending/next\">ddileu eich manylion a cheisio profi eich hunaniaeth mewn ffordd arall</a>.",
-        "paragraph6": "Byddwn yn dileu’ch manylion yn awtomatig os na fyddwch yn mynd i Swyddfa’r Post o fewn 10 diwrnod o gael eich e-bost cadarnhau.",
-        "subHeading3": "Os ydych angen help",
-        "paragraph7": "Cysylltwch â ni os:",
+        "subHeading2": "Os ydych angen help",
+        "paragraph5": "Cysylltwch â ni os:",
         "reasonsToContact": [
           "ydych angen help i orffen profi eich hunaniaeth gyda Swyddfa’r Post",
           "hoffech beidio â mynd i Swyddfa’r Post ac eisiau profi eich hunaniaeth mewn ffordd arall"
@@ -899,9 +896,9 @@
       "content": {
         "paragraph": "Bydd hyn yn ein helpu i ddod o hyd i’r ffordd orau i chi brofi eich hunaniaeth.",
         "subHeading": "Pasbort y DU",
-        "paragraph2": "Gallwch ddefnyddio unrhyw basbort y DU os yw heb ddod i ben.",
+        "paragraph2": "Gallwch ddefnyddio unrhyw basbort y DU os nad yw wedi dod i ben.",
         "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
-        "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
+        "paragraph3": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os:",
         "nonUkPassportRequirements": [
           "heb ddod i ben",
           "gyda sglodyn biometrig"
@@ -950,9 +947,9 @@
       "header": "Mathau o ID gyda llun",
       "content": {
         "subHeading1": "Pasbort y DU",
-        "paragraph1": "Gallwch ddefnyddio unrhyw basbort y DU os yw heb ddod i ben.",
+        "paragraph1": "Gallwch ddefnyddio unrhyw basbort y DU os nad yw wedi dod i ben.",
         "subHeading2": "Pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
-        "paragraph2": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os yw:",
+        "paragraph2": "Gallwch ddefnyddio pasbort o’r tu allan i’r DU os:",
         "nonUkPassportRequirements": [
           "heb ddod i ben",
           "gyda sglodyn biometrig"
@@ -1045,7 +1042,7 @@
           "html": "<p>Pan fyddwch yn sganio’ch wyneb, gallwch gadw’ch sbectol ymlaen cyn belled nad oes ganddynt dint.</p><p>Os ydych yn gwisgo sbectol gyda thint, bydd angen i chi eu tynnu pan fyddwch yn sganio’ch wyneb.</p>"
         },
         "details5": {
-          "summaryText": "Byddai’n well gen i beidio defnyddio’r ap",
+          "summaryText": "Byddai’n well gennyf beidio defnyddio’r ap",
           "html": "<p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app.cy\">ddarllen am sut i ddefnyddio’r ap (agor mewn tab newydd)</a> os nad ydych yn siŵr y gallwch ei ddefnyddio.</p><p>Os byddai’n well gennych beidio â defnyddio’r ap, efallai y byddwch yn gallu <a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">profi pwy ydych chi mewn ffordd arall</a>.</p>",
           "htmlIsAppOnly": "<p>Gallwch ond profi eich hunaniaeth drwy ddefnyddio’r ap.</p><p>Gallwch <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/guidance/proving-your-identity-with-the-govuk-one-login-app.cy\">ddarllen am sut i ddefnyddio’r ap (agor mewn tab newydd)</a> os nad ydych yn siŵr y gallwch ei ddefnyddio.</p><p><a class=\"govuk-link\" rel=\"noopener noreferrer\" href=\"/ipv/journey/pyi-triage-desktop-download-app/preferNoApp\">Gwiriwch beth allwch chi ei wneud os na allwch ddefnyddio’r ap</a>.</p>"
         },
@@ -1112,8 +1109,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei ddefnyddio i brofi pwy ydych chi",
-          "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi pwy ydych chi"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth",
+          "errorRadioMessage": "Dewiswch beth hoffech ei ddefnyddio i brofi eich hunaniaeth"
         }
       }
     },
@@ -1269,7 +1266,7 @@
         "formRadioButtons": {
           "continue": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
           "continueHint": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
-          "returnToService": "Ewch yn ôl i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToService": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio",
           "returnToServiceHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
           "delete": "Dileu eich GOV.UK One Login",
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth gan ddefnyddio eich manylion newydd."
@@ -1375,8 +1372,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -1515,8 +1512,8 @@
         "formRadioButtons": {
           "passport": "Defnyddiwch eich pasbort i brofi eich hunaniaeth yn yr ap GOV.UK One Login",
           "passportHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
-          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio.",
-          "returnToRpHint": "Efallai y bydd ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio’ch GOV.UK One Login.",
+          "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio",
+          "returnToRpHint": "Efallai bod ffordd arall o gael mynediad i’r gwasanaeth heb ddefnyddio eich GOV.UK One Login.",
           "continueToService": "Parhau i’r gwasanaeth heb ddiweddaru eich manylion",
           "continueToServiceHint": "Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid."
         },
@@ -1538,13 +1535,13 @@
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useApp": "Profi eich hunaniaeth gyda’r ap",
-          "useAppHint": "Byddwn yn eich tywys trwy hyn.",
+          "useAppHint": "Byddwn yn eich tywys drwy hyn.",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         },
         "details": {
           "title": "Os na allwch ddefnyddio’r ap GOV.UK One Login",
@@ -1566,7 +1563,7 @@
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useApp": "Profi eich hunaniaeth drwy ddefnyddio’r ap ac ID gyda llun",
-          "useAppHint": "Byddwn yn eich tywys trwy hyn.",
+          "useAppHint": "Byddwn yn eich tywys drwy hyn.",
           "delete": "Dileu eich GOV.UK One Login",
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
           "divisor": "neu",
@@ -1575,8 +1572,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -1587,8 +1584,8 @@
         "paragraph1": "Os na allwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login, dylech ddileu eich GOV.UK One Login fel y gallwch greu un newydd.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Profi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
-          "useAppHint": "Byddwn yn eich tywys trwy hyn.",
+          "useApp": "Profi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login",
+          "useAppHint": "Byddwn yn eich tywys drwy hyn.",
           "delete": "Dileu eich GOV.UK One Login",
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
           "divisor": "neu",
@@ -1597,14 +1594,14 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
     "sorryCouldNotConfirmIdentityReproveFailure": {
-      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu gadarnhau eich hunaniaeth",
+      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
+      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
       "content": {
         "paragraph1": "Nid oeddem yn gallu eich paru chi â’r llun ar eich ID gyda llun.",
         "paragraph2": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login presennol i gael mynediad i’r gwasanaeth.",
@@ -1616,8 +1613,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -1635,8 +1632,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch beth hoffech ei wneud",
-          "errorRadioMessage": "Dewiswch beth hoffech ei wneud"
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     }

@@ -10,6 +10,47 @@
 // NOTE: Translations are fiddly and there are special cases. You may need to tweak this script as the translation text
 //       evolves.
 
+// Keys where the Welsh value is intentionally identical to the English value.
+const UNTRANSLATED_WHITELIST = new Set([
+  "error.serviceUnavailable.title",
+  "error.serviceUnavailable.headerEn",
+  "error.serviceUnavailable.headerCy",
+  "error.serviceUnavailable.content.paragraph1En",
+  "error.serviceUnavailable.content.paragraph1Cy",
+  "error.serviceUnavailable.content.subHeadingEn",
+  "error.serviceUnavailable.content.subHeadingCy",
+  "error.serviceUnavailable.content.paragraph2En",
+  "error.serviceUnavailable.content.paragraph2Cy",
+  "error.serviceUnavailable.content.paragraph3En",
+  "error.serviceUnavailable.content.paragraph3Cy",
+  "general.shared.govUKHomepageButtonHref",
+  "pages.pageF2fHandoff.content.firstCircle",
+  "pages.pageF2fHandoff.content.secondCircle",
+  "pages.pageF2fHandoff.content.thirdCircle",
+]);
+
+// English text values where inconsistent Welsh translations are expected
+// (e.g. due to different capitalisation in the Welsh text and Welsh soft mutations).
+const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
+  "UK passport",
+  "UK photocard driving licence",
+  "UK biometric residence card or permit",
+]);
+
+// Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)
+// but not referenced directly in this project's source files.
+const BASE_TEMPLATE_KEYS = new Set([
+  "general.govuk.errorTitlePrefix",
+  "general.govuk.backLink",
+]);
+
+// Translation keys referenced in TypeScript source files.
+// Maintained as an allow list to avoid scanning all TS files.
+const TS_TRANSLATION_KEYS = new Set([
+  "general.govuk.notificationBanner.title",
+  "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
+]);
+
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -125,25 +166,6 @@ function findStructuralIssues(
   return issues;
 }
 
-// Keys where the Welsh value is intentionally identical to the English value.
-const UNTRANSLATED_WHITELIST = new Set([
-  "error.serviceUnavailable.title",
-  "error.serviceUnavailable.headerEn",
-  "error.serviceUnavailable.headerCy",
-  "error.serviceUnavailable.content.paragraph1En",
-  "error.serviceUnavailable.content.paragraph1Cy",
-  "error.serviceUnavailable.content.subHeadingEn",
-  "error.serviceUnavailable.content.subHeadingCy",
-  "error.serviceUnavailable.content.paragraph2En",
-  "error.serviceUnavailable.content.paragraph2Cy",
-  "error.serviceUnavailable.content.paragraph3En",
-  "error.serviceUnavailable.content.paragraph3Cy",
-  "general.shared.govUKHomepageButtonHref",
-  "pages.pageF2fHandoff.content.firstCircle",
-  "pages.pageF2fHandoff.content.secondCircle",
-  "pages.pageF2fHandoff.content.thirdCircle",
-]);
-
 for (const key of UNTRANSLATED_WHITELIST) {
   if (
     getTranslationFromFullyQualifiedName(englishTranslations, key) === undefined
@@ -153,14 +175,6 @@ for (const key of UNTRANSLATED_WHITELIST) {
     );
   }
 }
-
-// English text values where inconsistent Welsh translations are expected
-// (e.g. due to different capitalisation in the Welsh text and Welsh soft mutations).
-const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
-  "UK passport",
-  "UK photocard driving licence",
-  "UK biometric residence card or permit",
-]);
 
 // Find cases where the same English text maps to different Welsh translations
 function findInconsistentTranslations(untranslatedKeys: Set<string>): Issue[] {
@@ -206,20 +220,6 @@ function findInconsistentTranslations(untranslatedKeys: Set<string>): Issue[] {
   }
   return issues;
 }
-
-// Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)
-// but not referenced directly in this project's source files.
-const BASE_TEMPLATE_KEYS = new Set([
-  "general.govuk.errorTitlePrefix",
-  "general.govuk.backLink",
-]);
-
-// Translation keys referenced in TypeScript source files.
-// Maintained as an allow list to avoid scanning all TS files.
-const TS_TRANSLATION_KEYS = new Set([
-  "general.govuk.notificationBanner.title",
-  "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
-]);
 
 for (const key of TS_TRANSLATION_KEYS) {
   if (

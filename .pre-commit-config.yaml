@@ -12,14 +12,14 @@ repos:
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
     hooks:
-      - id: detect-secrets
-        args: ["--baseline", ".secrets.baseline"]
+    - id: detect-secrets
+      args: ["--baseline", ".secrets.baseline"]
 
-  -   repo: https://github.com/awslabs/cfn-python-lint
-      rev: v1.41.0 # The version of cfn-lint to use
-      hooks:
-      -   id: cfn-python-lint
-          files: .template\.yaml$
+  - repo: https://github.com/awslabs/cfn-python-lint
+    rev: v1.41.0 # The version of cfn-lint to use
+    hooks:
+    - id: cfn-python-lint
+      files: .template\.yaml$
 
   - repo: https://github.com/bridgecrewio/checkov.git
     rev: '2.5.4'

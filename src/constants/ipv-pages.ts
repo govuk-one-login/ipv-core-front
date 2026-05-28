@@ -14,6 +14,7 @@ const IPV_PAGES = Object.freeze({
     "no-photo-id-abandon-find-another-way",
   NEED_PROVE_IDENTITY_AGAIN_APP: "need-prove-identity-again-app",
   NEED_PROVE_IDENTITY_AGAIN_NO_APP: "need-prove-identity-again-no-app",
+  NEED_SMARTPHONE_PROVE_IDENTITY_APP: "need-smartphone-prove-identity-app",
   NON_UK_NO_APP_INTRO: "non-uk-app-intro",
   NON_UK_NO_APP: "non-uk-no-app",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",

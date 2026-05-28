@@ -1,0 +1,56 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.needSmartphoneProveIdentityApp.title' %}
+{% set googleTagManagerPageId = "needSmartphoneProveIdentityApp" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/need-smartphone-prove-identity-app/back" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.needSmartphoneProveIdentityApp.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.needSmartphoneProveIdentityApp.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#needSmartphoneProveIdentityAppForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '90debbc4-0c23-475c-acae-a58349b96f4c' %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needSmartphoneProveIdentityApp.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.needSmartphoneProveIdentityApp.content.paragraph1' | translate }}</p>
+
+  <form id="needSmartphoneProveIdentityAppForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.needSmartphoneProveIdentityApp.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "useApp",
+          text: 'pages.needSmartphoneProveIdentityApp.content.formRadioButtons.useApp' | translate
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.needSmartphoneProveIdentityApp.content.formRadioButtons.returnToRp' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.needSmartphoneProveIdentityApp.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

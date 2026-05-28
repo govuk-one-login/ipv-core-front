@@ -1638,6 +1638,23 @@
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
+    },
+    "needSmartphoneProveIdentityApp": {
+      "title": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+      "header": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK app",
+          "returnToRp": "Go to the service you were trying to use"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
     }
   }
 }

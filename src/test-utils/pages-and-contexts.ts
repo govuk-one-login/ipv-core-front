@@ -29,6 +29,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "need-id-prove-identity-again-app": [],
   "need-prove-identity-again-app": [],
   "need-prove-identity-again-no-app": [],
+  "need-smartphone-prove-identity-app": [],
   "no-photo-id-abandon-find-another-way": [],
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-security-questions-find-another-way": [

@@ -22,7 +22,10 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "live-in-uk": [],
   "need-app": [],
-  "need-biometric-passport": [],
+  "need-biometric-passport": [
+    { appOnlyMitigation: { appOnlyMitigation: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "need-id-prove-identity-again-app": [],
   "need-prove-identity-again-app": [],
   "need-prove-identity-again-no-app": [],

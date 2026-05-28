@@ -1399,6 +1399,8 @@
       "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
+        "paragraph1AppOnlyMitigation": "This can be a UK or non-UK passport.",
+        "paragraph2AppOnlyMitigation": "If you do not have one, you can go back to the service you were trying to use.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "returnToRpButtonText": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",

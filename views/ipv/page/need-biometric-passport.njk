@@ -11,14 +11,22 @@
 {% set errorHref = "#needBiometricPassportForm" %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = '059cc6c8-6e04-4de9-a6c0-5d26cd9e53c0'%}
+{% if pageContext.appOnlyMitigation %}
+    {% set contentID = '044793a2-b5d8-45a1-add9-ed6780e45601'%}
+{% else %}
+    {% set contentID = '059cc6c8-6e04-4de9-a6c0-5d26cd9e53c0'%}
+{% endif %}
 
 {% set showBack = true %}
 {% set hrefBack = "/ipv/journey/need-biometric-passport/back" %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needBiometricPassport.header' | translate }}</h1>
-  <p class="govuk-body">{{ 'pages.needBiometricPassport.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.needBiometricPassport.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'appOnlyMitigation') }}</p>
+
+  {% if pageContext.appOnlyMitigation %}
+    <p class="govuk-body">{{ 'pages.needBiometricPassport.content.paragraph2' | translateWithPageContext(pageContext, 'appOnlyMitigation') }}</p>
+  {% endif %}
 
   <form id="needBiometricPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

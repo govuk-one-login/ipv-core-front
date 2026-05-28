@@ -388,6 +388,23 @@
         }
       }
     },
+    "appPassportProveIdentity": {
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK One Login app",
+          "returnToRp": "Go to the service you were trying to use"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau i brofi eich hunaniaeth ar-lein",
       "header": "Parhau i brofi eich hunaniaeth ar-lein",

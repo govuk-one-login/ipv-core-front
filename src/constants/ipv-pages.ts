@@ -1,4 +1,5 @@
 const IPV_PAGES = Object.freeze({
+  APP_PASSPORT_PROVE_IDENTITY: "app-passport-prove-identity",
   CHECK_MOBILE_APP_RESULT: "check-mobile-app-result",
   CONFIRM_DETAILS: "confirm-your-details",
   DELETE_HANDOVER: "delete-handover",

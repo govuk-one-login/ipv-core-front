@@ -36,7 +36,7 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.needBiometricPassport.content.paragraph2AppOnlyMitigation",
   "pages.needSmartphoneProveIdentityApp.content.paragraph1",
   "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.useApp",
-  "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.returnToRp"
+  "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.returnToRp",
 ]);
 
 // English text values where inconsistent Welsh translations are expected
@@ -177,14 +177,21 @@ function findStructuralIssues(
 }
 
 for (const key of UNTRANSLATED_WHITELIST) {
-  const enValue = getTranslationFromFullyQualifiedName(englishTranslations, key);
+  const enValue = getTranslationFromFullyQualifiedName(
+    englishTranslations,
+    key,
+  );
   if (enValue === undefined) {
     throw new Error(
       `UNTRANSLATED_WHITELIST contains "${key}" which does not exist in English translations`,
     );
   }
   const cyValue = getTranslationFromFullyQualifiedName(welshTranslations, key);
-  if (typeof enValue === "string" && typeof cyValue === "string" && enValue !== cyValue) {
+  if (
+    typeof enValue === "string" &&
+    typeof cyValue === "string" &&
+    enValue !== cyValue
+  ) {
     throw new Error(
       `UNTRANSLATED_WHITELIST contains "${key}" which is now translated and should be removed from the whitelist`,
     );

@@ -70,7 +70,7 @@
       "paragraph2": "Gallwch ddefnyddio trwydded yrru cerdyn llun sydd wedi dod i ben gyda’r ap GOV.UK One Login os yw:",
       "list1": "wedi dod i ben yn ystod y 90 diwrnod diwethaf",
       "list2": "wedi’i gyhoeddi gan DVLA (gweler adran 4c ar eich trwydded)",
-      "paragraph3": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 18 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login",
+      "paragraph3": "Gallwch ddefnyddio BRP, BRC neu FWP sydd wedi dod i ben hyd at 24 mis ar ôl ei ddyddiad dod i ben gyda’r ap GOV.UK One Login",
       "paragraph4": "Mewn Swyddfa’r Post, gallwch ddefnyddio:",
       "postOfficeDocumentList": [
         "trwydded yrru cerdyn-llun y DU",
@@ -957,7 +957,7 @@
         "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
         "paragraph8": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
         "requirements": [
-          "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
+          "yw hyd at 24 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"
         ],
         "subHeading5": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio?",
@@ -999,7 +999,7 @@
         "subHeading4": "Cerdyn neu drwydded preswylio biometrig y DU",
         "paragraph7": "Gallwch ddefnyddio trwydded preswylio biometrig (BRP), cerdyn preswylio biometrig (BRC) neu drwydded Gweithiwr Ffiniol (FWP) os:",
         "cardOrPermitRequirements": [
-          "yw hyd at 18 mis ar ôl ei ddyddiad dod i ben",
+          "yw hyd at 24 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"
         ]
       }

@@ -1,4 +1,4 @@
-FROM node:24-alpine3.21@sha256:b8f7c9056af700568c1ce76173f1c93743fb64ca1343e18cdf3a6ded8985ad3d AS builder
+FROM node:24.16.0-alpine3.21@sha256:b8f7c9056af700568c1ce76173f1c93743fb64ca1343e18cdf3a6ded8985ad3d AS builder
 WORKDIR /app
 
 # Install packages
@@ -25,7 +25,7 @@ RUN npm run build-service-unavailable
 # 'npm install --omit=dev' does not prune test packages which are necessary
 RUN npm install --omit=dev
 
-FROM node:24-alpine3.21@sha256:b8f7c9056af700568c1ce76173f1c93743fb64ca1343e18cdf3a6ded8985ad3d AS final
+FROM node:24.16.0-alpine3.21@sha256:b8f7c9056af700568c1ce76173f1c93743fb64ca1343e18cdf3a6ded8985ad3d AS final
 RUN addgroup -S appgroup && \
     adduser -S -H -G appgroup appuser
 

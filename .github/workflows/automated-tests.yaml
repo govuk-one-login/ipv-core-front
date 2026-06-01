@@ -28,7 +28,7 @@ jobs:
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.16.0
       - name: Setup .npmrc
         run: |
           cp .npmrc.template .npmrc && \

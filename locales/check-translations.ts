@@ -279,6 +279,22 @@ function findUntranslatedKeys(): Set<string> {
   return keys;
 }
 
+// Find entries where either translation is blank
+function findBlankTranslations(): Issue[] {
+  const englishLeafEntries = collectTranslationLeafEntries(englishTranslations);
+  return englishLeafEntries
+    .filter(({ key, value }) => {
+      if (typeof value !== "string") return false;
+      if (value.trim() === "") return true;
+      const welshValue = getTranslationFromFullyQualifiedName(
+        welshTranslations,
+        key,
+      );
+      return typeof welshValue === "string" && welshValue.trim() === "";
+    })
+    .map(({ key }) => ({ key, issue: "blank_translation" }));
+}
+
 // Find translation keys not referenced by any source file
 function findUnusedTranslations(): Issue[] {
   const projectRoot = path.join(__dirname, "..");
@@ -395,6 +411,7 @@ const untranslatedKeys = findUntranslatedKeys();
 const issues = [
   ...findStructuralIssues(englishTranslations, welshTranslations),
   ...findInconsistentTranslations(untranslatedKeys),
+  ...findBlankTranslations(),
   ...findUnusedTranslations(),
 ];
 

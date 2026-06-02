@@ -909,12 +909,6 @@
         },
         "imgAltText": "Clawr blaen pasbort gyda’r symbol sglodyn biometrig wedi’i chwyddo.",
         "subHeading3": "Trwydded yrru cerdyn-llun y DU",
-        "paragraph5AllowMfaReset": "Gallwch ddefnyddio trwydded yrru’r DU os yw:",
-        "drivingLicenceRequirementsAllowMfaReset": [
-          "heb ddod i ben",
-          "gyda’ch llun"
-        ],
-        "paragraph6AllowMfaReset": "Gall fod yn drwydded yrru lawn neu dros dro y DU.",
         "paragraph5": "Gallwch ddefnyddio trwydded yrru y DU os yw eich llun arno.",
         "paragraph6": "Gall fod yn drwydded lawn neu dros dro.",
         "paragraph7": "Os yw eich trwydded yrru y DU wedi dod i ben, gallwch ond ei ddefnyddio os:",

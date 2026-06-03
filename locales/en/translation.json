@@ -359,6 +359,23 @@
         }
       }
     },
+    "appPassportProveIdentity": {
+      "title": "You need to use the GOV.UK One Login app to prove your identity",
+      "header": "You need to use the GOV.UK One Login app to prove your identity",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK One Login app",
+          "returnToRp": "Go to the service you were trying to use"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Continue proving your identity online",
       "header": "Continue proving your identity online",
@@ -1393,6 +1410,8 @@
       "header": "You need to use a passport with a biometric chip to prove your identity",
       "content": {
         "paragraph1": "If you do not live in the UK, you can only prove your identity with GOV.UK One Login using a passport with a biometric chip.",
+        "paragraph1AppOnlyMitigation": "This can be a UK or non-UK passport.",
+        "paragraph2AppOnlyMitigation": "If you do not have one, you can go back to the service you were trying to use.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {
           "returnToRpButtonText": "Go to the service you were trying to use to look for other ways to access it",
@@ -1620,6 +1639,23 @@
           "deleteHint": "Then you can create a new one and prove your identity another way.",
           "returnToRp": "Go back to the service you were trying to use to find out if there are other ways to access it",
           "returnToRpHint": "You will not be able to use your GOV.UK One Login to use the service."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "needSmartphoneProveIdentityApp": {
+      "title": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
+      "header": "You need an iPhone or Android phone to prove your identity using the GOV.UK One Login app",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK app",
+          "returnToRp": "Go to the service you were trying to use"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

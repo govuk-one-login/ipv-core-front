@@ -1,6 +1,6 @@
 # Pages
 
-Updated: 01/08/2024
+Updated: 27/05/2026
 
 ## How they work
 
@@ -10,31 +10,43 @@ Updated: 01/08/2024
 
 - Nunjucks files are templates which are rendered by the Express app.
 - The Express handler returns the `res.render(<path to template>, renderOptions)`.
-- Requests are routed in `app/ipv/router.ts` with generic route handlers.
+- Requests are routed in `src/app/ipv/router.ts` with generic route handlers.
 
 #### Hydrating the template
 
 From a number of sources:
 1. `renderOptions` provides dynamic variables, which may be different for each render:
-   - `context`
-     - General input indicating the need for different content.
+   - `pageContext`
+     - Object containing context data for the page, used with context-aware translation filters.
    - `pageId`
      - The id of the page itself so the page form posts to the same URL.
    - `csrfToken`
      - Token passed into hidden input on page to be submitted with the rest of the form data.
    - (optional params)
      - `userDetails`
-       - User information, for the appropriate screens
+       - User information, for the appropriate screens.
      - `qrCode`
        - QR code to download the mobile doc checking app, dynamically input because can be IOS/ Android.
      - `appDownloadUrl`
        - Link to download the mobile doc checking app.
      - `pageErrorState`
-       - Boolean indicating a form validating error on that page.
+       - Boolean indicating a form validation error on that page.
      - `errorState`
        - String indicating type of form error (`checkbox`/ `radiobox`).
+     - `apiUrl`
+       - URL for spinner pages to poll for VC receipt status.
+     - `msBetweenRequests`
+       - Milliseconds between polling requests (spinner pages).
+     - `msBeforeInformingOfLongWait`
+       - Milliseconds before showing a long wait message (spinner pages).
+     - `msBeforeAbort`
+       - Milliseconds before aborting the spinner (spinner pages).
+     - `postOfficeVisitByDate`
+       - Date by which the user should visit the post office.
+     - `documentExpiryDate`
+       - Date threshold for document expiry grace period.
 2. English/ Welsh content in `locales`.
-3. The `res.locals` variable set in `locals.js`.
+3. The `res.locals` variable set in `src/lib/locals.ts`.
 
 #### How the data is accessed
 
@@ -45,11 +57,25 @@ From a number of sources:
     ```
     {% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
     ```
-   - `translate` & variants are defined in `src/config/nunjucks.js`.
+   - `translate` & variants are defined in `src/config/nunjucks.ts`.
      - It takes the reference as a key to find the content saved in `locales` files for english/ welsh.
      - It can take secondary params, e.g.: `context`, which adds a suffix to the reference it's going to find.
-3. `locals.js`:
+   - Additional translation filters:
+     - `translateToEnglish` - always translates to English regardless of current language.
+     - `translateWithPageContext(pageContext, contextKey)` - translates using a context value from the pageContext object. Throws an error if the context key doesn't exist.
+     - `translateWithPageContextOrFallback(pageContext, contextKey)` - translates using a context value, falling back to the base translation if the context key doesn't exist.
+     - `fullKeyWithContext(pageContext, contextKey)` - returns the full translation key with context suffix appended.
+   - Other useful filters:
+     - `setAttribute(key, value)` - adds an attribute to an object (used for conditional error messages).
+     - `GDSDate` - formats a date in GDS style (e.g. "1 January 2025"), respecting the current language.
+     - `DateDayAndMonth` - formats a date showing only day and month.
+     - `jsonToList` - converts a JSON string to an HTML list.
+3. `src/lib/locals.ts`:
     - the `res.locals` variable attributes are provided as variables in the Nunjucks file, to be accessible like `"{{contactUsUrl}}"`.
+
+#### Template inheritance
+
+Templates extend `shared/base.njk`, which itself extends `build/components/bases/ipv-core/ipv-core-base.njk` from the `@govuk-one-login/frontend-ui` package. This means some variables (like language toggle, analytics) are handled by the upstream base template.
 
 ## Creating a new page
 
@@ -64,8 +90,8 @@ Breaking this example down:
     ```
   - Relevant details:
     - `pageTitleKey` is used for finding title from content, and `pageErrorState` may trigger an "Error: " prefix.
-    `showLanguageToggle` toggles the language toggle.
     - `showBack` toggles the back link.
+    - `hrefBack` the URL for the back link. Usually just the current page with `/back` appended.
     - `errorState` toggles error summary, which includes: `errorTitle`, `errorText` and `errorHref`.
     - `googleTagManagerPageId` sets state.
 
@@ -83,6 +109,16 @@ Breaking this example down:
 - Sets the tag for analytics.
     ```html
     {% set googleTagManagerPageId = "proveIdentityNoOtherPhotoId" %}
+    ```
+
+- Sets whether the page contains sensitive data (for analytics).
+    ```html
+    {% set isPageDataSensitive = false %}
+    ```
+
+- Sets the content ID for content management.
+    ```html
+    {% set contentID = 'a6aab77d-1781-4777-a524-ef78925aa6a2'%}
     ```
 
 - Variables for indicating errors, used in shared/base.njk as well.
@@ -103,9 +139,9 @@ Breaking this example down:
     ```html
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     ```
-  - `req.csrfToken(true)` creates the token in the GET route handler (the parameter forces a new token for each request)
-  - The result is saved in here
-  - And `csrfProtection()` checks it, in the POST route handler.
+  - `req.csrfToken?.(true)` creates the token in the GET route handler (the parameter forces a new token for each request).
+  - The result is passed as `csrfToken` in the renderOptions.
+  - `csrfSynchronisedProtection` middleware (from `csrf-sync`) validates the token in the POST route handler.
 
 - Variable with the config for the govukRadios component. Represents key value pair where key is "journey".
     ```html
@@ -134,30 +170,59 @@ Breaking this example down:
     ```html
     {% include "components/contact-us-link.njk" %}
     ```
-    - The `contactUsUrl` is created in `locals.js` to include the `fromUrl` query.
+    - The `contactUsUrl` is created in `src/lib/locals.ts` to include the `fromUrl` query.
     - The link attributes are a blanket policy of GDS
 
 2. GET requests at `/page/:pageId` will be automatically handled with:
-   ```javascript
-   router.get(getPagePath(":pageId"), csrfProtection, handleJourneyPageRequest);
+   ```typescript
+   router.get(getPagePath(":pageId"), csrfSynchronisedProtection, handleJourneyPageRequest);
    ```
 3. POST requests, with:
-    ```javascript
+    ```typescript
     router.post(
         getPagePath(":pageId"),
+        validatePageId,
+        csrfSynchronisedProtection,
         parseForm,
-        csrfProtection,
-        formRadioButtonChecked,
+        checkFormRadioButtonSelected,
         handleJourneyActionRequest,
     );
     ```
+
+   Note: Some pages have special-case routes defined before the generic handler (e.g. `UPDATE_DETAILS`, `CONFIRM_DETAILS`, `CHECK_MOBILE_APP_RESULT`, `PYI_TRIAGE_DESKTOP_DOWNLOAD_APP`, `PROBLEM_DIFFERENT_BROWSER`). Check `src/app/ipv/router.ts` for the full list.
+
 ### Add new page to constants:
 
-When adding new pages make sure those are also added to the required constants
+When adding new pages make sure those are also added to the required constants:
 
-- In [ipv-pages.ts](../src/constants/ipv-pages.ts) file update IPV_PAGES object with new page
+1. **[ipv-pages.ts](../src/constants/ipv-pages.ts)** - Add a new entry to the `IPV_PAGES` object with a constant name and the page slug (matching the Nunjucks template filename), e.g.:
+   ```typescript
+   MY_NEW_PAGE: "my-new-page",
+   ```
 
-- In [pages-and-contexts.ts](../src/test-utils/pages-and-contexts.ts) file update pagesAndContexts object with new page and contexts values
+2. **[page-contexts.ts](../src/types/page-contexts.ts)** - If your page uses a `pageContext` (for context-aware translations), add an entry to the `PageContextMap` type with the page slug and its context shape, e.g.:
+   ```typescript
+   "my-new-page": { someContextValue: string };
+   ```
+   If your page does not use page contexts, you can skip this file.
+
+3. **[pages-and-contexts.ts](../src/test-utils/pages-and-contexts.ts)** - Add an entry to the `pagesAndContexts` object for your page. This is used by tests to verify pages render correctly with each context variant:
+   - If your page has no contexts: `"my-new-page": [],`
+   - If your page has contexts, list the variants:
+     ```typescript
+     "my-new-page": [
+       { variantName: { someContextValue: "value" } },
+       NO_CONTEXT_VARIANT,
+     ],
+     ```
+
+4. **Translations** - Add the page's content (title, body text, error messages, etc.) to both locale files:
+   - `locales/en/translation.json` (English)
+   - `locales/cy/translation.json` (Welsh)
+
+   Under the `pages` key, using the page's camelCase name, e.g. `pages.myNewPage.title`.
+
+5. **Router (if needed)** - Most pages are handled by the generic route handlers in `src/app/ipv/router.ts` and don't need explicit routes. However, if your page requires special handling (custom middleware, different form validation, etc.), add a specific route before the generic handlers in the router. Check the existing special-case routes for examples.
 
 ### Notes
 

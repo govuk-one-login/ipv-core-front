@@ -10,6 +10,57 @@
 // NOTE: Translations are fiddly and there are special cases. You may need to tweak this script as the translation text
 //       evolves.
 
+// Keys where the Welsh value is intentionally identical to the English value.
+const UNTRANSLATED_WHITELIST = new Set([
+  "error.serviceUnavailable.title",
+  "error.serviceUnavailable.headerEn",
+  "error.serviceUnavailable.headerCy",
+  "error.serviceUnavailable.content.paragraph1En",
+  "error.serviceUnavailable.content.paragraph1Cy",
+  "error.serviceUnavailable.content.subHeadingEn",
+  "error.serviceUnavailable.content.subHeadingCy",
+  "error.serviceUnavailable.content.paragraph2En",
+  "error.serviceUnavailable.content.paragraph2Cy",
+  "error.serviceUnavailable.content.paragraph3En",
+  "error.serviceUnavailable.content.paragraph3Cy",
+  "general.shared.govUKHomepageButtonHref",
+  "pages.pageF2fHandoff.content.firstCircle",
+  "pages.pageF2fHandoff.content.secondCircle",
+  "pages.pageF2fHandoff.content.thirdCircle",
+
+  // Text awaiting translation
+  "pages.appPassportProveIdentity.content.paragraph1",
+  "pages.appPassportProveIdentity.content.formRadioButtons.useApp",
+  "pages.appPassportProveIdentity.content.formRadioButtons.returnToRp",
+  "pages.needBiometricPassport.content.paragraph1AppOnlyMitigation",
+  "pages.needBiometricPassport.content.paragraph2AppOnlyMitigation",
+  "pages.needSmartphoneProveIdentityApp.content.paragraph1",
+  "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.useApp",
+  "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.returnToRp",
+]);
+
+// English text values where inconsistent Welsh translations are expected
+// (e.g. due to different capitalisation in the Welsh text and Welsh soft mutations).
+const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
+  "UK passport",
+  "UK photocard driving licence",
+  "UK biometric residence card or permit",
+]);
+
+// Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)
+// but not referenced directly in this project's source files.
+const BASE_TEMPLATE_KEYS = new Set([
+  "general.govuk.errorTitlePrefix",
+  "general.govuk.backLink",
+]);
+
+// Translation keys referenced in TypeScript source files.
+// Maintained as an allow list to avoid scanning all TS files.
+const TS_TRANSLATION_KEYS = new Set([
+  "general.govuk.notificationBanner.title",
+  "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
+]);
+
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -125,42 +176,27 @@ function findStructuralIssues(
   return issues;
 }
 
-// Keys where the Welsh value is intentionally identical to the English value.
-const UNTRANSLATED_WHITELIST = new Set([
-  "error.serviceUnavailable.title",
-  "error.serviceUnavailable.headerEn",
-  "error.serviceUnavailable.headerCy",
-  "error.serviceUnavailable.content.paragraph1En",
-  "error.serviceUnavailable.content.paragraph1Cy",
-  "error.serviceUnavailable.content.subHeadingEn",
-  "error.serviceUnavailable.content.subHeadingCy",
-  "error.serviceUnavailable.content.paragraph2En",
-  "error.serviceUnavailable.content.paragraph2Cy",
-  "error.serviceUnavailable.content.paragraph3En",
-  "error.serviceUnavailable.content.paragraph3Cy",
-  "general.shared.govUKHomepageButtonHref",
-  "pages.pageF2fHandoff.content.firstCircle",
-  "pages.pageF2fHandoff.content.secondCircle",
-  "pages.pageF2fHandoff.content.thirdCircle",
-]);
-
 for (const key of UNTRANSLATED_WHITELIST) {
-  if (
-    getTranslationFromFullyQualifiedName(englishTranslations, key) === undefined
-  ) {
+  const enValue = getTranslationFromFullyQualifiedName(
+    englishTranslations,
+    key,
+  );
+  if (enValue === undefined) {
     throw new Error(
       `UNTRANSLATED_WHITELIST contains "${key}" which does not exist in English translations`,
     );
   }
+  const cyValue = getTranslationFromFullyQualifiedName(welshTranslations, key);
+  if (
+    typeof enValue === "string" &&
+    typeof cyValue === "string" &&
+    enValue !== cyValue
+  ) {
+    throw new Error(
+      `UNTRANSLATED_WHITELIST contains "${key}" which is now translated and should be removed from the whitelist`,
+    );
+  }
 }
-
-// English text values where inconsistent Welsh translations are expected
-// (e.g. due to different capitalisation in the Welsh text and Welsh soft mutations).
-const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
-  "UK passport",
-  "UK photocard driving licence",
-  "UK biometric residence card or permit",
-]);
 
 // Find cases where the same English text maps to different Welsh translations
 function findInconsistentTranslations(untranslatedKeys: Set<string>): Issue[] {
@@ -207,20 +243,6 @@ function findInconsistentTranslations(untranslatedKeys: Set<string>): Issue[] {
   return issues;
 }
 
-// Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)
-// but not referenced directly in this project's source files.
-const BASE_TEMPLATE_KEYS = new Set([
-  "general.govuk.errorTitlePrefix",
-  "general.govuk.backLink",
-]);
-
-// Translation keys referenced in TypeScript source files.
-// Maintained as an allow list to avoid scanning all TS files.
-const TS_TRANSLATION_KEYS = new Set([
-  "general.govuk.notificationBanner.title",
-  "pages.pageIpvReuse.content.userDetailsInformation.currentAddress",
-]);
-
 for (const key of TS_TRANSLATION_KEYS) {
   if (
     getTranslationFromFullyQualifiedName(englishTranslations, key) === undefined
@@ -255,6 +277,22 @@ function findUntranslatedKeys(): Set<string> {
     if (value === welshValue) keys.add(key);
   }
   return keys;
+}
+
+// Find entries where either translation is blank
+function findBlankTranslations(): Issue[] {
+  const englishLeafEntries = collectTranslationLeafEntries(englishTranslations);
+  return englishLeafEntries
+    .filter(({ key, value }) => {
+      if (typeof value !== "string") return false;
+      if (value.trim() === "") return true;
+      const welshValue = getTranslationFromFullyQualifiedName(
+        welshTranslations,
+        key,
+      );
+      return typeof welshValue === "string" && welshValue.trim() === "";
+    })
+    .map(({ key }) => ({ key, issue: "blank_translation" }));
 }
 
 // Find translation keys not referenced by any source file
@@ -373,6 +411,7 @@ const untranslatedKeys = findUntranslatedKeys();
 const issues = [
   ...findStructuralIssues(englishTranslations, welshTranslations),
   ...findInconsistentTranslations(untranslatedKeys),
+  ...findBlankTranslations(),
   ...findUnusedTranslations(),
 ];
 
@@ -394,6 +433,7 @@ for (const key of untranslatedKeys) {
 const output = {
   issues,
   untranslated,
+  untranslatedWhitelistEntries: [...untranslatedKeys],
 };
 
 const outputPath = path.join(__dirname, "translation-inconsistencies.json");

@@ -388,6 +388,23 @@
         }
       }
     },
+    "appPassportProveIdentity": {
+      "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK One Login app",
+          "returnToRp": "Go to the service you were trying to use"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
     "pyiContinueWithPassport": {
       "title": "Parhau i brofi eich hunaniaeth ar-lein",
       "header": "Parhau i brofi eich hunaniaeth ar-lein",
@@ -1393,6 +1410,8 @@
       "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
+        "paragraph1AppOnlyMitigation": "This can be a UK or non-UK passport.",
+        "paragraph2AppOnlyMitigation": "If you do not have one, you can go back to the service you were trying to use.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "returnToRpButtonText": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
@@ -1623,6 +1642,23 @@
           "deleteHint": "Yna gallwch greu un newydd a phrofi eich hunaniaeth mewn ffordd arall.",
           "returnToRp": "Ewch yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
           "returnToRpHint": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i ddefnyddio’r gwasanaeth."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
+        }
+      }
+    },
+    "needSmartphoneProveIdentityApp": {
+      "title": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+      "header": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
+      "content": {
+        "paragraph1": "If you cannot use the app, you can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
+        "formRadioButtons": {
+          "useApp": "Prove your identity with the GOV.UK app",
+          "returnToRp": "Go to the service you were trying to use"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

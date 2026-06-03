@@ -6,7 +6,10 @@ The site uses DynamoDb for data storage.
 Configuration is stored in environment variables accessed through dotenv, or in AWS SSM.
 csrf-sync is used to provide csrf protection for the forms on the site.
 Axios is used to send web requests (e.g. to `core-back`)
-The base template for `core-front` is actually stored in the `@govuk-one-login/frontend-ui`
+The base template for `core-front` is `ipv-core-base.njk` from the `@govuk-one-login/frontend-ui` npm package.
+It can be found at `node_modules/@govuk-one-login/frontend-ui/build/components/bases/ipv-core/ipv-core-base.njk`.
+This template uses variables set as res.locals in core-front (e.g. in `src/lib/locals.ts`), so when investigating
+whether a local variable is used, always check this base template as well as core-front's own templates.
 CSS is generated using SASS
 
 # Testing

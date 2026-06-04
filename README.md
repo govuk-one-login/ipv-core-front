@@ -5,7 +5,7 @@ The IPV Core frontend is the first user-facing screen in the identity proving jo
 
 ## How it works
 
-core-front is an Express app written in TypeScript. It uses Nunjucks for page templates, i18next for English/Welsh translations, and SASS for stylesheets. Pages follow the [GOV.UK Design System](https://design-system.service.gov.uk/).
+ipv-core-front is an Express app written in TypeScript. It uses Nunjucks for page templates, i18next for English/Welsh translations, and SASS for stylesheets. Pages follow the [GOV.UK Design System](https://design-system.service.gov.uk/), with the components and styling being provided by the [govuk-one-login-frontend](https://github.com/govuk-one-login/govuk-one-login-frontend/tree/main) project.
 
 The app displays pages to users and sends their actions to [core-back](https://github.com/govuk-one-login/ipv-core-back), which contains the business logic and decides what page to show next.
 
@@ -16,7 +16,7 @@ ipv-core-front works with the following IPV Core repositories:
 * [ipv-core-back](https://github.com/govuk-one-login/ipv-core-back) - backend code
 * [ipv-core-tests](https://github.com/govuk-one-login/ipv-core-tests) - feature tests
 * [ipv-core-common-infra](https://github.com/govuk-one-login/ipv-core-common-infra) - utilities that automate IPV Core ancillary services
-* [ipv-stubs](https://github.com/govuk-one-login/ipv-stubs) - test stubs for IPV Core dependencies (credential issuers)
+* [ipv-stubs](https://github.com/govuk-one-login/ipv-stubs) - test stubs for IPV Core dependencies (orchestration and credential issuers)
 
 ## Kiro
 Kiro is Amazon's coding assistant AI, currently, as part of the AI experiment, we are allowed to use the command line version `kiro-cli`. This project includes a `.kiro` folder that contains markdown files designed
@@ -35,7 +35,7 @@ This guide explains how to:
 ## Pre-requisites
 
 - Membership of the `govuk-one-login` GitHub organisation (needed for npm package access)
-- Node.js — install the same version specified in the Dockerfile (currently 24.x). We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node versions, but any method is fine.
+- Node.js — install the same version specified in the Dockerfile (currently 24.16). [nvm](https://github.com/nvm-sh/nvm) is recommended to manage Node versions, but any method is fine.
 
 ## Cloning and installing ipv-core-front
 
@@ -59,7 +59,7 @@ npm ci
 We import common components, functions and middleware from the [govuk-one-login-frontend repository](https://github.com/govuk-one-login/govuk-one-login-frontend/tree/main)
 such as the spinner component, language middleware and our base nunjucks template which is extended by all of Core's pages.
 
-We also depend on [frontend-analytics](https://www.npmjs.com/package/@govuk-one-login/frontend-analytics) so that is can be used by our base page template.
+We also depend on and import [frontend-analytics](https://www.npmjs.com/package/@govuk-one-login/frontend-analytics) so that it can be used by our base page template.
 
 Note: the base template in the above repo depends on nunjucks filters that are defined in this repository. When updating a filter,
 consider if it affects the base nunjucks file and if the change will require multiple deployments to ensure backwards compatibility.

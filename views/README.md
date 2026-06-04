@@ -9,12 +9,12 @@ Updated: 27/05/2026
 #### Intro
 
 - Nunjucks files are templates which are rendered by the Express app.
-- The Express handler returns the `res.render(<path to template>, renderOptions)`.
+- The Express handler returns the result of `res.render(<path to template>, renderOptions)`.
 - Requests are routed in `src/app/ipv/router.ts` with generic route handlers.
 
 #### Hydrating the template
 
-From a number of sources:
+Data for the template comes from a number of sources:
 1. `renderOptions` provides dynamic variables, which may be different for each render:
    - `pageContext`
      - Object containing context data for the page, used with context-aware translation filters.
@@ -59,12 +59,11 @@ From a number of sources:
     ```
    - `translate` & variants are defined in `src/config/nunjucks.ts`.
      - It takes the reference as a key to find the content saved in `locales` files for english/ welsh.
-     - It can take secondary params, e.g.: `context`, which adds a suffix to the reference it's going to find.
    - Additional translation filters:
      - `translateToEnglish` - always translates to English regardless of current language.
      - `translateWithPageContext(pageContext, contextKey)` - translates using a context value from the pageContext object. Throws an error if the context key doesn't exist.
      - `translateWithPageContextOrFallback(pageContext, contextKey)` - translates using a context value, falling back to the base translation if the context key doesn't exist.
-     - `fullKeyWithContext(pageContext, contextKey)` - returns the full translation key with context suffix appended.
+     - `fullKeyWithContext(pageContext, contextKey)` - returns the full translation key with context suffix appended - used to pass the translation key of the title to base page template.
    - Other useful filters:
      - `setAttribute(key, value)` - adds an attribute to an object (used for conditional error messages).
      - `GDSDate` - formats a date in GDS style (e.g. "1 January 2025"), respecting the current language.
@@ -143,11 +142,11 @@ Breaking this example down:
   - The result is passed as `csrfToken` in the renderOptions.
   - `csrfSynchronisedProtection` middleware (from `csrf-sync`) validates the token in the POST route handler.
 
-- Variable with the config for the govukRadios component. Represents key value pair where key is "journey".
+- Variable with the config for the govukRadios component.
     ```html
     {% set radiosConfig = {...} %}
     ```
-  - The values given to the radio map directly with the event the state associated will produce, so keep to camelCase.
+  - The values given to the radio config map directly to the events that page will produce, and must match the events in the associated journey map state (in core-back), so keep to camelCase.
 
 - This is the conditionally-visible error message within the form.
     ```html
@@ -193,7 +192,7 @@ Breaking this example down:
 
 ### Add new page to constants:
 
-When adding new pages make sure those are also added to the required constants:
+When adding new pages make sure they are also added to the required constants:
 
 1. **[ipv-pages.ts](../src/constants/ipv-pages.ts)** - Add a new entry to the `IPV_PAGES` object with a constant name and the page slug (matching the Nunjucks template filename), e.g.:
    ```typescript
@@ -222,7 +221,11 @@ When adding new pages make sure those are also added to the required constants:
 
    Under the `pages` key, using the page's camelCase name, e.g. `pages.myNewPage.title`.
 
+   If we only have English text then use it in both the Welsh and English files and then run the `check-translations` script to generate a JSON segment of untranslated text that we can send to the UCD team for translation. The script will also produce an array of untranslated text entries that should be added to `UNTRANSLATED_WHITELIST` until we get the translations back.
+
 5. **Router (if needed)** - Most pages are handled by the generic route handlers in `src/app/ipv/router.ts` and don't need explicit routes. However, if your page requires special handling (custom middleware, different form validation, etc.), add a specific route before the generic handlers in the router. Check the existing special-case routes for examples.
+
+6. Rebuild and run the [snapshot tests](../browser-tests/readme.md) to generate new snapshots for the new pages.
 
 ### Notes
 

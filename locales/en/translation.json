@@ -1287,6 +1287,29 @@
         "paragraph2Reprove": "After you delete your GOV.UK One Login, go back to the service you were trying to use. You can then create a new GOV.UK One Login."
       }
     },
+    "proveIdentityOnline": {
+      "title": "Prove your identity online without photo ID",
+      "titlePhotoId": "Prove your identity online",
+      "header": "Prove your identity online without photo ID",
+      "headerPhotoId": "Prove your identity online",
+      "content": {
+        "paragraph1": "You can prove your identity by entering some details about yourself and signing in to your online banking.",
+        "paragraph1PhotoId": "You can prove your identity by entering some details from your photo ID and signing in to your online banking.",
+        "paragraph2": "Banks have very strong security, so when you sign in, they know it’s really you. The bank can then confirm you are who you say you are, using technology called ‘open banking’.",
+        "insetText": "None of your bank account information will be shared with the government service you’re using.",
+        "details1": {
+          "heading": "Who you share your information with",
+          "paragraph1": "We use a company called Ecospend to securely connect to your bank or building society.",
+          "paragraph2": "When you sign in to online banking, you’ll be asked to share some details with Ecospend, such as sort code and account number, in order to confirm your identity.",
+          "paragraph3": "Ecospend is regulated by the <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Financial Conduct Authority (opens in a new tab)</a>."
+        },
+        "details2": {
+          "heading": "If you do not have online banking",
+          "paragraph1": "You must already have online banking set up with your bank or building society. If you don’t, you may be able to <a class=\"govuk-link\" href=\"/ipv/journey/prove-identity-online/anotherWay\" rel=\"noopener noreferrer\">prove your identity another way</a>."
+        },
+        "anotherWayLinkText": "Prove your identity another way"
+      }
+    },
     "updateDetailsFailed": {
       "title": "You were not able to update your details with the GOV.UK One Login app",
       "header": "You were not able to update your details with the GOV.UK One Login app",

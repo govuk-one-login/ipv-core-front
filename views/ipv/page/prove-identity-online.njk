@@ -1,0 +1,41 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+{% set pageTitleKey = 'pages.proveIdentityOnline.title' | fullKeyWithContext(pageContext, 'photoId') %}
+{% set googleTagManagerPageId = "proveIdentityOnline" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/prove-identity-online/back" %}
+
+{% set isPageDataSensitive = false %}
+{% set isPageDynamic = true %}
+{% if pageContext.photoId %}
+  {% set contentID = '6f6bf58f-9ff6-4673-b770-ab3db5b0be4d' %}
+{% else %}
+  {% set contentID = '3c6ddd22-6070-4eb1-8597-ae0cbfa1bb53' %}
+{% endif %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityOnline.header' | translateWithPageContextOrFallback(pageContext, 'photoId') }}</h1>
+  <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'photoId') }}</p>
+  <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph2' | translate }}</p>
+
+  {{ govukInsetText({
+    text: 'pages.proveIdentityOnline.content.insetText' | translate
+  }) }}
+
+  {{ govukDetails({
+    summaryText: 'pages.proveIdentityOnline.content.details1.heading' | translate,
+    html: '<p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph1' | translate) + '</p><p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph2' | translate) + '</p><p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph3' | translate) + '</p>'
+  }) }}
+
+  {{ govukDetails({
+    summaryText: 'pages.proveIdentityOnline.content.details2.heading' | translate,
+    html: '<p class="govuk-body">' + ('pages.proveIdentityOnline.content.details2.paragraph1' | translate) + '</p>'
+  }) }}
+
+  {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate) }}
+
+  <p class="govuk-body"><a class="govuk-link" href="/ipv/journey/prove-identity-online/anotherWay" rel="noopener noreferrer">{{ 'pages.proveIdentityOnline.content.anotherWayLinkText' | translate }}</a></p>
+{% endblock %}

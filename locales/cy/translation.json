@@ -754,6 +754,26 @@
         }
       }
     },
+    "selectPhotoId": {
+      "title": "Select photo ID",
+      "header": "Select photo ID",
+      "content": {
+        "paragraph1": "Tell us which photo ID you have to find the best way to prove your identity.",
+        "formRadioButtons": {
+          "ukPassportText": "UK passport",
+          "ukPassportHint": "You can use a UK passport up to 18 months after its expiry date.",
+          "drivingLicenceText": "UK photocard driving licence",
+          "drivingLicenceHint": "It must not have expired.",
+          "divider": "or",
+          "neitherText": "I do not have either of these"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select which photo ID you have, or select ‘I do not have either of these’",
+          "errorRadioMessage": "Select which photo ID you have, or select ‘I do not have either of these’"
+        }
+      }
+    },
     "pageDifferentSecurityQuestions": {
       "title": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae angen i chi brofi eich hunaniaeth mewn ffordd arall",

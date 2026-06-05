@@ -68,6 +68,7 @@ const IPV_PAGES = Object.freeze({
   REPROVE_IDENTITY_START: "reprove-identity-start",
   RETRY_PROVE_IDENTITY_APP: "retry-prove-identity-app",
   RETRY_PROVE_IDENTITY_PASSPORT: "retry-prove-identity-passport",
+  SELECT_PHOTO_ID: "select-photo-id",
   SERVICE_UNAVAILABLE: "service-unavailable",
   SESSION_ENDED: "session-ended",
   SORRY_COULD_NOT_CONFIRM_IDENTITY_REPROVE_FAILURE:

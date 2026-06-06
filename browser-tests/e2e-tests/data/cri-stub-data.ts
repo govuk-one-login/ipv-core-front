@@ -66,6 +66,14 @@ export const criStubData: Record<string, Record<string, CriStubDataConfig>> = {
       evidenceScores: { fraud: 2, activityHistory: 1 },
     },
   },
+  // DL Auth Check: selects canned user, sets DL evidence scores, submits
+  "kenneth-decerqueira-dl-auth-check": {
+    "driving-licence": {
+      cannedStubData:
+        "Kenneth Decerqueira (Valid) DVLA Licence",
+      evidenceScores: { strength: 3, validity: 2, activityHistory: 1 },
+    },
+  },
   "kenneth-decerqueira-valid": {
     "dcmaw-async": {
       customCredentialSubject: kennethDecerquieraPassport(),

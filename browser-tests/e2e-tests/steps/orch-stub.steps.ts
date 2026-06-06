@@ -43,6 +43,15 @@ When("the user starts a new journey", async ({ orchStubUtils }) => {
   await orchStubUtils.startJourney();
 });
 
+// Starts a new journey with the same userId and a specific VTR value
+// Maps to Selenium's startFullJourneyWithSameUserIdAndVtr
+When(
+  "the user starts a new journey with VTR {string}",
+  async ({ orchStubUtils }, vtr: string) => {
+    await orchStubUtils.startJourney({ vtr });
+  },
+);
+
 // An alternative to the above new journey step where we need to wait for
 // an async VC which might require a few retries.
 When(

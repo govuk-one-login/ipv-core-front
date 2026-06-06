@@ -82,6 +82,33 @@ export const enqueueVc = async (
   return postToEnqueueVc(payload);
 };
 
+// Enqueues a VC with an expired driving permit (nbf 181 days ago, expiry 182 days ago)
+// Mirrors Selenium's produceDcmawAsyncVcExpiredDL
+export const enqueueVcForExpiredDL = async (
+  userId: string,
+  testUser: string,
+  documentType: string,
+  evidenceType: string,
+): Promise<string> => {
+  const now = Date.now();
+  const nbf = Math.floor((now - 181 * 24 * 60 * 60 * 1000) / 1000);
+  const expiryDate = new Date(now - 182 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split("T")[0];
+
+  const payload = {
+    user_id: userId,
+    test_user: testUser,
+    document_type: documentType,
+    evidence_type: evidenceType,
+    queue_name: config.asyncQueueName,
+    nbf,
+    driving_permit_expiry_date: expiryDate,
+  };
+
+  return postToEnqueueVc(payload);
+};
+
 const postToEnqueueVc = async (payload: object): Promise<string> => {
   console.info("Enqueueing DCMAW Async VC...");
 

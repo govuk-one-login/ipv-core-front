@@ -2,8 +2,12 @@ import config from "../config";
 import { expect, Page } from "@playwright/test";
 import { ScenarioContext } from "./index";
 
+export interface StartJourneyOptions {
+  vtr?: string;
+}
+
 export interface OrchestratorStubUtils {
-  startJourney: () => Promise<void>;
+  startJourney: (options?: StartJourneyOptions) => Promise<void>;
   expectVot: (expectedVot: string) => Promise<void>;
 }
 
@@ -15,12 +19,13 @@ export const orchestratorStubUtils = (
   const USER_ID_INPUT = "#userIdText";
   const JOURNEY_ID_INPUT = "#signInJourneyIdText";
   const ENV_SELECTOR = "#targetEnvironment";
+  const VTR_INPUT = "#vtrText";
   const FULL_JOURNEY_BUTTON = "#full-journey-button";
 
   const generateJourneyId = (): string =>
     `${testName.replaceAll(" ", "_")}-${Math.random().toString(36).slice(2, 7)}`;
 
-  const startJourney = async (): Promise<void> => {
+  const startJourney = async (options?: StartJourneyOptions): Promise<void> => {
     await page.goto(config.orchestratorStubUrl);
 
     let userId = scenarioContext.userId;
@@ -37,6 +42,12 @@ export const orchestratorStubUtils = (
     console.info(`--- Starting journey with journey ID: ${journeyId} ---`);
 
     await page.locator(ENV_SELECTOR).selectOption(config.orchStubTargetEnv);
+
+    // Set VTR if provided (maps to Selenium's orchStubHomePage.setVtr)
+    if (options?.vtr) {
+      await page.locator(VTR_INPUT).fill(options.vtr);
+    }
+
     await page.locator(FULL_JOURNEY_BUTTON).click();
   };
 

@@ -2,6 +2,7 @@ import { createBdd } from "playwright-bdd";
 import fixtures from "../fixtures";
 import {
   enqueueVc,
+  enqueueVcForExpiredDL,
   enqueueVcWithScenario,
 } from "../clients/dcmaw-async-client";
 import config from "../config";
@@ -51,6 +52,29 @@ When(
       throw new Error("Missing userId");
     }
     scenarioContext.oauthState = await enqueueVc(
+      userId,
+      testUser,
+      documentType,
+      evidenceType,
+    );
+  },
+);
+
+// Enqueues a VC with expired DL parameters (nbf 181 days ago, expiry 182 days ago)
+// Maps to Selenium's produceDcmawAsyncVcExpiredDL in StrategicAppSteps
+When(
+  "the DCMAW CRI produces a {string} {string} {string} VC for expired DL",
+  async (
+    { scenarioContext },
+    testUser: string,
+    documentType: string,
+    evidenceType: string,
+  ) => {
+    const userId = scenarioContext.userId;
+    if (!userId) {
+      throw new Error("Missing userId");
+    }
+    scenarioContext.oauthState = await enqueueVcForExpiredDL(
       userId,
       testUser,
       documentType,

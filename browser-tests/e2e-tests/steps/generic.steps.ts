@@ -14,6 +14,14 @@ Then(
   },
 );
 
+// Heading assertion — maps to Selenium's checkPageHeading (CommonSteps)
+Then(
+  "the user should see a page with heading {string}",
+  async ({ page }, h1Text: string) => {
+    await expect(page.locator("h1").first()).toHaveText(h1Text);
+  },
+);
+
 When("the user chooses to continue", async ({ pageUtils }) => {
   await pageUtils.getContinueButton().click();
 });

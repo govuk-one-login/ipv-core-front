@@ -44,6 +44,8 @@ const IPV_PAGES = Object.freeze({
   PROVE_IDENTITY_ANOTHER_WAY: "prove-identity-another-way",
   PROVE_IDENTITY_NO_OTHER_PHOTO_ID: "prove-identity-no-other-photo-id",
   PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
+  PROVE_IDENTITY_ONLINE_BANKING_PHOTO_ID:
+    "prove-identity-online-banking-photo-id",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
   PYI_CONTINUE_WITH_DRIVING_LICENCE: "pyi-continue-with-driving-licence",

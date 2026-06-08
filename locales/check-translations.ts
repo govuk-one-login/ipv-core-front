@@ -37,6 +37,23 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.needSmartphoneProveIdentityApp.content.paragraph1",
   "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.useApp",
   "pages.needSmartphoneProveIdentityApp.content.formRadioButtons.returnToRp",
+
+  // PYIC-9148 - Text awaiting translation
+  "pages.proveIdentityOnlineBankingPhotoId.title",
+  "pages.proveIdentityOnlineBankingPhotoId.header",
+  "pages.proveIdentityOnlineBankingPhotoId.content.paragraph1",
+  "pages.proveIdentityOnlineBankingPhotoId.content.htmlLink",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardHeader",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionHeader1",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionHeader1NoPhotoId",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionDescription1",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionDescription1NoPhotoId",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionHeader2",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionDescription2",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionHeader3",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionDescription3",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionHeader4",
+  "pages.proveIdentityOnlineBankingPhotoId.content.stepCardSectionDescription4",
 ]);
 
 // English text values where inconsistent Welsh translations are expected

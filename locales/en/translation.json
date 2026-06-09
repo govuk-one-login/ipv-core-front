@@ -1664,7 +1664,7 @@
         }
       }
     },
-    "proveIdentityOnlineBankingPhotoId": {
+    "proveIdentityOnlineBanking": {
       "title": "Prove your identity by signing in to online banking",
       "header": "Prove your identity by signing in to online banking",
       "content": {

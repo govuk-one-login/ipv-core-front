@@ -89,7 +89,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { nino: { ninoOnly: true } },
     NO_CONTEXT_VARIANT,
   ],
-  "prove-identity-online-banking-photo-id": [
+  "prove-identity-online-banking": [
     { noPhotoId: { noPhotoId: true } },
     NO_CONTEXT_VARIANT,
   ],

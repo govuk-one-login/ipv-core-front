@@ -89,6 +89,10 @@ export const pagesAndContexts: PagesAndContexts = {
     { nino: { ninoOnly: true } },
     NO_CONTEXT_VARIANT,
   ],
+  "prove-identity-online-banking": [
+    { noPhotoId: { noPhotoId: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "pyi-another-way": [],
   "pyi-attempt-recovery": [],
   "pyi-continue-with-driving-licence": [],

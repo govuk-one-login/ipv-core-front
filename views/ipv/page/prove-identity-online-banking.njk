@@ -1,0 +1,64 @@
+{% extends "shared/base.njk" %}
+{% from "frontend-ui/build/components/step-card/macro.njk" import frontendUiStepCard %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "components/journey-next-form.njk" import journeyNextForm %}
+
+{% set pageTitleKey = 'pages.proveIdentityOnlineBanking.title' %}
+{% set googleTagManagerPageId = "proveIdentityOnlineBanking" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/prove-identity-online-banking/back" %}
+
+{% set isPageDataSensitive = false %}
+{% if pageContext.noPhotoId %}
+    {% set contentID = '87474d0a-ad0b-48d0-a9c7-1627073ff323' %}
+{% else %}
+    {% set contentID = 'ea6bff24-7675-4226-bfe7-cb262aab2e9b' %}
+{% endif %}
+
+{% if pageContext.noPhotoId %}
+    {% set step1Config = {
+        data: { 
+            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translateWithPageContextOrFallback(pageContext, 'noPhotoId'), 
+            bulletList: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1NoPhotoId' | translate({ returnObjects: true })
+        },
+        image: "/public/images/enter-details-no-photo-id-icon.svg"
+    } %}
+{% else %}
+    {% set step1Config = {
+        data: { 
+            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translate, 
+            description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1' | translate 
+        },
+        image: "/public/images/enter-details-icon.svg"
+    } %}
+{% endif %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityOnlineBanking.header' | translate }}</h1>
+    <p class="govuk-body">{{ 'pages.proveIdentityOnlineBanking.content.paragraph1' | translate }}</p>
+
+    {{ frontendUiStepCard({
+        translations: { header: 'pages.proveIdentityOnlineBanking.content.stepCardHeader' | translate },
+        steps: [
+            step1Config,
+            {
+                data: { title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader2' | translate , description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription2' | translate },
+                image: "/public/images/enter-address-icon.svg"
+            },
+            {
+                data: { title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader3' | translate , description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription3' | translate },
+                image: "/public/images/sign-in-online-banking-icon.svg"
+            },
+            {
+                data: { title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader4' | translate , description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription4' | translate },
+                image: "/public/images/bank-confirm-icon.svg"
+            }
+        ]
+    }) }}
+
+    {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
+
+    <p class="govuk-body">{{ 'pages.proveIdentityOnlineBanking.content.htmlLink' | translate | safe }}</p>
+{% endblock %}

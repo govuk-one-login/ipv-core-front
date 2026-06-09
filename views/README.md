@@ -50,7 +50,7 @@ Data for the templates comes from a number of sources:
     {% set errorTitle = 'pages.pageMultipleDocCheck.content.formErrorMessage.errorSummaryTitleText' | translate %}
     ```
     - `translate` & variants are defined in `src/config/nunjucks.ts`.
-        - `translate` takes the reference as a key to find the content saved in `locales` files for english/ welsh.
+        - `translate` takes the reference as a key to find the content saved in `locales` files for English/Welsh.
     - Additional translation filters:
         - `translateToEnglish` - always translates to English regardless of current language.
         - `translateWithPageContext(pageContext, contextKey)` - translates using a context value from the pageContext object. Throws an error if the context key doesn't exist.
@@ -70,7 +70,7 @@ Some pages need to display different content depending on context (e.g. the same
 
 Pages that use page context values to change what they display are referred to as dynamic pages. Most pages don't use page context values and are referred to as static pages.
 
-Page context values can be used to access different translation text with e.g. `translateWithPageContext` or to directly alter parts of the page:
+A context value can be a boolean or a string. Context values are typically used to either directly alter parts of the page:
 
 ```
 {% if pageContext.reason == "dropout" %}
@@ -78,6 +78,35 @@ Page context values can be used to access different translation text with e.g. `
 {% else %}
     {% set contentID = '562a0ebb-34a0-4db1-b04c-17963686c98c' %}
 {% endif %}
+```
+
+Or to access different translation text with `translateWithPageContext` and `translateWithPageContextOrFallback`:
+
+```
+  <p class="govuk-body">{{ 'pages.examplePage.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'allowNino') }}</p>
+  <p class="govuk-body">{{ 'pages.examplePage.content.paragraph2' | translateWithPageContext(pageContext, 'deviceType') }}</p>
+```
+
+When using page context in a translation you specify the key to look for in the context object. If the context value is a boolean
+then the translation filters will look for a translation text entry with the context key appended. If the context value is a
+string then the translation filters will look for a translation text entry with the context value appended.
+
+So from the example above, if `allowNino` is a boolean and `deviceType` is a string then the translation file would look like this:
+
+```
+{
+  pages {
+    examplePage {
+      content {
+        paragraph1: "If allowNino is false or missing",
+        paragraph1AllowNino: "If allowNino is true",
+        paragraph2: "If deviceType is missing",
+        paragraph2Mobile: "If deviceType is mobile",
+        paragraph2Desktop: "If deviceType is desktop"
+      }
+    }
+  }
+}
 ```
 
 ## Rendering a page
@@ -131,7 +160,7 @@ Using `prove-identity-no-photo-id` as an example:
     ```
     - `fullKeyWithContext` appends a context suffix to the translation key, allowing different title text depending on the page context. Most pages don't need this — a simple `{% set pageTitleKey = 'pages.myPage.title' %}` is usually sufficient. Only use `fullKeyWithContext` if the page title needs to vary based on context.
 
-- Set the back link (if the page should have one).
+- Set the back link (if the page should have one). Note that the URL in the link should be the page itself, and core-back will handle the `back` event automatically by default.
     ```html
     {% set showBack = true %}
     {% set hrefBack = "/ipv/journey/prove-identity-no-photo-id/back" %}

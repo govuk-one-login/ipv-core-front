@@ -1,4 +1,8 @@
-import { contactUsUrl, addLanguageParam } from "@govuk-one-login/frontend-ui";
+import {
+  contactUsUrl,
+  addLanguageParam,
+  warnCharacterLimit,
+} from "@govuk-one-login/frontend-ui";
 import i18next from "i18next";
 import nunjucks, { Environment, ConfigureOptions } from "nunjucks";
 import path from "path";
@@ -187,5 +191,6 @@ export const configureNunjucks = (
     Config.MAY_2025_REBRAND_ENABLED,
   );
   nunjucksEnv.addGlobal("basePath", __dirname + "/../..");
+  nunjucksEnv.addGlobal("warnCharacterLimit", warnCharacterLimit);
   return nunjucksEnv;
 };

@@ -16,6 +16,7 @@ type PageContextMap = {
   "prove-identity-no-other-photo-id": { invalidDoc: string };
   "prove-identity-no-photo-id": { ninoOnly: boolean };
   "prove-identity-online": { photoId: boolean };
+  "prove-identity-online-banking": { noPhotoId: boolean };
   "pyi-no-match": { reason: string };
   "pyi-technical": { isUnrecoverable: boolean };
   "pyi-triage-desktop-download-app": {

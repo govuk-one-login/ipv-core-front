@@ -1,0 +1,18 @@
+<svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="70" height="70" fill="#D2E2F1"/>
+<circle cx="46.2227" cy="42.5" r="9.5" fill="#11875A"/>
+<path d="M51.8161 39.6059L43.5867 47.477L39.959 43.8492L41.3487 42.4595L43.6168 44.7277L50.4571 38.1855L51.8161 39.6059Z" fill="white"/>
+<rect x="36" y="20" width="28" height="3" fill="#1D70B8"/>
+<rect x="36" y="26" width="19" height="3" fill="#1D70B8"/>
+<rect x="5" y="20" width="27" height="32" fill="#8EB8DC"/>
+<rect x="10" y="34" width="17" height="13" fill="#0F385C"/>
+<circle cx="18.5409" cy="33.4217" r="8.54088" fill="#99704A"/>
+<mask id="mask0_48129_222" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="10" y="24" width="18" height="18">
+<circle cx="18.5409" cy="33.4217" r="8.54088" fill="#9A704B"/>
+</mask>
+<g mask="url(#mask0_48129_222)">
+<circle cx="12.7356" cy="27.3382" r="5.17607" fill="#0F385C"/>
+<circle cx="22.1466" cy="26.8673" r="5.64662" fill="#0F385C"/>
+</g>
+<path d="M8 51C8 47.134 11.134 44 15 44H22C25.866 44 29 47.134 29 51V52H8V51Z" fill="#FFDD00"/>
+</svg>

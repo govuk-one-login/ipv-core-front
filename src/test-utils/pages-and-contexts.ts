@@ -89,6 +89,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { nino: { ninoOnly: true } },
     NO_CONTEXT_VARIANT,
   ],
+  "prove-identity-online": [{ photoId: { photoId: true } }, NO_CONTEXT_VARIANT],
   "prove-identity-online-banking": [
     { noPhotoId: { noPhotoId: true } },
     NO_CONTEXT_VARIANT,
@@ -141,6 +142,7 @@ export const pagesAndContexts: PagesAndContexts = {
     NO_CONTEXT_VARIANT,
   ],
   "retry-prove-identity-passport": [],
+  "select-photo-id": [],
   "service-unavailable": [],
   "session-ended": [],
   "sorry-could-not-confirm-details": [

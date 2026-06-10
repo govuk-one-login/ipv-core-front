@@ -1,0 +1,63 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.selectPhotoId.title' %}
+{% set googleTagManagerPageId = "selectPhotoId" %}
+
+{% set showBack = true %}
+{% set hrefBack = "/ipv/journey/select-photo-id/back" %}
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.selectPhotoId.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.selectPhotoId.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#selectPhotoIdForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = 'fa8104f6-b6b8-43bc-849a-dbf544c76151' %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.selectPhotoId.header' | translate }}</h1>
+  <p class="govuk-body">{{ 'pages.selectPhotoId.content.paragraph1' | translate }}</p>
+  <form id="selectPhotoIdForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.selectPhotoId.header' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "ukPassport",
+          text: 'pages.selectPhotoId.content.formRadioButtons.ukPassportText' | translate,
+          hint: { text: 'pages.selectPhotoId.content.formRadioButtons.ukPassportHint' | translate }
+        },
+        {
+          value: "drivingLicence",
+          text: 'pages.selectPhotoId.content.formRadioButtons.drivingLicenceText' | translate,
+          hint: { text: 'pages.selectPhotoId.content.formRadioButtons.drivingLicenceHint' | translate }
+        },
+        {
+          divider: 'pages.selectPhotoId.content.formRadioButtons.divider' | translate
+        },
+        {
+          value: "neither",
+          text: 'pages.selectPhotoId.content.formRadioButtons.neitherText' | translate
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.selectPhotoId.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

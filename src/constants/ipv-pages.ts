@@ -44,6 +44,7 @@ const IPV_PAGES = Object.freeze({
   PROVE_IDENTITY_ANOTHER_WAY: "prove-identity-another-way",
   PROVE_IDENTITY_NO_OTHER_PHOTO_ID: "prove-identity-no-other-photo-id",
   PROVE_IDENTITY_NO_PHOTO_ID: "prove-identity-no-photo-id",
+  PROVE_IDENTITY_ONLINE: "prove-identity-online",
   PROVE_IDENTITY_ONLINE_BANKING: "prove-identity-online-banking",
   PYI_ANOTHER_WAY: "pyi-another-way",
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
@@ -69,6 +70,7 @@ const IPV_PAGES = Object.freeze({
   REPROVE_IDENTITY_START: "reprove-identity-start",
   RETRY_PROVE_IDENTITY_APP: "retry-prove-identity-app",
   RETRY_PROVE_IDENTITY_PASSPORT: "retry-prove-identity-passport",
+  SELECT_PHOTO_ID: "select-photo-id",
   SERVICE_UNAVAILABLE: "service-unavailable",
   SESSION_ENDED: "session-ended",
   SORRY_COULD_NOT_CONFIRM_IDENTITY_REPROVE_FAILURE:

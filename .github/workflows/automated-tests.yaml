@@ -11,7 +11,7 @@ jobs:
   detect-secrets:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - uses: actions/setup-python@v6
       with:
         python-version: '3.11.2'
@@ -24,7 +24,7 @@ jobs:
       packages: read
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
@@ -67,7 +67,7 @@ jobs:
         working-directory: browser-tests
     steps:
       - name: Pull repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup .npmrc for core-front
         run: |
           cp ../.npmrc.template ../.npmrc && \

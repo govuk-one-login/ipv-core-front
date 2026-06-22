@@ -1,50 +1,48 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.2.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.11.0/schemas/schema.json",
   "services": [
     {
-      "quality-gates": [
+      "serviceTag": "ipv-core",
+      "promotionType": "securePipelines",
+      "checks": [
         {
-          "check-types": [
+          "checkTypes": [
             "secret scanning"
           ],
+          "phase": "pre-merge",
+          "provider": "GitHub",
           "config": {
             "file": ".github/workflows/pre-merge-checks.yaml",
-            "name": "run secret detection",
-            "path": "jobs.pre-commit"
-          },
-          "phase": "pre-merge",
-          "provider": "GitHub"
+            "path": "$.jobs.pre-commit"
+          }
         },
         {
-          "check-types": [
+          "checkTypes": [
             "code style and linting",
             "unit",
             "unit test coverage"
           ],
+          "phase": "pre-merge",
+          "provider": "GitHub",
           "config": {
             "file": ".github/workflows/pre-merge-checks.yaml",
-            "name": "run unit tests",
-            "path": "jobs.run-tests"
-          },
-          "phase": "pre-merge",
-          "provider": "GitHub"
+            "path": "$.jobs.run-tests"
+          }
         },
         {
-          "check-types": [
+          "checkTypes": [
             "new feature",
             "regression",
             "visual regression"
           ],
+          "phase": "pre-merge",
+          "provider": "GitHub",
           "config": {
             "file": ".github/workflows/pre-merge-checks.yaml",
-            "name": "run browser-tests",
-            "path": "jobs.browser-tests"
-          },
-          "phase": "pre-merge",
-          "provider": "GitHub"
+            "path": "$.jobs.browser-tests"
+          }
         }
-      ],
-      "service-tag": "ipv-core"
+      ]
     }
   ]
 }

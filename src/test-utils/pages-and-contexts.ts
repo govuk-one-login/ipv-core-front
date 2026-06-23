@@ -37,6 +37,10 @@ export const pagesAndContexts: PagesAndContexts = {
     { dropout: { reason: "dropout" } },
     NO_CONTEXT_VARIANT,
   ],
+  "no-photo-id-web-find-another-way": [
+    { dropout: { reason: "dropout" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "non-uk-app-intro": [],
   "non-uk-no-app": [],
   "page-dcmaw-success": [
@@ -69,6 +73,10 @@ export const pagesAndContexts: PagesAndContexts = {
   "passport-biometric-chip": [],
   "personal-independence-payment": [],
   "photo-id-security-questions-find-another-way": [
+    { dropout: { reason: "dropout" } },
+    NO_CONTEXT_VARIANT,
+  ],
+  "photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
     NO_CONTEXT_VARIANT,
   ],

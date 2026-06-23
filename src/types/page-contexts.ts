@@ -5,11 +5,13 @@ type PageContextMap = {
   "need-biometric-passport": { appOnlyMitigation: boolean };
   "need-more-information-confirm-change-details": { journeyType: string };
   "no-photo-id-security-questions-find-another-way": { reason: string };
+  "no-photo-id-web-find-another-way": { reason: string };
   "page-dcmaw-success": { noAddress: boolean };
   "page-ipv-success": { journeyType: string };
   "page-multiple-doc-check": { allowNino: boolean };
   "page-update-name": { journeyType: string };
   "photo-id-security-questions-find-another-way": { reason: string };
+  "photo-id-web-find-another-way": { reason: string };
   "prove-identity-another-type-photo-id": { invalidDoc: string };
   "retry-prove-identity-app": { returningUser: boolean };
   "prove-identity-another-way": { removeF2f: boolean };

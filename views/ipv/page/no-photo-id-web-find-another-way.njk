@@ -1,0 +1,93 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% set pageTitleKey = 'pages.noPhotoIdWebFindAnotherWay.title' | fullKeyWithContext(pageContext, 'reason') %}
+{% set googleTagManagerPageId = "noPhotoIdWebFindAnotherWay" %}
+{% set isPageDynamic = true %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.noPhotoIdWebFindAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.noPhotoIdWebFindAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#noPhotoIdWebFindAnotherWayForm" %}
+
+{% set isPageDataSensitive = false %}
+
+{% if pageContext.reason == "dropout" %}
+    {% set contentID = '5ed297db-68a9-4915-aaf1-6473b29d0965' %}
+{% else %}
+    {% set contentID = '562a0ebb-34a0-4db1-b04c-17963686c98c' %}
+{% endif %}
+
+{% set photoIdHtml %}
+  {% include "components/types-of-photo-id.njk" %}
+{% endset %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.noPhotoIdWebFindAnotherWay.header' | translateWithPageContextOrFallback(pageContext, 'reason') }}</h1>
+  <p class="govuk-body">{{ 'pages.noPhotoIdWebFindAnotherWay.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdWebFindAnotherWay.content.subHeading' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdWebFindAnotherWay.content.paragraph2' | translate }}</p>
+
+  <h2 class="govuk-heading-m">{{ 'pages.noPhotoIdWebFindAnotherWay.content.subHeading2' | translate }}</h2>
+  <p class="govuk-body">{{ 'pages.noPhotoIdWebFindAnotherWay.content.paragraph3' | translate }}</p>
+
+  {{ govukDetails({
+    summaryText: 'pages.noPhotoIdWebFindAnotherWay.content.detailsLabel' | translate,
+    html: photoIdHtml,
+    id: 'typesOfPhotoIdDetails'
+  }) }}
+
+  <form id="noPhotoIdWebFindAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% set radioOptions =
+      [
+        {
+          value: "appTriage",
+          text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonAppText' | translate,
+          hint: { text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonAppTextHint' | translate }
+        },
+        {
+          value: "f2f",
+          text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonPoText' | translate,
+          hint: { text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonPoTextHint' | translate }
+        },
+        {
+          divider: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.separateOptionsInFormText' | translate
+        },
+        {
+          value: "end",
+          text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonBackToRpText' | translate,
+          hint: { text: 'pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonBackToRpTextHint' | translate }
+        }
+      ]
+    %}
+
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.noPhotoIdWebFindAnotherWay.content.subHeading3' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: radioOptions
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.noPhotoIdWebFindAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+
+  {% include "components/contact-us-link.njk" %}
+{% endblock %}

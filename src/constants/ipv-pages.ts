@@ -19,8 +19,6 @@ const IPV_PAGES = Object.freeze({
   NON_UK_NO_APP_INTRO: "non-uk-app-intro",
   NON_UK_NO_APP: "non-uk-no-app",
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
-  NO_PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
-    "no-photo-id-security-questions-find-another-way",
   NO_PHOTO_ID_WEB_FIND_ANOTHER_WAY: "no-photo-id-web-find-another-way",
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
   PAGE_DIFFERENT_SECURITY_QUESTIONS: "page-different-security-questions",
@@ -38,8 +36,6 @@ const IPV_PAGES = Object.freeze({
   PAGE_PRE_DWP_KBV_TRANSITION: "page-pre-dwp-kbv-transition",
   PASSPORT_BIOMETRIC_CHIP: "passport-biometric-chip",
   PERSONAL_INDEPENDENCE_PAYMENT: "personal-independence-payment",
-  PHOTO_ID_SECURITY_QUESTIONS_FIND_ANOTHER_WAY:
-    "photo-id-security-questions-find-another-way",
   PHOTO_ID_WEB_FIND_ANOTHER_WAY: "photo-id-web-find-another-way",
   PROVE_IDENTITY_AGAIN_APP: "prove-identity-again-app",
   PROVE_IDENTITY_ANOTHER_TYPE_PHOTO_ID: "prove-identity-another-type-photo-id",

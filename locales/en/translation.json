@@ -70,7 +70,7 @@
       "paragraph2": "You can use an expired photocard driving licence with the GOV.UK One Login app if it:",
       "list1": "expired in the last 90 days",
       "list2": "was issued by DVLA (see section 4c on your licence)",
-      "paragraph3": "You can use an expired BRP, BRC or FWP up to 18 months after its expiry date with the GOV.UK One Login app.",
+      "paragraph3": "You can use an expired BRP, BRC or FWP up to 24 months after its expiry date with the GOV.UK One Login app.",
       "paragraph4": "At a Post Office, you can use a:",
       "postOfficeDocumentList": [
         "UK photocard driving licence",
@@ -943,7 +943,7 @@
         "subHeading4": "UK biometric residence card or permit",
         "paragraph8": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
         "requirements": [
-          "it’s up to 18 months after its expiry date",
+          "it’s up to 24 months after its expiry date",
           "you have a smartphone"
         ],
         "subHeading5": "Do you have any of these types of photo ID ready to use?",
@@ -985,7 +985,7 @@
         "subHeading4": "UK biometric residence card or permit",
         "paragraph7": "You can use a biometric residence permit (BRP), biometric residence card (BRC) or a Frontier Worker permit (FWP) if:",
         "cardOrPermitRequirements": [
-          "it’s up to 18 months after its expiry date",
+          "it’s up to 24 months after its expiry date",
           "you have a smartphone"
         ]
       }

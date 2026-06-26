@@ -12,8 +12,8 @@
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
-            "path": "$.jobs.pre-commit"
+            "file": ".github/workflows/automated-tests.yaml",
+            "path": "$.jobs.detect-secrets"
           }
         },
         {
@@ -25,7 +25,7 @@
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
+            "file": ".github/workflows/automated-tests.yaml",
             "path": "$.jobs.run-tests"
           }
         },
@@ -38,7 +38,7 @@
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yaml",
+            "file": ".github/workflows/automated-tests.yaml",
             "path": "$.jobs.browser-tests"
           }
         }

@@ -150,6 +150,30 @@
         }
       }
     },
+    "photoIdBankingAnotherWay": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "You can try to prove your identity by answering security questions. These are questions that only you should know the answers to.",
+        "paragraph2": "The questions will be about either:",
+        "possibleQuestions": [
+          "Personal Independence Payment (PIP), if you get it",
+          "financial information, such as your mobile phone contract, bank accounts, loans, credit cards or mortgages"
+        ],
+        "paragraph3": "We’ll check some details to make sure we ask you the right questions.",
+        "subHeading1": "What would you like to do?",
+        "formRadioButtons": {
+          "answerSecurityQuestions": "Answer security questions",
+          "tryAgain": "Try again to prove your identity using online banking",
+          "tryAgainHint": "This is usually a quicker way to prove your identity."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
     "photoIdWebFindAnotherWay": {
       "title": "Sorry, we cannot confirm your identity this way",
       "titleDropout": "Find another way to prove your identity",
@@ -166,6 +190,40 @@
           "continueAppButtonTextHint": "You’ll be shown how to download and use the app.",
           "continuePostOfficeButtonText": "Prove your identity at a Post Office",
           "continuePostOfficeButtonTextHint": "You’ll be asked to enter details from your photo ID on GOV.UK first."
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
+        }
+      }
+    },
+    "noPhotoIdBankingAnotherWay": {
+      "title": "Prove your identity another way",
+      "header": "Prove your identity another way",
+      "content": {
+        "paragraph1": "How you can prove your identity depends on whether you have photo ID.",
+        "subHeading1": "If you have photo ID",
+        "paragraph2": "You can prove your identity at a Post Office with a:",
+        "postOfficeDocuments": [
+          "non-UK passport",
+          "European Union (EU) photocard driving licence",
+          "national identity card from the EU, Norway, Iceland or Liechtenstein",
+          "UK passport",
+          "UK photocard driving licence"
+        ],
+        "subHeading2": "If you do not have photo ID",
+        "paragraph3": "You can try again to prove your identity by signing in to online banking.",
+        "paragraph4": "You can also go to the service you need to use and check what you can do if you cannot prove your identity with GOV.UK One Login.",
+        "subHeading3": "What would you like to do?",
+        "formRadioButtons": {
+          "postOffice": "Prove your identity at a Post Office",
+          "postOfficeHint": "You’ll need photo ID.",
+          "onlineBanking": "Prove your identity using online banking",
+          "onlineBankingHint": "No photo ID needed.",
+          "divisor": "or",
+          "returnToRp": "Go to the service you need to use",
+          "returnToRpHint": "Check what you can do if you cannot prove your identity with GOV.UK One Login."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

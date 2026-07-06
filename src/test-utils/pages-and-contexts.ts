@@ -32,6 +32,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "need-prove-identity-again-no-app": [],
   "need-smartphone-prove-identity-app": [],
   "no-photo-id-abandon-find-another-way": [],
+  "no-photo-id-banking-another-way": [],
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
@@ -68,6 +69,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "page-not-found": [],
   "passport-biometric-chip": [],
   "personal-independence-payment": [],
+  "photo-id-banking-another-way": [],
   "photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
     NO_CONTEXT_VARIANT,

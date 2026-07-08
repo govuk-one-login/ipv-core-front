@@ -36,6 +36,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "non-uk-app-intro": [],

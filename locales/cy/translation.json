@@ -179,9 +179,11 @@
       "titleDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "header": "Mae’n ddrwg gennym, ni allwn gadarnhau eich hunaniaeth yn y ffordd hyn",
       "headerDropout": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
+      "headerOpenBanking": "Darganfyddwch ffordd arall i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
+        "paragraph1OpenBanking": "We were not able to complete your identity check using online banking.",
         "paragraph2": "Gallwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa’r Post yn lle hynny.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
         "subHeading1": "Sut hoffech chi brofi eich hunaniaeth?",

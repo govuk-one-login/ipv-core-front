@@ -179,9 +179,11 @@
       "titleDropout": "Find another way to prove your identity",
       "header": "Sorry, we cannot confirm your identity this way",
       "headerDropout": "Find another way to prove your identity",
+      "headerOpenBanking": "Find another way to prove your identity",
       "content": {
         "paragraph1": "This is because you did not answer some of the security questions correctly.",
         "paragraph1Dropout": "We were not able to complete your identity check using security questions.",
+        "paragraph1OpenBanking": "We were not able to complete your identity check using online banking.",
         "paragraph2": "You can prove your identity using the GOV.UK One Login app or at a Post Office instead.",
         "detailsLabel": "Types of photo ID you can use",
         "subHeading1": "How would you like to prove your identity?",

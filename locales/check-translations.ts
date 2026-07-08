@@ -114,6 +114,9 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorSummaryTitleText",
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorSummaryDescriptionText",
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorRadioMessage",
+
+  // PYIC-9162 - Text awaiting translation
+  "pages.photoIdWebFindAnotherWay.content.paragraph1OpenBanking"
 ]);
 
 // English text values where inconsistent Welsh translations are expected

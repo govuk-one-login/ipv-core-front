@@ -13,6 +13,8 @@
 
 {% if pageContext.reason == "dropout" %}
     {% set contentID = '63f2929b-8d8f-40ed-8ed2-1c568f07a326' %}
+{% elif pageContext.reason == "openBanking" %}
+    {% set contentID = '788d6253-e56e-49eb-ad55-20af0d2f0d13' %}
 {% else %}
     {% set contentID = '00a8c392-afbb-44d4-a6ef-2d7aaad78bac' %}
 {% endif %}

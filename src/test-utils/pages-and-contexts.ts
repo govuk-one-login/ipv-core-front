@@ -72,6 +72,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "photo-id-banking-another-way": [],
   "photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "prove-identity-again-app": [],

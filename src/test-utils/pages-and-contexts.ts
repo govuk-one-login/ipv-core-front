@@ -111,6 +111,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { nino: { reason: "nino" } },
     { updateDetails: { reason: "updateDetails" } },
     { repeatFraudCheck: { reason: "repeatFraudCheck" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "pyi-passport-no-match-another-way": [],

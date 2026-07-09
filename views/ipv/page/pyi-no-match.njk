@@ -8,14 +8,22 @@
 {% set isPageDynamic = true %}
 
 {% set isPageDataSensitive = false %}
-{% set contentID = 'b3beb745-9110-4416-8741-37047a2b21cd'%}
+{% if pageContext.reason == "openBanking" %}
+    {% set contentID = '5ed297db-68a9-4915-aaf1-6473b29d0965' %}
+{% else %}
+    {% set contentID = 'b3beb745-9110-4416-8741-37047a2b21cd' %}
+{% endif %}
 
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiNoMatch.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
 
-  {% if pageContext.reason !== "nino" %}
+  {% if pageContext.reason == "bankAccount" or pageContext.reason == "updateDetails" or pageContext.reason == "repeatFraudCheck" %}
     <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
+  {% endif %}
+
+  {% if pageContext.reason == "openBanking" %}
+    <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2OpenBanking' | translate }}</p>
   {% endif %}
 
   {% if pageContext.reason == "repeatFraudCheck" %}
@@ -23,6 +31,7 @@
       text: 'pages.pyiNoMatch.content.insetTextRepeatFraudCheck' | translate
     }) }}
   {% endif %}
+
 
   <h2 class="govuk-heading-m">{{ 'pages.pyiNoMatch.content.subHeading' | translate }}</h2>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>

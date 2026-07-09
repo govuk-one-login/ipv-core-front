@@ -18,7 +18,7 @@
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiNoMatch.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
 
-  {% if pageContext.reason == "bankAccount" or pageContext.reason == "updateDetails" or pageContext.reason == "repeatFraudCheck" %}
+  {% if pageContext.reason != "nino" and pageContext.reason != "openBanking" %}
     <p class="govuk-body">{{ 'pages.pyiNoMatch.content.paragraph2' | translate }}</p>
   {% endif %}
 

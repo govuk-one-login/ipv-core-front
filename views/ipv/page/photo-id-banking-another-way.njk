@@ -1,0 +1,62 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.photoIdBankingAnotherWay.title' %}
+{% set googleTagManagerPageId = "photoIdBankingAnotherWay" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '3a3cd843-fc4f-4cd6-8bc8-590f093708e7'%}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.photoIdBankingAnotherWay.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.photoIdBankingAnotherWay.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#photoIdBankingAnotherWayForm" %}
+
+{% block content %}
+    <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}} }}">{{ 'pages.photoIdBankingAnotherWay.header' | translate }}</h1>
+    <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph1' | translate }}</p>
+    <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph2' | translate }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        {% for listItem in 'pages.photoIdBankingAnotherWay.content.possibleQuestions' | translate({ returnObjects: true }) %}
+            <li>{{ listItem }}</li>
+        {% endfor %}
+    </ul>
+    <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph3' | translate }}</p>
+
+    <form id="photoIdBankingAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        {% set radiosConfig = {
+            idPrefix: "journey",
+            name: "journey",
+            fieldset: {
+                legend: {
+                    text: 'pages.photoIdBankingAnotherWay.content.subHeading1' | translate,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            items: [
+                {
+                    value: "answerSecurityQuestions",
+                    text: 'pages.photoIdBankingAnotherWay.content.formRadioButtons.answerSecurityQuestions' | translate
+                },
+                {
+                    value: "tryAgain",
+                    text: 'pages.photoIdBankingAnotherWay.content.formRadioButtons.tryAgain' | translate,
+                    hint: { text: 'pages.photoIdBankingAnotherWay.content.formRadioButtons.tryAgainHint' | translate }
+                }
+            ]
+        } %}
+
+        {% if errorState %}
+            {% set errorMessageObject = { 'text': 'pages.photoIdBankingAnotherWay.content.formErrorMessage.errorRadioMessage' | translate } %}
+            {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+        {% endif %}
+
+        {{ govukRadios(radiosConfig) }}
+        {{ govukButton({
+            id: "submitButton",
+            text: 'general.buttons.next' | translate
+        }) }}
+    </form>
+
+{% endblock %}

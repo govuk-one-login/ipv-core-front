@@ -114,6 +114,15 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorSummaryTitleText",
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorSummaryDescriptionText",
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorRadioMessage",
+
+  // PYIC-9162 - Text awaiting translation
+  "pages.photoIdWebFindAnotherWay.content.paragraph1OpenBanking",
+  "pages.noPhotoIdWebFindAnotherWay.content.paragraph1OpenBanking",
+  "pages.noPhotoIdWebFindAnotherWay.content.paragraph2OpenBanking",
+  "pages.noPhotoIdWebFindAnotherWay.content.paragraph3OpenBanking",
+  "pages.noPhotoIdWebFindAnotherWay.content.formRadioButtons.radioButtonBackToRpTextHintOpenBanking",
+  "pages.pyiNoMatch.content.paragraph1OpenBanking",
+  "pages.pyiNoMatch.content.paragraph2OpenBanking",
 ]);
 
 // English text values where inconsistent Welsh translations are expected

@@ -36,6 +36,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "non-uk-app-intro": [],
@@ -72,6 +73,7 @@ export const pagesAndContexts: PagesAndContexts = {
   "photo-id-banking-another-way": [],
   "photo-id-web-find-another-way": [
     { dropout: { reason: "dropout" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "prove-identity-again-app": [],
@@ -109,6 +111,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { nino: { reason: "nino" } },
     { updateDetails: { reason: "updateDetails" } },
     { repeatFraudCheck: { reason: "repeatFraudCheck" } },
+    { openBanking: { reason: "openBanking" } },
     NO_CONTEXT_VARIANT,
   ],
   "pyi-passport-no-match-another-way": [],

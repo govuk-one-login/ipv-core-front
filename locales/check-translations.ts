@@ -116,7 +116,6 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.noPhotoIdBankingAnotherWay.content.formErrorMessage.errorRadioMessage",
 
   // PYIC-9162 - Text awaiting translation
-  "pages.photoIdWebFindAnotherWay.titleOpenBanking",
   "pages.photoIdWebFindAnotherWay.content.paragraph1OpenBanking",
   "pages.noPhotoIdWebFindAnotherWay.content.paragraph1OpenBanking",
   "pages.noPhotoIdWebFindAnotherWay.content.paragraph2OpenBanking",

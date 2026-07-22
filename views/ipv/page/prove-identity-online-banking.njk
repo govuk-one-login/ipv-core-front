@@ -19,17 +19,17 @@
 
 {% if pageContext.noPhotoId %}
     {% set step1Config = {
-        data: { 
-            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translateWithPageContextOrFallback(pageContext, 'noPhotoId'), 
+        data: {
+            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translateWithPageContextOrFallback(pageContext, 'noPhotoId'),
             bulletList: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1NoPhotoId' | translate({ returnObjects: true })
         },
         image: "/public/images/enter-details-no-photo-id-icon.svg"
     } %}
 {% else %}
     {% set step1Config = {
-        data: { 
-            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translate, 
-            description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1' | translate 
+        data: {
+            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translate,
+            description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1' | translate
         },
         image: "/public/images/enter-details-icon.svg"
     } %}
@@ -60,5 +60,5 @@
 
     {{ journeyNextForm(pageId, csrfToken, 'general.buttons.next' | translate ) }}
 
-    <p class="govuk-body">{{ 'pages.proveIdentityOnlineBanking.content.htmlLink' | translate | safe }}</p>
+    <p class="govuk-body"><a class="govuk-link" target="_blank" rel="noopener noreferrer" href="/ipv/journey/prove-identity-online-banking/anotherWay">{{ 'pages.proveIdentityOnlineBanking.content.htmlLink' | translate }}</a></p>
 {% endblock %}

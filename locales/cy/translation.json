@@ -99,9 +99,9 @@
         "paragraph1": "Nid oeddem yn gallu dod o hyd i unrhyw un yn cyfateb pan wnaethom wirio’ch manylion gyda sefydliad arall.",
         "paragraph1Nino": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda CThEF.",
         "paragraph1BankAccount": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio eich manylion gyda’ch banc neu gymdeithas adeiladu.",
-        "paragraph1OpenBanking": "We could not complete your identity check using online banking.",
+        "paragraph1OpenBanking": "Nid oedd modd i ni gwblhau’r gwiriad o’ch hunaniaeth gan ddefnyddio bancio ar-lein.",
         "paragraph2": "Er mwyn cadw eich gwybodaeth yn ddiogel, ni allwn ddweud wrthych pa un o’ch manylion nad oeddem yn gallu cyfateb.",
-        "paragraph2OpenBanking": "To keep your information safe, we cannot tell you what went wrong.",
+        "paragraph2OpenBanking": "Er mwyn diogelu eich gwybodaeth, ni allwn ddweud wrthych beth aeth o’i le.",
         "insetTextRepeatFraudCheck": "Ni fyddwch yn gallu defnyddio’ch GOV.UK One Login i gael mynediad at y gwasanaeth.",
         "subHeading": "Beth allwch chi ei wneud",
         "paragraph3": "Gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod os oes ffyrdd eraill i gael mynediad iddo.",
@@ -153,26 +153,26 @@
       }
     },
     "photoIdBankingAnotherWay": {
-      "title": "Prove your identity another way",
-      "header": "Prove your identity another way",
+      "title": "Profi eich hunaniaeth mewn ffordd arall",
+      "header": "Profi eich hunaniaeth mewn ffordd arall",
       "content": {
-        "paragraph1": "You can try to prove your identity by answering security questions. These are questions that only you should know the answers to.",
-        "paragraph2": "The questions will be about either:",
+        "paragraph1": "Gallwch roi cynnig ar brofi eich hunaniaeth drwy ateb cwestiynau diogelwch. Dim ond chi ddylai wybod yr atebion i’r cwestiynau hyn.",
+        "paragraph2": "Bydd y cwestiynau’n ymwneud â naill ai:",
         "possibleQuestions": [
-          "Personal Independence Payment (PIP), if you get it",
-          "financial information, such as your mobile phone contract, bank accounts, loans, credit cards or mortgages"
+          "Taliad Annibyniaeth Personol (PIP), os ydych yn ei gael",
+          "gwybodaeth ariannol, fel eich contract ffôn symudol, cyfrifon banc, benthyciadau, cardiau credyd neu forgeisi"
         ],
-        "paragraph3": "We’ll check some details to make sure we ask you the right questions.",
-        "subHeading1": "What would you like to do?",
+        "paragraph3": "Byddwn yn gwirio rhai manylion i sicrhau ein bod yn gofyn y cwestiynau cywir i chi.",
+        "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "answerSecurityQuestions": "Answer security questions",
-          "tryAgain": "Try again to prove your identity using online banking",
-          "tryAgainHint": "This is usually a quicker way to prove your identity."
+          "answerSecurityQuestions": "Ateb cwestiynau diogelwch",
+          "tryAgain": "Rhoi cynnig arall ar brofi eich hunaniaeth gan ddefnyddio bancio ar-lein",
+          "tryAgainHint": "Fel arfer, mae hon yn ffordd gyflymach o brofi eich hunaniaeth."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -186,7 +186,7 @@
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "paragraph1OpenBanking": "We were not able to complete your identity check using online banking.",
+        "paragraph1OpenBanking": "Nid oeddem yn gallu cwblhau’r gwiriad o’ch hunaniaeth gan ddefnyddio bancio ar-lein.",
         "paragraph2": "Gallwch brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa’r Post yn lle hynny.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
         "subHeading1": "Sut hoffech chi brofi eich hunaniaeth?",
@@ -204,36 +204,36 @@
       }
     },
     "noPhotoIdBankingAnotherWay": {
-      "title": "Prove your identity another way",
-      "header": "Prove your identity another way",
+      "title": "Profi eich hunaniaeth mewn ffordd arall",
+      "header": "Profi eich hunaniaeth mewn ffordd arall",
       "content": {
-        "paragraph1": "How you can prove your identity depends on whether you have photo ID.",
-        "subHeading1": "If you have photo ID",
-        "paragraph2": "You can prove your identity at a Post Office with a:",
+        "paragraph1": "Mae’r ffordd y gallwch brofi eich hunaniaeth yn dibynnu ar a oes gennych ID gyda llun.",
+        "subHeading1": "Os oes gennych ID gyda llun",
+        "paragraph2": "Gallwch brofi eich hunaniaeth mewn Swyddfa’r Post gyda:",
         "postOfficeDocuments": [
-          "non-UK passport",
-          "European Union (EU) photocard driving licence",
-          "national identity card from the EU, Norway, Iceland or Liechtenstein",
-          "UK passport",
-          "UK photocard driving licence"
+          "phasbort o’r tu allan i’r DU",
+          "trwydded yrru cerdyn-llun yr Undeb Ewropeaidd (UE)",
+          "cerdyn adnabod cenedlaethol o’r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
+          "Pasbort y DU",
+          "drwydded yrru cerdyn-llun y DU"
         ],
-        "subHeading2": "If you do not have photo ID",
-        "paragraph3": "You can try again to prove your identity by signing in to online banking.",
-        "paragraph4": "You can also go to the service you need to use and check what you can do if you cannot prove your identity with GOV.UK One Login.",
-        "subHeading3": "What would you like to do?",
+        "subHeading2": "Os nad oes gennych ID gyda llun",
+        "paragraph3": "Gallwch roi cynnig arall ar brofi eich hunaniaeth drwy fewngofnodi i fancio ar-lein.",
+        "paragraph4": "Gallwch hefyd fynd i’r gwasanaeth y mae angen i chi ei ddefnyddio a gwirio beth y gallwch ei wneud os na allwch brofi eich hunaniaeth gan ddefnyddio GOV.UK One Login.",
+        "subHeading3": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "postOffice": "Prove your identity at a Post Office",
-          "postOfficeHint": "You’ll need photo ID.",
-          "onlineBanking": "Prove your identity using online banking",
-          "onlineBankingHint": "No photo ID needed.",
-          "divisor": "or",
-          "returnToRp": "Go to the service you need to use",
-          "returnToRpHint": "Check what you can do if you cannot prove your identity with GOV.UK One Login."
+          "postOffice": "Profi eich hunaniaeth mewn Swyddfa’r Post",
+          "postOfficeHint": "Bydd angen ID gyda llun arnoch.",
+          "onlineBanking": "Profi eich hunaniaeth gan ddefnyddio bancio ar-lein",
+          "onlineBankingHint": "Nid oes angen ID gyda llun.",
+          "divisor": "neu",
+          "returnToRp": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio",
+          "returnToRpHint": "Gwiriwch beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gan ddefnyddio GOV.UK One Login."
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select what you would like to do",
-          "errorRadioMessage": "Select what you would like to do"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
+          "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
       }
     },
@@ -301,19 +301,19 @@
       "content": {
         "paragraph1": "Mae hyn oherwydd nad ydych wedi ateb rhai o’r cwestiynau diogelwch yn gywir.",
         "paragraph1Dropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth drwy ddefnyddio eich cwestiynau diogelwch.",
-        "paragraph1OpenBanking": "We were not able to complete your identity check using online banking.",
+        "paragraph1OpenBanking": "Nid oeddem yn gallu cwblhau’r gwiriad o’ch hunaniaeth gan ddefnyddio bancio ar-lein.",
         "subHeading": "Os nad oes gennych ID gyda llun",
-        "paragraph2": "Gallwch fynd i’r gwasanaeth rydych angen ei ddefnyddio a gweld beth allwch chi ei wneud os na allwch brofi eichhunaniaeth gyda GOV.UK One Login.",
-        "paragraph2OpenBanking": "You can go to the service you need to use and find out what you can do if you cannot prove your identity with GOV.UK One Login.",
+        "paragraph2": "Gallwch fynd i’r gwasanaeth rydych angen ei ddefnyddio a gweld beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda GOV.UK One Login.",
+        "paragraph2OpenBanking": "Gallwch fynd i’r gwasanaeth rydych angen ei ddefnyddio a gweld beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda GOV.UK One Login",
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph3": "Gallwch ddefnyddio ID gyda llun i brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa Bost.",
-        "paragraph3OpenBanking": "You can prove your identity using the GOV.UK One Login app or at a Post Office.",
+        "paragraph3OpenBanking": "Gallwch brofi eich hunaniaeth gan ddefnyddio ap GOV.UK One Login neu mewn Swyddfa’r Post.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch ei ddefnyddio",
         "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
         "formRadioButtons": {
           "radioButtonBackToRpText": "Ewch i’r gwasanaeth rydych angen ei ddefnyddio",
           "radioButtonBackToRpTextHint": "Gweld beth allwch chi ei wneud os na allwch brofi eich hunaniaeth gyda GOV.UK One Login",
-          "radioButtonBackToRpTextHintOpenBanking": "Find out what you can do if you cannot prove your identity with GOV.UK One Login",
+          "radioButtonBackToRpTextHintOpenBanking": "Darganfyddwch beth y gallwch ei wneud os na allwch brofi eich hunaniaeth gan ddefnyddio GOV.UK One Login",
           "radioButtonAppText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
           "radioButtonAppTextHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "radioButtonPoText": "Profwch eich hunaniaeth mewn Swyddfa’r Post",
@@ -823,22 +823,22 @@
       }
     },
     "selectPhotoId": {
-      "title": "Select photo ID",
-      "header": "Select photo ID",
+      "title": "Dewiswch ID gyda llun",
+      "header": "Dewiswch ID gyda llun",
       "content": {
-        "paragraph1": "Tell us which photo ID you have to find the best way to prove your identity.",
+        "paragraph1": "Dywedwch wrthym pa ID gyda llun sydd gennych i ddod o hyd i’r ffordd orau o brofi eich hunaniaeth.",
         "formRadioButtons": {
-          "ukPassportText": "UK passport",
-          "ukPassportHint": "You can use a UK passport up to 18 months after its expiry date.",
-          "drivingLicenceText": "UK photocard driving licence",
-          "drivingLicenceHint": "It must not have expired.",
-          "divider": "or",
-          "neitherText": "I do not have either of these"
+          "ukPassportText": "Pasbort y DU",
+          "ukPassportHint": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+          "drivingLicenceText": "Trwydded yrru cerdyn llun y DU",
+          "drivingLicenceHint": "Rhaid iddo heb fod wedi ddod i ben.",
+          "divider": "neu",
+          "neitherText": "Nid oes gennyf yr un o’r rhain"
         },
         "formErrorMessage": {
-          "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select which photo ID you have, or select ‘I do not have either of these’",
-          "errorRadioMessage": "Select which photo ID you have, or select ‘I do not have either of these’"
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Dewiswch pa ID gyda llun sydd gennych, neu dewiswch ’Nid oes gennyf yr un o’r rhain’",
+          "errorRadioMessage": "Dewiswch pa ID gyda llun sydd gennych, neu dewiswch ’Nid oes gennyf yr un o’r rhain’"
         }
       }
     },
@@ -1356,26 +1356,26 @@
       }
     },
     "proveIdentityOnline": {
-      "title": "Prove your identity online without photo ID",
-      "titlePhotoId": "Prove your identity online",
-      "header": "Prove your identity online without photo ID",
-      "headerPhotoId": "Prove your identity online",
+      "title": "Profi eich hunaniaeth ar-lein heb ID gyda llun",
+      "titlePhotoId": "Profi eich hunaniaeth ar-lein",
+      "header": "Profi eich hunaniaeth ar-lein heb ID gyda llun",
+      "headerPhotoId": "Profi eich hunaniaeth ar-lein",
       "content": {
-        "paragraph1": "You can prove your identity by entering some details about yourself and signing in to your online banking.",
-        "paragraph1PhotoId": "You can prove your identity by entering some details from your photo ID and signing in to your online banking.",
-        "paragraph2": "Banks have very strong security, so when you sign in, they know it’s really you. The bank can then confirm you are who you say you are, using technology called ‘open banking’.",
-        "insetText": "None of your bank account information will be shared with the government service you’re using.",
+        "paragraph1": "Gallwch brofi eich hunaniaeth drwy roi rhywfaint o fanylion amdanoch chi’ch hun a mewngofnodi i’ch bancio ar-lein.",
+        "paragraph1PhotoId": "Gallwch brofi eich hunaniaeth drwy roi rhywfaint o fanylion o’ch ID gyda llun a mewngofnodi i’ch bancio ar-lein.",
+        "paragraph2": "Mae gan fanciau ddiogelwch cryf iawn, felly pan fyddwch yn mewngofnodi, maent yn gwybod mai chi yw chi mewn gwirionedd. Yna gall y banc gadarnhau eich bod yn pwy rydych yn dweud eich bod, gan ddefnyddio technoleg o’r enw ’bancio agored’.",
+        "insetText": "Ni fydd unrhyw wybodaeth o’ch cyfrif banc yn cael ei rhannu gyda’r gwasanaeth llywodraeth rydych yn ei ddefnyddio.",
         "details1": {
-          "heading": "Who you share your information with",
-          "paragraph1": "We use a company called Ecospend to securely connect to your bank or building society.",
-          "paragraph2": "When you sign in to online banking, you’ll be asked to share some details with Ecospend, such as sort code and account number, in order to confirm your identity.",
-          "paragraph3": "Ecospend is regulated by the <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Financial Conduct Authority (opens in a new tab)</a>."
+          "heading": "Gyda phwy rydych yn rhannu eich gwybodaeth",
+          "paragraph1": "Rydym yn defnyddio cwmni o’r enw Ecospend i gysylltu’n ddiogel â’ch banc neu gymdeithas adeiladu.",
+          "paragraph2": "Pan fyddwch yn mewngofnodi i fancio ar-lein, gofynnir i chi rannu rhai manylion gydag Ecospend, fel cod didoli a rhif cyfrif, er mwyn cadarnhau eich hunaniaeth.",
+          "paragraph3": "Mae Ecospend yn cael ei reoleiddio gan yr <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Awdurdod Ymddygiad Ariannol (agor mewn tab newydd)</a>."
         },
         "details2": {
-          "heading": "If you do not have online banking",
-          "paragraph1": "You must already have online banking set up with your bank or building society. If you don’t, you may be able to <a class=\"govuk-link\" href=\"/ipv/journey/prove-identity-online/anotherWay\" rel=\"noopener noreferrer\">prove your identity another way</a>."
+          "heading": "Os nad oes gennych fancio ar-lein",
+          "paragraph1": "Rhaid i chi eisoes gael bancio ar-lein wedi’i sefydlu gyda’ch banc neu gymdeithas adeiladu. Os nad ydych, efallai y byddwch yn gallu <a class=\"govuk-link\" href=\"/ipv/journey/prove-identity-online/anotherWay\" rel=\"noopener noreferrer\">profi eich hunaniaeth mewn ffordd arall</a>."
         },
-        "anotherWayLinkText": "Prove your identity another way"
+        "anotherWayLinkText": "Profi eich hunaniaeth mewn ffordd arall"
       }
     },
     "updateDetailsFailed": {
@@ -1779,26 +1779,26 @@
       }
     },
     "proveIdentityOnlineBanking": {
-      "title": "Prove your identity by signing in to online banking",
-      "header": "Prove your identity by signing in to online banking",
+      "title": "Profi eich hunaniaeth trwy fewngofnodi i fancio ar-lein",
+      "header": "Profi eich hunaniaeth trwy fewngofnodi i fancio ar-lein",
       "content": {
-        "paragraph1": "We’ll walk you through what to do.",
-        "htmlLink": "<a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"TODO\">Prove your identity another way</a>",
-        "stepCardHeader": "Complete the following steps",
-        "stepCardSectionHeader1": "Enter ID details",
-        "stepCardSectionHeader1NoPhotoId": "Enter details",
-        "stepCardSectionDescription1": "Have photo ID ready.",
+        "paragraph1": "Byddwn yn eich tywys trwy beth i’w wneud.",
+        "htmlLink": "<a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"TODO\">Profi eich hunaniaeth mewn ffordd arall</a>",
+        "stepCardHeader": "Cwblhewch y camau canlynol",
+        "stepCardSectionHeader1": "Rhowch fanylion ID",
+        "stepCardSectionHeader1NoPhotoId": "Rhowch fanylion",
+        "stepCardSectionDescription1": "Cael ID gyda llun wrth law.",
         "stepCardSectionDescription1NoPhotoId": [
-          "Name",
-          "Date of birth",
-          "National Insurance number"
+          "Enw",
+          "Dyddiad geni",
+          "Rhif Yswiriant Gwladol"
         ],
-        "stepCardSectionHeader2": "Enter address",
-        "stepCardSectionDescription2": "Include previous address if recently moved.",
-        "stepCardSectionHeader3": "Sign in to online banking",
-        "stepCardSectionDescription3": "App or website. No need to enter bank details on GOV.UK.",
-        "stepCardSectionHeader4": "Bank confirms identity",
-        "stepCardSectionDescription4": "Details checked securely."
+        "stepCardSectionHeader2": "Rhowch gyfeiriad",
+        "stepCardSectionDescription2": "Dylech gynnwys cyfeiriad blaenorol os wedi symud yn ddiweddar.",
+        "stepCardSectionHeader3": "Mewngofnodi i fancio ar-lein",
+        "stepCardSectionDescription3": "Ap neu wefan. Nid oes angen rhoi manylion banc ar GOV.UK.",
+        "stepCardSectionHeader4": "Banc yn cadarnhau hunaniaeth",
+        "stepCardSectionDescription4": "Manylion wedi’u gwirio’n ddiogel."
       }
     }
   }

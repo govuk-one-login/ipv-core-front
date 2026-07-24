@@ -95,7 +95,7 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "prove-identity-online": [{ photoId: { photoId: true } }, NO_CONTEXT_VARIANT],
   "prove-identity-online-banking": [
-    { noPhotoId: { noPhotoId: true } },
+    { photoId: { photoId: true } },
     NO_CONTEXT_VARIANT,
   ],
   "pyi-another-way": [],

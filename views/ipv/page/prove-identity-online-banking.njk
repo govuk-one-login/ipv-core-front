@@ -11,27 +11,27 @@
 {% set hrefBack = "/ipv/journey/prove-identity-online-banking/back" %}
 
 {% set isPageDataSensitive = false %}
-{% if pageContext.noPhotoId %}
-    {% set contentID = '87474d0a-ad0b-48d0-a9c7-1627073ff323' %}
-{% else %}
+{% if pageContext.photoId %}
     {% set contentID = 'ea6bff24-7675-4226-bfe7-cb262aab2e9b' %}
+{% else %}
+    {% set contentID = '87474d0a-ad0b-48d0-a9c7-1627073ff323' %}
 {% endif %}
 
-{% if pageContext.noPhotoId %}
+{% if pageContext.photoId %}
     {% set step1Config = {
         data: {
-            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translateWithPageContextOrFallback(pageContext, 'noPhotoId'),
-            bulletList: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1NoPhotoId' | translate({ returnObjects: true })
+            title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1PhotoId' | translate,
+            description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1PhotoId' | translate
         },
-        image: "/public/images/enter-details-no-photo-id-icon.svg"
+        image: "/public/images/enter-details-icon.svg"
     } %}
 {% else %}
     {% set step1Config = {
         data: {
             title: 'pages.proveIdentityOnlineBanking.content.stepCardSectionHeader1' | translate,
-            description: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1' | translate
+            bulletList: 'pages.proveIdentityOnlineBanking.content.stepCardSectionDescription1' | translate({ returnObjects: true })
         },
-        image: "/public/images/enter-details-icon.svg"
+        image: "/public/images/enter-details-no-photo-id-icon.svg"
     } %}
 {% endif %}
 

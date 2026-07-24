@@ -1785,10 +1785,10 @@
         "paragraph1": "We’ll walk you through what to do.",
         "htmlLink": "Prove your identity another way",
         "stepCardHeader": "Complete the following steps",
-        "stepCardSectionHeader1": "Enter ID details",
-        "stepCardSectionHeader1NoPhotoId": "Enter details",
-        "stepCardSectionDescription1": "Have photo ID ready.",
-        "stepCardSectionDescription1NoPhotoId": [
+        "stepCardSectionHeader1PhotoId": "Enter ID details",
+        "stepCardSectionHeader1": "Enter details",
+        "stepCardSectionDescription1PhotoId": "Have photo ID ready.",
+        "stepCardSectionDescription1": [
           "Name",
           "Date of birth",
           "National Insurance number"

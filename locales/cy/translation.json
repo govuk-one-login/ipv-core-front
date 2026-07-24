@@ -1783,7 +1783,7 @@
       "header": "Prove your identity by signing in to online banking",
       "content": {
         "paragraph1": "We’ll walk you through what to do.",
-        "htmlLink": "<a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"TODO\">Prove your identity another way</a>",
+        "htmlLink": "Prove your identity another way",
         "stepCardHeader": "Complete the following steps",
         "stepCardSectionHeader1": "Enter ID details",
         "stepCardSectionHeader1NoPhotoId": "Enter details",

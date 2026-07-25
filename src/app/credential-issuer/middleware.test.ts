@@ -117,17 +117,21 @@ describe("credential issuer middleware", () => {
         // Arrange
         const req = createRequest();
         const res = createResponse();
-        coreBackServiceStub.postCriCallback.resolves({
+        const apiResponse = {
           data: { journey: "journey/next" },
-        });
+        };
+        coreBackServiceStub.postCriCallback.resolves(apiResponse);
 
         // Act
         await middleware[method](req, res, next);
 
         // Assert
-        expect(
-          ipvMiddlewareStub.handleBackendResponse.lastCall.lastArg.data.journey,
-        ).to.equal("journey/next");
+        expect(ipvMiddlewareStub.handleBackendResponse).to.have.been.calledWith(
+          req,
+          res,
+          apiResponse,
+          "PassportIssuer",
+        );
       });
 
       it("should call next with error on failed core-back response", async () => {

@@ -1781,10 +1781,10 @@
       "header": "Profi eich hunaniaeth trwy fewngofnodi i fancio ar-lein",
       "content": {
         "paragraph1": "Byddwn yn eich tywys trwy beth i’w wneud.",
-        "htmlLink": "<a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"TODO\">Profi eich hunaniaeth mewn ffordd arall</a>",
+        "htmlLink": "Profi eich hunaniaeth mewn ffordd arall",
         "stepCardHeader": "Cwblhewch y camau canlynol",
-        "stepCardSectionHeader1": "Rhowch fanylion ID",
-        "stepCardSectionHeader1PhotoId": "Rhowch fanylion",
+        "stepCardSectionHeader1PhotoId": "Rhowch fanylion ID",
+        "stepCardSectionHeader1": "Rhowch fanylion",
         "stepCardSectionDescription1PhotoId": "Cael ID gyda llun wrth law.",
         "stepCardSectionDescription1": [
           "Enw",

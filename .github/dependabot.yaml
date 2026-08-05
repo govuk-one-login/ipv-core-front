@@ -5,6 +5,7 @@ registries:
     url: https://npm.pkg.github.com
     username: ${{ secrets.DEPENDABOT_GITHUB_USERNAME }}
     password: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
+    scope: "@govuk-one-login"
 updates:
   - package-ecosystem: "npm"
     directories:

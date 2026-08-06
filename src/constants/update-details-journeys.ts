@@ -15,9 +15,6 @@ export const UNSUPPORTED_COMBO_EVENTS = Object.freeze({
 });
 
 export type UpdateDetailsOptions =
-  | "address"
-  | "givenNames"
-  | "familyName"
-  | "dateOfBirth";
+  "address" | "givenNames" | "familyName" | "dateOfBirth";
 
 export type UpdateDetailsOptionsWithCancel = "cancel" | UpdateDetailsOptions;

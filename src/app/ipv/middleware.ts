@@ -174,8 +174,7 @@ const checkJourneyAction = (req: Request): void => {
 // field of the update-details page
 const getCoiUpdateDetailsJourney = (
   detailsToUpdate:
-    | UpdateDetailsOptionsWithCancel
-    | UpdateDetailsOptionsWithCancel[],
+    UpdateDetailsOptionsWithCancel | UpdateDetailsOptionsWithCancel[],
 ): string | undefined => {
   // convert to array if its a string
   if (typeof detailsToUpdate === "string") {

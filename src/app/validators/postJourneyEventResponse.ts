@@ -26,10 +26,7 @@ export interface ClientResponse {
 }
 
 export type PostJourneyEventResponse =
-  | JourneyResponse
-  | PageResponse<IpvPageName>
-  | CriResponse
-  | ClientResponse;
+  JourneyResponse | PageResponse<IpvPageName> | CriResponse | ClientResponse;
 
 export const isJourneyResponse = (
   res: PostJourneyEventResponse,

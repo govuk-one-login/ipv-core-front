@@ -119,9 +119,15 @@ function getTranslationFromFullyQualifiedName(
 ): TranslationValue | undefined {
   return keyPath
     .split(".")
-    .reduce<
-      TranslationValue | undefined
-    >((current, segment) => (current != null && typeof current === "object" && !Array.isArray(current) ? current[segment] : undefined), translations);
+    .reduce<TranslationValue | undefined>(
+      (current, segment) =>
+        current != null &&
+        typeof current === "object" &&
+        !Array.isArray(current)
+          ? current[segment]
+          : undefined,
+      translations,
+    );
 }
 
 // Find structural issues: missing keys, type mismatches, array length mismatches

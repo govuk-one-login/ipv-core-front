@@ -44,3 +44,7 @@ updates:
     - dependabot
     commit-message:
       prefix: BAU
+    groups:
+      codeql:
+        patterns:
+          - "github/codeql-action"

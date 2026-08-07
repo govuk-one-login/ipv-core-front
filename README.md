@@ -46,8 +46,6 @@ git clone https://github.com/govuk-one-login/ipv-core-front.git
 ```
 
 1. Change into the `ipv-core-front` folder.
-1. [Create a GitHub personal access token](https://github.com/settings/tokens) with package:read scope
-1. Copy `.npmrc.template` to `.npmrc` and replace `TOKEN_WITH_READ_PACKAGE_PERMISSION` with your personal access token
 1. Run the following command to install the project dependencies:
 
 ```bash

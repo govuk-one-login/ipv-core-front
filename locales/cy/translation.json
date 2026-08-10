@@ -462,7 +462,7 @@
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useApp": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
-            "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
+          "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1767,7 +1767,7 @@
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "useApp": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
-            "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
+          "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

@@ -458,11 +458,11 @@
       "title": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
       "header": "Mae angen i chi ddefnyddio’r ap GOV.UK One Login i brofi eich hunaniaeth",
       "content": {
-        "paragraph1": "If you cannot use the app, you can go to the service you were trying to use to find out if there are other ways to access it.",
+        "paragraph1": "Os na allwch ddefnyddio’r ap, gallwch fynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad iddo.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Prove your identity with the GOV.UK One Login app",
-          "returnToRp": "Go to the service you were trying to use"
+          "useApp": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
+            "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -1466,7 +1466,7 @@
         "formRadioButtons": {
           "useAppButtonText": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
           "useAppButtonTextHint": "Byddwch yn cael gwybod sut i lawrlwytho a defnyddio’r ap",
-          "returnToServiceButtonText": "Mynd i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToServiceButtonText": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio",
           "returnToServiceButtonTextHint": "Chwilio am ffyrdd eraill o gael mynediad i’r gwasanaeth os na allwch ddefnyddio’r ap."
         },
         "formErrorMessage": {
@@ -1519,8 +1519,8 @@
       "header": "Mae angen i chi ddefnyddio pasbort gyda sglodyn biometrig i brofi eich hunaniaeth",
       "content": {
         "paragraph1": "Os nad ydych yn byw yn y DU, gallwch ond profi eich hunaniaeth gydag ap GOV.UK One Login drwy ddefnyddio pasbort gyda sglodyn biometrig.",
-        "paragraph1AppOnlyMitigation": "This can be a UK or non-UK passport.",
-        "paragraph2AppOnlyMitigation": "If you do not have one, you can go back to the service you were trying to use.",
+        "paragraph1AppOnlyMitigation": "Gall hwn fod yn basbort o’r DU neu o’r tu allan i’r DU.",
+        "paragraph2AppOnlyMitigation": "Os nad oes gennych un, gallwch fynd yn ôl i’r gwasanaeth roeddech yn ceisio ei ddefnyddio.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
           "returnToRpButtonText": "Mynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i chwilio am ffyrdd eraill o gael mynediad ato",
@@ -1763,11 +1763,11 @@
       "title": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
       "header": "Rydych angen ffôn iPhone neu Android i brofi eich hunaniaeth drwy ddefnyddio’r ap GOV.UK One Login",
       "content": {
-        "paragraph1": "If you cannot use the app, you can go back to the service you were trying to use to find out if there are other ways to access it.",
+        "paragraph1": "Os na allwch ddefnyddio’r ap, gallwch fynd i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad iddo.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "useApp": "Prove your identity with the GOV.UK app",
-          "returnToRp": "Go to the service you were trying to use"
+          "useApp": "Profi eich hunaniaeth gyda’r ap GOV.UK One Login",
+            "returnToRp": "Ewch i’r gwasanaeth roeddech yn ceisio ei ddefnyddio"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

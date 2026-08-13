@@ -20,6 +20,7 @@ import {
   validatePageId,
   renderProblemDifferentBrowserPage,
   handleCrossBrowserJourneyActionRequest,
+  validateIpvSession,
 } from "./middleware";
 
 import IPV_PAGES from "../../constants/ipv-pages";
@@ -60,6 +61,7 @@ router.get(
 router.post(
   getPagePath(IPV_PAGES.UPDATE_DETAILS),
   csrfSynchronisedProtection,
+  validateIpvSession,
   parseForm,
   setRequestPageId(IPV_PAGES.UPDATE_DETAILS),
   formHandleUpdateDetailsCheckBox,
@@ -71,6 +73,7 @@ router.post(
 router.post(
   getPagePath(IPV_PAGES.CONFIRM_DETAILS),
   csrfSynchronisedProtection,
+  validateIpvSession,
   parseForm,
   setRequestPageId(IPV_PAGES.CONFIRM_DETAILS),
   formHandleCoiDetailsCheck,
@@ -82,6 +85,7 @@ router.post(
 router.post(
   getPagePath(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
   csrfSynchronisedProtection,
+  validateIpvSession,
   parseForm,
   setRequestPageId(IPV_PAGES.CHECK_MOBILE_APP_RESULT),
   checkVcReceiptStatus,
@@ -92,6 +96,7 @@ router.post(
 router.post(
   getPagePath(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
   csrfSynchronisedProtection,
+  validateIpvSession,
   parseForm,
   setRequestPageId(IPV_PAGES.PYI_TRIAGE_DESKTOP_DOWNLOAD_APP),
   checkVcReceiptStatus,
@@ -120,6 +125,6 @@ router.get("/usefeatureset", validateFeatureSet, renderFeatureSetPage);
 router.get(`/${APP_REDIRECT_PATH}/:specifiedPhoneType`, handleAppStoreRedirect);
 // Enables a link in the frontend to iterate the journey state
 // This is needed because some redirects must be done with links, not forms
-router.get("/journey/:pageId/:action", updateJourneyState);
+router.get("/journey/:pageId/:action", validateIpvSession, updateJourneyState);
 
 export default router;

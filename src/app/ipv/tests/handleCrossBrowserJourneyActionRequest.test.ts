@@ -1,7 +1,6 @@
 import IPV_PAGES from "../../../constants/ipv-pages";
 import sinon from "sinon";
 import { expect } from "chai";
-import UnauthorizedError from "../../../errors/unauthorized-error";
 import {
   specifyCreateRequest,
   specifyCreateResponse,
@@ -88,22 +87,5 @@ describe("handleCrossBrowserJourneyActionRequest", () => {
     expect(res.redirect).to.have.been.calledOnceWith(
       `/ipv/page/${IPV_PAGES.PYI_ATTEMPT_RECOVERY}`,
     );
-  });
-
-  it("should throw UnauthorizedError if ipvSessionId is missing from session", async () => {
-    // Arrange
-    const req = createRequest({
-      params: { pageId: "problem-different-browser" },
-      session: {
-        ipvSessionId: undefined,
-        currentPage: "problem-different-browser",
-      },
-    });
-    const res = createResponse();
-
-    // Act & Assert
-    await expect(
-      middleware.handleCrossBrowserJourneyActionRequest(req, res, sinon.fake),
-    ).to.be.rejectedWith(UnauthorizedError, "ipvSessionId is missing");
   });
 });

@@ -478,10 +478,6 @@ export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
 ) => {
   const pageId = req.params.pageId;
 
-  if (!req.session?.ipvSessionId) {
-    throw new UnauthorizedError("ipvSessionId is missing");
-  }
-
   if (req.session.currentPage !== pageId) {
     await handleUnexpectedPage(req, res, pageId);
     return;

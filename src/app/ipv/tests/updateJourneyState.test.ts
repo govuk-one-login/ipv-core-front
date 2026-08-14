@@ -3,6 +3,7 @@ import sinon from "sinon";
 import { updateJourneyState } from "../middleware";
 import * as coreBackService from "../../../services/coreBackService";
 import NotFoundError from "../../../errors/not-found-error";
+import UnauthorizedError from "../../../errors/unauthorized-error";
 import {
   specifyCreateRequest,
   specifyCreateResponse,
@@ -68,6 +69,26 @@ describe("updateJourneyState", () => {
     await expect(updateJourneyState(req, res, next)).to.be.rejectedWith(
       NotFoundError,
       "Invalid page id",
+    );
+  });
+
+  it("should throw UnauthorizedError if ipvSessionId is missing from session", async () => {
+    // Arrange
+    const req = createRequest({
+      params: {
+        pageId: "prove-identity-no-photo-id",
+        action: "next",
+      },
+      session: {
+        ipvSessionId: undefined,
+      },
+    });
+    const res = createResponse();
+
+    // Act & Assert
+    await expect(updateJourneyState(req, res, next)).to.be.rejectedWith(
+      UnauthorizedError,
+      "ipvSessionId is missing",
     );
   });
 });

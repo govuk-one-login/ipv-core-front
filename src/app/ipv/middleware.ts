@@ -64,6 +64,13 @@ const allTemplates = fs
   .readdirSync(directoryPath)
   .map((file) => path.parse(file).name);
 
+export const validateIpvSession: RequestHandler = (req, _res, next) => {
+  if (!req.session?.ipvSessionId) {
+    throw new UnauthorizedError("ipvSessionId is missing");
+  }
+  return next();
+};
+
 const journeyApi = async (
   action: string,
   req: Request,
@@ -383,6 +390,10 @@ export const updateJourneyState: RequestHandler = async (req, res) => {
   const currentPageId = req.params.pageId;
   const action = req.params.action;
 
+  if (!req.session?.ipvSessionId) {
+    throw new UnauthorizedError("ipvSessionId is missing");
+  }
+
   if (action && isValidIpvPage(currentPageId)) {
     await processAction(req, res, action, currentPageId);
   } else {
@@ -466,6 +477,7 @@ export const handleCrossBrowserJourneyActionRequest: RequestHandler = async (
   res,
 ) => {
   const pageId = req.params.pageId;
+
   if (req.session.currentPage !== pageId) {
     await handleUnexpectedPage(req, res, pageId);
     return;

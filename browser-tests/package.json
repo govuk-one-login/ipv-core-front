@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@axe-core/playwright": "^4.12.1",
+    "@axe-core/playwright": "^4.13.0",
     "@govuk-one-login/data-vocab": "2.0.3",
     "@playwright/test": "1.56.1",
     "dotenv": "^17.4.2",

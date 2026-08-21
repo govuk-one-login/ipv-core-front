@@ -762,7 +762,7 @@ Resources:
     # checkov:skip=CKV_AWS_158: No need for customer managed keys for short lived logs
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-CoreFront-ECS
-      RetentionInDays: 30
+      RetentionInDays: 180
 
   ECSAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
@@ -1353,7 +1353,7 @@ Resources:
         - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-REST-API-GW-AccessLogs
-      RetentionInDays: 30
+      RetentionInDays: 180
 
   RestApiGatewayAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter
@@ -1538,7 +1538,7 @@ Resources:
         - IsDevelopment
         - !Sub /aws/vendedlogs/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
         - !Sub /aws/apigateway/${AWS::StackName}-CoreFront-API-GW-AccessLogs
-      RetentionInDays: 30
+      RetentionInDays: 180
 
   APIGWAccessLogsGroupSubscriptionFilter:
     Type: AWS::Logs::SubscriptionFilter

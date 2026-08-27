@@ -1006,18 +1006,19 @@
       "title": "Prove your identity at a Post Office with one of the following types of photo ID",
       "header": "Prove your identity at a Post Office with one of the following types of photo ID",
       "content": {
-        "paragraph1": "If you have any of the following types of photo ID, you can prove your identity at a Post Office.",
+        "paragraph1": "Based on what you told us, you cannot prove your identity online.",
+        "paragraph2": "If you have any of the following types of photo ID, you can prove your identity at a Post Office instead.",
         "subHeading": "European Union (EU) photocard driving licence",
-        "paragraph2": "You can use an EU driving licence if:",
+        "paragraph3": "You can use an EU driving licence if:",
         "euDrivingLicenceRequirements": [
           "it is a plastic photocard, not a paper or handwritten licence",
           "it has not expired",
           "the address on it is the same as your current address (if it has an address)"
         ],
         "subHeading2": "Non-UK passport",
-        "paragraph3": "You can use a non-UK passport as long as it has not expired.",
+        "paragraph4": "You can use a non-UK passport as long as it has not expired.",
         "subHeading3": "National identity card from the EU, Norway, Iceland or Liechtenstein",
-        "paragraph4": "You can use a national identity card from the EU, Norway, Iceland or Liechtenstein if:",
+        "paragraph5": "You can use a national identity card from the EU, Norway, Iceland or Liechtenstein if:",
         "eeaNationalIdentityCardRequirements": [
           "it is a plastic photocard, not a paper or handwritten card",
           "it has not expired",
@@ -1090,6 +1091,7 @@
           "a European Union (EU) photocard driving licence",
           "a national identity card from the EU, Norway, Iceland or Liechtenstein"
         ],
+        "insetText": "You cannot prove your identity at a Post Office with a Frontier Worker permit (FWP) or a UK biometric residence card (BRC), also called a UK residence card.",
         "subHeading2": "Do you have photo ID you can use at a Post Office?",
         "formRadioButtons": {
           "yes": "Yes",

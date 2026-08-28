@@ -155,6 +155,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { existingIdentityInvalid: { isExistingIdentityValid: false } },
     NO_CONTEXT_VARIANT,
   ],
+  "sorry-could-not-confirm-details-driving-licence": [],
   "sorry-could-not-confirm-identity-reprove-failure": [],
   "sorry-technical-problem": [
     { f2fCriError: { reason: "f2fCriError" } },

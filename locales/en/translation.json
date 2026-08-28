@@ -1795,6 +1795,26 @@
         "stepCardSectionHeader4": "Bank confirms identity",
         "stepCardSectionDescription4": "Details checked securely."
       }
+    },
+    "sorryCouldNotConfirmDetailsDrivingLicence": {
+      "title": "Sorry, we could not confirm your details",
+      "header": "Sorry, we could not confirm your details",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your driving licence details.",
+        "paragraph2": "You’ll need to prove your identity another way.",
+        "subHeading1": "Do you have a UK passport?",
+        "hint": "You can use a UK passport up to 18 months after its expiry date.",
+        "formRadioButtons": {
+          "continueWithPassport": "Yes, continue with UK passport",
+          "returnToRp": "No, go to the service you were trying to use",
+          "returnToRpHint": "Find out if there are other ways to access the service"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have a UK passport",
+          "errorRadioMessage": "Select yes if you have a UK passport"
+        }
+      }
     }
   }
 }

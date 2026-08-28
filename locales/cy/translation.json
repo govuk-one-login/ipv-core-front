@@ -1798,6 +1798,26 @@
         "stepCardSectionHeader4": "Banc yn cadarnhau hunaniaeth",
         "stepCardSectionDescription4": "Manylion wedi’u gwirio’n ddiogel."
       }
+    },
+    "sorryCouldNotConfirmDetailsDrivingLicence": {
+      "title": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
+      "header": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your driving licence details.",
+        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall.",
+        "subHeading1": "Do you have a UK passport?",
+        "hint": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
+        "formRadioButtons": {
+          "continueWithPassport": "Yes, continue with UK passport",
+          "returnToRp": "No, go to the service you were trying to use",
+          "returnToRpHint": "Find out if there are other ways to access the service"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "Mae problem",
+          "errorSummaryDescriptionText": "Select yes if you have a UK passport",
+          "errorRadioMessage": "Select yes if you have a UK passport"
+        }
+      }
     }
   }
 }

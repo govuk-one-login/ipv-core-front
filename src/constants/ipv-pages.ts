@@ -76,6 +76,8 @@ const IPV_PAGES = Object.freeze({
   SORRY_COULD_NOT_CONFIRM_IDENTITY_REPROVE_FAILURE:
     "sorry-could-not-confirm-identity-reprove-failure",
   SORRY_COULD_NOT_CONFIRM_DETAILS: "sorry-could-not-confirm-details",
+  SORRY_COULD_NOT_CONFIRM_DETAILS_DRIVING_LICENCE:
+    "sorry-could-not-confirm-details-driving-licence",
   SORRY_TECHNICAL_PROBLEM: "sorry-technical-problem",
   UK_DRIVING_LICENCE_DETAILS_NOT_CORRECT:
     "uk-driving-licence-details-not-correct",

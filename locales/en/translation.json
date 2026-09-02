@@ -379,7 +379,7 @@
         "paragraph1": "We could not find a match when we checked your UK photocard driving licence details.",
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
-          "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
+          "continuePassportButtonText": "Enter your UK passport details instead",
           "continuePassportButtonTextHint": "You can use a UK passport that’s expired within the past 18 months.",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
@@ -482,7 +482,7 @@
         "paragraph1": "We could not find a match when we checked your UK passport details.",
         "subHeading": "How would you like to continue?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead and answer security questions",
+          "continueDrivingLicenceButtonText": "Enter your UK photocard driving licence details instead",
           "otherWayButtonText": "Prove your identity another way",
           "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
@@ -1302,8 +1302,8 @@
       "content": {
         "subHeading1DrivingLicence": "If you have a UK passport",
         "subHeading1Passport": "If you have a UK photocard driving licence",
-        "paragraph1DrivingLicence": "Enter your UK passport details and answer security questions.",
-        "paragraph1Passport": "Enter your UK photocard driving licence details and answer security questions.",
+        "paragraph1DrivingLicence": "Enter your UK passport details and continue to prove your identity online.",
+        "paragraph1Passport": "Enter your UK photocard driving licence details and continue to prove your identity online.",
         "subHeading2": "If you have another type of photo ID",
         "paragraph2": "Prove your identity at a Post Office with a:",
         "documentList": [
@@ -1794,6 +1794,26 @@
         "stepCardSectionDescription3": "App or website. No need to enter bank details on GOV.UK.",
         "stepCardSectionHeader4": "Bank confirms identity",
         "stepCardSectionDescription4": "Details checked securely."
+      }
+    },
+    "sorryCouldNotConfirmDetailsDrivingLicence": {
+      "title": "Sorry, we could not confirm your details",
+      "header": "Sorry, we could not confirm your details",
+      "content": {
+        "paragraph1": "We could not find a match when we checked your driving licence details.",
+        "paragraph2": "You’ll need to prove your identity another way.",
+        "subHeading1": "Do you have a UK passport?",
+        "hint": "You can use a UK passport up to 18 months after its expiry date.",
+        "formRadioButtons": {
+          "continueWithPassport": "Yes, continue with UK passport",
+          "returnToRp": "No, go to the service you were trying to use",
+          "returnToRpHint": "Find out if there are other ways to access the service"
+        },
+        "formErrorMessage": {
+          "errorSummaryTitleText": "There is a problem",
+          "errorSummaryDescriptionText": "Select yes if you have a UK passport",
+          "errorRadioMessage": "Select yes if you have a UK passport"
+        }
       }
     }
   }

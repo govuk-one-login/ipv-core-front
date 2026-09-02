@@ -1,0 +1,61 @@
+{% extends "shared/base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% set pageTitleKey = 'pages.sorryCouldNotConfirmDetailsDrivingLicence.title' %}
+{% set googleTagManagerPageId = "sorryCouldNotConfirmDetailsDrivingLicence" %}
+
+{% set errorState = pageErrorState %}
+{% set errorTitle = 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formErrorMessage.errorSummaryTitleText' | translate %}
+{% set errorText = 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
+{% set errorHref = "#sorryCouldNotConfirmDetailsDrivingLicenceForm" %}
+
+{% set isPageDataSensitive = false %}
+{% set contentID = '061996b7-f36e-442b-8f07-da0344616a0e'%}
+
+{% block content %}
+  <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.sorryCouldNotConfirmDetailsDrivingLicence.header' | translate }}</h1>
+
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.paragraph1' | translate }}</p>
+  <p class="govuk-body">{{ 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.paragraph2' | translate }}</p>
+
+  <form id="sorryCouldNotConfirmDetailsDrivingLicenceForm" action="/ipv/page/{{ pageId }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    {% set radiosConfig = {
+      idPrefix: "journey",
+      name: "journey",
+      fieldset: {
+        legend: {
+          text: 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.subHeading1' | translate,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      hint: {
+        text: 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.hint' | translate
+      },
+      items: [
+        {
+          value: "passport",
+          text: 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.continueWithPassport' | translate
+        },
+        {
+          value: "returnToRp",
+          text: 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.returnToRp' | translate,
+          hint: {
+            text: 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.returnToRpHint' | translate
+          }
+        }
+      ]
+    } %}
+
+    {% if errorState %}
+      {% set errorMessageObject = { 'text': 'pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formErrorMessage.errorRadioMessage' | translate } %}
+      {% set radiosConfig = radiosConfig | setAttribute('errorMessage', errorMessageObject) %}
+    {% endif %}
+
+    {{ govukRadios(radiosConfig) }}
+    {{ govukButton({
+      id: "submitButton",
+      text: 'general.buttons.next' | translate
+    }) }}
+  </form>
+{% endblock %}

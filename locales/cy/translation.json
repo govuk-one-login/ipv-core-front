@@ -1803,19 +1803,19 @@
       "title": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
       "header": "Mae’n ddrwg gennym, nid oeddem yn gallu cadarnhau eich manylion",
       "content": {
-        "paragraph1": "We could not find a match when we checked your driving licence details.",
+        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio’ch manylion trwydded yrru.",
         "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall.",
-        "subHeading1": "Do you have a UK passport?",
+        "subHeading1": "Oes gennych chi basbort y Deyrnas Unedig?",
         "hint": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl ei ddyddiad dod i ben.",
         "formRadioButtons": {
-          "continueWithPassport": "Yes, continue with UK passport",
-          "returnToRp": "No, go to the service you were trying to use",
-          "returnToRpHint": "Find out if there are other ways to access the service"
+          "continueWithPassport": "Oes, parhau gyda phasbort y DU",
+          "returnToRp": "Na, mynd i’r gwasanaeth rydych yn ceisio ei ddefnyddio",
+          "returnToRpHint": "Darganfyddwch os oes ffyrdd eraill i gael mynediad i’r gwasanaeth"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Select yes if you have a UK passport",
-          "errorRadioMessage": "Select yes if you have a UK passport"
+          "errorSummaryDescriptionText": "Dewiswch oes os oes gennych chi basbort y Deyrnas Unedig",
+          "errorRadioMessage": "Dewiswch oes os oes gennych chi basbort y Deyrnas Unedig"
         }
       }
     }

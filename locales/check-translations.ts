@@ -27,13 +27,6 @@ const UNTRANSLATED_WHITELIST = new Set([
   "pages.pageF2fHandoff.content.firstCircle",
   "pages.pageF2fHandoff.content.secondCircle",
   "pages.pageF2fHandoff.content.thirdCircle",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.paragraph1",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.subHeading1",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.continueWithPassport",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.returnToRp",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formRadioButtons.returnToRpHint",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formErrorMessage.errorSummaryDescriptionText",
-  "pages.sorryCouldNotConfirmDetailsDrivingLicence.content.formErrorMessage.errorRadioMessage",
 ]);
 
 // English text values where inconsistent Welsh translations are expected

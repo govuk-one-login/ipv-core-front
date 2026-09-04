@@ -4,6 +4,7 @@ type PageContextMap = {
   "delete-handover": { journeyType: string };
   "need-biometric-passport": { appOnlyMitigation: boolean };
   "need-more-information-confirm-change-details": { journeyType: string };
+  "no-photo-id-abandon-find-another-way": { isOpenBanking: boolean };
   "no-photo-id-web-find-another-way": { reason: string };
   "page-dcmaw-success": { noAddress: boolean };
   "page-ipv-success": { journeyType: string };

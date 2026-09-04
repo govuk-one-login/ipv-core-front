@@ -31,7 +31,10 @@ export const pagesAndContexts: PagesAndContexts = {
   "need-prove-identity-again-app": [],
   "need-prove-identity-again-no-app": [],
   "need-smartphone-prove-identity-app": [],
-  "no-photo-id-abandon-find-another-way": [],
+  "no-photo-id-abandon-find-another-way": [
+    { openBanking: { isOpenBanking: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "no-photo-id-banking-another-way": [],
   "no-photo-id-exit-find-another-way": [],
   "no-photo-id-web-find-another-way": [

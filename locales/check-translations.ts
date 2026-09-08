@@ -39,6 +39,15 @@ const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
   "Prove your identity another way",
   "Go to the service you need to use",
   "Check what you can do if you cannot prove your identity with GOV.UK One Login.",
+  "non-UK passport",
+  // The text entries below need to be confirmed as mutations (or we need to get a decision that the Welsh text doesn't need to be consistent)
+  "European Union (EU) photocard driving licence",
+  "you signed in more than an hour ago",
+  "you signed out while you were using another service",
+  "National Insurance number",
+  "has not expired",
+  "has a biometric chip",
+  "you have a smartphone",
 ]);
 
 // Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)
@@ -88,16 +97,20 @@ function getType(value: unknown): string {
 function collectTranslationLeafEntries(
   translations: TranslationObject,
   prefix = "",
-): { key: string; value: TranslationValue }[] {
-  const entries: { key: string; value: TranslationValue }[] = [];
+): { key: string; value: string }[] {
+  const entries: { key: string; value: string }[] = [];
   for (const [key, value] of Object.entries(translations)) {
     const fullKey = prefix ? `${prefix}.${key}` : key;
     if (getType(value) === "object") {
       entries.push(
         ...collectTranslationLeafEntries(value as TranslationObject, fullKey),
       );
+    } else if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        entries.push({ key: `${fullKey}[${i}]`, value: value[i] });
+      }
     } else {
-      entries.push({ key: fullKey, value });
+      entries.push({ key: fullKey, value: value as string });
     }
   }
   return entries;
@@ -107,17 +120,28 @@ function getTranslationFromFullyQualifiedName(
   translations: TranslationObject,
   keyPath: string,
 ): TranslationValue | undefined {
-  return keyPath
-    .split(".")
-    .reduce<TranslationValue | undefined>(
-      (current, segment) =>
-        current != null &&
-        typeof current === "object" &&
-        !Array.isArray(current)
-          ? current[segment]
-          : undefined,
-      translations,
-    );
+  // Split on dots but also handle array indices like "key[0]"
+  const segments = keyPath.split(".");
+  let current: TranslationValue | undefined = translations;
+  for (const segment of segments) {
+    if (
+      current == null ||
+      typeof current !== "object" ||
+      Array.isArray(current)
+    )
+      return undefined;
+
+    const bracketMatch = segment.match(/^(.+)\[(\d+)]$/);
+    if (bracketMatch) {
+      const [, objKey, indexStr] = bracketMatch;
+      const arr = current[objKey];
+      if (!Array.isArray(arr)) return undefined;
+      current = arr[parseInt(indexStr, 10)];
+    } else {
+      current = current[segment];
+    }
+  }
+  return current;
 }
 
 // Find structural issues: missing keys, type mismatches, array length mismatches
@@ -207,7 +231,6 @@ function findInconsistentTranslations(untranslatedKeys: Set<string>): Issue[] {
   >();
 
   for (const { key, value } of englishLeafEntries) {
-    if (typeof value !== "string") continue;
     if (UNTRANSLATED_WHITELIST.has(key)) continue;
     if (untranslatedKeys.has(key)) continue;
     const welshValue = getTranslationFromFullyQualifiedName(
@@ -268,7 +291,6 @@ function findUntranslatedKeys(): Set<string> {
   const englishLeafEntries = collectTranslationLeafEntries(englishTranslations);
   const keys = new Set<string>();
   for (const { key, value } of englishLeafEntries) {
-    if (typeof value !== "string") continue;
     if (UNTRANSLATED_WHITELIST.has(key)) continue;
     const welshValue = getTranslationFromFullyQualifiedName(
       welshTranslations,
@@ -284,7 +306,6 @@ function findBlankTranslations(): Issue[] {
   const englishLeafEntries = collectTranslationLeafEntries(englishTranslations);
   return englishLeafEntries
     .filter(({ key, value }) => {
-      if (typeof value !== "string") return false;
       if (value.trim() === "") return true;
       const welshValue = getTranslationFromFullyQualifiedName(
         welshTranslations,
@@ -384,7 +405,12 @@ function findUnusedTranslations(): Issue[] {
     .filter((key) => {
       if (BASE_TEMPLATE_KEYS.has(key)) return false;
       if (TS_TRANSLATION_KEYS.has(key)) return false;
-      if (allNjkContent.includes(key)) return false;
+
+      // For indexed array keys like "foo.bar[0]", templates reference the
+      // base key "foo.bar" and i18next resolves the array, so check
+      // against the base key for content matching.
+      const baseKey = key.replace(/\[\d+]$/, "");
+      if (allNjkContent.includes(baseKey)) return false;
 
       // Only pages.* keys can have context variants.
       // Check if this key minus a context suffix appears in the
@@ -393,8 +419,8 @@ function findUnusedTranslations(): Issue[] {
         for (const { njkContent, suffixes } of pageContextEntries) {
           for (const suffix of suffixes) {
             if (
-              key.endsWith(suffix) &&
-              njkContent.includes(key.slice(0, -suffix.length))
+              baseKey.endsWith(suffix) &&
+              njkContent.includes(baseKey.slice(0, -suffix.length))
             ) {
               return false;
             }

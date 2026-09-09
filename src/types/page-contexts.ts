@@ -8,6 +8,7 @@ type PageContextMap = {
   "page-dcmaw-success": { noAddress: boolean };
   "page-ipv-success": { journeyType: string };
   "page-multiple-doc-check": { allowNino: boolean };
+  "page-pre-experian-kbv-transition": { isDwpDropout: boolean };
   "page-update-name": { journeyType: string };
   "photo-id-web-find-another-way": { reason: string };
   "prove-identity-another-type-photo-id": { invalidDoc: string };

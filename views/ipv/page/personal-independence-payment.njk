@@ -23,6 +23,11 @@
     text: 'pages.personalIndependencePayment.content.details.text' | translate
   }) }}
 
+  {{ govukDetails({
+    summaryText: 'pages.personalIndependencePayment.content.details2.summaryText' | translate,
+    text: 'pages.personalIndependencePayment.content.details2.text' | translate
+  }) }}
+
   <form id="personalIndependencePaymentForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {

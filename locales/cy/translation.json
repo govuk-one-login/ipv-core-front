@@ -614,10 +614,14 @@
     },
     "pagePreExperianKbvTransition": {
       "title": "Ateb cwestiynau diogelwch",
+      "titleIsDwpDropout": "Atebwch gwestiynau diogelwch gwahanol",
       "header": "Ateb cwestiynau diogelwch",
+      "headerIsDwpDropout": "Atebwch gwestiynau diogelwch gwahanol",
       "content": {
         "paragraph1": "Byddwn yn gofyn rhai cwestiynau diogelwch i chi mai dim ond chi ddylai wybod yr atebion iddynt.",
+        "paragraph1IsDwpDropout": "Nid oeddem yn gallu cwblhau eich gwiriad hunaniaeth gan ddefnyddio cwestiynau diogelwch am eich Credyd Cynhwysol neu Daliad Annibyniaeth Personol (PIP).",
         "paragraph2": "Bydd hyn yn ein helpu i atal unrhyw un arall a allai fod â’ch manylion rhag esgus bod yn chi.",
+        "paragraph2IsDwpDropout": "Gallwch geisio profi eich hunaniaeth trwy ateb cwestiynau am eich hanes ariannol yn lle hynny.",
         "subHeading1": "Am beth mae’r cwestiynau",
         "paragraph3": "Bydd y cwestiynau yn ymwneud â’ch hanes ariannol, fel eich contract ffôn symudol, cyfrif banc, ac unrhyw gardiau credyd, benthyciadau neu forgeisi sydd gennych.",
         "paragraph4": "Ni fyddwn yn cadw eich atebion nac yn eu rhannu ag unrhyw sefydliad arall.",

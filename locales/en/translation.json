@@ -724,10 +724,14 @@
     },
     "pagePreExperianKbvTransition": {
       "title": "Answer security questions",
+      "titleIsDwpDropout": "Answer different security questions",
       "header": "Answer security questions",
+      "headerIsDwpDropout": "Answer different security questions",
       "content": {
         "paragraph1": "We’ll ask you some security questions that only you should know the answers to.",
+        "paragraph1IsDwpDropout": "We were not able to complete your identity check using security questions about your Universal Credit or Personal Independence Payment (PIP).",
         "paragraph2": "This will help us stop anyone else who might have your details from pretending to be you.",
+        "paragraph2IsDwpDropout": "You can try to prove your identity by answering questions about your financial history instead.",
         "subHeading1": "What the questions are about",
         "paragraph3": "The questions will be about your financial history, such as your mobile phone contract, bank account, and any credit cards, loans or mortgages you have.",
         "paragraph4": "We will not keep your answers or share them with any other organisation.",

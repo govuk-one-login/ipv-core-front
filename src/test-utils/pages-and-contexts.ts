@@ -61,7 +61,10 @@ export const pagesAndContexts: PagesAndContexts = {
     NO_CONTEXT_VARIANT,
   ],
   "page-pre-dwp-kbv-transition": [],
-  "page-pre-experian-kbv-transition": [],
+  "page-pre-experian-kbv-transition": [
+    { dwpDropout: { isDwpDropout: true } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-update-name": [
     { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
     NO_CONTEXT_VARIANT,

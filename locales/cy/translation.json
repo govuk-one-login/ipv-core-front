@@ -18,7 +18,7 @@
       "suitableAppPhotoIds": [
         "trwydded yrru cerdyn-llun y DU",
         "pasbort y DU",
-        "pasbort o’r tu allan i’r DU gyda sglodyn biometrig",
+        "pasbort nad yw o’r DU gyda sglodyn biometrig",
         "trwydded breswylio biometrig y DU (BRP)",
         "cerdyn preswylio biometrig y DU (BRC)",
         "trwydded Gweithiwr Ffiniol y DU (FWP)"
@@ -268,22 +268,32 @@
         "paragraph1": "Gallwch geisio profi eich hunaniaeth gyda’r gwasanaeth rydych angen ei ddefnyddio. Efallai y byddant yn cymryd mathau eraill o ID.",
         "subHeading2": "Os oes gennych ID gyda llun",
         "paragraph2": "Os oes gennych ID gyda llun, gallwch brofi eich hunaniaeth ar-lein drwy:",
+        "paragraph2IsOpenBanking": "Gallwch barhau i brofi eich hunaniaeth drwy fewngofnodi i fancio ar-lein os oes gennych:",
         "list": [
           "ddefnyddio’r ap GOV.UK One Login",
           "rhoi’r manylion o’ch pasbort y DU neu drwydded yrru cerdyn-llun y DU ac ateb cwestiynau diogelwch"
         ],
+        "listIsOpenBanking": ["pasbort y DU", "trwydded yrru cerdyn-llun y DU"],
         "paragraph3": "Gallwch hefyd brofi eich hunaniaeth mewn Swyddfa’r Post.",
+        "paragraph3IsOpenBanking": "Gallwch brofi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login neu mewn Swyddfa’r Post.",
         "detailsLabel": "Mathau o ID gyda llun y gallwch eu defnyddio gyda’r ap GOV.UK One Login ac mewn Swyddfa’r Post",
         "subHeading3": "Sut hoffech chi brofi eich hunaniaeth?",
+        "hintIsOpenBanking": "Os nad oes gennych ID gyda llun, dewiswch ‘Ffordd arall’",
         "formRadioButtons": {
           "radioButtonApp": "Defnyddio’r ap GOV.UK One Login",
           "radioButtonAppHint": "Dangosir i chi sut i lawrlwytho a defnyddio’r ap.",
           "radioButtonPassport": "Rhowch fanylion eich pasbort y DU ac atebwch y cwestiynau diogelwch",
+          "radioButtonPassportIsOpenBanking": "Rhowch fanylion pasbort y DU",
+          "radioButtonPassportHintIsOpenBanking": "Parhau i brofi eich hunaniaeth drwy fewngofnodi i fancio ar-lein.",
           "radioButtonDrivingLicence": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU ac atebwch gwestiynau diogelwch.",
+          "radioButtonDrivingLicenceIsOpenBanking": "Rhowch fanylion trwydded yrru cerdyn-llun y DU",
+          "radioButtonDrivingLicenceHintIsOpenBanking": "Parhau i brofi eich hunaniaeth drwy fewngofnodi i fancio ar-lein.",
           "radioButtonPostOffice": "Ewch i Swyddfa’r Post",
-          "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK  yn gyntaf",
+          "radioButtonPostOfficeHint": "Gofynnir i chi roi manylion o’ch ID gyda llun ar GOV.UK yn gyntaf.",
           "separateOptionsInForm": "neu",
-          "radioButtonRp": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato"
+          "radioButtonRp": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato",
+          "radioButtonRpIsOpenBanking": "Ffordd arall",
+          "radioButtonRpHintIsOpenBanking": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

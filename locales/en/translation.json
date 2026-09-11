@@ -268,22 +268,32 @@
         "paragraph1": "You can try proving your identity with the service you need to use. They may take other types of ID.",
         "subHeading2": "If you have photo ID",
         "paragraph2": "If you have photo ID, you can prove your identity online by:",
+        "paragraph2IsOpenBanking": "You can continue to prove your identity by signing in to online banking if you have a:",
         "list": [
           "using the GOV.UK One Login app",
           "entering the details from your UK passport or UK photocard driving licence and answering security questions"
         ],
+        "listIsOpenBanking": ["UK passport", "UK photocard driving licence"],
         "paragraph3": "You can also prove your identity at a Post Office.",
+        "paragraph3IsOpenBanking": "You can also prove your identity using the GOV.UK One Login app or at a Post Office.",
         "detailsLabel": "Types of photo ID you can use with the GOV.UK One Login app and at the Post Office",
         "subHeading3": "How would you like to prove your identity?",
+        "hintIsOpenBanking": "If you do not have a photo ID, select ‘Another way’",
         "formRadioButtons": {
           "radioButtonApp": "Use the GOV.UK One Login app",
           "radioButtonAppHint": "You’ll be shown how to download and use the app.",
           "radioButtonPassport": "Enter your UK passport details and answer security questions",
+          "radioButtonPassportIsOpenBanking": "Enter UK passport details",
+          "radioButtonPassportHintIsOpenBanking": "Continue to prove your identity by signing in to online banking.",
           "radioButtonDrivingLicence": "Enter your UK photocard driving licence details and answer security questions",
+          "radioButtonDrivingLicenceIsOpenBanking": "Enter UK photocard driving licence details",
+          "radioButtonDrivingLicenceHintIsOpenBanking": "Continue to prove your identity by signing in to online banking.",
           "radioButtonPostOffice": "Go to a Post Office",
-          "radioButtonPostOfficeHint": "You’ll be asked to enter details from your photo ID on GOV.UK first",
+          "radioButtonPostOfficeHint": "You’ll be asked to enter details from your photo ID on GOV.UK first.",
           "separateOptionsInForm": "or",
-          "radioButtonRp": "Continue to the service you were trying to use to find out if there are other ways to access it"
+          "radioButtonRp": "Continue to the service you were trying to use to find out if there are other ways to access it",
+          "radioButtonRpIsOpenBanking": "Another way",
+          "radioButtonRpHintIsOpenBanking": "Continue to the service you were trying to use to find out if there are other ways to access it."
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

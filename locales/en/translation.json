@@ -633,7 +633,7 @@
       "title": "You need to prove your identity another way",
       "header": "You need to prove your identity another way",
       "content": {
-        "paragraph1": "We do not have enough information to ask you security questions about your PIP.",
+        "paragraph1": "We do not have enough information to ask you security questions about your Universal Credit or PIP.",
         "paragraph2": "We’ll check if we can ask different security questions based on other details you’ve given."
       }
     },
@@ -1274,11 +1274,11 @@
         "paragraph3": "The questions use information from the Department for Work and Pensions (DWP).",
         "paragraph4": "You must answer enough questions correctly to prove your identity. You can then continue to the service you need to use.",
         "subHeading": "Before you start",
-        "paragraph5": "You’ll need information from the bank or building society account that your PIP is paid into.",
+        "paragraph5": "You’ll need information from the bank or building society account that your Universal Credit or PIP is paid into.",
         "paragraph6": "You can get this information from your:",
         "list1": "most recent statement",
         "list2": "online account or banking app",
-        "paragraph7": "You may also need the letter from the DWP saying that you were awarded PIP.",
+        "paragraph7": "You may also need the letter from the DWP saying that you were awarded Universal Credit or PIP.",
         "details": {
           "summaryText": "How we use your details",
           "html": "<p>We will not keep your answers to the security questions or share them with the service you need to use.</p><p>If you’d like to know more about how your details will be used to prove your identity, <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">read our privacy notice (opens in a new tab)</a>.</p>"
@@ -1287,26 +1287,30 @@
       }
     },
     "personalIndependencePayment": {
-      "title": "Tell us if you get Personal Independence Payment (PIP)",
-      "header": "Tell us if you get Personal Independence Payment (PIP)",
+      "title": "Tell us if you get Universal Credit or Personal Independence Payment ",
+      "header": "Tell us if you get Universal Credit or Personal Independence Payment ",
       "content": {
-        "paragraph": "If you get PIP then we’ll ask you security questions about your payments.",
-        "paragraph2": "If you do not get PIP or would prefer not to say then you’ll need to prove your identity another way.",
+        "paragraph": "If you get Universal Credit or Personal Independence Payment (PIP) then we’ll ask you security questions about your payments.",
+        "paragraph2": "If you do not get Universal Credit or PIP, or would prefer not to say then you’ll need to prove your identity another way.",
         "details": {
+          "summaryText": "What is Universal Credit?",
+          "text": "Universal Credit is a benefit paid to working age people who are on a low income, out of work or cannot work."
+        },
+        "details2": {
           "summaryText": "What is PIP?",
           "text": "PIP is a benefit paid to some people who have a long-term health condition or disability."
         },
-        "subHeading": "Do you get Personal Independence Payment (PIP)?",
+        "subHeading": "Do you get Universal Credit or Personal Independence Payment (PIP)?",
         "formRadioButtons": {
           "yes": "Yes",
           "no": "No",
           "divisor": "or",
-          "preferNotToSayText": "I’d prefer not to say"
+          "preferNotToSayText": "Prefer not to say"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select if you get Personal Independence Payment (PIP) or would prefer not to say",
-          "errorRadioMessage": "Select if you get Personal Independence Payment (PIP) or would prefer not to say"
+          "errorSummaryDescriptionText": "Select if you get Universal Credit or Personal Independence Payment (PIP), or would prefer not to say",
+          "errorRadioMessage": "Select if you get Universal Credit or Personal Independence Payment (PIP), or would prefer not to say"
         }
       }
     },

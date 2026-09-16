@@ -1,17 +1,17 @@
 <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="70" height="70" fill="#D2E2F1"/>
+<rect width="70" height="70" fill="#C2E5F8"/>
 <rect x="6.52246" y="23.6787" width="51" height="33" rx="1" transform="rotate(-10 6.52246 23.6787)" fill="white"/>
-<rect x="35.6028" y="21.5974" width="19" height="2" transform="rotate(-10 35.6028 21.5974)" fill="#1D70B8"/>
-<rect x="36.2974" y="25.5366" width="12" height="2" transform="rotate(-10 36.2974 25.5366)" fill="#1D70B8"/>
-<rect x="9.9978" y="26.1123" width="23" height="27" transform="rotate(-10 9.9978 26.1123)" fill="#D2E2F1"/>
-<rect x="17.0056" y="37.0618" width="13" height="14" transform="rotate(-10 17.0056 37.0618)" fill="#0F385C"/>
-<circle cx="23.4936" cy="36.4254" r="6.5" transform="rotate(-10 23.4936 36.4254)" fill="#99704A"/>
-<mask id="mask0_7248_271" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="29" width="14" height="14">
-<circle cx="23.4936" cy="36.4254" r="6.5" transform="rotate(-10 23.4936 36.4254)" fill="#EBC3C4"/>
+<rect x="35.6035" y="21.5977" width="19" height="2" transform="rotate(-10 35.6035 21.5977)" fill="#17548A"/>
+<rect x="36.2979" y="25.5371" width="12" height="2" transform="rotate(-10 36.2979 25.5371)" fill="#17548A"/>
+<rect x="9.99805" y="26.1123" width="23" height="27" transform="rotate(-10 9.99805 26.1123)" fill="#D2E2F1"/>
+<rect x="17.0059" y="37.0615" width="13" height="14" transform="rotate(-10 17.0059 37.0615)" fill="#11395D"/>
+<circle cx="23.4938" cy="36.4259" r="6.5" transform="rotate(-10 23.4938 36.4259)" fill="#9A704B"/>
+<mask id="mask0_50333_3259" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="16" y="29" width="14" height="14">
+<circle cx="23.4938" cy="36.4259" r="6.5" transform="rotate(-10 23.4938 36.4259)" fill="#EBC3C4"/>
 </mask>
-<g mask="url(#mask0_7248_271)">
-<circle cx="18.3388" cy="32.6323" r="3.93922" transform="rotate(-10 18.3388 32.6323)" fill="#0F385C"/>
-<circle cx="25.3296" cy="31.0359" r="4.29733" transform="rotate(-10 25.3296 31.0359)" fill="#0F385C"/>
+<g mask="url(#mask0_50333_3259)">
+<circle cx="18.3388" cy="32.6338" r="3.93922" transform="rotate(-10 18.3388 32.6338)" fill="#11395D"/>
+<circle cx="25.3298" cy="31.0366" r="4.29733" transform="rotate(-10 25.3298 31.0366)" fill="#11395D"/>
 </g>
-<path d="M17.6408 52.1813C16.9695 48.374 19.5117 44.7434 23.3189 44.0721L26.2734 43.5511C30.0806 42.8798 33.7112 45.422 34.3826 49.2292L17.6408 52.1813Z" fill="#FFDD00"/>
+<path d="M17.6413 52.1808C16.97 48.3735 19.5122 44.7429 23.3194 44.0716L26.2739 43.5506C30.0811 42.8793 33.7117 45.4215 34.3831 49.2287L17.6413 52.1808Z" fill="#FFDD00"/>
 </svg>

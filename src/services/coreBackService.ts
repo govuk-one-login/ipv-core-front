@@ -76,6 +76,7 @@ export const postJourneyEvent = (
   req: Request,
   event: string,
   currentPage?: string,
+  currentCriId?: string,
 ): Promise<AxiosResponse<PostJourneyEventResponse>> => {
   const encodedEvent = encodeURIComponent(event);
 
@@ -84,8 +85,8 @@ export const postJourneyEvent = (
     req,
   );
 
-  if (currentPage) {
-    requestConfig.params = { currentPage };
+  if (currentPage || currentCriId) {
+    requestConfig.params = { currentPage, currentCriId };
   }
 
   return axiosInstance.post(

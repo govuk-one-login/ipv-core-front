@@ -1299,8 +1299,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud",
-          "errorRadioMessage": "Dewiswch a ydych yn cael Taliad Annibyniaeth Personol (PIP) neu byddai’n well gennych beidio â dweud"
+          "errorSummaryDescriptionText": "Dewiswch a ydych yn cael Credyd Cynhwysol neu Daliad Annibyniaeth Personol (PIP), neu byddai’n well gennych beidio â dweud",
+          "errorRadioMessage": "Dewiswch a ydych yn cael Credyd Cynhwysol neu Daliad Annibyniaeth Personol (PIP), neu byddai’n well gennych beidio â dweud"
         }
       }
     },

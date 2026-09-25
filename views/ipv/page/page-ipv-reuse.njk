@@ -53,11 +53,22 @@
     <details class="govuk-details">
       <summary class="govuk-details__summary">
         <p class="govuk-!-margin-0 govuk-details__summary-text">
-          {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsLabel' | translate }}
+          {{ 'pages.pageIpvReuse.content.updateChangedUserDetailsInformation.updateDetailsLabel' | translate }}
         </p>
       </summary>
       <div class="govuk-details__text">
-        {{ 'pages.pageIpvReuse.content.updateUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
+        {{ 'pages.pageIpvReuse.content.updateChangedUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
+      </div>
+    </details>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <p class="govuk-!-margin-0 govuk-details__summary-text">
+          {{ 'pages.pageIpvReuse.content.updateWrongUserDetailsInformation.updateDetailsLabel' | translate }}
+        </p>
+      </summary>
+      <div class="govuk-details__text">
+        {{ 'pages.pageIpvReuse.content.updateWrongUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
       </div>
     </details>
 

@@ -48,8 +48,6 @@
         rows: rows
     }) }}
 
-    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
-
     <details class="govuk-details">
       <summary class="govuk-details__summary">
         <p class="govuk-!-margin-0 govuk-details__summary-text">
@@ -71,6 +69,8 @@
         {{ 'pages.pageIpvReuse.content.updateWrongUserDetailsInformation.updateDetailsHtml' | translate({ url: contactUsUrl }) | safe }}
       </div>
     </details>
+
+    <p class="govuk-body">{{ 'pages.pageIpvReuse.content.paragraph2' | translate }}</p>
 
     {% if enableProgressSpinnerButton %}
       {# New progress button (experiment) #}

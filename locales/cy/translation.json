@@ -768,13 +768,13 @@
           "checkbox1Hint": "Dyma eich enw cyntaf a’ch enwau canol",
           "checkbox2": "Enw olaf",
           "checkbox3": "Cyfeiriad",
-          "checkbox4": "Dyddiad geni",
-          "checkbox5Divisor": "neu",
-          "checkbox5": "Nid wyf angen diweddaru fy manylion"
+          "checkbox4": "Dyddiad geni"
         },
+        "submitButton": "Diweddaru eich manylion",
+        "cancelButton": "Parhau heb ddiweddaru manylion",
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
-          "errorSummaryDescriptionText": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch ‘Nid wyf angen diweddaru fy manylion’"
+          "errorSummaryDescriptionText": "Dewiswch pa fanylion rydych angen eu diweddaru, neu dewiswch ‘Parhau heb ddiweddaru manylion’"
         }
       }
     },

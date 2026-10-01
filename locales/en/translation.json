@@ -543,13 +543,13 @@
           "checkbox1Hint": "This is your first name and middle names",
           "checkbox2": "Last name",
           "checkbox3": "Address",
-          "checkbox4": "Date of birth",
-          "checkbox5Divisor": "or",
-          "checkbox5": "I do not need to update my details"
+          "checkbox4": "Date of birth"
         },
+        "submitButton": "Update your details",
+        "cancelButton": "Continue without updating details",
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select which details you need to update, or select ‘I do not need to update my details’"
+          "errorSummaryDescriptionText": "Select which details you need to update, or select ‘Continue without updating details’"
         }
       }
     },

@@ -13,8 +13,6 @@
 {% set errorTitle = 'pages.pyiUpdateDetails.content.formErrorMessage.errorSummaryTitleText' | translate %}
 {% set errorText = 'pages.pyiUpdateDetails.content.formErrorMessage.errorSummaryDescriptionText' | translate %}
 {% set errorHref = "#updateDetailsActionForm" %}
-{% set showBack = true %}
-{% set hrefBack = "/ipv/journey/update-details/back" %}
 
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}"
@@ -92,14 +90,6 @@
                 {
                   value: "dateOfBirth",
                   text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox4' | translate
-                },
-                {
-                  divider: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5Divisor' | translate
-                },
-                {
-                  value: "cancel",
-                  text: 'pages.pyiUpdateDetails.content.checkboxes.checkbox5' | translate,
-                  behaviour: "exclusive"
                 }
               ]
             } %}
@@ -108,9 +98,17 @@
               {% set checkboxConfig = checkboxConfig | setAttribute('errorMessage', errorMessageObject) %}
             {% endif %}
             {{ govukCheckboxes(checkboxConfig) }}
-            {{ govukButton({
-              id: "submitButton",
-              text: 'general.buttons.next' | translate
-            }) }}
+            <div class="govuk-button-group">
+              {{ govukButton({
+                id: "submitButton",
+                text: 'pages.pyiUpdateDetails.content.submitButton' | translate
+              }) }}
+              {{ govukButton({
+                name: "detailsToUpdate",
+                text: 'pages.pyiUpdateDetails.content.cancelButton' | translate,
+                classes: "govuk-button--secondary",
+                value: "cancel"
+              }) }}
+            </div>
     </form>
 {% endblock %}

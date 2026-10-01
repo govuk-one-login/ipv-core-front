@@ -912,7 +912,7 @@
         },
         "mistakeSummary": {
           "label": "If there is a mistake in your name",
-          "html": "<p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a> if there is a mistake in your name. For example, if your name is missing letters or a hyphen.</p><p class=\"govuk-body\"> Do not try to update your details or prove your identity again unless the GOV.UK One Login team has told you to.</p>"
+          "html": "<p class=\"govuk-body\"> <a class=\"govuk-link\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"{{url}}\">Contact the GOV.UK One Login team (opens in new tab)</a> if there is a mistake in your name. For example, if your name is missing letters or a hyphen.</p>"
         },
         "continueButton": "Confirm and continue"
       }

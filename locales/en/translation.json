@@ -538,7 +538,7 @@
         "checkboxes": {
           "heading": "Which details do you need to update?",
           "hint": "Select all that apply.",
-          "errorMessage": "Select which details you need to update, or select ‘I do not need to update my details’",
+          "errorMessage": "Select which details you need to update, or select ‘Continue without updating details’",
           "checkbox1": "Given names",
           "checkbox1Hint": "This is your first name and middle names",
           "checkbox2": "Last name",

@@ -183,22 +183,22 @@ const getCoiUpdateDetailsJourney = (
   detailsToUpdate:
     UpdateDetailsOptionsWithCancel | UpdateDetailsOptionsWithCancel[],
 ): string | undefined => {
+  if (!detailsToUpdate) {
+    return undefined;
+  }
+
   // convert to array if its a string
   if (typeof detailsToUpdate === "string") {
     detailsToUpdate = [detailsToUpdate];
   }
 
-  if (isInvalidDetailsToUpdate(detailsToUpdate)) {
-    return;
+  if (detailsToUpdate.includes("cancel")) {
+    return SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL;
   }
 
   const hasAddress = detailsToUpdate.includes("address");
   const hasGivenNames = detailsToUpdate.includes("givenNames");
   const hasFamilyName = detailsToUpdate.includes("familyName");
-
-  if (detailsToUpdate.includes("cancel")) {
-    return SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL;
-  }
 
   if (
     detailsToUpdate.includes("dateOfBirth") ||
@@ -225,13 +225,8 @@ const getCoiUpdateDetailsJourney = (
   } else if (hasGivenNames) {
     return SUPPORTED_COMBO_EVENTS.UPDATE_GIVEN_NAMES;
   }
-};
 
-const isInvalidDetailsToUpdate = (detailsToUpdate: string[]): boolean => {
-  return (
-    !detailsToUpdate ||
-    (detailsToUpdate.includes("cancel") && detailsToUpdate.length > 1)
-  );
+  return undefined;
 };
 
 export const pageRequiresUserDetails = (pageId: string): boolean => {

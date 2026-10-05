@@ -116,11 +116,47 @@ describe("handle update details/COI form checkbox", () => {
       },
     });
 
-    it("should not set journey if detailsToUpdate is invalid", async () => {
+    it("should set journey to undefined if detailsToUpdate is null or undefined", async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          detailsToUpdate: undefined,
+          detailsCorrect: "no",
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.be.undefined;
+    });
+
+    it("should set journey to cancel even if other checkboxes are selected with cancel", async () => {
       // Arrange
       const req = createRequest({
         body: {
           detailsToUpdate: ["cancel", "address"],
+          detailsCorrect: "no",
+        },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.formHandleUpdateDetailsCheckBox(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      expect(req.body.journey).to.equal(SUPPORTED_COMBO_EVENTS.UPDATE_CANCEL);
+    });
+
+    it("should set journey to undefined if detailsToUpdate matches no known options", async () => {
+      // Arrange
+      const req = createRequest({
+        body: {
+          detailsToUpdate: ["invalidOption"],
           detailsCorrect: "no",
         },
       });

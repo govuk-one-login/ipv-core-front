@@ -763,7 +763,7 @@
         "checkboxes": {
           "heading": "Pa fanylion ydych chi angen eu diweddaru?",
           "hint": "Dewiswch bob un sy’n berthnasol.",
-          "errorMessage": "Dewiswch ba fanylion rydych angen eu diweddaru, neu dewiswch ‘Nid wyf angen diweddaru fy manylion’",
+          "errorMessage": "Dewiswch pa fanylion rydych angen eu diweddaru, neu dewiswch ‘Parhau heb ddiweddaru manylion’",
           "checkbox1": "Enwau a roddwyd",
           "checkbox1Hint": "Dyma eich enw cyntaf a’ch enwau canol",
           "checkbox2": "Enw olaf",

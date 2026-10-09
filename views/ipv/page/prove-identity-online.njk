@@ -17,13 +17,10 @@
 {% endif %}
 
 {% block content %}
+
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.proveIdentityOnline.header' | translateWithPageContextOrFallback(pageContext, 'photoId') }}</h1>
   <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'photoId') }}</p>
   <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph2' | translate }}</p>
-
-  {{ govukInsetText({
-    text: 'pages.proveIdentityOnline.content.insetText' | translate
-  }) }}
 
   {{ govukDetails({
     summaryText: 'pages.proveIdentityOnline.content.details1.heading' | translate,

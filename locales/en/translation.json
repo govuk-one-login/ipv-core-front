@@ -1384,7 +1384,6 @@
         "paragraph1": "You can prove your identity by entering some details about yourself and signing in to your online banking.",
         "paragraph1PhotoId": "You can prove your identity by entering some details from your photo ID and signing in to your online banking.",
         "paragraph2": "Banks have very strong security, so when you sign in, they know it’s really you. The bank can then confirm you are who you say you are, using technology called ‘open banking’.",
-        "insetText": "None of your bank account information will be shared with the government service you’re using.",
         "details1": {
           "heading": "Who you share your information with",
           "paragraph1": "We use a company called Ecospend to securely connect to your bank or building society.",

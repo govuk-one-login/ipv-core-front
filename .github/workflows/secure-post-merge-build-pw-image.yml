@@ -1,0 +1,46 @@
+name: SecurePipeline build and push Playwright test image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - browser-tests/**
+      - .github/workflows/secure-pipeline-build-image.yml
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Tag used within docker repository to mark as unique
+        required: false
+        type: string
+
+jobs:
+  build-e2e-test-image-and-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Set up build AWS creds
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.CORE_GH_ACTIONS_ROLE_ARN }}
+          aws-region: eu-west-2
+
+      - name: E2E test image build and push
+        uses: govuk-one-login/devplatform-upload-action-ecr@d839fc3ead8c9d9f18f7a8cceb7ab4a3eab18a58 # v1.7.0
+        with:
+          artifact-bucket-name: ""
+          container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY }}
+          role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          ecr-repo-name: ${{ secrets.E2E_TEST_ECR_REPO_2 }}
+          dockerfile: browser-tests/playwright-tests.Dockerfile
+          docker-build-path: .
+          build-and-push-image-only: "true"
+          push-latest-tag: "true"

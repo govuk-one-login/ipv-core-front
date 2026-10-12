@@ -1386,9 +1386,14 @@
         "paragraph2": "Banks have very strong security, so when you sign in, they know it’s really you. The bank can then confirm you are who you say you are, using technology called ‘open banking’.",
         "details1": {
           "heading": "Who you share your information with",
-          "paragraph1": "We use a company called Ecospend to securely connect to your bank or building society.",
-          "paragraph2": "When you sign in to online banking, you’ll be asked to share some details with Ecospend, such as sort code and account number, in order to confirm your identity.",
-          "paragraph3": "Ecospend is regulated by the <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Financial Conduct Authority (opens in a new tab)</a>."
+          "paragraphsHtml": [
+            "We use a company called Ecospend to securely connect to your bank or building society and check some details.",
+            "When you sign in to online banking, you’ll be asked to share some details with Ecospend, such as your account number and sort code.",
+            "Ecospend will share these details with GOV.UK One Login so we can confirm your identity. They can only see the details you agree to share and cannot use your details to take payments.",
+            "None of the information from your bank account will be shared with the government service you’re using. The service only sees the result of the identity check.",
+            "Our <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice\">privacy notice (opens in new tab)</a> has more detail about how your information will be used.",
+            "Ecospend is regulated by the <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Financial Conduct Authority (opens in a new tab)</a>."
+          ]
         },
         "details2": {
           "heading": "If you do not have online banking",

@@ -87,7 +87,7 @@ Mappings:
       alwaysShowBanners: false
       ga4Disabled: false
       analyticsDataSensitive: false
-      uaDisabled: false
+      uaDisabled: true
       dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
@@ -120,7 +120,7 @@ Mappings:
       alwaysShowBanners: true
       ga4Disabled: false
       analyticsDataSensitive: false
-      uaDisabled: false
+      uaDisabled: true
       dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
@@ -153,7 +153,7 @@ Mappings:
       alwaysShowBanners: false
       ga4Disabled: false
       analyticsDataSensitive: false
-      uaDisabled: false
+      uaDisabled: true
       dtRumUrl: ""
       contactUrl: "https://home.build.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.build.account.gov.uk/enter-password?type=deleteAccount"
@@ -186,7 +186,7 @@ Mappings:
       alwaysShowBanners: false
       ga4Disabled: false
       analyticsDataSensitive: false
-      uaDisabled: false
+      uaDisabled: true
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/f728f1a83dd1b716_complete.js"
       contactUrl: "https://home.staging.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.staging.account.gov.uk/enter-password?type=deleteAccount"
@@ -219,7 +219,7 @@ Mappings:
       alwaysShowBanners: false
       ga4Disabled: false
       analyticsDataSensitive: false
-      uaDisabled: false
+      uaDisabled: true
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf01311dte/952c24127da85c63_complete.js"
       contactUrl: "https://home.integration.account.gov.uk/contact-gov-uk-one-login"
       deleteAccountUrl: "https://home.integration.account.gov.uk/enter-password?type=deleteAccount"
@@ -251,7 +251,7 @@ Mappings:
       may2025RebrandEnabled: true
       alwaysShowBanners: false
       ga4Disabled: false
-      uaDisabled: false
+      uaDisabled: true
       analyticsDataSensitive: false
       dtRumUrl: "https://js-cdn.dynatrace.com/jstag/17177a07246/bf04188tda/fa56a4b3a9bbea0_complete.js"
       contactUrl: "https://home.account.gov.uk/contact-gov-uk-one-login"
@@ -799,7 +799,7 @@ Resources:
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: GTM_ID
-              Value: !If [ IsProduction, "GTM-TT5HDKV", "GTM-TK92W68" ]
+              Value: !If [ IsProduction, "", "" ]
             - Name: GTM_ID_GA4
               Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
             - Name: ANALYTICS_DOMAIN

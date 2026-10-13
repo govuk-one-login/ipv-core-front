@@ -21,7 +21,7 @@ export CIMIT_MANAGEMENT_API_KEY
 # check to see if these environment variables exist or have been passed via a different method
 # if they havent then export them and retrieve values from ssm parameter store
 [ -z "$ORCHESTRATOR_STUB_URL" ] && ORCHESTRATOR_STUB_URL=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/orch_stub_url" | jq -r .Parameter.Value)
-[ -z "$CORE_FRONT_URL" ] && CORE_FRONT_URL=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/core_front_url" | jq -r .Parameter.Value)
+[ -z "$CORE_FRONT_URL" ] && CORE_FRONT_URL=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/service_url" | jq -r .Parameter.Value)
 #[ -z "$BROWSER" ] && BROWSER=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/browser" | jq -r .Parameter.Value)
 #[ -z "$NO_CHROME_SANDBOX" ] && NO_CHROME_SANDBOX=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/no_chrome_sandbox" | jq -r .Parameter.Value)
 #[ -z "$RUN_ARGS" ] && RUN_ARGS=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/run_args" | jq -r .Parameter.Value)

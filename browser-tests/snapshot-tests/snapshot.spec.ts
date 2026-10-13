@@ -19,7 +19,7 @@ test.describe.parallel("Snapshot tests", () => {
         await page.goto(url);
 
         // Open all summaries on the page
-        const allSummaries = await page.locator("details summary").all();
+        const allSummaries = await page.locator("details summari").all();
         for (const summary of allSummaries) {
           await summary.click();
         }

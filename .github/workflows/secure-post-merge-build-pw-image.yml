@@ -1,4 +1,4 @@
-name: SecurePipeline build and push Playwright test image
+name: (Dev) SecurePipeline build and push Playwright test image
 
 on:
   push:
@@ -30,15 +30,15 @@ jobs:
       - name: Set up build AWS creds
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           aws-region: eu-west-2
 
       - name: E2E test image build and push
         uses: govuk-one-login/devplatform-upload-action-ecr@d839fc3ead8c9d9f18f7a8cceb7ab4a3eab18a58 # v1.7.0
         with:
           artifact-bucket-name: ""
-          container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY }}
-          role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+          container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY_DEV }}
+          role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           ecr-repo-name: ${{ secrets.E2E_TEST_ECR_REPO_2 }}
           dockerfile: browser-tests/playwright-tests.Dockerfile
           docker-build-path: .

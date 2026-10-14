@@ -98,7 +98,7 @@
     "i18next-http-middleware": "3.9.7",
     "nunjucks": "3.2.4",
     "overload-protection": "1.2.3",
-    "pino": "10.3.0",
+    "pino": "10.4.0",
     "pino-http": "11.0.0",
     "qrcode": "1.5.4",
     "sanitize-filename": "1.6.3",

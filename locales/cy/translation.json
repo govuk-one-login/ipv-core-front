@@ -1384,12 +1384,16 @@
         "paragraph1": "Gallwch brofi eich hunaniaeth drwy roi rhywfaint o fanylion amdanoch chi’ch hun a mewngofnodi i’ch bancio ar-lein.",
         "paragraph1PhotoId": "Gallwch brofi eich hunaniaeth drwy roi rhywfaint o fanylion o’ch ID gyda llun a mewngofnodi i’ch bancio ar-lein.",
         "paragraph2": "Mae gan fanciau ddiogelwch cryf iawn, felly pan fyddwch yn mewngofnodi, maent yn gwybod mai chi yw chi mewn gwirionedd. Yna gall y banc gadarnhau eich bod yn pwy rydych yn dweud eich bod, gan ddefnyddio technoleg o’r enw ’bancio agored’.",
-        "insetText": "Ni fydd unrhyw wybodaeth o’ch cyfrif banc yn cael ei rhannu gyda’r gwasanaeth llywodraeth rydych yn ei ddefnyddio.",
         "details1": {
           "heading": "Gyda phwy rydych yn rhannu eich gwybodaeth",
-          "paragraph1": "Rydym yn defnyddio cwmni o’r enw Ecospend i gysylltu’n ddiogel â’ch banc neu gymdeithas adeiladu.",
-          "paragraph2": "Pan fyddwch yn mewngofnodi i fancio ar-lein, gofynnir i chi rannu rhai manylion gydag Ecospend, fel cod didoli a rhif cyfrif, er mwyn cadarnhau eich hunaniaeth.",
-          "paragraph3": "Mae Ecospend yn cael ei reoleiddio gan yr <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Awdurdod Ymddygiad Ariannol (agor mewn tab newydd)</a>."
+          "paragraphsHtml": [
+            "Rydym yn defnyddio cwmni o’r enw Ecospend i gysylltu’n ddiogel â’ch banc neu gymdeithas adeiladu a gwirio rhai manylion.",
+            "Pan fyddwch yn mewngofnodi i fancio ar-lein, gofynnir i chi rannu rhai manylion gydag Ecospend, fel rhif eich cyfrif a’ch cod didoli.",
+            "Bydd Ecospend yn rhannu’r manylion hyn gyda GOV.UK One Login fel y gallwn gadarnhau eich hunaniaeth. Dim ond y manylion rydych yn cytuno i’w rhannu y gallant weld ac ni allant ddefnyddio eich manylion i gymryd taliadau.",
+            "Ni fydd unrhyw wybodaeth o’ch cyfrif banc yn cael ei rhannu â’r gwasanaeth llywodraeth rydych yn ei ddefnyddio. Dim ond canlyniad y gwiriad hunaniaeth y mae’r gwasanaeth yn ei weld.",
+            "Mae gan ein <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/government/publications/govuk-one-login-privacy-notice.cy\">hysbysiad preifatrwydd (agor mewn tab newydd)</a> fwy o fanylion am sut y bydd eich gwybodaeth yn cael ei defnyddio.",
+            "Mae Ecospend yn cael ei reoleiddio gan yr <a class=\"govuk-link\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"https://register.fca.org.uk/s/firm?id=0010X00004KSo9HQAT\">Awdurdod Ymddygiad Ariannol (agor mewn tab newydd)</a>."
+          ]
         },
         "details2": {
           "heading": "Os nad oes gennych fancio ar-lein",

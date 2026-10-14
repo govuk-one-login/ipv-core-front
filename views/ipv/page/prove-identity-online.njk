@@ -1,6 +1,5 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "components/journey-next-form.njk" import journeyNextForm %}
 {% set pageTitleKey = 'pages.proveIdentityOnline.title' | fullKeyWithContext(pageContext, 'photoId') %}
 {% set googleTagManagerPageId = "proveIdentityOnline" %}
@@ -21,13 +20,15 @@
   <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph1' | translateWithPageContextOrFallback(pageContext, 'photoId') }}</p>
   <p class="govuk-body">{{ 'pages.proveIdentityOnline.content.paragraph2' | translate }}</p>
 
-  {{ govukInsetText({
-    text: 'pages.proveIdentityOnline.content.insetText' | translate
-  }) }}
+  {% set detailsHtml %}
+    {% for p in 'pages.proveIdentityOnline.content.details1.paragraphsHtml' | translate({ returnObjects: true }) %}
+      <p class="govuk-body">{{ p | safe }}</p>
+    {% endfor %}
+  {% endset %}
 
   {{ govukDetails({
     summaryText: 'pages.proveIdentityOnline.content.details1.heading' | translate,
-    html: '<p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph1' | translate) + '</p><p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph2' | translate) + '</p><p class="govuk-body">' + ('pages.proveIdentityOnline.content.details1.paragraph3' | translate) + '</p>'
+    html: detailsHtml
   }) }}
 
   {{ govukDetails({

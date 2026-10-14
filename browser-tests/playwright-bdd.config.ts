@@ -1,5 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import { defineBddConfig } from "playwright-bdd";
+import { cucumberReporter, defineBddConfig } from "playwright-bdd";
 
 // Call defineBddConfig to register BDD configuration
 defineBddConfig({
@@ -8,9 +8,17 @@ defineBddConfig({
 });
 
 // Export Playwright configuration for BDD tests
+const testReportDirectory = process.env.TEST_REPORT_ABSOLUTE_DIR || "reports";
+const testArtifactsDirectory =
+  process.env.TEST_ARTIFACTS_ABSOLUTE_DIR || "e2e-tests/test-results";
+
 export default defineConfig({
   testDir: "./.features-gen",
-  reporter: [['html', { open: 'never', outputFolder: 'e2e-tests/test-results' }]],
+  retries: 1,
+  reporter: [
+    cucumberReporter("json", { outputFile: `${testReportDirectory}/e2e.json` }),
+    ["html", { open: "never", outputFolder: testArtifactsDirectory }],
+  ],
   workers: 3,
   projects: [
     {

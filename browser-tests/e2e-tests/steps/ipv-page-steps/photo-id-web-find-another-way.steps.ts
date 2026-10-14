@@ -9,7 +9,7 @@ Given(
   async ({ pageUtils }): Promise<void> => {
     await performPageAction(
       {
-        page: "photo-id-security-questions-find-another-way",
+        page: "photo-id-web-find-another-way",
         selectRadio: "appTriage",
       },
       { pageUtils },

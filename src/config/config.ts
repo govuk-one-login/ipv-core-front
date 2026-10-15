@@ -27,12 +27,10 @@ export default {
   SESSION_COOKIE_NAME: "ipv_core_service_session",
   SESSION_SECRET: process.env.SESSION_SECRET ?? "dev_secret",
   SESSION_TABLE_NAME: process.env.SESSION_TABLE_NAME,
-  GTM_ID: process.env.GTM_ID,
   GTM_ID_GA4: process.env.GTM_ID_GA4,
   GTM_ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN,
   GA4_DISABLED: process.env.GA4_DISABLED,
   ANALYTICS_DATA_SENSITIVE: process.env.ANALYTICS_DATA_SENSITIVE,
-  UA_DISABLED: process.env.UA_DISABLED,
   DT_RUM_URL: process.env.DT_RUM_URL,
   CONTACT_URL:
     process.env.CONTACT_URL ??

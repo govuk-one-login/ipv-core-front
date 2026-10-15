@@ -16,11 +16,6 @@
     <h1 class="govuk-heading-l" id="header" data-page="{{googleTagManagerPageId}} }}">{{ 'pages.photoIdBankingAnotherWay.header' | translate }}</h1>
     <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph1' | translate }}</p>
     <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph2' | translate }}</p>
-    <ul class="govuk-list govuk-list--bullet">
-        {% for listItem in 'pages.photoIdBankingAnotherWay.content.possibleQuestions' | translate({ returnObjects: true }) %}
-            <li>{{ listItem }}</li>
-        {% endfor %}
-    </ul>
     <p class="govuk-body">{{ 'pages.photoIdBankingAnotherWay.content.paragraph3' | translate }}</p>
 
     <form id="photoIdBankingAnotherWayForm" action="/ipv/page/{{ pageId }}" method="POST">

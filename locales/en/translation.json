@@ -156,12 +156,8 @@
       "title": "Prove your identity another way",
       "header": "Prove your identity another way",
       "content": {
-        "paragraph1": "You can try to prove your identity by answering security questions. These are questions that only you should know the answers to.",
-        "paragraph2": "The questions will be about either:",
-        "possibleQuestions": [
-          "Personal Independence Payment (PIP), if you get it",
-          "financial information, such as your mobile phone contract, bank accounts, loans, credit cards or mortgages"
-        ],
+        "paragraph1": "You can try to prove your identity by answering security questions.",
+        "paragraph2": "These are questions that only you should know the answers to. They will be about things like benefits, bank accounts, loans, credit cards or mortgages.",
         "paragraph3": "We’ll check some details to make sure we ask you the right questions.",
         "subHeading1": "What would you like to do?",
         "formRadioButtons": {

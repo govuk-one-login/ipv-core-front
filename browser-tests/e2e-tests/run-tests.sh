@@ -12,6 +12,7 @@ export ORCHESTRATOR_STUB_URL
 #export BROWSER
 #export NO_CHROME_SANDBOX
 #export RUN_ARGS
+export TEST_REPORT_ABSOLUTE_DIR
 export CORE_FRONT_URL
 export ASYNC_QUEUE_NAME
 export CIMIT_MANAGEMENT_API_KEY
@@ -25,6 +26,7 @@ export CIMIT_MANAGEMENT_API_KEY
 #[ -z "$BROWSER" ] && BROWSER=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/browser" | jq -r .Parameter.Value)
 #[ -z "$NO_CHROME_SANDBOX" ] && NO_CHROME_SANDBOX=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/no_chrome_sandbox" | jq -r .Parameter.Value)
 #[ -z "$RUN_ARGS" ] && RUN_ARGS=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/run_args" | jq -r .Parameter.Value)
+[ -z "$TEST_REPORT_ABSOLUTE_DIR" ] && print_error_exit "TEST_REPORT_ABSOLUTE_DIR variable not set"
 [ -z "$ASYNC_QUEUE_NAME" ] && ASYNC_QUEUE_NAME=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/async_queue_name" | jq -r .Parameter.Value)
 [ -z "$CIMIT_MANAGEMENT_API_KEY" ] && CIMIT_MANAGEMENT_API_KEY=$(aws ssm get-parameter --name "/tests/${SAM_STACK_NAME}/cimit_api_key" | jq -r .Parameter.Value)
 
@@ -44,8 +46,7 @@ echo -e "***\n\n"
 [ -z "$ASYNC_QUEUE_NAME" ] && print_error_exit "ASYNC_QUEUE_NAME variable not set"
 [ -z "$CIMIT_MANAGEMENT_API_KEY" ] && print_error_exit "CIMIT_MANAGEMENT_API_KEY variable not set"
 
-#[ -d "$TEST_REPORT_ABSOLUTE_DIR" ] || mkdir -p "$TEST_REPORT_ABSOLUTE_DIR"
-#[ -d "$TEST_ARTIFACTS_ABSOLUTE_DIR" ] || mkdir -p "$TEST_ARTIFACTS_ABSOLUTE_DIR"
+[ -d "$TEST_REPORT_ABSOLUTE_DIR" ] || mkdir -p "$TEST_REPORT_ABSOLUTE_DIR"
 
 #if [ "$NO_CHROME_SANDBOX" == "true" ]; then
 #  NO_CHROME_SANDBOX=true
@@ -56,14 +57,22 @@ echo -e "***\n\n"
 # Changing to the working directory
 cd /browser-tests || print_error_exit "Unable to Change Directory to browser-tests"
 
-# Running the tests with all required variables
+# Running the tests with all required variables. The reporters write directly to
+# the CodeBuild-mounted directories passed in by the test step.
 echo "$RUN_ARGS" | xargs npm run test:e2e
-
 exit_code=$?
 
-#cp reports/*.json "$TEST_REPORT_ABSOLUTE_DIR"
-#cp reports/*.html "$TEST_ARTIFACTS_ABSOLUTE_DIR"
+# CodeBuild expects Cucumber JSON in TEST_REPORT_ABSOLUTE_DIR.
+report_generation_failed=0
+if [ ! -s "$TEST_REPORT_ABSOLUTE_DIR/e2e.json" ]; then
+  echo "No Cucumber JSON report was generated at $TEST_REPORT_ABSOLUTE_DIR/e2e.json" >&2
+  report_generation_failed=1
+fi
 
-echo "All tests completed the current EXIT CODE is: ${exit_code}"
+# Do not hide a report-generation failure when the tests themselves passed.
+if [ "$exit_code" -eq 0 ] && [ "$report_generation_failed" -ne 0 ]; then
+  exit_code=1
+fi
 
+echo "All tests completed; the current EXIT CODE is: ${exit_code}"
 exit $exit_code

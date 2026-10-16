@@ -512,7 +512,7 @@ Resources:
         - !If
           - IsNotDevelopment
           - Key: access_logs.s3.bucket
-            Value: !Ref AccessLogsBucket
+            Value: !Sub "di-lb-access-logs-${AWS::AccountId}-${AWS::Region}"
           - !Ref AWS::NoValue
         - !If
           - IsNotDevelopment

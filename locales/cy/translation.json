@@ -156,12 +156,8 @@
       "title": "Profi eich hunaniaeth mewn ffordd arall",
       "header": "Profi eich hunaniaeth mewn ffordd arall",
       "content": {
-        "paragraph1": "Gallwch roi cynnig ar brofi eich hunaniaeth drwy ateb cwestiynau diogelwch. Dim ond chi ddylai wybod yr atebion i’r cwestiynau hyn.",
-        "paragraph2": "Bydd y cwestiynau’n ymwneud â naill ai:",
-        "possibleQuestions": [
-          "Taliad Annibyniaeth Personol (PIP), os ydych yn ei gael",
-          "gwybodaeth ariannol, fel eich contract ffôn symudol, cyfrifon banc, benthyciadau, cardiau credyd neu forgeisi"
-        ],
+        "paragraph1": "Gallwch roi cynnig ar brofi eich hunaniaeth drwy ateb cwestiynau diogelwch.",
+        "paragraph2": "Dim ond chi ddylai wybod yr atebion i’r cwestiynau hyn. Byddant yn ymwneud â materion fel budd-daliadau, cyfrifon banc, benthyciadau, cardiau credyd neu forgeisi.",
         "paragraph3": "Byddwn yn gwirio rhai manylion i sicrhau ein bod yn gofyn y cwestiynau cywir i chi.",
         "subHeading1": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {

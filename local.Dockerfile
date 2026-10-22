@@ -1,4 +1,4 @@
-FROM node:24.16.0-alpine@sha256:af8023ec879993821f6d5b21382ed915622a1b0f1cc03dbeb6804afaf01f8885
+FROM node:24.22.0-alpine@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f
 ENV PORT 4501
 WORKDIR /app
 COPY package.json package-lock.json .npmrc ./

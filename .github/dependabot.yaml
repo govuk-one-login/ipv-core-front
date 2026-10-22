@@ -25,6 +25,10 @@ updates:
     target-branch: main
     labels:
     - dependabot
+    ignore:
+      # We handle Node major upgrades separately
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
     commit-message:
       prefix: BAU
   - package-ecosystem: "github-actions"

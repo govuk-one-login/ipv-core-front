@@ -29,34 +29,51 @@ const validateDate = (dateString: string): void => {
   }
 };
 
+const MAX_NOTIFICATION_BANNERS = 4;
+
+const envVarNameForIndex = (index: number): string =>
+  index === 1 ? "NOTIFICATION_BANNER" : `NOTIFICATION_BANNER_${index}`;
+
+const ssmParamNameForIndex = (index: number): string =>
+  index === 1
+    ? "/core-front/notification-banner"
+    : `/core-front/notification-banner${index}`;
+
+const resolveBannerConfig = async (
+  index: number,
+): Promise<string | undefined> => {
+  if (process.env.NODE_ENV === "local") {
+    return process.env[envVarNameForIndex(index)];
+  }
+
+  try {
+    return await getParameter(ssmParamNameForIndex(index));
+  } catch (err) {
+    logger.info(`No notification banner parameter for index ${index}: ${err}`);
+    return undefined;
+  }
+};
+
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
     res.locals.displayBanner = false;
-    const bannerConfigs1 =
-      process.env.NODE_ENV === "local"
-        ? process.env["NOTIFICATION_BANNER"]
-        : await getParameter("/core-front/notification-banner");
-    const bannerConfigs2 =
-      process.env.NODE_ENV === "local"
-        ? process.env["NOTIFICATION_BANNER_2"]
-        : await getParameter("/core-front/notification-banner2");
 
-    if (
-      (!bannerConfigs1 || bannerConfigs1.length === 0) &&
-      (!bannerConfigs2 || bannerConfigs2.length === 0)
-    ) {
-      return next();
+    const bannerConfigsParsed: BannerConfig[] = [];
+    for (let index = 1; index <= MAX_NOTIFICATION_BANNERS; index++) {
+      const rawConfig = await resolveBannerConfig(index);
+
+      logger.info(`${envVarNameForIndex(index)} ${rawConfig}`);
+
+      if (!rawConfig || rawConfig.length === 0) {
+        continue;
+      }
+
+      bannerConfigsParsed.push(...(JSON.parse(rawConfig) as BannerConfig[]));
     }
 
-    const bannerConfigs1Parsed: BannerConfig[] = bannerConfigs1
-      ? JSON.parse(bannerConfigs1)
-      : [];
-    const bannerConfigs2Parsed: BannerConfig[] = bannerConfigs2
-      ? JSON.parse(bannerConfigs2)
-      : [];
-
-    const bannerConfigsParsed: BannerConfig[] =
-      bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
+    if (bannerConfigsParsed.length === 0) {
+      return next();
+    }
 
     bannerConfigsParsed.forEach((data: BannerConfig) => {
       validateDate(data.startTime);

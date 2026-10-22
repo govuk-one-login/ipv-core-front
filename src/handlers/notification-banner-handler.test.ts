@@ -213,6 +213,47 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
+  it("should isolate a failed index and still display banners from other indices", async () => {
+    // Arrange
+    const req = createRequest();
+    req.i18n.language = "en";
+    const res = createResponse();
+
+    const matchingBanner = JSON.stringify([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner 4",
+        bannerMessageCy: "Welsh Test banner 4",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
+
+    // Index 2 rejects (e.g. SSM error); index 4 resolves with a matching
+    // banner. resolveBannerConfig catches the rejection per index, so the
+    // failed index must not reject the whole batch or hide the index 4 banner.
+    const configByParam: Record<string, string> = {
+      "/core-front/notification-banner4": matchingBanner,
+    };
+    parameterServiceStub.getParameter = sinon.fake(
+      async (paramName: string) => {
+        if (paramName === "/core-front/notification-banner2") {
+          throw new Error("SSM unavailable");
+        }
+        return configByParam[paramName] ?? "";
+      },
+    );
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(parameterServiceStub.getParameter).to.have.callCount(4);
+    expect(res.locals.displayBanner).to.be.true;
+    expect(res.locals.bannerMessage).to.equal("Test banner 4");
+    expect(next).to.have.been.calledOnce;
+  });
+
   it("should display banner text on all pages", async () => {
     // Arrange
     const req = createRequest();

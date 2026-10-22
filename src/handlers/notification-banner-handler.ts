@@ -59,17 +59,23 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
     res.locals.displayBanner = false;
 
     const bannerConfigsParsed: BannerConfig[] = [];
-    for (let index = 1; index <= MAX_NOTIFICATION_BANNERS; index++) {
-      const rawConfig = await resolveBannerConfig(index);
 
+    const bannerPromises: Promise<string | undefined>[] = [];
+    for (let index = 1; index <= MAX_NOTIFICATION_BANNERS; index++) {
+      bannerPromises.push(resolveBannerConfig(index));
+    }
+    const rawConfigs = await Promise.all(bannerPromises);
+
+    rawConfigs.forEach((rawConfig, i) => {
+      const index = i + 1;
       logger.info(`${envVarNameForIndex(index)} ${rawConfig}`);
 
       if (!rawConfig || rawConfig.length === 0) {
-        continue;
+        return;
       }
 
       bannerConfigsParsed.push(...(JSON.parse(rawConfig) as BannerConfig[]));
-    }
+    });
 
     if (bannerConfigsParsed.length === 0) {
       return next();

@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 24.16.0
+          node-version: 24.x
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
         uses: aws-actions/configure-aws-credentials@v5

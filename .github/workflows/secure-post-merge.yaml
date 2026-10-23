@@ -40,7 +40,7 @@ jobs:
           node-version: 24.x
 
       - name: Set up AWS creds #push to ECR and  do sam deploy
-        uses: aws-actions/configure-aws-credentials@v5
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ env.ENVIRONMENT == 'build' && secrets.GH_ACTIONS_ROLE_ARN || secrets.GH_ACTIONS_ROLE_ARN_DEV }}
           aws-region: eu-west-2

@@ -23,7 +23,15 @@
           "checks": [
             {
               "name": "code style and linting"
-            },
+            }
+          ],
+          "file": ".github/workflows/automated-tests.yaml",
+          "path": "$.jobs.run-tests[?@.name=='Run lint']"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
             {
               "name": "unit"
             },
@@ -32,7 +40,18 @@
             }
           ],
           "file": ".github/workflows/automated-tests.yaml",
-          "path": "$.jobs.run-tests"
+          "path": "$.jobs.run-tests[?@.name=='Run test and write coverage']"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "vulnerability detection"
+            }
+          ],
+          "file": ".github/workflows/automated-tests.yaml",
+          "path": "$.jobs.run-tests[?@.name=='Run sonar scan']"
         },
         {
           "phase": "pre-merge",
@@ -51,6 +70,27 @@
           ],
           "file": ".github/workflows/automated-tests.yaml",
           "path": "$.jobs.browser-tests"
+        },
+        {
+          "phase": "pre-upload",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "unit"
+            },
+            {
+              "name": "unit test coverage"
+            }
+          ],
+          "file": ".github/workflows/automated-tests.yaml",
+          "path": "$.jobs.run-tests[?@.name=='Run test and write coverage']"
+        }
+      ],
+      "notApplicable": [
+        {
+          "checks": [
+            {"name": "contract", "details": ["Not a Phase 1 API"]}
+          ]
         }
       ]
     }

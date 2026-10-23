@@ -22,7 +22,9 @@ updates:
     commit-message:
       prefix: BAU
   - package-ecosystem: "docker"
-    directory: "/"
+    directories:
+      - "/"
+      - "/dev-deploy"
     schedule:
       interval: daily
       time: "03:00"

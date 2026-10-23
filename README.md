@@ -35,7 +35,7 @@ This guide explains how to:
 ## Pre-requisites
 
 - Membership of the `govuk-one-login` GitHub organisation (needed for npm package access)
-- Node.js — install the same version specified in the Dockerfile (currently 24.16). [nvm](https://github.com/nvm-sh/nvm) is recommended to manage Node versions, but any method is fine.
+- Node.js — install the same version specified in the Dockerfile. [nvm](https://github.com/nvm-sh/nvm) is recommended to manage Node versions, but any method is fine.
 
 ## Cloning and installing ipv-core-front
 

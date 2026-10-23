@@ -29,7 +29,7 @@ const validateDate = (dateString: string): void => {
   }
 };
 
-const MAX_NOTIFICATION_BANNERS = 4;
+const MAX_NOTIFICATION_BANNERS = 5;
 
 const envVarNameForIndex = (index: number): string =>
   index === 1 ? "NOTIFICATION_BANNER" : `NOTIFICATION_BANNER_${index}`;

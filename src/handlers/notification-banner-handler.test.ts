@@ -207,7 +207,7 @@ describe("Notification banner handler", () => {
     // The loop uses `continue` on empty slots rather than `break`, so index 4
     // is still read and processed after the gap at indices 2 and 3. If it
     // stopped at the gap, index 4's banner would never display.
-    expect(parameterServiceStub.getParameter).to.have.callCount(4);
+    expect(parameterServiceStub.getParameter).to.have.callCount(5); // due to max of 5
     expect(res.locals.displayBanner).to.be.true;
     expect(res.locals.bannerMessage).to.equal("Test banner 4");
     expect(next).to.have.been.calledOnce;
@@ -248,7 +248,7 @@ describe("Notification banner handler", () => {
     await underTest(req, res, next);
 
     // Assert
-    expect(parameterServiceStub.getParameter).to.have.callCount(4);
+    expect(parameterServiceStub.getParameter).to.have.callCount(5); // due to max of 5
     expect(res.locals.displayBanner).to.be.true;
     expect(res.locals.bannerMessage).to.equal("Test banner 4");
     expect(next).to.have.been.calledOnce;

@@ -449,22 +449,20 @@
       }
     },
     "pyiContinueWithPassport": {
-      "title": "Continue proving your identity online",
-      "header": "Continue proving your identity online",
+      "title": "You need a UK passport to continue",
+      "header": "You need a UK passport to continue",
       "content": {
-        "paragraph1": "You can continue proving your identity online if you:",
-        "requirements": [
-          "have a UK passport (you can use a UK passport that’s expired within the past 18 months)",
-          "can answer some security questions"
-        ],
-        "paragraph2": "We use security questions to stop anyone who might have your details from pretending to be you.",
-        "paragraph3": "It takes about 10 minutes to prove your identity this way.",
+        "paragraph1": "You can use a UK passport up to 18 months after its expiry date.",
+        "whyYouNeedAUkPassportDetails": {
+          "label":"Why you need a UK passport",
+          "html": "<p class=\"govuk-body\">There was a problem when you last tried to prove your identity.</p><p class=\"govuk-body\"> For security reasons, you can only prove your identity if you have a UK passport.</p>"
+        },
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
-          "continuePassportButtonText": "Enter your UK passport details instead and answer security questions",
-          "continuePassportButtonTextHint": "You can use a UK passport that’s expired within the past 18 months.",
-          "otherWayButtonText": "Prove your identity another way",
-          "otherWayButtonTextHint": "Continue to the service you were trying to use to find out if there are other ways to access it."
+          "continuePassportButtonText": "Continue with a UK passport",
+          "continuePassportButtonTextHint": "We'll need to check some details to prove your identity",
+          "otherWayButtonText": "Go to the service you need to use",
+          "otherWayButtonTextHint": "Find out if there are other ways to access the service"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",

@@ -10,13 +10,11 @@ const configStub = {
   DT_RUM_URL: "https://example.com/dt-url",
   LOGOUT_URL: "https://example.com/logout",
   GTM_ANALYTICS_COOKIE_DOMAIN: "https://example.com/analytics",
-  GTM_ID: "test-ua-id",
   GTM_ID_GA4: "test-ga4-id",
   SERVICE_DOMAIN: "localhost",
   DEVICE_INTELLIGENCE_COOKIE_DOMAIN: "localhost",
   GA4_DISABLED: "true",
   ANALYTICS_DATA_SENSITIVE: "false",
-  UA_DISABLED: "false",
   ENABLE_PROGRESS_SPINNER_BUTTON: false,
   PROGRESS_SPINNER_BUTTON_TIMEOUT: 20000,
 };
@@ -49,10 +47,8 @@ describe("locals helper", () => {
       ga4ContainerId: "test-ga4-id",
       isGa4Enabled: false,
       analyticsDataSensitive: false,
-      isUaEnabled: true,
       logoutUrl: "https://example.com/logout",
       deviceIntelligenceCookieDomain: "localhost",
-      uaContainerId: "test-ua-id",
     });
 
     expect(res.locals.cspNonce).is.ok;

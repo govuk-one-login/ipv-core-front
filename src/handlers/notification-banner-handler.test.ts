@@ -22,7 +22,7 @@ describe("Notification banner handler", () => {
 
   // Setup stubs
   const parameterServiceStub = {
-    getParameter: sinon.fake(),
+    getParametersByPath: sinon.fake(),
   };
 
   const loggerStub = {
@@ -32,6 +32,25 @@ describe("Notification banner handler", () => {
       debug: sinon.spy(),
       warn: sinon.spy(),
     },
+  };
+
+  const BANNERS_PATH = "/core-front/notification-banners";
+
+  // Stubs getParametersByPath to return the given banner config arrays as a
+  // map keyed by slot path (mirroring how SSM stores them). Pass one array
+  // per slot; most tests use a single slot.
+  const stubBannerSlots = (...slots: unknown[][]): void => {
+    const map: Record<string, string> = {};
+    slots.forEach((slot, i) => {
+      map[`${BANNERS_PATH}/${i + 1}`] = JSON.stringify(slot);
+    });
+    parameterServiceStub.getParametersByPath = sinon.fake.resolves(map);
+  };
+
+  // Stubs getParametersByPath to return a raw name->value map directly, for
+  // tests that need malformed values or custom slot keys.
+  const stubBannerMap = (map: Record<string, string>): void => {
+    parameterServiceStub.getParametersByPath = sinon.fake.resolves(map);
   };
 
   let underTest: RequestHandler = proxyquire("./notification-banner-handler", {
@@ -54,7 +73,7 @@ describe("Notification banner handler", () => {
 
     next.resetHistory();
 
-    parameterServiceStub.getParameter.resetHistory();
+    parameterServiceStub.getParametersByPath.resetHistory();
 
     loggerStub.logger.info.resetHistory();
     loggerStub.logger.error.resetHistory();
@@ -72,17 +91,15 @@ describe("Notification banner handler", () => {
     const req = createRequest();
     req.i18n.language = "en";
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -98,17 +115,15 @@ describe("Notification banner handler", () => {
     const req = createRequest();
     req.i18n.language = "cy";
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -119,136 +134,104 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
-  [
-    { index: 1, paramName: "/core-front/notification-banner" },
-    { index: 2, paramName: "/core-front/notification-banner2" },
-    { index: 3, paramName: "/core-front/notification-banner3" },
-    { index: 4, paramName: "/core-front/notification-banner4" },
-  ].forEach(({ index, paramName }: { index: number; paramName: string }) => {
-    it(`should display banner text from SSM config variable ${index} if present`, async () => {
+  [1, 2, 3, 4].forEach((slot: number) => {
+    it(`should display banner text from SSM banner slot ${slot} if present`, async () => {
       // Arrange
       const req = createRequest();
       req.i18n.language = "en";
       const res = createResponse();
-      parameterServiceStub.getParameter = sinon.fake(
-        (requestedParam: string) => {
-          if (requestedParam === paramName) {
-            return JSON.stringify([
-              {
-                pages: [{ pageId: "/some-page" }],
-                bannerMessage: `Test banner ${index}`,
-                bannerMessageCy: `Welsh Test banner ${index}`,
-                startTime: beforeNow,
-                endTime: afterNow,
-              },
-            ]);
-          }
-          // Other indices target a page that does not match the request
-          return JSON.stringify([
-            {
-              pages: [{ pageId: "/some-other-page" }],
-              bannerMessage: "Other banner",
-              bannerMessageCy: "Welsh Other banner",
-              startTime: beforeNow,
-              endTime: afterNow,
-            },
-          ]);
+
+      // Build four slots; only the target slot matches the request page.
+      const slots = [1, 2, 3, 4].map((s) => [
+        {
+          pages: [{ pageId: s === slot ? "/some-page" : "/some-other-page" }],
+          bannerMessage: s === slot ? `Test banner ${slot}` : "Other banner",
+          bannerMessageCy:
+            s === slot ? `Welsh Test banner ${slot}` : "Welsh Other banner",
+          startTime: beforeNow,
+          endTime: afterNow,
         },
-      );
+      ]);
+      stubBannerSlots(...slots);
 
       // Act
       await underTest(req, res, next);
 
       // Assert
       expect(res.locals.displayBanner).to.be.true;
-      expect(res.locals.bannerMessage).to.equal(`Test banner ${index}`);
+      expect(res.locals.bannerMessage).to.equal(`Test banner ${slot}`);
       expect(next).to.have.been.calledOnce;
     });
   });
 
-  it("should process remaining configs when there is a gap (1 and 4 filled, 2 and 3 empty)", async () => {
+  it("should process all slots when there is a gap (1 and 4 filled, 2 and 3 absent)", async () => {
     // Arrange
     const req = createRequest();
     req.i18n.language = "en";
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake((paramName: string) => {
-      if (paramName === "/core-front/notification-banner") {
-        // Index 1 is filled but targets a page that does not match the request
-        return JSON.stringify([
-          {
-            pages: [{ pageId: "/some-other-page" }],
-            bannerMessage: "Test banner 1",
-            bannerMessageCy: "Welsh Test banner 1",
-            startTime: beforeNow,
-            endTime: afterNow,
-          },
-        ]);
-      }
-      if (paramName === "/core-front/notification-banner4") {
-        // Index 4 is filled and matches the request page
-        return JSON.stringify([
-          {
-            pages: [{ pageId: "/some-page" }],
-            bannerMessage: "Test banner 4",
-            bannerMessageCy: "Welsh Test banner 4",
-            startTime: beforeNow,
-            endTime: afterNow,
-          },
-        ]);
-      }
-      // Indices 2 and 3 are empty - the loop should skip them and continue
-      return "";
+
+    // GetParametersByPath only returns slots that exist, so a gap simply means
+    // the map has keys 1 and 4. Slot 4 matches the request page.
+    stubBannerMap({
+      [`${BANNERS_PATH}/1`]: JSON.stringify([
+        {
+          pages: [{ pageId: "/some-other-page" }],
+          bannerMessage: "Test banner 1",
+          bannerMessageCy: "Welsh Test banner 1",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ]),
+      [`${BANNERS_PATH}/4`]: JSON.stringify([
+        {
+          pages: [{ pageId: "/some-page" }],
+          bannerMessage: "Test banner 4",
+          bannerMessageCy: "Welsh Test banner 4",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ]),
     });
 
     // Act
     await underTest(req, res, next);
 
     // Assert
-    // The loop uses `continue` on empty slots rather than `break`, so index 4
-    // is still read and processed after the gap at indices 2 and 3. If it
-    // stopped at the gap, index 4's banner would never display.
-    expect(parameterServiceStub.getParameter).to.have.callCount(5); // due to max of 5
     expect(res.locals.displayBanner).to.be.true;
     expect(res.locals.bannerMessage).to.equal("Test banner 4");
     expect(next).to.have.been.calledOnce;
   });
 
-  it("should isolate a failed index and still display banners from other indices", async () => {
+  it("should isolate a malformed slot and still display banners from other slots", async () => {
     // Arrange
     const req = createRequest();
     req.i18n.language = "en";
     const res = createResponse();
 
-    const matchingBanner = JSON.stringify([
-      {
-        pages: [{ pageId: "/some-page" }],
-        bannerMessage: "Test banner 4",
-        bannerMessageCy: "Welsh Test banner 4",
-        startTime: beforeNow,
-        endTime: afterNow,
-      },
-    ]);
-
-    // Index 2 rejects (e.g. SSM error); index 4 resolves with a matching
-    // banner. resolveBannerConfig catches the rejection per index, so the
-    // failed index must not reject the whole batch or hide the index 4 banner.
-    const configByParam: Record<string, string> = {
-      "/core-front/notification-banner4": matchingBanner,
-    };
-    parameterServiceStub.getParameter = sinon.fake(
-      async (paramName: string) => {
-        if (paramName === "/core-front/notification-banner2") {
-          throw new Error("SSM unavailable");
-        }
-        return configByParam[paramName] ?? "";
-      },
-    );
+    // Slot 2 holds invalid JSON; slot 4 holds a matching banner. The handler
+    // parses each slot in its own try/catch, so a malformed slot must not
+    // discard the whole map or hide slot 4's banner.
+    stubBannerMap({
+      [`${BANNERS_PATH}/2`]: "not JSON",
+      [`${BANNERS_PATH}/4`]: JSON.stringify([
+        {
+          pages: [{ pageId: "/some-page" }],
+          bannerMessage: "Test banner 4",
+          bannerMessageCy: "Welsh Test banner 4",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ]),
+    });
 
     // Act
     await underTest(req, res, next);
 
     // Assert
-    expect(parameterServiceStub.getParameter).to.have.callCount(5); // due to max of 5
+    // Slot 4's banner still displays despite slot 2 being malformed, proving
+    // per-slot parse isolation. (Error-logging of the malformed slot is
+    // asserted separately in the non-displaying "invalid JSON" test, since a
+    // displaying banner also invokes i18next which is not initialised here.)
     expect(res.locals.displayBanner).to.be.true;
     expect(res.locals.bannerMessage).to.equal("Test banner 4");
     expect(next).to.have.been.calledOnce;
@@ -259,19 +242,15 @@ describe("Notification banner handler", () => {
     const req = createRequest();
     req.i18n.language = "en";
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake((paramName: string) => {
-      if (paramName === "/core-front/notification-banner") {
-        return JSON.stringify([
-          {
-            pages: [{ pageId: "/some-other-page" }, { pageId: "/some-page" }],
-            bannerMessage: "Test banner",
-            bannerMessageCy: "Welsh Test banner",
-            startTime: beforeNow,
-            endTime: afterNow,
-          },
-        ]);
-      }
-    });
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-other-page" }, { pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -282,62 +261,133 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
-  [
-    { index: 1, envVar: "NOTIFICATION_BANNER" },
-    { index: 2, envVar: "NOTIFICATION_BANNER_2" },
-    { index: 3, envVar: "NOTIFICATION_BANNER_3" },
-    { index: 4, envVar: "NOTIFICATION_BANNER_4" },
-  ].forEach(({ index, envVar }: { index: number; envVar: string }) => {
-    it(`should use parsed local environment variable ${index} when NODE_ENV is local`, async () => {
-      // Arrange
-      const req = createRequest();
-      req.i18n.language = "en";
-      const res = createResponse();
-      process.env.NODE_ENV = "local";
+  it("should use the NOTIFICATION_BANNERS env var map when NODE_ENV is local", async () => {
+    // Arrange
+    const req = createRequest();
+    req.i18n.language = "en";
+    const res = createResponse();
+    process.env.NODE_ENV = "local";
 
-      const allEnvVars = [
-        "NOTIFICATION_BANNER",
-        "NOTIFICATION_BANNER_2",
-        "NOTIFICATION_BANNER_3",
-        "NOTIFICATION_BANNER_4",
-      ];
-
-      // Only the target index matches the request page; the others target a
-      // different page so they are present but do not trigger the banner.
-      allEnvVars.forEach((name) => {
-        process.env[name] = JSON.stringify([
-          {
-            pages: [
-              { pageId: name === envVar ? "/some-page" : "/some-other-page" },
-            ],
-            bannerMessage: name === envVar ? `Test banner ${index}` : "Other",
-            bannerMessageCy:
-              name === envVar ? `Welsh Test banner ${index}` : "Welsh Other",
-            startTime: beforeNow,
-            endTime: afterNow,
-          },
-        ]);
-      });
-
-      try {
-        // Act
-        await underTest(req, res, next);
-
-        // Assert
-        expect(res.locals.displayBanner).to.be.true;
-        expect(res.locals.bannerMessage).to.equal(`Test banner ${index}`);
-        expect(next).to.have.been.calledOnce;
-      } finally {
-        allEnvVars.forEach((name) => delete process.env[name]);
-      }
+    // Local running holds the whole map in one env var as structured JSON.
+    // Slot "2" matches the request page; the others do not.
+    process.env.NOTIFICATION_BANNERS = JSON.stringify({
+      "1": [
+        {
+          pages: [{ pageId: "/some-other-page" }],
+          bannerMessage: "Other",
+          bannerMessageCy: "Welsh Other",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ],
+      "2": [
+        {
+          pages: [{ pageId: "/some-page" }],
+          bannerMessage: "Test banner 2",
+          bannerMessageCy: "Welsh Test banner 2",
+          startTime: beforeNow,
+          endTime: afterNow,
+        },
+      ],
     });
+
+    try {
+      // Act
+      await underTest(req, res, next);
+
+      // Assert
+      expect(res.locals.displayBanner).to.be.true;
+      expect(res.locals.bannerMessage).to.equal("Test banner 2");
+      // The SSM path must not be used in local mode.
+      expect(parameterServiceStub.getParametersByPath).to.not.have.been.called;
+      expect(next).to.have.been.calledOnce;
+    } finally {
+      delete process.env.NOTIFICATION_BANNERS;
+    }
   });
 
-  it("should not display banner if no data is returned", async () => {
+  it("should exit early in local mode when the NOTIFICATION_BANNERS env var is absent", async () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves("");
+    process.env.NODE_ENV = "local";
+    delete process.env.NOTIFICATION_BANNERS;
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.false;
+    expect(parameterServiceStub.getParametersByPath).to.not.have.been.called;
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should log and continue in local mode when NOTIFICATION_BANNERS is invalid JSON", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    process.env.NODE_ENV = "local";
+    process.env.NOTIFICATION_BANNERS = "not JSON";
+
+    try {
+      // Act
+      await underTest(req, res, next);
+
+      // Assert
+      // An unparseable env blob is logged and treated as no banners rather
+      // than throwing out of the handler.
+      expect(res.locals.displayBanner).to.be.false;
+      expect(loggerStub.logger.error).to.have.been.calledOnce;
+      expect(next).to.have.been.calledOnce;
+    } finally {
+      delete process.env.NOTIFICATION_BANNERS;
+    }
+  });
+
+  it("should make a single getParametersByPath call for the banners path", async () => {
+    // Arrange
+    const req = createRequest();
+    req.i18n.language = "en";
+    const res = createResponse();
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(
+      parameterServiceStub.getParametersByPath,
+    ).to.have.been.calledOnceWith(BANNERS_PATH);
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should exit early when no banner slots exist (empty map)", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    stubBannerMap({});
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.false;
+    expect(next).to.have.been.calledOnce;
+  });
+
+  it("should not display banner if a slot holds an empty array", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    stubBannerSlots([]);
 
     // Act
     await underTest(req, res, next);
@@ -351,17 +401,15 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: afterNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: afterNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -375,17 +423,15 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: beforeNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: beforeNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -399,17 +445,15 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -423,17 +467,15 @@ describe("Notification banner handler", () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [{ pageId: "/some-page" }],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNowBst,
-          endTime: afterNowCapeVerde,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [{ pageId: "/some-page" }],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNowBst,
+        endTime: afterNowCapeVerde,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -497,19 +539,17 @@ describe("Notification banner handler", () => {
         const req = createRequest();
         req.session.pageContext = sessionPageContext;
         const res = createResponse();
-        parameterServiceStub.getParameter = sinon.fake.resolves(
-          JSON.stringify([
-            {
-              pages: [
-                { pageId: "/some-page", contexts: bannerConfigPageContexts },
-              ],
-              bannerMessage: "Test banner",
-              bannerMessageCy: "Welsh Test banner",
-              startTime: beforeNow,
-              endTime: afterNow,
-            },
-          ]),
-        );
+        stubBannerSlots([
+          {
+            pages: [
+              { pageId: "/some-page", contexts: bannerConfigPageContexts },
+            ],
+            bannerMessage: "Test banner",
+            bannerMessageCy: "Welsh Test banner",
+            startTime: beforeNow,
+            endTime: afterNow,
+          },
+        ]);
 
         // Act
         await underTest(req, res, next);
@@ -577,19 +617,17 @@ describe("Notification banner handler", () => {
         const req = createRequest();
         req.session.pageContext = sessionPageContext;
         const res = createResponse();
-        parameterServiceStub.getParameter = sinon.fake.resolves(
-          JSON.stringify([
-            {
-              pages: [
-                { pageId: "/some-page", contexts: bannerConfigPageContexts },
-              ],
-              bannerMessage: "Test banner",
-              bannerMessageCy: "Welsh Test banner",
-              startTime: beforeNow,
-              endTime: afterNow,
-            },
-          ]),
-        );
+        stubBannerSlots([
+          {
+            pages: [
+              { pageId: "/some-page", contexts: bannerConfigPageContexts },
+            ],
+            bannerMessage: "Test banner",
+            bannerMessageCy: "Welsh Test banner",
+            startTime: beforeNow,
+            endTime: afterNow,
+          },
+        ]);
 
         // Act
         await underTest(req, res, next);
@@ -606,28 +644,26 @@ describe("Notification banner handler", () => {
     const req = createRequest();
     req.session.pageContext = { matchingContext: true };
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves(
-      JSON.stringify([
-        {
-          pages: [
-            { pageId: "/some-page", contexts: [{ matchingContext: true }] },
-          ],
-          bannerMessage: "Test banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-        {
-          pages: [
-            { pageId: "/some-page", contexts: [{ matchingContext: false }] },
-          ],
-          bannerMessage: "Bad banner",
-          bannerMessageCy: "Welsh Test banner",
-          startTime: beforeNow,
-          endTime: afterNow,
-        },
-      ]),
-    );
+    stubBannerSlots([
+      {
+        pages: [
+          { pageId: "/some-page", contexts: [{ matchingContext: true }] },
+        ],
+        bannerMessage: "Test banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+      {
+        pages: [
+          { pageId: "/some-page", contexts: [{ matchingContext: false }] },
+        ],
+        bannerMessage: "Bad banner",
+        bannerMessageCy: "Welsh Test banner",
+        startTime: beforeNow,
+        endTime: afterNow,
+      },
+    ]);
 
     // Act
     await underTest(req, res, next);
@@ -638,11 +674,28 @@ describe("Notification banner handler", () => {
     expect(next).to.have.been.calledOnce;
   });
 
-  it("should continue if the config is invalid", async () => {
+  it("should continue if a slot holds invalid JSON", async () => {
     // Arrange
     const req = createRequest();
     const res = createResponse();
-    parameterServiceStub.getParameter = sinon.fake.resolves("not JSON");
+    stubBannerMap({ [`${BANNERS_PATH}/1`]: "not JSON" });
+
+    // Act
+    await underTest(req, res, next);
+
+    // Assert
+    expect(res.locals.displayBanner).to.be.false;
+    expect(next).to.have.been.calledOnce;
+    expect(loggerStub.logger.error).to.have.been.calledOnce;
+  });
+
+  it("should continue and not display a banner if getParametersByPath rejects", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    parameterServiceStub.getParametersByPath = sinon.fake.rejects(
+      new Error("SSM unavailable"),
+    );
 
     // Act
     await underTest(req, res, next);

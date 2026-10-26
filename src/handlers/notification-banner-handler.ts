@@ -1,4 +1,4 @@
-import { getParameter } from "../services/parameterStoreService";
+import { getParametersByPath } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 import { RequestHandler, Request } from "express";
 import Config from "../config/config";
@@ -29,28 +29,44 @@ const validateDate = (dateString: string): void => {
   }
 };
 
-const MAX_NOTIFICATION_BANNERS = 5;
+const NOTIFICATION_BANNERS_SSM_PATH = "/core-front/notification-banners";
 
-const envVarNameForIndex = (index: number): string =>
-  index === 1 ? "NOTIFICATION_BANNER" : `NOTIFICATION_BANNER_${index}`;
+type BannerConfigMap = Record<string, BannerConfig[]>;
 
-const ssmParamNameForIndex = (index: number): string =>
-  index === 1
-    ? "/core-front/notification-banner"
-    : `/core-front/notification-banner${index}`;
+const resolveLocalBannerConfigMap = (): BannerConfigMap => {
+  const raw = process.env.NOTIFICATION_BANNERS;
+  if (!raw || raw.trim().length === 0) {
+    return {};
+  }
+  return JSON.parse(raw) as BannerConfigMap;
+};
 
-const resolveBannerConfig = async (
-  index: number,
-): Promise<string | undefined> => {
-  if (process.env.NODE_ENV === "local") {
-    return process.env[envVarNameForIndex(index)];
+const resolveSsmBannerConfigMap = async (): Promise<BannerConfigMap> => {
+  const parameters = await getParametersByPath(NOTIFICATION_BANNERS_SSM_PATH);
+  const map: BannerConfigMap = {};
+
+  for (const [name, value] of Object.entries(parameters)) {
+    if (!value || value.length === 0) {
+      continue;
+    }
+    try {
+      map[name] = JSON.parse(value) as BannerConfig[];
+    } catch (err) {
+      logger.error(err, `Invalid notification banner config for "${name}"`);
+    }
   }
 
+  return map;
+};
+
+const resolveBannerConfigMap = async (): Promise<BannerConfigMap> => {
   try {
-    return await getParameter(ssmParamNameForIndex(index));
+    return process.env.NODE_ENV === "local"
+      ? resolveLocalBannerConfigMap()
+      : await resolveSsmBannerConfigMap();
   } catch (err) {
-    logger.info(`No notification banner parameter for index ${index}: ${err}`);
-    return undefined;
+    logger.error(err, "Error resolving notification banner config: " + err);
+    return {};
   }
 };
 
@@ -58,25 +74,10 @@ const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
     res.locals.displayBanner = false;
 
-    const bannerConfigsParsed: BannerConfig[] = [];
+    const bannerConfigMap = await resolveBannerConfigMap();
+    const bannerConfigsParsed = Object.values(bannerConfigMap).flat();
 
-    const bannerPromises: Promise<string | undefined>[] = [];
-    for (let index = 1; index <= MAX_NOTIFICATION_BANNERS; index++) {
-      bannerPromises.push(resolveBannerConfig(index));
-    }
-    const rawConfigs = await Promise.all(bannerPromises);
-
-    rawConfigs.forEach((rawConfig, i) => {
-      const index = i + 1;
-      logger.info(`${envVarNameForIndex(index)} ${rawConfig}`);
-
-      if (!rawConfig || rawConfig.length === 0) {
-        return;
-      }
-
-      bannerConfigsParsed.push(...(JSON.parse(rawConfig) as BannerConfig[]));
-    });
-
+    // No banners to process
     if (bannerConfigsParsed.length === 0) {
       return next();
     }

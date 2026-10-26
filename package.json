@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "engines": {
     "node": "24.x",
-    "npm": "11.x"
+    "npm": ">=11"
   },
   "scripts": {
     "start": "node --enable-source-maps build/app.js",

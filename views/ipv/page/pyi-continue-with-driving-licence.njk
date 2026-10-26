@@ -15,13 +15,16 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithDrivingLicence.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph1' | translate }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    {% for listItem in 'pages.pyiContinueWithDrivingLicence.content.requirements' | translate({ returnObjects: true }) %}
-      <li>{{ listItem }}</li>
-    {% endfor %}
-  </ul>
-  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph2' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph3' | translate }}</p>
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+        <p class="govuk-!-margin-0 govuk-details__summary-text">
+          {{ 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.label' | translate }}
+        </p>
+    </summary>
+      <div class="govuk-details__text">
+        {{ 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.html' | translate | safe  }}
+      </div>
+  </details>
 
   <form id="pyiContinueWithDrivingLicenceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -37,7 +40,8 @@
       items: [
         {
           value: "next",
-          text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.continueDrivingLicenceButtonText' | translate
+          text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.continueDrivingLicenceButtonText' | translate,
+          hint: { text: 'pages.pyiContinueWithDrivingLicence.content.formRadioButtons.continueDrivingLicenceButtonTextHint' | translate }
         },
         {
           value: "end",

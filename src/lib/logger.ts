@@ -69,15 +69,20 @@ export const generateRequestId = (req: Request, res: Response): ReqId => {
   return newId;
 };
 
+export const buildRequestLogBindings = (req: Request): object => ({
+  requestId: req.id,
+  ipvSessionId: req.session?.ipvSessionId,
+  govukSigninJourneyId: req.session?.govukSigninJourneyId,
+  sessionId: req.session?.id,
+});
+
 const addRequestContext = (
   req: Request,
   res: Response,
   val: object,
 ): object => ({
   ...val,
-  requestId: req.id,
-  ipvSessionId: req.session?.ipvSessionId,
-  sessionId: req.session?.id,
+  ...buildRequestLogBindings(req),
   context: req.session?.pageContext ?? undefined,
 });
 

@@ -135,6 +135,46 @@ describe("oauth middleware", () => {
     expect(next).to.have.been.called;
   });
 
+  it("should set govukSigninJourneyId in session", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postSessionInitialise = sinon.fake.returns({
+      data: {
+        ipvSessionId: "test-ipv-session-id",
+        govukSigninJourneyId: "test-govuk-signin-journey-id",
+      },
+    });
+
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
+
+    // Assert
+    expect(req.session.govukSigninJourneyId).to.eq(
+      "test-govuk-signin-journey-id",
+    );
+    expect(next).to.have.been.called;
+  });
+
+  it("should continue without interruption if govukSigninJourneyId is missing", async () => {
+    // Arrange
+    const req = createRequest();
+    const res = createResponse();
+    coreBackServiceStub.postSessionInitialise = sinon.fake.returns({
+      data: {
+        ipvSessionId: "test-ipv-session-id",
+      },
+    });
+
+    // Act
+    await middleware.setIpvSessionId(req, res, next);
+
+    // Assert
+    expect(req.session.govukSigninJourneyId).to.be.undefined;
+    expect(req.session.ipvSessionId).to.eq("test-ipv-session-id");
+    expect(next).to.have.been.calledOnce;
+  });
+
   it("should set ipvSessionId as null in session if response contains null", async () => {
     // Arrange
     const req = createRequest();

@@ -1,5 +1,9 @@
 import sinon from "sinon";
-import { generateRequestId, redactQueryParams } from "./logger";
+import {
+  buildRequestLogBindings,
+  generateRequestId,
+  redactQueryParams,
+} from "./logger";
 
 describe("redactQueryParams", () => {
   [
@@ -76,5 +80,46 @@ describe("generateRequestId", () => {
 
     expect(requestId).to.be.ok;
     expect(res.header).to.be.calledWith("x-request-id", requestId);
+  });
+});
+
+describe("buildRequestLogBindings", () => {
+  it("includes requestId, sessionId, ipvSessionId and govukSigninJourneyId bindings", () => {
+    // Arrange
+    const req = {
+      id: "request-id",
+      session: {
+        id: "session-id",
+        ipvSessionId: "ipv-session-id",
+        govukSigninJourneyId: "govuk-signin-journey-id",
+      },
+    } as any;
+
+    // Act
+    const bindings = buildRequestLogBindings(req);
+
+    // Assert
+    expect(bindings).to.deep.equal({
+      requestId: "request-id",
+      ipvSessionId: "ipv-session-id",
+      govukSigninJourneyId: "govuk-signin-journey-id",
+      sessionId: "session-id",
+    });
+  });
+
+  it("handles a missing binding data", () => {
+    // Arrange
+    const req = { id: "request-id" } as any;
+
+    // Act
+    const bindings = buildRequestLogBindings(req);
+
+    // Assert
+    expect(bindings).to.deep.equal({
+      requestId: "request-id",
+      ipvSessionId: undefined,
+      govukSigninJourneyId: undefined,
+      sessionId: undefined,
+    });
   });
 });

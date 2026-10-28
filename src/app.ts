@@ -19,7 +19,11 @@ import wellKnownRouter from "./app/./.well-known/router";
 import oauthRouter from "./app/oauth2/router";
 import config from "./config/config";
 import { setLocals } from "./lib/locals";
-import { loggerMiddleware, logger } from "./lib/logger";
+import {
+  loggerMiddleware,
+  logger,
+  buildRequestLogBindings,
+} from "./lib/logger";
 import { i18nextConfigurationOptions } from "./config/i18next";
 import serverErrorHandler from "./handlers/internal-server-error-handler";
 import journeyEventErrorHandler from "./handlers/journey-event-error-handler";
@@ -52,6 +56,7 @@ declare module "express-session" {
   interface SessionData {
     ipvSessionId?: string;
     previousIpvSessionId?: string;
+    govukSigninJourneyId?: string;
     clientOauthSessionId?: string;
     currentPage?: string;
     pageContext?: Record<string, unknown>;
@@ -188,11 +193,7 @@ app.use((req, res, next) => {
 app.use(notificationBannerHandler);
 
 app.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
+  req.log = logger.child(buildRequestLogBindings(req));
   next();
 });
 app.use(loggerMiddleware);
@@ -210,11 +211,7 @@ app.set("etag", false);
 const router = express.Router();
 
 router.use((req, res, next) => {
-  req.log = logger.child({
-    requestId: req.id,
-    ipvSessionId: req.session?.ipvSessionId,
-    sessionId: req.session?.id,
-  });
+  req.log = logger.child(buildRequestLogBindings(req));
   next();
 });
 

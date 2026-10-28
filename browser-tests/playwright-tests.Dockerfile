@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.56.1-noble AS playwright
+FROM mcr.microsoft.com/playwright:v1.64.1-noble AS playwright
 
 ADD "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" "awscliv2.zip"
 

@@ -1040,6 +1040,7 @@
           "yw hyd at 24 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"
         ],
+        "upcomingRemovalOfDocumentsInset": "O 7 Rhagfyr 2026, ni fyddwch bellach yn gallu defnyddio eich BRP, BRC neu FWP. Bydd angen i chi ddefnyddio pasbort neu drwydded yrru y DU yn lle hynny.",
         "subHeading5": "Oes gennych chi unrhyw un o’r mathau hyn o ID gyda llun yn barod i’w defnyddio?",
         "hint": " Rhaid iddi fod yn ddogfen go iawn. Ni allwch ddefnyddio copi digidol neu lungopi.",
         "formRadioButtons": {
@@ -1081,7 +1082,8 @@
         "cardOrPermitRequirements": [
           "yw hyd at 24 mis ar ôl ei ddyddiad dod i ben",
           "oes gennych ffôn clyfar"
-        ]
+        ],
+        "upcomingRemovalOfDocumentsInset": "O 7 Rhagfyr 2026, ni fyddwch bellach yn gallu defnyddio eich BRP, BRC neu FWP. Bydd angen i chi ddefnyddio pasbort neu drwydded yrru y DU yn lle hynny."
       }
     },
     "pyiPostOffice": {

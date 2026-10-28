@@ -102,6 +102,6 @@
     "pino-http": "11.0.0",
     "qrcode": "1.5.4",
     "sanitize-filename": "1.6.4",
-    "ua-parser-js": "1.0.40"
+    "ua-parser-js": "2.0.10"
   }
 }

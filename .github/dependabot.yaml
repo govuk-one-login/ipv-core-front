@@ -23,8 +23,7 @@ updates:
       prefix: BAU
   - package-ecosystem: "docker"
     directories:
-      - "/"
-      - "/dev-deploy"
+      - '/**/*'
     schedule:
       interval: daily
       time: "03:00"

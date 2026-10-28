@@ -1,4 +1,4 @@
-FROM outofcoffee/imposter:3.44.0 AS imposter
+FROM outofcoffee/imposter:4.9.3 AS imposter
 
 FROM eclipse-temurin:11.0.22_7-jre-jammy
 COPY --from=imposter /opt/imposter/lib /opt/imposter/lib

@@ -72,7 +72,7 @@ export const generateRequestId = (req: Request, res: Response): ReqId => {
 export const buildRequestLogBindings = (req: Request): object => ({
   requestId: req.id,
   ipvSessionId: req.session?.ipvSessionId,
-  govukSigninJourneyId: req.session?.govukSigninJourneyId,
+  govuk_signin_journey_id: req.session?.govukSigninJourneyId,
   sessionId: req.session?.id,
 });
 

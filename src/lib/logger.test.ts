@@ -84,7 +84,7 @@ describe("generateRequestId", () => {
 });
 
 describe("buildRequestLogBindings", () => {
-  it("includes requestId, sessionId, ipvSessionId and govukSigninJourneyId bindings", () => {
+  it("includes requestId, sessionId, ipvSessionId and govuk_signin_journey_id bindings", () => {
     // Arrange
     const req = {
       id: "request-id",
@@ -102,7 +102,7 @@ describe("buildRequestLogBindings", () => {
     expect(bindings).to.deep.equal({
       requestId: "request-id",
       ipvSessionId: "ipv-session-id",
-      govukSigninJourneyId: "govuk-signin-journey-id",
+      govuk_signin_journey_id: "govuk-signin-journey-id",
       sessionId: "session-id",
     });
   });
@@ -118,7 +118,7 @@ describe("buildRequestLogBindings", () => {
     expect(bindings).to.deep.equal({
       requestId: "request-id",
       ipvSessionId: undefined,
-      govukSigninJourneyId: undefined,
+      govuk_signin_journey_id: undefined,
       sessionId: undefined,
     });
   });

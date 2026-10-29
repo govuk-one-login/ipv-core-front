@@ -36,7 +36,7 @@ updates:
         update-types: ["version-update:semver-major"]
       # v4 breaks our tests and will need some work to upgrade to https://govukverify.atlassian.net/browse/PYIC-9381
       - dependency-name: "outofcoffee/imposter"
-      - update-types: [ "version-update:semver-major" ]
+        update-types: [ "version-update:semver-major" ]
     commit-message:
       prefix: BAU
   - package-ecosystem: "github-actions"

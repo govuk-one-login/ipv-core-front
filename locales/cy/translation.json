@@ -1638,10 +1638,10 @@
       "header": "Rydym angen mwy o wybodaeth i gadarnhau’r newid i’ch manylion",
       "content": {
         "paragraph1": "Ni allwn gadarnhau’r newid i’ch manylion.",
-        "paragraph2RepeatFraudCheck": "Os oes gennych basbort dilys, gallwch brofi eich hunaniaeth yn yr ap GOV.UK One Login. ",
-        "paragraph2UpdateDetails": "Gallwch barhau i’r gwasanaeth heb ddiweddaru eich manylion. Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
-        "paragraph3RepeatFraudCheck": "Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio. ",
-        "paragraph3UpdateDetails": "Neu gallwch ddefnyddio pasbort dilys i brofi eich hunaniaeth yn yr ap GOV.UK One Login. Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio.",
+        "paragraph2": "Os oes gennych basbort dilys, gallwch brofi eich hunaniaeth yn yr ap GOV.UK One Login. ",
+        "paragraph2IsIdentityValid": "Gallwch barhau i’r gwasanaeth heb ddiweddaru eich manylion. Mae eich prawf hunaniaeth yn ddilys hyd yn oed os yw’ch manylion wedi newid.",
+        "paragraph3": "Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio. ",
+        "paragraph3IsIdentityValid": "Neu gallwch ddefnyddio pasbort dilys i brofi eich hunaniaeth yn yr ap GOV.UK One Login. Rhaid i’ch pasbort fod â’r enw rydych am i GOV.UK One Login ei ddefnyddio.",
         "paragraph4": "Yna byddwn yn ceisio cadarnhau eich manylion eto.",
         "details1": {
           "summaryText": "Sut ydw i’n gwybod os yw fy mhasbort yn ddilys?",

@@ -1,4 +1,4 @@
-import { getParameter } from "../services/parameterStoreService";
+import { getParametersByPath } from "../services/parameterStoreService";
 import { logger } from "../lib/logger";
 import { RequestHandler, Request } from "express";
 import Config from "../config/config";
@@ -29,34 +29,58 @@ const validateDate = (dateString: string): void => {
   }
 };
 
+const NOTIFICATION_BANNERS_SSM_PATH = "/core-front/notification-banners";
+
+type BannerConfigMap = Record<string, BannerConfig[]>;
+
+const resolveLocalBannerConfigMap = (): BannerConfigMap => {
+  const raw = process.env.NOTIFICATION_BANNERS;
+  if (!raw || raw.trim().length === 0) {
+    return {};
+  }
+  return JSON.parse(raw) as BannerConfigMap;
+};
+
+const resolveSsmBannerConfigMap = async (): Promise<BannerConfigMap> => {
+  const parameters = await getParametersByPath(NOTIFICATION_BANNERS_SSM_PATH);
+  const map: BannerConfigMap = {};
+
+  for (const [name, value] of Object.entries(parameters)) {
+    if (!value || value.length === 0) {
+      continue;
+    }
+    try {
+      map[name] = JSON.parse(value) as BannerConfig[];
+    } catch (err) {
+      logger.error(err, `Invalid notification banner config for "${name}"`);
+    }
+  }
+
+  return map;
+};
+
+const resolveBannerConfigMap = async (): Promise<BannerConfigMap> => {
+  try {
+    return process.env.NODE_ENV === "local"
+      ? resolveLocalBannerConfigMap()
+      : await resolveSsmBannerConfigMap();
+  } catch (err) {
+    logger.error(err, "Error resolving notification banner config: " + err);
+    return {};
+  }
+};
+
 const notificationBannerHandler: RequestHandler = async (req, res, next) => {
   try {
     res.locals.displayBanner = false;
-    const bannerConfigs1 =
-      process.env.NODE_ENV === "local"
-        ? process.env["NOTIFICATION_BANNER"]
-        : await getParameter("/core-front/notification-banner");
-    const bannerConfigs2 =
-      process.env.NODE_ENV === "local"
-        ? process.env["NOTIFICATION_BANNER_2"]
-        : await getParameter("/core-front/notification-banner2");
 
-    if (
-      (!bannerConfigs1 || bannerConfigs1.length === 0) &&
-      (!bannerConfigs2 || bannerConfigs2.length === 0)
-    ) {
+    const bannerConfigMap = await resolveBannerConfigMap();
+    const bannerConfigsParsed = Object.values(bannerConfigMap).flat();
+
+    // No banners to process
+    if (bannerConfigsParsed.length === 0) {
       return next();
     }
-
-    const bannerConfigs1Parsed: BannerConfig[] = bannerConfigs1
-      ? JSON.parse(bannerConfigs1)
-      : [];
-    const bannerConfigs2Parsed: BannerConfig[] = bannerConfigs2
-      ? JSON.parse(bannerConfigs2)
-      : [];
-
-    const bannerConfigsParsed: BannerConfig[] =
-      bannerConfigs1Parsed.concat(bannerConfigs2Parsed);
 
     bannerConfigsParsed.forEach((data: BannerConfig) => {
       validateDate(data.startTime);

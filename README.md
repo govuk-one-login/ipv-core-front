@@ -147,3 +147,86 @@ pre-commit install
 You can use a [GitHub CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file to define individuals or teams that are responsible for code in a repository. GitHub automatically requests reviews from these code owners when someone opens a pull request that modifies the code they own.
 
 You can find the [`CODEOWNERS` file for ipv-core-front](https://github.com/govuk-one-login/ipv-core-front/blob/main/CODEOWNERS) in the root.
+
+## Notification Banners
+
+Banners are read from under the ssm location `/core-front/notification-banners` via getParametersByPath to allow bulk read of the parameters.
+Each configuration under the path e.g  `/core-front/notification-banners/1` , `/core-front/notification-banners/2`  will be merged into a combined configuration at run-time before being processed.
+A notification banner configuration only needs to be split across configurations if the SSM character limit would be breached.
+
+### ENV VAR
+Notification banners can be tested locally via the NOTIFICATION_BANNERS env var.
+
+e.g. Two banners in one configuration `1`
+```yaml
+  NOTIFICATION_BANNERS: >
+    {
+      "1": [
+        {
+          "pages": [ { "pageId": "/ipv/page/page-ipv-identity-document-start" } ],
+          "bannerMessage": "<p class=\"govuk-notification-banner__heading\">Some of this service is unavailable</p> <p>You cannot prove your identity with a driving licence until 2:15am on Sunday 25 October.</p> <p>You can continue with another type of photo ID or try again later.</p>",
+          "bannerMessageCy": "<p class=\"govuk-notification-banner__heading\">Nid yw rhan o’r gwasanaeth hwn ar gael</p> <p>Ni allwch brofi eich hunaniaeth gyda thrwydded yrru tan 2:15am ar ddydd Sul 25 Hydref.</p> <p>Gallwch barhau gyda math arall o ID gyda llun neu roi cynnig arall yn nes ymlaen.</p>",
+          "startTime": "2026-10-25T00:50:00.000+0000",
+          "endTime": "2026-10-25T02:15:00.000+0000"
+        },
+        {
+          "pages": [
+            {
+              "pageId": "/ipv/page/page-ipv-identity-postoffice-start"
+            }
+          ],
+          "bannerMessage": "<p class=\"govuk-notification-banner__heading\">This service is unavailable until 2:15am on Sunday 25 October</p> <p>You can only <a class=\"govuk-notification-banner__link\" href=\"/ipv/journey/page-ipv-identity-postoffice-start/appTriageBanner\">prove your identity using the GOV.UK One Login app</a> until then.</p>",
+          "bannerMessageCy": "<p class=\"govuk-notification-banner__heading\">Nid yw’r gwasanaeth hwn ar gael tan 2:15am ar ddydd Sul 29 Hydref</p> <p>Nes hynny gallwch ond <a class=\"govuk-notification-banner__link\" href=\"/ipv/journey/page-ipv-identity-postoffice-start/appTriageBanner\">profi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login</a>.</p>",
+          "startTime": "2026-10-25T00:50:00.000+0000",
+          "endTime": "2026-10-25T02:15:00.000+0000"
+        },
+      ],
+    }
+```
+e.g. Two banners in two configuration `1` & `2`
+```yaml
+  NOTIFICATION_BANNERS: >
+    {
+      "1": [
+        {
+          "pages": [ { "pageId": "/ipv/page/page-ipv-identity-document-start" } ],
+          "bannerMessage": "<p class=\"govuk-notification-banner__heading\">Some of this service is unavailable</p> <p>You cannot prove your identity with a driving licence until 2:15am on Sunday 25 October.</p> <p>You can continue with another type of photo ID or try again later.</p>",
+          "bannerMessageCy": "<p class=\"govuk-notification-banner__heading\">Nid yw rhan o’r gwasanaeth hwn ar gael</p> <p>Ni allwch brofi eich hunaniaeth gyda thrwydded yrru tan 2:15am ar ddydd Sul 25 Hydref.</p> <p>Gallwch barhau gyda math arall o ID gyda llun neu roi cynnig arall yn nes ymlaen.</p>",
+          "startTime": "2026-10-25T00:50:00.000+0000",
+          "endTime": "2026-10-25T02:15:00.000+0000"
+        }
+      ],
+      "2": [
+        {
+          "pages": [
+            {
+              "pageId": "/ipv/page/page-ipv-identity-postoffice-start"
+            }
+          ],
+          "bannerMessage": "<p class=\"govuk-notification-banner__heading\">This service is unavailable until 2:15am on Sunday 25 October</p> <p>You can only <a class=\"govuk-notification-banner__link\" href=\"/ipv/journey/page-ipv-identity-postoffice-start/appTriageBanner\">prove your identity using the GOV.UK One Login app</a> until then.</p>",
+          "bannerMessageCy": "<p class=\"govuk-notification-banner__heading\">Nid yw’r gwasanaeth hwn ar gael tan 2:15am ar ddydd Sul 29 Hydref</p> <p>Nes hynny gallwch ond <a class=\"govuk-notification-banner__link\" href=\"/ipv/journey/page-ipv-identity-postoffice-start/appTriageBanner\">profi eich hunaniaeth gan ddefnyddio’r ap GOV.UK One Login</a>.</p>",
+          "startTime": "2026-10-25T00:50:00.000+0000",
+          "endTime": "2026-10-25T02:15:00.000+0000"
+        },
+    }
+```
+### SSM
+
+For the ssm configuration yaml, the above format requires adjusting, with the outer brackets `{}` needing removed, and the inner JSON needing quoted `''`
+
+If a banner configuration is not needed, it should be cleared via '[]' not removed, as parameter auto deletion is not enabled.
+
+```yaml
+notification-banners:
+    "1": '[
+        {
+          "pages":[ { "pageId":"/ipv/page/page-ipv-identity-document-start" } ],
+          "bannerMessage":"<p class=\"govuk-notification-banner__heading\">Some of this service is unavailable</p> <p>You cannot prove your identity with a driving licence until 2:15am on Sunday 25 October.</p> <p>You can continue with another type of photo ID or try again later.</p>",
+          "bannerMessageCy":"<p class=\"govuk-notification-banner__heading\">Nid yw rhan o’r gwasanaeth hwn ar gael</p> <p>Ni allwch brofi eich hunaniaeth gyda thrwydded yrru tan 2:15am ar ddydd Sul 25 Hydref.</p> <p>Gallwch barhau gyda math arall o ID gyda llun neu roi cynnig arall yn nes ymlaen.</p>",
+          "startTime":"2026-10-25T00:50:00.000+0000",
+          "endTime":"2026-10-25T02:15:00.000+0000"
+        }
+    ]'
+    "2": '[]'
+```
+> Additional Info see [PYIC-9357](https://govukverify.atlassian.net/browse/PYIC-9357)

@@ -18,6 +18,9 @@ updates:
       # We handle Node major upgrades separately - @types/node should stay aligned with current major version
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
+      # We need to handle this Frontend major upgrade separately: https://govukverify.atlassian.net/browse/PYIC-8965
+      - dependency-name: "govuk-frontend"
+        update-types: [ "version-update:semver-major" ]
       # chai v5+ is ESM-only and requires an ESM migration - defer major upgrades until we do that
       - dependency-name: "chai"
         update-types: ["version-update:semver-major"]

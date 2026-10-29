@@ -189,6 +189,10 @@ export const pagesAndContexts: PagesAndContexts = {
     { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
     { updateDetails: { journeyType: "updateDetails" } },
   ],
+  "need-more-information-confirm-change-details-v2": [
+    { identityValid: { isIdentityValid: true } },
+    { identityInvalid: { isIdentityValid: false } },
+  ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
 };

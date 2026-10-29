@@ -74,6 +74,10 @@
     </li>
   </ul>
 
+    {{ govukInsetText({
+      text:  'pages.pageIpvIdentityDocumentStart.content.upcomingRemovalOfDocumentsInset' | translate
+    }) }}
+
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {% set radiosConfig = {

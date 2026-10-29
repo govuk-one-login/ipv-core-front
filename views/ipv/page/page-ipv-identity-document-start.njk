@@ -74,9 +74,9 @@
     </li>
   </ul>
 
-  <h2 class="govuk-inset-text">
-    {{ 'pages.pageIpvIdentityDocumentStart.content.upcomingRemovalOfDocumentsInset' | translate }}
-  </h2>
+    {{ govukInsetText({
+      text:  'pages.pageIpvIdentityDocumentStart.content.upcomingRemovalOfDocumentsInset' | translate
+    }) }}
 
   <form id="identityDocumentStartPageOptionsForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

@@ -56,8 +56,8 @@
     </li>
   </ul>
 
-  <h2 class="govuk-inset-text">
-    {{ 'pages.pageIpvIdentityDocumentTypes.content.upcomingRemovalOfDocumentsInset' | translate }}
-  </h2>
+  {{ govukInsetText({
+    text:  'pages.pageIpvIdentityDocumentTypes.content.upcomingRemovalOfDocumentsInset' | translate
+  }) }}
 
 {% endblock %}

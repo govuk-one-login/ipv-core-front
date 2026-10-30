@@ -454,7 +454,7 @@
       "content": {
         "paragraph1": "You can use a UK passport up to 18 months after its expiry date.",
         "whyYouNeedAUkPassportDetails": {
-          "label":"Why you need a UK passport",
+          "label": "Why you need a UK passport",
           "html": "<p class=\"govuk-body\">There was a problem when you last tried to prove your identity.</p><p class=\"govuk-body\"> For security reasons, you can only prove your identity if you have a UK passport.</p>"
         },
         "subHeading": "What would you like to do?",
@@ -503,7 +503,7 @@
       "content": {
         "paragraph1": "It can be a full or provisional licence",
         "whyYouNeedAUkDrivingLicenceDetails": {
-          "label":"Why you need a UK driving licence",
+          "label": "Why you need a UK driving licence",
           "html": "<p class=\"govuk-body\">There was a problem when you last tried to prove your identity.</p><p class=\"govuk-body\"> For security reasons, you can only prove your identity if you have a UK photocard driving licence.</p>"
         },
         "subHeading": "What would you like to do?",

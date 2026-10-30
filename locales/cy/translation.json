@@ -490,7 +490,7 @@
         "formRadioButtons": {
           "continuePassportButtonText": "Parhau gyda phasbort y DU",
           "continuePassportButtonTextHint": "Bydd angen i ni wirio rhai manylion i brofi eich hunaniaeth",
-          "otherWayButtonText": "Mynd i'r gwasanaeth rydych angen ei ddefnyddio",
+          "otherWayButtonText": "Mynd i’r gwasanaeth rydych angen ei ddefnyddio",
           "otherWayButtonTextHint": "Darganfyddwch a oes ffyrdd eraill o gael mynediad i'r gwasanaeth"
         },
         "formErrorMessage": {
@@ -539,7 +539,7 @@
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Parhau gyda thrwydded yrru cerdyn-llun y DU",
           "continueDrivingLicenceButtonTextHint": "Bydd angen i ni wirio rhai manylion i brofi eich hunaniaeth",
-          "otherWayButtonText": "Mynd i'r gwasanaeth rydych angen ei ddefnyddio",
+          "otherWayButtonText": "Mynd i’r gwasanaeth rydych angen ei ddefnyddio",
           "otherWayButtonTextHint": "Darganfyddwch a oes ffyrdd eraill o gael mynediad i'r gwasanaeth"
         },
         "formErrorMessage": {

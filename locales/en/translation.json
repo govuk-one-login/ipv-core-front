@@ -460,7 +460,7 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continuePassportButtonText": "Continue with a UK passport",
-          "continuePassportButtonTextHint": "We'll need to check some details to prove your identity",
+          "continuePassportButtonTextHint": "We’ll need to check some details to prove your identity",
           "otherWayButtonText": "Go to the service you need to use",
           "otherWayButtonTextHint": "Find out if there are other ways to access the service"
         },
@@ -509,7 +509,7 @@
         "subHeading": "What would you like to do?",
         "formRadioButtons": {
           "continueDrivingLicenceButtonText": "Continue with UK photocard driving licence",
-          "continueDrivingLicenceButtonTextHint": "We'll need to check some details to prove your identity",
+          "continueDrivingLicenceButtonTextHint": "We’ll need to check some details to prove your identity",
           "otherWayButtonText": "Go to the service you need to use",
           "otherWayButtonTextHint": "Find out if there are other ways to access the service"
         },

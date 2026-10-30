@@ -14,7 +14,7 @@ services:
       dockerfile: dev-deploy/Dockerfile
     depends_on:
       browser-tests-core-back-imposter:
-        condition: service_healthy
+        condition: service_started
     environment:
       PORT: 4601
       NODE_ENV: local

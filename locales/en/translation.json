@@ -466,8 +466,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },
@@ -515,8 +515,8 @@
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "There is a problem",
-          "errorSummaryDescriptionText": "Select how you want to continue",
-          "errorRadioMessage": "Select how you want to continue"
+          "errorSummaryDescriptionText": "Select what you would like to do",
+          "errorRadioMessage": "Select what you would like to do"
         }
       }
     },

@@ -478,22 +478,20 @@
       }
     },
     "pyiContinueWithPassport": {
-      "title": "Parhau i brofi eich hunaniaeth ar-lein",
-      "header": "Parhau i brofi eich hunaniaeth ar-lein",
+      "title": "Rydych angen pasbort y DU i barhau",
+      "header": "Rydych angen pasbort y DU i barhau",
       "content": {
-        "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
-        "requirements": [
-          "oes gennych basbort yn y DU (Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf)",
-          "gallwch ateb rhai cwestiynau diogelwch"
-        ],
-        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "paragraph1": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl iddo ddod i ben.",
+        "whyYouNeedAUkPassportDetails": {
+          "label":"Pam ydych chi angen pasbort y DU",
+          "html": "<p class=\"govuk-body\">Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.</p><p class=\"govuk-body\"> Am resymau diogelwch, dim ond os oes gennych basbort y DU y gallwch brofi eich hunaniaeth.</p>"
+        },
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continuePassportButtonText": "Rhoi eich manylion pasbort y DU yn lle hynny ac ateb cwestiynau diogelwch",
-          "continuePassportButtonTextHint": "Gallwch ddefnyddio pasbort y DU sydd wedi dod i ben yn ystod y 18 mis diwethaf.",
-          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "continuePassportButtonText": "Parhau gyda phasbort y DU",
+          "continuePassportButtonTextHint": "Bydd angen i ni wirio rhai manylion i brofi eich hunaniaeth",
+          "otherWayButtonText": "Mynd i'r gwasanaeth rydych angen ei ddefnyddio",
+          "otherWayButtonTextHint": "Darganfyddwch a oes ffyrdd eraill o gael mynediad i'r gwasanaeth"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",
@@ -529,21 +527,20 @@
       }
     },
     "pyiContinueWithDrivingLicence": {
-      "title": "Parhau i brofi eich hunaniaeth ar-lein",
-      "header": "Parhau i brofi eich hunaniaeth ar-lein",
+      "title": "Rydych angen trwydded yrru cerdyn-llun y DU i barhau",
+      "header": "Rydych angen trwydded yrru cerdyn-llun y DU i barhau",
       "content": {
-        "paragraph1": "Gallwch barhau i brofi eich hunaniaeth ar-lein os:",
-        "requirements": [
-          "oes gennych drydded yrru cerdyn-llun y DU",
-          "gallwch ateb rhai cwestiynau diogelwch"
-        ],
-        "paragraph2": "Rydym yn defnyddio cwestiynau diogelwch i atal unrhyw un a allai fod â’ch manylion rhag esgus bod yn chi.",
-        "paragraph3": "Mae’n cymryd tua 10 munud i brofi eich hunaniaeth fel hyn.",
+        "paragraph1": "Gall fod yn drwydded lawn neu dros dro",
+        "whyYouNeedAUkDrivingLicenceDetails": {
+          "label":"Pam ydych chi angen trwydded yrru'r DU",
+          "html": "<p class=\"govuk-body\">Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.</p><p class=\"govuk-body\"> Am resymau diogelwch, dim ond os oes gennych drwydded yrru cerdyn-llun y DU y gallwch brofi eich hunaniaeth.</p>"
+        },
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
-          "continueDrivingLicenceButtonText": "Rhowch manylion eich trwydded yrru cerdyn-llun y DU yn ei le ac atebwch gwestiynau diogelwch",
-          "otherWayButtonText": "Profi eich hunaniaeth mewn ffordd arall",
-          "otherWayButtonTextHint": "Parhau i’r gwasanaeth roeddech yn ceisio ei ddefnyddio i ddarganfod a oes ffyrdd eraill o gael mynediad ato."
+          "continueDrivingLicenceButtonText": "Parhau gyda thrwydded yrru cerdyn-llun y DU",
+          "continueDrivingLicenceButtonTextHint": "Bydd angen i ni wirio rhai manylion i brofi eich hunaniaeth",
+          "otherWayButtonText": "Mynd i'r gwasanaeth rydych angen ei ddefnyddio",
+          "otherWayButtonTextHint": "Darganfyddwch a oes ffyrdd eraill o gael mynediad i'r gwasanaeth"
         },
         "formErrorMessage": {
           "errorSummaryTitleText": "Mae problem",

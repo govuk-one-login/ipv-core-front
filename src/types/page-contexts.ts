@@ -3,7 +3,9 @@ import { IpvPageName } from "../constants/ipv-pages";
 type PageContextMap = {
   "delete-handover": { journeyType: string };
   "need-biometric-passport": { appOnlyMitigation: boolean };
-  "need-more-information-confirm-change-details": { journeyType: string };
+  "need-more-information-confirm-change-details": {
+    isIdentityValid: boolean;
+  };
   "need-more-information-confirm-change-details-v2": {
     isIdentityValid: boolean;
   };

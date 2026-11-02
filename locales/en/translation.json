@@ -1635,10 +1635,10 @@
       "header": "We need more information to confirm your change of details",
       "content": {
         "paragraph1": "We could not confirm your change of details.",
-        "paragraph2RepeatFraudCheck": "If you have a valid passport, you can prove your identity in the GOV.UK One Login app.",
-        "paragraph2UpdateDetails": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
-        "paragraph3RepeatFraudCheck": "Your passport must have the name you want GOV.UK One Login to use.",
-        "paragraph3UpdateDetails": "Or you can use a valid passport to prove your identity in the GOV.UK One Login app. Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph2": "If you have a valid passport, you can prove your identity in the GOV.UK One Login app.",
+        "paragraph2IsIdentityValid": "You can continue to the service without updating your details. Your proof of identity is valid even if your details have changed.",
+        "paragraph3": "Your passport must have the name you want GOV.UK One Login to use.",
+        "paragraph3IsIdentityValid": "Or you can use a valid passport to prove your identity in the GOV.UK One Login app. Your passport must have the name you want GOV.UK One Login to use.",
         "paragraph4": "Then we’ll try to confirm your details again.",
         "details1": {
           "summaryText": "How do I know if my passport is valid?",

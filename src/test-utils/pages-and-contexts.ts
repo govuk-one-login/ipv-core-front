@@ -186,8 +186,8 @@ export const pagesAndContexts: PagesAndContexts = {
   ],
   "uk-driving-licence-details-not-correct-reprove": [],
   "need-more-information-confirm-change-details": [
-    { repeatFraudCheck: { journeyType: "repeatFraudCheck" } },
-    { updateDetails: { journeyType: "updateDetails" } },
+    { identityValid: { isIdentityValid: true } },
+    { identityInvalid: { isIdentityValid: false } },
   ],
   "need-more-information-confirm-change-details-v2": [
     { identityValid: { isIdentityValid: true } },

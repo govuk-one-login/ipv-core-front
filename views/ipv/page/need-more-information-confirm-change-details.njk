@@ -3,7 +3,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-
 {% set pageTitleKey = 'pages.needMoreInformationConfirmChangeDetails.title' %}
 {% set googleTagManagerPageId = "needMoreInformationConfirmChangeDetails" %}
 
@@ -17,8 +16,8 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.needMoreInformationConfirmChangeDetails.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph1' | translate }}</p>
-  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
-  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'journeyType') }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph2' | translateWithPageContextOrFallback(pageContext, 'isIdentityValid') }}</p>
+  <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph3' | translateWithPageContextOrFallback(pageContext, 'isIdentityValid') }}</p>
   <p class="govuk-body">{{ 'pages.needMoreInformationConfirmChangeDetails.content.paragraph4' | translate }}</p>
 
   {% set detailsHtml %}
@@ -62,10 +61,10 @@
         hint: { text: 'pages.needMoreInformationConfirmChangeDetails.content.formRadioButtons.continueToServiceHint' | translate }
       }
     %}
-    {% if pageContext.journeyType == "repeatFraudCheck" %}
-      {% set radioItems = [ passport, returnToRp] %}
-    {% elif pageContext.journeyType == "updateDetails" %}
-      {% set radioItems = [ continueToService, passport] %}
+    {% if pageContext.isIdentityValid %}
+      {% set radioItems = [ continueToService, passport ] %}
+    {% else %}
+      {% set radioItems = [ passport, returnToRp ] %}
     {% endif %}
   {% endif %}
 

@@ -189,10 +189,6 @@ export const pagesAndContexts: PagesAndContexts = {
     { identityValid: { isIdentityValid: true } },
     { identityInvalid: { isIdentityValid: false } },
   ],
-  "need-more-information-confirm-change-details-v2": [
-    { identityValid: { isIdentityValid: true } },
-    { identityInvalid: { isIdentityValid: false } },
-  ],
   "we-matched-you-to-your-one-login": [],
   "you-can-change-security-code-method": [],
 };

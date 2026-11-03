@@ -48,6 +48,8 @@ const INCONSISTENT_TRANSLATION_WHITELIST = new Set([
   "has not expired",
   "has a biometric chip",
   "you have a smartphone",
+  "You can use a UK passport up to 18 months after its expiry date",
+  "Find out if there are other ways to access the service",
 ]);
 
 // Keys used by the @govuk-one-login/frontend-ui base template (ipv-core-base.njk)

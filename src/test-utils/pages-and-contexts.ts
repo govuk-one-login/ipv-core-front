@@ -45,7 +45,8 @@ export const pagesAndContexts: PagesAndContexts = {
   "non-uk-app-intro": [],
   "non-uk-no-app": [],
   "page-dcmaw-success": [
-    { coiNoAddress: { noAddress: true } },
+    { noAddress: { journeyType: "noAddress" } },
+    { addressOnly: { journeyType: "addressOnly" } },
     NO_CONTEXT_VARIANT,
   ],
   "page-face-to-face-handoff": [],

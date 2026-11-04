@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% set pageTitleKey = 'pages.pyiContinueWithDrivingLicence.title' %}
 {% set googleTagManagerPageId = "pyiContinueWithDrivingLicence" %}
 
@@ -15,16 +16,10 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithDrivingLicence.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiContinueWithDrivingLicence.content.paragraph1' | translate }}</p>
-  <details class="govuk-details">
-    <summary class="govuk-details__summary">
-        <p class="govuk-!-margin-0 govuk-details__summary-text">
-          {{ 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.label' | translate }}
-        </p>
-    </summary>
-      <div class="govuk-details__text">
-        {{ 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.html' | translate | safe  }}
-      </div>
-  </details>
+  {{ govukDetails({
+    summaryText: 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.label' | translate,
+    html: 'pages.pyiContinueWithDrivingLicence.content.whyYouNeedAUkDrivingLicenceDetails.html' | translate | safe
+  }) }}
 
   <form id="pyiContinueWithDrivingLicenceForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

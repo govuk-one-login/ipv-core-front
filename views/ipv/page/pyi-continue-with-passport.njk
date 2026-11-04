@@ -1,6 +1,7 @@
 {% extends "shared/base.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% set pageTitleKey = 'pages.pyiContinueWithPassport.title' %}
 {% set googleTagManagerPageId = "pyiContinueWithPassport" %}
 
@@ -15,16 +16,10 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithPassport.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiContinueWithPassport.content.paragraph1' | translate }}</p>
-  <details class="govuk-details">
-    <summary class="govuk-details__summary">
-        <p class="govuk-!-margin-0 govuk-details__summary-text">
-          {{ 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.label' | translate }}
-        </p>
-    </summary>
-      <div class="govuk-details__text">
-        {{ 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.html' | translate | safe  }}
-      </div>
-  </details>
+{{ govukDetails({
+    summaryText: 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.label' | translate,
+    html: 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.html' | translate | safe
+  }) }}
 
   <form id="pyiContinueWithPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

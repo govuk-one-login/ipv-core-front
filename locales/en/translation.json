@@ -784,13 +784,11 @@
     "pageDcmawSuccess": {
       "title": "We’ve successfully matched you to the photo on your ID",
       "titleNoAddress": "You’ve given us your new name",
-      "titleAddressOnly": "We’ve successfully matched you to the photo on your ID",
       "header": "We’ve successfully matched you to the photo on your ID",
       "headerNoAddress": "You’ve given us your new name",
       "content": {
         "paragraph1": "You’ll need to enter your current home address (and previous address, if you’ve recently moved) when you continue.",
-        "paragraph1NoAddress": "We’ll need to check your details when you continue.",
-        "paragraph1AddressOnly": "We’ll need to check your details when you continue."
+        "paragraph1NoAddress": "We’ll need to check your details when you continue."
       }
     },
     "confirmDetails": {

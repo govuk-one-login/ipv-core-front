@@ -1587,6 +1587,7 @@
       "header": "Mae’n ddrwg gennyf, mae problem dechnegol",
       "content": {
         "p1": "Mae yna broblem gyda GOV.UK One Login.",
+        "p1fraudCriError": "Nid oeddem yn gallu gwirio eich manylion.",
         "subHeading1": "Beth allwch chi ei wneud",
         "p2": "Gallwch roi cynnig arall.",
         "p3": "Gallwch hefyd brofi eich hunaniaeth gyda’r ap GOV.UK One Login.",

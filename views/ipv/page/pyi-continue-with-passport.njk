@@ -16,10 +16,16 @@
 {% block content %}
   <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.pyiContinueWithPassport.header' | translate }}</h1>
   <p class="govuk-body">{{ 'pages.pyiContinueWithPassport.content.paragraph1' | translate }}</p>
-{{ govukDetails({
-    summaryText: 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.label' | translate,
-    html: 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.html' | translate | safe
-  }) }}
+
+    {% set detailsHtml %}
+      <p class="govuk-body">{{ 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.paragraph1' | translate }}</p>
+      <p class="govuk-body">{{ 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.paragraph2' | translate }}</p>
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: 'pages.pyiContinueWithPassport.content.whyYouNeedAUkPassportDetails.label' | translate,
+      html: detailsHtml
+    }) }}
 
   <form id="pyiContinueWithPassportForm" action="/ipv/page/{{ pageId }}" method="POST">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">

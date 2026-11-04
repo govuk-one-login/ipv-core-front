@@ -484,7 +484,8 @@
         "paragraph1": "Gallwch ddefnyddio pasbort y DU hyd at 18 mis ar ôl iddo ddod i ben.",
         "whyYouNeedAUkPassportDetails": {
           "label": "Pam ydych chi angen pasbort y DU",
-          "html": "<p class=\"govuk-body\">Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.</p><p class=\"govuk-body\"> Am resymau diogelwch, dim ond os oes gennych basbort y DU y gallwch brofi eich hunaniaeth.</p>"
+          "paragraph1": "Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.",
+          "paragraph2": "Am resymau diogelwch, dim ond os oes gennych basbort y DU y gallwch brofi eich hunaniaeth."
         },
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {
@@ -533,7 +534,8 @@
         "paragraph1": "Gall fod yn drwydded lawn neu dros dro",
         "whyYouNeedAUkDrivingLicenceDetails": {
           "label": "Pam ydych chi angen trwydded yrru’r DU",
-          "html": "<p class=\"govuk-body\">Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.</p><p class=\"govuk-body\"> Am resymau diogelwch, dim ond os oes gennych drwydded yrru cerdyn-llun y DU y gallwch brofi eich hunaniaeth.</p>"
+          "paragraph1": "Roedd problem pan wnaethoch chi geisio profi eich hunaniaeth ddiwethaf.",
+          "paragraph2": "Am resymau diogelwch, dim ond os oes gennych drwydded yrru cerdyn-llun y DU y gallwch brofi eich hunaniaeth."
         },
         "subHeading": "Beth hoffech chi ei wneud?",
         "formRadioButtons": {

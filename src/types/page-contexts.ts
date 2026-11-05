@@ -9,6 +9,7 @@ type PageContextMap = {
   "no-photo-id-abandon-find-another-way": { isOpenBanking: boolean };
   "no-photo-id-web-find-another-way": { reason: string };
   "page-dcmaw-success": { noAddress: boolean };
+  "page-dcmaw-success-v2": { journeyType: string };
   "page-ipv-success": { journeyType: string };
   "page-multiple-doc-check": { allowNino: boolean };
   "page-pre-experian-kbv-transition": { isDwpDropout: boolean };

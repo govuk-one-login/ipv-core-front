@@ -681,6 +681,18 @@
         "paragraph1NoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
       }
     },
+    "pageDcmawSuccessV2": {
+      "title": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "titleNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "titleAddressOnly": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "header": "Rydym wedi llwyddo i’ch paru chi â’r ID gyda llun",
+      "headerNoAddress": "Rydych wedi rhoi eich enw newydd i ni",
+      "content": {
+        "paragraph1": "Byddwch angen rhoi eich cyfeiriad cartref presennol (a’ch cyfeiriad blaenorol, os ydych chi wedi symud yn ddiweddar) pan fyddwch yn parhau.",
+        "paragraph1NoAddress": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau.",
+        "paragraph1AddressOnly": "Bydd angen i ni wirio eich manylion pan fyddwch yn parhau."
+      }
+    },
     "updateNameDateBirth": {
       "title": "Diweddaru eich enw llawn neu ddyddiad geni",
       "titleReuse": "Ni allwch ddiweddaru eich enw llawn neu ddyddiad geni",

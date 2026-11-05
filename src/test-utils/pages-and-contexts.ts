@@ -48,6 +48,11 @@ export const pagesAndContexts: PagesAndContexts = {
     { coiNoAddress: { noAddress: true } },
     NO_CONTEXT_VARIANT,
   ],
+  "page-dcmaw-success-v2": [
+    { noAddress: { journeyType: "noAddress" } },
+    { addressOnly: { journeyType: "addressOnly" } },
+    NO_CONTEXT_VARIANT,
+  ],
   "page-face-to-face-handoff": [],
   "page-ipv-identity-document-start": [],
   "page-ipv-identity-document-types": [],

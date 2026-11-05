@@ -3,10 +3,11 @@ import { processAction } from "../ipv/middleware";
 import * as CoreBackService from "../../services/coreBackService";
 import { RequestHandler } from "express";
 import ipvPages from "../../constants/ipv-pages";
+import BadRequestError from "../../errors/bad-request-error";
 
 export const checkMobileAppDetails: RequestHandler = async (req, res) => {
   if (!req.query?.state) {
-    throw new Error("Missing state query param");
+    throw new BadRequestError("Missing state query param");
   }
 
   const body: MobileAppCallbackRequest = {

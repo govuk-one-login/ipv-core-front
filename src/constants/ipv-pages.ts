@@ -22,6 +22,7 @@ const IPV_PAGES = Object.freeze({
   NO_PHOTO_ID_EXIT_FIND_ANOTHER_WAY: "no-photo-id-exit-find-another-way",
   NO_PHOTO_ID_WEB_FIND_ANOTHER_WAY: "no-photo-id-web-find-another-way",
   PAGE_DCMAW_SUCCESS: "page-dcmaw-success",
+  PAGE_DCMAW_SUCCESS_V2: "page-dcmaw-success-v2",
   PAGE_DIFFERENT_SECURITY_QUESTIONS: "page-different-security-questions",
   PAGE_FACE_TO_FACE_HANDOFF: "page-face-to-face-handoff",
   PAGE_IPV_IDENTITY_DOCUMENT_START: "page-ipv-identity-document-start",

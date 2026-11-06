@@ -44,11 +44,8 @@
 {% block content %}
     <h1 class="govuk-heading-l" id="header" data-page="{{ googleTagManagerPageId }}">{{ 'pages.sorryTechnicalProblem.header' | translate }}</h1>
 
-    {% if pageContext.reason == "fraudCriError" %}
-        <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p1fraudCriError' | translate }}</p>
-    {% else %}
-        <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p1' | translate }}</p>
-    {% endif %}
+      <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p1' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
+
 
     {% set showWhatYouCanDo = not pageContext or pageContext.reason != 'fraudCriError' %}
     {% if showWhatYouCanDo %}

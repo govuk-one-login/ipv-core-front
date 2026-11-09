@@ -174,6 +174,7 @@ export const pagesAndContexts: PagesAndContexts = {
     { kbvCriError: { reason: "kbvCriError" } },
     { dlOrPassportMitigation: { reason: "dlOrPassportMitigation" } },
     { kbvMitigation: { reason: "kbvMitigation" } },
+    { fraudCriError: { reason: "fraudCriError" } },
     NO_CONTEXT_VARIANT,
   ],
   "update-details-failed": [

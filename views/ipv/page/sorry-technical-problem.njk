@@ -52,7 +52,7 @@
         <h2 class="govuk-heading-m">{{ 'pages.sorryTechnicalProblem.content.subHeading1' | translate }}</h2>
         <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p2' | translate }}</p>
 
-        {% if not pageContext or (pageContext.reason != "dlOrPassportMitigation") %}
+        {% if not pageContext or (pageContext.reason != 'dlOrPassportMitigation') %}
             <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p3' | translate }}</p>
 
             {{ govukDetails({
@@ -61,7 +61,7 @@
                 id: 'whatsNeededToUseTheApp'
             }) }}
 
-            {% if not pageContext or (pageContext.reason != "kbvMitigation") %}
+            {% if not pageContext or (pageContext.reason != 'kbvMitigation') %}
                 <p class="govuk-body">{{ 'pages.sorryTechnicalProblem.content.p4' | translateWithPageContextOrFallback(pageContext, 'reason') }}</p>
             {% endif %}
 
@@ -91,7 +91,7 @@
         {% if pageContext %}
             {% if pageContext.reason == 'kbvMitigation' %}
                 {% set initialRadioOptions = initialRadioOptions.concat([{
-                    divider: "or"
+                    divider: 'or'
                 }]) %}
             {% elif pageContext.reason == 'f2fCriError' %}
                 {% set initialRadioOptions = initialRadioOptions.concat([
@@ -101,9 +101,9 @@
                     hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.webRouteHint' | translate }
                 },
                 {
-                    divider: "or"
+                    divider: 'or'
                 }]) %}
-            {% elif pageContext.reason == "kbvCriError" %}
+            {% elif pageContext.reason == 'kbvCriError' %}
                 {% set initialRadioOptions = initialRadioOptions.concat([
                 {
                     value: "postOffice",
@@ -111,7 +111,7 @@
                     hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translateWithPageContext(pageContext, 'reason') }
                 },
                 {
-                    divider: "or"
+                    divider: 'or'
                 }]) %}
             {% endif %}
         {% else %}
@@ -122,7 +122,7 @@
                 hint: { text: 'pages.sorryTechnicalProblem.content.formRadioButtons.postOfficeHint' | translate }
             },
             {
-                divider: "or"
+                divider: 'or'
             }]) %}
         {% endif %}
 

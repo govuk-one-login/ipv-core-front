@@ -4,38 +4,45 @@ Feature: Account Interventions IPV core E2E Tests
   I want the Account Intervention Service to gate my journey appropriately
   So that my account is protected when interventions apply
 
-  Background:
-    Given the user starts a new journey
-
   @Build @QualityGateRegressionTest
   Scenario: AIS states - with no interventions the journey completes successfully
-    Given the AIS API will return an 'AIS_NO_INTERVENTION' result
+    Given the user starts a new journey
+    And the AIS API will return an 'AIS_NO_INTERVENTION' result
     And the user is from the UK
     And the user has valid photo ID for the app
     And the user is on a smartphone
     And the user has an iphone
-    When the user completes the app journey successfully
+    When the user completes the app check successfully
     And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
     And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
     And the user continues to the RP after successfully proving their identity
     Then the user should have a 'P2' identity
 
   @Build @QualityGateRegressionTest
-  Scenario: AIS states - error returned to orchestration when account is suspended
+  Scenario: AIS states - account suspension is detected after identity checks
+    Given the user starts a new journey
     # Configure after journey start to exercise the subsequent AIS check.
-    Given the AIS API will return an 'AIS_ACCOUNT_SUSPENDED' result
+    And the AIS API will return an 'AIS_ACCOUNT_SUSPENDED' result
     And the user is from the UK
     And the user has valid photo ID for the app
     And the user is on a smartphone
     And the user has an iphone
-    When the user completes the app journey successfully
+    When the user completes the app check successfully
     And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
     And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
     Then the error response is sent to orchestration
     And the error 'session_invalidated' with description 'Account intervention detected' is shown
 
+  @Build @QualityGateRegressionTest
+  Scenario: AIS states - account suspension is returned to orchestration at journey start
+    Given the AIS API will return an 'AIS_ACCOUNT_SUSPENDED' result before the journey starts
+    When the user starts a new journey
+    Then the error response is sent to orchestration
+    And the error 'session_invalidated' with description 'Account intervention detected' is shown
+
   @Build @PYIC-4048 @QualityGateRegressionTest
   Scenario: AIS states - reprove identity is requested for a completed web journey
+    Given the user starts a new journey
     And the user is from the UK
     And the user has valid photo ID for the app
     And the user is on a computer or tablet

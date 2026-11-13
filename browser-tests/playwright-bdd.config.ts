@@ -10,7 +10,7 @@ defineBddConfig({
 // In CI (pipelines) run headless with no slowdown.
 // Locally, run headed with a 1-second delay between actions so journeys are
 // easy to follow in the browser.
-const isCI = Boolean(process.env.CI);
+const isCI = Boolean(process.env.CI || process.env.CODEBUILD_BUILD_ID);
 const headless = isCI;
 const slowMo = isCI ? 0 : 1000;
 

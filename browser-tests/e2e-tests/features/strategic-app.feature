@@ -11,7 +11,7 @@ Feature: StrategicApp
     And the user has valid photo ID for the app
     And the user is on a smartphone
     And the user has an iphone
-    When the user completes the app journey successfully
+    When the user completes the app check successfully
     And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
     And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
     And the user continues to the RP after successfully proving their identity

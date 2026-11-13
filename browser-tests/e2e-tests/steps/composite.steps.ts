@@ -14,7 +14,7 @@ import { selectSmartphone } from "./ipv-page-steps/pyi-triage-select-smartphone.
 const { Given, When } = createBdd(fixtures);
 
 When(
-  "the user completes the app journey successfully",
+  "the user completes the app check successfully",
   async ({ page, pageUtils, scenarioContext }) => {
     const userId = scenarioContext.userId;
     if (!userId) {

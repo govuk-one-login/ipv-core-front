@@ -4,6 +4,14 @@ import { configureAisIntervention } from "../clients/ais-management-client";
 
 const { Given, When } = createBdd(fixtures);
 
+Given(
+  "the AIS API will return an {string} result before the journey starts",
+  async ({ orchStubUtils }, intervention: string): Promise<void> => {
+    const userId = await orchStubUtils.prepareUserId();
+    await configureAisIntervention(userId, intervention);
+  },
+);
+
 /** Requires a started journey to provide the current user ID. */
 Given(
   "the AIS API will return an {string} result",

@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
+import { resolve } from "node:path";
 
-dotenv.config({ path: "e2e-tests/.env" });
+dotenv.config({ path: resolve(__dirname, "../.env") });
 
 const getEnvironmentVariableOrError = (variable: string): string => {
   const value = process.env[variable];
@@ -39,6 +40,10 @@ const config = {
     ),
     managementApiKey: getEnvironmentVariableOrError("CIMIT_MANAGEMENT_API_KEY"),
   },
+  aisManagementUrl: getEnvironmentVariableOrDefault(
+    "AIS_MANAGEMENT_URL",
+    "https://ais.stubs.account.gov.uk/management/user/",
+  ),
 };
 
 export default config;

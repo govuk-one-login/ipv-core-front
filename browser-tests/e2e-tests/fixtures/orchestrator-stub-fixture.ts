@@ -35,6 +35,7 @@ export const orchestratorStubUtils = (
     const journeyId = generateJourneyId();
     await page.locator(JOURNEY_ID_INPUT).fill(journeyId);
     console.info(`--- Starting journey with journey ID: ${journeyId} ---`);
+    console.info(`--- User ID: ${userId} ---`);
 
     await page.locator(ENV_SELECTOR).selectOption(config.orchStubTargetEnv);
     await page.locator(FULL_JOURNEY_BUTTON).click();
@@ -46,12 +47,12 @@ export const orchestratorStubUtils = (
       .filter({ hasText: "Raw User Info Object" })
       .click();
 
-    await expect(page.locator(".govuk-details__text").first()).toContainText(
-      `"${expectedVot}"`,
-      {
-        timeout: 10000,
-      },
-    );
+    const rawUserInfo = await page
+      .locator(".govuk-details__text")
+      .first()
+      .innerText();
+    const userInfo = JSON.parse(rawUserInfo) as { vot?: string };
+    expect(userInfo.vot).toBe(expectedVot);
   };
 
   return {

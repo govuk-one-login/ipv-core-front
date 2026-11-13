@@ -14,6 +14,15 @@ Then(
   },
 );
 
+Then(
+  "the page heading should be {string}",
+  async ({ page }, heading: string) => {
+    await expect(
+      page.getByRole("heading", { level: 1, name: heading, exact: true }),
+    ).toBeVisible();
+  },
+);
+
 When("the user chooses to continue", async ({ pageUtils }) => {
   await pageUtils.getContinueButton().click();
 });

@@ -115,7 +115,6 @@ export const pagesAndContexts: PagesAndContexts = {
   "pyi-continue-with-driving-licence": [],
   "pyi-continue-with-passport": [],
   "pyi-driving-licence-no-match-another-way": [],
-  "pyi-driving-licence-no-match": [],
   "pyi-escape": [],
   "pyi-f2f-technical": [],
   "pyi-no-match": [
@@ -127,7 +126,6 @@ export const pagesAndContexts: PagesAndContexts = {
     NO_CONTEXT_VARIANT,
   ],
   "pyi-passport-no-match-another-way": [],
-  "pyi-passport-no-match": [],
   "pyi-post-office": [],
   "pyi-technical": [
     { unrecoverable: { isUnrecoverable: true } },

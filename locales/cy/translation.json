@@ -370,14 +370,6 @@
         "escapeLinkText": "Nid wyf eisiau sganio fy nhrwydded eto"
       }
     },
-    "pyiDrivingLicenceNoMatch": {
-      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
-      "content": {
-        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio’ch manylion trwydded yrru cerdyn-llun y DU ddiwethaf.",
-        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
-      }
-    },
     "pyiDrivingLicenceNoMatchAnotherWay": {
       "title": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
       "header": "Mae’n ddrwg gennym, bydd angen i chi brofi eich hunaniaeth mewn ffordd arall",
@@ -500,14 +492,6 @@
           "errorSummaryDescriptionText": "Dewiswch beth hoffech chi ei wneud",
           "errorRadioMessage": "Dewiswch beth hoffech chi ei wneud"
         }
-      }
-    },
-    "pyiPassportNoMatch": {
-      "title": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
-      "header": "Mae’n ddrwg gennym, ni oeddem yn gallu cadarnhau eich hunaniaeth",
-      "content": {
-        "paragraph1": "Nid oeddem yn gallu dod o hyd i wybodaeth sy’n cyfateb pan wnaethom wirio’ch manylion pasbort y DU ddiwethaf.",
-        "paragraph2": "Bydd angen i chi brofi eich hunaniaeth mewn ffordd arall."
       }
     },
     "pyiPassportNoMatchAnotherWay": {

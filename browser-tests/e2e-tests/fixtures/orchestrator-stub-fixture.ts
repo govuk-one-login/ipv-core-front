@@ -3,6 +3,7 @@ import { expect, Page } from "@playwright/test";
 import { ScenarioContext } from "./index";
 
 export interface OrchestratorStubUtils {
+  prepareUserId: () => Promise<string>;
   startJourney: () => Promise<void>;
   expectVot: (expectedVot: string) => Promise<void>;
 }
@@ -20,7 +21,7 @@ export const orchestratorStubUtils = (
   const generateJourneyId = (): string =>
     `${testName.replaceAll(" ", "_")}-${Math.random().toString(36).slice(2, 7)}`;
 
-  const startJourney = async (): Promise<void> => {
+  const prepareUserId = async (): Promise<string> => {
     await page.goto(config.orchestratorStubUrl);
 
     let userId = scenarioContext.userId;
@@ -31,10 +32,15 @@ export const orchestratorStubUtils = (
       scenarioContext.userId = userId;
     }
     expect(userId).toBeTruthy();
+    return userId;
+  };
 
+  const startJourney = async (): Promise<void> => {
+    const userId = await prepareUserId();
     const journeyId = generateJourneyId();
     await page.locator(JOURNEY_ID_INPUT).fill(journeyId);
     console.info(`--- Starting journey with journey ID: ${journeyId} ---`);
+    console.info(`--- User ID: ${userId} ---`);
 
     await page.locator(ENV_SELECTOR).selectOption(config.orchStubTargetEnv);
     await page.locator(FULL_JOURNEY_BUTTON).click();
@@ -46,15 +52,16 @@ export const orchestratorStubUtils = (
       .filter({ hasText: "Raw User Info Object" })
       .click();
 
-    await expect(page.locator(".govuk-details__text").first()).toContainText(
-      `"${expectedVot}"`,
-      {
-        timeout: 10000,
-      },
-    );
+    const rawUserInfo = await page
+      .locator(".govuk-details__text")
+      .first()
+      .innerText();
+    const userInfo = JSON.parse(rawUserInfo) as { vot?: string };
+    expect(userInfo.vot).toBe(expectedVot);
   };
 
   return {
+    prepareUserId,
     startJourney,
     expectVot,
   };

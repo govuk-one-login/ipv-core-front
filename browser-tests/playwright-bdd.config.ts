@@ -7,6 +7,13 @@ defineBddConfig({
   steps: ["e2e-tests/steps/**/*.ts", "e2e-tests/fixtures/**/*.ts"],
 });
 
+// In CI (pipelines) run headless with no slowdown.
+// Locally, run headed with a 1-second delay between actions so journeys are
+// easy to follow in the browser.
+const isCI = Boolean(process.env.CI || process.env.CODEBUILD_BUILD_ID);
+const headless = isCI;
+const slowMo = isCI ? 0 : 1000;
+
 // Export Playwright configuration for BDD tests
 const testReportDirectory = process.env.TEST_REPORT_ABSOLUTE_DIR || "reports";
 const testArtifactsDirectory =
@@ -25,14 +32,16 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        headless: true,
+        headless,
+        slowMo,
       },
     },
   ],
   timeout: 90 * 1000,
   use: {
     baseURL: process.env?.WEBSITE_HOST || "http://localhost:4601",
-    headless: true,
+    headless,
+    slowMo,
   },
   expect: {
     timeout: 40 * 1000,

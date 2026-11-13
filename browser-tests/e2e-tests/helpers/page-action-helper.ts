@@ -1,8 +1,8 @@
-import { PageName } from "../../../src/test-utils/pages-and-contexts";
+import { DevTemplatePages } from "../../../src/test-utils/pages-and-contexts";
 import { PageUtils } from "../fixtures/pages-fixture";
 
 interface PageAction {
-  page: PageName;
+  page: DevTemplatePages;
   selectRadio?: string;
   action?: ({ pageUtils }: { pageUtils: PageUtils }) => Promise<void>;
 }

@@ -22,6 +22,7 @@ Feature: Account Interventions IPV core E2E Tests
 
   @Build @QualityGateRegressionTest
   Scenario: AIS states - error returned to orchestration when account is suspended
+    # Configure after journey start to exercise the subsequent AIS check.
     Given the AIS API will return an 'AIS_ACCOUNT_SUSPENDED' result
     And the user is from the UK
     And the user has valid photo ID for the app

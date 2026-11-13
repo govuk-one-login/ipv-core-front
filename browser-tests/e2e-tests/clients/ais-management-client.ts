@@ -1,21 +1,5 @@
-/**
- * Client for the AIS (Account Intervention Service) management stub API.
- *
- * POSTs an intervention type to the AIS management endpoint keyed on the userId:
- *   POST {AIS_MANAGEMENT_URL}/{userId}
- *   Body: { "intervention": "<AIS_INTERVENTION_TYPE>" }
- */
-
 import config from "../config";
 
-/**
- * Configures the AIS stub to return the given intervention type for the specified user.
- *
- * @param userId       - The user ID captured from the orchestrator stub at journey start.
- * @param intervention - e.g. 'AIS_NO_INTERVENTION', 'AIS_ACCOUNT_SUSPENDED',
- *                       'AIS_FORCED_USER_IDENTITY_VERIFY', etc.
- * @throws if the AIS stub returns a non-200 status or a non-"Success" message.
- */
 export const configureAisIntervention = async (
   userId: string,
   intervention: string,

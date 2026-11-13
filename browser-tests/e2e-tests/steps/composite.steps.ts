@@ -1,12 +1,40 @@
 import { createBdd } from "playwright-bdd";
 import fixtures from "../fixtures";
-import { enqueueVcWithScenario } from "../clients/dcmaw-async-client";
+import {
+  enqueueVc,
+  enqueueVcWithScenario,
+} from "../clients/dcmaw-async-client";
+import config from "../config";
+import { performPageAction } from "../helpers/page-action-helper";
 import { selectResidenceLocation } from "./ipv-page-steps/live-in-uk.steps";
 import { selectPhotoIdAvailability } from "./ipv-page-steps/page-ipv-identity-document-start.steps";
 import { selectDevice } from "./ipv-page-steps/pyi-triage-select-device.steps";
 import { selectSmartphone } from "./ipv-page-steps/pyi-triage-select-smartphone.steps";
 
-const { Given } = createBdd(fixtures);
+const { Given, When } = createBdd(fixtures);
+
+When(
+  "the user completes the app journey successfully",
+  async ({ page, pageUtils, scenarioContext }) => {
+    const userId = scenarioContext.userId;
+    if (!userId) {
+      throw new Error("Missing userId");
+    }
+
+    const oauthState = await enqueueVc(
+      userId,
+      "kennethD",
+      "ukChippedPassport",
+      "success",
+    );
+    scenarioContext.oauthState = oauthState;
+
+    await page.goto(`${config.coreFrontUrl}/app/callback?state=${oauthState}`);
+    await pageUtils.expectPage("check-mobile-app-result");
+    await pageUtils.waitForContinueButtonToBeEnabledThenContinue(15);
+    await performPageAction({ page: "page-dcmaw-success" }, { pageUtils });
+  },
+);
 
 Given(
   "the user completes an initial P2 identity journey with expired Alice Parker details",

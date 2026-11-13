@@ -11,12 +11,7 @@ Feature: StrategicApp
     And the user has valid photo ID for the app
     And the user is on a smartphone
     And the user has an iphone
-    When the user submits 'kennethD' 'ukChippedPassport' 'success' details to the app
-    And the user returns from the app to core-front
-    Then the user should see the 'check-mobile-app-result' page
-    And the continue button should be enabled within 15 seconds
-    When the user chooses to continue
-    And the user acknowledges they have successfully completed the app
+    When the user completes the app journey successfully
     And the user submits 'kenneth-decerqueira-valid' 'address' details to the CRI
     And the user submits 'kenneth-decerqueira-valid' 'fraud' details to the CRI
     And the user continues to the RP after successfully proving their identity

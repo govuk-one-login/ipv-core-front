@@ -1,7 +1,6 @@
 /**
  * Client for the AIS (Account Intervention Service) management stub API.
  *
- * Mirrors the behaviour of the Java AISSteps.configureAisResponse method, which
  * POSTs an intervention type to the AIS management endpoint keyed on the userId:
  *   POST {AIS_MANAGEMENT_URL}/{userId}
  *   Body: { "intervention": "<AIS_INTERVENTION_TYPE>" }

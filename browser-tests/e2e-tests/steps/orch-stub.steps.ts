@@ -66,6 +66,25 @@ Then(
 );
 
 Then(
+  "the error response is sent to orchestration",
+  async ({ page }): Promise<void> => {
+    await expect(page.locator("h3").first()).toContainText(
+      "Something went wrong:",
+    );
+  },
+);
+
+Then(
+  "the error {string} with description {string} is shown",
+  async ({ page }, error: string, errorDescription: string): Promise<void> => {
+    await expect(page.locator("#error-code")).toContainText(error);
+    await expect(page.locator("#error-description")).toContainText(
+      errorDescription,
+    );
+  },
+);
+
+Then(
   "the following user credentials are passed to the oauth client",
   async ({ page }, credentialsTable: DataTable) => {
     await page

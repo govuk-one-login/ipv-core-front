@@ -61,9 +61,12 @@ Then(
   "the error response is sent to orchestration",
   async ({ page }): Promise<void> => {
     // The orch stub error page renders an h3 with "Something went wrong:"
-    await expect(page.locator("h3").first()).toContainText("Something went wrong:", {
-      timeout: 10000,
-    });
+    await expect(page.locator("h3").first()).toContainText(
+      "Something went wrong:",
+      {
+        timeout: 10000,
+      },
+    );
   },
 );
 
@@ -120,9 +123,12 @@ When(
   "the user lands on the reprove identity start page and continues",
   async ({ page, pageUtils }): Promise<void> => {
     await pageUtils.expectPage("reprove-identity-start");
-    await expect(page.locator("h1")).toContainText("You need to prove your identity", {
-      timeout: 10000,
-    });
+    await expect(page.locator("h1")).toContainText(
+      "You need to prove your identity",
+      {
+        timeout: 10000,
+      },
+    );
     await pageUtils.getContinueButton().click();
   },
 );

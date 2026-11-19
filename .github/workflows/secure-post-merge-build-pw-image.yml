@@ -34,7 +34,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: E2E test image build and push
-        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        uses: govuk-one-login/devplatform-upload-action-ecr@ff8f2582dca8f03810142612ac7734c66c1b3345 # v1.7.2
         with:
           artifact-bucket-name: ""
           container-sign-kms-key-arn: ${{ secrets.CONTAINER_SIGN_KMS_KEY_DEV }}

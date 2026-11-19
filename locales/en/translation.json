@@ -370,14 +370,6 @@
         "escapeLinkText": "I do not want to scan my licence again"
       }
     },
-    "pyiDrivingLicenceNoMatch": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
-      "content": {
-        "paragraph1": "We could not find a match when we last checked your UK photocard driving licence details.",
-        "paragraph2": "You’ll need to prove your identity another way."
-      }
-    },
     "pyiDrivingLicenceNoMatchAnotherWay": {
       "title": "Sorry, you’ll need to prove your identity another way",
       "header": "Sorry, you’ll need to prove your identity another way",
@@ -470,14 +462,6 @@
           "errorSummaryDescriptionText": "Select what you would like to do",
           "errorRadioMessage": "Select what you would like to do"
         }
-      }
-    },
-    "pyiPassportNoMatch": {
-      "title": "Sorry, we could not confirm your identity",
-      "header": "Sorry, we could not confirm your identity",
-      "content": {
-        "paragraph1": "We could not find a match when we last checked your UK passport details.",
-        "paragraph2": "You’ll need to prove your identity another way."
       }
     },
     "pyiPassportNoMatchAnotherWay": {

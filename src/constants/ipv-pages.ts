@@ -51,13 +51,11 @@ const IPV_PAGES = Object.freeze({
   PYI_ATTEMPT_RECOVERY: "pyi-attempt-recovery",
   PYI_CONTINUE_WITH_DRIVING_LICENCE: "pyi-continue-with-driving-licence",
   PYI_CONTINUE_WITH_PASSPORT: "pyi-continue-with-passport",
-  PYI_DRIVING_LICENCE_NO_MATCH: "pyi-driving-licence-no-match",
   PYI_DRIVING_LICENCE_NO_MATCH_ANOTHER_WAY:
     "pyi-driving-licence-no-match-another-way",
   PYI_ESCAPE: "pyi-escape",
   PYI_F2F_TECHNICAL: "pyi-f2f-technical",
   PYI_NO_MATCH: "pyi-no-match",
-  PYI_PASSPORT_NO_MATCH: "pyi-passport-no-match",
   PYI_PASSPORT_NO_MATCH_ANOTHER_WAY: "pyi-passport-no-match-another-way",
   PYI_POST_OFFICE: "pyi-post-office",
   PYI_TECHNICAL: "pyi-technical",

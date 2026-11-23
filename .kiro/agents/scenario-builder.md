@@ -28,4 +28,3 @@ Your sole responsibility is to translate raw business requirements (Jira tickets
 - Use explicit tag structures (e.g., `@automation`, `@regression`, `@ticket-id`).
 - If requirements are ambiguous, declare the ambiguity clearly in a comment block within the generated `.feature` file rather than hallucinating intent.
 - Do not output meta-announcements or conversational text before writing the file.
-Message Aleem Riaz

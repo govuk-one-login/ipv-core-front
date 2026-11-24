@@ -100,6 +100,25 @@ No scenario may rely on state left by a preceding scenario (e.g. shared mutable 
 ### R8 — Test data hygiene
 Any persona or CRI stub data referenced in the feature file (e.g. `'kenneth-decerqueira-valid'`) must have a corresponding entry in `data/cri-stub-data.ts`. An undefined reference is a FAIL.
 
+### R9 — Dependency changes (Informational)
+  
+  **This rule is informational only and never causes a FAIL verdict.**
+  
+  Track any changes to dependencies in `browser-tests/package.json` to keep the team aware of additions, updates, or removals in the test suite dependencies.
+  
+  **Check method:**
+  1. Compare current `browser-tests/package.json` against the base branch (main) or last commit
+  2. Detect:
+      - **New dependencies** added to `dependencies` or `devDependencies`
+      - **Removed dependencies**
+      - **Version changes** (upgrades/downgrades)
+  3. Report all changes in the audit output
+  
+  **Result:**
+  - Always PASS (informational only)
+  - Changes are listed in an INFO section of the report
+  - If no changes detected, report as "INFO (no changes)"
+
 ---
 
 ## Output format
@@ -122,6 +141,7 @@ Print the audit report to the terminal exactly as follows. Do not write any file
   R6  Step reuse ..................... PASS
   R7  Scenario independence ........... PASS
   R8  Test data hygiene .............. PASS
+  R9  Dependency changes ............. INFO
 
 ──────────────────────────────────────────
   VERDICT: ✅ ALL CHECKS PASSED

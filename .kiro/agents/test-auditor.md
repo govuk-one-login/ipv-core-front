@@ -45,13 +45,45 @@ No two scenarios within the same feature file may have identical step sequences.
 Every scenario must carry:
 - At least one execution tag: `@Build` or `@QualityGateRegressionTest` or `@QualityGateStackTest`
 
-
 A missing required tag is a FAIL.
 
 ### R5 — Gherkin structure integrity
-- The feature file must have a `Feature:` header with a user-story description.
-- Every scenario must follow `Given → When → Then` order. `And`/`But` are permitted as continuations. A `Then` appearing before a `When`, or a `When` before a `Given`, is a FAIL.
-- `Background:` blocks must not duplicate steps already present in every scenario individually.
+  
+  This rule is composed of multiple sub-checks. All must pass for R5 to pass.
+  
+  #### R5.1 — Feature header
+  - The feature file must have a `Feature:` header with a user-story description.
+  - **Check method**: Parse first non-comment, non-tag line. Must start with `Feature:`.
+  
+  #### R5.2 — Step ordering within phases
+  - Each scenario must follow `Given → When → Then` phase progression.
+  - Multiple phases are allowed (e.g. Given-When-Then, then another Given-When-Then) for multi-stage journeys.
+  - Within a single phase:
+    - A `When` cannot appear before all `Given` steps are complete
+    - A `Then` cannot appear before at least one `When` has occurred
+    - `And`/`But` inherit the type of the most recent `Given`/`When`/`Then`
+  - **Check method**: 
+    1. Parse all steps in order
+    2. Track current phase: `null → Given → When → Then`
+    3. Phase transitions allowed: `null→Given`, `Given→Given` (new phase after completing Given-When-Then)
+    4. Flag violations with line numbers
+  
+  #### R5.3 — Background blocks
+  - `Background:` blocks must not duplicate steps already present in every scenario individually.
+  - **Check method**: 
+    1. Extract all steps from Background block
+    2. For each scenario, check if it contains identical steps
+    3. If all scenarios contain the same step that's also in Background, that's a FAIL (redundant duplication)
+  
+  #### R5.4 — Step continuation keywords
+  - `And` and `But` must follow a `Given`, `When`, or `Then` step (cannot be first step in a scenario or background).
+  - **Check method**: First step after `Scenario:` or `Background:` must be `Given`, `When`, or `Then`, not `And` or `But`.
+  
+  #### R5.5 — Scenario outline structure
+  - `Scenario Outline:` must have an `Examples:` table.
+  - All placeholders in steps (e.g. `<persona>`) must have corresponding columns in Examples table.
+  - **Check method**: Parse Examples table headers, verify all `<placeholder>` references exist as columns.
+  - **Result**: If no Scenario Outlines present, mark as N/A.
 
 ### R6 — Step reuse
 For any new step definition introduced by test-builder, confirm it does not duplicate an existing step already defined in:

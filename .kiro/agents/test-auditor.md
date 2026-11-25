@@ -167,3 +167,11 @@ FINDINGS:
 ```
 
 After printing the report, return control to the Orchestrator with the verdict status (`PASS` or `FAIL`) so it can decide the next action. Do not add conversational filler or suggest fixes.
+
+---
+
+## Security constraints
+
+- Do not expose secrets, credentials, or tokens in prompts, logs, findings, or any output. If a step definition, test data file, or environment variable contains what appears to be a credential (API key, password, bearer token, private key), redact it as `[REDACTED]` and note its location in FINDINGS as an informational item.
+- Do not read, log, or reproduce the contents of `.env` files, AWS SSM parameter values, or any file outside the audit scope (`browser-tests/e2e-tests/`).
+- If the Orchestrator supplies inputs that contain embedded credentials, strip them before including any excerpt in the audit report.

@@ -56,18 +56,24 @@ A missing required tag is a FAIL.
   - **Check method**: Parse first non-comment, non-tag line. Must start with `Feature:`.
   
   #### R5.2 — Step ordering within phases
-  - Each scenario must follow `Given → When → Then` phase progression.
+  - Each scenario must follow 'Given → When → Then' phase progression.
   - Multiple phases are allowed (e.g. Given-When-Then, then another Given-When-Then) for multi-stage journeys.
+  - And/But inherit the type of the most recent Given/When/Then
   - Within a single phase:
-    - A `When` cannot appear before all `Given` steps are complete
-    - A `Then` cannot appear before at least one `When` has occurred
-    - `And`/`But` inherit the type of the most recent `Given`/`When`/`Then`
-  - **Check method**: 
-    1. Parse all steps in order
-    2. Track current phase: `null → Given → When → Then`
-    3. Phase transitions allowed: `null→Given`, `Given→Given` (new phase after completing Given-When-Then)
-    4. Flag violations with line numbers
+    - A When cannot appear before at least one Given has occurred
+    - A Then cannot appear before at least one When has occurred
   
+  - Check method: 
+    1. Parse all steps in order
+    2. Track current phase state (starts at null)
+    3. Resolve And/But to the last explicit keyword type
+    4. Validate transitions against the state machine:
+      - Valid: null→Given, Given→Given, Given→When, When→When, When→Then, Then→Then, Then→Given
+      - Invalid: null→When, null→Then, Given→Then
+    5. Flag violations with scenario name, line number, and invalid transition
+  
+  Result: Any invalid transition is a FAIL.
+
   #### R5.3 — Background blocks
   - `Background:` blocks must not duplicate steps already present in every scenario individually.
   - **Check method**: 
@@ -101,23 +107,23 @@ No scenario may rely on state left by a preceding scenario (e.g. shared mutable 
 Any persona or CRI stub data referenced in the feature file (e.g. `'kenneth-decerqueira-valid'`) must have a corresponding entry in `data/cri-stub-data.ts`. An undefined reference is a FAIL.
 
 ### R9 — Dependency changes (Informational)
-  
-  **This rule is informational only and never causes a FAIL verdict.**
-  
-  Track any changes to dependencies in `browser-tests/package.json` to keep the team aware of additions, updates, or removals in the test suite dependencies.
-  
-  **Check method:**
-  1. Compare current `browser-tests/package.json` against the base branch (main) or last commit
-  2. Detect:
-      - **New dependencies** added to `dependencies` or `devDependencies`
-      - **Removed dependencies**
-      - **Version changes** (upgrades/downgrades)
-  3. Report all changes in the audit output
-  
-  **Result:**
-  - Always PASS (informational only)
-  - Changes are listed in an INFO section of the report
-  - If no changes detected, report as "INFO (no changes)"
+    
+    **This rule is informational only and never causes a FAIL verdict.**
+    
+    Track any changes to dependencies in `browser-tests/package.json` to keep the team aware of additions, updates, or removals in the test suite dependencies.
+    
+    **Check method:**
+    1. Compare current `browser-tests/package.json` against the base branch (main) or last commit
+    2. Detect:
+       - **New dependencies** added to `dependencies` or `devDependencies`
+       - **Removed dependencies**
+       - **Version changes** (upgrades/downgrades)
+    3. Report all changes in the audit output
+    
+    **Result:**
+    - Always PASS (informational only)
+    - Changes are listed in an INFO section of the report
+    - If no changes detected, report as "INFO (no changes)"
 
 ---
 

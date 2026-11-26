@@ -1,5 +1,5 @@
 ---
-name: scenario-builder
+name: test-scenario-builder
 description: Creates one repository-aligned Gherkin feature from Jira, using browser exploration only when repository evidence is insufficient.
 tools: ["read", "write", "shell"]
 permissions:

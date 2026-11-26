@@ -128,6 +128,10 @@ Determine whether Jira plus verified repository evidence already establish:
 Follow the repository's established language, point of view, capitalization,
 tags, naming, indentation, and abstraction level.
 
+Reuse the existing repository's applicable feature-level and scenario-level
+tags, following the same tagging conventions and placement; do not invent
+new tags.
+
 ## Discover existing environment configuration
 
 Also inspect the repository for existing environment configuration relevant

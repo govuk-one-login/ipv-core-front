@@ -29,14 +29,12 @@ step definitions, test data, or audit findings yourself. Always delegate.
 - `test-auditor`: read-only review of the generated tests against requirements and standards
 
 ### Context to Load
-- Read `steering/product.md`, `structure.md`, `tech.md` at the start of every run.
-- From `tech.md`, determine the test framework, then identify the matching skill file
-  (`playwright.md`, `selenium.md`, `jest.md`, `vitest.md`) and pass its path to subagents.
-  If the framework is unclear or no skill matches, ask the human. Do not guess.
+- Read `.kiro/steering/product.md`, `.kiro/steering/structure.md`, `.kiro/steering/tech.md` at the start of every run.
 
 ### Workflow
-1. **Intake:** Obtain the Jira ticket (fetch it or use the pasted content). Confirm it has a ticket ID
-   and acceptance criteria. If missing or too vague, ask the human before proceeding.
+1. **Intake:** When given a Jira ticket ID, immediately delegate to `test-scenario-builder` 
+    to fetch and process it. Only accept pasted content if the user explicitly provides it 
+    instead of a ticket ID. Confirm the ticket has clear acceptance criteria before proceeding.
 2. **Scenario Generation:** Delegate to `test-scenario-builder` with: ticket content, ticket ID,
    framework, steering paths.
 3. **GATE 1: Human Review.** Present the `.feature` path and surface any ambiguity comments the

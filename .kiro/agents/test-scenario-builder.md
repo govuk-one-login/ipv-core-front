@@ -1,6 +1,7 @@
 ---
 name: test-scenario-builder
 description: Creates one repository-aligned Gherkin feature from Jira, using browser exploration only when repository evidence is insufficient.
+model: claude-sonnet-4.5
 tools: ["read", "write", "shell"]
 permissions:
   rules:

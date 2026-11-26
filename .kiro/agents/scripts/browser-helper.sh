@@ -38,8 +38,8 @@ Usage:
   browser-helper.sh cleanup
 
 Optional HTTP Basic Auth (set both or neither):
-  BROWSER_BASIC_AUTH_USER="username"
-  BROWSER_BASIC_AUTH_PASSWORD='password'
+  Configure BROWSER_BASIC_AUTH_USER and BROWSER_BASIC_AUTH_PASSWORD
+  as environment variables before running this helper.
 USAGE
   exit 2
 }

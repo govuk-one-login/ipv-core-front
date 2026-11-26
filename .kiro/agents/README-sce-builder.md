@@ -72,12 +72,12 @@ This installs Playwright CLI if needed and installs the browser.
 
 ## 6. Optional HTTP Basic Auth
 
-Only if the test website requires HTTP Basic Auth:
+If the test environment requires HTTP Basic Authentication, configure these environment variables outside the repository:
 
-```bash
-export BROWSER_BASIC_AUTH_USER="username"
-export BROWSER_BASIC_AUTH_PASSWORD='password'
-```
+- `BROWSER_BASIC_AUTH_USER`
+- `BROWSER_BASIC_AUTH_PASSWORD`
+
+Do not store their values in Git.
 
 Do not put credentials in the website URL.
 
@@ -92,4 +92,4 @@ Add:
 
 ## Ready
 
-Start Kiro CLI from the project root, select `KiroJiraFeatureAgent`, and provide a Jira ticket key.
+Start Kiro CLI from the project root, select `test-scenario-builder`, and provide a Jira ticket key.

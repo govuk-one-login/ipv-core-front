@@ -9,6 +9,7 @@ export default {
   API_JOURNEY_EVENT: "/journey",
   API_SESSION_INITIALISE: "/session/initialise",
   API_BUILD_PROVEN_USER_IDENTITY_DETAILS: "/user/proven-identity-details",
+  API_STORE_TRIAGE_DATA: "/user/store-triage-data",
   API_CHECK_MOBILE_APP_VC_RECEIPT: "/app/check-vc-receipt",
   API_APP_VC_RECEIPT_STATUS: "/app-vc-receipt-status",
   APP_STORE_URL_ANDROID:

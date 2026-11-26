@@ -95,6 +95,21 @@ export const postJourneyEvent = (
   );
 };
 
+export const postStoreTriageData = (
+  req: Request,
+  pageId: string,
+  answers: string[],
+): Promise<AxiosResponse> => {
+  return axiosInstance.post(
+    config.API_STORE_TRIAGE_DATA,
+    { pageId, answers },
+    generateAxiosConfig(
+      `${config.API_BASE_URL}${config.API_STORE_TRIAGE_DATA}`,
+      req,
+    ),
+  );
+};
+
 export const postSessionInitialise = (
   req: Request,
   body: InitialiseSessionRequest,

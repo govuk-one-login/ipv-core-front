@@ -27,6 +27,7 @@ describe("handleJourneyActionRequest", () => {
     postJourneyEvent: sinon.fake.resolves({
       data: {},
     }),
+    postStoreTriageData: sinon.fake.resolves({}),
   };
   const middleware: typeof import("../middleware") = proxyquire(
     "../middleware",
@@ -194,6 +195,135 @@ describe("handleJourneyActionRequest", () => {
 
     // Assert
     expect(req.body.journey).to.equal("mobile-app-journey-event");
+  });
+
+  describe("triage pages", () => {
+    const triagePageId = "live-in-uk";
+    const criResponse = {
+      data: { cri: { id: "someId", redirectUrl: "https://example.test" } },
+    };
+
+    beforeEach(() => {
+      coreBackServiceStub.postStoreTriageData = sinon.fake.resolves({});
+      coreBackServiceStub.postJourneyEvent = sinon.fake.resolves(criResponse);
+    });
+
+    it("should store the answer before posting the journey event", async () => {
+      // Arrange
+      const req = createRequest({
+        params: { pageId: triagePageId },
+        session: { ipvSessionId: "ipv-session-id", currentPage: triagePageId },
+        body: { journey: "uk" },
+      });
+      const res = createResponse();
+
+      // Act
+      await middleware.handleJourneyActionRequest(req, res, next);
+
+      // Assert
+      expect(
+        coreBackServiceStub.postStoreTriageData,
+      ).to.have.been.calledOnceWithExactly(req, triagePageId, ["uk"]);
+      expect(
+        coreBackServiceStub.postJourneyEvent,
+      ).to.have.been.calledOnceWithExactly(req, "uk", triagePageId);
+      expect(
+        coreBackServiceStub.postStoreTriageData.calledBefore(
+          coreBackServiceStub.postJourneyEvent,
+        ),
+      ).to.be.true;
+    });
+
+    it("should not post the journey event if storing the answer fails", async () => {
+      // Arrange
+      const req = createRequest({
+        params: { pageId: triagePageId },
+        session: { ipvSessionId: "ipv-session-id", currentPage: triagePageId },
+        body: { journey: "uk" },
+      });
+      const res = createResponse();
+      coreBackServiceStub.postStoreTriageData = sinon.fake.rejects(
+        new Error("store failed"),
+      );
+
+      // Act & Assert
+      await expect(
+        middleware.handleJourneyActionRequest(req, res, next),
+      ).to.be.rejectedWith(Error, "store failed");
+      expect(coreBackServiceStub.postJourneyEvent.called).to.be.false;
+    });
+
+    it("should not store anything for a page that is not a triage page", async () => {
+      // Arrange
+      const req = createRequest({ body: { journey: "next" } });
+      const res = createResponse();
+
+      // Act
+      await middleware.handleJourneyActionRequest(req, res, next);
+
+      // Assert
+      expect(coreBackServiceStub.postStoreTriageData.called).to.be.false;
+      expect(coreBackServiceStub.postJourneyEvent.calledOnce).to.be.true;
+    });
+
+    it("should not store anything when the submitted page is not the current page", async () => {
+      // Arrange
+      const req = createRequest({
+        params: { pageId: triagePageId },
+        session: {
+          ipvSessionId: "ipv-session-id",
+          currentPage: "some-other-page-id",
+        },
+        body: { journey: "uk" },
+      });
+      const res = createResponse();
+      res.render = sinon.fake();
+      const saveSessionAndRedirectSpy = sinon.spy();
+      const middlewareWithSpies: typeof import("../middleware") = proxyquire(
+        "../middleware",
+        {
+          "../../services/coreBackService": coreBackServiceStub,
+          "../shared/redirectHelper": {
+            saveSessionAndRedirect: saveSessionAndRedirectSpy,
+          },
+        },
+      );
+
+      // Act
+      await middlewareWithSpies.handleJourneyActionRequest(req, res, next);
+
+      // Assert
+      expect(coreBackServiceStub.postStoreTriageData.called).to.be.false;
+      expect(coreBackServiceStub.postJourneyEvent.called).to.be.false;
+    });
+
+    it("should not store anything when the user follows the contact link", async () => {
+      // Arrange
+      const req = createRequest({
+        params: { pageId: triagePageId },
+        session: { ipvSessionId: "ipv-session-id", currentPage: triagePageId },
+        body: { journey: "contact" },
+      });
+      const res = createResponse();
+      res.locals = { contactUsUrl: "contactUrl" };
+      const saveSessionAndRedirectSpy = sinon.spy();
+      const middlewareWithSpies: typeof import("../middleware") = proxyquire(
+        "../middleware",
+        {
+          "../../services/coreBackService": coreBackServiceStub,
+          "../shared/redirectHelper": {
+            saveSessionAndRedirect: saveSessionAndRedirectSpy,
+          },
+        },
+      );
+
+      // Act
+      await middlewareWithSpies.handleJourneyActionRequest(req, res, next);
+
+      // Assert
+      expect(saveSessionAndRedirectSpy.calledOnce).to.be.true;
+      expect(coreBackServiceStub.postStoreTriageData.called).to.be.false;
+    });
   });
 
   const redirectTests = [

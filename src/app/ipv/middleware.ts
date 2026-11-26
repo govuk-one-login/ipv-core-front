@@ -10,7 +10,9 @@ import { saveSessionAndRedirect } from "../shared/redirectHelper";
 import {
   getProvenIdentityUserDetails,
   postJourneyEvent,
+  postStoreTriageData,
 } from "../../services/coreBackService";
+import { getTriageAnswers, TRIAGE_PAGES } from "./triage";
 import { generateQrCodeImageData } from "../shared/qrCodeHelper";
 import { PHONE_TYPE } from "../../constants/device-constants";
 import {
@@ -506,6 +508,17 @@ export const handleJourneyActionRequest: RequestHandler = async (req, res) => {
 
   if (req.body?.journey === "deleteAccount") {
     return saveSessionAndRedirect(req, res, res.locals.deleteAccountUrl);
+  }
+
+  // Answers are stored after the session and page have been validated, so that a stale or
+  // out of order submission can never record an answer
+  const triagePage = TRIAGE_PAGES.get(pageId);
+  if (triagePage) {
+    await postStoreTriageData(
+      req,
+      pageId,
+      getTriageAnswers(req.body, triagePage.answerField),
+    );
   }
 
   await processAction(req, res, req.body.journey, pageId);

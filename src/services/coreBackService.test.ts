@@ -40,6 +40,7 @@ describe("CoreBackService", () => {
     API_SESSION_INITIALISE: "/session-initialise",
     API_JOURNEY_EVENT: "/journey",
     API_CHECK_MOBILE_APP_VC_RECEIPT: "/app/check-vc-receipt",
+    API_STORE_TRIAGE_DATA: "/store-triage-data",
   };
   const isAxiosErrorStub = sinon.stub();
   const coreBackService: typeof import("./coreBackService") = proxyquire(
@@ -75,6 +76,33 @@ describe("CoreBackService", () => {
       {},
       {
         params: { currentPage },
+        headers: sinon.match({
+          "content-type": "application/json",
+          "x-request-id": "test_request_id",
+          "ip-address": "127.0.0.2",
+          language: "en",
+          "feature-set": "test_feature_set",
+          "ipv-session-id": "test_ipv_session_id",
+          "client-session-id": "test_client_session_id",
+          "txma-audit-encoded": "dummy-txma-header",
+          "x-forwarded-for": "127.0.0.2",
+        }),
+      },
+    );
+  });
+
+  it("should postStoreTriageData with the page id, answers and headers", async () => {
+    // Arrange
+    const req = createRequest();
+
+    // Act
+    await coreBackService.postStoreTriageData(req, "live-in-uk", ["uk"]);
+
+    // Assert
+    expect(axiosInstanceStub.post).to.have.been.calledWithMatch(
+      "/store-triage-data",
+      { pageId: "live-in-uk", answers: ["uk"] },
+      {
         headers: sinon.match({
           "content-type": "application/json",
           "x-request-id": "test_request_id",

@@ -1,4 +1,4 @@
-# Kiro Jira Feature Agent - Prerequisites
+# test-scenario-builder - Agent - Prerequisites
 
 ## Required
 
@@ -11,7 +11,7 @@
 
 ```text
 .kiro/agents/
-├── KiroJiraFeatureAgent.md
+├── test-scenario-builder.md
 └── scripts/
     ├── get-jira-ticket.sh
     └── browser-helper.sh

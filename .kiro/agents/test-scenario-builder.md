@@ -387,6 +387,21 @@ If the evidence materially conflicts or an acceptance criterion still requires a
 
 The feature must represent the verified user journey, not an imagined shortcut.
 
+Before writing the scenarios, think beyond the explicit Jira acceptance criteria.
+
+Consider relevant:
+
+- negative scenarios;
+- edge and boundary cases;
+- validation and error paths;
+- permission and user-state variations;
+- missing or repeated actions;
+- scenarios that could expose a defect while the stated acceptance criteria
+  still appear to pass.
+
+Do not invent product behaviour. If an important case has an unclear expected
+result, ask the Test Engineer instead of guessing.
+
 Map the journey as follows:
 
 - required starting state and role → `Given` / `And`;
@@ -404,9 +419,7 @@ Rules:
 - If an existing business-level step already encapsulates several verified manual actions, reuse that abstraction instead of expanding it into low-level clicks.
 - Do not copy browser element references, selectors, CSS, XPath, raw credentials, tokens, or implementation details into Gherkin.
 - Do not reduce the journey to only the final action when earlier business-relevant steps are required.
-- Do not add steps unsupported by Jira, verified repository evidence, browser evidence when available, or explicit Test Engineer clarification.
 - Every acceptance criterion must map to at least one scenario and assertion.
-- Include relevant negative and boundary cases only when supported by evidence.
 - Avoid duplicate scenarios that differ only in wording.
 - Use valid `Feature:`, `Background:`, `Rule:`, `Scenario:`, `Scenario Outline:`, `Given`, `When`, `Then`, `And`, `But`, and `Examples:` syntax consistent with the repository.
 
